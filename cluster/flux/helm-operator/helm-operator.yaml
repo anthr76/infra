@@ -1,0 +1,21 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: helm-operator
+  namespace: flux
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: helm-operator
+  chart:
+    repository: https://charts.fluxcd.io/
+    name: helm-operator
+    version: 1.2.0
+  #
+  # @CHANGEME - Update url to the path to flux-helm-operator-values.yaml in your repository
+  #
+  valuesFrom:
+  - externalSourceRef:
+      url: https://raw.githubusercontent.com/anthr76/k3s-gitops-arm/main/cluster/flux/helm-operator/helm-operator-values.yaml
