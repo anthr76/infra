@@ -9,6 +9,10 @@ metadata:
     fluxcd.io/automated: "true"
 spec:
   chart:
-    repository: https://helm.traefik.io
+    repository: https://helm.traefik.io/traefik
     name: traefik
-    version: 2.3.1
+    version: 9.4.3
+  vaules:
+    image: traefik
+    tag: 2.3.1
+    
