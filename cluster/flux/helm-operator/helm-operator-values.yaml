@@ -1,0 +1,9 @@
+createCRD: false
+git:
+  ssh:
+    secretName: flux-git-deploy
+helm:
+  versions: "v3"
+image:
+  repository: raspbernetes/helm-operator
+  tag: v1.2.0

@@ -1,0 +1,11 @@
+apiVersion: projectcalico.org/v3
+kind: BGPConfiguration
+metadata:
+  name: default
+spec:
+  asNumber: 63400
+  nodeToNodeMeshEnabled: true
+  serviceExternalIPs:
+    - cidr: 172.30.0.0/24
+  serviceClusterIPs:
+    - cidr: 10.96.0.0/12

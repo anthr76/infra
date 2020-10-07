@@ -1,0 +1,28 @@
+helmOperator:
+  create: false
+#
+# @CHANGEME - Update url to your public repo URL
+#
+git:
+  url: "git@github.com:anthr76/k3s-gitops-arm.git"
+  branch: master
+  path: cluster
+image:
+  repository: raspbernetes/flux
+  tag: 1.20.2
+registry:
+  rps: 1
+  burst: 1
+memcached:
+  enabled: true
+syncGarbageCollection:
+  enabled: true
+  dry: false
+# # Enabled once prometheus-operator is installed
+# prometheus:
+#   enabled: true
+#   serviceMonitor:
+#     create: false
+#     interval: 30s
+#     scrapeTimeout: 10s
+#     namespace: flux
