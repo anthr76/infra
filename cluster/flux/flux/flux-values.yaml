@@ -5,7 +5,7 @@ helmOperator:
 #
 git:
   url: "git@github.com:anthr76/k3s-gitops-arm.git"
-  branch: master
+  branch: main
   path: cluster
 image:
   repository: raspbernetes/flux
