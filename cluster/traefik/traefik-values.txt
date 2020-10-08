@@ -1,2 +1,5 @@
 additionalArguments:
   - "--certificatesresolvers.letsencrypt.acme.email=$LEEMAIL"
+env:
+  - name: CF_DNS_API_TOKEN
+    VALUE: $CF_ZONE_API_TOKEN
