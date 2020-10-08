@@ -30,6 +30,6 @@ spec:
       externalIPs:
         - 172.30.0.5
       spec:
-        externalTrafficPolicy: local
+        externalTrafficPolicy: Local
   valueFileSecrets:
   - name: "traefik-values"
