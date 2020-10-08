@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: traefik-values
+  namespace: traefik
+spec:
+  encryptedData:
+    values.yaml: AgAwBgf7Zu5IRRny3qd5O+w1JlpZ5wIomnR57uZcJHbpUw9gMKxgfgPg0LVmsFNXK/5cJkCH/314xaR5E005IVv2QFctGFHPRRYRIYJ00y2ZJDC8PBeGKyeCbYqnp6QmtEplDTkBEP1gTAL2nsYpadWaOFgRbICNvv7CbQaxz61gi2pCuN8ahLYDHp1epNyrgsavV4eTvcx0P94wRy8cy5mep+ouM4JcG/uBspU5xYa8RmSO2aXFcxX7TVSuz6QFp3OM01176909NdN1XEL+d3751Nu4npaiw0ugZh3ktiaYI4+QLNBKofA+lSMR8gQ23OGRjBcoSxdpyVL0CqJ26tRdMtAaonC5cS+i66c+RA5sdNpRJyAn2Wws9T24K81jS3R06qJVQJQ3BtcGBNdiE3CzVf1A1vTu2NeyGIXFtvtCr6u4vBK1FzURmeXPrIc7f9gBp1cr/nRlMMTEEHxLmxCzaSus//sq25hxKAvNEbSfg07uKUyOemGUv+6ltIumxbOHhEfj+B/0/2LaDPAe5YfTYi5qA2hljS0FIt9+kK69+RnX5nVHpeMgqUHY6A46lyaZ7ABF9Uo4bpGRG+aMHMYFFbEfm4+ua+u4wRB7NcvcPNM+fed99Qgc0deQgS2oN4b5DtKKd04r48Qg0f6tmmnks0X0nvyWIAmVCWBVLgO0gsNMhNlhEQS2v86Xcxg2L5kyIJ16MuvX15mY02fhT7hh03Do0A5752tr+YH4n6TXrTXZ/f3/n6+llTcDopyUqZQLOJEwxalTxJSOOD733Vp9kVw1G8/wy9uRt/ESVV7eknxhibb9dC1KUHmecrlv
+  template:
+    metadata:
+      creationTimestamp: null
+      name: traefik-values
+      namespace: traefik
+
