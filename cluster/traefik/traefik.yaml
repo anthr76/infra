@@ -26,5 +26,10 @@ spec:
       - "--accesslog=false"
       - "--log.level=INFO"
       - "--certificatesresolvers.letsencrypt.acme.email=ted437+k3s@gmail.com"
+    service:
+      externalIPs:
+        - 172.30.0.5
+      spec:
+        externalTrafficPolicy: local
   valueFileSecrets:
   - name: "traefik-values"
