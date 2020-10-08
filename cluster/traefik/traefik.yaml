@@ -23,7 +23,7 @@ spec:
       - "--certificatesResolvers.letsencrypt.acme.dnschallenge=true"
       - "--certificatesResolvers.letsencrypt.acme.dnschallenge.provider=cloudflare"
       - "--api.insecure=true"
-      - "--accesslog=true"
+      - "--accesslog=false"
       - "--log.level=INFO"
       - "--certificatesresolvers.letsencrypt.acme.email=ted437+k3s@gmail.com"
   valueFileSecrets:
