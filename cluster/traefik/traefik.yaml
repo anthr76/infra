@@ -23,5 +23,6 @@ spec:
   - "--api.insecure=true"
   - "--accesslog=true"
   - "--log.level=INFO"
+  - "--certificatesresolvers.letsencrypt.acme.email=ted437+k3s@gmail.com"
   valueFileSecrets:
   - name: "traefik-values"
