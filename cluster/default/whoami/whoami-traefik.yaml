@@ -10,7 +10,7 @@ spec:
     - websecure
 
   routes:
-  - match: Host(`whoami.anthonyrabbito.com`)
+  - match: Host(`whoami.k3s.rabbito.tech`)
     kind: Rule
     services:
     - name: whoami
