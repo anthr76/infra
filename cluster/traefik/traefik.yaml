@@ -8,6 +8,7 @@ metadata:
     fluxcd.io/ignore: "false"
     fluxcd.io/automated: "true"
 spec:
+  releaseName: traefik
   chart:
     repository: https://helm.traefik.io/traefik
     name: traefik
