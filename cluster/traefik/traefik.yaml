@@ -28,7 +28,7 @@ spec:
       - "--certificatesresolvers.letsencrypt.acme.email=ted437+k3s@gmail.com"
     service:
       spec:
-        - loadBalancerIP: "192.168.4.15"
+        loadBalancerIP: "192.168.4.15"
       externalIPS:
         - "192.168.4.15"
   valueFileSecrets:
