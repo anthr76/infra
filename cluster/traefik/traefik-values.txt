@@ -1,0 +1,2 @@
+additionalArguments:
+  - "--certificatesresolvers.letsencrypt.acme.email=$LEEMAIL"
