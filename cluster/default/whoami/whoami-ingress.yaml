@@ -1,13 +1,12 @@
----
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: whoami-ingress
+  name: myingressroute
   namespace: default
 
 spec:
   entryPoints:
-    - websecure
+    - web
 
   routes:
   - match: Host(`whoami.k3s.rabbito.tech`)
@@ -15,5 +14,3 @@ spec:
     services:
     - name: whoami
       port: 80
-  tls:
-    certResolver: letsencrypt
