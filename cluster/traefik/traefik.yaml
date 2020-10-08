@@ -12,6 +12,16 @@ spec:
     repository: https://helm.traefik.io/traefik
     name: traefik
     version: 9.4.3
-  vaules:
+  values:
     image: traefik
     tag: 2.3.1
+  additionalArguments:
+  - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
+  - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+  - "--certificatesResolvers.letsencrypt.acme.dnschallenge=true"
+  - "--certificatesResolvers.letsencrypt.acme.dnschallenge.provider=cloudflare"
+  - "--api.insecure=true"
+  - "--accesslog=true"
+  - "--log.level=INFO"
+  valueFileSecrets:
+  - name: "traefik-values"
