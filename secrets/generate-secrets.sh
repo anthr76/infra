@@ -56,7 +56,7 @@ kseal() {
 # kseal "${REPO_ROOT}/deployments/default/radarr/radarr-helm-values.txt"
 # kseal "${REPO_ROOT}/deployments/default/sonarr/sonarr-helm-values.txt"
 # kseal "${REPO_ROOT}/deployments/default/nzbget/nzbget-helm-values.txt"
-kseal "${REPO_ROOT}/cluster/traefik/traefik-values.txt"
+kseal "${REPO_ROOT}/cluster/traefik/traefik/traefik-values.txt"
 
 #
 # Generic Secrets
