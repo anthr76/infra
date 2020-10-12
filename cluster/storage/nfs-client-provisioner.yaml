@@ -17,7 +17,7 @@ spec:
     version: 1.2.8
   values:
     image:
-      repository: quay.io/external_storage/nfs-client-provisioner
+      repository: quay.io/external_storage/nfs-client-provisioner-arm
       tag: v3.1.0-k8s1.11
     nfs:
       server: "192.168.4.10"
