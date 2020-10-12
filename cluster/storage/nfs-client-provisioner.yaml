@@ -2,7 +2,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: nfs-client-provisioner
-  namespace: kube-system
+  namespace: storage
   annotations:
     fluxcd.io/automated: "true"
     fluxcd.io/tag.chart-image: semver:~v3.1
