@@ -3,7 +3,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: longhorn
-  namespace: storage
+  namespace: longhorn-system
   annotations:
     fluxcd.io/ignore: "false"
     fluxcd.io/automated: "false"
