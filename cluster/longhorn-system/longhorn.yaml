@@ -4,7 +4,7 @@ metadata:
   name: longhorn
   namespace: longhorn-system
   annotations:
-    fluxcd.io/ignore: "false"
+    fluxcd.io/ignore: "true"
     fluxcd.io/automated: "false"
 spec:
   releaseName: longhorn
