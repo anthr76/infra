@@ -4,7 +4,7 @@ metadata:
   name: longhorn
   namespace: longhorn-system
   annotations:
-    fluxcd.io/ignore: "true"
+    fluxcd.io/ignore: "false"
     fluxcd.io/automated: "false"
 spec:
   releaseName: longhorn
@@ -13,9 +13,9 @@ spec:
     repository: https://charts.longhorn.io
     name: longhorn
     version: 1.0.2
- # values:
-    # persistence:
-    #   defaultClassReplicaCount: 3
-    # defaultSettings:
-    #   defaultReplicaCount: 3
-    #   createDefaultDiskLabeledNodes: true
+  values:
+    persistence:
+      defaultClassReplicaCount: 3
+    defaultSettings:
+      defaultReplicaCount: 3
+      createDefaultDiskLabeledNodes: true
