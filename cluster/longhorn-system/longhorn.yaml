@@ -19,3 +19,35 @@ spec:
     defaultSettings:
       defaultReplicaCount: 3
       createDefaultDiskLabeledNodes: true
+    image:
+image:
+  longhorn:
+    engine:
+      repository: longhornio/longhorn-engine
+      tag: v1.0.2
+    manager:
+      repository: longhornio/longhorn-manager
+      tag: v1.0.2
+    ui:
+      repository: longhornio/longhorn-ui
+      tag: v1.0.2
+    instanceManager:
+      repository: longhornio/longhorn-instance-manager
+      tag: v1_20200514
+  csi:
+    attacher:
+      repository: longhornio/csi-attacher
+      tag: v2.0.0
+    provisioner:
+      repository: longhornio/csi-provisioner
+      tag: v1.4.0
+    nodeDriverRegistrar:
+      repository: longhornio/csi-node-driver-registrar
+      tag: v1.2.0
+    resizer:
+      repository: longhornio/csi-resizer
+      tag: v0.3.0
+    snapshotter:
+      repository: longhornio/csi-snapshotter
+      tag: v2.1.1
+  pullPolicy: IfNotPresent
