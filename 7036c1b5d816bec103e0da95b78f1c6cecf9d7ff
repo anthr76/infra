@@ -1,0 +1,1 @@
+{"jobID":"07b0fcd1-4314-66fb-d74b-ec21237df479","spec":{"type":"policy","cause":{"Message":"","User":"anthr76 \u003chello@anthonyrabbito.com\u003e"},"spec":{"longhorn-system:helmrelease/longhorn":{"add":{},"remove":{"automated":"true"}}}},"result":null}
