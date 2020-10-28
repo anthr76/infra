@@ -1,2 +1,7 @@
 secrets/.secrets.env
 setup/.secrets.env
+flatcar/ignition/test/fulltf/.terraform/plugins/selections.json
+flatcar/ignition/test/fulltf/.terraform/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.2/linux_amd64
+flatcar/ignition/test/fulltf/.terraform/plugins/registry.terraform.io/hashicorp/random/3.0.0/linux_amd64/terraform-provider-random_v3.0.0_x5
+flatcar/ignition/test/fulltf/.terraform/plugins/registry.terraform.io/hashicorp/template/2.1.2/linux_amd64/terraform-provider-template_v2.1.2_x4
+flatcar/ignition/test/fulltf/.terraform/plugins/registry.terraform.io/terraform-providers/ignition/1.2.1/linux_amd64/terraform-provider-ignition_v1.2.1_x4
