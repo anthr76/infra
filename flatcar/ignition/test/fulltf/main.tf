@@ -1,10 +1,19 @@
 
 terraform {
- required_version = ">= 0.13"
+  required_version = ">= 0.13"
   required_providers {
     libvirt = {
       source  = "dmacvicar/libvirt"
       version = "0.6.2"
+    }
+    ignition = {
+      source = "terraform-providers/ignition"
+    }
+    random = {
+      source = "hashicorp/random"
+    }
+    template = {
+      source = "hashicorp/template"
     }
   }
 }
@@ -54,5 +63,5 @@ resource "libvirt_domain" "node" {
   }
 
   coreos_ignition = element(libvirt_ignition.ignition.*.id, count.index)
-  fw_cfg_name = "opt/org.flatcar-linux/config"
+  fw_cfg_name     = "opt/org.flatcar-linux/config"
 }
