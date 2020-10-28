@@ -23,7 +23,7 @@ provider "libvirt" {
 }
 
 variable "hosts" {
-  default = 2
+  default = 4
 }
 
 variable "hostname_format" {
@@ -41,7 +41,7 @@ resource "libvirt_volume" "flatcar-disk" {
 
 resource "libvirt_ignition" "ignition" {
   name    = "${format(var.hostname_format, count.index + 1)}-ignition"
-  pool    = "container-linux"
+  pool    = "flatcar-linux"
   count   = var.hosts
   content = element(data.ignition_config.ignition.*.rendered, count.index)
 }
@@ -49,7 +49,7 @@ resource "libvirt_ignition" "ignition" {
 resource "libvirt_domain" "node" {
   count  = var.hosts
   name   = format(var.hostname_format, count.index + 1)
-  vcpu   = 1
+  vcpu   = 2
   memory = 2048
 
   disk {

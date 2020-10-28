@@ -1,5 +1,6 @@
 
 data "ignition_config" "ignition" {
+  count = var.hosts
   users = [
     data.ignition_user.core.rendered,
   ]
@@ -11,12 +12,6 @@ data "ignition_config" "ignition" {
   networkd = [
     data.ignition_networkd_unit.network-dhcp.rendered,
   ]
-
-  systemd = [
-    data.ignition_systemd_unit.etcd-member[count.index].rendered,
-  ]
-
-  count = var.hosts
 }
 
 data "ignition_file" "hostname" {
@@ -34,35 +29,10 @@ data "ignition_file" "hostname" {
 data "ignition_user" "core" {
   name = "core"
 
-  ssh_authorized_keys = ["ssh-rsa <your-ssh-pub-key>"]
+  ssh_authorized_keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDIWVikHZuTKOhKig6cQwxkoT4DyzLiXgVbySjX4Br9Yxn6gVPHsIBJZT/KH8bfwxVbompToV3sdnLsQSl03kdfkjLFiryeCJ1PvKSY/STfxg3LVcsMX9rrgLriYCxZVvrn5QBBuKmQkpK2KqSiJQKzpWZsi3dKdVsq5D6/pdU62pXOUs1nNogqJHQYRsBzTpgb/iYrpN2JARPBjU3vER3eqDnhUbi9VgsTtcFLuPJpH+o5JMr1PhtvAdXlBPDsbpp0W9qpuUZvdKn/OBEN19NxWTPu+A71fpDN2z8ebJqfqeHxx3vOpZJtTgYwNDlc2pVuZ2be3s1f5CKdwyVxIHAtshTsJF0VPehULQB4RXwNV2sVUr4rox2Fxr8uWRyz4/yudVEl1s/mXeHvK21NPBedHagSu+RSPXMl/5O1tUC0NQ7ZDiJNNYL6BpblSIbFkC/mZQQuX8AuKKzBDyezNJHtiia3wcv32TmfeGb54IgeaLgpCxpo/IDYrCIYvl4sVaqKH1EfbMIB5UpWIW3nAGJfOse8rhn8BjiwhjKfShks8euH5wZkqhiddK2NR43tShxqJvik4t03KVfwg/JqqARJDTioWagSaHcuIutWR7AuNWGQs/8fIJYd4NawbKoEyqEoiaqkwr3fxtijI2i1RpArFDflHIUfFw2nHF/pQ/FDLw== hello@anthonyrabbito.com"]
 }
 
 data "ignition_networkd_unit" "network-dhcp" {
   name    = "00-wired.network"
   content = file("${path.module}/units/00-wired.network")
-}
-
-data "ignition_systemd_unit" "etcd-member" {
-  name    = "etcd-member.service"
-  enabled = true
-  dropin {
-    content = data.template_file.etcd-member[count.index].rendered
-    name    = "20-etcd-member.conf"
-  }
-  count = var.hosts
-}
-
-resource "random_string" "token" {
-  length  = 16
-  special = false
-}
-
-data "template_file" "etcd-member" {
-  template = file("${path.module}/units/20-etcd-member.conf")
-  count    = var.hosts
-  vars = {
-    node_name     = format(var.hostname_format, count.index + 1)
-    private_ip    = format("192.168.122.1%02d", count.index + 1)
-    cluster_token = random_string.token.result
-  }
 }
