@@ -9,7 +9,7 @@ spec:
     - web
 
   routes:
-  - match: Host(`whoami.k3s`)
+  - match: Host(`whoami.k3s`) || Host(`whoami.k3s.rabbito.tech`) || Host(`whoami`)
     kind: Rule
     services:
     - name: whoami
