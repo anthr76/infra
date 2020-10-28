@@ -9,11 +9,11 @@ data "ignition_config" "ignition" {
   ]
 
   networkd = [
-    "${data.ignition_networkd_unit.network-dhcp.rendered}",
+    data.ignition_networkd_unit.network-dhcp.rendered,
   ]
 
   systemd = [
-    "${data.ignition_systemd_unit.etcd-member[count.index].rendered}",
+    data.ignition_systemd_unit.etcd-member[count.index].rendered,
   ]
 
   count = var.hosts
@@ -39,14 +39,14 @@ data "ignition_user" "core" {
 
 data "ignition_networkd_unit" "network-dhcp" {
   name    = "00-wired.network"
-  content = "${file("${path.module}/units/00-wired.network")}"
+  content = file("${path.module}/units/00-wired.network")
 }
 
 data "ignition_systemd_unit" "etcd-member" {
   name    = "etcd-member.service"
   enabled = true
   dropin {
-    content = "${data.template_file.etcd-member[count.index].rendered}"
+    content = data.template_file.etcd-member[count.index].rendered
     name    = "20-etcd-member.conf"
   }
   count = var.hosts
@@ -58,7 +58,7 @@ resource "random_string" "token" {
 }
 
 data "template_file" "etcd-member" {
-  template = "${file("${path.module}/units/20-etcd-member.conf")}"
+  template = file("${path.module}/units/20-etcd-member.conf")
   count    = var.hosts
   vars = {
     node_name     = format(var.hostname_format, count.index + 1)
