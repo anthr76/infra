@@ -12,6 +12,11 @@ data "ignition_config" "ignition" {
   networkd = [
     data.ignition_networkd_unit.network-dhcp.rendered,
   ]
+
+  systemd = [
+    data.ignition_systemd_unit.optdir.rendered,
+    data.ignition_systemd_unit.k3s.rendered,
+  ]
 }
 
 data "ignition_file" "hostname" {
@@ -35,4 +40,16 @@ data "ignition_user" "core" {
 data "ignition_networkd_unit" "network-dhcp" {
   name    = "00-wired.network"
   content = file("${path.module}/units/00-wired.network")
+}
+
+data "ignition_systemd_unit" "optdir" {
+  name    = "optdir.service"
+  enabled = true
+  content = file("${path.module}/units/10-optdir.conf")
+}
+
+data "ignition_systemd_unit" "k3s" {
+  name    = "optdir.service"
+  enabled = true
+  content = file("${path.module}/units/30-k3s.conf")
 }
