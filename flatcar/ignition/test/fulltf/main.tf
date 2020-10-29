@@ -23,12 +23,12 @@ provider "libvirt" {
 }
 
 variable "hosts" {
-  default = 4
+  default = 3
 }
 
 variable "hostname_format" {
   type    = string
-  default = "k3s-worker-%02d"
+  default = "k3s-node-%02d"
 }
 
 resource "libvirt_volume" "flatcar-disk" {
