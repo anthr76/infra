@@ -8,3 +8,13 @@ flatcar/ignition/test/fulltf/.terraform/plugins/registry.terraform.io/terraform-
 flatcar/ignition/test/fulltf/terraform.tfstate.backup
 flatcar/ignition/test/fulltf/terraform.tfstate
 flatcar/ignition/test/fulltf/.terraform/modules/modules.json
+terraform/typhoon/terraform/clusters/bare-metal/.terraform/plugins/registry.terraform.io/hashicorp/null/2.1.2/linux_amd64/terraform-provider-null_v2.1.2_x4
+terraform/typhoon/terraform/clusters/bare-metal/.terraform/plugins/registry.terraform.io/hashicorp/random/2.3.1/linux_amd64/terraform-provider-random_v2.3.1_x4
+terraform/typhoon/terraform/clusters/bare-metal/.terraform/plugins/registry.terraform.io/hashicorp/tls/2.2.0/linux_amd64/terraform-provider-tls_v2.2.0_x4
+terraform/typhoon/terraform/clusters/bare-metal/.terraform/plugins/registry.terraform.io/hashicorp/template/2.1.2/linux_amd64/terraform-provider-template_v2.1.2_x4
+terraform/typhoon/terraform/clusters/bare-metal/.terraform/plugins/registry.terraform.io/poseidon/matchbox/0.4.1/linux_amd64/terraform-provider-matchbox_v0.4.1
+terraform/typhoon/terraform/clusters/bare-metal/.terraform/plugins/registry.terraform.io/poseidon/ct/0.6.1/linux_amd64/terraform-provider-ct_v0.6.1
+terraform/typhoon/terraform/clusters/bare-metal/.terraform/plugins/selections.json
+terraform/typhoon/terraform/clusters/bare-metal/.terraform/modules/modules.json
+terraform/typhoon/terraform/clusters/bare-metal/terraform.tfstate.backup
+terraform/typhoon/terraform/clusters/bare-metal/terraform.tfstate
