@@ -18,3 +18,6 @@ terraform/typhoon/terraform/clusters/bare-metal/.terraform/plugins/selections.js
 terraform/typhoon/terraform/clusters/bare-metal/.terraform/modules/modules.json
 terraform/typhoon/terraform/clusters/bare-metal/terraform.tfstate.backup
 terraform/typhoon/terraform/clusters/bare-metal/terraform.tfstate
+terraform/matchbox-terraform/.terraform/plugins/selections.json
+terraform/matchbox-terraform/.terraform/plugins/registry.terraform.io/poseidon/ct/0.6.1/linux_amd64/terraform-provider-ct_v0.6.1
+terraform/matchbox-terraform/.terraform/plugins/registry.terraform.io/poseidon/matchbox/0.4.1/linux_amd64/terraform-provider-matchbox_v0.4.1
