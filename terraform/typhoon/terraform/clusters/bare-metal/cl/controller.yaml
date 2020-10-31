@@ -29,8 +29,6 @@ systemd:
             Environment="ETCD_PEER_CLIENT_CERT_AUTH=true"
     - name: docker.service
       enabled: true
-    - name: locksmithd.service
-      mask: true
     - name: kubelet.path
       enabled: true
       contents: |
