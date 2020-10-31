@@ -3,8 +3,6 @@ systemd:
   units:
     - name: docker.service
       enabled: true
-    - name: locksmithd.service
-      mask: true
     - name: kubelet.path
       enabled: true
       contents: |
