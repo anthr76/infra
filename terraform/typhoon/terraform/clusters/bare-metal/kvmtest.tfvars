@@ -17,3 +17,6 @@ kernel_args = [
 ]
 cached_install = true
 enable_reporting = true
+snippets = {
+  "node4" = ["longhorn-virt.yaml"],
+}
