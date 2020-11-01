@@ -1,7 +1,3 @@
-# locals {
-#   # flatcar-stable -> stable channel
-#   channel = split("-", var.os_channel)[1]
-# }
 
 // Flatcar Linux install profile (from release.flatcar-linux.net)
 resource "matchbox_profile" "flatcar-install" {

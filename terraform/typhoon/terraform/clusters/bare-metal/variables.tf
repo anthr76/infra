@@ -10,16 +10,6 @@ variable "matchbox_http_endpoint" {
   description = "Matchbox HTTP read-only endpoint (e.g. http://matchbox.example.com:8080)"
 }
 
-# variable "os_channel" {
-#   type        = string
-#   description = "Channel for a Flatcar Linux (flatcar-stable, flatcar-beta, flatcar-alpha, flatcar-edge)"
-# }
-
-# variable "os_version" {
-#   type        = string
-#   description = "Version of Flatcar Linux to PXE and install (e.g. 2079.5.1)"
-# }
-
 # machines
 
 variable "controllers" {
