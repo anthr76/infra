@@ -1,0 +1,20 @@
+storage:
+  filesystems:
+    - name: longhorn
+      mount: 
+        device: /dev/vdb
+        format: btrfs
+        wipe_filesystem: true
+systemd:
+  units:
+    - name: longhorn.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Before=local-fs.target
+        [Mount]
+        What=/dev/vdb
+        Where=/var/lib/longhorn
+        Type=btrfs
+        [Install]
+        WantedBy=local-fs.target
