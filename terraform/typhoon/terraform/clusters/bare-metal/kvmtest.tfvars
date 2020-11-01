@@ -1,7 +1,5 @@
 cluster_name = "k8skvm"
 matchbox_http_endpoint = "http://nwk1-app-1.rabbito.tech:8080"
-# os_channel = "flatcar-stable"
-# os_version = "2605.7.0"
 controllers = [
     {name = "node1", mac = "52:54:00:00:00:a1", domain = "k8s-node-1.k8skvm.rabbito.tech", os_channel = "flatcar-stable", os_version = "2605.7.0"},
 ]
