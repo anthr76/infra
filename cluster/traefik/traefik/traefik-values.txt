@@ -1,3 +1,0 @@
-env:
-  - name: CF_DNS_API_TOKEN
-    value: $CF_ZONE_API_TOKEN

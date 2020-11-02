@@ -1,1 +1,0 @@
-Major directory structure cleaning up needed.
