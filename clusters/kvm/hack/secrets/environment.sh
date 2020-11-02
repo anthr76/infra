@@ -3,13 +3,13 @@ shopt -s globstar
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 export REPO_ROOT
-CLUSTER_ROOT="${REPO_ROOT}/clusters/nwk1/gitops"
+CLUSTER_ROOT="${REPO_ROOT}/clusters/kvm/gitops"
 export CLUSTER_ROOT
-PUB_CERT="${REPO_ROOT}/clusters/nwk1/hack/secrets/pub-cert.pem"
+PUB_CERT="${REPO_ROOT}/clusters/kvm/hack/secrets/pub-cert.pem"
 export PUB_CERT
-SECRETS_ENV="${REPO_ROOT}/clusters/nwk1/hack/secrets/.secrets.env"
+SECRETS_ENV="${REPO_ROOT}/clusters/kvm/hack/secrets/.secrets.env"
 export SECRETS_ENV
-GENERATED_SECRETS="${CLUSTER_ROOT}/clusters/nwk1/gitops/zz_generated_secrets.yaml"
+GENERATED_SECRETS="${CLUSTER_ROOT}/clusters/kvm/gitops/zz_generated_secrets.yaml"
 export GENERATED_SECRETS
 
 # MacOS work-around for sed

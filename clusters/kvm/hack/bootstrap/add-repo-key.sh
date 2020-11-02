@@ -10,7 +10,7 @@
 #
 # @CHANGEME - Update to your GitHub Username
 #
-github_username=onedr0p
+github_username=anthr76
 
 if [ ! -f "$HOME/.secret/github_access_token" ]; then
     echo "$HOME/.secret/github_access_token needs to exist with a GitHub personal access token"
