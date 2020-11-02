@@ -1,3 +1,6 @@
+module "mercury" {
+source = "git::https://github.com/anthr76/typhoon//bare-metal/flatcar-linux/kubernetes?ref=v1.19.3-hetro"
+
 cluster_name = "k8skvm"
 matchbox_http_endpoint = "http://nwk1-app-1.rabbito.tech:8080"
 controllers = [
@@ -18,5 +21,12 @@ kernel_args = [
 cached_install = true
 enable_reporting = true
 snippets = {
-  "node4" = ["longhorn-virt.yaml"],
+  "node4" = [file("./longhorn-virt.yaml")],
+}
+worker_node_labels = {
+  "node2" = ["worker"],
+  "node3" = ["worker"],
+  "node4" = ["worker"],
+  }
+
 }

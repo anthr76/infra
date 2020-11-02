@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Manage VM nodes which have a specific set of hardware attributes.
 
-VM_MEMORY=${VM_MEMORY:-3072}
+VM_MEMORY=${VM_MEMORY:-4096}
 VM_DISK=${VM_DISK:-10}
 
 if [ "$EUID" -ne 0 ]
@@ -35,24 +35,29 @@ function usage {
   echo -e "\tdestroy\t\tdestroy the QEMU/KVM nodes"
 }
 
-COMMON_VIRT_OPTS="--memory=${VM_MEMORY} --vcpus=2 --disk pool=default,size=${VM_DISK} --os-type=linux --os-variant=generic --noautoconsole --events on_poweroff=preserve"
+COMMON_VIRT_OPTS="--memory=${VM_MEMORY} --vcpus=4 --disk pool=default,size=${VM_DISK},bus=virtio --os-type=linux --os-variant=generic --noautoconsole --events on_poweroff=preserve"
+LONGHORN_VIRT_OPTS="--memory=${VM_MEMORY} --vcpus=4 --disk pool=default,size=${VM_DISK},bus=virtio --disk pool=default,size=${VM_DISK},bus=virtio --os-type=linux --os-variant=generic --noautoconsole --events on_poweroff=preserve"
 
-NODE1_NAME=node1
+NODE1_NAME=k8s-node-1
 NODE1_MAC=52:54:00:00:00:a1
 
-NODE2_NAME=node2
+NODE2_NAME=k8s-node-2
 NODE2_MAC=52:54:00:00:00:a2
 
-NODE3_NAME=node3
+NODE3_NAME=k8s-node-3
 NODE3_MAC=52:54:00:00:00:a3
 
+NODE4_NAME=k8s-node-4_lh
+NODE4_MAC=52:54:00:00:00:a4
+
 function create_docker {
-  virt-install --name $NODE1_NAME --network=type=direct,source=enp9s0,source_mode=bridge,mac=$NODE1_MAC $COMMON_VIRT_OPTS --boot=hd,network
-  virt-install --name $NODE2_NAME --network=type=direct,source=enp9s0,source_mode=bridge,mac=$NODE2_MAC $COMMON_VIRT_OPTS --boot=hd,network
-  virt-install --name $NODE3_NAME --network=type=direct,source=enp9s0,source_mode=bridge,mac=$NODE3_MAC $COMMON_VIRT_OPTS --boot=hd,network
+  virt-install --name $NODE1_NAME --network=type=direct,source=enp9s0,source_mode=bridge,mac=$NODE1_MAC $COMMON_VIRT_OPTS --boot=network,hd
+  virt-install --name $NODE2_NAME --network=type=direct,source=enp9s0,source_mode=bridge,mac=$NODE2_MAC $COMMON_VIRT_OPTS --boot=network,hd
+  virt-install --name $NODE3_NAME --network=type=direct,source=enp9s0,source_mode=bridge,mac=$NODE3_MAC $COMMON_VIRT_OPTS --boot=network,hd
+  virt-install --name $NODE4_NAME --network=type=direct,source=enp9s0,source_mode=bridge,mac=$NODE4_MAC $LONGHORN_VIRT_OPTS --boot=network,hd
 }
 
-nodes=(node1 node2 node3)
+nodes=(k8s-node-1 k8s-node-2 k8s-node-3 k8s-node-4_lh )
 
 function start {
   for node in ${nodes[@]}; do

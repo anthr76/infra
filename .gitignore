@@ -21,3 +21,13 @@ terraform/typhoon/terraform/clusters/bare-metal/terraform.tfstate
 terraform/matchbox-terraform/.terraform/plugins/selections.json
 terraform/matchbox-terraform/.terraform/plugins/registry.terraform.io/poseidon/ct/0.6.1/linux_amd64/terraform-provider-ct_v0.6.1
 terraform/matchbox-terraform/.terraform/plugins/registry.terraform.io/poseidon/matchbox/0.4.1/linux_amd64/terraform-provider-matchbox_v0.4.1
+terraform/infra/clusters/nwk1/.terraform/modules/modules.json
+terraform/infra/clusters/nwk1/.terraform/plugins/selections.json
+terraform/infra/clusters/nwk1/.terraform/plugins/registry.terraform.io/hashicorp/null/2.1.2/linux_amd64/terraform-provider-null_v2.1.2_x4
+terraform/infra/clusters/nwk1/.terraform/plugins/registry.terraform.io/hashicorp/random/2.3.1/linux_amd64/terraform-provider-random_v2.3.1_x4
+terraform/infra/clusters/nwk1/.terraform/plugins/registry.terraform.io/hashicorp/template/2.1.2/linux_amd64/terraform-provider-template_v2.1.2_x4
+terraform/infra/clusters/nwk1/.terraform/plugins/registry.terraform.io/hashicorp/tls/2.2.0/linux_amd64/terraform-provider-tls_v2.2.0_x4
+terraform/infra/clusters/nwk1/.terraform/plugins/registry.terraform.io/poseidon/ct/0.6.1/linux_amd64/terraform-provider-ct_v0.6.1
+terraform/infra/clusters/nwk1/.terraform/plugins/registry.terraform.io/poseidon/matchbox/0.4.1/linux_amd64/terraform-provider-matchbox_v0.4.1
+terraform/infra/clusters/kvm/terraform.tfstate.backup
+terraform/infra/clusters/kvm/terraform.tfstate
