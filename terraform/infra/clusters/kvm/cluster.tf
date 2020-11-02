@@ -24,9 +24,9 @@ snippets = {
   "node4" = [file("./clc/longhorn-virt.yaml")],
 }
 worker_node_labels = {
-  "node2" = ["worker"],
-  "node3" = ["worker"],
-  "node4" = ["worker"],
+  "node2" = ["role=worker"],
+  "node3" = ["role=worker"],
+  "node4" = ["role=worker"],
   }
 
 }
