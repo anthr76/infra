@@ -21,7 +21,7 @@ kernel_args = [
 cached_install = true
 enable_reporting = true
 snippets = {
-  "node4" = [file("./longhorn-virt.yaml")],
+  "node4" = [file("./clc/longhorn-virt.yaml")],
 }
 worker_node_labels = {
   "node2" = ["worker"],

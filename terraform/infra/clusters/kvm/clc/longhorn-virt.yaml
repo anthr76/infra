@@ -5,6 +5,9 @@ storage:
         device: /dev/vdb
         format: btrfs
         wipe_filesystem: true
+  directories:
+    - path: /var/lib/longhorn
+      mode: 0644
 systemd:
   units:
     - name: longhorn.mount
