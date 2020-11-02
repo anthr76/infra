@@ -10,7 +10,7 @@ storage:
       mode: 0644
 systemd:
   units:
-    - name: longhorn.mount
+    - name: var-lib-longhorn.mount
       enabled: true
       contents: |
         [Unit]
