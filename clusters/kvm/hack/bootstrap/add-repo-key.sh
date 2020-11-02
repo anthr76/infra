@@ -44,16 +44,16 @@ if [ "$?" -eq 0 ] && [ "$rp" = "true" ]; then
     repo_id="github-deploy-$reponame.github.com"
 
     # delete all existing deploy keys
-    curl \
-        -H"Authorization: token $github_access_token"\
-        https://api.github.com/repos/"$github_username"/"$reponame"/keys 2>/dev/null\
-        | jq '.[] | .id ' | \
-        while read _id; do
-            echo "- deploy key: $_id"
-            curl \
-                -X "DELETE"\
-                -H"Authorization: token $github_access_token"\
-                https://api.github.com/repos/"$github_username"/"$reponame"/keys/"$_id" 2>/dev/null
+    # curl \
+    #     -H"Authorization: token $github_access_token"\
+    #     https://api.github.com/repos/"$github_username"/"$reponame"/keys 2>/dev/null\
+    #     | jq '.[] | .id ' | \
+    #     while read _id; do
+    #         echo "- deploy key: $_id"
+    #         curl \
+    #             -X "DELETE"\
+    #             -H"Authorization: token $github_access_token"\
+    #             https://api.github.com/repos/"$github_username"/"$reponame"/keys/"$_id" 2>/dev/null
         done
 
     # add the keyfile to github
