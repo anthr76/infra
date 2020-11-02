@@ -1,2 +1,4 @@
-secrets/.secrets.env
-setup/.secrets.env
+**/.terraform
+**.env
+**.tfstate.backup
+**.tfstate
