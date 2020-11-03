@@ -7,7 +7,7 @@
 
 ## Overview
 
-My at home or for-home Kubernetes cluster written in a declarative state using GitOps + Terraform. 
+My at home or for-home Kubernetes clusters written in a declarative state using GitOps + Terraform. 
 
 Clusters are provisioned with [Matchbox](https://github.com/poseidon/matchbox) over iPXE using terraform on [Typhoon](https://github.com/anthr76/typhoon). I use a slightly modified version of Typhoon to better suite at home usage. Folders contained in clusters represent different sites in which clusters reside.
 
