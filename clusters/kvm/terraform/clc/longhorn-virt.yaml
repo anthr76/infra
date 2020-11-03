@@ -1,7 +1,8 @@
+---
 storage:
   filesystems:
     - name: longhorn
-      mount: 
+      mount:
         device: /dev/vdb
         format: btrfs
         wipe_filesystem: true

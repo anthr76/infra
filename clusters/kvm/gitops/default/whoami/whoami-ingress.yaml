@@ -9,8 +9,8 @@ spec:
     - web
 
   routes:
-  - match: Host(`whoami.k8skvm`) || Host(`whoami.k8skvm.rabbito.tech`) || Host(`whoami`)
-    kind: Rule
-    services:
-    - name: whoami
-      port: 80
+    - match: Host(`whoami.k8skvm`) || Host(`whoami.k8skvm.rabbito.tech`) || Host(`whoami`)
+      kind: Rule
+      services:
+        - name: whoami
+          port: 80

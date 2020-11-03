@@ -30,4 +30,4 @@ spec:
       spec:
         clusterIP: 10.3.0.12
   valueFileSecrets:
-  - name: "traefik-values"
+    - name: "traefik-values"

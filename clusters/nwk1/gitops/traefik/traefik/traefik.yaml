@@ -32,4 +32,4 @@ spec:
       # spec:
       #   externalTrafficPolicy: Local
   valueFileSecrets:
-  - name: "traefik-values"
+    - name: "traefik-values"
