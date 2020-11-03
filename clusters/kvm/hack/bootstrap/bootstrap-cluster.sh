@@ -35,7 +35,7 @@ installFlux() {
   FLUX_KEY=$(kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2)
 
   message "adding the key to github automatically"
-  "$REPO_ROOT"/clusters/nwk1/hack/bootstrap/add-repo-key.sh "$FLUX_KEY"
+  "$REPO_ROOT"/clusters/kvm/hack/bootstrap/add-repo-key.sh "$FLUX_KEY"
 }
 
 installFlux
