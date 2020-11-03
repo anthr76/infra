@@ -19,6 +19,7 @@ message() {
 installFlux() {
   message "installing flux"
   # install flux
+  kubectl create ns flux
   helm repo add fluxcd https://charts.fluxcd.io
   helm upgrade --install flux --values "$REPO_ROOT"/clusters/kvm/gitops/flux/flux/flux-values.yaml --namespace flux fluxcd/flux
   helm upgrade --install helm-operator --values "$REPO_ROOT"/clusters/kvm/gitops/flux/helm-operator/helm-operator-values.yaml --namespace flux fluxcd/helm-operator
