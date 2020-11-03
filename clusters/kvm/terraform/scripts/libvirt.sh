@@ -60,40 +60,40 @@ function create_docker {
 nodes=(k8s-node-1 k8s-node-2 k8s-node-3 k8s-node-4_lh )
 
 function start {
-  for node in ${nodes[@]}; do
+  for node in "${nodes[@]}"; do
     virsh start $node
   done
 }
 
 function reboot {
-  for node in ${nodes[@]}; do
+  for node in "${nodes[@]}"; do
     virsh reboot $node
   done
 }
 
 function shutdown {
-  for node in ${nodes[@]}; do
+  for node in "${nodes[@]}"; do
     virsh shutdown $node
   done
 }
 
 function poweroff {
-  for node in ${nodes[@]}; do
+  for node in "${nodes[@]}"; do
     virsh destroy $node
   done
 }
 
 function destroy {
-  for node in ${nodes[@]}; do
+  for node in "${nodes[@]}"; do
     virsh destroy $node
   done
-  for node in ${nodes[@]}; do
+  for node in "${nodes[@]}"; do
     virsh undefine $node
   done
   virsh pool-refresh default
-  for node in ${nodes[@]}; do
+  for node in "${nodes[@]}"; do
     virsh vol-delete --pool default $node.qcow2
   done
 }
 
-main $@
+main "$@"
