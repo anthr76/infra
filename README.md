@@ -14,6 +14,17 @@ Get involved with the community!
 
 ---
 
+## :wrench:&nbsp; Tools
+
+_Below are some of the tools I find useful_
+
+| Tool                                                   | Purpose                                                                                                   |
+|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| [git-crypt](https://github.com/AGWA/git-crypt)         | Encrypt certain files in my repository that can only be decrypted with a key on my computers              |
+| [pre-commit](https://github.com/pre-commit/pre-commit) | Ensure the YAML and shell script in my repo are consistent                                                |
+
+---
+
 ## :handshake:&nbsp; Thanks
 
 A lot of inspiration for this repo came from the following people:
