@@ -2,3 +2,4 @@
 **.env
 **.tfstate.backup
 **.tfstate
+**mercury-config
