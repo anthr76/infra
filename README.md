@@ -1,6 +1,6 @@
 # anthr76/infra
 
-[![GitHub issues](https://img.shields.io/github/issues/anthr76/infra)](https://github.com/anthr76/infra/issues) [![GitHub stars](https://img.shields.io/github/stars/anthr76/infra)](https://github.com/anthr76/infra/stargazers) ![GitHub last commit](https://img.shields.io/github/last-commit/anthr76/infra)
+[![GitHub issues](https://img.shields.io/github/issues/anthr76/infra)](https://github.com/anthr76/infra/issues) [![GitHub stars](https://img.shields.io/github/stars/anthr76/infra)](https://github.com/anthr76/infra/stargazers) ![GitHub last commit](https://img.shields.io/github/last-commit/anthr76/infra)  [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square)](https://github.com/pre-commit/pre-commit)
 
 This repo contains the code I use for deploying and managing servers my home media services, infrastructure monitoring and a bunch of related stuff.
 
