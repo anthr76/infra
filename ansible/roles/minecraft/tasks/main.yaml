@@ -34,7 +34,7 @@
     dest: /docker/mcnew/waterfall/plugins/multichat.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart waterfall
 
@@ -44,7 +44,7 @@
     dest: /docker/mcnew/waterfall/plugins/BungeeTabListPlus.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart waterfall
 
@@ -54,7 +54,7 @@
     dest: /docker/mcnew/mc-server-1/plugins/BungeeTabListPlus_BukkitBridge.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-1
 
@@ -64,7 +64,7 @@
     dest: /docker/mcnew/mc-server-2/plugins/BungeeTabListPlus_BukkitBridge.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-2
 
@@ -74,7 +74,7 @@
     dest: /docker/mcnew/mc-server-3/plugins/BungeeTabListPlus_BukkitBridge.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-3
 
@@ -84,7 +84,7 @@
     dest: /docker/mcnew/mc-server-1/plugins/EssentialsX.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-1
 
@@ -94,7 +94,7 @@
     dest: /docker/mcnew/mc-server-3/plugins/EssentialsX.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-3
 
@@ -104,7 +104,7 @@
     dest: /docker/mcnew/mc-server-1/plugins/EssentialsXAntiBuild.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-1
 
@@ -114,7 +114,7 @@
     dest: /docker/mcnew/mc-server-1/plugins/EssentialsXGeoIP.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-1
 
@@ -124,7 +124,7 @@
     dest: /docker/mcnew/mc-server-1/plugins/EssentialsXSpawn.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-1
 
@@ -134,7 +134,7 @@
     dest: /docker/mcnew/mc-server-2/plugins/EssentialsX.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-2
 
@@ -144,7 +144,7 @@
     dest: /docker/mcnew/mc-server-2/plugins/EssentialsXSpawn.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-2
 
@@ -154,7 +154,7 @@
     dest: /docker/mcnew/mc-server-3/plugins/EssentialsXSpawn.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-3
 
@@ -164,7 +164,7 @@
     dest: /docker/mcnew/mc-server-1/plugins/LuckPerms-Bukkit.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-1
 
@@ -174,7 +174,7 @@
     dest: /docker/mcnew/mc-server-2/plugins/LuckPerms-Bukkit.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-2
 
@@ -184,7 +184,7 @@
     dest: /docker/mcnew/mc-server-3/plugins/LuckPerms-Bukkit.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-3
 
@@ -194,7 +194,7 @@
     dest: /docker/mcnew/mc-server-1/plugins/multichat.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
   notify: restart mc-server-1
 
 - name: Download 1.9.5 Multichat on mc-server-3
@@ -203,7 +203,7 @@
     dest: /docker/mcnew/mc-server-3/plugins/multichat.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
   notify: restart mc-server-3
 
 - name: Download 1.9.5 Multichat on mc-server-2
@@ -212,17 +212,17 @@
     dest: /docker/mcnew/mc-server-2/plugins/multichat.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
   notify: restart mc-server-2
 
-# Latest https://github.com/SkinsRestorer/SkinsRestorerX/releases/latest/download/SkinsRestorer.jar (need to lock a version for floodgate)  
+# Latest https://github.com/SkinsRestorer/SkinsRestorerX/releases/latest/download/SkinsRestorer.jar (need to lock a version for floodgate)
 - name: Download 13.8.3 SkinsRestorer plugin on mc-server-1
   get_url:
     url: https://github.com/SkinsRestorer/SkinsRestorerX/releases/download/13.8.3/SkinsRestorer.jar
     dest: /docker/mcnew/mc-server-1/plugins/SkinsRestorer.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-1
 
@@ -232,7 +232,7 @@
     dest: /docker/mcnew/mc-server-3/plugins/SkinsRestorer.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-3
 
@@ -242,7 +242,7 @@
     dest: /docker/mcnew/mc-server-2/plugins/SkinsRestorer.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-2
 
@@ -252,7 +252,7 @@
     dest: /docker/mcnew/mc-server-1/plugins/Vault.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-1
 
@@ -262,7 +262,7 @@
     dest: /docker/mcnew/mc-server-2/plugins/Vault.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-2
 
@@ -272,7 +272,7 @@
     dest: /docker/mcnew/mc-server-3/plugins/Vault.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-3
 
@@ -312,7 +312,7 @@
     dest: /docker/mcnew/mc-server-1/plugins/BlueMap-1.0.0-spigot.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-1
 
@@ -322,7 +322,7 @@
     dest: /docker/mcnew/mc-server-3/plugins/BlueMap-1.0.0-spigot.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart mc-server-3
 
@@ -332,7 +332,7 @@
     dest: /docker/mcnew/waterfall/plugins/floodgate-bungee.jar
     mode: '0644'
     owner: 'anthony'
-    group:  'dockerfs'
+    group: 'dockerfs'
     force: true
   notify: restart waterfall
 

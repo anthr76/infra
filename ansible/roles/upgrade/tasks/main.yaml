@@ -1,4 +1,3 @@
-
 - name: Upgrade all installed packages (CentOS)
   tags: centos, upgrade, update
   dnf:

@@ -29,6 +29,6 @@
     pre_reboot_delay: 0
     post_reboot_delay: 30
     test_command: uptime
-  when: 
-   - ansible_os_family == "Debian"
-   - reboot_required_file.stat.exists
+  when:
+    - ansible_os_family == "Debian"
+    - reboot_required_file.stat.exists

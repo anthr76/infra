@@ -14,21 +14,21 @@
 
     - name: Add vlan 101
       community.network.routeros_command:
-        commands: 
-        - /interface vlan add comment=IoT interface=bridge name=IoT vlan-id=101
+        commands:
+          - /interface vlan add comment=IoT interface=bridge name=IoT vlan-id=101
 
     - name: Add vlan 100
       community.network.routeros_command:
         commands: /interface vlan add comment=EndDevices interface=bridge name=EndDevices vlan-id=100
-    
+
     - name: Adding vlan tags to bridge
       community.network.routeros_command:
-        commands: 
-         - /interface bridge vlan add bridge=bridge1 tagged=EndDevices,IoT,Management,ServerNetwork vlan-ids=100,10,101,99
-    
+        commands:
+          - /interface bridge vlan add bridge=bridge1 tagged=EndDevices,IoT,Management,ServerNetwork vlan-ids=100,10,101,99
+
     - name: Add vlan addresses
       community.network.routeros_command:
-        commands: 
+        commands:
           - /ip address add address=192.168.3.0/24 interface=EndDevices
           - /ip address add address=192.168.2.0/24 interface=IoT
           - /ip address add address=10.20.99.10/32 interface=Management
@@ -37,10 +37,10 @@
 
     - name: Set internal DNS servers
       community.network.routeros_command:
-        commands: 
-        - /ip dns set servers=10.136.153.234,10.136.42.191
-    
+        commands:
+          - /ip dns set servers=10.136.153.234,10.136.42.191
+
     - name: configure sfpplus8 to negotiate with nwk1-sw-access
       community.network.routeros_command:
-        commands: 
+        commands:
           - /interface ethernet set auto-negotiation=no loop-protect=on full-duplex=yes comment=nwk1-sw-access sfp-sfpplus8
