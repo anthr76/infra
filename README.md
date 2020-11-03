@@ -6,6 +6,8 @@ This repo contains the code I use for deploying and managing servers my home med
 
 I use Ansible and Terraform to run my infrastructure and this repo is my contribution to the Infrastructure as Code movement.
 
+Feel free to open a [Github issue](https://github.com/anthr76/infra/issues/new) if you have any questions!
+
 Get involved with the community!
  - [k8s@home](https://discord.gg/5sutTcCav5)
  - [SelfHosted](https://selfhosted.show/)
