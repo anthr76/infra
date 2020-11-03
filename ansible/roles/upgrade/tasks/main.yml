@@ -1,0 +1,20 @@
+
+- name: Upgrade all installed packages (CentOS)
+  tags: centos, upgrade, update
+  dnf:
+    name: "*"
+    state: latest
+  register: dnfcommandout
+  when: ansible_distribution == "CentOS"
+
+- name: Print error if dnf failed
+  tags: debug, failure, centos
+  debug:
+    msg: "dnf command produced errors"
+  when: dnfcommandout is not defined
+
+- name: Upgrade all installed packages (Ubuntu & Debian)
+  tags: always
+  apt:
+    upgrade: dist
+  when: ansible_distribution in ["Debian", "Ubuntu"]

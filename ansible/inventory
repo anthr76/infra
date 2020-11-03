@@ -1,0 +1,36 @@
+[nwk1]
+nwk1-app-1
+k3s-master-1     ansible_user=pi
+k3s-worker-1     ansible_user=pi
+k3s-worker-2     ansible_user=pi
+k3s-worker-3     ansible_user=pi
+nwk1-sw-core     ansible_connection=ansible.netcommon.network_cli       ansible_network_os=community.network.routeros       ansible_python_interpreter=/usr/bin/python3
+
+[nwk2]
+nwk2-app-1
+
+[minecraft]
+nwk2-app-1
+
+[nyc1]
+wg     ansible_python_interpreter=/usr/bin/python3
+nyc1-app-1
+den
+nyc1-ipa-2
+
+[scr]
+scr-jump-1     ansible_python_interpreter=/usr/bin/python3
+
+[docker]
+nwk1-app-1
+nwk2-app-1
+nyc1-app-1
+
+[ipa]
+den
+nyc1-ipa-2
+
+[home:children]
+nwk1
+nwk2
+scr

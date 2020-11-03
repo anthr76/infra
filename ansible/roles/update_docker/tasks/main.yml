@@ -1,0 +1,9 @@
+- name: Update docker containers
+  shell:
+    chdir: /docker/
+    cmd: "{{ docker_update_command }}"
+  register: output
+
+- name: Output docker space reclaimed
+  debug:
+    var: output.stdout_lines

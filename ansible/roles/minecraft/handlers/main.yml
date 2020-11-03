@@ -1,0 +1,19 @@
+- name: restart mc-server-1
+  shell:
+    cmd: "{{ restart_mc_server_1_command }}"
+  register: output
+
+- name: restart mc-server-2
+  shell:
+    cmd: "{{ restart_mc_server_2_command }}"
+  register: output
+
+- name: restart mc-server-3
+  shell:
+    cmd: "{{ restart_mc_server_3_command }}"
+  register: output
+
+- name: restart waterfall
+  shell:
+    cmd: "{{ restart_waterfall_command }}"
+  register: output
