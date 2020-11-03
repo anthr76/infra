@@ -20,8 +20,8 @@ installFlux() {
   message "installing flux"
   # install flux
   helm repo add fluxcd https://charts.fluxcd.io
-  helm upgrade --install flux --values "$REPO_ROOT"/clusters/nwk1/gitops/flux/flux/flux-values.yaml --namespace flux fluxcd/flux
-  helm upgrade --install helm-operator --values "$REPO_ROOT"/clusters/nwk1/gitops/flux/helm-operator/helm-operator-values.yaml --namespace flux fluxcd/helm-operator
+  helm upgrade --install flux --values "$REPO_ROOT"/clusters/kvm/gitops/flux/flux/flux-values.yaml --namespace flux fluxcd/flux
+  helm upgrade --install helm-operator --values "$REPO_ROOT"/clusters/kvm/gitops/flux/helm-operator/helm-operator-values.yaml --namespace flux fluxcd/helm-operator
 
   FLUX_READY=1
   while [ $FLUX_READY != 0 ]; do
