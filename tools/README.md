@@ -2,7 +2,7 @@
 
 #### Feodra
 
-1. Add Terraform Hashicorp repo. 
+1. Add Terraform Hashicorp repo.
 
 `# dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`
 
@@ -16,4 +16,10 @@
 
 #### General
 
+1. Unlock the repo with your GPG key
+
 `$ git-crypt unlock`
+
+2. Install pre-commit hooks
+
+`$ pre-commit install`
