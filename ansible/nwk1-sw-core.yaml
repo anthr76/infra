@@ -4,43 +4,73 @@
   hosts: nwk1-sw-core
   tasks:
 
-    - name: Add vlan 99
-      community.network.routeros_command:
-        commands: /interface vlan add comment=Management interface=bridge name=Management vlan-id=99
-
-    - name: Add vlan 10
-      community.network.routeros_command:
-        commands: /interface vlan add comment=ServerNetwork interface=bridge name=ServerNetwork vlan-id=10
-
-    - name: Add vlan 101
+    - name: Set system identity
       community.network.routeros_command:
         commands:
-          - /interface vlan add comment=IoT interface=bridge name=IoT vlan-id=101
+          - /system identity set name="nwk1-sw-core"
 
-    - name: Add vlan 100
-      community.network.routeros_command:
-        commands: /interface vlan add comment=EndDevices interface=bridge name=EndDevices vlan-id=100
-
-    - name: Adding vlan tags to bridge
+    - name: Create bridge without filtering
       community.network.routeros_command:
         commands:
-          - /interface bridge vlan add bridge=bridge1 tagged=EndDevices,IoT,Management,ServerNetwork vlan-ids=100,10,101,99
+          - /interface bridge add name=bridge protocol-mode=none vlan-filtering=no
 
-    - name: Add vlan addresses
+    - name: Set access ports ingress
       community.network.routeros_command:
         commands:
-          - /ip address add address=192.168.3.0/24 interface=EndDevices
-          - /ip address add address=192.168.2.0/24 interface=IoT
-          - /ip address add address=10.20.99.10/32 interface=Management
-          - /ip address add address=192.168.4.0/24 interface=ServerNetwork
-          - /ip address add address=192.168.0.1/24 interface=sfp-sfpplus1
+          - /interface bridge port add bridge=bridge interface=sfp-sfpplus2 pvid=100
 
-    - name: Set internal DNS servers
+    - name: Set access ports egress
       community.network.routeros_command:
         commands:
+          - /interface bridge vlan add bridge=bridge untagged=sfp-sfpplus2 vlan-ids=100
+
+    - name: Configure vlan trunks ingress
+      community.network.routeros_command:
+        commands:
+          - /interface bridge port add bridge=bridge interface=sfp-sfpplus1
+          - /interface bridge port add bridge=bridge interface=ether1
+          - /interface bridge port add bridge=bridge interface=sfp-sfpplus8
+
+    - name: Configure vlan trunks egress
+      community.network.routeros_command:
+        commands:
+          - /interface bridge vlan set bridge=bridge tagged=sfp-sfpplus1,ether1,sfp-sfpplus8 [find vlan-ids=10]
+          - /interface bridge vlan set bridge=bridge tagged=sfp-sfpplus1,ether1,sfp-sfpplus8 [find vlan-ids=100]
+          - /interface bridge vlan set bridge=bridge tagged=sfp-sfpplus1,ether1,sfp-sfpplus8 [find vlan-ids=101]
+          - /interface bridge vlan add bridge=bridge tagged=bridge,ether1,sfp-sfpplus8,sfp-sfpplus1 vlan-ids=99
+
+    - name: Configure IP addressing & routing
+      community.network.routeros_command:
+        commands:
+          - /interface vlan add interface=bridge name=BASE_VLAN vlan-id=99
+          - /ip address add address=10.20.99.10/24 interface=BASE_VLAN
+          # - /ip route add distance=1 gateway=10.20.99.1
+
+    - name: Set vlan security
+      community.network.routeros_command:
+        commands:
+          - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus2]
+          - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=sfp-sfpplus1]
+          - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=sfp-sfpplus8]
+          - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=ether1]
+
+    - name: Restrict to managment network
+      community.network.routeros_command:
+        commands:
+          - /interface list add name=BASE
+          - /interface list member add interface=BASE_VLAN list=BASE
+          - /ip neighbor discovery-settings set discover-interface-list=BASE
+          - /tool mac-server mac-winbox set allowed-interface-list=BASE
+          - /tool mac-server set allowed-interface-list=BASE
+
+    - name: Enable vlan filtering
+      community.network.routeros_command:
+        commands:
+          - /interface bridge set bridge vlan-filtering=yes
+
+    - name: Configure system clock
+      community.network.routeros_command:
+        commands:
+          - /system clock set time-zone-name=America/New_York
+          - /system ntp client set enabled=yes server-dns-names=0.flatcar.pool.ntp.org,1.flatcar.pool.ntp.org
           - /ip dns set servers=10.136.153.234,10.136.42.191
-
-    - name: configure sfpplus8 to negotiate with nwk1-sw-access
-      community.network.routeros_command:
-        commands:
-          - /interface ethernet set auto-negotiation=no loop-protect=on full-duplex=yes comment=nwk1-sw-access sfp-sfpplus8
