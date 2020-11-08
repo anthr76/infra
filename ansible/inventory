@@ -4,7 +4,7 @@ k3s-master-1     ansible_user=pi
 k3s-worker-1     ansible_user=pi
 k3s-worker-2     ansible_user=pi
 k3s-worker-3     ansible_user=pi
-nwk1-sw-core     ansible_connection=ansible.netcommon.network_cli       ansible_network_os=community.network.routeros       ansible_python_interpreter=/usr/bin/python3
+nwk1-sw-core     ansible_connection=ansible.netcommon.network_cli       ansible_network_os=community.network.routeros       ansible_python_interpreter=/usr/bin/python3        ansible_command_timeout=30
 
 [nwk2]
 nwk2-app-1
