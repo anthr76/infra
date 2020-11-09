@@ -14,6 +14,8 @@ Typhoon distributes upstream Kubernetes, architectural conventions, and cluster 
 ## Steps to bootstrap <a href="https://www.cncf.io/certification/software-conformance/"><img align="right" src="https://storage.googleapis.com/poseidon/certified-kubernetes.png"></a>
 
 1. `./hack/bootstrap/bootstrap-cluster.sh`
+2. `./hack/bootstrap/getkey.sh`
+3. `./hack/bootstrap/generate_objects.sh`
 
 ---
 
