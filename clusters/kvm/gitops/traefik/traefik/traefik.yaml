@@ -18,16 +18,6 @@ spec:
       name: traefik
       tag: 2.3.1
     additionalArguments:
-      - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
-      - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesResolvers.letsencrypt.acme.dnschallenge=true"
-      - "--certificatesResolvers.letsencrypt.acme.dnschallenge.provider=cloudflare"
       - "--api.insecure=true"
       - "--accesslog=false"
       - "--log.level=INFO"
-      - "--certificatesresolvers.letsencrypt.acme.email=ted437+k8s@gmail.com"
-    service:
-      spec:
-        clusterIP: 10.3.0.12
-  valueFileSecrets:
-    - name: "traefik-values-helm-values"
