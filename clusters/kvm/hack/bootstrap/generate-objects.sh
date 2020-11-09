@@ -3,7 +3,7 @@
 # Wire up the env and validations
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
-source "${__dir}/../environment.sh"
+source "${__dir}/../secrets/environment.sh"
 
 message() {
 echo -e "\n######################################################################"
