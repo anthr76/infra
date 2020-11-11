@@ -21,3 +21,5 @@ spec:
       - "--api.insecure=true"
       - "--accesslog=false"
       - "--log.level=INFO"
+      - "--providers.kubernetesIngress.ingressClass=traefik-cert-manager"
+      - "--ping"
