@@ -23,6 +23,3 @@ spec:
       - "--log.level=INFO"
       - "--providers.kubernetesIngress.ingressClass=traefik-cert-manager"
       - "--ping"
-    service:
-      externalIPs:
-        - 192.168.122.5
