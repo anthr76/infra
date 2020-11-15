@@ -1,0 +1,3 @@
+[submodule "ansible/ansible/k8s-cluster-installation"]
+	path = ansible/ansible/k8s-cluster-installation
+	url = git@github.com:anthr76/k8s-cluster-installation.git
