@@ -76,10 +76,10 @@ global_as_num: "63400"
 # see https://docs.projectcalico.org/reference/node/configuration : FELIX_DEVICEROUTESOURCEADDRESS
 # calico_use_default_route_src_ipaddr: false
 
-calico_node_image_repo: "{{  quay_image_repo  }}/calico/node"
-calico_cni_image_repo: "{{ quay_image_repo }}/calico/cni"
-calico_policy_image_repo: "{{ quay_image_repo }}/calico/kube-controllers"
-calico_typha_image_repo: "{{ quay_image_repo }}/calico/typha"
+#calico_node_image_repo: "{{  quay_image_repo  }}/calico/node"
+#calico_cni_image_repo: "{{ quay_image_repo }}/calico/cni"
+#calico_policy_image_repo: "{{ quay_image_repo }}/calico/kube-controllers"
+#calico_typha_image_repo: "{{ quay_image_repo }}/calico/typha"
 
 peers:
   - router_id: "192.168.0.1"
