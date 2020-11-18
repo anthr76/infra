@@ -1,0 +1,7 @@
+---
+- name: Kubernetes
+  hosts: kubespray_nwk1
+  tasks:
+
+    - name: Kubernetes
+      include_tasks: kubespray/cluster.yml
