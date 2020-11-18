@@ -1,7 +1,4 @@
----
-- name: Kubernetes
-  hosts: kubespray_nwk1
-  tasks:
-
-    - name: Kubernetes
-      include_tasks: kubespray/cluster.yml
+- name: Include kubespray tasks
+  become: yes
+  become_user: root
+  include: kubespray/cluster.yml
