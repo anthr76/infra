@@ -93,4 +93,4 @@ upstream_dns_servers:
 #
 download_container: false
 skip_downloads: false
-etcd_kubeadm_enabled: true
+etcd_kubeadm_enabled: false
