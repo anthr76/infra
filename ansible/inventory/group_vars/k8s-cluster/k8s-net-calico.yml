@@ -3,7 +3,7 @@
 ## With calico it is possible to distributed routes with border routers of the datacenter.
 ## Warning : enabling router peering will disable calico's default behavior ('node mesh').
 ## The subnets of each nodes will be distributed by the datacenter router
-peer_with_router: true
+#peer_with_router: true
 
 # Enables Internet connectivity from containers
 # nat_outgoing: true
@@ -18,7 +18,7 @@ peer_with_router: true
 # calico_pool_cidr: 1.2.3.4/5
 
 # Global as_num (/calico/bgp/v1/global/as_num)
-global_as_num: "63400"
+#global_as_num: "63400"
 
 # You can set MTU value here. If left undefined or empty, it will
 # not be specified in calico CNI config, so Calico will use built-in
@@ -81,6 +81,6 @@ global_as_num: "63400"
 #calico_policy_image_repo: "{{ quay_image_repo }}/calico/kube-controllers"
 #calico_typha_image_repo: "{{ quay_image_repo }}/calico/typha"
 
-peers:
-  - router_id: "192.168.0.1"
-    as: "64512"
+#peers:
+#  - router_id: "192.168.0.1"
+#    as: "64512"
