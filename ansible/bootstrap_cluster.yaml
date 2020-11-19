@@ -1,4 +1,4 @@
 - name: Include kubespray tasks
-  become: yes
+  become: true
   become_user: root
   include: kubespray/cluster.yml
