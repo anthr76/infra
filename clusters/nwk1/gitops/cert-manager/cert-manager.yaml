@@ -24,3 +24,8 @@ spec:
     - --dns01-recursive-nameservers-only
     cainjector:
       replicaCount: 1
+    podDnsPolicy: "None"
+    podDnsConfig:
+      nameservers:
+      - "1.1.1.1"
+      - "8.8.8.8"
