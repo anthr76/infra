@@ -19,8 +19,8 @@ spec:
       tag: 2.3.1
     additionalArguments:
       - "--api.insecure=true"
-      - "--accesslog=false"
-      - "--log.level=INFO"
+      - "--log.level=DEBUG"
+      - "--entrypoints.websecure.http.tls"
       - "--providers.kubernetesIngress.ingressClass=traefik-cert-manager"
       - "--ping"
     service:
