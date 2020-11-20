@@ -1,0 +1,20 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: kubed
+  namespace: kube-system
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/chart-image: semver:~1
+spec:
+  releaseName: kubed
+  chart:
+    repository: https://charts.appscode.com/stable/
+    name: kubed
+    version: 0.12.0
+  values:
+    image:
+      repository: appscode/kubed
+      tag: v0.13.0-beta.0
