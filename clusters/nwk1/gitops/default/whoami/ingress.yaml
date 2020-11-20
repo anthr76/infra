@@ -11,11 +11,8 @@ spec:
     - host: whoami.k8s.rabbito.tech
       http:
         paths:
-          - path: /bar
-            backend:
-              serviceName: whoami
-              servicePort: 80
-          - path: /foo
+          - path: /
+            pathType: Prefix
             backend:
               serviceName: whoami
               servicePort: 80
