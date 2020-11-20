@@ -16,7 +16,7 @@ spec:
     version: 2.2.0
   values:
     image:
-      repository: weaveworks/kured
+      repository: raspbernetes/kured
       tag: 1.5.0
     configuration:
       startTime: "8:00"
