@@ -16,3 +16,5 @@ spec:
           port: 80
   tls:
     secretName: rabbito-tech-tls
+    options:
+      namespace: kube-system
