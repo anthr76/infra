@@ -11,7 +11,7 @@ metadata:
 spec:
   releaseName: kured
   chart:
-    repository: https://weaveworks.github.io/kured
+    repository: https://github.com/weaveworks/kured
     name: kured
     version: 2.2.1
   values:
