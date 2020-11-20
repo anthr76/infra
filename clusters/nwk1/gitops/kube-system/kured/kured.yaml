@@ -24,4 +24,4 @@ spec:
       timeZone: "America/New_York"
     tolerations:
       - key: node-role.kubernetes.io/master
-        effect: NoSchedule-
+        effect: NoSchedule
