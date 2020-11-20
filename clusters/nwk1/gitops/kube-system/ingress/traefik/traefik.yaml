@@ -17,6 +17,9 @@ spec:
     deployment:
       name: traefik
       tag: 2.3.3
+    ingressClass:
+      enabled: true
+      isDefaultClass: true
     additionalArguments:
       - "--api.insecure=true"
       - "--log.level=DEBUG"
