@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: default
   labels:
-    cert-manager-tls: default
+    cert-manager-tls: rabbito-tech
