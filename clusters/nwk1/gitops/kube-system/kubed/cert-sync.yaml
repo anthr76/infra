@@ -10,16 +10,3 @@ metadata:
   annotations:
     kubed.appscode.com/sync: "cert-manager-tls=default" # Sync certificate to matching namespaces
 type: kubernetes.io/tls
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: rabbito-tech
-  namespace: kube-system
-spec:
-  secretName: rabbito-tech-tls
-  commonName: rabbito.tech
-  issuerRef:
-    name: letsencrypt-staging
-    kind: ClusterIssuer
-    group: cert-manager.io
