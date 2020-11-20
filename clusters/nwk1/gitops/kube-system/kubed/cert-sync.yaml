@@ -21,5 +21,5 @@ spec:
   commonName: rabbito.tech
   issuerRef:
     name: letsencrypt-staging
-    kind: ClsuterIssuer
+    kind: ClusterIssuer
     group: cert-manager.io
