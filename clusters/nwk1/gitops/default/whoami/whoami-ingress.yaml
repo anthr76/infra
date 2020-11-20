@@ -6,7 +6,7 @@ metadata:
 
 spec:
   entryPoints:
-    - web
+    - websecure
 
   routes:
     - match: Host(`whoami.k8s.rabbito.tech`) || Host(`whoami`)
