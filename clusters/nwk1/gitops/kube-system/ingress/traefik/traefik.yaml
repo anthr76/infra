@@ -3,7 +3,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: traefik
-  namespace: traefik
+  namespace: kube-system
   annotations:
     fluxcd.io/ignore: "false"
     fluxcd.io/automated: "true"
@@ -16,7 +16,7 @@ spec:
   values:
     deployment:
       name: traefik
-      tag: 2.3.1
+      tag: 2.3.3
     additionalArguments:
       - "--api.insecure=true"
       - "--log.level=DEBUG"
