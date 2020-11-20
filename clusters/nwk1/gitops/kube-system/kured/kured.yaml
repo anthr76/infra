@@ -13,7 +13,7 @@ spec:
   chart:
     repository: https://weaveworks.github.io/kured
     name: kured
-    version: 2.2.0
+    version: 2.2.1
   values:
     image:
       repository: raspbernetes/kured
