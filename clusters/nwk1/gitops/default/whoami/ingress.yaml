@@ -1,0 +1,23 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1beta1
+metadata:
+  name: traefik-cert-manager
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: true
+
+spec:
+  rules:
+    - host: whoami.k8s.rabbito.tech
+      http:
+        paths:
+          - path: /bar
+            backend:
+              serviceName: whoami
+              servicePort: 80
+          - path: /foo
+            backend:
+              serviceName: whoami
+              servicePort: 80
+  tls:
+    - secretName: rabbito-tech-tls
