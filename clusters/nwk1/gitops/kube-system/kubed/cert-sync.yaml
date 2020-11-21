@@ -8,5 +8,5 @@ metadata:
   name: rabbito-tech
   namespace: kube-system
   annotations:
-    kubed.appscode.com/sync: "cert-manager-tls=default" # Sync certificate to matching namespaces
+    kubed.appscode.com/sync: "" # Sync certificate to matching namespaces
 type: kubernetes.io/tls
