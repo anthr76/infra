@@ -10,11 +10,11 @@ spec:
 
   routes:
     - match: Host(`whoami.k8s.rabbito.tech`) || Host(`whoami`)
-      middleware:
-        - name: default-test-redirectregex
       kind: Rule
       services:
         - name: whoami
           port: 80
+      middlewares:
+        - name: test-redirectregex
   tls:
     secretName: rabbito-tech-tls
