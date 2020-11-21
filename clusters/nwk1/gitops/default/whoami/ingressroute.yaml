@@ -9,7 +9,7 @@ spec:
     - websecure
 
   routes:
-    - match: Host(`whoami.k8s.rabbito.tech`) || Host('whoami')
+    - match: Host(`whoami.k8s.rabbito.tech`) || Host(`whoami`)
       middleware:
         - name: test-redirectregex
           namespace: default
