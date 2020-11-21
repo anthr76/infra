@@ -11,8 +11,7 @@ spec:
   routes:
     - match: Host(`whoami.k8s.rabbito.tech`) || Host(`whoami`)
       middleware:
-        - name: test-redirectregex
-          namespace: default
+        - name: default-test-redirectregex
       kind: Rule
       services:
         - name: whoami
