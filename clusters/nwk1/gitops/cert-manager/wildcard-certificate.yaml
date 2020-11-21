@@ -13,3 +13,4 @@ spec:
   dnsNames:
   - "*.rabbito.tech"
   - "*.k8s.rabbito.tech"
+  - "rabbito.tech"
