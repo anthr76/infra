@@ -5,7 +5,7 @@ data:
   tls.key: ''
 kind: Secret
 metadata:
-  name: rabbito-tech
+  name: rabbito-tech-tls
   namespace: kube-system
   annotations:
     kubed.appscode.com/sync: "" # Sync certificate to matching namespaces
