@@ -1,12 +1,12 @@
-#apiVersion: v1
-#data:
-#  ca.crt: ''
-#  tls.crt: ''
-#  tls.key: ''
-#kind: Secret
-#metadata:
-#  name: rabbito-tech-tls
-#  namespace: kube-system
-#  annotations:
-#    kubed.appscode.com/sync: "" # Sync certificate to matching namespaces
-#type: kubernetes.io/tls
+apiVersion: v1
+data:
+  ca.crt: ''
+  tls.crt: ''
+  tls.key: ''
+kind: Secret
+metadata:
+  name: rabbito-tech-tls
+  namespace: cert-manager
+  annotations:
+    kubed.appscode.com/sync: "" # Sync certificate to matching namespaces
+type: kubernetes.io/tls
