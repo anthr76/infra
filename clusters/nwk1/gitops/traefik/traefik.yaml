@@ -17,6 +17,10 @@ spec:
     deployment:
       name: traefik
       tag: 2.3.3
+    podDisruptionBudget:
+      enabled: false
+      maxUnavailable: 1
+      minAvailable: 3
     ingressClass:
       enabled: true
       isDefaultClass: true
