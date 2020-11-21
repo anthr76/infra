@@ -5,9 +5,6 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
-  tls:
-    - hosts:
-        - rabbito-tech
   rules:
     - host: whoami.k8s.rabbito.tech
       http:
@@ -17,3 +14,5 @@ spec:
             backend:
               serviceName: whoami
               servicePort: 80
+  tls:
+    - secretName: rabbito-tech-tls
