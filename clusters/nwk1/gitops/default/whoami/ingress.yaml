@@ -15,4 +15,4 @@ spec:
               serviceName: whoami
               servicePort: 80
   tls:
-    - secretName: rabbito-tech
+    - secretName: rabbito-tech-tls
