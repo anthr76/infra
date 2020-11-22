@@ -1,16 +1,28 @@
-#---
-#apiVersion: cert-manager.io/v1
-#kind: Certificate
-#metadata:
-#  name: rabbito-tech
-#  namespace: cert-manager
-#spec:
-#  secretName: rabbito-tech-tls
-#  issuerRef:
-#    name: letsencrypt-staging
-#    kind: ClusterIssuer
-#  commonName: "rabbito.tech"
-#  dnsNames:
-#  - "*.rabbito.tech"
-#  - "*.k8s.rabbito.tech"
-#  - "rabbito.tech"
+apiVersion: v1
+data:
+  ca.crt: ''
+  tls.crt: ''
+  tls.key: ''
+kind: Secret
+metadata:
+  name: rabbito-tech-tls
+  namespace: cert-manager
+  annotations:
+    kubed.appscode.com/sync: "cert-manager-tls=rabbito-tech-tls" # Sync certificate to matching namespaces
+type: kubernetes.io/tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: rabbito-tech
+  namespace: cert-manager
+spec:
+  secretName: rabbito-tech-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: "rabbito.tech"
+  dnsNames:
+  - "*.rabbito.tech"
+  - "*.k8s.rabbito.tech"
+  - "rabbito.tech"

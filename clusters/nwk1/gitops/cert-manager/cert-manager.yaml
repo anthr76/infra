@@ -1,31 +1,31 @@
-#---
-#apiVersion: helm.fluxcd.io/v1
-#kind: HelmRelease
-#metadata:
-#  name: cert-manager
-#  namespace: cert-manager
-#  annotations:
-#    fluxcd.io/ignore: "false"
-#    fluxcd.io/automated: "false"
-#spec:
-#  releaseName: cert-manager
-#  rollback:
-#    enable: false
-#  chart:
-#    repository: https://charts.jetstack.io/
-#    name: cert-manager
-#    version: 1.1.0-alpha.1
-#  values:
-#    installCRDs: true
-#    webhook:
-#      enabled: true
-#    extraArgs:
-#    - --dns01-recursive-nameservers=1.1.1.1:53
-#    - --dns01-recursive-nameservers-only
-#    cainjector:
-#      replicaCount: 1
-#    podDnsPolicy: "None"
-#    podDnsConfig:
-#      nameservers:
-#      - "1.1.1.1"
-#      - "8.8.8.8"
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: cert-manager
+  rollback:
+    enable: false
+  chart:
+    repository: https://charts.jetstack.io/
+    name: cert-manager
+    version: 1.1.0-alpha.1
+  values:
+    installCRDs: true
+    webhook:
+      enabled: true
+    extraArgs:
+    - --dns01-recursive-nameservers=1.1.1.1:53
+    - --dns01-recursive-nameservers-only
+    cainjector:
+      replicaCount: 1
+    podDnsPolicy: "None"
+    podDnsConfig:
+      nameservers:
+      - "1.1.1.1"
+      - "8.8.8.8"
