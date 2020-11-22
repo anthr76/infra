@@ -17,12 +17,14 @@ spec:
     deployment:
       name: traefik
       tag: 2.3.3
+    logs:
+      general:
+        level: DEBUG
     ingressClass:
       enabled: true
       isDefaultClass: true
     additionalArguments:
       - "--api.insecure=true"
-      - "--log.level=DEBUG"
       - "--entrypoints.websecure.http.tls"
       - "--ping"
     service:
