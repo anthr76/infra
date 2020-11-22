@@ -23,5 +23,6 @@ spec:
     kind: ClusterIssuer
   commonName: "rabbito.tech"
   dnsNames:
+  - "rabbito.tech"
   - "*.rabbito.tech"
   - "*.k8s.rabbito.tech"
