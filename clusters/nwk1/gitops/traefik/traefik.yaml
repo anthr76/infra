@@ -17,14 +17,15 @@ spec:
     deployment:
       name: traefik
       tag: 2.3.3
-    ingressClass:
-      enabled: true
-      isDefaultClass: true
     additionalArguments:
       - "--api.insecure=true"
       - "--log.level=DEBUG"
       - "--entrypoints.websecure.http.tls"
       - "--ping"
+      - "--providers.kubernetesingress.ingressclass=traefik-internal"
+      - "--providers.kubernetesingress.ingressclass=traefik-external"
+      - "--providers.kubernetesingress.ingressendpoint.traefik-internal.ip=172.30.0.5"
+      - "--providers.kubernetesingress.ingressendpoint.traefik-external.ip=172.30.0.6"
     service:
       externalIPs:
         - 172.30.0.5
