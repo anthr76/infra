@@ -2,5 +2,3 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: traefik
-  labels:
-    cert-manager-tls: rabbito-tech-tls
