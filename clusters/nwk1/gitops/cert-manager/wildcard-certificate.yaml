@@ -21,8 +21,7 @@ spec:
   issuerRef:
     name: letsencrypt-staging
     kind: ClusterIssuer
-  commonName: "rabbito.tech"
+  commonName: "*.rabbito.tech"
   dnsNames:
-  - "rabbito.tech"
   - "*.rabbito.tech"
   - "*.k8s.rabbito.tech"
