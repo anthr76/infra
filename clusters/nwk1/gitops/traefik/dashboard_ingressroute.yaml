@@ -22,7 +22,7 @@ spec:
   chain:
     middlewares:
     - name: https-only
-    - name: https-redirectscheme
+    #- name: https-redirectscheme
     - name: known-ips
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -43,12 +43,12 @@ spec:
     - 192.168.4.0/24
     - 127.0.0.1/32
     - 192.168.3.0/24
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: https-redirectscheme
-spec:
-  redirectScheme:
-    scheme: https
-    permanent: true
+#---
+#apiVersion: traefik.containo.us/v1alpha1
+#kind: Middleware
+#metadata:
+#  name: https-redirectscheme
+#spec:
+#  redirectScheme:
+#    scheme: https
+#    permanent: true
