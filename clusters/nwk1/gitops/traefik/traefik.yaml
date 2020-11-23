@@ -26,6 +26,7 @@ spec:
     additionalArguments:
       - "--entrypoints.websecure.http.tls"
       - "--ping"
+      - "--api.dashboard=true"
     service:
       externalIPs:
         - 172.30.0.5
