@@ -24,7 +24,6 @@ spec:
       enabled: true
       isDefaultClass: true
     additionalArguments:
-      - "--api.insecure=true"
       - "--entrypoints.websecure.http.tls"
       - "--ping"
     service:
