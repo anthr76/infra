@@ -2,6 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-dashboard
+  namespace: traefik
 spec:
   routes:
   - match: Host(`traefik.k8s.rabbito.tech`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
@@ -9,3 +10,36 @@ spec:
     services:
     - name: api@internal
       kind: TraefikService
+    middlewares:
+    - name: secured
+  tls:
+    secretName: rabbito-tech-tls
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: secured
+spec:
+  chain:
+    middlewares:
+    - name: https-only
+    - name: known-ips
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: https-only
+spec:
+  redirectScheme:
+    scheme: https
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: known-ips
+spec:
+  ipWhiteList:
+    sourceRange:
+    - 192.168.4.0/24
+    - 127.0.0.1/32
+    - 192.168.3.0/24
