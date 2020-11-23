@@ -21,16 +21,7 @@ metadata:
 spec:
   chain:
     middlewares:
-    #- name: https-only
     - name: known-ips
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: https-only
-spec:
-  redirectScheme:
-    scheme: https
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
