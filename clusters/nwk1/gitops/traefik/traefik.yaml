@@ -17,6 +17,11 @@ spec:
     deployment:
       name: traefik
       tag: 2.3.3
+      replicas: 2
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 10
     logs:
       general:
         level: ERROR
