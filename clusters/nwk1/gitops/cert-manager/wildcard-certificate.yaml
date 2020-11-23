@@ -11,7 +11,7 @@ metadata:
 spec:
   secretName: rabbito-tech-tls
   issuerRef:
-    name: letsencrypt-staging
+    name: letsencrypt-production
     kind: ClusterIssuer
   commonName: "*.rabbito.tech"
   dnsNames:
