@@ -17,10 +17,10 @@ spec:
     deployment:
       name: traefik
       tag: 2.3.3
-      replicas: 2
+      replicas: 3
     autoscaling:
       enabled: true
-      minReplicas: 2
+      minReplicas: 3
       maxReplicas: 10
     logs:
       general:
@@ -28,6 +28,9 @@ spec:
     ingressClass:
       enabled: true
       isDefaultClass: true
+    ingressRoute:
+      dashboard:
+        enabled: false
     additionalArguments:
       - "--entrypoints.websecure.http.tls"
       - "--ping"
