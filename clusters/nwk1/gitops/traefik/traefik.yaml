@@ -9,6 +9,7 @@ metadata:
     fluxcd.io/automated: "true"
 spec:
   releaseName: traefik
+  forceUpgrade: true
   chart:
     repository: https://helm.traefik.io/traefik
     name: traefik
