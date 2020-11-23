@@ -24,7 +24,7 @@ spec:
       maxReplicas: 10
     logs:
       general:
-        level: ERROR
+        level: DEBUG
     ingressClass:
       enabled: true
       isDefaultClass: true
