@@ -1,43 +1,42 @@
-#---
-#apiVersion: helm.fluxcd.io/v1
-#kind: HelmRelease
-#metadata:
-#  name: traefik
-#  namespace: traefik
-#  annotations:
-#    fluxcd.io/ignore: "false"
-#    fluxcd.io/automated: "true"
-#spec:
-#  releaseName: traefik
-#  forceUpgrade: true
-#  chart:
-#    repository: https://helm.traefik.io/traefik
-#    name: traefik
-#    version: 9.11.0
-#  values:
-#    deployment:
-#      name: traefik
-#      tag: 2.3.3
-#      replicas: 3
-#    autoscaling:
-#      enabled: true
-#      minReplicas: 3
-#      maxReplicas: 10
-#    logs:
-#      general:
-#        level: ERROR
-#    ingressClass:
-#      enabled: true
-#      isDefaultClass: true
-#    ingressRoute:
-#      dashboard:
-#        enabled: false
-#    additionalArguments:
-#      - "--entrypoints.websecure.http.tls"
-#      - "--ping"
-#      - "--entrypoints.web.http.redirections.entryPoint.to=:443"
-#      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-#      - "--api.dashboard=true"
-#    service:
-#      externalIPs:
-#        - 172.30.0.5
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: traefik
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "true"
+spec:
+  releaseName: traefik
+  chart:
+    repository: https://helm.traefik.io/traefik
+    name: traefik
+    version: 9.11.0
+  values:
+    deployment:
+      name: traefik
+      tag: 2.3.3
+      replicas: 3
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 10
+    logs:
+      general:
+        level: ERROR
+    ingressClass:
+      enabled: true
+      isDefaultClass: true
+    ingressRoute:
+      dashboard:
+        enabled: false
+    additionalArguments:
+      - "--entrypoints.websecure.http.tls"
+      - "--ping"
+      - "--entrypoints.web.http.redirections.entryPoint.to=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--api.dashboard=true"
+    service:
+      externalIPs:
+        - 172.30.0.5
