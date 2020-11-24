@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: traefik-charts
+      chart: traefik
       version: 9.11.0
       sourceRef:
         kind: HelmRepository
