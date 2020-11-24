@@ -12,7 +12,7 @@ spec:
       version: 9.11.0
       sourceRef:
         kind: HelmRepository
-        name: traefik
+        name: traefik-charts
         namespace: flux-system
       interval: 5m
   values:
