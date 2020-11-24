@@ -8,8 +8,8 @@ spec:
   - match: Host(`rook.k8s.rabbito.tech`)
     kind: Rule
     services:
-    - name: rook-ceph-mgr-dashboard
-      port: 8443
+    - kind: Service
+      name: rook-ceph-mgr-dashboard
       namespace: rook-ceph
     middlewares:
     - name: secured
