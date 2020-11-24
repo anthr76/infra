@@ -10,7 +10,7 @@ spec:
     services:
     - kind: Service
       name: rook-ceph-mgr-dashboard
-      port: 7000
+      port: 8443
       namespace: rook-ceph
     middlewares:
     - name: secured
