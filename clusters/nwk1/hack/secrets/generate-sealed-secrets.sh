@@ -62,6 +62,14 @@ kubectl create secret generic cloudflare-api-key \
         >>"${GENERATED_SECRETS}"
 echo "---" >>"${GENERATED_SECRETS}"
 
+# flux discord
+kubectl create secret generic discord-webhook \
+    --from-literal=address="${FLUX_DISCORD_WEBHOOK}" \
+    --namespace flux-system --dry-run=client -o json |
+    kubeseal --format=yaml --cert="${PUB_CERT}" \
+        >>"${GENERATED_SECRETS}"
+echo "---" >>"${GENERATED_SECRETS}"
+
 # Remove empty new-lines
 sed -i '/^[[:space:]]*$/d' "${GENERATED_SECRETS}"
 
