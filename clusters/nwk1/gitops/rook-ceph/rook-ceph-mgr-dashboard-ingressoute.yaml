@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rook-ceph-dashboard
+  namespace: rook-ceph
+spec:
+  routes:
+  - match: Host(`rook.k8s.rabbito.tech`)
+    kind: Rule
+    services:
+    - name: rook-ceph-mgr-dashboard
+      port: 8443
+      namespace: rook-ceph
+    middlewares:
+    - name: secured
+  tls:
+    secretName: rabbito-tech-tls
