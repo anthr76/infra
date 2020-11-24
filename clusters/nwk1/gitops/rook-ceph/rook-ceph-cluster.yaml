@@ -20,7 +20,7 @@ spec:
   dashboard:
     enabled: true
     # serve the dashboard under a subpath (useful when you are accessing the dashboard via a reverse proxy)
-    # urlPrefix: /ceph-dashboard
+    urlPrefix: /
     # serve the dashboard at the given port.
     port: 7000
     # serve the dashboard using SSL
