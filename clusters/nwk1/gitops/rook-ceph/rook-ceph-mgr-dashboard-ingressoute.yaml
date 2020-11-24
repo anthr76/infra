@@ -12,6 +12,6 @@ spec:
       port: 8443
       namespace: rook-ceph
     middlewares:
-    - name: secured
+    - name: default-secured
   tls:
     secretName: rabbito-tech-tls
