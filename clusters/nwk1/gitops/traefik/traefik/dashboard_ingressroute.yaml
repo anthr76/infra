@@ -11,5 +11,6 @@ spec:
       kind: TraefikService
     middlewares:
     - name: internal
+      namespace: traefik
   tls:
     secretName: rabbito-tech-tls
