@@ -52,4 +52,6 @@ spec:
       tls:
         - secretName: rabbito-tech-tls
     config:
+      web:
+        http: 0.0.0.0:5556
       issuer: https://dex.k8s.rabbito.tech
