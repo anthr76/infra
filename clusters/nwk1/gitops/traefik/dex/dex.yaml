@@ -56,7 +56,5 @@ spec:
       tls:
         - secretName: rabbito-tech-tls
     config:
-      web:
-        address: 0.0.0.0
       issuer: https://dex.k8s.rabbito.tech
-      enablePasswordDB: false
+      enablePasswordDB: true
