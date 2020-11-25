@@ -32,7 +32,7 @@ spec:
       isDefaultClass: true
     ingressRoute:
       dashboard:
-        enabled: false
+        enabled: true
     additionalArguments:
       - "--entrypoints.websecure.http.tls"
       - "--ping"
