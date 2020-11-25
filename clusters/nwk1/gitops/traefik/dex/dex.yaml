@@ -35,7 +35,7 @@ spec:
       namespace: kube-system
   values:
     ingress:
-      enabled: true
+      enabled: false
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
       hosts:
