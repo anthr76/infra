@@ -1,0 +1,15 @@
+  connectors:
+
+  # GitHub configure 'OAuth Apps' -> 'New OAuth App', add callback URL
+  # https://github.com/settings/developers
+  - type: github
+    id: github
+    name: GitHub
+    config:
+      clientID: $DEX_GITHUB_CLIENT_ID
+      clientSecret: $DEX_GITHUB_CLIENT_SECRET
+      redirectURI: https://dex.k8s.rabbito.tech/callback
+      # 'orgs' can be used to map groups from Github
+      # https://github.com/coreos/dex/blob/master/Documentation/connectors/github.md
+      orgs:
+      - name: rabbito-home
