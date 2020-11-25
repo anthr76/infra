@@ -43,6 +43,10 @@ spec:
         operator: "Exists"
     certs:
       image: gcr.io/google_containers/kubernetes-dashboard-init-arm
+      grpc:
+        create: false
+      web:
+        create: false
     ingress:
       enabled: true
       annotations:
@@ -55,3 +59,4 @@ spec:
       web:
         http: 0.0.0.0:5556
       issuer: https://dex.k8s.rabbito.tech
+      enablePasswordDB: false
