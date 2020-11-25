@@ -49,4 +49,4 @@ spec:
       tls:
         - secretName: rabbito-tech-tls
     config:
-      issuer: https://dex.rabbito.tech
+      issuer: https://dex.k8s.rabbito.tech
