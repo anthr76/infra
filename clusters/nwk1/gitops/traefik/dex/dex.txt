@@ -1,3 +1,4 @@
+config:
   connectors:
 
   # GitHub configure 'OAuth Apps' -> 'New OAuth App', add callback URL
