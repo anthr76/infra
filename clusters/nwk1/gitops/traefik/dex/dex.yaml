@@ -45,10 +45,7 @@ spec:
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
       hosts:
-        - host: dex.rabbito.tech
-          paths:
-            - path: /
-              pathType: Prefix
+        - dex.rabbito.tech
       tls:
         - secretName: rabbito-tech-tls
     config:
