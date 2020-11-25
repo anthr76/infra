@@ -43,13 +43,13 @@ spec:
       kubernetesCRD:
         enabled: true
         namespaces:
-          - default
-          - traefik
+          - "default"
+          - "traefik"
       kubernetesIngress:
         enabled: true
         namespaces:
-          - default
-          - trafik
+          - "default"
+          - "trafik"
     service:
       externalIPs:
         - 172.30.0.5
