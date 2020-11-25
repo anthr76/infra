@@ -34,6 +34,11 @@ spec:
     - name: sealed-secrets
       namespace: kube-system
   values:
+    tolerations:
+      - key: "arm"
+        operator: "Exists"
+    certs:
+      image: gcr.io/google_containers/kubernetes-dashboard-init-arm
     ingress:
       enabled: false
       annotations:
