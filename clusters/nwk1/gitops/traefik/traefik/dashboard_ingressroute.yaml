@@ -10,9 +10,7 @@ spec:
     services:
     - name: api@internal
       kind: TraefikService
-      namespace: traefik
     middlewares:
     - name: internal
-      namespace: traefik
   tls:
     secretName: rabbito-tech-tls
