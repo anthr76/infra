@@ -13,7 +13,7 @@ spec:
       port: 7000
       namespace: rook-ceph
     middlewares:
-    - name: secured
-      namespace: default
+    - name: internal
+      namespace: traefik
   tls:
     secretName: rabbito-tech-tls
