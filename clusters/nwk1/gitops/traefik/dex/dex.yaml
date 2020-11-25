@@ -41,7 +41,7 @@ spec:
     certs:
       image: gcr.io/google_containers/kubernetes-dashboard-init-arm
     ingress:
-      enabled: false
+      enabled: true
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
       hosts:
