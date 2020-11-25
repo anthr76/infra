@@ -35,6 +35,9 @@ spec:
       namespace: kube-system
   values:
     grpc: false
+    ports:
+      web:
+        servicePort: 5556
     tolerations:
       - key: "arm"
         operator: "Exists"
