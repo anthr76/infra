@@ -2,6 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-dashboard
+  namespace: traefik
 spec:
   routes:
   - match: Host(`traefik.k8s.rabbito.tech`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
@@ -9,6 +10,7 @@ spec:
     services:
     - name: api@internal
       kind: TraefikService
+      namespace: traefik
     middlewares:
     - name: internal
       namespace: traefik
