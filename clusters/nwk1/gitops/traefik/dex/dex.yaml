@@ -35,8 +35,9 @@ spec:
       namespace: kube-system
   values:
     tolerations:
-      - key: "arm"
+      - key: "amd64"
         operator: "Exists"
+        effect: "NoSchedule"
     certs:
       image: gcr.io/google_containers/kubernetes-dashboard-init-arm
     ingress:
