@@ -58,3 +58,9 @@ spec:
     config:
       issuer: https://dex.k8s.rabbito.tech
       enablePasswordDB: true
+    oauth2:
+      responseTypes: ["code", "token", "id_token"]
+      skipApprovalScreen: true
+  valuesFrom:
+    - kind: Secret
+      name: "dex-helm-values"
