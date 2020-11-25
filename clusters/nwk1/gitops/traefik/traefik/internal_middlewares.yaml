@@ -2,6 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: internal
+  namespace: traefik
 spec:
   chain:
   middlewares:
