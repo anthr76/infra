@@ -14,3 +14,11 @@ config:
       # https://github.com/coreos/dex/blob/master/Documentation/connectors/github.md
       orgs:
       - name: rabbito-home
+
+  staticClients:
+  - name: Traefik Forward Auth
+    id: forward-auth
+    secret: ${DEX_STATIC_CLIENT_SECRET}
+    redirectURIs:
+    - http://auth.k8s.rabbito.tech/_oauth
+    - https://auth.k8s.rabbito.tech/_oauth
