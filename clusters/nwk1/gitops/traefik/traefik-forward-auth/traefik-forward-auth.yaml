@@ -21,6 +21,7 @@ spec:
   values:
     image:
       repository: raspbernetes/traefik-forward-auth
+      tag: "v2.2.0"
     authHost: "auth.k8s.rabbito.tech"
     cookie:
       domain: "k8s.rabbito.tech"
