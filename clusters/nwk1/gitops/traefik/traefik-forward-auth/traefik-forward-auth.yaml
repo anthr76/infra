@@ -22,20 +22,20 @@ spec:
     image:
       repository: raspbernetes/traefik-forward-auth
       tag: "v2.2.0"
-    authHost: "auth.k8s.rabbito.tech"
+    authHost: "auth.rabbito.tech"
     cookie:
-      domain: "k8s.rabbito.tech"
+      domain: "rabbito.tech"
     default:
       provider: "oidc"
     providers:
       oidc:
         enabled: true
-        issuerUrl: "https://dex.k8s.rabbito.tech"
+        issuerUrl: "https://dex.rabbito.tech"
         clientId: "forward-auth"
     ingress:
       enabled: true
       hosts:
-        - host: auth.k8s.rabbito.tech
+        - host: auth.rabbito.tech
           paths:
             - /
       tls:

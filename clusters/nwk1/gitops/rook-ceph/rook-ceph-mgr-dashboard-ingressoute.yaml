@@ -5,7 +5,7 @@ metadata:
   namespace: rook-ceph
 spec:
   routes:
-  - match: Host(`rook.k8s.rabbito.tech`)
+  - match: Host(`rook.rabbito.tech`)
     kind: Rule
     services:
     - kind: Service

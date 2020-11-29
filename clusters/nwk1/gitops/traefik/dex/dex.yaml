@@ -52,11 +52,11 @@ spec:
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
       hosts:
-        - dex.k8s.rabbito.tech
+        - dex.rabbito.tech
       tls:
         - secretName: rabbito-tech-tls
     config:
-      issuer: https://dex.k8s.rabbito.tech
+      issuer: https://dex.rabbito.tech
       enablePasswordDB: true
       oauth2:
         responseTypes: ["code", "token", "id_token"]
