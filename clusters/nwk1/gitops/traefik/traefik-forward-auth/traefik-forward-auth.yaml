@@ -19,6 +19,8 @@ spec:
     - name: sealed-secrets
       namespace: kube-system
   values:
+    image:
+      repository: raspbernetes/traefik-forward-auth
     authHost: "auth.k8s.rabbito.tech"
     cookie:
       domain: "k8s.rabbito.tech"
