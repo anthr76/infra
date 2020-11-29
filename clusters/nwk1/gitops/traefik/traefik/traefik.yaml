@@ -36,8 +36,8 @@ spec:
     additionalArguments:
       - "--entrypoints.websecure.http.tls"
       - "--ping"
-      - "--entrypoints.web.http.redirections.entryPoint.to=:443"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      #- "--entrypoints.web.http.redirections.entryPoint.to=:443"
+      #- "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--api.dashboard=true"
     service:
       externalIPs:
