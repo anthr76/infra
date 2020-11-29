@@ -35,7 +35,7 @@ spec:
     ingress:
       enabled: true
       hosts:
-        - host: auth.rabbito.tech
+        - host: auth.k8s.rabbito.tech
           paths:
             - /
       tls:
