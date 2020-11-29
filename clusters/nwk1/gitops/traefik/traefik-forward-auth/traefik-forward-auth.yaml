@@ -15,9 +15,6 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 10m
-  dependsOn:
-    - name: sealed-secrets
-      namespace: kube-system
   values:
     image:
       repository: raspbernetes/traefik-forward-auth
