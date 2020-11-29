@@ -33,9 +33,8 @@ spec:
       enabled: true
       hosts:
         - host: auth.k8s.rabbito.tech
-          path:
+          paths:
             - path: /
-              pathType: Prefix
       tls:
         - secretName: rabbito-tech-tls
     middleware:
