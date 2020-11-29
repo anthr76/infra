@@ -148,14 +148,14 @@ dns_mode: coredns
 enable_nodelocaldns: true
 nodelocaldns_ip: 169.254.25.10
 nodelocaldns_health_port: 9254
-#nodelocaldns_external_zones:
-#  - zones:
-#      - k8s.rabbito.tech
-#      - rabbito.tech
-#    nameservers:
-#      - 10.136.153.234
-#      - 10.136.42.191
-#    cache: 5
+# nodelocaldns_external_zones:
+# - zones:
+#   - example.com
+#   - example.io:1053
+#   nameservers:
+#   - 1.1.1.1
+#   - 2.2.2.2
+#   cache: 5
 # - zones:
 #   - https://mycompany.local:4453
 #   nameservers:
