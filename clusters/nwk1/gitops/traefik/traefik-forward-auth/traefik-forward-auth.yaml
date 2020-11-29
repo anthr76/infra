@@ -32,7 +32,7 @@ spec:
     ingress:
       enabled: true
       hosts:
-        - auth.k8s.rabbito.tech
+        - host: auth.k8s.rabbito.tech
       tls:
         - secretName: rabbito-tech-tls
     middleware:
