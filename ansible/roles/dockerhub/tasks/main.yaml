@@ -1,0 +1,11 @@
+---
+- name: ensure target dir exists
+  file:
+    dest: "/root/.docker/"
+    state: directory
+
+- name: Add dockerhub credentials
+  template:
+    src: "config.json.j2"
+    dest: "/root/.docker/config.json"
+  when: dockerhub_creds is defined
