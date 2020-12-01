@@ -137,7 +137,7 @@ kube_encrypt_secret_data: false
 
 # DNS configuration.
 # Kubernetes cluster name, also will be used as DNS domain
-cluster_name: nwk1.k8s
+cluster_name: nwk1.cluster
 # Subdomains of DNS domain to be resolved via /etc/resolv.conf for hostnet pods
 ndots: 2
 # Can be coredns, coredns_dual, manual or none
@@ -263,7 +263,7 @@ podsecuritypolicy_enabled: false
 
 ## Supplementary addresses that can be added in kubernetes ssl keys.
 ## That can be useful for example to setup a keepalived virtual IP
-# supplementary_addresses_in_ssl_keys: [192.168.0.1]
+supplementary_addresses_in_ssl_keys: [192.168.0.1]
 
 ## Running on top of openstack vms with cinder enabled may lead to unschedulable pods due to NoVolumeZoneConflict restriction in kube-scheduler.
 ## See https://github.com/kubernetes-sigs/kubespray/issues/2141
