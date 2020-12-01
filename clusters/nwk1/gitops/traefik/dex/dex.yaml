@@ -59,10 +59,12 @@ spec:
         - secretName: rabbito-tech-tls
     config:
       issuer: https://dex.k8s.rabbito.tech
-      #enablePasswordDB: true
+      enablePasswordDB: false
       oauth2:
         responseTypes: ["code", "token", "id_token"]
         skipApprovalScreen: true
+      frontend:
+        logoURL: https://github.com/raspbernetes/docs/blob/master/website/static/img/logo.png
   valuesFrom:
     - kind: Secret
       name: "dex-helm-values"
