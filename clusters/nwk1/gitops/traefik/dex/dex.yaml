@@ -37,6 +37,7 @@ spec:
       namespace: traefik
   values:
     grpc: false
+    replicas: 2
     ports:
       web:
         servicePort: 5556

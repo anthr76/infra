@@ -47,6 +47,10 @@ spec:
     middleware:
       enabled: true
       name: forward-auth
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
   valuesFrom:
     - kind: Secret
       name: "traefik-forward-auth-helm-values"
