@@ -53,7 +53,6 @@ fi
 # shellcheck disable=SC2129
 printf "%s\n%s\n%s\n" "#" "# Auto-generated generic secrets -- DO NOT EDIT." "#" >> "${GENERATED_SECRETS}"
 
-
 # Cloudflare API Key
 kubectl create secret generic cloudflare-api-key \
     --from-literal=api-key="${CF_API_KEY}" \
