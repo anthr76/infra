@@ -59,7 +59,7 @@ spec:
         - secretName: rabbito-tech-tls
     config:
       issuer: https://dex.k8s.rabbito.tech
-      enablePasswordDB: true
+      #enablePasswordDB: true
       oauth2:
         responseTypes: ["code", "token", "id_token"]
         skipApprovalScreen: true
