@@ -37,7 +37,7 @@ spec:
     ingress:
       enabled: true
       annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth-dex@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
       hosts:
         - host: auth.k8s.rabbito.tech
           paths:
