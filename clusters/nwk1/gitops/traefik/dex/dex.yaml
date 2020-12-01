@@ -37,7 +37,6 @@ spec:
       namespace: traefik
   values:
     grpc: false
-    replicas: 2
     ports:
       web:
         servicePort: 5556
@@ -52,8 +51,6 @@ spec:
         create: false
     ingress:
       enabled: true
-      annotations:
-        #traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
       hosts:
         - dex.k8s.rabbito.tech
       tls:
