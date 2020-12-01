@@ -12,6 +12,6 @@ spec:
       kind: TraefikService
     middlewares:
     - name: internal
-    - name: traefik-forward-auth
+    - name: traefik-forward-auth@kubernetescrd
   tls:
     secretName: rabbito-tech-tls
