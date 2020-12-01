@@ -15,3 +15,6 @@ spec:
         name: emberstack-charts
         namespace: flux-system
       interval: 5m
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager

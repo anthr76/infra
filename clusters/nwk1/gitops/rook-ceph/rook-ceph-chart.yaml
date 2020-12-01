@@ -15,6 +15,9 @@ spec:
         name: rook-ceph-charts
         namespace: flux-system
       interval: 5m
+  dependsOn:
+    - name: traefik
+      namespace: traefik
   values:
     resources:
       requests:

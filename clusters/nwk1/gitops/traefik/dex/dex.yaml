@@ -33,6 +33,8 @@ spec:
   dependsOn:
     - name: sealed-secrets
       namespace: kube-system
+    - name: traefik
+      namespace: traefik
   values:
     grpc: false
     ports:
