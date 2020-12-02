@@ -37,12 +37,10 @@ spec:
       namespace: traefik
   values:
     grpc: false
+    imageTag: "v2.26.0"
     ports:
       web:
         servicePort: 5556
-    tolerations:
-      - key: "arm"
-        operator: "Exists"
     certs:
       image: gcr.io/google_containers/kubernetes-dashboard-init-arm
       grpc:
