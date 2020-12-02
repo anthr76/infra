@@ -37,7 +37,7 @@ spec:
     providers:
       oidc:
         enabled: true
-        issuerUrl: "https://dex.k8s.rabbito.tech/"
+        issuerUrl: "https://dex.k8s.rabbito.tech"
         clientId: "forward-auth"
     ingress:
       enabled: true
