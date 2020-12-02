@@ -38,6 +38,7 @@ spec:
   values:
     grpc: false
     replicas: 2
+    image: dexidp/dex
     imageTag: "v2.26.0"
     ports:
       web:
