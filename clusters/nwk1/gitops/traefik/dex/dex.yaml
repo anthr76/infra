@@ -37,6 +37,7 @@ spec:
       namespace: traefik
   values:
     grpc: false
+    replicas: 2
     imageTag: "v2.26.0"
     ports:
       web:
