@@ -38,7 +38,7 @@ spec:
   values:
     grpc: false
     replicas: 2
-    image: dexidp/dex
+    image: docker.io/dexidp/dex
     imageTag: "v2.26.0"
     ports:
       web:
