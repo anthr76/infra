@@ -15,6 +15,27 @@ config:
       orgs:
       - name: rabbito-home
 
+  - type: ldap
+    name: FreeIPA
+    id: ldap
+    config:
+      host: den.rabbito.tech:389
+
+      insecureNoSSL: true
+
+      bindDN: uid=system,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
+      bindPW: ${LDAP_BIND_PW}
+
+      usernamePrompt: Email Address
+
+      userSearch:
+        baseDN: cn=accounts,dc=rabbito,dc=tech
+        filter: "(objectClass=posixAccount)"
+        username: mail
+        idAttr: DN
+        emailAttr: mail
+        nameAttr: cn
+
   staticClients:
   - name: Traefik Forward Auth
     id: forward-auth
