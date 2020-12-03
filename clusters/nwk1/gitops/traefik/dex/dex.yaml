@@ -62,7 +62,7 @@ spec:
         responseTypes: ["code", "token", "id_token"]
         skipApprovalScreen: true
       frontend:
-        logoURL: https://github.com/raspbernetes/docs/blob/master/website/static/img/logo.png
+        logoURL: https://raw.githubusercontent.com/raspbernetes/docs/master/website/static/img/logo.png
   valuesFrom:
     - kind: Secret
       name: "dex-helm-values"
