@@ -17,8 +17,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-  image:
-    repository: docker.io/raspbernetes/thanos
+    image:
+      repository: docker.io/raspbernetes/thanos
     query:
       replicaCount: 3
       replicaLabels:
