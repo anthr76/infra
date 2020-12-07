@@ -137,7 +137,7 @@ spec:
             key: object-store.yaml
     kube-state-metrics:
       image:
-        repository: k8s.gcr.io/kube-state-metrics/kube-state-metrics
+        repository: gcr.io/google-containers/kube-state-metrics
         tag: v1.9.5
   valuesFrom:
   - kind: Secret
