@@ -22,11 +22,7 @@ spec:
   timeout: 20m
   values:
     kubeEtcd:
-      enabled: true
-      endpoints:
-      - 192.168.4.19
-      - 192.168.4.18
-      - 192.168.4.17
+      enabled: false # Re-enable when etcd is in cluster
     server:
       resources:
         requests:
