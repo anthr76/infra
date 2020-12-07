@@ -26,6 +26,8 @@ spec:
       service:
         port: 10259
         targetPort: 10259
+      https: true
+      insecureSkipVerify: true
     server:
       resources:
         requests:
