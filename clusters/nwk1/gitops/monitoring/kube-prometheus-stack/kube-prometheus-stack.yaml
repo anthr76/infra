@@ -57,8 +57,6 @@ spec:
         - ReadWriteOnce
       ingress:
         enabled: true
-        annotations:
-          kubernetes.io/ingress.class: "external"
         hosts:
         - "grafana.k8s.rabbito.tech"
         tls:
@@ -137,6 +135,9 @@ spec:
           objectStorageConfig:
             name: thanos
             key: object-store.yaml
+    kube-state-metrics:
+      image:
+        repository: k8s.gcr.io/kube-state-metrics/kube-state-metrics
   valuesFrom:
   - kind: Secret
     name: "kube-prometheus-stack-helm-values"
