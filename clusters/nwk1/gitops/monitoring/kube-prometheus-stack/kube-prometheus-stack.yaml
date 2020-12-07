@@ -138,7 +138,7 @@ spec:
     kube-state-metrics:
       image:
         repository: k8s.gcr.io/kube-state-metrics/kube-state-metrics
-        tag: v2.0.0-beta
+        tag: v1.9.5
   valuesFrom:
   - kind: Secret
     name: "kube-prometheus-stack-helm-values"
