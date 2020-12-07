@@ -21,6 +21,11 @@ spec:
   #   namespace: kube-system
   timeout: 20m
   values:
+    kubeScheduler:
+      enabled: true
+      service:
+        port: 10259
+        targetPort: 10259
     server:
       resources:
         requests:
