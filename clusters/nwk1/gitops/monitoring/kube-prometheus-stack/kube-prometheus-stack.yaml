@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
-      version: 12.4.0
+      version: 12.6.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community-charts
@@ -23,6 +23,21 @@ spec:
   values:
     kubeEtcd:
       enabled: false # Re-enable when etcd is in cluster
+    kubeControllerManager:
+      enabled: true
+      service:
+        port: 10257
+        targetPort: 10257
+      serviceMonitor:
+        https: true
+        insecureSkipVerify: true
+    kubeScheduler:
+      service:
+        port: 10259
+        targetPort: 10259
+      serviceMonitor:
+        https: true
+        insecureSkipVerify: true
     server:
       resources:
         requests:
