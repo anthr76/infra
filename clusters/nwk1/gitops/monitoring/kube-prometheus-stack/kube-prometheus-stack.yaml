@@ -137,8 +137,8 @@ spec:
             key: object-store.yaml
     kube-state-metrics:
       image:
-        repository: gcr.io/google-containers/kube-state-metrics
-        tag: v1.9.5
+        repository: docker.io/eddiezane/kube-state-metrics
+        tag: v1.9.7
   valuesFrom:
   - kind: Secret
     name: "kube-prometheus-stack-helm-values"
