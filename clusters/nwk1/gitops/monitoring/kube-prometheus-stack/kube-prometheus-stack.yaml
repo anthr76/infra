@@ -75,10 +75,10 @@ spec:
       ingress:
         enabled: true
         hosts:
-        - "grafana.k8s.rabbito.tech"
+        - "grafana.rabbito.tech"
         tls:
         - hosts:
-          - "grafana.k8s.rabbito.tech"
+          - "grafana.rabbito.tech"
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
