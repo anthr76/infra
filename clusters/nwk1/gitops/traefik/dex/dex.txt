@@ -43,3 +43,9 @@ config:
     redirectURIs:
     - http://auth.k8s.rabbito.tech/_oauth
     - https://auth.k8s.rabbito.tech/_oauth
+
+  - id: grafana
+    name: grafana
+    secret: ${DEX_GRAFANA_CLIENT_SECRET}
+    redirectURIs:
+      - https://grafana.rabbito.tech/login/generic_oauth
