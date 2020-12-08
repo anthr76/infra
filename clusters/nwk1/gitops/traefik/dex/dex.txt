@@ -42,7 +42,7 @@ config:
         userMatchers:
         - userAttr: uid
           groupAttr: member
-      nameAttr: cn
+      nameAttr: name
 
 
   staticClients:
