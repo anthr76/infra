@@ -26,7 +26,7 @@ config:
       bindDN: uid=system,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
       bindPW: ${LDAP_BIND_PW}
 
-      usernamePrompt: Email Address
+      usernamePrompt: Email Addresss
 
       userSearch:
         baseDN: cn=accounts,dc=rabbito,dc=tech
@@ -35,6 +35,18 @@ config:
         idAttr: DN
         emailAttr: mail
         nameAttr: cn
+
+      groupSearch:
+        baseDN: cn=groups,cn=accounts,dc=rabbito,dc=tech
+        filter: "(objectClass=groupofnames)"
+
+        userMatchers:
+
+        - userAttr: DN
+          #groupAttr:
+
+      nameAttr: cn
+
 
   staticClients:
   - name: Traefik Forward Auth
