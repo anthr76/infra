@@ -39,6 +39,11 @@ spec:
       - "--entrypoints.web.http.redirections.entryPoint.to=:443"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--api.dashboard=true"
+      - "--metrics.prometheus.entryPoint=metrics"
+    metrics:
+      prometheus:
+        enabled: true
+        entryPoint: metrics
     service:
       externalIPs:
         - 172.30.0.5
