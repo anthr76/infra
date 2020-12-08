@@ -139,6 +139,12 @@ spec:
         - hosts:
           - "prometheus.k8s.rabbito.tech"
       prometheusSpec:
+        ruleSelector: {}
+        ruleNamespaceSelector: {}
+        serviceMonitorSelector: {}
+        serviceMonitorNamespaceSelector: {}
+        podMonitorSelector: {}
+        podMonitorNamespaceSelector: {}
         storageSpec:
           volumeClaimTemplate:
             spec:
