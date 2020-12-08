@@ -31,10 +31,10 @@ config:
       userSearch:
         baseDN: cn=accounts,dc=rabbito,dc=tech
         filter: "(objectClass=posixAccount)"
-        username: mail
-        idAttr: DN
+        username: uid
+        idAttr: uid
         emailAttr: mail
-        nameAttr: cn
+        nameAttr: gecos
 
       groupSearch:
         baseDN: cn=groups,cn=accounts,dc=rabbito,dc=tech
