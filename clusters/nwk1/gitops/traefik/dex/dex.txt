@@ -37,15 +37,12 @@ config:
         nameAttr: cn
 
       groupSearch:
-        baseDN: cn=groups,cn=accounts,dc=rabbito,dc=tech
-        filter: "(objectClass=posixgroup)"
-
+        baseDN: cn=groups,dc=rabbito,dc=tech
+        filter: "(objectClass=group)"
         userMatchers:
-
-        - userAttr: DN
-          #groupAttr:
-
-      nameAttr: cn
+        - userAttr: uid
+          groupAttr: member
+      nameAttr: name
 
 
   staticClients:
