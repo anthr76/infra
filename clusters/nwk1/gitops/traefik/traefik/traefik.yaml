@@ -18,7 +18,7 @@ spec:
   values:
     deployment:
       name: traefik
-      tag: 2.3.3
+      tag: 2.3.4
       replicas: 3
     autoscaling:
       enabled: true
@@ -36,14 +36,21 @@ spec:
     additionalArguments:
       - "--entrypoints.websecure.http.tls"
       - "--ping"
-      - "--entrypoints.web.http.redirections.entryPoint.to=:443"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      #- "--entrypoints.web.http.redirections.entryPoint.to=:443"
+      #- "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--api.dashboard=true"
       - "--metrics.prometheus.entryPoint=metrics"
     metrics:
       prometheus:
         enabled: true
         entryPoint: metrics
+    ports:
+      web:
+        redirectTo: websecure
+      metrics:
+        port: 8082
+        expose: true
+        exposedPort: 8082
     service:
       externalIPs:
         - 172.30.0.5
