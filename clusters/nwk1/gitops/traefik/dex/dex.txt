@@ -38,11 +38,11 @@ config:
 
       groupSearch:
         baseDN: cn=groups,cn=accounts,dc=rabbito,dc=tech
-        #filter: "(|(objectClass=posixgroup)(objectClass=groupofnames))"
+        filter: "(objectClass=groupofnames)"
         userMatchers:
-        - userAttr: member
-          groupAttr: uid
-      nameAttr: name
+        - userAttr: DN
+          groupAttr: member
+      nameAttr: cn
 
 
   staticClients:
