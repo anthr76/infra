@@ -38,7 +38,7 @@ config:
 
       groupSearch:
         baseDN: cn=groups,cn=accounts,dc=rabbito,dc=tech
-        filter: "(objectClass=groupofnames)"
+        filter: "(objectClass=posixgroup)"
 
         userMatchers:
 
