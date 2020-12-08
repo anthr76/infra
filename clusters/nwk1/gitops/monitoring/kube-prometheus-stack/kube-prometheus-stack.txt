@@ -16,5 +16,5 @@ grafana:
       token_url: https://dex.k8s.rabbito.tech/token
       api_url: https://dex.k8s.rabbito.tech/userinfo
     auth.generic_oauth.group_mapping:
-      role_attribute_path: "contains(groups[*], 'admins') && 'Admin' || 'Viewer'"
+      role_attribute_path = "contains(info.groups[*], 'admins') && 'Admin' || contains(info.groups[*], 'editor') && 'Editor' || 'Viewer'"
       org_id: 1
