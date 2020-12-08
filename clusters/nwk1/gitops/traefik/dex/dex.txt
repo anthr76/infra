@@ -39,10 +39,9 @@ config:
       groupSearch:
         baseDN: cn=groups,cn=accounts,dc=rabbito,dc=tech
         filter: "(objectClass=groupofnames)"
-        userMatchers:
-        - userAttr: DN
-          groupAttr: member
-      nameAttr: cn
+        userAttr: DN
+        groupAttr: member
+        nameAttr: cn
 
 
   staticClients:
