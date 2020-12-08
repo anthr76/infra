@@ -40,8 +40,8 @@ config:
         baseDN: cn=groups,cn=accounts,dc=rabbito,dc=tech
         filter: "(|(objectClass=posixgroup)(objectClass=groupofnames))"
         userMatchers:
-        - userAttr: member
-          groupAttr: DN
+        - userAttr: uid
+          groupAttr: member
       nameAttr: cn
 
 
