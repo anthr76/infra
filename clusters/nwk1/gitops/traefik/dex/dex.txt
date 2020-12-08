@@ -26,12 +26,12 @@ config:
       bindDN: uid=system,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
       bindPW: ${LDAP_BIND_PW}
 
-      usernamePrompt: User Name
+      usernamePrompt: Email Address
 
       userSearch:
         baseDN: cn=users,cn=accounts,dc=rabbito,dc=tech
         filter: "(objectClass=posixAccount)"
-        username: uid
+        username: mail
         idAttr: uid
         emailAttr: mail
         nameAttr: gecos
