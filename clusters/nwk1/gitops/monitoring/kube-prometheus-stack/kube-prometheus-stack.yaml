@@ -95,13 +95,19 @@ spec:
       dashboards:
         default:
           ceph-cluster:
-            url: https://grafana.com/api/dashboards/2842/revisions/11/download
+            url: https://grafana.com/api/dashboards/2842/revisions/14/download
             datasource: Prometheus
           ceph-osd:
-            url: https://grafana.com/api/dashboards/5336/revisions/3/download
+            url: https://grafana.com/api/dashboards/5336/revisions/5/download
             datasource: Prometheus
           ceph-pools:
-            url: https://grafana.com/api/dashboards/5342/revisions/3/download
+            url: https://grafana.com/api/dashboards/5342/revisions/5/download
+            datasource: Prometheus
+          flux-cluster:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.4.2/manifests/monitoring/grafana/dashboards/cluster.json
+            datasource: Prometheus
+          flux-control-plane:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.4.2/manifests/monitoring/grafana/dashboards/control-plane.json
             datasource: Prometheus
           # Ref: https://grafana.com/grafana/dashboards/11315
           unifi-client-insights:
