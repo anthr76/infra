@@ -21,8 +21,8 @@ spec:
       tag: 2.3.4
       replicas: 3
       podAnnotations:
-        prometheus.io/scrape: 'true'
-        prometheus.io/port: '8082'
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8082"
     autoscaling:
       enabled: true
       minReplicas: 3
