@@ -1,0 +1,4 @@
+- name: Include kubespray tasks (Remove_node)
+  become: true
+  become_user: root
+  include: kubespray/remove-node.yml

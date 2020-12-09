@@ -33,7 +33,7 @@ loadbalancer_apiserver_localhost: false
 loadbalancer_apiserver_port: 6443
 
 ## If loadbalancer_apiserver_healthcheck_port variable defined, enables proxy liveness check for nginx.
-loadbalancer_apiserver_healthcheck_port: 8081
+#loadbalancer_apiserver_healthcheck_port: 8081
 
 ### OTHER OPTIONAL VARIABLES
 

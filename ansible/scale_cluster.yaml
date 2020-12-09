@@ -1,0 +1,4 @@
+- name: Include kubespray tasks (Scale)
+  become: true
+  become_user: root
+  include: kubespray/scale.yml
