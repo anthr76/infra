@@ -16,4 +16,5 @@ resources:
 - ./helm-chart-repositories/weaveworks-kured-charts.yaml
 - ./helm-chart-repositories/wiremind-charts.yaml
 - ./helm-chart-repositories/banzaicloud-charts.yaml
+- ./helm-chart-repositories/grafana-loki-charts.yaml
 - ./monitoring/flux-podmonitors.yaml
