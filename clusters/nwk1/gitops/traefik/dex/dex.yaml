@@ -1,70 +1,70 @@
-#---
-#apiVersion: helm.toolkit.fluxcd.io/v2beta1
-#kind: HelmRelease
-#metadata:
-#  name: dex
-#  namespace: traefik
-#spec:
-#  interval: 5m
-#  chart:
-#    spec:
-#      chart: dex
-#      version: 2.15.2
-#      sourceRef:
-#        kind: HelmRepository
-#        name: kubernetes-stable-charts
-#        namespace: flux-system
-#      interval: 10m
-#  test:
-#    enable: false # Enable helm test
-#  install:
-#    remediation: # perform remediation when helm install fails
-#      retries: 5
-#  upgrade:
-#    remediation: # perform remediation when helm upgrade fails
-#      retries: 3
-#      remediateLastFailure: true # remediate the last failure, when no retries remain
-#    cleanupOnFail: true
-#  rollback:
-#    timeout: 10m
-#    cleanupOnFail: true
-#    recreate: true
-#  # Depends on having the sealed secret dex-helm-values un-encrypted.
-#  dependsOn:
-#    - name: sealed-secrets
-#      namespace: kube-system
-#    - name: traefik
-#      namespace: traefik
-#  values:
-#    grpc: false
-#    telemetry: true
-#    replicas: 2
-#    image: docker.io/dexidp/dex
-#    imageTag: v2.26.0
-#    ports:
-#      web:
-#        servicePort: 5556
-#    certs:
-#      image: gcr.io/google_containers/kubernetes-dashboard-init-arm
-#      grpc:
-#        create: false
-#      web:
-#        create: false
-#    ingress:
-#      enabled: true
-#      hosts:
-#        - dex.k8s.rabbito.tech
-#      tls:
-#        - secretName: rabbito-tech-tls
-#    config:
-#      issuer: https://dex.k8s.rabbito.tech
-#      enablePasswordDB: false
-#      oauth2:
-#        responseTypes: ["code", "token", "id_token"]
-#        skipApprovalScreen: true
-#      frontend:
-#        logoURL: https://raw.githubusercontent.com/raspbernetes/docs/master/website/static/img/logo.png
-#        theme: 'tectonic'
-#  valuesFrom:
-#    - kind: Secret
-#      name: "dex-helm-values"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: dex
+  namespace: traefik
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: dex
+      version: 2.15.2
+      sourceRef:
+        kind: HelmRepository
+        name: kubernetes-stable-charts
+        namespace: flux-system
+      interval: 10m
+  test:
+    enable: false # Enable helm test
+  install:
+    remediation: # perform remediation when helm install fails
+      retries: 5
+  upgrade:
+    remediation: # perform remediation when helm upgrade fails
+      retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    cleanupOnFail: true
+    recreate: true
+  # Depends on having the sealed secret dex-helm-values un-encrypted.
+  dependsOn:
+    - name: sealed-secrets
+      namespace: kube-system
+    - name: traefik
+      namespace: traefik
+  values:
+    grpc: false
+    telemetry: true
+    replicas: 2
+    image: docker.io/dexidp/dex
+    imageTag: v2.26.0
+    ports:
+      web:
+        servicePort: 5556
+    certs:
+      image: gcr.io/google_containers/kubernetes-dashboard-init-arm
+      grpc:
+        create: false
+      web:
+        create: false
+    ingress:
+      enabled: true
+      hosts:
+        - dex.k8s.rabbito.tech
+      tls:
+        - secretName: rabbito-tech-tls
+    config:
+      issuer: https://dex.k8s.rabbito.tech
+      enablePasswordDB: false
+      oauth2:
+        responseTypes: ["code", "token", "id_token"]
+        skipApprovalScreen: true
+      frontend:
+        logoURL: https://raw.githubusercontent.com/raspbernetes/docs/master/website/static/img/logo.png
+        theme: 'tectonic'
+  valuesFrom:
+    - kind: Secret
+      name: "dex-helm-values"
