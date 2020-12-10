@@ -130,10 +130,16 @@ spec:
             revision: 8
             datasource: Prometheus
           # Ref: https://grafana.com/grafana/dashboards/12833
-          version-checker:
-            gnetId: 12833
-            revision: 1
-            datasource: Prometheus
+      additionalDataSources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://thanos-query-http:10902/
+        isDefault: true
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki:3100
     prometheus:
       ingress:
         enabled: true
