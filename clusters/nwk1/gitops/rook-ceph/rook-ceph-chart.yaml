@@ -18,11 +18,11 @@ spec:
   dependsOn:
     - name: traefik
       namespace: traefik
-  values:
-    resources:
-      requests:
-        cpu: 350m
-        memory: 128Mi
-      limits:
-        cpu: 1500m
-        memory: 256Mi
+#  values:
+#    resources:
+#      requests:
+#        cpu: 350m
+#        memory: 128Mi
+#      limits:
+#        cpu: 1500m
+#        memory: 256Mi
