@@ -2,6 +2,6 @@ loki:
   config:
     storage_config:
       aws:
-        s3: https://${LOKI_S3_KEY_ID}:${LOKI_S3_APP_KEY}@${LOKI_S3_ENDPOINT}/${LOKI_S3_BUCKET_NAME}
+        s3: s3://${LOKI_S3_KEY_ID}:${LOKI_S3_APP_KEY}@${LOKI_S3_ENDPOINT}/${LOKI_S3_BUCKET_NAME}
         insecure: false
         s3forcepathstyle: true
