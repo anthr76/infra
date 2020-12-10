@@ -79,6 +79,21 @@ spec:
         tls:
         - hosts:
           - "grafana.rabbito.tech"
+      sidecar:
+        datasources:
+          enabled: true
+          # Disable for thanos
+          defaultDatasourceEnabled: false
+        dashboards:
+          enabled: true
+          searchNamespace: ALL
+      plugins:
+      - natel-discrete-panel
+      - pr0ps-trackmap-panel
+      - grafana-piechart-panel
+      - vonage-status-panel
+      - grafana-worldmap-panel
+      - grafana-clock-panel
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
