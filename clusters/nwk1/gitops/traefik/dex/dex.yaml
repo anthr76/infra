@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: dex
-      version: 2.15.2
+      version: 2.15.3
       sourceRef:
         kind: HelmRepository
-        name: kubernetes-stable-charts
+        name: wiremind-charts
         namespace: flux-system
       interval: 10m
   test:
@@ -37,10 +37,9 @@ spec:
       namespace: traefik
   values:
     grpc: false
-    telemetry: true
     replicas: 2
     image: docker.io/dexidp/dex
-    imageTag: v2.26.0
+    imageTag: "v2.26.0"
     ports:
       web:
         servicePort: 5556
