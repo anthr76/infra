@@ -12,7 +12,7 @@ spec:
       version: 2.15.3
       sourceRef:
         kind: HelmRepository
-        name: wiremind-charts
+        name: kubernetes-stable-charts
         namespace: flux-system
       interval: 10m
   test:
@@ -37,9 +37,10 @@ spec:
       namespace: traefik
   values:
     grpc: false
+    telemetry: true
     replicas: 2
     image: docker.io/dexidp/dex
-    imageTag: "v2.26.0"
+    imageTag: v2.26.0
     ports:
       web:
         servicePort: 5556
@@ -63,6 +64,7 @@ spec:
         skipApprovalScreen: true
       frontend:
         logoURL: https://raw.githubusercontent.com/raspbernetes/docs/master/website/static/img/logo.png
+        theme: 'tectonic'
   valuesFrom:
     - kind: Secret
       name: "dex-helm-values"
