@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: docker.io/raspbernetes/thanos
-      tag: v0.17.1
+      tag: v0.17.2
     query:
       replicaCount: 3
       replicaLabels:
