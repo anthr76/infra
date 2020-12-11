@@ -139,7 +139,7 @@ kube_encrypt_secret_data: false
 # Kubernetes cluster name, also will be used as DNS domain
 cluster_name: nwk1.cluster
 # Subdomains of DNS domain to be resolved via /etc/resolv.conf for hostnet pods
-ndots: 2
+#ndots: 2
 # Can be coredns, coredns_dual, manual or none
 dns_mode: coredns
 # Set manual server if using a custom cluster DNS server
