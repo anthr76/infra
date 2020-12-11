@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: flux-system
 ---
 apiVersion: networking.k8s.io/v1
@@ -11,7 +11,7 @@ kind: NetworkPolicy
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: allow-scraping
   namespace: flux-system
 spec:
@@ -30,7 +30,7 @@ kind: NetworkPolicy
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: allow-webhooks
   namespace: flux-system
 spec:
@@ -48,7 +48,7 @@ kind: NetworkPolicy
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: deny-ingress
   namespace: flux-system
 spec:
@@ -64,7 +64,7 @@ kind: Role
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: crd-controller-flux-system
   namespace: flux-system
 rules:
@@ -112,7 +112,7 @@ kind: RoleBinding
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: crd-controller-flux-system
   namespace: flux-system
 roleRef:
@@ -129,7 +129,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: cluster-reconciler-flux-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -148,7 +148,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: buckets.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -333,7 +333,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: gitrepositories.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -373,6 +373,13 @@ spec:
           spec:
             description: GitRepositorySpec defines the desired state of a Git repository.
             properties:
+              gitImplementation:
+                default: go-git
+                description: Determines which git client library to use. Defaults to go-git, valid values are ('go-git', 'libgit2').
+                enum:
+                - go-git
+                - libgit2
+                type: string
               ignore:
                 description: Ignore overrides the set of excluded patterns in the .sourceignore format (which is the same as .gitignore). If not provided, a default will be used, consult the documentation for your version to find out what those are.
                 type: string
@@ -537,7 +544,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: helmcharts.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -728,7 +735,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: helmrepositories.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -890,7 +897,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
     control-plane: controller
   name: source-controller
   namespace: flux-system
@@ -909,7 +916,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
     control-plane: controller
   name: source-controller
   namespace: flux-system
@@ -934,12 +941,13 @@ spec:
         - --log-json
         - --enable-leader-election
         - --storage-path=/data
+        - --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.cluster.local.
         env:
         - name: RUNTIME_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/source-controller-arm64:v0.4.1
+        image: ghcr.io/fluxcd/source-controller-arm64:v0.5.2
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -988,7 +996,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: kustomizations.kustomize.toolkit.fluxcd.io
 spec:
   group: kustomize.toolkit.fluxcd.io
@@ -1080,6 +1088,26 @@ spec:
                   required:
                   - kind
                   - name
+                  type: object
+                type: array
+              images:
+                description: A list of images used to override or set the name and tag for container images.
+                items:
+                  description: Image contains the name, new name and new tag that will replace the original container image.
+                  properties:
+                    name:
+                      description: Name of the image to be replaced.
+                      type: string
+                    newName:
+                      description: NewName is the name of the image used to replace the original one.
+                      type: string
+                    newTag:
+                      description: NewTag is the image tag used to replace the original tag.
+                      type: string
+                  required:
+                  - name
+                  - newName
+                  - newTag
                   type: object
                 type: array
               interval:
@@ -1256,7 +1284,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
     control-plane: controller
   name: kustomize-controller
   namespace: flux-system
@@ -1285,7 +1313,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/kustomize-controller-arm64:v0.4.0
+        image: ghcr.io/fluxcd/kustomize-controller-arm64:v0.5.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -1333,7 +1361,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: helmreleases.helm.toolkit.fluxcd.io
 spec:
   group: helm.toolkit.fluxcd.io
@@ -1741,7 +1769,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
     control-plane: controller
   name: helm-controller
   namespace: flux-system
@@ -1770,7 +1798,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/helm-controller-arm64:v0.4.1
+        image: ghcr.io/fluxcd/helm-controller-arm64:v0.4.3
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -1816,7 +1844,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: alerts.notification.toolkit.fluxcd.io
 spec:
   group: notification.toolkit.fluxcd.io
@@ -1899,6 +1927,9 @@ spec:
                     description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?'
                     type: string
                 type: object
+              summary:
+                description: Short description of the impact and affected cluster.
+                type: string
               suspend:
                 description: This flag tells the controller to suspend subsequent events dispatching. Defaults to false.
                 type: boolean
@@ -1973,7 +2004,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: providers.notification.toolkit.fluxcd.io
 spec:
   group: notification.toolkit.fluxcd.io
@@ -2114,7 +2145,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
   name: receivers.notification.toolkit.fluxcd.io
 spec:
   group: notification.toolkit.fluxcd.io
@@ -2278,7 +2309,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
     control-plane: controller
   name: notification-controller
   namespace: flux-system
@@ -2297,7 +2328,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
     control-plane: controller
   name: webhook-receiver
   namespace: flux-system
@@ -2316,7 +2347,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
-    app.kubernetes.io/version: 0.4.2
+    app.kubernetes.io/version: 0.5.0
     control-plane: controller
   name: notification-controller
   namespace: flux-system
@@ -2344,7 +2375,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: ghcr.io/fluxcd/notification-controller-arm64:v0.4.0
+        image: ghcr.io/fluxcd/notification-controller-arm64:v0.5.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
