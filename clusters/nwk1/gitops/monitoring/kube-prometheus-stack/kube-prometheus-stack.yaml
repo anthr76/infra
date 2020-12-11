@@ -187,7 +187,7 @@ spec:
                   storage: 10Gi
         thanos:
           image: docker.io/raspbernetes/thanos
-          version: v0.17.1
+          version: v0.17.2
           objectStorageConfig:
             name: thanos
             key: object-store.yaml
