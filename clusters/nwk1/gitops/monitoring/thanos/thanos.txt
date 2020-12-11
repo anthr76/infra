@@ -2,6 +2,6 @@ objstore:
   config:
     bucket: "${THANOS_S3_BUCKET_NAME}"
     endpoint: "${THANOS_S3_ENDPOINT}"
+    region: "${THANOS_S3_REGION}"
     access_key: "${THANOS_S3_KEY_ID}"
-    region: "${THANOS_S3_REGION}
     secret_key: "${THANOS_S3_APP_KEY}"
