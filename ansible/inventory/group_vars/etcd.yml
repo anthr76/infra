@@ -19,7 +19,7 @@
 # etcd_peer_client_auth: true
 
 ## Settings for etcd deployment type
-etcd_deployment_type: host
+#etcd_deployment_type: host
 
 etcd_access_addresses: https://etcd.k8s.rabbito.tech:2379
 etcd_client_url: https://etcd.k8s.rabbito.tech:2379

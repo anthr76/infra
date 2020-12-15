@@ -3,7 +3,7 @@
 etcd_data_dir: /var/lib/etcd
 
 ## Experimental kubeadm etcd deployment mode. Available only for new deployment
-# etcd_kubeadm_enabled: false
+etcd_kubeadm_enabled: true
 
 ## Directory where the binaries will be installed
 bin_dir: /usr/local/bin
@@ -95,4 +95,3 @@ upstream_dns_servers:
 #
 download_container: false
 skip_downloads: false
-etcd_kubeadm_enabled: false
