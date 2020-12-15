@@ -1,3 +1,6 @@
 [submodule "ansible/ansible/kubespray"]
 	path = ansible/kubespray
 	url = git@github.com:anthr76/kubespray.git
+[submodule "ansible/ansible/k8s-cluster-installation"]
+	path = ansible/k8s-cluster-installation
+	url = git@github.com:anthr76/k8s-cluster-installation.git
