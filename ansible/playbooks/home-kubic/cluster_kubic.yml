@@ -1,33 +1,10 @@
 ---
 
-- hosts: raspbernetes_vm
-
-  pre_tasks:
-  - name: Assign inventory name to unconfigured hostnames (CoreOS, Flatcar, Suse and ClearLinux only)
-    command: "hostnamectl set-hostname {{ inventory_hostname }}"
-    register: hostname_changed
-    become: true
-    changed_when: false
-
-  tasks:
-  - name: ensure kubernetes manifests directory
-    file:
-      path: /etc/kubernetes/manifests
-      state: directory
-  - name: ensure kubelet is running and enabled
-    service:
-      name: kubelet
-      state: started
-      enabled: yes
-
-- hosts: raspbernetes_vm
-  become: true
-  roles:
-  - dockerhub
-
 - hosts:
   - masters
   - workers
   become: true
   roles:
+  - dockerhub
+  - kubic
   - cluster

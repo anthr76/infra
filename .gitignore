@@ -1,2 +1,3 @@
 **/.terraform
 /ansible/output/
+/ansible/playbooks/home-kubic/output/
