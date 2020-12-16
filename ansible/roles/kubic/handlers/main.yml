@@ -1,0 +1,6 @@
+- name: restart rebootmgr
+  systemd:
+    name: rebootmgr
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
