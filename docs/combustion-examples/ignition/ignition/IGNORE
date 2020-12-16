@@ -1,0 +1,25 @@
+{
+        "ignition": { "version": "3.1.0" },
+        "passwd": {
+                "users": [
+                        {
+                                "name": "root",
+                                "sshAuthorizedKeys": [
+                                        "ssh-rsa "
+                                ]
+                        }
+                ]
+        }
+}
+{
+        "ignition": { "version": "3.0.0" },
+        "storage": {
+                "files": [{
+                        "filesystem": "root",
+                        "path": "/etc/hostname",
+                        "mode": 420,
+                        "overwrite": true,
+                        "contents": { "source": "data:,master-02.k8s.rabbito.tech" }
+                }]
+        }
+}

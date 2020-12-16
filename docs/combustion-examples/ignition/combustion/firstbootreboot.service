@@ -1,0 +1,11 @@
+[Unit]
+Description=First Boot Reboot
+
+[Service]
+Type=oneshot
+ExecStart=rm /etc/systemd/system/firstbootreboot.service
+ExecStart=rm /etc/systemd/system/default.target.wants/firstbootreboot.service
+ExecStart=systemctl reboot
+
+[Install]
+WantedBy=default.target

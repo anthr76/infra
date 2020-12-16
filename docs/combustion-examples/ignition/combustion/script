@@ -1,0 +1,34 @@
+#!/bin/bash
+# combustion: network
+## Mount /var and /home so user can be created smoothly
+mount /var
+mount /home
+
+## Make user
+useradd -m localanthony
+
+## Add user to sudoers
+echo "localanthony ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/localanthony
+
+## Create ssh folder and populate authorized_keys for remote sshd
+mkdir -pm700 /home/localanthony/.ssh
+chown localanthony:users -R /home/localanthony/.ssh
+cat authorized_keys > /home/localanthony/.ssh/authorized_keys
+
+## Make user login by default
+mkdir -p /etc/systemd/system/getty@tty1.service.d
+cp autologin.conf /etc/systemd/system/getty@tty1.service.d
+
+## Reboot after setup
+cp firstbootreboot.service /etc/systemd/system/
+systemctl enable firstbootreboot.service
+
+# Set hostname
+echo "master-02.k8s.rabbito.tech" > /etc/hostname
+
+## Clear up mounts
+umount /var
+umount /home
+
+# Redirect output to the console
+exec > >(exec tee -a /dev/tty0) 2>&1
