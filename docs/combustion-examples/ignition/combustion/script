@@ -23,6 +23,9 @@ cp autologin.conf /etc/systemd/system/getty@tty1.service.d
 cp firstbootreboot.service /etc/systemd/system/
 systemctl enable firstbootreboot.service
 
+# Install Python3-Rpm for Ansible
+zypper --non-interactive install python3-rpm
+
 # Set hostname
 echo "master-02.k8s.rabbito.tech" > /etc/hostname
 
