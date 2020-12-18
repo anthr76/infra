@@ -1,4 +1,7 @@
 ---
+
+- name: Add python3-rpm
+
 - name: Assign inventory name to unconfigured hostnames
   command: "hostnamectl set-hostname {{ inventory_hostname }}"
   register: hostname_changed
