@@ -17,9 +17,11 @@ cluster_kube_proxy: disabled
 cni_plugin: cilium
 cni_bgp_peer_address: 192.168.0.1
 cni_bgp_peer_asn: 64512
-bgp_cluster_asn: 63400
+bgp_cluster_asn: 64515
 cni_cilium_helm_version: 1.9.1
 cni_cilium_image_version: v1.9.1
 k8s_service_host: "192.168.0.1"
 k8s_service_port: 6443
-cluster_pod_subnet: "172.16.0.0/16"
+cluster_pod_subnet: "10.0.0.0/8"
+k8s_native_cluster_cidr: 192.168.10.0/24
+cni_cilium_endpoint_routes: true
