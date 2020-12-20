@@ -1,10 +1,10 @@
 ---
-ApiVersion: helm.toolkit.fluxcd.io/v2beta1
-Kind: HelmRelease
-Metadata:
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
  name: kured
  namespace: kube-system
-Spec:
+spec:
  interval: 5m
  chart:
    spec:
@@ -19,6 +19,8 @@ Spec:
    image:
      repository: raspbernetes/kured
      tag: 1.5.1
+   service:
+     create: true
    tolerations:
      - key: node-role.kubernetes.io/master
        effect: NoSchedule
