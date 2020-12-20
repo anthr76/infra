@@ -19,5 +19,6 @@ spec:
     - name: traefik
       namespace: traefik
   values:
-    rbdGrpcMetricsPort: 9092
-    cephfsGrpcMetricsPort: 9093
+    csi:
+      rbdGrpcMetricsPort: 9092
+      cephfsGrpcMetricsPort: 9093
