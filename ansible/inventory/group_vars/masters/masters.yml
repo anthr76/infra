@@ -2,6 +2,7 @@ cluster_name: nwk1
 cluster_extra_sans:
   - "192.168.0.1"
   - "k8s.rabbito.tech"
+  - "192.168.4.1"
 cluster_control_plane_endpoint: "192.168.0.1:6443"
 # cluster_enable_admission_plugins: "NodeRestriction,AlwaysPullImages"
 # cluster_authorization_mode: "Node,RBAC"
