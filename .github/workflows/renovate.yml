@@ -1,0 +1,33 @@
+name: renovate-helmrelease-schedule
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 * * * *"
+
+jobs:
+  renovate-helmrelease:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Update NWK1 Helm Releases
+      run: |
+        docker-compose run -T --rm builder clusters/nwk1/hack/bootstrap/renovate-helm-releases.sh
+
+    - name: Create NWK1 Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: update/pre-commit-auto-update
+        delete-branch: true
+        title: Auto-update pre-commit hooks
+        signoff: true
+        committer: "Anthony Rabbito <hello@anthonyrabbito.com>"
+        author: "Anthony Rabbito <hello@anthonyrabbito.com>"
+        commit-message: Auto-update pre-commit hooks
+        body: |
+          Signed-off-by: Anthony Rabbito <hello@anthonyrabbito.com>
+        labels: dependencies, merge
