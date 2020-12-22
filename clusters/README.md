@@ -2,7 +2,7 @@
 
 <p align="center"><img src="https://i.imgur.com/p1RzXjQ.png"><br></p>
 
-[![Discord](https://img.shields.io/badge/discord-chat-7289DA.svg?maxAge=60&style=flat-square)](https://discord.gg/Yv2gzFy)  [![k8s](https://img.shields.io/badge/k8s-v1.19.3-orange?maxAge=60&style=flat-square)](https://kubernetes.io)
+[![Discord](https://img.shields.io/badge/discord-chat-7289DA.svg?maxAge=60&style=flat-square)](https://discord.gg/Yv2gzFy)  [![k8s](https://img.shields.io/badge/k8s-v1.20.0-orange?maxAge=60&style=flat-square)](https://kubernetes.io)
 ---
 
 ## :book:&nbsp; Overview

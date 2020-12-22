@@ -31,5 +31,6 @@ _All my Kubernetes master and worker nodes below are running bare metal forked [
 | Device                  | Count | OS Disk Size | Data Disk Size      | Ram  | Purpose                                |
 |-------------------------|-------|--------------|---------------------|------|----------------------------------------|
 | HP ProBook 450 G1       | 1     | 256GB SSD    | 1TB SSD             | 16GB | k8s Worker                             |
-| Raspberry Pi 4          | 3     | 256GB SSD    | N/A                 | 4 GB | k8s Master                             |
+| Raspberry Pi 4          | 2     | 256GB SSD    | N/A                 | 4 GB | k8s Master                             |
+| Raspberry Pi 4          | 1     | 256GB SSD    | N/A                 | 8 GB | k8s Master                             |
 | Raspberry Pi 4          | 1     | 256GB SSD    | N/A                 | 4 GB | k8s Worker                             |
