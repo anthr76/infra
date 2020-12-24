@@ -1,0 +1,33 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Receiver
+metadata:
+  name: nwk1
+  namespace: flux-system
+spec:
+  type: github
+  events:
+  - "ping"
+  - "push"
+  secretRef:
+    name: github-webhook
+  resources:
+  - kind: GitRepository
+    name: flux-system
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: flux-receiver
+  namespace: flux-system
+spec:
+  routes:
+  - match: Host(`flux-receiver.k8s.rabbito.tech`)
+    kind: Rule
+    services:
+    - kind: Service
+      name: webhook-receiver
+      port: 80
+      namespace: flux-system
+  tls:
+    secretName: rabbito-tech-tls
