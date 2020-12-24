@@ -69,11 +69,19 @@ kubectl create secret generic discord-webhook \
         >>"${GENERATED_SECRETS}"
 echo "---" >>"${GENERATED_SECRETS}"
 
+#flux github
+kubectl create secret generic github-webhook-token \
+    --from-literal=address="${FLUX_GITHUB_API}" \
+    --namespace flux-system --dry-run=client -o json |
+    kubeseal --format=yaml --cert="${PUB_CERT}" \
+        >>"${GENERATED_SECRETS}"
+echo "---" >>"${GENERATED_SECRETS}"
+
 # Remove empty new-lines
 sed -i '/^[[:space:]]*$/d' "${GENERATED_SECRETS}"
 
 # Validate Yaml
-if ! yq validate "${GENERATED_SECRETS}" >/dev/null 2>&1; then
+if ! yq eval "${GENERATED_SECRETS}" >/dev/null 2>&1; then
     echo "Errors in YAML"
     exit 1
 fi
