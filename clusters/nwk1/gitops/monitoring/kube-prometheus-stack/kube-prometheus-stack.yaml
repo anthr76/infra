@@ -61,14 +61,14 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: "rook-ceph-block"
+              storageClassName: "openebs-cstor-sparse"
               resources:
                 requests:
                   storage: 10Gi
     grafana:
       persistence:
         enabled: false
-        storageClassName: "rook-ceph-block"
+        storageClassName: "openebs-cstor-sparse"
         size: 10Gi
         accessModes:
         - ReadWriteOnce
@@ -109,14 +109,11 @@ spec:
               path: /var/lib/grafana/dashboards/default
       dashboards:
         default:
-          ceph-cluster:
-            url: https://grafana.com/api/dashboards/2842/revisions/14/download
+          openebs:
+            url: https://grafana.com/api/dashboards/12171/revisions/2/download
             datasource: Prometheus
-          ceph-osd:
-            url: https://grafana.com/api/dashboards/5336/revisions/5/download
-            datasource: Prometheus
-          ceph-pools:
-            url: https://grafana.com/api/dashboards/5342/revisions/5/download
+          openebs-pg-dashboard:
+            url: https://raw.githubusercontent.com/openebs/openebs/v2.3.0/k8s/openebs-pg-dashboard.json
             datasource: Prometheus
           flux-cluster:
             url: https://raw.githubusercontent.com/fluxcd/flux2/v0.4.2/manifests/monitoring/grafana/dashboards/cluster.json
@@ -181,7 +178,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: "rook-ceph-block"
+              storageClassName: "openebs-cstor-sparse"
               resources:
                 requests:
                   storage: 10Gi
