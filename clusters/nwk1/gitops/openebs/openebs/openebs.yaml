@@ -34,6 +34,8 @@ spec:
     ndm:
       sparse:
         count: '1'
+      filters:
+        excludePaths: "/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd,/dev/mmcblk-"
     apiserver:
       sparse:
         enabled: true
