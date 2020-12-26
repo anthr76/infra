@@ -39,3 +39,6 @@ spec:
     apiserver:
       sparse:
         enabled: true
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
