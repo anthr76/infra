@@ -45,3 +45,23 @@ spec:
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/master
+    provisioner:
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+    localprovisioner:
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+    snapshotOperator:
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+    ndmOperator:
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+    webhook:
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
