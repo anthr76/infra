@@ -35,7 +35,10 @@ spec:
       sparse:
         count: '1'
       filters:
-        excludePaths: "/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd,/dev/mmcblk1"
+        excludePaths: "/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd,/dev/mmcblk1,/dev/mmcblk-"
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
     apiserver:
       sparse:
         enabled: true
