@@ -1,24 +1,18 @@
-apiVersion: v1
-items:
-- apiVersion: openebs.io/v1alpha1
-  kind: StoragePoolClaim
-  metadata:
-    annotations:
-      cas.openebs.io/config: |
-        - name: Tolerations
-          value: |-
-            t1:
-              effect: NoSchedule
-              key: node-role.kubernetes.io/master
+apiVersion: openebs.io/v1alpha1
+kind: StoragePoolClaim
+metadata:
+  name: cstor-sparse-pool
+  annotations:
+    cas.openebs.io/config: |
+      - name: Tolerations
+        value: |-
+          t1:
+            effect: NoSchedule
+            key: node-role.kubernetes.io/master
+            operator: Equal
+            value: storage
   spec:
-    blockDevices:
-      blockDeviceList: null
     maxPools: 3
-    minPools: 0
     name: cstor-sparse-pool
     poolSpec:
-      cacheFile: ""
-      overProvisioning: false
       poolType: striped
-      roThresholdLimit: 0
-      thickProvisioning: false
