@@ -1,3 +1,5 @@
 **/.terraform
 /ansible/output/
 /ansible/playbooks/home-kubic/output/
+ansible/k8s-cilium-exec.sh
+clusters/nwk1/gitops/openebs/openebs/uninstall.sh
