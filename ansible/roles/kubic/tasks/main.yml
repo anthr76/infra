@@ -3,6 +3,11 @@
 - name: Assign inventory name to unconfigured hostnames
   command: "hostnamectl set-hostname {{ inventory_hostname }}"
   register: hostname_changed
+- name: Set sysctl for transient hostname
+  sysctl:
+    name: kernel.hostname
+    value: "{{ inventory_hostname }}"
+    sysctl_set: yes
 - name: ensure kubernetes manifests directory
   file:
     path: /etc/kubernetes/manifests
