@@ -4,3 +4,5 @@
     daemon_reload: yes
     enabled: yes
     state: restarted
+- name: kured reboot
+  command: "transactional-update reboot"

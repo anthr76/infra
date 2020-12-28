@@ -22,3 +22,6 @@
     src: transactional-update.conf.j2
     dest: /etc/transactional-update.conf
   notify: restart rebootmgr
+- name: Install packages
+  command: "transactional-update -n pkg install open-iscsi python3-rpm python-cryptography"
+  notify: kured reboot
