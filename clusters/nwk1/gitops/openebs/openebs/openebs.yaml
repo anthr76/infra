@@ -39,3 +39,5 @@ spec:
     apiserver:
       sparse:
         enabled: true
+    webhook:
+      failurePolicy: "Ignore"
