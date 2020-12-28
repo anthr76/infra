@@ -4,7 +4,7 @@ metadata:
   name: cstor-sparse-pool
   annotations:
     cas.openebs.io/config: |
-      - name: Tolerations
+      - name: TargetTolerations
         value: |-
           t1:
             effect: NoSchedule
