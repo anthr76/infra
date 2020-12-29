@@ -26,6 +26,9 @@ systemctl enable firstbootreboot.service
 # Install Ansible, and K8s packages
 zypper --non-interactive install python3-rpm open-iscsi
 
+# Enable iscsid
+systemctl enable iscsid
+
 # Set hostname
 echo "master-02.k8s.rabbito.tech" > /etc/hostname
 echo "kernel.hostname = worker-02.k8s.rabbito.tech" > /etc/sysctl.conf
