@@ -88,7 +88,8 @@ spec:
           enabled: true
           searchNamespace: ALL
       plugins:
-      - natel-discrete-panel
+      #Bad cert
+      #- natel-discrete-panel
       - pr0ps-trackmap-panel
       - grafana-piechart-panel
       - vonage-status-panel
