@@ -24,7 +24,7 @@ cp firstbootreboot.service /etc/systemd/system/
 systemctl enable firstbootreboot.service
 
 # Install Ansible, and K8s packages
-zypper --non-interactive install python3-rpm open-iscsi python-cryptography
+zypper --non-interactive install python3-rpm open-iscsi
 
 # Set hostname
 echo "master-02.k8s.rabbito.tech" > /etc/hostname
