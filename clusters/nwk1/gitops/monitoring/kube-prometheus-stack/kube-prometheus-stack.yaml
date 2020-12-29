@@ -20,6 +20,7 @@ spec:
   # - name: sealed-secrets
   #   namespace: kube-system
   timeout: 20m
+  fullnameOverride: x
   values:
     kubeEtcd:
       enabled: false # Re-enable when etcd is in cluster
