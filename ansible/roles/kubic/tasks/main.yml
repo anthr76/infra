@@ -3,6 +3,11 @@
 - name: Assign inventory name to unconfigured hostnames
   command: "hostnamectl set-hostname {{ inventory_hostname }}"
   register: hostname_changed
+  changed_when: false
+- name: Update hostname fact
+  setup:
+    gather_subset: '!all'
+    filter: ansible_hostname
 - name: Set sysctl for transient hostname
   sysctl:
     name: kernel.hostname
@@ -50,6 +55,7 @@
     dest: /etc/systemd/system/sys-fs-bpf.mount
     mode: 0755
     src: sys-fs-bpf.mount
+  register: systemd_bpf_mount
 - name: Configure rp_filter to fix systemd bug
   sysctl:
     name: net.ipv4.conf.lxc*.rp_filter
@@ -58,15 +64,19 @@
     sysctl_file: /etc/sysctl.d/99-override_cilium_rp_filter.conf
     ignoreerrors: yes
     reload: no
+  register: rp_filter
 - name: restart systemd-sysctl
   service:
     name: systemd-sysctl
     state: restarted
-- name: ensure bpf mount unit is enabled and started
+  when: rp_filter.changed
+- name: ensure bpf mount unit is enabled
   service:
     name: sys-fs-bpf.mount
     enabled: yes
     daemon_reload: yes
+    state: stopped
+  when: systemd_bpf_mount.changed
 #Disabling for now
 #- name: Install packages
 #  command: "transactional-update -n pkg install open-iscsi python3-rpm"
