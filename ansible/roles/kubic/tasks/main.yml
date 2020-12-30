@@ -22,6 +22,30 @@
     src: transactional-update.conf.j2
     dest: /etc/transactional-update.conf
   notify: restart rebootmgr
-- name: Install packages
-  command: "transactional-update -n pkg install open-iscsi python3-rpm"
-  notify: kured reboot
+- name: load overlay
+  modprobe:
+    name: overlay
+    state: present
+- name: load br_netfilter
+  modprobe:
+    name: br_netfilter
+    state: present
+- name: Update bridged IPv4 traffic to iptables' chains
+  sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: '1'
+    state: present
+- name: Update bridged IPv4 traffic to ip6tables' chains
+  sysctl:
+    name: net.bridge.bridge-nf-call-ip6tables
+    value: '1'
+    state: present
+- name: Update bridged IPv4 traffic forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    state: present
+#Disabling for now
+#- name: Install packages
+#  command: "transactional-update -n pkg install open-iscsi python3-rpm"
+#  notify: kured reboot
