@@ -19,6 +19,10 @@ cat authorized_keys > /home/localanthony/.ssh/authorized_keys
 mkdir -p /etc/systemd/system/getty@tty1.service.d
 cp autologin.conf /etc/systemd/system/getty@tty1.service.d
 
+## Mount bpffs
+cp sys-fs-bpf.mount /etc/systemd/system/
+systemctl enable sys-fs-bpf.mount
+
 ## Reboot after setup
 cp firstbootreboot.service /etc/systemd/system/
 systemctl enable firstbootreboot.service
