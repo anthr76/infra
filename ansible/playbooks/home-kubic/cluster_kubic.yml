@@ -7,5 +7,15 @@
   roles:
   - dockerhub
   - kubic
+  tags:
+  - prepare
+
+- hosts:
+  - masters
+  - workers
+  become: true
+  roles:
   - cluster
   - cni
+  tags:
+  - kubernetes

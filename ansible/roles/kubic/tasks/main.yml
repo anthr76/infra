@@ -55,10 +55,16 @@
     name: net.ipv4.conf.lxc*.rp_filter
     value: '0'
     state: present
-- name: ensure kubelet is running and enabled
+    sysctl_file: /etc/sysctl.d/99-override_cilium_rp_filter.conf
+    ignoreerrors: yes
+    reload: no
+- name: restart systemd-sysctl
+  service:
+    name: systemd-sysctl
+    state: restarted
+- name: ensure bpf mount unit is enabled and started
   service:
     name: sys-fs-bpf.mount
-    state: started
     enabled: yes
     daemon_reload: yes
 #Disabling for now
