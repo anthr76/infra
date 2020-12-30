@@ -20,13 +20,13 @@ spec:
     deployment:
       name: traefik
       tag: 2.3.4
-      replicas: 3
+      #replicas: 2
       podAnnotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8082"
     autoscaling:
       enabled: true
-      minReplicas: 3
+      minReplicas: 1
       maxReplicas: 10
     logs:
       general:
