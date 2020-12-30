@@ -45,6 +45,22 @@
     name: net.ipv4.ip_forward
     value: '1'
     state: present
+- name: Ensure eBPF mount unit is present
+  copy:
+    dest: /etc/systemd/system/sys-fs-bpf.mount
+    mode: 0755
+    src: sys-fs-bpf.mount
+- name: Configure rp_filter to fix systemd bug
+  sysctl:
+    name: net.ipv4.conf.lxc*.rp_filter
+    value: '0'
+    state: present
+- name: ensure kubelet is running and enabled
+  service:
+    name: sys-fs-bpf.mount
+    state: started
+    enabled: yes
+    daemon_reload: yes
 #Disabling for now
 #- name: Install packages
 #  command: "transactional-update -n pkg install open-iscsi python3-rpm"
