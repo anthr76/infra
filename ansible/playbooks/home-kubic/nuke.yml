@@ -22,8 +22,11 @@
       register: kubeadm_reset
       retries: 5
       until: kubeadm_reset is success
-
     - name: remove cni net.d folder
       file:
         path: /etc/cni/net.d
+        state: absent
+    - name: remove openebs directory
+      file:
+        path: /var/openebs
         state: absent
