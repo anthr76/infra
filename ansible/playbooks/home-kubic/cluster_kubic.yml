@@ -16,6 +16,14 @@
   become: true
   roles:
   - cluster
+  tags:
+  - kubeadm
+
+- hosts:
+  - masters
+  - workers
+  become: true
+  roles:
   - cni
   tags:
-  - kubernetes
+  - network
