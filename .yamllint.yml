@@ -1,10 +1,9 @@
 ignore: |
-    .yamllint
+    .yamllint.yml
     .github/
     .secrets/
     *.encrypted.yaml
     docker-compose.yml
-    cluster/home-system/zigbee2mqtt/zigbee2mqtt.yaml
 extends: default
 rules:
     truthy:
@@ -21,4 +20,5 @@ rules:
         min-spaces-inside: 0
         max-spaces-inside: 0
     indentation:
+        spaces: 2
         indent-sequences: consistent
