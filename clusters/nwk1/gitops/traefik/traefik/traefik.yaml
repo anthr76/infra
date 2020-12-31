@@ -1,61 +1,61 @@
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2beta1
-# kind: HelmRelease
-# metadata:
-#   name: traefik
-#   namespace: traefik
-# spec:
-#   interval: 5m
-#   chart:
-#     spec:
-#       # renovate: registryUrl=https://helm.traefik.io/traefik
-#       chart: traefik
-#       version: 9.12.2
-#       sourceRef:
-#         kind: HelmRepository
-#         name: traefik-charts
-#         namespace: flux-system
-#       interval: 5m
-#   values:
-#     deployment:
-#       name: traefik
-#       tag: ""
-#       #replicas: 2
-#       podAnnotations:
-#         prometheus.io/scrape: "true"
-#         prometheus.io/port: "8082"
-#     autoscaling:
-#       enabled: true
-#       minReplicas: 1
-#       maxReplicas: 10
-#     logs:
-#       general:
-#         level: DEBUG
-#     ingressClass:
-#       enabled: true
-#       isDefaultClass: true
-#     ingressRoute:
-#       dashboard:
-#         enabled: true
-#     additionalArguments:
-#       - "--entrypoints.websecure.http.tls"
-#       - "--ping"
-#       - "--api.dashboard=true"
-#       - "--metrics=true"
-#       - "--metrics.prometheus.entryPoint=metrics"
-#     metrics:
-#       prometheus:
-#         enabled: true
-#         entryPoint: metrics
-#     ports:
-#       web:
-#         redirectTo: websecure
-#       metrics:
-#         port: 8082
-#         expose: true
-#         exposedPort: 8082
-#     service:
-#       externalIPs:
-#         - 172.30.0.5
-#       spec:
-#         externalTrafficPolicy: Local
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: traefik
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://helm.traefik.io/traefik
+      chart: traefik
+      version: 9.12.2
+      sourceRef:
+        kind: HelmRepository
+        name: traefik-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    deployment:
+      name: traefik
+      tag: ""
+      #replicas: 2
+      podAnnotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8082"
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 10
+    logs:
+      general:
+        level: DEBUG
+    ingressClass:
+      enabled: true
+      isDefaultClass: true
+    ingressRoute:
+      dashboard:
+        enabled: true
+    additionalArguments:
+      - "--entrypoints.websecure.http.tls"
+      - "--ping"
+      - "--api.dashboard=true"
+      - "--metrics=true"
+      - "--metrics.prometheus.entryPoint=metrics"
+    metrics:
+      prometheus:
+        enabled: true
+        entryPoint: metrics
+    ports:
+      web:
+        redirectTo: websecure
+      metrics:
+        port: 8082
+        expose: true
+        exposedPort: 8082
+    service:
+      externalIPs:
+        - 172.30.0.5
+      spec:
+        externalTrafficPolicy: Local
