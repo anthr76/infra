@@ -38,6 +38,7 @@ spec:
       namespace: monitoring
   timeout: 20m
   values:
+    fullnameOverride: x
     kubeEtcd:
       enabled: false # Re-enable when etcd is in cluster
     kubeControllerManager:
@@ -74,7 +75,7 @@ spec:
           - "alert-manager.k8s.rabbito.tech"
         tls:
           - hosts:
-              - "alert-manager.k8s.rabbito.tech"
+          - "alert-manager.k8s.rabbito.tech"
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
