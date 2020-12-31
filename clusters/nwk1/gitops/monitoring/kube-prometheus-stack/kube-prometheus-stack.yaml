@@ -74,8 +74,8 @@ spec:
         hosts:
           - "alert-manager.k8s.rabbito.tech"
         tls:
-          - hosts:
-          - "alert-manager.k8s.rabbito.tech"
+          hosts:
+            - "alert-manager.k8s.rabbito.tech"
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -97,8 +97,8 @@ spec:
         hosts:
           - "grafana.rabbito.tech"
         tls:
-          - hosts:
-          - "grafana.rabbito.tech"
+          hosts:
+            - "grafana.rabbito.tech"
       sidecar:
         datasources:
           enabled: true
@@ -181,8 +181,8 @@ spec:
         hosts:
           - "prometheus.k8s.rabbito.tech"
         tls:
-          - hosts:
-          - "prometheus.k8s.rabbito.tech"
+          hosts:
+            - "prometheus.k8s.rabbito.tech"
       prometheusSpec:
         ruleSelector: {}
         ruleNamespaceSelector: {}
