@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: netshoot
+  labels:
+    app: netshoot
+spec:
+  selector:
+    matchLabels:
+      app: netshoot
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: netshoot
+      containers:
+      - image: enmotech/netshoot
+        name: netshoot
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-allow-all
+  namespace: network
+spec:
+  podSelector: {}
+  ingress:
+  - {}
+  egress:
+  - {}
+  policyTypes:
+  - Ingress
+  - Egress
