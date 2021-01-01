@@ -1,221 +1,221 @@
-#---
-#apiVersion: helm.toolkit.fluxcd.io/v2beta1
-#kind: HelmRelease
-#metadata:
-#  name: kube-prometheus-stack
-#  namespace: monitoring
-#spec:
-#  interval: 5m
-#  chart:
-#    spec:
-#      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
-#      chart: kube-prometheus-stack
-#      version: 12.9.1
-#      sourceRef:
-#        kind: HelmRepository
-#        name: prometheus-community-charts
-#        namespace: flux-system
-#      interval: 10m
-#  test:
-#    enable: false # Enable helm test
-#  install:
-#    remediation: # perform remediation when helm install fails
-#      retries: 3
-#  upgrade:
-#    remediation: # perform remediation when helm upgrade fails
-#      retries: 3
-#      remediateLastFailure: true # remediate the last failure, when no retries remain
-#    cleanupOnFail: true
-#  rollback:
-#    timeout: 10m
-#    recreate: true
-#    cleanupOnFail: true
-#  dependsOn:
-#  - name: sealed-secrets
-#    namespace: kube-system
-#  - name: thanos
-#    namespace: monitoring
-#  timeout: 20m
-#  values:
-#    fullnameOverride: x
-#    kubeEtcd:
-#      enabled: false # Re-enable when etcd is in cluster
-#    kubeControllerManager:
-#      enabled: true
-#      service:
-#        port: 10257
-#        targetPort: 10257
-#      serviceMonitor:
-#        https: true
-#        insecureSkipVerify: true
-#    kubeScheduler:
-#      service:
-#        port: 10259
-#        targetPort: 10259
-#      serviceMonitor:
-#        https: true
-#        insecureSkipVerify: true
-#    server:
-#      resources:
-#        requests:
-#          memory: 1000Mi
-#          cpu: 25m
-#        limits:
-#          memory: 2000Mi
-#    prometheusOperator:
-#      createCustomResource: false
-#    alertmanager:
-#      fullnameOverride: alertmanager
-#      ingress:
-#        enabled: true
-#        annotations:
-#          traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
-#        hosts:
-#        - "alert-manager.k8s.rabbito.tech"
-#        tls:
-#        - hosts:
-#          - "alert-manager.k8s.rabbito.tech"
-#      alertmanagerSpec:
-#        storage:
-#          volumeClaimTemplate:
-#            spec:
-#              storageClassName: "openebs-cstor-sparse"
-#              resources:
-#                requests:
-#                  storage: 10Gi
-#    grafana:
-#      fullnameOverride: grafana
-#      persistence:
-#        enabled: false
-#        storageClassName: "openebs-cstor-sparse"
-#        size: 10Gi
-#        accessModes:
-#        - ReadWriteOnce
-#      ingress:
-#        enabled: true
-#        hosts:
-#        - "grafana.rabbito.tech"
-#        tls:
-#        - hosts:
-#          - "grafana.rabbito.tech"
-#      sidecar:
-#        datasources:
-#          enabled: true
-#          # Disable for thanos
-#          defaultDatasourceEnabled: false
-#        dashboards:
-#          enabled: true
-#          searchNamespace: ALL
-#      plugins:
-#      #Bad cert
-#      #- natel-discrete-panel
-#      - pr0ps-trackmap-panel
-#      - grafana-piechart-panel
-#      - vonage-status-panel
-#      - grafana-worldmap-panel
-#      - grafana-clock-panel
-#      dashboardProviders:
-#        dashboardproviders.yaml:
-#          apiVersion: 1
-#          providers:
-#          - name: 'default'
-#            orgId: 1
-#            folder: ''
-#            type: file
-#            disableDeletion: false
-#            allowUiUpdates: true
-#            editable: true
-#            options:
-#              path: /var/lib/grafana/dashboards/default
-#      dashboards:
-#        default:
-#          openebs:
-#            url: https://grafana.com/api/dashboards/12171/revisions/2/download
-#            datasource: Prometheus
-#          openebs-pg-dashboard:
-#            url: https://raw.githubusercontent.com/openebs/openebs/v2.3.0/k8s/openebs-pg-dashboard.json
-#            datasource: Prometheus
-#          flux-cluster:
-#            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.4.2/manifests/monitoring/grafana/dashboards/cluster.json
-#            datasource: Prometheus
-#          flux-control-plane:
-#            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.4.2/manifests/monitoring/grafana/dashboards/control-plane.json
-#            datasource: Prometheus
-#          # Ref: https://grafana.com/grafana/dashboards/11315
-#          unifi-client-insights:
-#            gnetId: 11315
-#            revision: 8
-#            datasource: Prometheus
-#          # Ref: https://grafana.com/grafana/dashboards/11311
-#          unifi-network-sites:
-#            gnetId: 11311
-#            revision: 4
-#            datasource: Prometheus
-#          # Ref: https://grafana.com/grafana/dashboards/11314
-#          unifi-uap-insights:
-#            gnetId: 11314
-#            revision: 9
-#            datasource: Prometheus
-#          # Ref: https://grafana.com/grafana/dashboards/11312
-#          unifi-usw-insights:
-#            gnetId: 11312
-#            revision: 8
-#            datasource: Prometheus
-#          # Ref: https://grafana.com/grafana/dashboards/12833
-#      additionalDataSources:
-#      - name: Prometheus
-#        type: prometheus
-#        access: proxy
-#        url: http://thanos-query-http:10902/
-#        isDefault: true
-#      - name: Loki
-#        type: loki
-#        access: proxy
-#        url: http://loki.monitoring.svc.cluster.local:3100
-#    prometheus:
-#      fullnameOverride: prometheus
-#      ingress:
-#        enabled: true
-#        annotations:
-#          traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
-#        hosts:
-#        - "prometheus.k8s.rabbito.tech"
-#        tls:
-#        - hosts:
-#          - "prometheus.k8s.rabbito.tech"
-#      prometheusSpec:
-#        ruleSelector: {}
-#        ruleNamespaceSelector: {}
-#        ruleSelectorNilUsesHelmValues: false
-#        serviceMonitorSelector: {}
-#        serviceMonitorNamespaceSelector: {}
-#        serviceMonitorSelectorNilUsesHelmValues: false
-#        podMonitorSelector: {}
-#        podMonitorNamespaceSelector: {}
-#        podMonitorSelectorNilUsesHelmValues: false
-#        retention: 24h
-#        enableAdminAPI: true
-#        walCompression: true
-#        storageSpec:
-#          volumeClaimTemplate:
-#            spec:
-#              storageClassName: "openebs-cstor-sparse"
-#              resources:
-#                requests:
-#                  storage: 10Gi
-#        thanos:
-#          image: docker.io/raspbernetes/thanos
-#          version: v0.17.2
-#          objectStorageConfig:
-#            name: thanos
-#            key: object-store.yaml
-#    kube-state-metrics:
-#      fullnameOverride: kube-state-metrics
-#      image:
-#        repository: docker.io/eddiezane/kube-state-metrics
-#        tag: v1.9.7
-#    prometheus-node-exporter:
-#      fullnameOverride: node-exporter
-#  valuesFrom:
-#  - kind: Secret
-#    name: "kube-prometheus-stack-helm-values"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      version: 12.9.1
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+      interval: 10m
+  test:
+    enable: false # Enable helm test
+  install:
+    remediation: # perform remediation when helm install fails
+      retries: 3
+  upgrade:
+    remediation: # perform remediation when helm upgrade fails
+      retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  dependsOn:
+  - name: sealed-secrets
+    namespace: kube-system
+  - name: thanos
+    namespace: monitoring
+  timeout: 20m
+  values:
+    fullnameOverride: x
+    kubeEtcd:
+      enabled: false # Re-enable when etcd is in cluster
+    kubeControllerManager:
+      enabled: true
+      service:
+        port: 10257
+        targetPort: 10257
+      serviceMonitor:
+        https: true
+        insecureSkipVerify: true
+    kubeScheduler:
+      service:
+        port: 10259
+        targetPort: 10259
+      serviceMonitor:
+        https: true
+        insecureSkipVerify: true
+    server:
+      resources:
+        requests:
+          memory: 1000Mi
+          cpu: 25m
+        limits:
+          memory: 2000Mi
+    prometheusOperator:
+      createCustomResource: false
+    alertmanager:
+      fullnameOverride: alertmanager
+      ingress:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
+        hosts:
+        - "alert-manager.k8s.rabbito.tech"
+        tls:
+        - hosts:
+          - "alert-manager.k8s.rabbito.tech"
+      alertmanagerSpec:
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "openebs-cstor-sparse"
+              resources:
+                requests:
+                  storage: 10Gi
+    grafana:
+      fullnameOverride: grafana
+      persistence:
+        enabled: false
+        storageClassName: "openebs-cstor-sparse"
+        size: 10Gi
+        accessModes:
+        - ReadWriteOnce
+      ingress:
+        enabled: true
+        hosts:
+        - "grafana.rabbito.tech"
+        tls:
+        - hosts:
+          - "grafana.rabbito.tech"
+      sidecar:
+        datasources:
+          enabled: true
+          # Disable for thanos
+          defaultDatasourceEnabled: false
+        dashboards:
+          enabled: true
+          searchNamespace: ALL
+      plugins:
+      #Bad cert
+      #- natel-discrete-panel
+      - pr0ps-trackmap-panel
+      - grafana-piechart-panel
+      - vonage-status-panel
+      - grafana-worldmap-panel
+      - grafana-clock-panel
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+          - name: 'default'
+            orgId: 1
+            folder: ''
+            type: file
+            disableDeletion: false
+            allowUiUpdates: true
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+      dashboards:
+        default:
+          openebs:
+            url: https://grafana.com/api/dashboards/12171/revisions/2/download
+            datasource: Prometheus
+          openebs-pg-dashboard:
+            url: https://raw.githubusercontent.com/openebs/openebs/v2.3.0/k8s/openebs-pg-dashboard.json
+            datasource: Prometheus
+          flux-cluster:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.4.2/manifests/monitoring/grafana/dashboards/cluster.json
+            datasource: Prometheus
+          flux-control-plane:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.4.2/manifests/monitoring/grafana/dashboards/control-plane.json
+            datasource: Prometheus
+          # Ref: https://grafana.com/grafana/dashboards/11315
+          unifi-client-insights:
+            gnetId: 11315
+            revision: 8
+            datasource: Prometheus
+          # Ref: https://grafana.com/grafana/dashboards/11311
+          unifi-network-sites:
+            gnetId: 11311
+            revision: 4
+            datasource: Prometheus
+          # Ref: https://grafana.com/grafana/dashboards/11314
+          unifi-uap-insights:
+            gnetId: 11314
+            revision: 9
+            datasource: Prometheus
+          # Ref: https://grafana.com/grafana/dashboards/11312
+          unifi-usw-insights:
+            gnetId: 11312
+            revision: 8
+            datasource: Prometheus
+          # Ref: https://grafana.com/grafana/dashboards/12833
+      additionalDataSources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://thanos-query-http:10902/
+        isDefault: true
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki.monitoring.svc.cluster.local:3100
+    prometheus:
+      fullnameOverride: prometheus
+      ingress:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
+        hosts:
+        - "prometheus.k8s.rabbito.tech"
+        tls:
+        - hosts:
+          - "prometheus.k8s.rabbito.tech"
+      prometheusSpec:
+        ruleSelector: {}
+        ruleNamespaceSelector: {}
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelector: {}
+        serviceMonitorNamespaceSelector: {}
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelector: {}
+        podMonitorNamespaceSelector: {}
+        podMonitorSelectorNilUsesHelmValues: false
+        retention: 24h
+        enableAdminAPI: true
+        walCompression: true
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "openebs-cstor-sparse"
+              resources:
+                requests:
+                  storage: 10Gi
+        thanos:
+          image: docker.io/raspbernetes/thanos
+          version: v0.17.2
+          objectStorageConfig:
+            name: thanos
+            key: object-store.yaml
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      image:
+        repository: docker.io/eddiezane/kube-state-metrics
+        tag: v1.9.7
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
+  valuesFrom:
+  - kind: Secret
+    name: "kube-prometheus-stack-helm-values"
