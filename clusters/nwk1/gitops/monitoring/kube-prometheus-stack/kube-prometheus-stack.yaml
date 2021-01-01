@@ -65,7 +65,6 @@ spec:
     prometheusOperator:
       createCustomResource: false
     alertmanager:
-      fullnameOverride: alertmanager
       ingress:
         enabled: true
         annotations:
@@ -84,7 +83,6 @@ spec:
                 requests:
                   storage: 10Gi
     grafana:
-      fullnameOverride: grafana
       persistence:
         enabled: false
         storageClassName: "openebs-cstor-sparse"
@@ -107,8 +105,7 @@ spec:
           enabled: true
           searchNamespace: ALL
       plugins:
-      #Bad cert
-      #- natel-discrete-panel
+      - natel-discrete-panel
       - pr0ps-trackmap-panel
       - grafana-piechart-panel
       - vonage-status-panel
@@ -173,7 +170,6 @@ spec:
         access: proxy
         url: http://loki.monitoring.svc.cluster.local:3100
     prometheus:
-      fullnameOverride: prometheus
       ingress:
         enabled: true
         annotations:
@@ -210,12 +206,9 @@ spec:
             name: thanos
             key: object-store.yaml
     kube-state-metrics:
-      fullnameOverride: kube-state-metrics
       image:
         repository: docker.io/eddiezane/kube-state-metrics
         tag: v1.9.7
-    prometheus-node-exporter:
-      fullnameOverride: node-exporter
   valuesFrom:
   - kind: Secret
     name: "kube-prometheus-stack-helm-values"
