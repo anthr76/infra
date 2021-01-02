@@ -75,14 +75,6 @@
 #        tls:
 #        - hosts:
 #          - "alert-manager.k8s.rabbito.tech"
-#      alertmanagerSpec:
-#        storage:
-#          volumeClaimTemplate:
-#            spec:
-#              storageClassName: "openebs-cstor-sparse"
-#              resources:
-#                requests:
-#                  storage: 10Gi
 #    grafana:
 #      fullnameOverride: grafana
 #      persistence:
@@ -107,8 +99,7 @@
 #          enabled: true
 #          searchNamespace: ALL
 #      plugins:
-#      #Bad cert
-#      #- natel-discrete-panel
+#      - natel-discrete-panel
 #      - pr0ps-trackmap-panel
 #      - grafana-piechart-panel
 #      - vonage-status-panel
