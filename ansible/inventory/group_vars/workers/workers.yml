@@ -27,4 +27,4 @@ k8s_service_host: "192.168.0.1"
 k8s_service_port: 6443
 cluster_pod_subnet: "10.0.0.0/8"
 k8s_native_cluster_cidr: 192.168.10.0/24
-cni_cilium_endpoint_routes: "true"
+cni_cilium_endpoint_routes: "false"
