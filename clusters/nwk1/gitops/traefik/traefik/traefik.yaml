@@ -18,16 +18,10 @@ spec:
       interval: 5m
   values:
     deployment:
-      name: traefik
-      tag: ""
-      replicas: 2
-      podAnnotations:
+      kind: DaemonSet
+      annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8082"
-    autoscaling:
-      enabled: true
-      minReplicas: 1
-      maxReplicas: 10
     logs:
       general:
         level: DEBUG
@@ -38,7 +32,7 @@ spec:
       dashboard:
         enabled: true
     additionalArguments:
-      - "--entrypoints.websecure.http.tls"
+      #- "--entrypoints.websecure.http.tls"
       - "--ping"
       - "--api.dashboard=true"
       - "--metrics=true"
