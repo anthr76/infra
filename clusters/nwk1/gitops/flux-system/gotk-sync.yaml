@@ -15,7 +15,7 @@ spec:
   secretRef:
     name: flux-system
   timeout: 20s
-  url: ssh://git@github.com/anthr76/infra
+  url: https://github.com/anthr76/infra.git
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
