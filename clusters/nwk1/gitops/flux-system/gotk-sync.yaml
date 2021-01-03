@@ -2,19 +2,27 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"source.toolkit.fluxcd.io/v1beta1","kind":"GitRepository","metadata":{"annotations":{},"name":"flux-system","namespace":"flux-system"},"spec":{"interval":"1m0s","ref":{"branch":"main"},"secretRef":{"name":"flux-system"},"url":"ssh://git@github.com/anthr76/infra"}}
   name: flux-system
   namespace: flux-system
 spec:
+  gitImplementation: go-git
   interval: 1m0s
   ref:
     branch: main
   secretRef:
     name: flux-system
+  timeout: 20s
   url: ssh://git@github.com/anthr76/infra
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"kustomize.toolkit.fluxcd.io/v1beta1","kind":"Kustomization","metadata":{"annotations":{},"name":"flux-system","namespace":"flux-system"},"spec":{"interval":"10m0s","path":"./clusters/nwk1/gitops","prune":true,"sourceRef":{"kind":"GitRepository","name":"flux-system"}}}
   name: flux-system
   namespace: flux-system
 spec:
