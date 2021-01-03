@@ -58,5 +58,8 @@ spec:
       loadBalancerSourceRanges:
         - 172.30.0.5/32
         - 172.30.0.6/32
+      externalIPs:
+        - 172.30.0.5
+        - 172.30.0.6
       spec:
         externalTrafficPolicy: Local
