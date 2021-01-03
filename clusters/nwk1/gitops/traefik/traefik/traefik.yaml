@@ -32,7 +32,7 @@ spec:
       dashboard:
         enabled: true
     additionalArguments:
-      #- "--entrypoints.websecure.http.tls"
+      - "--entrypoints.websecure.http.tls"
       - "--ping"
       - "--api.dashboard=true"
       - "--metrics=true"
@@ -51,5 +51,7 @@ spec:
     service:
       externalIPs:
         - 172.30.0.5
+        - 172.30.0.6
+        - 172.30.0.7
       spec:
         externalTrafficPolicy: Local
