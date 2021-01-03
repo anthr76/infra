@@ -55,8 +55,8 @@ spec:
         expose: true
         exposedPort: 8082
     service:
-      externalIPs:
-        - 172.30.0.5
-        - 172.30.0.6
+      loadBalancerSourceRanges:
+        - 172.30.0.5/32
+        - 172.30.0.6/32
       spec:
         externalTrafficPolicy: Local
