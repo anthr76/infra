@@ -57,5 +57,7 @@ spec:
     service:
       externalIPs:
         - 172.30.0.5
+        - 172.30.0.6
+        - 172.30.0.7
       spec:
         externalTrafficPolicy: Local
