@@ -14,7 +14,7 @@ metadata:
             memory: 2Gi
             cpu: 100m
 spec:
-  name: cstor-disk-pool
+  name: cstor-sparse-pool
   type: sparse
   poolSpec:
     poolType: raidz
