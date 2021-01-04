@@ -2,7 +2,7 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Receiver
 metadata:
-  name: home-cluster
+  name: nwk1
   namespace: flux-system
 spec:
   type: github
@@ -13,7 +13,7 @@ spec:
     name: github-webhook-token
   resources:
   - kind: GitRepository
-    name: flux-system
+    name: infra
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
