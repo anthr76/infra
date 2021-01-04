@@ -1,6 +1,6 @@
-- name: Download latest Waterfall on waterfall
+- name: Download waterfall-1.16-389 on waterfall
   get_url:
-    url: https://papermc.io/ci/job/Waterfall/lastStableBuild/artifact/Waterfall-Proxy/bootstrap/target/Waterfall.jar
+    url: https://papermc.io/api/v2/projects/waterfall/versions/1.16/builds/389/downloads/waterfall-1.16-389.jar
     dest: /docker/mcnew/waterfall/Waterfall.jar
     mode: '0644'
     owner: 'anthony'
@@ -18,9 +18,9 @@
     force: true
   notify: restart waterfall
 
-- name: Download 5.1.107 BungeeCord LuckPerms on waterfall
+- name: Download 5.2.74 BungeeCord LuckPerms on waterfall
   get_url:
-    url: https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastStableBuild/artifact/bungee/build/libs/LuckPerms-Bungee-5.1.107.jar
+    url: https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastStableBuild/artifact/bungee/build/libs/LuckPerms-Bungee-5.2.74.jar
     dest: /docker/mcnew/waterfall/plugins/LuckPerms-Bungee.jar
     mode: '0644'
     owner: 'anthony'
@@ -38,9 +38,9 @@
     force: true
   notify: restart waterfall
 
-- name: Download 3.4.1 BungeeTabListPlus on waterfall
+- name: Download 3.5.0 BungeeTabListPlus on waterfall
   get_url:
-    url: https://ci.codecrafter47.de/job/BungeeTabListPlus/lastStableBuild/artifact/bootstrap-bungee/build/libs/BungeeTabListPlus-3.4.1-SNAPSHOT.jar
+    url: https://ci.codecrafter47.de/job/BungeeTabListPlus/lastStableBuild/artifact/bootstrap-bungee/build/libs/BungeeTabListPlus-3.5.0-SNAPSHOT.jar
     dest: /docker/mcnew/waterfall/plugins/BungeeTabListPlus.jar
     mode: '0644'
     owner: 'anthony'
@@ -48,9 +48,9 @@
     force: true
   notify: restart waterfall
 
-- name: Download 3.4.1 BungeeTabListPlus (Bukkit Bridge) on mc-server-1
+- name: Download 3.5.0 BungeeTabListPlus (Bukkit Bridge) on mc-server-1
   get_url:
-    url: https://ci.codecrafter47.de/job/BungeeTabListPlus/lastStableBuild/artifact/bootstrap-bukkit/build/libs/BungeeTabListPlus_BukkitBridge-3.4.1-SNAPSHOT.jar
+    url: https://ci.codecrafter47.de/job/BungeeTabListPlus/lastStableBuild/artifact/bootstrap-bukkit/build/libs/BungeeTabListPlus_BukkitBridge-3.5.0-SNAPSHOT.jar
     dest: /docker/mcnew/mc-server-1/plugins/BungeeTabListPlus_BukkitBridge.jar
     mode: '0644'
     owner: 'anthony'
@@ -58,9 +58,9 @@
     force: true
   notify: restart mc-server-1
 
-- name: Download 3.4.1 BungeeTabListPlus (Bukkit Bridge) on mc-server-2
+- name: Download 3.5.0 BungeeTabListPlus (Bukkit Bridge) on mc-server-2
   get_url:
-    url: https://ci.codecrafter47.de/job/BungeeTabListPlus/lastStableBuild/artifact/bootstrap-bukkit/build/libs/BungeeTabListPlus_BukkitBridge-3.4.1-SNAPSHOT.jar
+    url: https://ci.codecrafter47.de/job/BungeeTabListPlus/lastStableBuild/artifact/bootstrap-bukkit/build/libs/BungeeTabListPlus_BukkitBridge-3.5.0-SNAPSHOT.jar
     dest: /docker/mcnew/mc-server-2/plugins/BungeeTabListPlus_BukkitBridge.jar
     mode: '0644'
     owner: 'anthony'
@@ -68,9 +68,9 @@
     force: true
   notify: restart mc-server-2
 
-- name: Download 3.4.1 BungeeTabListPlus (Bukkit Bridge) on mc-server-3
+- name: Download 3.5.0 BungeeTabListPlus (Bukkit Bridge) on mc-server-3
   get_url:
-    url: https://ci.codecrafter47.de/job/BungeeTabListPlus/lastStableBuild/artifact/bootstrap-bukkit/build/libs/BungeeTabListPlus_BukkitBridge-3.4.1-SNAPSHOT.jar
+    url: https://ci.codecrafter47.de/job/BungeeTabListPlus/lastStableBuild/artifact/bootstrap-bukkit/build/libs/BungeeTabListPlus_BukkitBridge-3.5.0-SNAPSHOT.jar
     dest: /docker/mcnew/mc-server-3/plugins/BungeeTabListPlus_BukkitBridge.jar
     mode: '0644'
     owner: 'anthony'
@@ -78,9 +78,9 @@
     force: true
   notify: restart mc-server-3
 
-- name: Download EssentialsX-2.18.1.0 on mc-server-1
+- name: Download EssentialsX-2.18.2.0 on mc-server-1
   get_url:
-    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.1/EssentialsX-2.18.1.0.jar
+    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsX-2.18.2.0.jar
     dest: /docker/mcnew/mc-server-1/plugins/EssentialsX.jar
     mode: '0644'
     owner: 'anthony'
@@ -88,9 +88,9 @@
     force: true
   notify: restart mc-server-1
 
-- name: Download EssentialsX-2.18.1.0 on mc-server-3
+- name: Download EssentialsX-2.18.2.0 on mc-server-3
   get_url:
-    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.1/EssentialsX-2.18.1.0.jar
+    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsX-2.18.2.0.jar
     dest: /docker/mcnew/mc-server-3/plugins/EssentialsX.jar
     mode: '0644'
     owner: 'anthony'
@@ -98,9 +98,9 @@
     force: true
   notify: restart mc-server-3
 
-- name: Download EssentialsXAntiBuild-2.18.1.0 on mc-server-1
+- name: Download EssentialsXAntiBuild-2.18.2.0 on mc-server-1
   get_url:
-    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.1/EssentialsXAntiBuild-2.18.1.0.jar
+    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXAntiBuild-2.18.2.0.jar
     dest: /docker/mcnew/mc-server-1/plugins/EssentialsXAntiBuild.jar
     mode: '0644'
     owner: 'anthony'
@@ -108,9 +108,9 @@
     force: true
   notify: restart mc-server-1
 
-- name: Download EssentialsXGeoIP-2.18.1.0 on mc-server-1
+- name: Download EssentialsXGeoIP-2.18.2.0 on mc-server-1
   get_url:
-    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.1/EssentialsXGeoIP-2.18.1.0.jar
+    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXGeoIP-2.18.2.0.jar
     dest: /docker/mcnew/mc-server-1/plugins/EssentialsXGeoIP.jar
     mode: '0644'
     owner: 'anthony'
@@ -118,9 +118,9 @@
     force: true
   notify: restart mc-server-1
 
-- name: Download EssentialsXSpawn-2.18.1.0 on mc-server-1
+- name: Download EssentialsXSpawn-2.18.2.0 on mc-server-1
   get_url:
-    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.1/EssentialsXSpawn-2.18.1.0.jar
+    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXSpawn-2.18.2.0.jar
     dest: /docker/mcnew/mc-server-1/plugins/EssentialsXSpawn.jar
     mode: '0644'
     owner: 'anthony'
@@ -128,9 +128,9 @@
     force: true
   notify: restart mc-server-1
 
-- name: Download EssentialsX-2.18.1.0 on mc-server-2
+- name: Download EssentialsX-2.18.2.0 on mc-server-2
   get_url:
-    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.1/EssentialsX-2.18.1.0.jar
+    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsX-2.18.2.0.jar
     dest: /docker/mcnew/mc-server-2/plugins/EssentialsX.jar
     mode: '0644'
     owner: 'anthony'
@@ -138,9 +138,9 @@
     force: true
   notify: restart mc-server-2
 
-- name: Download EssentialsXSpawn-2.18.1.0 on mc-server-2
+- name: Download EssentialsXSpawn-2.18.2.0 on mc-server-2
   get_url:
-    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.1/EssentialsXSpawn-2.18.1.0.jar
+    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXSpawn-2.18.2.0.jar
     dest: /docker/mcnew/mc-server-2/plugins/EssentialsXSpawn.jar
     mode: '0644'
     owner: 'anthony'
@@ -148,9 +148,9 @@
     force: true
   notify: restart mc-server-2
 
-- name: Download EssentialsXSpawn-2.18.1.0 on mc-server-3
+- name: Download EssentialsXSpawn-2.18.2.0 on mc-server-3
   get_url:
-    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.1/EssentialsXSpawn-2.18.1.0.jar
+    url: https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXSpawn-2.18.2.0.jar
     dest: /docker/mcnew/mc-server-3/plugins/EssentialsXSpawn.jar
     mode: '0644'
     owner: 'anthony'
@@ -158,9 +158,9 @@
     force: true
   notify: restart mc-server-3
 
-- name: Download 5.1.107 LuckPerms on mc-server-1
+- name: Download 5.2.74 LuckPerms on mc-server-1
   get_url:
-    url: https://ci.lucko.me/job/LuckPerms/1164/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.1.107.jar
+    url: https://ci.lucko.me/job/LuckPerms/lastStableBuild/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.74.jar
     dest: /docker/mcnew/mc-server-1/plugins/LuckPerms-Bukkit.jar
     mode: '0644'
     owner: 'anthony'
@@ -168,9 +168,9 @@
     force: true
   notify: restart mc-server-1
 
-- name: Download 5.1.107 LuckPerms on mc-server-2
+- name: Download 5.2.74 LuckPerms on mc-server-2
   get_url:
-    url: https://ci.lucko.me/job/LuckPerms/1164/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.1.107.jar
+    url: https://ci.lucko.me/job/LuckPerms/lastStableBuild/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.74.jar
     dest: /docker/mcnew/mc-server-2/plugins/LuckPerms-Bukkit.jar
     mode: '0644'
     owner: 'anthony'
@@ -178,9 +178,9 @@
     force: true
   notify: restart mc-server-2
 
-- name: Download 5.1.107 LuckPerms on mc-server-3
+- name: Download 5.2.74 LuckPerms on mc-server-3
   get_url:
-    url: https://ci.lucko.me/job/LuckPerms/1164/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.1.107.jar
+    url: https://ci.lucko.me/job/LuckPerms/lastStableBuild/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.74.jar
     dest: /docker/mcnew/mc-server-3/plugins/LuckPerms-Bukkit.jar
     mode: '0644'
     owner: 'anthony'
@@ -216,9 +216,9 @@
   notify: restart mc-server-2
 
 # Latest https://github.com/SkinsRestorer/SkinsRestorerX/releases/latest/download/SkinsRestorer.jar (need to lock a version for floodgate)
-- name: Download 13.8.3 SkinsRestorer plugin on mc-server-1
+- name: Download latest SkinsRestorer plugin on mc-server-1
   get_url:
-    url: https://github.com/SkinsRestorer/SkinsRestorerX/releases/download/13.8.3/SkinsRestorer.jar
+    url: https://github.com/SkinsRestorer/SkinsRestorerX/releases/latest/download/SkinsRestorer.jar
     dest: /docker/mcnew/mc-server-1/plugins/SkinsRestorer.jar
     mode: '0644'
     owner: 'anthony'
@@ -226,9 +226,9 @@
     force: true
   notify: restart mc-server-1
 
-- name: Download 13.8.3 SkinsRestorer plugin on mc-server-3
+- name: Download latest SkinsRestorer plugin on mc-server-3
   get_url:
-    url: https://github.com/SkinsRestorer/SkinsRestorerX/releases/download/13.8.3/SkinsRestorer.jar
+    url: https://github.com/SkinsRestorer/SkinsRestorerX/releases/latest/download/SkinsRestorer.jar
     dest: /docker/mcnew/mc-server-3/plugins/SkinsRestorer.jar
     mode: '0644'
     owner: 'anthony'
@@ -236,9 +236,9 @@
     force: true
   notify: restart mc-server-3
 
-- name: Download 13.8.3 SkinsRestorer plugin on mc-server-2
+- name: Download latest SkinsRestorer plugin on mc-server-2
   get_url:
-    url: https://github.com/SkinsRestorer/SkinsRestorerX/releases/download/13.8.3/SkinsRestorer.jar
+    url: https://github.com/SkinsRestorer/SkinsRestorerX/releases/latest/download/SkinsRestorer.jar
     dest: /docker/mcnew/mc-server-2/plugins/SkinsRestorer.jar
     mode: '0644'
     owner: 'anthony'
@@ -326,9 +326,9 @@
     force: true
   notify: restart mc-server-3
 
-- name: Download latest Floodgate plugin on waterfall
+- name: Download Build 4 Floodgate plugin on waterfall
   get_url:
-    url: https://ci.nukkitx.com/job/GeyserMC/job/Floodgate/job/development/lastSuccessfulBuild/artifact/bungee/target/floodgate-bungee.jar
+    url: https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master/lastStableBuild/artifact/bungee/target/floodgate-bungee.jar
     dest: /docker/mcnew/waterfall/plugins/floodgate-bungee.jar
     mode: '0644'
     owner: 'anthony'
