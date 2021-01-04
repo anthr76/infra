@@ -1,3 +1,4 @@
+---
 name: renovate-helmrelease-schedule
 
 on:
@@ -23,11 +24,11 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         branch: update/pre-commit-auto-update
         delete-branch: true
-        title: Auto-update pre-commit hooks
+        title: Add renovate annotation
         signoff: true
         committer: "Anthony Rabbito <hello@anthonyrabbito.com>"
         author: "Anthony Rabbito <hello@anthonyrabbito.com>"
-        commit-message: Auto-update pre-commit hooks
+        commit-message: Add renovate annotation
         body: |
           Signed-off-by: Anthony Rabbito <hello@anthonyrabbito.com>
         labels: dependencies, merge
