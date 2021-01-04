@@ -2,7 +2,7 @@
 apiVersion: openebs.io/v1alpha1
 kind: StoragePoolClaim
 metadata:
-  name: cstor-disk-pool
+  name: cstor-sparse-pool
   annotations:
     cas.openebs.io/config: |
       - name: PoolResourceRequests
