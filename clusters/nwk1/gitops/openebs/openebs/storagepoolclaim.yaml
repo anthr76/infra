@@ -15,7 +15,7 @@ metadata:
             cpu: 100m
 spec:
   name: cstor-disk-pool
-  type: disk
+  type: sparse
   poolSpec:
     poolType: raidz
   blockDevices:
