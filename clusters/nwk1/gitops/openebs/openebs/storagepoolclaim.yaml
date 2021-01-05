@@ -12,7 +12,13 @@ metadata:
       - name: PoolResourceLimits
         value: |-
             memory: 2Gi
+            cpu: 100mi
+      - name:  AuxResourceLimits
+        value: |-
             cpu: 100m
+      - name: AuxResourceRequests
+        value: |-
+            cpu: 50m
 spec:
   name: cstor-sparse-pool
   type: sparse
