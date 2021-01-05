@@ -17,7 +17,7 @@ spec:
   name: cstor-sparse-pool
   type: sparse
   poolSpec:
-    poolType: raidz
+    poolType: striped
   blockDevices:
     blockDeviceList:
     - sparse-23ff8f8bca18c222880235e3a6cd0c3e
