@@ -7,10 +7,16 @@ metadata:
     cas.openebs.io/config: |
       - name: PoolResourceLimits
         value: |-
-            cpu: 1000m
+            cpu: 0
       - name:  AuxResourceLimits
         value: |-
-            cpu: 1000m
+            cpu: 0
+      - name: AuxResourceRequests
+        value: |-
+            cpu: 100m
+      - name: PoolResourceRequests
+        value: |-
+            cpu: 100m
 spec:
   name: cstor-sparse-pool
   type: sparse
