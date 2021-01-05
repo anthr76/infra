@@ -1,7 +1,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: openebs-sc-statefulset
+  name: openebs-cstor-sparse
   annotations:
     openebs.io/cas-type: cstor
     cas.openebs.io/config: |
