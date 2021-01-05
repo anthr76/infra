@@ -3,6 +3,14 @@ apiVersion: openebs.io/v1alpha1
 kind: StoragePoolClaim
 metadata:
   name: cstor-sparse-pool
+  annotations:
+    cas.openebs.io/config: |
+      - name: PoolResourceLimits
+        value: |-
+            cpu: 1000m
+      - name:  AuxResourceLimits
+        value: |-
+            cpu: 1000m
 spec:
   name: cstor-sparse-pool
   type: sparse
