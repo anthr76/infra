@@ -46,6 +46,7 @@ spec:
       serviceMonitor:
         https: true
         insecureSkipVerify: true
+        serverName: localhost
     kubeScheduler:
       service:
         port: 10259
