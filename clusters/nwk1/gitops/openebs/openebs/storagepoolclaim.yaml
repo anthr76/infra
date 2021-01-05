@@ -5,18 +5,12 @@ metadata:
   name: cstor-sparse-pool
   annotations:
     cas.openebs.io/config: |
-      - name: PoolResourceLimits
-        value: |-
-            cpu: 500m
-      - name:  AuxResourceLimits
-        value: |-
-            cpu: 500m
-      - name: AuxResourceRequests
-        value: |-
-            cpu: 1m
       - name: PoolResourceRequests
         value: |-
-            cpu: 1m
+            memory: 2Gi
+      - name: PoolResourceLimits
+        value: |-
+            memory: 2Gi
 spec:
   name: cstor-sparse-pool
   type: sparse
