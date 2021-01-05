@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-sc-statefulset
+  annotations:
+    openebs.io/cas-type: cstor
+    cas.openebs.io/config: |
+      - name: StoragePoolClaim
+        value: "cstor-sparse-pool"
+      - name: ReplicaCount
+        value: "3"
+provisioner: openebs.io/provisioner-iscsi

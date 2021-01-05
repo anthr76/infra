@@ -38,8 +38,6 @@ spec:
   timeout: 20m
   values:
     fullnameOverride: x
-    kubeEtcd:
-      enabled: false # Re-enable when etcd is in cluster
     kubeControllerManager:
       enabled: true
       service:
@@ -63,7 +61,7 @@ spec:
         limits:
           memory: 2000Mi
     prometheusOperator:
-      createCustomResource: false
+      createCustomResource: true
     alertmanager:
       fullnameOverride: alertmanager
       ingress:
