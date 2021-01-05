@@ -38,6 +38,21 @@ spec:
   timeout: 20m
   values:
     fullnameOverride: x
+    kubeControllerManager:
+      enabled: true
+      service:
+        port: 10257
+        targetPort: 10257
+      serviceMonitor:
+        https: true
+        insecureSkipVerify: true
+    kubeScheduler:
+      service:
+        port: 10257
+        targetPort: 10257
+      serviceMonitor:
+        https: true
+        insecureSkipVerify: true
     kubeEtcd:
       service:
         port: 2381
