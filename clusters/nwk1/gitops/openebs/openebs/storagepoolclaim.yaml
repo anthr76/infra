@@ -13,10 +13,10 @@ metadata:
             cpu: 500m
       - name: AuxResourceRequests
         value: |-
-            cpu: 100m
+            cpu: 1m
       - name: PoolResourceRequests
         value: |-
-            cpu: 100m
+            cpu: 1m
 spec:
   name: cstor-sparse-pool
   type: sparse
