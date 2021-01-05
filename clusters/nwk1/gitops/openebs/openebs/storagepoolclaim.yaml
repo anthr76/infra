@@ -7,10 +7,10 @@ metadata:
     cas.openebs.io/config: |
       - name: PoolResourceLimits
         value: |-
-            cpu: 0
+            cpu: 500m
       - name:  AuxResourceLimits
         value: |-
-            cpu: 0
+            cpu: 500m
       - name: AuxResourceRequests
         value: |-
             cpu: 100m
