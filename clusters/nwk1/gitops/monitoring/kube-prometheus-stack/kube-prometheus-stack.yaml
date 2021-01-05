@@ -51,6 +51,9 @@ spec:
           memory: 2000Mi
     prometheusOperator:
       createCustomResource: true
+    # Disable kubeProxy whilst using Cilium as it's not deployed
+    kubeProxy:
+      enabled: false
     alertmanager:
       fullnameOverride: alertmanager
       ingress:
@@ -115,39 +118,63 @@ spec:
               path: /var/lib/grafana/dashboards/default
       dashboards:
         default:
+          cert-manager:
+            url: https://gitlab.com/uneeq-oss/cert-manager-mixin/-/raw/master/dashboards/cert-manager.json
+            datasource: Prometheus
+          cilium-dashboard:
+            url: https://raw.githubusercontent.com/cilium/cilium/v1.9.0/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-dashboard.json
+            datasource: Prometheus
+          cilium-operator-dashboard:
+            url: https://raw.githubusercontent.com/cilium/cilium/v1.9.0/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-operator-dashboard.json
+            datasource: Prometheus
+          hubble-dashboard:
+            url: https://raw.githubusercontent.com/cilium/cilium/v1.9.0/examples/kubernetes/addons/prometheus/files/grafana-dashboards/hubble-dashboard.json
+            datasource: Prometheus
           openebs:
             url: https://grafana.com/api/dashboards/12171/revisions/2/download
             datasource: Prometheus
           openebs-pg-dashboard:
             url: https://raw.githubusercontent.com/openebs/openebs/v2.3.0/k8s/openebs-pg-dashboard.json
             datasource: Prometheus
-          flux-cluster:
-            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.4.2/manifests/monitoring/grafana/dashboards/cluster.json
+          sealed-secrets:
+            url: https://raw.githubusercontent.com/bitnami-labs/sealed-secrets/master/contrib/prometheus-mixin/dashboards/sealed-secrets-controller.json
             datasource: Prometheus
-          flux-control-plane:
-            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.4.2/manifests/monitoring/grafana/dashboards/control-plane.json
+          speedtest:
+            url: https://raw.githubusercontent.com/billimek/k8s-gitops/master/monitoring/prometheus-operator/grafana-dashboards/internet_speed.json
             datasource: Prometheus
-          # Ref: https://grafana.com/grafana/dashboards/11315
-          unifi-client-insights:
-            gnetId: 11315
-            revision: 8
+          thanos-overview:
+            url: https://raw.githubusercontent.com/thanos-io/thanos/b5431c44a6f40fd8f2aef54747dd1eaf9dfcbd25/examples/dashboards/overview.json
             datasource: Prometheus
-          # Ref: https://grafana.com/grafana/dashboards/11311
-          unifi-network-sites:
-            gnetId: 11311
-            revision: 4
+          thanos-compact:
+            url: https://raw.githubusercontent.com/thanos-io/thanos/b5431c44a6f40fd8f2aef54747dd1eaf9dfcbd25/examples/dashboards/compact.json
             datasource: Prometheus
-          # Ref: https://grafana.com/grafana/dashboards/11314
-          unifi-uap-insights:
-            gnetId: 11314
-            revision: 9
+          thanos-querier:
+            url: https://raw.githubusercontent.com/thanos-io/thanos/b5431c44a6f40fd8f2aef54747dd1eaf9dfcbd25/examples/dashboards/query.json
             datasource: Prometheus
-          # Ref: https://grafana.com/grafana/dashboards/11312
-          unifi-usw-insights:
-            gnetId: 11312
-            revision: 8
+          thanos-store:
+            url: https://raw.githubusercontent.com/thanos-io/thanos/b5431c44a6f40fd8f2aef54747dd1eaf9dfcbd25/examples/dashboards/store.json
             datasource: Prometheus
-          # Ref: https://grafana.com/grafana/dashboards/12833
+          thanos-receiver:
+            url: https://raw.githubusercontent.com/thanos-io/thanos/b5431c44a6f40fd8f2aef54747dd1eaf9dfcbd25/examples/dashboards/receive.json
+            datasource: Prometheus
+          thanos-sidecar:
+            url: https://raw.githubusercontent.com/thanos-io/thanos/b5431c44a6f40fd8f2aef54747dd1eaf9dfcbd25/examples/dashboards/sidecar.json
+            datasource: Prometheus
+          thanos-ruler:
+            url: https://raw.githubusercontent.com/thanos-io/thanos/b5431c44a6f40fd8f2aef54747dd1eaf9dfcbd25/examples/dashboards/rule.json
+            datasource: Prometheus
+          thanos-replicate:
+            url: https://raw.githubusercontent.com/thanos-io/thanos/b5431c44a6f40fd8f2aef54747dd1eaf9dfcbd25/examples/dashboards/bucket-replicate.json
+            datasource: Prometheus
+          toolkit-cluster:
+            url: https://raw.githubusercontent.com/fluxcd/toolkit/main/manifests/monitoring/grafana/dashboards/cluster.json
+            datasource: Prometheus
+          toolkit-control-plane:
+            url: https://raw.githubusercontent.com/fluxcd/toolkit/main/manifests/monitoring/grafana/dashboards/control-plane.json
+            datasource: Prometheus
+          velero:
+            url: https://grafana.com/api/dashboards/11055/revisions/2/download
+            datasource: Prometheus
       additionalDataSources:
       - name: Prometheus
         type: prometheus
