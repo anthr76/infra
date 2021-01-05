@@ -38,10 +38,6 @@ spec:
   timeout: 20m
   values:
     fullnameOverride: x
-    kubeControllerManager:
-      enabled: true
-    kubeScheduler:
-      enabled: true
     server:
       resources:
         requests:
@@ -206,7 +202,7 @@ spec:
         podMonitorSelector: {}
         podMonitorNamespaceSelector: {}
         podMonitorSelectorNilUsesHelmValues: false
-        retention: 24h
+        retention: 4h
         enableAdminAPI: true
         walCompression: true
         storageSpec:
