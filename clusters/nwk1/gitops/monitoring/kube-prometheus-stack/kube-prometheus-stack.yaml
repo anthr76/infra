@@ -48,8 +48,8 @@ spec:
         insecureSkipVerify: true
     kubeScheduler:
       service:
-        port: 10257
-        targetPort: 10257
+        port: 10259
+        targetPort: 10259
       serviceMonitor:
         https: true
         insecureSkipVerify: true
