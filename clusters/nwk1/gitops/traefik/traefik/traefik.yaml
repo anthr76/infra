@@ -19,9 +19,6 @@ spec:
   values:
     deployment:
       kind: DaemonSet
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8082"
     logs:
       general:
         level: DEBUG
