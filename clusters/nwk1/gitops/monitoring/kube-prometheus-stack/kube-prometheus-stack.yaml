@@ -54,6 +54,8 @@ spec:
       service:
         port: 2379
         targetPort: 2379
+      serviceMonitor:
+        scheme: https
     kubeControllerManager:
       service:
         port: 10257
