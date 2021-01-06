@@ -21,6 +21,10 @@ spec:
       namespace: kube-system
   values:
     installCRDs: true
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: false
     webhook:
       enabled: true
     extraArgs:
