@@ -40,7 +40,7 @@ spec:
     livenessProbe:
       initialDelaySeconds: 5
     grpc: false
-    replicas: 2
+    replicas: 1
     image: docker.io/dexidp/dex
     imageTag: "v2.26.0"
     ports:
