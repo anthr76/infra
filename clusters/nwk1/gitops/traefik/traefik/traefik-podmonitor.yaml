@@ -8,8 +8,10 @@ spec:
   namespaceSelector:
     matchNames:
       - traefik
+  podMetricsEndpoints:
+    - port: traefik
+      path: /metrics
+      interval: 15s
   selector:
     matchLabels:
       app: traefik
-  podMetricsEndpoints:
-    - port: metrics
