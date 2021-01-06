@@ -52,8 +52,8 @@ spec:
       enabled: false
     kubeEtcd:
       service:
-        port: 2381
-        targetPort: 2381
+        port: 2379
+        targetPort: 2379
     kubeControllerManager:
       service:
         port: 10257
