@@ -31,7 +31,6 @@ spec:
     additionalArguments:
       - "--entrypoints.websecure.http.tls"
       - "--ping"
-      - "--ping.entryPoint=metrics"
       - "--api.dashboard=true"
       - "--metrics.prometheus=true"
       - "--metrics.prometheus.entryPoint=metrics"
