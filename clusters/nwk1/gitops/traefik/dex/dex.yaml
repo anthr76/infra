@@ -38,7 +38,11 @@ spec:
       namespace: traefik
   values:
     livenessProbe:
-      initialDelaySeconds: 5
+      timeoutSeconds: 20
+      failureThreshold: 4
+    readinessProbe:
+      timeoutSeconds: 20
+      failureThreshold: 4
     grpc: false
     replicas: 1
     image: docker.io/dexidp/dex
