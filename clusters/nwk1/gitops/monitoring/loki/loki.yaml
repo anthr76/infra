@@ -18,8 +18,6 @@ spec:
       interval: 5m
   values:
     loki:
-      # Disable replicas until better node topo is in place.
-      # replicas: 3
       persistence:
         enabled: false
       config:
@@ -69,13 +67,16 @@ spec:
         name: loki-gossip-ring
         targetPort: 7946
       serviceMonitor:
-        enabled: true
-      podAnnotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "http-metrics"
+        enabled: false
     promtail:
       serviceMonitor:
-        enabled: true
+        enabled: false
+    fluent-bit:
+      enabled: false
+    grafana:
+      enabled: false
+    prometheus:
+      enabled: false
       extraScrapeConfigs:
       - job_name: syslog
         syslog:
