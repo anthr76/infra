@@ -50,6 +50,10 @@ spec:
     # Disable kubeProxy whilst using Cilium as it's not deployed
     kubeProxy:
       enabled: false
+    kubeEtcd:
+      service:
+        port: 2381
+        targetPort: 2381
     kubeControllerManager:
       service:
         port: 10257
