@@ -2,6 +2,8 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
+  labels:
+    team: monitoring
   name: traefik
   namespace: traefik
 spec:
@@ -9,7 +11,7 @@ spec:
     matchNames:
       - traefik
   podMetricsEndpoints:
-    - port: traefik
+    - port: metrics
       path: /metrics
       interval: 15s
   selector:
