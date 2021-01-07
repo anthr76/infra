@@ -69,13 +69,22 @@ kubectl create secret generic discord-webhook \
         >>"${GENERATED_SECRETS}"
 echo "---" >>"${GENERATED_SECRETS}"
 
-#flux github
+#flux github token
 kubectl create secret generic github-webhook-token \
+    --from-literal=address="${FLUX_GITHUB_WEBHOOK}" \
+    --namespace flux-system --dry-run=client -o json |
+    kubeseal --format=yaml --cert="${PUB_CERT}" \
+        >>"${GENERATED_SECRETS}"
+echo "---" >>"${GENERATED_SECRETS}"
+
+#flux github token
+kubectl create secret generic github-api-token \
     --from-literal=address="${FLUX_GITHUB_API}" \
     --namespace flux-system --dry-run=client -o json |
     kubeseal --format=yaml --cert="${PUB_CERT}" \
         >>"${GENERATED_SECRETS}"
 echo "---" >>"${GENERATED_SECRETS}"
+
 
 # Remove empty new-lines
 sed -i '/^[[:space:]]*$/d' "${GENERATED_SECRETS}"
