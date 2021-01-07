@@ -33,14 +33,9 @@ spec:
       - "--ping"
       - "--api.dashboard=true"
       - "--metrics.prometheus=true"
-      - "--metrics.prometheus.entryPoint=metrics"
     ports:
       web:
         redirectTo: websecure
-      metrics:
-        port: 8082
-        expose: true
-        exposedPort: 8082
     service:
       externalIPs:
         - 172.30.0.5
