@@ -17,3 +17,17 @@ spec:
   selector:
     matchLabels:
       app: traefik
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: traefik
+  namespace: traefik
+spec:
+  namespaceSelector:
+    matchNames:
+      - traefik
+  endpoints:
+    - port: metrics
+      interval: 10s
+      path: /metrics
