@@ -38,3 +38,6 @@ spec:
       create: true
     metrics:
       create: false
+    configuration:
+      endTime: "7:00"
+      rebootDays: [su]
