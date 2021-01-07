@@ -27,6 +27,9 @@ spec:
   namespaceSelector:
     matchNames:
       - traefik
+  selector:
+    matchLabels:
+      app: traefik
   endpoints:
     - port: metrics
       interval: 10s
