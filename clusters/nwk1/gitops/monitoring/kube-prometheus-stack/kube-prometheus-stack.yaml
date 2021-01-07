@@ -191,6 +191,9 @@ spec:
           velero:
             url: https://grafana.com/api/dashboards/11055/revisions/2/download
             datasource: Prometheus
+          traefik:
+            url: https://grafana.com/api/dashboards/11462/revisions/1/download
+            datasource: Prometheus
       additionalDataSources:
       - name: Prometheus
         type: prometheus
