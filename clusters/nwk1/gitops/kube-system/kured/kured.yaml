@@ -41,3 +41,4 @@ spec:
     configuration:
       endTime: "7:00"
       rebootDays: [su]
+      timeZone: "America/New_York"
