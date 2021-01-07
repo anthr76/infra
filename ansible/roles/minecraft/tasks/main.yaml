@@ -18,9 +18,9 @@
     force: true
   notify: restart waterfall
 
-- name: Download 5.2.74 BungeeCord LuckPerms on waterfall
+- name: Download 5.2.77 BungeeCord LuckPerms on waterfall
   get_url:
-    url: https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastStableBuild/artifact/bungee/build/libs/LuckPerms-Bungee-5.2.74.jar
+    url: https://ci.lucko.me/job/LuckPerms/1243/artifact/bungee/build/libs/LuckPerms-Bungee-5.2.77.jar
     dest: /docker/mcnew/waterfall/plugins/LuckPerms-Bungee.jar
     mode: '0644'
     owner: 'anthony'
@@ -158,9 +158,9 @@
     force: true
   notify: restart mc-server-3
 
-- name: Download 5.2.74 LuckPerms on mc-server-1
+- name: Download 5.2.77 LuckPerms on mc-server-1
   get_url:
-    url: https://ci.lucko.me/job/LuckPerms/lastStableBuild/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.74.jar
+    url: https://ci.lucko.me/job/LuckPerms/1243/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.77.jar
     dest: /docker/mcnew/mc-server-1/plugins/LuckPerms-Bukkit.jar
     mode: '0644'
     owner: 'anthony'
@@ -168,9 +168,9 @@
     force: true
   notify: restart mc-server-1
 
-- name: Download 5.2.74 LuckPerms on mc-server-2
+- name: Download 5.2.77 LuckPerms on mc-server-2
   get_url:
-    url: https://ci.lucko.me/job/LuckPerms/lastStableBuild/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.74.jar
+    url: https://ci.lucko.me/job/LuckPerms/1243/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.77.jar
     dest: /docker/mcnew/mc-server-2/plugins/LuckPerms-Bukkit.jar
     mode: '0644'
     owner: 'anthony'
@@ -178,9 +178,9 @@
     force: true
   notify: restart mc-server-2
 
-- name: Download 5.2.74 LuckPerms on mc-server-3
+- name: Download 5.2.77 LuckPerms on mc-server-3
   get_url:
-    url: https://ci.lucko.me/job/LuckPerms/lastStableBuild/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.74.jar
+    url: https://ci.lucko.me/job/LuckPerms/1243/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.77.jar
     dest: /docker/mcnew/mc-server-3/plugins/LuckPerms-Bukkit.jar
     mode: '0644'
     owner: 'anthony'
@@ -306,9 +306,9 @@
 #     force: true
 #   notify: restart mc-server-2
 
-- name: Download BlueMap 1.0 plugin on mc-server-1
+- name: Download BlueMap 1.3 plugin on mc-server-1
   get_url:
-    url: https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v1.0.0/BlueMap-1.0.0-spigot.jar
+    url: https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v1.3.0/BlueMap-1.3.0-spigot.jar
     dest: /docker/mcnew/mc-server-1/plugins/BlueMap-1.0.0-spigot.jar
     mode: '0644'
     owner: 'anthony'
@@ -316,9 +316,9 @@
     force: true
   notify: restart mc-server-1
 
-- name: Download BlueMap 1.0 plugin on mc-server-3
+- name: Download BlueMap 1.3 plugin on mc-server-3
   get_url:
-    url: https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v1.0.0/BlueMap-1.0.0-spigot.jar
+    url: https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v1.3.0/BlueMap-1.3.0-spigot.jar
     dest: /docker/mcnew/mc-server-3/plugins/BlueMap-1.0.0-spigot.jar
     mode: '0644'
     owner: 'anthony'
