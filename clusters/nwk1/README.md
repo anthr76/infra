@@ -1,4 +1,4 @@
-# Kubic <img align="right" width="80" height="80" src="https://raw.githubusercontent.com/kubic-project/kubic-o-o/master/assets/images/logo.svg">
+# Kubic <img align="right" width="100" height="100" src="https://raw.githubusercontent.com/kubic-project/kubic-o-o/master/assets/images/logo.svg">
 
 
 Multi-purpose Standalone & Kubernetes Container Operating System based on openSUSE MicroOS
