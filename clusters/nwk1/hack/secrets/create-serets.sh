@@ -57,33 +57,54 @@ printf "%s\n%s\n%s\n" "#" "# Auto-generated generic secrets -- DO NOT EDIT." "#"
 kubectl create secret generic cloudflare-api-key \
     --from-literal=api-key="${CF_API_KEY}" \
     --namespace cert-manager --dry-run=client -o json |
-    kubeseal --format=yaml --cert="${PUB_CERT}" \
-        >>"${GENERATED_SECRETS}"
-echo "---" >>"${GENERATED_SECRETS}"
+    kubeseal --format=yaml --cert="${PUB_CERT}" |
+    # Remove null keys
+    yq eval 'del(.metadata.creationTimestamp)' - |
+    yq eval 'del(.spec.template.metadata.creationTimestamp)' - |
+    # Format yaml file
+    sed -e '1s/^/---\n/' |
+    # Write secret
+    tee -a "${GENERATED_SECRETS}" >/dev/null 2>&1
 
-# flux discord
+# Flux discord webhook
 kubectl create secret generic discord-webhook \
     --from-literal=address="${FLUX_DISCORD_WEBHOOK}" \
     --namespace flux-system --dry-run=client -o json |
-    kubeseal --format=yaml --cert="${PUB_CERT}" \
-        >>"${GENERATED_SECRETS}"
-echo "---" >>"${GENERATED_SECRETS}"
+    kubeseal --format=yaml --cert="${PUB_CERT}" |
+    # Remove null keys
+    yq eval 'del(.metadata.creationTimestamp)' - |
+    yq eval 'del(.spec.template.metadata.creationTimestamp)' - |
+    # Format yaml file
+    sed -e '1s/^/---\n/' |
+    # Write secret
+    tee -a "${GENERATED_SECRETS}" >/dev/null 2>&1
 
-#flux github token
+# Flux Webhook Token
 kubectl create secret generic github-webhook-token \
-    --from-literal=address="${FLUX_GITHUB_WEBHOOK}" \
+    --from-literal=token="${FLUX_GITHUB_WEBHOOK}" \
     --namespace flux-system --dry-run=client -o json |
-    kubeseal --format=yaml --cert="${PUB_CERT}" \
-        >>"${GENERATED_SECRETS}"
-echo "---" >>"${GENERATED_SECRETS}"
+    kubeseal --format=yaml --cert="${PUB_CERT}" |
+    # Remove null keys
+    yq eval 'del(.metadata.creationTimestamp)' - |
+    yq eval 'del(.spec.template.metadata.creationTimestamp)' - |
+    # Format yaml file
+    sed -e '1s/^/---\n/' |
+    # Write secret
+    tee -a "${GENERATED_SECRETS}" >/dev/null 2>&1
 
-#flux github token
+# Flux API token
 kubectl create secret generic github-api-token \
-    --from-literal=address="${FLUX_GITHUB_API}" \
+    --from-literal=token="${FLUX_GITHUB_API}" \
     --namespace flux-system --dry-run=client -o json |
-    kubeseal --format=yaml --cert="${PUB_CERT}" \
-        >>"${GENERATED_SECRETS}"
-echo "---" >>"${GENERATED_SECRETS}"
+    kubeseal --format=yaml --cert="${PUB_CERT}" |
+    # Remove null keys
+    yq eval 'del(.metadata.creationTimestamp)' - |
+    yq eval 'del(.spec.template.metadata.creationTimestamp)' - |
+    # Format yaml file
+    sed -e '1s/^/---\n/' |
+    # Write secret
+    tee -a "${GENERATED_SECRETS}" >/dev/null 2>&1
+
 
 
 # Remove empty new-lines

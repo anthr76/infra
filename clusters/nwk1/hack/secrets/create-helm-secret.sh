@@ -20,7 +20,7 @@ if [[ $TXT_FILE != *.txt ]]; then
 fi
 
 # Validate input file is valid yaml
-if ! yq validate "${TXT_FILE}" >/dev/null 2>&1; then
+if ! yq eval "${TXT_FILE}" >/dev/null 2>&1; then
     echo "[ERROR] YAML validation errors in '${TXT_FILE}'. Aborting."
     exit 1
 fi
@@ -46,8 +46,8 @@ envsubst <"$TXT_FILE" |
     # Seal the Kubernetes secret
     kubeseal --format=yaml --cert="${PUB_CERT}" |
     # Remove null keys
-    yq d - "metadata.creationTimestamp" |
-    yq d - "spec.template.metadata.creationTimestamp" |
+    # yq d - "metadata.creationTimestamp" |
+    # yq d - "spec.template.metadata.creationTimestamp" |
     # Format yaml file
     sed \
         -e 's/stdin\:/values.yaml\:/g' \
@@ -63,7 +63,7 @@ if ! kubeseal --validate --controller-name=sealed-secrets <"${secret_filename}" 
 fi
 
 # Validate w/ yq
-if ! yq validate "${secret_filename}" >/dev/null 2>&1; then
+if ! yq eval "${secret_filename}" >/dev/null 2>&1; then
     echo "[ERROR] YAML validation errors in ${secret_filename}. Aborting."
     exit 1
 fi
