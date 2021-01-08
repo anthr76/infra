@@ -1,0 +1,12 @@
+configuration:
+  backupStorageLocation:
+    bucket: $VELERO_S3_BUCKET_NAME
+  config:
+    region: $VELERO_S3_REGION
+    s3Url: $VELERO_S3_ENDPOINT
+credentials:
+  secretContents:
+    cloud: |
+      [default]
+      aws_access_key_id = $VELERO_S3_KEY_ID
+      aws_secret_access_key = $VELERO_S3_APP_KEY
