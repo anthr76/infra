@@ -21,5 +21,4 @@ resources:
 - ./helm-chart-repositories/traefik-charts.yaml
 - ./helm-chart-repositories/weaveworks-kured-charts.yaml
 - ./helm-chart-repositories/wiremind-charts.yaml
-- ./kustomization.yaml
 - ./monitoring/flux-podmonitors.yaml
