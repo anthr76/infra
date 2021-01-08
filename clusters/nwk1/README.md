@@ -1,4 +1,5 @@
-# Kubic <img align="right" src="https://raw.githubusercontent.com/kubic-project/kubic-o-o/master/assets/images/logo.svg">
+# Kubic <img align="right" width="80" height="80" src="https://raw.githubusercontent.com/kubic-project/kubic-o-o/master/assets/images/logo.svg">
+
 
 Multi-purpose Standalone & Kubernetes Container Operating System based on openSUSE MicroOS
 
@@ -7,6 +8,7 @@ Multi-purpose Standalone & Kubernetes Container Operating System based on openSU
 ## Steps to bootstrap <a href="https://www.cncf.io/certification/software-conformance/"><img align="right" src="https://storage.googleapis.com/poseidon/certified-kubernetes.png"></a>
 
 *To Be Revised*
+
 ~~~1. `calicoctl apply -f clusters/nwk1/intergrations/calico`~~~
 ~~~2. `./hack/bootstrap/bootstrap-cluster.sh`~~~
 ~~~3. `./hack/bootstrap/getkey.sh`~~~
@@ -18,7 +20,7 @@ Multi-purpose Standalone & Kubernetes Container Operating System based on openSU
 
 ## :computer:&nbsp; Hardware configuration
 
-_All my Kubernetes master and worker nodes below are running bare metal forked [Typhoon](https://github.com/anthr76/typhoon/tree/master/bare-metal/flatcar-linux/kubernetes)_
+_All my Kubernetes master and worker nodes below are running bare metal [OpenSUSE-Kubic](https://kubic.opensuse.com)_
 
 
 
