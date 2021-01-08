@@ -2,7 +2,7 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
-  name: home-cluster
+  name: nwk1-discord
   namespace: flux-system
 spec:
   providerRef:
@@ -18,7 +18,7 @@ spec:
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
-  name: helmreleases
+  name: nwk1-discord-hr
   namespace: flux-system
 spec:
   providerRef:
@@ -29,7 +29,7 @@ spec:
       namespace: 'cert-manager'
       name: '*'
     - kind: HelmRelease
-      namespace: 'dev'
+      namespace: 'monitoring'
       name: '*'
     - kind: HelmRelease
       namespace: 'home'
@@ -38,12 +38,12 @@ spec:
       namespace: 'kube-system'
       name: '*'
     - kind: HelmRelease
-      namespace: 'media'
+      namespace: 'openebs'
       name: '*'
     - kind: HelmRelease
-      namespace: 'rook-ceph'
+      namespace: 'traefik'
       name: '*'
     - kind: HelmRelease
-      namespace: 'testing'
+      namespace: 'default'
       name: '*'
   suspend: false
