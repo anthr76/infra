@@ -66,8 +66,6 @@ spec:
         name: default
         config:
           prefix: cstor
-          namespace: openebs
-          backupPathPrefix: newbackup
           provider: aws
     # Settings for Velero's prometheus metrics. Enabled by default.
     metrics:
@@ -77,7 +75,7 @@ spec:
     # Whether to create volumesnapshotlocation crd, if false => disable snapshot feature
     snapshotsEnabled: true
     # Whether to deploy the restic daemonset.
-    deployRestic: false
+    deployRestic: true
     # Backup schedules to create.
     schedules:
       daily-backup:

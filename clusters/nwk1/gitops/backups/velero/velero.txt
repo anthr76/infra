@@ -8,6 +8,7 @@ configuration:
     config:
       region: $VELERO_S3_REGION
       bucket: $VELERO_S3_BUCKET_NAME
+      s3Url: $VELERO_S3_ENDPOINT
 credentials:
   secretContents:
     cloud: |
