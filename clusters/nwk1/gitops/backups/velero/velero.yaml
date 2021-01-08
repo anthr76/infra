@@ -57,6 +57,8 @@ spec:
       # https://velero.io/docs/v1.5/api-types/backupstoragelocation/
       backupStorageLocation:
         name: default
+        config:
+          s3ForcePathStyle: true
       # Parameters for the `default` VolumeSnapshotLocation. See
       # https://velero.io/docs/v1.5/api-types/volumesnapshotlocation/
       volumeSnapshotLocation:
@@ -64,7 +66,6 @@ spec:
         name: default
         config:
           prefix: cstor
-          bucket: raspbernetes-openebs-backups
           namespace: openebs
           backupPathPrefix: newbackup
           provider: aws
