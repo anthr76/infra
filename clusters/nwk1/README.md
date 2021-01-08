@@ -9,10 +9,10 @@ Multi-purpose Standalone & Kubernetes Container Operating System based on openSU
 
 *To Be Revised*
 
-~~~1. `calicoctl apply -f clusters/nwk1/intergrations/calico`~~~
-~~~2. `./hack/bootstrap/bootstrap-cluster.sh`~~~
-~~~3. `./hack/bootstrap/getkey.sh`~~~
-~~~4. `./hack/bootstrap/generate_objects.sh`~~~
+~~~calicoctl apply -f clusters/nwk1/intergrations/calico~~~
+~~~./hack/bootstrap/bootstrap-cluster.sh~~~
+~~~./hack/bootstrap/getkey.sh~~~
+~~~./hack/bootstrap/generate_objects.sh~~~
 
 
 
