@@ -140,13 +140,13 @@ spec:
             url: https://gitlab.com/uneeq-oss/cert-manager-mixin/-/raw/master/dashboards/cert-manager.json
             datasource: Prometheus
           cilium-dashboard:
-            url: https://raw.githubusercontent.com/cilium/cilium/v1.9.0/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-dashboard.json
+            url: https://grafana.com/api/dashboards/13537/revisions/1/download
             datasource: Prometheus
           cilium-operator-dashboard:
-            url: https://raw.githubusercontent.com/cilium/cilium/v1.9.0/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-operator-dashboard.json
+            url: https://grafana.com/api/dashboards/13538/revisions/1/download
             datasource: Prometheus
           hubble-dashboard:
-            url: https://raw.githubusercontent.com/cilium/cilium/v1.9.0/examples/kubernetes/addons/prometheus/files/grafana-dashboards/hubble-dashboard.json
+            url: https://grafana.com/api/dashboards/13539/revisions/1/download
             datasource: Prometheus
           openebs:
             url: https://grafana.com/api/dashboards/12171/revisions/2/download
