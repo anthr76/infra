@@ -2,7 +2,7 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
-  name: nwk1
+  name: nwk1-github
   namespace: flux-system
 spec:
   providerRef:
