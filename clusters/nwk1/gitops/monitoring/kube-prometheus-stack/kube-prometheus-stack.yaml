@@ -50,7 +50,9 @@ spec:
     # Disable kubeProxy whilst using Cilium as it's not deployed
     kubeProxy:
       enabled: false
+    # Disabling until TLS is sorted
     kubeEtcd:
+      enabled: false
       service:
         port: 2379
         targetPort: 2379
