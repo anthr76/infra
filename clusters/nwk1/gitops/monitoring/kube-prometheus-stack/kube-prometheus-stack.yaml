@@ -139,9 +139,6 @@ spec:
           cert-manager:
             url: https://gitlab.com/uneeq-oss/cert-manager-mixin/-/raw/master/dashboards/cert-manager.json
             datasource: Prometheus
-          logging-dashboard:
-            url: https://grafana.com/api/dashboards/12611/revisions/1/download
-            datasource: Prometheus
           cilium-dashboard:
             url: https://grafana.com/api/dashboards/13537/revisions/1/download
             datasource: Prometheus
