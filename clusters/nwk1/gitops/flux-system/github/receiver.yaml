@@ -13,7 +13,7 @@ spec:
     name: github-webhook-token
   resources:
   - kind: GitRepository
-    name: infra
+    name: flux-system
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
