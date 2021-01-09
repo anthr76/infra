@@ -20,6 +20,10 @@ spec:
     image:
       repository: docker.io/raspbernetes/thanos
       tag: v0.17.2
+    sidecar:
+      metrics:
+        serviceMonitor:
+          enabled: true
     query:
       # Disable replicas until better node topo is in place.
       # replicaCount: 3
