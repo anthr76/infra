@@ -70,6 +70,8 @@ spec:
     # Settings for Velero's prometheus metrics. Enabled by default.
     metrics:
       enabled: true
+      serviceMonitor:
+        enabled: true
     # Whether to create backupstoragelocation crd, if false => do not create a default backup location
     backupsEnabled: true
     # Whether to create volumesnapshotlocation crd, if false => disable snapshot feature
