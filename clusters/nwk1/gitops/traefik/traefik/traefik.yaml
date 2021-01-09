@@ -33,6 +33,7 @@ spec:
       - "--ping"
       - "--api.dashboard=true"
       - "--metrics.prometheus=true"
+      - "--providers.kubernetesingress.ingressendpoint.hostname=nwk1-fwlb-1.rabbito.tech"
     ports:
       web:
         redirectTo: websecure
