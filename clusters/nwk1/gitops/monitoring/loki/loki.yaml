@@ -67,10 +67,10 @@ spec:
         name: loki-gossip-ring
         targetPort: 7946
       serviceMonitor:
-        enabled: false
+        enabled: true
     promtail:
       serviceMonitor:
-        enabled: false
+        enabled: true
     fluent-bit:
       enabled: false
     grafana:
