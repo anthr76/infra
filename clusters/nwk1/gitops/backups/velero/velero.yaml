@@ -81,7 +81,7 @@ spec:
     # Backup schedules to create.
     schedules:
       daily-backup:
-        schedule: '0 0 * * *'
+        schedule: '0 9 * * *'
         template:
           ttl: '120h'
   valuesFrom:
