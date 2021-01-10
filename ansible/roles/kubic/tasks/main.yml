@@ -86,6 +86,12 @@
     daemon_reload: yes
     state: stopped
   when: systemd_bpf_mount.changed
+- name: enable and start iscsid
+  systemd:
+    name: iscsid
+    enabled: yes
+    state: started
+    daemon_reload: yes
 #Disabling for now
 #- name: Install packages
 #  command: "transactional-update -n pkg install open-iscsi python3-rpm"
