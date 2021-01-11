@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: traefik-forward-auth
+      chart: origin-ca-issuer
       version: 0.5.0
       sourceRef:
         kind: GitRepository
