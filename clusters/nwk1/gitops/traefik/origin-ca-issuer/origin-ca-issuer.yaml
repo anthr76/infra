@@ -12,6 +12,6 @@ spec:
       version: 0.5.0
       sourceRef:
         kind: GitRepository
-        name: origin-ca-issuer
+        name: cloudflare-ca-issuer
         namespace: flux-system
       interval: 10m
