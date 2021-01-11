@@ -9,7 +9,6 @@ spec:
   chart:
     spec:
       chart: origin-ca-issuer
-      version: 0.5.0
       sourceRef:
         kind: GitRepository
         name: origin-ca-issuer
