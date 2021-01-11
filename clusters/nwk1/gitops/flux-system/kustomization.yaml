@@ -26,4 +26,4 @@ resources:
 - ./helm-chart-repositories/dacruz21-charts.yaml
 - ./helm-chart-repositories/vmware-charts.yaml
 - ./helm-chart-repositories/infracloudio-charts.yaml
-- ./helm-chart-repositories/cloudflare-ca-issuer.yaml
+- ./helm-chart-repositories/origin-ca-issuer.yaml

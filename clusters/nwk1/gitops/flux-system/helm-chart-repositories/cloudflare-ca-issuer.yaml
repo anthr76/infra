@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: cloudflare-ca-issuer
+  name: origin-ca-issuer
   namespace: flux-system
 spec:
   interval: 10m0s
