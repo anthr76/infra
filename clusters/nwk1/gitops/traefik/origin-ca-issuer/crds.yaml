@@ -1,0 +1,16 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: origin-ca-issuer-crd
+  namespace: traefik
+spec:
+  interval: 10m
+  url: https://github.com/cloudflare/origin-ca-issuer.git
+  ref:
+    semver: ">=0.5.1 <0.6.0"
+  ignore: |
+    # exclude all
+    /*
+    # include deploy crds dir
+    !/deploy/crds
