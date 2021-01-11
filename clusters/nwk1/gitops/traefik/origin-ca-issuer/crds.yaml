@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: origin-ca-issuer-crd
+  name: origin-ca-issuer-crd-source
   namespace: traefik
 spec:
   interval: 10m
@@ -14,3 +14,21 @@ spec:
     /*
     # include deploy crds dir
     !/deploy/crds
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: origin-ca-issuer-crd
+  namespace: traefik
+spec:
+  interval: 5m
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: origin-ca-issuer-crd
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v1beta1
+      kind: HelmRelease
+      name: origin-ca-issuer
+      namespace: traefik
+  timeout: 2m
