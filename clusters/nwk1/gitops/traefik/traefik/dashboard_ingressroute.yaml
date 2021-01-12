@@ -15,3 +15,12 @@ spec:
     - name: traefik-forward-auth@kubernetescrd
   tls:
     secretName: rabbito-tech-tls
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: traefik-dashboard
+  namespace: traefik
+spec:
+  endpoints:
+  - dnsName: traefik.k8s.rabbito.tech
