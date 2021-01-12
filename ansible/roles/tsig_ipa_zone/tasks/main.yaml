@@ -1,0 +1,11 @@
+---
+- name: ensure target dir exists
+  file:
+    dest: "/etc/named"
+    state: directory
+
+- name: Add rfc2136 tsig credentials
+  template:
+    src: "ipa-ext.conf.j2"
+    dest: "/etc/named/ipa-ext.conf"
+  when: k8s_zone_tsig_key is defined
