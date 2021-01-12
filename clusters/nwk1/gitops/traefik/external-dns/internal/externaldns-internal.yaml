@@ -42,10 +42,10 @@ spec:
     provider: rfc2136
     rfc2136:
       host: "den.rabbito.tech"
-      zone: "k8s.rabbito.tech"
+      zone: "k8s.rabbito.tech."
       tsigKeyname: externaldns
     domainFilters:
-      - k8s.rabbito.tech
+      - "k8s.rabbito.tech"
     crd:
       create: true
   valuesFrom:
