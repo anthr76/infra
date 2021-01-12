@@ -48,6 +48,7 @@ spec:
       - "k8s.rabbito.tech"
     crd:
       create: true
+    policy: sync
   valuesFrom:
     - kind: Secret
       name: "externaldns-internal-helm-values"
