@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
   name: origin-ca-issuer-crd-source
-  namespace: traefik
+  namespace: cert-manager
 spec:
   interval: 10m
   url: https://github.com/cloudflare/origin-ca-issuer.git
@@ -19,7 +19,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
   name: origin-ca-issuer-crd
-  namespace: traefik
+  namespace: cert-manager
 spec:
   interval: 5m
   prune: true
@@ -30,5 +30,5 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v1beta1
       kind: HelmRelease
       name: origin-ca-issuer
-      namespace: traefik
+      namespace: cert-manager
   timeout: 2m
