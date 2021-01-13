@@ -66,6 +66,19 @@ kubectl create secret generic cloudflare-api-key \
     # Write secret
     tee -a "${GENERATED_SECRETS}" >/dev/null 2>&1
 
+# Cloudflare Origin CA
+kubectl create secret generic cloudflare-origin-ca \
+    --from-literal=key="${CF_ORIGIN_CA}" \
+    --namespace cert-manager --dry-run=client -o json |
+    kubeseal --format=yaml --cert="${PUB_CERT}" |
+    # Remove null keys
+    yq eval 'del(.metadata.creationTimestamp)' - |
+    yq eval 'del(.spec.template.metadata.creationTimestamp)' - |
+    # Format yaml file
+    sed -e '1s/^/---\n/' |
+    # Write secret
+    tee -a "${GENERATED_SECRETS}" >/dev/null 2>&1
+
 # Flux discord webhook
 kubectl create secret generic discord-webhook \
     --from-literal=address="${FLUX_DISCORD_WEBHOOK}" \
