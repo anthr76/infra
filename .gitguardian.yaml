@@ -1,0 +1,4 @@
+---
+paths-ignore:
+  - '**/README.md'
+  - '**/zz_generated_secrets.yaml'
