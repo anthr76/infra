@@ -56,4 +56,4 @@ config:
     name: grafana
     secret: ${DEX_GRAFANA_CLIENT_SECRET}
     redirectURIs:
-      - https://grafana.rabbito.tech/login/generic_oauth
+      - https://grafana.kutara.io/login/generic_oauth
