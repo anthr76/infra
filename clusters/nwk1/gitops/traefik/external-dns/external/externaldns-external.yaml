@@ -31,7 +31,7 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    nameOverride: external
+    nameOverride: externaldns-external
     image:
       registry: k8s.gcr.io
       repository: external-dns/external-dns
@@ -43,6 +43,11 @@ spec:
     domainFilters:
       - "kutara.io"
     crd:
+      create: false
+    serviceAccount:
+      name: externaldns
+      create: false
+    rbac:
       create: true
     policy: sync
   valuesFrom:

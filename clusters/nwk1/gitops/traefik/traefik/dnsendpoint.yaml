@@ -10,3 +10,15 @@ spec:
       recordType: A
       targets:
         - 192.168.0.2
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: nwk1-external-entry
+  namespace: traefik
+spec:
+  endpoints:
+    - dnsName: nwk1.kutara.io
+      recordType: CNAME
+      targets:
+        - hillserve.anthonyrabbito.com

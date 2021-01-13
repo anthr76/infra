@@ -31,7 +31,7 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    nameOverride: internal
+    nameOverride: externaldns-internal
     image:
       registry: k8s.gcr.io
       repository: external-dns/external-dns
@@ -48,6 +48,8 @@ spec:
       - "k8s.rabbito.tech"
     crd:
       create: true
+    serviceAccount:
+      name: externaldns
     policy: sync
   valuesFrom:
     - kind: Secret
