@@ -13,7 +13,7 @@ spec:
       name: '*'
     - kind: Kustomization
       name: '*'
-  suspend: false
+  suspend: true
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
@@ -46,4 +46,4 @@ spec:
     - kind: HelmRelease
       namespace: 'default'
       name: '*'
-  suspend: false
+  suspend: true
