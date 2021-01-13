@@ -2,7 +2,7 @@ grafana:
   adminPassword: "${GRAFANA_PASSWORD}"
   grafana.ini:
     server:
-      root_url: "https://grafana.rabbito.tech"
+      root_url: "https://grafana.kutara.io"
     auth.basic:
       disable_login_form: true
     auth.generic_oauth:
