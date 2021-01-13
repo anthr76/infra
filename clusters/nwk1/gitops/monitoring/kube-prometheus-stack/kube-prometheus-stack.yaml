@@ -101,11 +101,13 @@ spec:
         - ReadWriteOnce
       ingress:
         enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/target: nwk1.kutara.io
         hosts:
-        - "grafana.rabbito.tech"
+        - "grafana.kutara.io"
         tls:
         - hosts:
-          - "grafana.rabbito.tech"
+          - "grafana.kutara.io"
       sidecar:
         datasources:
           enabled: true
