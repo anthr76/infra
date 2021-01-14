@@ -9,7 +9,7 @@ config:
     config:
       clientID: ${DEX_GITHUB_CLIENT_ID}
       clientSecret: ${DEX_GITHUB_CLIENT_SECRET}
-      redirectURI: https://dex.k8s.rabbito.tech/callback
+      redirectURI: https://dex.kutara.io/callback
       # 'orgs' can be used to map groups from Github
       # https://github.com/coreos/dex/blob/master/Documentation/connectors/github.md
       orgs:
@@ -49,8 +49,8 @@ config:
     id: forward-auth
     secret: ${DEX_STATIC_CLIENT_SECRET}
     redirectURIs:
-    - http://auth.k8s.rabbito.tech/_oauth
-    - https://auth.k8s.rabbito.tech/_oauth
+    - http://auth.kutara.io/_oauth
+    - https://auth.kutara.io/_oauth
 
   - id: grafana
     name: grafana

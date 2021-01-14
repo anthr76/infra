@@ -22,7 +22,7 @@ metadata:
   namespace: flux-system
 spec:
   routes:
-  - match: Host(`flux-receiver.k8s.rabbito.tech`)
+  - match: Host(`flux-receiver.kutara.io`)
     kind: Rule
     services:
     - kind: Service
@@ -30,4 +30,16 @@ spec:
       port: 80
       namespace: flux-system
   tls:
-    secretName: rabbito-tech-tls
+    secretName: kutara-io-tls
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: flux-receiver-webhook
+  namespace: flux-system
+spec:
+  endpoints:
+  - dnsName: flux-receiver.kutara.io
+    recordType: CNAME
+    targets:
+    - nwk1.kutara.io

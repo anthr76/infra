@@ -24,3 +24,6 @@ metadata:
 spec:
   endpoints:
   - dnsName: traefik.k8s.rabbito.tech
+  recordType: CNAME
+  targets:
+  - nwk1-fwlb-1.k8s.rabbito.tech
