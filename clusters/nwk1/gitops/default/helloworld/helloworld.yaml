@@ -8,12 +8,12 @@ spec:
   selector:
     matchLabels:
       app: hello-kubernetes
-      task: whoami
+      task: hello-kubernetes
   template:
     metadata:
       labels:
         app: hello-kubernetes
-        task: whoami
+        task: hello-kubernetes
     spec:
       containers:
       - name: hello-kubernetes
@@ -34,7 +34,7 @@ spec:
     port: 8080
   selector:
     app: hello-kubernetes
-    task: whoami
+    task: hello-kubernetes
 ---
 kind: Ingress
 apiVersion: networking.k8s.io/v1
