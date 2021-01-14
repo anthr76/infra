@@ -32,7 +32,7 @@ spec:
       tag: "v2.2.0"
     authHost: "auth.kutara.io"
     cookie:
-      domain: "kutara.io"
+      domain: "kutara.io,k8s.rabbito.tech"
     default:
       provider: "oidc"
     providers:
