@@ -50,7 +50,7 @@ spec:
           paths:
             - /
       tls:
-        - secretName: rabbito-tech-tls
+        - secretName: kutara-io-tls
     middleware:
       enabled: true
       name: forward-auth
