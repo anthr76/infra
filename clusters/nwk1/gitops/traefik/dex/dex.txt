@@ -51,6 +51,8 @@ config:
     redirectURIs:
     - http://auth.kutara.io/_oauth
     - https://auth.kutara.io/_oauth
+    - http://auth.k8s.rabbito.tech/_oauth
+    - https://auth.k8s.rabbito.tech/_oauth
 
   - id: grafana
     name: grafana
