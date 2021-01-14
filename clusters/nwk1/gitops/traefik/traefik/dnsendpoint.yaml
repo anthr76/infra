@@ -6,7 +6,7 @@ metadata:
   namespace: traefik
 spec:
   endpoints:
-    - dnsName: nwk1-fw1lb-1.k8s.rabbito.tech
+    - dnsName: nwk1-fwlb-1.k8s.rabbito.tech
       recordType: A
       targets:
         - 192.168.0.2
