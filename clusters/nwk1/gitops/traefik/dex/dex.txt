@@ -49,7 +49,6 @@ config:
     id: forward-auth
     secret: ${DEX_STATIC_CLIENT_SECRET}
     redirectURIs:
-    - http://auth.kutara.io/_oauth
     - https://auth.kutara.io/_oauth
 
   - id: grafana
