@@ -47,7 +47,7 @@ spec:
           service:
             name: whoami
             port:
-            number: 80
+              number: 80
         path: /
         pathType: ImplementationSpecific
   tls:
