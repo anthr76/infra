@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kubernetes
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-kubernetes
+      task: whoami
+  template:
+    metadata:
+      labels:
+        app: hello-kubernetes
+        task: whoami
+    spec:
+      containers:
+      - name: hello-kubernetes
+        image: paulbouwer/hello-kubernetes:1.8
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whoami
+spec:
+  ports:
+  - name: http
+    port: 8080
+  selector:
+    app: hello-kubernetes
+    task: whoami
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: hello-kubernetes
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: kutara.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: hello-kubernetes
+            port:
+              number: 8080
+        path: /
+  tls:
+  - secretName: kutara-io-tls
