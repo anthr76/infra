@@ -1,0 +1,19 @@
+---
+- name: ensure target dir exists
+  file:
+    dest: "/etc/named"
+    state: directory
+
+- name: Add rfc2136 tsig credentials
+  template:
+    src: "ipa-ext.conf.j2"
+    dest: "/etc/named/ipa-ext.conf"
+  when: k8s_zone_tsig_key is defined
+  register: rfc2136
+
+- name: Restart service named
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: yes
+    name: named-pkcs11
+  when: rfc2136.changed

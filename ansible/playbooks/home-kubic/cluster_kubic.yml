@@ -1,6 +1,12 @@
 ---
 
 - hosts:
+  - dns
+  become: true
+  roles:
+  - tsig_ipa_zone
+
+- hosts:
   - masters
   - workers
   become: true

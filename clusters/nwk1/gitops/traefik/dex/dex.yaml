@@ -58,12 +58,14 @@ spec:
         create: false
     ingress:
       enabled: true
+      annotations:
+        kubernetes.io/ingress.class: traefik
       hosts:
-        - dex.k8s.rabbito.tech
+        - dex.kutara.io
       tls:
-        - secretName: rabbito-tech-tls
+        - secretName: kutara-io-tls
     config:
-      issuer: https://dex.k8s.rabbito.tech
+      issuer: https://dex.kutara.io
       enablePasswordDB: false
       oauth2:
         responseTypes: ["code", "token", "id_token"]

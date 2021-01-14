@@ -29,14 +29,24 @@ spec:
       dashboard:
         enabled: true
     additionalArguments:
-      - "--entrypoints.websecure.http.tls"
       - "--ping"
+      - "--entrypoints.websecure.http.tls"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entryPoint.to=:443"
       - "--api.dashboard=true"
       - "--metrics.prometheus=true"
-      - "--providers.kubernetesingress.ingressendpoint.hostname=nwk1-fwlb-1.rabbito.tech"
+      - "--providers.file.filename=/config/dyn.yaml"
+      - "--providers.kubernetesingress.ingressendpoint.hostname=nwk1-fwlb-1.k8s.rabbito.tech"
     ports:
       web:
         redirectTo: websecure
+    volumes:
+      - name: kutara-io-tls
+        mountPath: '/certs'
+        type: secret
+      - name: traefik-config
+        mountPath: '/config'
+        type: configMap
     service:
       externalIPs:
         - 172.30.0.5

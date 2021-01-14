@@ -37,8 +37,7 @@ spec:
           hosts:
           - thanos.k8s.rabbtio.tech
           tls:
-          - hosts:
-            - thanos.k8s.rabbito.tech
+          - secretName: rabbito-tech-tls
     compact:
       retentionResolution1h: 5y
     objstore:

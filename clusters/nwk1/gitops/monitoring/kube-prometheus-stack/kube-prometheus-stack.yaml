@@ -76,13 +76,13 @@ spec:
       fullnameOverride: alertmanager
       ingress:
         enabled: true
+        ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
         hosts:
         - "alert-manager.k8s.rabbito.tech"
         tls:
-        - hosts:
-          - "alert-manager.k8s.rabbito.tech"
+        - secretName: "rabbito-tech-tls"
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -101,11 +101,13 @@ spec:
         - ReadWriteOnce
       ingress:
         enabled: true
+        ingressClassName: traefik
+        annotations:
+          #external-dns.alpha.kubernetes.io/target: nwk1.kutara.io
         hosts:
-        - "grafana.rabbito.tech"
+        - "grafana.kutara.io"
         tls:
-        - hosts:
-          - "grafana.rabbito.tech"
+        - secretName: "rabbito-tech-tls"
       sidecar:
         datasources:
           enabled: true
@@ -207,13 +209,13 @@ spec:
       fullnameOverride: prometheus
       ingress:
         enabled: true
+        ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
         hosts:
         - "prometheus.k8s.rabbito.tech"
         tls:
-        - hosts:
-          - "prometheus.k8s.rabbito.tech"
+        - secretName: "rabbito-tech-tls"
       prometheusSpec:
         ruleSelector: {}
         ruleNamespaceSelector: {}

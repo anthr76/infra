@@ -30,22 +30,23 @@ spec:
     image:
       repository: raspbernetes/traefik-forward-auth
       tag: "v2.2.0"
-    authHost: "auth.k8s.rabbito.tech"
+    authHost: "auth.kutara.io"
     cookie:
-      domain: "k8s.rabbito.tech"
+      domain: "kutara.io"
     default:
       provider: "oidc"
     providers:
       oidc:
         enabled: true
-        issuerUrl: "https://dex.k8s.rabbito.tech"
+        issuerUrl: "https://dex.kutara.io"
         clientId: "forward-auth"
     ingress:
       enabled: true
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
+        kubernetes.io/ingress.class: traefik
       hosts:
-        - host: auth.k8s.rabbito.tech
+        - host: auth.kutara.io
           paths:
             - /
       tls:
