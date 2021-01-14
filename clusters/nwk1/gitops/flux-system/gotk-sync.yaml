@@ -27,7 +27,7 @@ spec:
   interval: 10m0s
   path: ./clusters/nwk1/gitops
   prune: true
-  suspend: true
+  suspend: false
   sourceRef:
     kind: GitRepository
     name: flux-system
