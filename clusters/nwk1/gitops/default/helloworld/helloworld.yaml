@@ -20,6 +20,9 @@ spec:
         image: paulbouwer/hello-kubernetes:1.8
         ports:
         - containerPort: 8080
+        env:
+        - name: MESSAGE
+          value: ExternalDNS is great <3. Welcome to Kutara
 ---
 apiVersion: v1
 kind: Service
