@@ -12,9 +12,9 @@ grafana:
       client_id: grafana
       client_secret: "${DEX_GRAFANA_CLIENT_SECRET}"
       scopes: openid profile email groups
-      auth_url: https://dex.k8s.rabbito.tech/auth
-      token_url: https://dex.k8s.rabbito.tech/token
-      api_url: https://dex.k8s.rabbito.tech/userinfo
+      auth_url: https://dex.kutara.io/auth
+      token_url: https://dex.kutara.io/token
+      api_url: https://dex.kutara.io/userinfo
     auth.generic_oauth.group_mapping:
       role_attribute_path: "contains(groups[*], 'admins') && 'Admin' || contains(groups[*], 'editors') && 'Editor' || 'Viewer'"
       org_id: 1
