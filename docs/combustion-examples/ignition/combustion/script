@@ -19,7 +19,7 @@ cat authorized_keys > /home/localanthony/.ssh/authorized_keys
 mkdir -p /etc/systemd/system/getty@tty1.service.d
 cp autologin.conf /etc/systemd/system/getty@tty1.service.d
 
-## Mount bpffs
+## Mount bpffs for cilium
 cp sys-fs-bpf.mount /etc/systemd/system/
 systemctl enable sys-fs-bpf.mount
 
@@ -35,7 +35,7 @@ systemctl enable iscsid
 
 # Set hostname
 echo "master-02.k8s.rabbito.tech" > /etc/hostname
-echo "kernel.hostname = worker-02.k8s.rabbito.tech" > /etc/sysctl.conf
+echo "kernel.hostname = master-02.k8s.rabbito.tech" > /etc/sysctl.conf
 
 ## Clear up mounts
 umount /var
