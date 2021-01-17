@@ -7,10 +7,13 @@
 
 ## :book:&nbsp; Overview
 
-My at home or for-home Kubernetes clusters written in a declarative state using GitOps + Terraform.
+My at home or for-home Kubernetes clusters written in a declarative state using GitOps, Ansible, or Terraform.
 
-Clusters are provisioned with [Matchbox](https://github.com/poseidon/matchbox) over iPXE using terraform on [Typhoon](https://github.com/anthr76/typhoon). I use a slightly modified version of Typhoon to better suite at home usage. Folders contained in clusters represent different sites in which clusters reside.
+Kubic nodes are initially provisioned with combustions scripts at first startup. Distributed kubeadm automation is typically done with Ansible. 
+
+<img align="right" width="100" height="100" src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png">
+
 
 ## :pushpin:&nbsp; Community
 
-We've got a vibrant community of folks all running various K8S workloads at home. Click the Discord link above to join us!
+We've got a vibrant community of folks all running various K8S workloads at home. Click the [Discord](https://discord.com/invite/Yv2gzFy) link above to join us!
