@@ -22,7 +22,6 @@ jobs:
         UGLY_VERSION="$(flux -v)"
         VERSION="v${UGLY_VERSION#*flux version }"
         flux install --version="${VERSION}" \
-          --arch=arm64 \
           --network-policy=false \
           --export > ./clusters/nwk1/gitops/flux-system/gotk-components.yaml
         echo "::set-output name=flux_version::$VERSION"
