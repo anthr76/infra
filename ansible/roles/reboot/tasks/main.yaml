@@ -1,34 +1,16 @@
-- name: Check to see if reboot is required (CentOS)
-  command: needs-restarting -r
-  register: result
-  ignore_errors: yes
-  when: ansible_distribution == "CentOS"
-  changed_when: "result.rc == 1"
+---
 
-#To remove when we see a reboot iniaite with magic.
-- name: Display result (CentOS)
-  debug:
-    var: result.rc
-  when: ansible_distribution == "CentOS"
-  changed_when: "result.rc != 0"
+- name: prefight checks
+  include_tasks: pre_checks.yml
 
-- name: Reboot servers if necessary (CentOS)
-  reboot:
-  when: ansible_distribution == "CentOS" and result.rc == 1
-
-- name: Check to see if reboot is required (Ubuntu/Debian)
-  register: reboot_required_file
-  stat: path=/var/run/reboot-required get_md5=no
-  when: ansible_os_family == "Debian"
-
-- name: Reboot servers if necessary (Ubuntu/Debian)
-  reboot:
-    msg: "Reboot initiated by Ansible for kernel updates"
-    connect_timeout: 5
-    reboot_timeout: 300
-    pre_reboot_delay: 0
-    post_reboot_delay: 30
-    test_command: uptime
+- name: reboot servers
+  include_tasks: reboot.yml
   when:
-    - ansible_os_family == "Debian"
-    - reboot_required_file.stat.exists
+    - not cluster_node_active
+    - reboot_required
+
+- name: notify kured for reboot
+  include_tasks: reboot_k8s.yml
+  when:
+    - reboot_required
+    - cluster_node_active
