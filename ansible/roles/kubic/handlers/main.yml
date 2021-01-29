@@ -1,8 +1,15 @@
+---
 - name: restart rebootmgr
   systemd:
     name: rebootmgr
     daemon_reload: yes
     enabled: yes
     state: restarted
+
 - name: kured reboot
   command: "transactional-update reboot"
+
+- name: restart systemd-sysctl
+  systemd:
+    name: systemd-sysctl
+    state: restarted
