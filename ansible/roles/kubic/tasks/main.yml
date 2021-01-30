@@ -1,67 +1,10 @@
 ---
 
-- name: set sysctl for transient hostname
-  ansible.posix.sysctl:
-    name: 'kernel.hostname'
-    value: '{{ inventory_hostname }}'
-    sysctl_file: '/etc/sysctl.d/85-hostname-sysctl.conf'
-    reload: false
-    state: 'present'
-  notify: restart systemd-sysctl
+- name: prefight checks
+  include_tasks: pre_checks.yml
 
-- name: 'ensure kubernetes manifests directory'
-  ansible.builtin.file:
-    path: '/etc/kubernetes/manifests'
-    state: 'directory'
+- name: prepare kubic
+  include_tasks: prepare_kubic.yml
 
-- name: 'ensure kubelet is running and enabled'
-  ansible.builtin.service:
-    name: kubelet
-    state: started
-    enabled: yes
-
-- name: 'generate rebootmgr config'
-  ansible.builtintemplate:
-    src: transactional-update.conf.j2
-    dest: /etc/transactional-update.conf
-  notify: restart rebootmgr
-
-- name: 'ensure required modules are loaded'
-  community.general.modprobe:
-    name: '{{ item }}'
-    state: 'present'
-  loop:
-  - 'overlay'
-  - 'br_netfilter'
-
-- name: 'ensure required modules load at system startup'
-  ansible.builtin.copy:
-    dest: '/etc/modules-load.d/kubernetes-modules.conf'
-    content: |
-      overlay
-      br_netfilter
-
-- name: 'ensure sysctl options are configured for container runtime'
-  ansible.posix.sysctl:
-    name: '{{ item }}'
-    value: '1'
-    state: 'present'
-    sysctl_file: '/etc/sysctl.d/99-kubernetes-sysctl.conf'
-    reload: false
-  loop:
-  - net.bridge.bridge-nf-call-iptables
-  - net.bridge.bridge-nf-call-ip6tables
-  - net.ipv4.ip_forward
-  notify: restart systemd-sysctl
-
-
-- name: enable and start iscsid
-  systemd:
-    name: iscsid
-    enabled: yes
-    state: started
-    daemon_reload: yes
-#Disabling for now
-#- name: Install packages
-#  command: "transactional-update -n pkg install open-iscsi python3-rpm"
-#  notify: kured reboot
+- name: prepare kubelet
+  include_tasks: prepare_k8s.yml

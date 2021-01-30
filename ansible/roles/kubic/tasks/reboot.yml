@@ -1,0 +1,12 @@
+---
+# Cannot use include_role in Ansible Handlers: https://github.com/ansible/ansible/issues/20493
+- name: notify transaction-update for reboot
+  ansible.builtin.file:
+    path: /var/run/reboot-required
+    state: touch
+
+- name: wire up reboot role
+  ansible.builtin.include_role:
+    name: reboot
+    public: yes
+  tags: reboot

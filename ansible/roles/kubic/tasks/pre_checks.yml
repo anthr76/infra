@@ -1,0 +1,14 @@
+---
+
+- name: 'check if reboot is rquired'
+  ansible.builtin.include_role:
+    name: reboot
+
+- name: 'check if inotify_tools exist'
+  ansible.builtin.stat:
+    path: /usr/bin/inotifywait
+  register: inotify_tools
+
+- name: 'set inotify_tools fact'
+  ansible.builtin.set_fact:
+    inotify_tools_present: '{{ inotify_tools.stat.exists }}'

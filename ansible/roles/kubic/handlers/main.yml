@@ -6,10 +6,11 @@
     enabled: yes
     state: restarted
 
-- name: kured reboot
-  command: "transactional-update reboot"
-
 - name: restart systemd-sysctl
   systemd:
     name: systemd-sysctl
     state: restarted
+
+# Cannot use include_role in Ansible Handlers: https://github.com/ansible/ansible/issues/20493
+- name: 'reboot system'
+  ansible.builtin.include_tasks: reboot.yml
