@@ -1,12 +1,16 @@
 ---
-# Cannot use include_role in Ansible Handlers: https://github.com/ansible/ansible/issues/20493
-- name: notify transaction-update for reboot
-  ansible.builtin.file:
-    path: /var/run/reboot-required
-    state: touch
 
-- name: wire up reboot role
-  ansible.builtin.include_role:
-    name: reboot
-    public: yes
-  tags: reboot
+- name: preflight checks to see if varibles changed
+  ansible.builtin.include_tasks: pre_checks.yml
+
+- name: reboot
+  ansible.builtin.reboot:
+  when:
+    - not cluster_node_active
+
+- name: 'inform user kured has been notified to be reboot'
+  ansible.builtin.debug:
+    msg: kured has been notfied for reboot
+  when:
+    - cluster_node_active
+    - 'rebootmgr_method == "kured"'

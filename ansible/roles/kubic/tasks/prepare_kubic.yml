@@ -32,7 +32,9 @@
       - install
       - python38-rpm
       - inotify-tools
-  notify: reboot system
+  notify:
+    - reboot system
+    - give system notice for reboot
   register: packages
   changed_when: '"The snapshot does not contain any changed files." not in packages.stdout'
   when: 'inotify_tools_present == false'
@@ -52,7 +54,9 @@
       - python38-rpm
       - open-iscsi
       - python38-openshift
-  notify: reboot system
+  notify:
+    - reboot system
+    - give system notice for reboot
   register: packages
   changed_when: '"The snapshot does not contain any changed files." not in packages.stdout'
 
