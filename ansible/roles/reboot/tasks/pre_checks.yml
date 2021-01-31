@@ -1,0 +1,17 @@
+---
+- name: check node status
+  stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: k8s_kubelet_conf
+
+- name: set node status fact
+  set_fact:
+    cluster_node_active: "{{ k8s_kubelet_conf.stat.exists }}"
+
+- name: Check to see if reboot is required
+  stat: path=/var/run/reboot-required get_md5=no
+  register: reboot_required_stat
+
+- name: set reboot_required fact
+  set_fact:
+    reboot_required: "{{ reboot_required_stat.stat.exists }}"

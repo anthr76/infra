@@ -1,0 +1,16 @@
+---
+
+- name: prefight checks
+  include_tasks: pre_checks.yml
+
+- name: reboot servers
+  include_tasks: reboot.yml
+  when:
+    - not cluster_node_active
+    - reboot_required
+
+- name: notify kured for reboot
+  include_tasks: reboot_k8s.yml
+  when:
+    - reboot_required
+    - cluster_node_active

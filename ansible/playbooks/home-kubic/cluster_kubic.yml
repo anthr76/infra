@@ -12,6 +12,7 @@
   become: true
   roles:
   - dockerhub
+  - bootstrap_os
   - kubic
   tags:
   - prepare

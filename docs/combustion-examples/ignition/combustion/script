@@ -19,23 +19,23 @@ cat authorized_keys > /home/localanthony/.ssh/authorized_keys
 mkdir -p /etc/systemd/system/getty@tty1.service.d
 cp autologin.conf /etc/systemd/system/getty@tty1.service.d
 
-## Mount bpffs for cilium
-cp sys-fs-bpf.mount /etc/systemd/system/
-systemctl enable sys-fs-bpf.mount
-
 ## Reboot after setup
 cp firstbootreboot.service /etc/systemd/system/
 systemctl enable firstbootreboot.service
 
-# Install Ansible, and K8s packages
-zypper --non-interactive install python3-rpm open-iscsi
+# Add OBS Repo
+zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:anthr76/openSUSE_Tumbleweed/home:anthr76.repo
+zypper --non-interactive --gpg-auto-import-keys refresh
+
+# Install supporting K8s packages
+zypper --non-interactive --gpg-auto-import-keys install python38-rpm open-iscsi python38-openshift inotify-tools
 
 # Enable iscsid
 systemctl enable iscsid
 
 # Set hostname
 echo "master-02.k8s.rabbito.tech" > /etc/hostname
-echo "kernel.hostname = master-02.k8s.rabbito.tech" > /etc/sysctl.conf
+echo "kernel.hostname = master-02.k8s.rabbito.tech" > /etc/sysctl.d/85-hostname-sysctl.conf
 
 ## Clear up mounts
 umount /var

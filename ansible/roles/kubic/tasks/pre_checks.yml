@@ -1,0 +1,28 @@
+---
+
+- name: check node status
+  stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: k8s_kubelet_conf
+
+- name: set node status fact
+  set_fact:
+    cluster_node_active: "{{ k8s_kubelet_conf.stat.exists }}"
+
+- name: check to see if reboot is required
+  ansible.builtin.stat:
+    path: path=/var/run/reboot-required
+  register: reboot_required_stat
+
+- name: set reboot_required fact
+  ansible.builtin.set_fact:
+    reboot_required: "{{ reboot_required_stat.stat.exists }}"
+
+- name: 'check if inotify_tools exist'
+  ansible.builtin.stat:
+    path: /usr/bin/inotifywait
+  register: inotify_tools
+
+- name: 'set inotify_tools fact'
+  ansible.builtin.set_fact:
+    inotify_tools_present: '{{ inotify_tools.stat.exists }}'
