@@ -6,3 +6,4 @@ ansible/k8s-cilium-exec.sh
 clusters/nwk1/gitops/openebs/openebs/uninstall.sh
 bin/
 flux
+.vscode

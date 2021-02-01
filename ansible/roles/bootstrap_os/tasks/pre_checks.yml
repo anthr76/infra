@@ -1,0 +1,3 @@
+- include_tasks: micro_os/pre_checks_micro_os.yml
+  when:
+    - '"opensuse-microos" in os_release.stdout'
