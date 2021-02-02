@@ -1,0 +1,28 @@
+---
+
+- include_tasks: preflight_checks.yml
+
+- include_tasks: prepare_k8s.yml
+
+- include_tasks: master_setup.yml
+  when:
+    - kubernetes_role == 'master'
+
+- name: 'get the kubeadm join command from the Kubernetes master.'
+  command: kubeadm token create --print-join-command
+  changed_when: false
+  when: kubernetes_role == 'master'
+  register: kubernetes_join_command_result
+
+- name: 'set the kubeadm join command globally'
+  ansible.builtin.set_fact:
+    kubernetes_join_command: '{{ kubernetes_join_command_result.stdout }} {{ kubernetes_join_command_extra_opts }}'
+  when: kubernetes_join_command_result.stdout is defined
+  delegate_to: '{{ item }}'
+  delegate_facts: true
+  with_items: "{{ groups['all'] }}"
+
+- include_tasks: worker-setup.yml
+  when:
+    - kubernetes_role == 'worker'
+    - not cluster_node_active
