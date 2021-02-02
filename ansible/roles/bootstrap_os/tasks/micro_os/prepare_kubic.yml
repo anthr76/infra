@@ -4,7 +4,6 @@
   ansible.posix.sysctl:
     name: 'kernel.hostname'
     value: '{{ inventory_hostname }}'
-    sysctl_file: '/etc/sysctl.d/85-hostname-sysctl.conf'
     reload: false
     state: 'present'
   notify: restart systemd-sysctl
