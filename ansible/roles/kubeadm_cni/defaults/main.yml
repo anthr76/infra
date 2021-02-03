@@ -3,3 +3,20 @@
 cni_cilium_image_repository: docker.io/cilium/cilium-dev
 cni_cilium_helm_version: 1.9.3
 cni_cilium_image_version: v1.9.3
+kube_router_image: docker.io/cloudnativelabs/kube-router
+cni_plugin: cilium
+cni_bgp_peer_address: 192.168.0.1
+cni_bgp_peer_asn: 64512
+cni_cilium_hubble_enabled: false
+cni_cilium_enovy_proxy_image_version: v1.16.2
+cni_cilium_bpf_hostrouting: "true"
+cni_cilium_bpf_tproxy: "false"
+cni_cilium_bpf_masquerade: "true"
+cni_cilium_endpoint_routes: "false"
+k8s_native_cluster_cidr: "{{ (ansible_default_ipv4.network + '/' + ansible_default_ipv4.netmask) | ipaddr('network/prefix') }}"
+k8s_service_host: '{{ kubernetes_control_plane_endpoint.address }}'
+k8s_service_port: '{{ kubernetes_control_plane_endpoint.port }}'
+cluster_pod_subnet: '{{ kubernetes_pod_network.cidr }}'
+cluster_kube_proxy_enabled: false
+cni_kube_router_enabled: false
+cri_plugin: crio
