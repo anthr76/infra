@@ -12,7 +12,6 @@
 - name: set control plane exists fact
   ansible.builtin.set_fact:
     control_plane_exists: "{{ k8s_kubelet_conf.stat.exists }}"
-  when: k8s_kubelet_conf.stat.exists
   delegate_to: '{{ item }}'
   delegate_facts: true
   with_items: "{{ groups['all'] }}"
