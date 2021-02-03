@@ -52,6 +52,7 @@
   command: '{{ kubernetes_control_plane_join_command }}'
   register: kubeadm_join
   when: not cluster_node_active
+  notify: pre checks
 
 - name: 'symlink the kubectl admin.conf to ~/.kube/conf'
   file:
