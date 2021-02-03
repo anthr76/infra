@@ -1,5 +1,6 @@
 **/.terraform
 /ansible/output/
+/ansible/debug.yml
 /ansible/test-inventory/*
 /ansible/playbooks/home-kubic/output/
 ansible/k8s-cilium-exec.sh
