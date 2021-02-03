@@ -1,0 +1,61 @@
+---
+
+- name: 'pull control plane images'
+  command: kubeadm config images pull
+  register: kubeadm_images
+  changed_when: '"pulled" in kubeadm_images.stdout'
+  when: not cluster_node_active
+
+- name: 'initalize control plane'
+  command: >
+    kubeadm init
+    --pod-network-cidr={{ kubernetes_pod_network.cidr }}
+    --control-plane-endpoint={{ kubernetes_control_plane_endpoint.address }}:{{ kubernetes_control_plane_endpoint.port }}
+    {{ kubernetes_kubeadm_init_extra_opts }}
+  when:
+    - not cluster_node_active
+    - not control_plane_exists
+  register: kubeadm_join
+  run_once: true
+  notify: pre checks
+
+- name: flush handlers
+  meta: flush_handlers
+
+- name: 'upload certificates from control plane'
+  command: kubeadm init phase upload-certs --upload-certs
+  register: kubeadm_controlplane_certs
+  run_once: true
+  when: cluster_node_active
+
+- name: 'set certificate key fact'
+  ansible.builtin.set_fact:
+    control_plane_key: "{{ kubeadm_controlplane_certs.stdout_lines[2] }}"
+  run_once: true
+  when: cluster_node_active
+
+- name: 'get control plane kubeadm join command'
+  command: kubeadm token create --print-join-command --certificate-key {{ control_plane_key }}
+  register: kubernetes_control_plane_join_command_result
+  run_once: true
+  when: cluster_node_active
+
+- name: 'set fact for kubeadm join command on control plane nodes globally'
+  ansible.builtin.set_fact:
+    kubernetes_control_plane_join_command: "{{ kubernetes_control_plane_join_command_result.stdout }}"
+  delegate_facts: true
+  delegate_to: '{{ item }}'
+  with_items: "{{ groups['all'] }}"
+  when: cluster_node_active
+
+- name: 'join remaining control plane nodes'
+  command: '{{ kubernetes_control_plane_join_command }}'
+  register: kubeadm_join
+  when: not cluster_node_active
+
+- name: 'symlink the kubectl admin.conf to ~/.kube/conf'
+  file:
+    src: /etc/kubernetes/admin.conf
+    dest: ~/.kube/config
+    state: link
+    mode: 0644

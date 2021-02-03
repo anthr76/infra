@@ -1,0 +1,24 @@
+---
+
+- include_tasks: preflight_checks.yml
+
+- include_tasks: prepare_k8s.yml
+
+- include_tasks: master_setup.yml
+  when:
+    - kubernetes_role == 'master'
+    - not cluster_node_active
+
+- name: Copy Kubernetes config locally
+  run_once: true
+  fetch:
+    dest: output/k8s-config.yaml
+    flat: true
+    src: /etc/kubernetes/admin.conf
+  when:
+    - kubernetes_role == 'master'
+
+- include_tasks: worker-setup.yml
+  when:
+    - kubernetes_role == 'worker'
+    - not cluster_node_active

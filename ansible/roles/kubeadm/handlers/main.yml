@@ -1,0 +1,2 @@
+- name: 'pre checks'
+  ansible.builtin.include_tasks: preflight_checks.yml
