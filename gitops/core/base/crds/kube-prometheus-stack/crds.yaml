@@ -27,4 +27,9 @@ spec:
   sourceRef:
     kind: GitRepository
     name: kube-prometheus-stack-crd-source
+  healthChecks:
+    - apiversion: helm.toolkit.fluxcd.io/v1beta1
+      kind: HelmRelease
+      name: kube-prometheus-stack
+      namespace: monitoring
   timeout: 2m
