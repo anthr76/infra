@@ -1,2 +1,0 @@
-cloudflare:
-  apiToken: "$KUTARA_CF_TOKEN"
