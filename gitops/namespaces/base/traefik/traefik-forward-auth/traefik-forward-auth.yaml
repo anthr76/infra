@@ -1,0 +1,59 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik-forward-auth
+  namespace: traefik
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: traefik-forward-auth
+      version: 1.0.5
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 10m
+  dependsOn:
+    - name: traefik
+      namespace: traefik
+    - name: dex
+      namespace: traefik
+  values:
+    replicaCount: 1
+    autoscaling:
+      enabled: false
+      minReplicas: 2
+      maxReplicas: 4
+    image:
+      repository: raspbernetes/traefik-forward-auth
+      tag: "v2.2.0"
+    authHost: "auth.kutara.io"
+    cookie:
+      domain: "kutara.io,k8s.rabbito.tech"
+    default:
+      provider: "oidc"
+    providers:
+      oidc:
+        enabled: true
+        issuerUrl: "https://dex.kutara.io"
+        clientId: "forward-auth"
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
+        kubernetes.io/ingress.class: traefik
+      hosts:
+        - host: auth.kutara.io
+          paths:
+            - /
+      tls:
+        - secretName: kutara-io-tls
+    middleware:
+      enabled: true
+      name: forward-auth
+  valuesFrom:
+    - kind: Secret
+      name: "traefik-forward-auth-helm-values"
