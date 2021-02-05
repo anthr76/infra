@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: core
-  path: ./gitops/namespaces/kind
+  path: ./gitops/namespaces/overlays/kind
   prune: true
   sourceRef:
     kind: GitRepository
@@ -21,7 +21,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./gitops/core/kind
+  path: ./gitops/core/overlays/kind
   prune: false
   sourceRef:
     kind: GitRepository
