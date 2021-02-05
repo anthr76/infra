@@ -5,10 +5,8 @@ resources:
 - ../../base/traefik/
 - ../../base/traefik/traefik
 - ../../base/flux-system
-- ../../base/networking/external-dns
+- ../../base/networking/external-dns/internal
 - ../../base/monitoring
 - ../../base/monitoring/kube-prometheus-stack
-- ../../base/networking/external-dns/internal
-- ../../base/networking/external-dns/external
 patchesStrategicMerge:
 - patch.yaml
