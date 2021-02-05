@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- banzaicloud-charts.yaml
+- bitnami-charts.yaml
+- dacruz21-charts.yaml
+- emberstack-charts.yaml
+- grafana-loki-charts.yaml
+- infracloudio-charts.yaml
+- jetstack-charts.yaml
+- k8s-at-home-chart.yaml
+- kubernetes-sigs-charts.yaml
+- kubernetes-stable-charts.yaml
+- openebs-charts.yaml
+- origin-ca-issuer.yaml
+- prometheus-community-charts.yaml
+- rook-ceph-charts.yaml
+- sealed-secrets-charts.yaml
+- traefik-charts.yaml
+- vmware-charts.yaml
+- weaveworks-kured-charts.yaml
+- wiremind-charts.yaml
