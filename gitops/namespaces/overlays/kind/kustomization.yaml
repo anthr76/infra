@@ -8,5 +8,7 @@ resources:
 - ../../base/networking/external-dns
 - ../../base/monitoring
 - ../../base/monitoring/kube-prometheus-stack
+- ../../base/networking/external-dns/internal
+- ../../base/networking/external-dns/external
 patchesStrategicMerge:
 - patch.yaml
