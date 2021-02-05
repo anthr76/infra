@@ -19,3 +19,4 @@ spec:
   values:
     deployment:
       kind: Deployment
+    additionalArguments:

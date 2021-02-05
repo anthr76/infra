@@ -4,5 +4,10 @@ resources:
 - ../../base/networking
 - ../../base/traefik/
 - ../../base/traefik/traefik
+- ../../base/flux-system
+- ../../base/flux-system/helm-chart-repositories
+- ../../base/networking/external-dns
+- ../../base/monitoring
+- ../../base/monitoring/kube-prometheus-stack
 patchesStrategicMerge:
 - patch.yaml
