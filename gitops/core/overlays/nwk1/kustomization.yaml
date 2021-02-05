@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - ../../base/crds/kube-prometheus-stack/crds.yaml
 - ../../base/crds/origin-ca-issuer/crds.yaml
+- ../../base/crds/traefik/crds.yaml
