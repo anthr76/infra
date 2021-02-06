@@ -1,5 +1,5 @@
 module "mercury" {
-source = "git::https://github.com/anthr76/typhoon//bare-metal/flatcar-linux/kubernetes?ref=v1.19.3-hetro-snapshot"
+source = "git::https://github.com/anthr76/typhoon//bare-metal/flatcar-linux/kubernetes?ref=v1.19.3"
 
 cluster_name = "k8s"
 matchbox_http_endpoint = "http://nwk1-app-1.rabbito.tech:8080"
