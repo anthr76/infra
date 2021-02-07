@@ -29,6 +29,7 @@ _Below are some of the tools I find useful_
 
 A lot of inspiration for this repo came from the following people:
 
+- [xUnholy/k8s-gitops](https://github.com/xUnholy/k8s-gitops)
 - [billimek/k8s-gitops](https://github.com/billimek/k8s-gitops)
 - [carpenike/k8s-gitops](https://github.com/carpenike/k8s-gitops)
 - [dcplaya/k8s-gitops](https://github.com/dcplaya/k8s-gitops)
