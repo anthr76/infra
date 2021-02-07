@@ -1,0 +1,55 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: externaldns-external
+  namespace: networking
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      chart: external-dns
+      version: 4.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+      interval: 10m
+  test:
+    enable: false # Enable helm test
+  install:
+    remediation: # perform remediation when helm install fails
+      retries: 3
+  upgrade:
+    remediation: # perform remediation when helm upgrade fails
+      retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  values:
+    nameOverride: externaldns-external
+    image:
+      registry: k8s.gcr.io
+      repository: external-dns/external-dns
+      tag: v0.7.6
+    sources:
+      - crd
+      - ingress
+    provider: cloudflare
+    domainFilters:
+      - "kutara.io"
+    crd:
+      create: false
+    serviceAccount:
+      name: externaldns
+      create: false
+    rbac:
+      create: true
+    policy: sync
+  valuesFrom:
+    - kind: Secret
+      name: "externaldns-external-helm-values"

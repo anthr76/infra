@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: traefik
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://helm.traefik.io/traefik
+      chart: traefik
+      version: 9.14.2
+      sourceRef:
+        kind: HelmRepository
+        name: traefik-charts
+        namespace: flux-system
+      interval: 5m
+  dependsOn:
+    - name: external-dns-internal
+      namespace: networking
+  values:
+    deployment:
+      kind: DaemonSet
+    logs:
+      general:
+        level: DEBUG
+    ingressClass:
+      enabled: true
+      isDefaultClass: true
+    ingressRoute:
+      dashboard:
+        enabled: true
+    additionalArguments:
+      - "--ping"
+      - "--entrypoints.websecure.http.tls"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entryPoint.to=:443"
+      - "--api.dashboard=true"
+      - "--metrics.prometheus=true"
+      - "--providers.file.filename=/config/dyn.yaml"
+      - "--entryPoints.websecure.proxyProtocol.trustedIPs=192.168.0.2,192.168.0.1,173.245.48.0/20,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,141.101.64.0/18,108.162.192.0/18,190.93.240.0/20,188.114.96.0/20,197.234.240.0/22,198.41.128.0/17,162.158.0.0/15,104.16.0.0/12,172.64.0.0/13,131.0.72.0/22,2400:cb00::/32,2606:4700::/32,2803:f800::/32,2405:b500::/32,2405:8100::/32,2a06:98c0::/29,2c0f:f248::/32"
+      - "--providers.kubernetesingress.ingressendpoint.hostname=nwk1-fwlb-1.k8s.rabbito.tech"
+    ports:
+      web:
+        redirectTo: websecure
+    volumes:
+      - name: kutara-io-tls
+        mountPath: '/certs'
+        type: secret
+      - name: traefik-config
+        mountPath: '/config'
+        type: configMap
+    service:
+      externalIPs:
+        - 172.30.0.5
+        - 172.30.0.6
+        - 172.30.0.7
+      spec:
+        externalTrafficPolicy: Local
