@@ -27,8 +27,7 @@ spec:
     kind: GitRepository
     name: origin-ca-issuer-crd-source
   healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v1beta1
-      kind: HelmRelease
-      name: origin-ca-issuer
-      namespace: cert-manager
+    - apiVersion: apiextensions.k8s.io/v1
+      kind: CustomResourceDefinition
+      name: originissuers.cert-manager.k8s.cloudflare.com
   timeout: 2m
