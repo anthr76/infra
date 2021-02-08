@@ -95,7 +95,7 @@ spec:
         - source_labels: ['__syslog_message_hostname']
           target_label: 'host'
       syslogService:
-        enabled: true
+        enabled: false
         type: LoadBalancer
         port: 1514
         externalIPs:
