@@ -4,7 +4,5 @@
 
 ## openSUSE Kubic
 
----
-
-* [Combustion](combustion.md)
+* [Combustion](opensuse-kubic/combustion.md)
 
