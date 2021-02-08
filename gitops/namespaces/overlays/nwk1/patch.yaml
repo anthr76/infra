@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  values:
+    alertmanager:
+      enabled: true
+    grafana:
+      enabled: true
+    prometheus:
+      enabled: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: monitoring
+spec:
+  values:
+    prometheus:
+      syslogService:
+        enabled: true
+        type: LoadBalancer
+        port: 1514
+        externalIPs:
+        - 172.30.0.10
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: traefik
+spec:
+  values:
+    service:
+      externalIPs:
+      - 172.30.0.5
+      - 172.30.0.6
+      - 172.30.0.7
+      spec:
+        externalTrafficPolicy: Local
+---
