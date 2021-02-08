@@ -12,6 +12,8 @@ Get involved with the community!
  - [k8s@home](https://discord.gg/5sutTcCav5)
  - [SelfHosted](https://selfhosted.show/)
 
+Docs are hosted on GitBook and can be read [here](https://anthr76.gitbook.io/infra/)
+
 ---
 
 ## :wrench:&nbsp; Tools
