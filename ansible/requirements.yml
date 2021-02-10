@@ -1,0 +1,11 @@
+---
+roles:
+  - name: anthr76.ansible_vfio
+    source: https://galaxy.ansible.com
+collections:
+  - name: kubernetes.core
+    source: https://galaxy.ansible.com
+  - name: ansible.posix
+    source: https://galaxy.ansible.com
+  - name: community.general
+    source: https://galaxy.ansible.com
