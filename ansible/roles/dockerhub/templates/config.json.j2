@@ -2,6 +2,10 @@
         "auths": {
                 "docker.io": {
                         "auth": "{{ dockerhub_creds }}"
-                }
-        }
+                },
+	        "ghcr.io": {
+		        "auth": "{{ ghcr_creds }}"
+	        }
+	}
+
 }
