@@ -6,3 +6,7 @@
 
 * [Combustion](opensuse-kubic/combustion.md)
 
+## Archive
+
+* [Getting Started](archive/getting-started.md)
+
