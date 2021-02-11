@@ -10,3 +10,7 @@
 
 * [Getting Started](archive/getting-started.md)
 
+## Secrets
+
+* [Sealed Secrets](secrets/sealed-secrets.md)
+
