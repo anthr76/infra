@@ -16,8 +16,8 @@
 
 - name: 'add home:anthr76 OBS repo'
   community.general.zypper_repository:
-    repo: https://download.opensuse.org/repositories/home:anthr76/openSUSE_Tumbleweed/
-    name: 'home_anthr76'
+    repo: https://download.opensuse.org/repositories/home:anthr76:kubernetes/openSUSE_Tumbleweed/
+    name: 'home_anthr76_kubernetes'
     auto_import_keys: yes
     runrefresh: yes
 
