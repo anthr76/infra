@@ -48,4 +48,3 @@ nav:
 - Introduction: index.md
 - Archived: archive/getting-started.md
 - Kubic/MicroOS: opensuse-kubic/combustion.md
-- Secrets: secrets/sealed-secrets.md
