@@ -46,6 +46,6 @@ markdown_extensions:
 
 nav:
 - Introduction: index.md
-- Archived: getting-started.md
-- Kubic/MicroOS: combustion.md
-- Secrets: sealed-secrets.md
+- Archived: archive/getting-started.md
+- Kubic/MicroOS: opensuse-kubic/combustion.md
+- Secrets: secrets/sealed-secrets.md
