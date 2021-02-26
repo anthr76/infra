@@ -13,4 +13,3 @@
 ## Secrets
 
 * [Sealed Secrets](secrets/sealed-secrets.md)
-

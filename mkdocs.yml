@@ -1,0 +1,51 @@
+---
+
+site_name: anthr76 | infra
+site_description: Personal home-lab or for home infrastructure in a declaritive state.
+site_author: Anthony Rabbito
+site_url: https://anthr76.github.io/infra/
+
+repo_name: anthr76/infra
+repo_url: https://github.com/anthr76/infra
+edit_uri: ""
+
+theme:
+  name: material
+  # logo: _files/flux-icon@2x.png
+  language: en
+  palette:
+    primary: blue
+    accent: indigo
+
+docs_dir: ./docs
+
+extra_css:
+- _static/custom.css
+
+plugins:
+- search
+
+markdown_extensions:
+- admonition
+- meta
+- codehilite:
+    guess_lang: false
+- toc:
+    permalink: true
+- pymdownx.superfences:
+    highlight_code: true
+- pymdownx.tabbed
+- pymdownx.tilde
+- pymdownx.progressbar
+- pymdownx.tasklist
+- pymdownx.superfences
+- pymdownx.snippets
+- pymdownx.emoji:
+    emoji_index: !!python/name:materialx.emoji.twemoji
+    emoji_generator: !!python/name:materialx.emoji.to_svg
+
+nav:
+- Introduction: index.md
+- Archived: getting-started.md
+- Kubic/MicroOS: combustion.md
+- Secrets: sealed-secrets.md

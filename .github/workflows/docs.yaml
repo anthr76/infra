@@ -1,0 +1,26 @@
+---
+
+name: Publish docs via GitHub Pages
+
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+  push:
+    branches:
+    - 'docs-*'
+    - main
+    paths:
+    - '.github/workflows/docs.yaml'
+    - 'mkdocs.yml'
+    - 'docs/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    - name: Deploy docs
+      uses: mhausenblas/mkdocs-deploy-gh-pages@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
