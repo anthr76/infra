@@ -4,7 +4,7 @@ services:
     image: raspbernetes/builder:latest
     working_dir: /opt/app
     volumes:
-      - .:/opt/app:rw
+      - ../../:/opt/app:rw
 
 networks:
   default:
