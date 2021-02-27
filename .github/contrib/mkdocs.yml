@@ -7,7 +7,7 @@ site_url: https://anthr76.github.io/infra/
 
 repo_name: anthr76/infra
 repo_url: https://github.com/anthr76/infra
-edit_uri: ""
+edit_uri: "edit/main/docs/"
 
 theme:
   name: material
@@ -47,5 +47,5 @@ markdown_extensions:
 
 nav:
 - Introduction: index.md
-- Archived: archive/getting-started.md
+- Archived: tooling/getting-started.md
 - Kubic/MicroOS: opensuse-kubic/combustion.md
