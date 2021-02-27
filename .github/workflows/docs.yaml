@@ -10,7 +10,7 @@ on: # yamllint disable-line rule:truthy
     - main
     paths:
     - '.github/workflows/docs.yaml'
-    - 'mkdocs.yml'
+    - '.github/contrib/mkdocs.yml'
     - 'docs/**'
 
 jobs:
