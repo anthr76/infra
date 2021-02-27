@@ -39,11 +39,15 @@ EOF
 
 1. Unlock the repo with your GPG key
 
-`$ git-crypt unlock`
+```sh
+$ git-crypt unlock
+```
 
 1. Install pre-commit hooks
 
-`$ pre-commit install`
+```sh
+$ pre-commit install
+```
 
 #### Navigating the file structure
 
@@ -96,3 +100,5 @@ gitops/
 │  │  ├─ cluster1/ <- Apply Kustomize overlays from base on cluster 1
 │  │  ├─ cluster2/ <- Apply Kustomize overlays from base on cluster 2
 ```
+
+More information about Kustomize, and flux is out scope of getting started with this repo but this should get you antiquated enough to understand better the directory layout.
