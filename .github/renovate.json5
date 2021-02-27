@@ -16,11 +16,11 @@
   "assignees": ["@anthr76"],
   "reviewersFromCodeOwners": true,
   "helm-values": {
-    "fileMatch": ["clusters/.+\\.yaml$"]
+    "fileMatch": ["gitops/namespaces/.+\\.yaml$"]
   },
   "regexManagers": [
     {
-      "fileMatch": ["clusters/.+\\.yaml$"],
+      "fileMatch": ["gitops/namespaces/.+\\.yaml$"],
       "matchStrings": [
         "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
       ],
