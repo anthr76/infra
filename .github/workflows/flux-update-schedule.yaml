@@ -23,7 +23,7 @@ jobs:
         VERSION="v${UGLY_VERSION#*flux version }"
         flux install --version="${VERSION}" \
           --network-policy=false \
-          --export > ./clusters/nwk1/gitops/flux-system/gotk-components.yaml
+          --export > ./clusters/nwk1/gotk/flux-system/gotk-components.yaml
         echo "::set-output name=flux_version::$VERSION"
     - name: Create pull request for Flux update
       uses: peter-evans/create-pull-request@v3
@@ -38,5 +38,5 @@ jobs:
         assignees: "anthr76"
         commit-message: "update flux components to ${{ steps.update.outputs.flux_version }}"
         body: |
-          Release notes: https://github.com/fluxcd/flux2/releases/tag/${{ steps.update.outputs.flux_version }}
+          Signed-off-by: Anthony Rabbito <hello@anthonyrabbito.com>
         labels: flux/update
