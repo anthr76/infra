@@ -47,5 +47,5 @@ markdown_extensions:
 
 nav:
 - Introduction: index.md
-- Archived: tooling/getting-started.md
+- Getting Started: tooling/getting-started.md
 - Kubic/MicroOS: opensuse-kubic/combustion.md
