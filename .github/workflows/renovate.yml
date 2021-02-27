@@ -16,9 +16,9 @@ jobs:
 
     - name: Update NWK1 Helm Releases
       run: |
-        docker-compose run -T --rm builder clusters/nwk1/hack/bootstrap/renovate-helm-releases.sh
+        docker-compose run -T --rm builder .github/contrib/renovate-helm-releases.sh
 
-    - name: Create NWK1 Pull Request
+    - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
