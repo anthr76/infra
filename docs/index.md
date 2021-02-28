@@ -8,13 +8,21 @@ Two years ago I had an itch to get started with my homelab. Docker was getting a
 
 ### K8s/K3s/K0s/Rancher
 
-[k3s](https://k3s.io/) comes with a very low barrier to entry in getting a Kubernetes cluster running. After deploying it with [k3sup](https://github.com/alexellis/k3sup) I fell in love with the simplicity and love the single binary approach. With k3sup the time it took from getting a Kubernetes cluster up and running was literally minutes. Without much Kubernetes knowledge this allowed me to teardown the cluster and install it again, each time learning new things like how to deploy applications with [Helm](https://helm.sh/), set up a load balancer using [Metallb](https://metallb.universe.tf/), how to handle ingress and storage.
-
 During my testing & learning phase I went through several [k3s](https://k3s.io/), K8s, and Rancher deployments to help me decide what I wanted to move forward with. I love the idea of learning while gaining self-healing in your home infrastructure while at the same time not having to tend to it constantly.This is what finally had me decide on vanilla Kubernetes.
+
+Tools used for demoing my deployments:
+
+* [Kubespray](https://github.com/kubernetes-sigs/kubespray)
+
+* [k8s-cluster-installation](https://github.com/raspbernetes/k8s-cluster-installation)
+
+* [ansible-role-k3s](https://github.com/PyratLabs/ansible-role-k3s)
+
+What I ended up using was [Kubic](https://kubic.opensuse.org/) with my own Ansible automation. Since Kubic is an atomic readonly OS existing Kubernetes automations are tough to use. In the future I plan to make contributions to make Kubic kubeadm automation more available. Kubic is great for my use case as it's an atomic container based OS and has terrific aarch64 support.
 
 ### Flux
 
-After awhile of tinkering with k3s, I started reading up on GitOps principles and fell in love with the idea of having a Git repository drive a Kubernetes cluster state. No more missing configuration files, backing up compose files in fear of losing them. I could have mostly everything Kubernetes cares about tracked in a Git repo, while having an operator running in my cluster reading from my Git repo.
+After awhile of tinkering with k8s, I started reading up on GitOps principles and fell in love with the idea of having a Git repository drive a Kubernetes cluster state. No more missing configuration files, backing up compose files in fear of losing them. I could have mostly everything Kubernetes cares about tracked in a Git repo, while having an operator running in my cluster reading from my Git repo.
 
 This is where [Flux](https://toolkit.fluxcd.io/) comes into play. Flux is an awesome tool that syncs my Git repo with my cluster. Any change I make in my Git repo will be directly applied by Flux in my Kubernetes cluster.
 
@@ -26,6 +34,6 @@ I decided that [Renovate](https://www.whitesourcesoftware.com/free-developer-too
 
 ### Conclusion
 
-Overall I am very happy being off my Portainer/Docker Swarm cluster and finally using Kubernetes. The road was rocky but with passion and perseverance I was able to reach my goal.
+Overall I am very happy being off my docker-compose setup and finally using Kubernetes. The road was rocky but with passion and perseverance I was able to reach my goal.
 
-It should go without saying a lot of what is built upon here is not only my ideas. A lot of work is being done by other people in the k8s@home community.
+It should go without saying a lot of what is built upon here is not only my ideas. A lot of work is being done by other people in the k8s@home community. :heart:
