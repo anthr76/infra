@@ -13,7 +13,6 @@
   roles:
   - dockerhub
   - bootstrap_os
-  - kubic
   tags:
   - prepare
 
@@ -22,7 +21,7 @@
   - workers
   become: true
   roles:
-  - cluster
-  - cni
+  - kubeadm
+  - kubeadm_cni
   tags:
   - kubernetes
