@@ -33,8 +33,9 @@ func main() {
 			chown localanthony:users -R /home/localanthony/.ssh
 			zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:anthr76:kubernetes/openSUSE_Tumbleweed/home:anthr76:kubernetes.repo
 			zypper --non-interactive --gpg-auto-import-keys refresh
-			zypper --non-interactive --gpg-auto-import-keys install python38-rpm open-iscsi python38-openshift inotify-tools terminfo
-			reboot`),
+			zypper --non-interactive --gpg-auto-import-keys install python38-rpm open-iscsi python3-openshift inotify-tools terminfo
+			umount /var
+			umount /home`),
 		})
 		if err != nil {
 			return err

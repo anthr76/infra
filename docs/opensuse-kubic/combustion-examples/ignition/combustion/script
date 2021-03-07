@@ -24,11 +24,11 @@ cp firstbootreboot.service /etc/systemd/system/
 systemctl enable firstbootreboot.service
 
 # Add OBS Repo
-zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:anthr76/openSUSE_Tumbleweed/home:anthr76.repo
+zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:anthr76:kubernetes/openSUSE_Tumbleweed/home:anthr76:kubernetes.repo
 zypper --non-interactive --gpg-auto-import-keys refresh
 
 # Install supporting K8s packages
-zypper --non-interactive --gpg-auto-import-keys install python38-rpm open-iscsi python38-openshift inotify-tools
+zypper --non-interactive --gpg-auto-import-keys install python38-rpm open-iscsi python3-openshift inotify-tools terminfo
 
 # Enable iscsid
 systemctl enable iscsid
