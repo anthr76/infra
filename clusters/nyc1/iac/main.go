@@ -16,13 +16,18 @@ func main() {
 		if err != nil {
 			return err
 		}
-		_, err = digitalocean.NewDroplet(ctx, "example", &digitalocean.DropletArgs{
+		_, err = digitalocean.NewDroplet(ctx, "kubicTest", &digitalocean.DropletArgs{
 			Image:  kubic.ID(),
 			Region: pulumi.String("nyc1"),
 			Size:   pulumi.String("s-1vcpu-1gb"),
 			SshKeys: pulumi.StringArray{
 				pulumi.String("28165998"),
 			},
+			UserData: pulumi.String(`#!/bin/bash
+			mount /var
+			mount /home
+			useradd -m localanthony
+			echo "localanthony ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/localanthony`),
 		})
 		if err != nil {
 			return err
