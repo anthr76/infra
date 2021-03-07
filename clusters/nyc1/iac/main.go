@@ -5,6 +5,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
 
+// Zypper is not installing packages at the moment. Maybe due to initrd networking bug. Either way the repo is added and user is added so Ansible can take care for now.
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		kubic, err := digitalocean.NewCustomImage(ctx, "kubic", &digitalocean.CustomImageArgs{
@@ -30,12 +31,7 @@ func main() {
 			echo "localanthony ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/localanthony
 			mkdir -pm700 /home/localanthony/.ssh
 			cp /root/.ssh/authorized_keys /home/localanthony/.ssh/authorized_keys
-			chown localanthony:users -R /home/localanthony/.ssh
-			zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:anthr76:kubernetes/openSUSE_Tumbleweed/home:anthr76:kubernetes.repo
-			zypper --non-interactive --gpg-auto-import-keys refresh
-			zypper --non-interactive dup
-			zypper --non-interactive --gpg-auto-import-keys install python38-rpm open-iscsi python3-openshift inotify-tools terminfo
-			reboot`),
+			chown localanthony:users -R /home/localanthony/.ssh`),
 		})
 		if err != nil {
 			return err
