@@ -27,7 +27,14 @@ func main() {
 			mount /var
 			mount /home
 			useradd -m localanthony
-			echo "localanthony ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/localanthony`),
+			echo "localanthony ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/localanthony
+			mkdir -pm700 /home/localanthony/.ssh
+			cp /root/.ssh/authorized_keys /home/localanthony/.ssh/authorized_keys
+			chown localanthony:users -R /home/localanthony/.ssh
+			zypper --non-interactive addrepo https://download.opensuse.org/repositories/home:anthr76:kubernetes/openSUSE_Tumbleweed/home:anthr76:kubernetes.repo
+			zypper --non-interactive --gpg-auto-import-keys refresh
+			zypper --non-interactive --gpg-auto-import-keys install python38-rpm open-iscsi python38-openshift inotify-tools terminfo
+			reboot`),
 		})
 		if err != nil {
 			return err
