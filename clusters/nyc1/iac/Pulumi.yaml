@@ -1,0 +1,4 @@
+---
+name: nyc1-cluster
+runtime: go
+description: NYC1 DigitalOcean Cluster
