@@ -52,7 +52,8 @@
       - install
       - python38-rpm
       - open-iscsi
-      - python38-openshift
+      - python3-openshift
+      - terminfo
   notify:
     - reboot system
     - give system notice for reboot
