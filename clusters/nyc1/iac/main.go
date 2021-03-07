@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/pulumi/pulumi-digitalocean/sdk/v3/go/digitalocean"
 	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
 )
@@ -17,7 +19,7 @@ func main() {
 		if err != nil {
 			return err
 		}
-		_, err = digitalocean.NewDroplet(ctx, "kubicTest", &digitalocean.DropletArgs{
+		droplet, err := digitalocean.NewDroplet(ctx, "kubicTest", &digitalocean.DropletArgs{
 			Image:  kubic.ID(),
 			Region: pulumi.String("nyc1"),
 			Size:   pulumi.String("s-1vcpu-1gb"),
@@ -33,9 +35,12 @@ func main() {
 			cp /root/.ssh/authorized_keys /home/localanthony/.ssh/authorized_keys
 			chown localanthony:users -R /home/localanthony/.ssh`),
 		})
+
 		if err != nil {
+			fmt.Printf("Error! %v", err)
 			return err
 		}
+		ctx.Export("Ipv4Address", droplet.Ipv4Address)
 		return nil
 	})
 }
