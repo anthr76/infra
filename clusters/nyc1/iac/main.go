@@ -37,7 +37,8 @@ func main() {
 
 		i := 1
 		for i <= masterNodes {
-			droplet, err := digitalocean.NewDroplet(ctx, "kubicMasterNodes", &digitalocean.DropletArgs{
+			dropletName := fmt.Sprintf("kubicMasterNode-%v", i)
+			droplet, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
 				Image:  kubic.ID(),
 				Region: pulumi.String("nyc1"),
 				Size:   pulumi.String("s-1vcpu-1gb"),
@@ -52,7 +53,6 @@ func main() {
 			}
 			ctx.Export("Ipv4Address", droplet.Ipv4Address)
 			i++
-			return nil
 		}
 		return nil
 	})
