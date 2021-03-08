@@ -34,7 +34,7 @@ func main() {
 		if err != nil {
 			return err
 		}
-
+		// Create master nodes with desiered specifcation
 		i := 1
 		for i <= masterNodes {
 			dropletName := fmt.Sprintf("kubicMasterNode-%v", i)
