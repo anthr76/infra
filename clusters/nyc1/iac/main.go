@@ -18,6 +18,8 @@ func main() {
 		var cloudinit = pulumi.String(`#!/bin/bash
 		mount /var
 		mount /home
+		cp /etc/sysconfig/network/ifcfg-eth0 /etc/sysconfig/network/ifcfg-eth1
+		wicked ifup eth1
 		useradd -m localanthony
 		echo "localanthony ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/localanthony
 		mkdir -pm700 /home/localanthony/.ssh
