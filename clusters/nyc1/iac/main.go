@@ -16,8 +16,6 @@ func main() {
 
 		// Create a base UserData with Kubic's cloudinit
 		var cloudinit = pulumi.String(`#!/bin/bash
-		mount /var
-		mount /home
 		cp /etc/sysconfig/network/ifcfg-eth0 /etc/sysconfig/network/ifcfg-eth1
 		wicked ifup eth1
 		useradd -m localanthony
