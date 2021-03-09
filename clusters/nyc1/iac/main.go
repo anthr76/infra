@@ -12,7 +12,7 @@ func main() {
 
 		// Set number of nodes for cluster
 		masterNodes := 3
-		// workerNodes := 2
+		workerNodes := 2
 
 		// Create a base UserData with Kubic's cloudinit
 		var cloudinit = pulumi.String(`#!/bin/bash
@@ -52,6 +52,27 @@ func main() {
 				return err
 			}
 			ctx.Export("Ipv4Address", droplet.Ipv4Address)
+			i++
+		}
+		// Create worker nodes with desiered specifcation
+		i = 1
+		for i <= workerNodes {
+			dropletName := fmt.Sprintf("kubicWorkerNode-%v", i)
+			droplet, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
+				Image:  kubic.ID(),
+				Region: pulumi.String("nyc1"),
+				Size:   pulumi.String("s-1vcpu-1gb"),
+				SshKeys: pulumi.StringArray{
+					pulumi.String("28165998"),
+				},
+				UserData: cloudinit,
+			})
+			ctx.Export("Ipv4Address", droplet.Ipv4Address)
+			if err != nil {
+				fmt.Printf("Error! %v", err)
+				return err
+			}
+
 			i++
 		}
 		return nil
