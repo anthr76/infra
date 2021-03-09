@@ -12,9 +12,7 @@ func main() {
 
 		// Set number of nodes for cluster
 		masterNodes := 3
-		// workerNodes := 2
-
-		masterNodesPubAddr := make([]pulumi.StringOutput, masterNodes)
+		workerNodes := 2
 
 		// Create a base UserData with Kubic's cloudinit
 		var cloudinit = pulumi.String(`#!/bin/bash
@@ -36,11 +34,13 @@ func main() {
 		if err != nil {
 			return err
 		}
-		// Create master nodes with desiered specifcation
+		// Create master nodes with desired specification
+		var masterPublicIps []pulumi.StringOutput
+		var masterPrivateIps []pulumi.StringOutput
 		i := 0
 		for i < masterNodes {
 			dropletName := fmt.Sprintf("kubicMasterNode-%v", i)
-			droplet, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
+			masterDroplets, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
 				Image:  kubic.ID(),
 				Region: pulumi.String("nyc1"),
 				Size:   pulumi.String("s-1vcpu-1gb"),
@@ -53,30 +53,38 @@ func main() {
 				fmt.Printf("Error! %v", err)
 				return err
 			}
-			masterNodesPubAddr[i] = droplet.Ipv4Address
+			masterPublicIps = append(masterPublicIps, masterDroplets.Ipv4Address)
+			masterPrivateIps = append(masterPrivateIps, masterDroplets.Ipv4AddressPrivate)
 			i++
 		}
-		ctx.Export("Ipv4Address", masterNodesPubAddr[2])
-		// // Create worker nodes with desiered specifcation
-		// i = 0
-		// for i < workerNodes {
-		// 	dropletName := fmt.Sprintf("kubicWorkerNode-%v", i)
-		// 	droplet, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
-		// 		Image:  kubic.ID(),
-		// 		Region: pulumi.String("nyc1"),
-		// 		Size:   pulumi.String("s-1vcpu-1gb"),
-		// 		SshKeys: pulumi.StringArray{
-		// 			pulumi.String("28165998"),
-		// 		},
-		// 		UserData: cloudinit,
-		// 	})
-		// 	if err != nil {
-		// 		fmt.Printf("Error! %v", err)
-		// 		return err
-		// 	}
-
-		// 	i++
-		// }
+		// Create worker nodes with desired specification
+		var workerPublicIps []pulumi.StringOutput
+		var workerPrivateIps []pulumi.StringOutput
+		i = 0
+		for i < workerNodes {
+			dropletName := fmt.Sprintf("kubicWorkerNode-%v", i)
+			workerDroplets, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
+				Image:  kubic.ID(),
+				Region: pulumi.String("nyc1"),
+				Size:   pulumi.String("s-1vcpu-1gb"),
+				SshKeys: pulumi.StringArray{
+					pulumi.String("28165998"),
+				},
+				UserData: cloudinit,
+			})
+			if err != nil {
+				fmt.Printf("Error! %v", err)
+				return err
+			}
+			workerPublicIps = append(workerPublicIps, workerDroplets.Ipv4Address)
+			workerPrivateIps = append(workerPrivateIps, workerDroplets.Ipv4AddressPrivate)
+			i++
+		}
+		// Export relevant outputs for later consumption
+		ctx.Export("MastersPublicIPV4", stringOutputArrayToStringArrayOutput(masterPublicIps))
+		ctx.Export("MastersPrivateIPV4", stringOutputArrayToStringArrayOutput(masterPrivateIps))
+		ctx.Export("WorkerPublicIPV4", stringOutputArrayToStringArrayOutput(workerPublicIps))
+		ctx.Export("WorkerPrivateIPV4", stringOutputArrayToStringArrayOutput(workerPrivateIps))
 		return nil
 	})
 }
