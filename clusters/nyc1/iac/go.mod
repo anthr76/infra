@@ -1,4 +1,4 @@
-module github.com/anthr76/infra/nyc1/iac
+module github.com/anthr76/infra/clusters/nyc1/iac
 
 go 1.14
 
