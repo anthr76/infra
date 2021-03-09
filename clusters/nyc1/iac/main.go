@@ -12,7 +12,9 @@ func main() {
 
 		// Set number of nodes for cluster
 		masterNodes := 3
-		workerNodes := 2
+		// workerNodes := 2
+
+		masterNodesPubAddr := make([]pulumi.StringOutput, masterNodes)
 
 		// Create a base UserData with Kubic's cloudinit
 		var cloudinit = pulumi.String(`#!/bin/bash
@@ -35,8 +37,8 @@ func main() {
 			return err
 		}
 		// Create master nodes with desiered specifcation
-		i := 1
-		for i <= masterNodes {
+		i := 0
+		for i < masterNodes {
 			dropletName := fmt.Sprintf("kubicMasterNode-%v", i)
 			droplet, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
 				Image:  kubic.ID(),
@@ -51,30 +53,30 @@ func main() {
 				fmt.Printf("Error! %v", err)
 				return err
 			}
-			ctx.Export("Ipv4Address", droplet.Ipv4Address)
+			masterNodesPubAddr[i] = droplet.Ipv4Address
 			i++
 		}
-		// Create worker nodes with desiered specifcation
-		i = 1
-		for i <= workerNodes {
-			dropletName := fmt.Sprintf("kubicWorkerNode-%v", i)
-			droplet, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
-				Image:  kubic.ID(),
-				Region: pulumi.String("nyc1"),
-				Size:   pulumi.String("s-1vcpu-1gb"),
-				SshKeys: pulumi.StringArray{
-					pulumi.String("28165998"),
-				},
-				UserData: cloudinit,
-			})
-			ctx.Export("Ipv4Address", droplet.Ipv4Address)
-			if err != nil {
-				fmt.Printf("Error! %v", err)
-				return err
-			}
+		ctx.Export("Ipv4Address", masterNodesPubAddr[2])
+		// // Create worker nodes with desiered specifcation
+		// i = 0
+		// for i < workerNodes {
+		// 	dropletName := fmt.Sprintf("kubicWorkerNode-%v", i)
+		// 	droplet, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
+		// 		Image:  kubic.ID(),
+		// 		Region: pulumi.String("nyc1"),
+		// 		Size:   pulumi.String("s-1vcpu-1gb"),
+		// 		SshKeys: pulumi.StringArray{
+		// 			pulumi.String("28165998"),
+		// 		},
+		// 		UserData: cloudinit,
+		// 	})
+		// 	if err != nil {
+		// 		fmt.Printf("Error! %v", err)
+		// 		return err
+		// 	}
 
-			i++
-		}
+		// 	i++
+		// }
 		return nil
 	})
 }
