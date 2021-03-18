@@ -156,6 +156,8 @@ github.com/pulumi/pulumi-digitalocean/sdk/v3 v3.5.1 h1:4FyLgFm4dpho3oDXpNKrgFwor
 github.com/pulumi/pulumi-digitalocean/sdk/v3 v3.5.1/go.mod h1:JvQ2gAdN2z12SSzck1IEu3n+QFZxArBVekuKwN3PE7s=
 github.com/pulumi/pulumi-digitalocean/sdk/v3 v3.5.2 h1:cB/pgqRKmnavW4cA83Em/MNPIw8OsPgfn5KuGk04/Zc=
 github.com/pulumi/pulumi-digitalocean/sdk/v3 v3.5.2/go.mod h1:JvQ2gAdN2z12SSzck1IEu3n+QFZxArBVekuKwN3PE7s=
+github.com/pulumi/pulumi-digitalocean/sdk/v3 v3.6.0 h1:WiBbOdVFbdh2N+KHCMIcEqBCkoFpmQo6/0Dx9erJJMg=
+github.com/pulumi/pulumi-digitalocean/sdk/v3 v3.6.0/go.mod h1:QFzPlyp5yaLrrOnefLKJkJipP7/pNAVQQrL+r/j8rEc=
 github.com/pulumi/pulumi/sdk v1.14.1 h1:FnUPMgO2AgqvKzSBOy3F2X4nJ8n/SaXCOP2eYSNkAxk=
 github.com/pulumi/pulumi/sdk/v2 v2.19.0 h1:4p0LPvbQSi4zakIp5nbGl73fKxtXvaGDN5W7mlhKIqk=
 github.com/pulumi/pulumi/sdk/v2 v2.19.0/go.mod h1:fCFhRV6NmidWetmgDPA76efL+s0JqLlS54JJIwfOt+o=
