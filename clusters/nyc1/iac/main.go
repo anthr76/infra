@@ -39,7 +39,7 @@ func main() {
 		var masterPrivateIps []pulumi.StringOutput
 		i := 0
 		for i < masterNodes {
-			dropletName := fmt.Sprintf("kubicMasterNode-%v", i)
+			dropletName := fmt.Sprintf("kubicMasterNode-%v", i+1)
 			masterDroplets, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
 				Image:  kubic.ID(),
 				Region: pulumi.String("nyc1"),
@@ -62,7 +62,7 @@ func main() {
 		var workerPrivateIps []pulumi.StringOutput
 		i = 0
 		for i < workerNodes {
-			dropletName := fmt.Sprintf("kubicWorkerNode-%v", i)
+			dropletName := fmt.Sprintf("kubicWorkerNode-%v", i+1)
 			workerDroplets, err := digitalocean.NewDroplet(ctx, dropletName, &digitalocean.DropletArgs{
 				Image:  kubic.ID(),
 				Region: pulumi.String("nyc1"),
