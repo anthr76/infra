@@ -11,8 +11,8 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 
 		// Set number of nodes for cluster
-		masterNodes := 3
-		workerNodes := 2
+		masterNodes := 1
+		workerNodes := 1
 
 		// Create a base UserData with Kubic's cloudinit
 		var cloudinit = pulumi.String(`#!/bin/bash
@@ -37,6 +37,7 @@ func main() {
 		// Create master nodes with desired specification
 		var masterPublicIps []pulumi.StringOutput
 		var masterPrivateIps []pulumi.StringOutput
+		var clusterDropletIds []pulumi.IntOutput
 		i := 0
 		for i < masterNodes {
 			dropletName := fmt.Sprintf("kubicMasterNode-%v", i+1)
@@ -53,6 +54,7 @@ func main() {
 				fmt.Printf("Error! %v", err)
 				return err
 			}
+			clusterDropletIds = append(clusterDropletIds, masterDroplets.ID().ApplyInt())
 			masterPublicIps = append(masterPublicIps, masterDroplets.Ipv4Address)
 			masterPrivateIps = append(masterPrivateIps, masterDroplets.Ipv4AddressPrivate)
 			i++
@@ -76,10 +78,16 @@ func main() {
 				fmt.Printf("Error! %v", err)
 				return err
 			}
+			clusterDropletIds = append(clusterDropletIds, workerDroplets.ID().ToIDOutput().ToStringOutput())
 			workerPublicIps = append(workerPublicIps, workerDroplets.Ipv4Address)
 			workerPrivateIps = append(workerPrivateIps, workerDroplets.Ipv4AddressPrivate)
 			i++
 		}
+		// Create a Firewall for the Cluster
+		_, err = digitalocean.NewFirewall(ctx, "kubicFirewall", &digitalocean.FirewallArgs{
+			DropletIds: clusterDropletIds,
+		})
+
 		// Export relevant outputs for later consumption
 		ctx.Export("MastersPublicIPV4", stringOutputArrayToStringArrayOutput(masterPublicIps))
 		ctx.Export("MastersPrivateIPV4", stringOutputArrayToStringArrayOutput(masterPrivateIps))
