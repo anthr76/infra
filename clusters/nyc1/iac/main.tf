@@ -2,7 +2,7 @@ terraform {
   backend "remote" {
     organization = "rabbito-home"
     workspaces {
-      name = "infra"
+      name = "kubic-cloud-prod"
     }
   }
   required_providers {

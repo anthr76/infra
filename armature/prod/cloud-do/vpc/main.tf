@@ -2,7 +2,7 @@ terraform {
   backend "remote" {
     organization = "rabbito-home"
     workspaces {
-      name = "infra"
+      name = "core"
     }
   }
   required_providers {
