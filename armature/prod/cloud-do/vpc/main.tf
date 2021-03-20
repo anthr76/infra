@@ -19,6 +19,7 @@ provider "digitalocean" {
 }
 
 resource "digitalocean_vpc" "nyc1_idm" {
-  name   = "idm-nyc1"
-  region = "nyc1"
+  name   = var.vpc_name
+  description = var.vpc_description
+  region = var.vpc_region
 }

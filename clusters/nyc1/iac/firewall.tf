@@ -1,4 +1,12 @@
-# Create Firewall for K8s Kubic
+data "digitalocean_vpc" "nyc1_idm" {
+  name = "idm-nyc1"
+}
+
+resource "digitalocean_vpc" "nyc1_idm" {
+  name   = data.digitalocean_vpc.nyc1_idm.name
+  description = data.digitalocean_vpc.nyc1_idm.description
+  region = data.digitalocean_vpc.nyc1_idm.region
+}
 
 resource "digitalocean_firewall" "web" {
   name = "kubic-k8s"
@@ -41,6 +49,6 @@ resource "digitalocean_firewall" "web" {
   inbound_rule {
     protocol         = "tcp"
     port_range       = "443"
-    source_addresses = digitalocean_vpc.nyc1_idm.ip_range
+    #source_addresses = [module.vpc]
   }
 }
