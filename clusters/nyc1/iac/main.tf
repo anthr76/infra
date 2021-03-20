@@ -43,7 +43,7 @@ resource "digitalocean_droplet" "kubic_worker" {
   ssh_keys           = [28165998]
   image              = digitalocean_custom_image.kubic_image.id
   region             = "nyc1"
-  size               = "s-1vcpu-1gb-amd"
+  size               = "s-1vcpu-1gb"
   private_networking = true
   user_data          = file("${path.module}/user_data.sh")
   name               = "kubic-worker-${count.index + 1}"
