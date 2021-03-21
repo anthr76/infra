@@ -7,3 +7,8 @@ output "master_nodes_private" {
 output "worker_nodes_private" {
     value = digitalocean_droplet.kubic_worker.*.ipv4_address_private
 }
+
+# The control-plane address output
+output "kube_controlplane_ip" {
+    value = digitalocean_loadbalancer.private.ip
+}
