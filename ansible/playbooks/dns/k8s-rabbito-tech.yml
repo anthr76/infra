@@ -1,0 +1,10 @@
+---
+- name: Configure DNS
+  hosts: localhost
+  tasks:
+
+    - name: Ensure dns zone is present and is dynamic update
+      community.general.ipa_dnszone:
+        state: absent
+        zone_name: nyc1.rabbito.tech
+        dynamicupdate: true
