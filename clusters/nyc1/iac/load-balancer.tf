@@ -1,4 +1,4 @@
-resource "digitalocean_loadbalancer" "private" {
+resource "digitalocean_loadbalancer" "kubic_k8s" {
   name   = "kubic-controlplane-lb"
   region = "nyc1"
   vpc_uuid = data.digitalocean_vpc.nyc1_idm.id
