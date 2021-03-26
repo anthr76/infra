@@ -1,9 +1,14 @@
 ---
 
+- hosts: localhost
+  become: false
+  roles:
+    - dns/nyc1
+
 - hosts: dns
   become: true
   roles:
-    - tsig_ipa_zone
+    - dns
 
 - hosts: nyc1_k8s
   become: true
