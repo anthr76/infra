@@ -19,9 +19,9 @@
     repo: https://download.opensuse.org/repositories/home:anthr76:kubernetes/openSUSE_Tumbleweed/
     name: 'home_anthr76_kubernetes'
     auto_import_keys: yes
-    retries: 3
-    delay: 10
     runrefresh: yes
+  retries: 3
+  delay: 10
 
 - name: 'install inotify-tools'
   command:
