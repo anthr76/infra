@@ -1,2 +1,9 @@
+---
+
 - name: 'pre checks'
   ansible.builtin.include_tasks: preflight_checks.yml
+
+- name: restart systemd-sysctl
+  ansible.builtin.systemd:
+    name: systemd-sysctl
+    state: restarted
