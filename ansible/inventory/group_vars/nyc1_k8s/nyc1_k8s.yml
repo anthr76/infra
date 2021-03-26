@@ -2,7 +2,7 @@
 # Kubelt
 
 kubernetes_control_plane_endpoint:
-  address: 'nyc1-lb-1.k8s.rabbbito.tech'
+  address: 'nyc1-lb-1.k8s.rabbito.tech'
   port: 6443
 
 kubernetes_pod_network:
