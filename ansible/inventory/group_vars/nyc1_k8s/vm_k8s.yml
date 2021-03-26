@@ -1,0 +1,14 @@
+---
+# Kubelt
+
+kubernetes_control_plane_endpoint:
+  address: '164.90.253.22'
+  port: 6443
+
+kubernetes_pod_network:
+  cidr: '10.244.0.0/16'
+
+kubernetes_kubeadm_init_extra_opts: "--skip-phases=addon/kube-proxy"
+
+# CNI
+cni_plugin: "cilium"

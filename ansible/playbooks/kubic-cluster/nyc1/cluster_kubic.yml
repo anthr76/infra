@@ -1,0 +1,22 @@
+---
+
+- hosts: dns
+  become: true
+  roles:
+    - tsig_ipa_zone
+
+- hosts: nyc1_k8s
+  become: true
+  roles:
+    - bootstrap_os
+    - dockerhub
+
+- hosts: nyc1_k8s
+  become: true
+  roles:
+    - kubeadm
+
+- hosts: nyc1_k8s
+  become: true
+  roles:
+    - kubeadm_cni
