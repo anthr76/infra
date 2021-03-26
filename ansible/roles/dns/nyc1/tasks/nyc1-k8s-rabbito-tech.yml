@@ -5,7 +5,7 @@
     zone_name: k8s.rabbito.tech
     record_type: 'A'
     record_name: 'nyc1-master-01'
-    record_value: '10.136.153.242'
+    record_value: '10.136.153.241'
 
 - name: 'nyc1-master-02 provision'
   community.general.ipa_dnsrecord:
@@ -13,7 +13,7 @@
     zone_name: k8s.rabbito.tech
     record_type: 'A'
     record_name: 'nyc1-master-02'
-    record_value: '10.136.153.238'
+    record_value: '10.136.153.237'
 
 - name: 'nyc1-master-03 provision'
   community.general.ipa_dnsrecord:
@@ -21,7 +21,7 @@
     zone_name: k8s.rabbito.tech
     record_type: 'A'
     record_name: 'nyc1-master-03'
-    record_value: '10.136.153.236'
+    record_value: '10.136.153.239'
 
 - name: 'nyc1-worker-01 provision'
   community.general.ipa_dnsrecord:
@@ -29,7 +29,7 @@
     zone_name: k8s.rabbito.tech
     record_type: 'A'
     record_name: 'nyc1-worker-01'
-    record_value: '10.136.153.239'
+    record_value: '10.136.153.242'
 
 - name: 'nyc1-worker-02 provision'
   community.general.ipa_dnsrecord:
@@ -37,7 +37,7 @@
     zone_name: k8s.rabbito.tech
     record_type: 'A'
     record_name: 'nyc1-worker-02'
-    record_value: '10.136.153.240'
+    record_value: '10.136.153.236'
 
 - name: 'nyc1-worker-03 provision'
   community.general.ipa_dnsrecord:
@@ -45,7 +45,7 @@
     zone_name: k8s.rabbito.tech
     record_type: 'A'
     record_name: 'nyc1-worker-03'
-    record_value: '10.136.153.237'
+    record_value: '10.136.153.238'
 
 - name: 'nyc1-worker-04 provision'
   community.general.ipa_dnsrecord:
@@ -53,7 +53,7 @@
     zone_name: k8s.rabbito.tech
     record_type: 'A'
     record_name: 'nyc1-worker-04'
-    record_value: '10.136.153.241'
+    record_value: '10.136.153.240'
 
 - name: 'nyc1 load balancer provision'
   community.general.ipa_dnsrecord:
@@ -61,7 +61,7 @@
     zone_name: k8s.rabbito.tech
     record_type: 'A'
     record_name: 'nyc1-lb-1'
-    record_value: '164.90.253.22'
+    record_value: '164.90.253.66'
 
 - name: 'nyc1 api lb provision'
   community.general.ipa_dnsrecord:
