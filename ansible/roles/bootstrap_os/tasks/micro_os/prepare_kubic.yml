@@ -14,7 +14,7 @@
     dest: /etc/transactional-update.conf
   notify: restart rebootmgr
 
-- name: 'add home:anthr76 OBS repo'
+- name: 'add home:anthr76 k8s OBS repo'
   community.general.zypper_repository:
     repo: https://download.opensuse.org/repositories/home:anthr76:kubernetes/openSUSE_Tumbleweed/
     name: 'home_anthr76_kubernetes'
