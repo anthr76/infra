@@ -20,8 +20,11 @@
     name: 'home_anthr76_kubernetes'
     auto_import_keys: yes
     runrefresh: yes
-  retries: 3
-  delay: 10
+  register: add_repo
+  retries: 5
+  delay: 15
+  until: add_repo is not failed
+  ignore_errors: yes
 
 - name: 'install inotify-tools'
   command:
@@ -39,6 +42,10 @@
   register: packages
   changed_when: '"The snapshot does not contain any changed files." not in packages.stdout'
   when: 'inotify_tools_present == false'
+  retries: 5
+  delay: 15
+  until: packages is not failed
+  ignore_errors: yes
 
 - name: flush handler
   meta: flush_handlers
@@ -61,6 +68,10 @@
     - give system notice for reboot
   register: packages
   changed_when: '"The snapshot does not contain any changed files." not in packages.stdout'
+  retries: 5
+  delay: 15
+  until: packages is not failed
+  ignore_errors: yes
 
 - name: flush handler
   meta: flush_handlers
