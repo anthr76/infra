@@ -29,7 +29,7 @@
   when: cluster_node_active
 
 - name: 'set certificate key fact'
-  ansible.builtin.set_fact:
+  set_fact:
     control_plane_key: "{{ kubeadm_controlplane_certs.stdout_lines[2] }}"
   run_once: true
   when: cluster_node_active
@@ -41,10 +41,11 @@
   when: cluster_node_active
 
 - name: 'set fact for kubeadm join command on control plane nodes globally'
-  ansible.builtin.set_fact:
-    kubernetes_control_plane_join_command: "{{ kubernetes_control_plane_join_command_result.stdout }}"
+  set_fact:
+    kubernetes_control_plane_join_command: >
+      "{{ kubernetes_control_plane_join_command_result.stdout }}"
   delegate_facts: true
-  delegate_to: '{{ item }}'
+  delegate_to: "{{ item }}"
   with_items: "{{ groups['all'] }}"
   when: cluster_node_active
 

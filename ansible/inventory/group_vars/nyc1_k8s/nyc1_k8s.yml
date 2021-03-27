@@ -8,7 +8,9 @@ kubernetes_control_plane_endpoint:
 kubernetes_pod_network:
   cidr: '10.244.0.0/16'
 
-kubernetes_kubeadm_init_extra_opts: "--skip-phases=addon/kube-proxy --ignore-preflight-errors=NumCPU --ignore-preflight-errors=Mem"
+kubernetes_kubeadm_init_extra_opts: "--skip-phases=addon/kube-proxy"
 
 # CNI
 cni_plugin: "cilium"
+
+k8s_native_cluster_cidr: "10.136.0.0/16"

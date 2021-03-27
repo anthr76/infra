@@ -20,8 +20,12 @@
   become: true
   roles:
     - kubeadm
+  tags:
+    - kubernetes
 
 - hosts: nyc1_k8s
   become: true
   roles:
     - kubeadm_cni
+  tags:
+    - cni

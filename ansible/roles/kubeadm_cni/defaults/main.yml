@@ -1,8 +1,8 @@
 ---
 
 cni_cilium_image_repository: docker.io/cilium/cilium-dev
-cni_cilium_helm_version: 1.9.3
-cni_cilium_image_version: v1.9.3
+cni_cilium_helm_version: 1.9.5
+cni_cilium_image_version: v1.9.5
 kube_router_image: docker.io/cloudnativelabs/kube-router
 cni_plugin: cilium
 cni_bgp_peer_address: 192.168.0.1
