@@ -9,6 +9,6 @@ output "worker_nodes_private" {
 }
 
 # The control-plane address output
-output "kube_controlplane_ip" {
-    value = digitalocean_loadbalancer.private.ip
+output "load_balancer" {
+    value = digitalocean_loadbalancer.kubic_k8s.ip
 }

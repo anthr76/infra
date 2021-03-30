@@ -1,19 +1,9 @@
 ---
-- hosts:
-    - masters
-    - workers
+- name: nuke k8s
+  hosts: nyc1_k8s
   become: true
   gather_facts: true
-  vars_prompt:
-    name: "nuke_confirmation"
-    prompt: "Are you sure you want to run this playbook? This will DESTROY your cluster. Answer with 'YES'"
-    default: "NO"
-    private: no
-  any_errors_fatal: yes
   tasks:
-    - name: check confirmation
-      fail: msg="playbook run confirmation failed"
-      when: nuke_confirmation != "YES"
 
     - name: reset kubeadm
       command:

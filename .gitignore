@@ -2,7 +2,8 @@
 /ansible/output/
 /ansible/debug.yml
 /ansible/test-inventory/*
-/ansible/playbooks/home-kubic/output/
+/ansible/playbooks/kubic-cluster/nyc1/output/
+/ansible/playbooks/kubic-cluster/nwk1/output/
 ansible/roles/anthr76.ansible_vfio*
 ansible/k8s-cilium-exec.sh
 clusters/nwk1/gitops/openebs/openebs/uninstall.sh

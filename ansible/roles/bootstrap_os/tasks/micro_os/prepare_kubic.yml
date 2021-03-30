@@ -6,6 +6,7 @@
     value: '{{ inventory_hostname }}'
     reload: false
     state: 'present'
+    sysctl_file: /etc/sysctl.d/01-hostname.conf
   notify: restart systemd-sysctl
 
 - name: 'generate rebootmgr config'
@@ -14,12 +15,17 @@
     dest: /etc/transactional-update.conf
   notify: restart rebootmgr
 
-- name: 'add home:anthr76 OBS repo'
+- name: 'add home:anthr76 k8s OBS repo'
   community.general.zypper_repository:
     repo: https://download.opensuse.org/repositories/home:anthr76:kubernetes/openSUSE_Tumbleweed/
     name: 'home_anthr76_kubernetes'
     auto_import_keys: yes
     runrefresh: yes
+  register: add_repo
+  retries: 5
+  delay: 15
+  until: add_repo is not failed
+  ignore_errors: yes
 
 - name: 'install inotify-tools'
   command:
@@ -37,6 +43,10 @@
   register: packages
   changed_when: '"The snapshot does not contain any changed files." not in packages.stdout'
   when: 'inotify_tools_present == false'
+  retries: 5
+  delay: 15
+  until: packages is not failed
+  ignore_errors: yes
 
 - name: flush handler
   meta: flush_handlers
@@ -59,6 +69,10 @@
     - give system notice for reboot
   register: packages
   changed_when: '"The snapshot does not contain any changed files." not in packages.stdout'
+  retries: 5
+  delay: 15
+  until: packages is not failed
+  ignore_errors: yes
 
 - name: flush handler
   meta: flush_handlers

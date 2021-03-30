@@ -31,7 +31,7 @@ resource "digitalocean_droplet" "kubic_master" {
   ssh_keys           = [28165998]
   image              = digitalocean_custom_image.kubic_image.id
   region             = "nyc1"
-  size               = "s-1vcpu-1gb"
+  size               = "s-2vcpu-2gb"
   private_networking = true
   user_data          = file("${path.module}/user_data.sh")
   name               = "kubic-master-${count.index + 1}"
@@ -43,7 +43,7 @@ resource "digitalocean_droplet" "kubic_worker" {
   ssh_keys           = [28165998]
   image              = digitalocean_custom_image.kubic_image.id
   region             = "nyc1"
-  size               = "s-1vcpu-1gb"
+  size               = "s-2vcpu-2gb"
   private_networking = true
   user_data          = file("${path.module}/user_data.sh")
   name               = "kubic-worker-${count.index + 1}"
