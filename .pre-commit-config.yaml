@@ -1,5 +1,6 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
+---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.4.0
@@ -14,3 +15,7 @@ repos:
     rev: v1.25.0
     hooks:
       - id: yamllint
+  - repo: https://github.com/k8s-at-home/sops-pre-commit
+    rev: v1.1.0
+    hooks:
+      - id: sops-encrypted-check
