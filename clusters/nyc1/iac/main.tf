@@ -10,12 +10,26 @@ terraform {
       source  = "digitalocean/digitalocean"
       version = "2.7.0"
     }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.7.0"
+    }
   }
 }
 
 provider "digitalocean" {
   # Provider is configured using environment variables:
   # DIGITALOCEAN_TOKEN, DIGITALOCEAN_ACCESS_TOKEN
+}
+
+provider "kubectl" {
+  load_config_file = false
+  host  = digitalocean_kubernetes_cluster.nyc1.endpoint
+  token = digitalocean_kubernetes_cluster.nyc1.kube_config[0].token
+  cluster_ca_certificate = base64decode(
+    digitalocean_kubernetes_cluster.nyc1.kube_config[0].cluster_ca_certificate
+  )
+  apply_retry_count = 5
 }
 
 data "digitalocean_vpc" "nyc1_idm" {
@@ -38,4 +52,22 @@ resource "digitalocean_kubernetes_cluster" "nyc1" {
     min_nodes  = 1
     max_nodes  = 5
   }
+}
+
+data "kubectl_path_documents" "kustomization_manifests" {
+    pattern = "../gotk/*.yaml"
+}
+
+resource "kubectl_manifest" "flux_kustomization" {
+    count     = length(data.kubectl_path_documents.kustomization_manifests.documents)
+    yaml_body = element(data.kubectl_path_documents.kustomization_manifests.documents, count.index)
+}
+
+data "kubectl_path_documents" "gotk_manifests" {
+    pattern = "../gotk/flux-system/*.yaml"
+}
+
+resource "kubectl_manifest" "flux" {
+    count     = length(data.kubectl_path_documents.gotk_manifests.documents)
+    yaml_body = element(data.kubectl_path_documents.gotk_manifests.documents, count.index)
 }
