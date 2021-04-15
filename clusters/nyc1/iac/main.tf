@@ -18,33 +18,24 @@ provider "digitalocean" {
   # DIGITALOCEAN_TOKEN, DIGITALOCEAN_ACCESS_TOKEN
 }
 
-# Upload the Kubic Image
-resource "digitalocean_custom_image" "kubic_image" {
-  name    = "kubic_openstack"
-  url     = "https://download.opensuse.org/tumbleweed/appliances/openSUSE-MicroOS.x86_64-Kubic-kubeadm-OpenStack-Cloud.qcow2"
-  regions = ["nyc1"]
+data "digitalocean_vpc" "nyc1_idm" {
+  name = "idm-nyc1"
 }
 
-# Create Kubic master nodes.
-resource "digitalocean_droplet" "kubic_master" {
-  count              = var.count_masters
-  ssh_keys           = [28165998]
-  image              = digitalocean_custom_image.kubic_image.id
-  region             = "nyc1"
-  size               = "s-2vcpu-2gb"
-  private_networking = true
-  user_data          = file("${path.module}/user_data.sh")
-  name               = "kubic-master-${count.index + 1}"
-}
+# We use DOKS until https://bugzilla.opensuse.org/show_bug.cgi?id=1182227
+resource "digitalocean_kubernetes_cluster" "nyc1" {
+  name    = "nyc1"
+  region  = "nyc1"
+  auto_upgrade = true
+  surge_upgrade = true
+  version = "1.20.2-do.0"
+  vpc_uuid = data.digitalocean_vpc.nyc1_idm.id
 
-# Create Kubic worker nodes
-resource "digitalocean_droplet" "kubic_worker" {
-  count              = var.count_workers
-  ssh_keys           = [28165998]
-  image              = digitalocean_custom_image.kubic_image.id
-  region             = "nyc1"
-  size               = "s-2vcpu-2gb"
-  private_networking = true
-  user_data          = file("${path.module}/user_data.sh")
-  name               = "kubic-worker-${count.index + 1}"
+  node_pool {
+    name       = "autoscale-worker-pool"
+    size       = "s-2vcpu-2gb"
+    auto_scale = true
+    min_nodes  = 1
+    max_nodes  = 5
+  }
 }
