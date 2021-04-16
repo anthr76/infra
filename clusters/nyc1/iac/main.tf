@@ -14,6 +14,20 @@ terraform {
       source  = "gavinbunney/kubectl"
       version = ">= 1.7.0"
     }
+    flux = {
+      source  = "fluxcd/flux"
+      version = "0.1.3"
+    }
+
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.1.0"
+    }
+    sops = {
+      source = "carlpett/sops"
+      version = "~> 0.6.2"
+    }
+
   }
 }
 
@@ -22,14 +36,27 @@ provider "digitalocean" {
   # DIGITALOCEAN_TOKEN, DIGITALOCEAN_ACCESS_TOKEN
 }
 
+provider "sops" {}
+
+data "sops_file" "tf_secrets" {
+  source_file = "tf-secrets.yaml"
+}
+
 provider "kubectl" {
-  load_config_file = false
-  host  = digitalocean_kubernetes_cluster.nyc1.endpoint
-  token = digitalocean_kubernetes_cluster.nyc1.kube_config[0].token
+  host             = digitalocean_kubernetes_cluster.nyc1.endpoint
+  token            = digitalocean_kubernetes_cluster.nyc1.kube_config[0].token
   cluster_ca_certificate = base64decode(
     digitalocean_kubernetes_cluster.nyc1.kube_config[0].cluster_ca_certificate
   )
   apply_retry_count = 5
+}
+
+provider "kubernetes" {
+  host             = digitalocean_kubernetes_cluster.nyc1.endpoint
+  token            = digitalocean_kubernetes_cluster.nyc1.kube_config[0].token
+  cluster_ca_certificate = base64decode(
+    digitalocean_kubernetes_cluster.nyc1.kube_config[0].cluster_ca_certificate
+  )
 }
 
 data "digitalocean_vpc" "nyc1_idm" {
@@ -38,12 +65,12 @@ data "digitalocean_vpc" "nyc1_idm" {
 
 # We use DOKS until https://bugzilla.opensuse.org/show_bug.cgi?id=1182227
 resource "digitalocean_kubernetes_cluster" "nyc1" {
-  name    = "nyc1"
-  region  = "nyc1"
-  auto_upgrade = true
+  name          = "nyc1"
+  region        = "nyc1"
+  auto_upgrade  = true
   surge_upgrade = true
-  version = "1.20.2-do.0"
-  vpc_uuid = data.digitalocean_vpc.nyc1_idm.id
+  version       = "1.20.2-do.0"
+  vpc_uuid      = data.digitalocean_vpc.nyc1_idm.id
 
   node_pool {
     name       = "autoscale-worker-pool"
@@ -52,22 +79,4 @@ resource "digitalocean_kubernetes_cluster" "nyc1" {
     min_nodes  = 1
     max_nodes  = 5
   }
-}
-
-data "kubectl_path_documents" "kustomization_manifests" {
-    pattern = "../gotk/*.yaml"
-}
-
-resource "kubectl_manifest" "flux_kustomization" {
-    count     = length(data.kubectl_path_documents.kustomization_manifests.documents)
-    yaml_body = element(data.kubectl_path_documents.kustomization_manifests.documents, count.index)
-}
-
-data "kubectl_path_documents" "gotk_manifests" {
-    pattern = "../gotk/flux-system/*.yaml"
-}
-
-resource "kubectl_manifest" "flux" {
-    count     = length(data.kubectl_path_documents.gotk_manifests.documents)
-    yaml_body = element(data.kubectl_path_documents.gotk_manifests.documents, count.index)
 }

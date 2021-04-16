@@ -10,3 +10,6 @@ clusters/nwk1/gitops/openebs/openebs/uninstall.sh
 bin/
 flux
 .vscode
+
+# Sops
+.decrypted~*.yaml
