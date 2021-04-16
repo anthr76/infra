@@ -4,6 +4,7 @@ kind: Kustomization
 metadata:
   name: cluster-settings
   namespace: flux-system
+spec:
   interval: 10m0s
   path: ./gitops/cluster-settings/overlays/nyc1
   prune: false
