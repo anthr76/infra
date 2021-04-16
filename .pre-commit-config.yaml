@@ -12,10 +12,10 @@ repos:
       - id: detect-private-key
       - id: end-of-file-fixer
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.25.0
+    rev: v1.26.1
     hooks:
       - id: yamllint
   - repo: https://github.com/k8s-at-home/sops-pre-commit
-    rev: v2.0.1
+    rev: v2.0.2
     hooks:
       - id: forbid-secrets
