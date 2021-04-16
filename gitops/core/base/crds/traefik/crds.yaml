@@ -8,7 +8,7 @@ spec:
   interval: 10m
   url: https://github.com/traefik/traefik-helm-chart.git
   ref:
-    semver: ">=9.14.2 <9.15.0"
+    semver: ">=9.19.2 <9.20.0"
   ignore: |
     # exclude all
     /*
