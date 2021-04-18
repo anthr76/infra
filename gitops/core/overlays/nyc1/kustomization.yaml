@@ -3,6 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - ../../base/crds/traefik/crds.yaml
-- ../../base/config-maps/coredns/coredns.yaml
 - ../../base/crds/origin-ca-issuer/crds.yaml
 - ../../base/crds/external-dns/crds.yaml
+- ../../base/config-maps/coredns/coredns.yaml
