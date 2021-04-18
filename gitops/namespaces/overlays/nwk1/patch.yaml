@@ -36,10 +36,16 @@ metadata:
 spec:
   values:
     service:
+    spec:
+      externalTrafficPolicy: Local
       externalIPs:
       - 172.30.0.5
       - 172.30.0.6
       - 172.30.0.7
-      spec:
-        externalTrafficPolicy: Local
----
+    additionalArguments:
+    - "--ping"
+    - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+    - "--entrypoints.web.http.redirections.entryPoint.to=:443"
+    - "--metrics.prometheus=true"
+    - "--providers.file.filename=/config/dyn.yaml"
+    - "--providers.kubernetesingress.ingressendpoint.hostname=nwk1-fwlb-1.k8s.rabbito.tech"
