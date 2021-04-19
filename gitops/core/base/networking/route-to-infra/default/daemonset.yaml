@@ -18,7 +18,7 @@ spec:
           image: docker.io/bitnami/kubectl
           env:
             - name: GATEWAY_IP
-              value: "${SECRET_WIREGUARD_GATEWAY_IP}"
+              value: "10.136.136.11"
           imagePullPolicy: Always
           command: ["/bin/bash", "-c"]
           args:
