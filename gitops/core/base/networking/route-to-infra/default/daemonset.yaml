@@ -20,7 +20,7 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - >
-              _gateway=`"$SECRET_WIREGUARD_GATEWAY_IP"`;
+              _gateway=`"${SECRET_WIREGUARD_GATEWAY_IP}"`;
               touch routes_${_lastVersion}.txt;
               while true;
               do
