@@ -1,0 +1,14 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: route-to-infra
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: route-to-infra-role
+subjects:
+- kind: ServiceAccount
+  name: route-to-infra
+  namespace: kube-system

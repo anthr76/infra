@@ -6,3 +6,4 @@ resources:
 - ../../base/crds/origin-ca-issuer/crds.yaml
 - ../../base/crds/external-dns/crds.yaml
 - ../../base/config-maps/coredns/coredns.yaml
+- ../../base/networking/route-to-infra/kustomization.yaml
