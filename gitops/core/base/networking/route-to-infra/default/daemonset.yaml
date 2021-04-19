@@ -31,7 +31,7 @@ spec:
             - "-ec"
             - |
               gateway="${GATEWAY_IP}";
-              export "${lastversion}";
+              lastversion="";
               while true;
               do
                 currentversion="$(kubectl get configmap route-to-infra -n kube-system -o go-template --template '{{.metadata.resourceVersion}}')"
