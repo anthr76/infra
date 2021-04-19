@@ -20,45 +20,45 @@ spec:
             - name: GATEWAY_IP
               value: "10.136.136.11"
           imagePullPolicy: Always
-          command: ["/bin/bash", "-c"]
-          args:
-            - >
-              _gateway=`"${GATEWAY_IP}"`;
-              touch routes_${_lastVersion}.txt;
-              while true;
-              do
-                _currVersion=`kubectl get configmap static-routes -o go-template --template '{{.metadata.resourceVersion}}'`
-                if [ $? -ne 0 ]; then
-                  echo "Error getting configmap version, taking no action";
-                  sleep 15;
-                  continue;
-                fi;
-                if [ "${_lastVersion}" == "${_currVersion}" ]; then
-                  _lastVersion=${_currVersion};
-                  sleep 5;
-                  continue;
-                fi;
-                echo "Change detected to configmap (lastVersion=${_lastVersion}, currVersion=${_currVersion})!";
-                kubectl get configmap static-routes -o go-template --template '{{.data.routes}}' | jq -r 'join("\n")' | sort | uniq > routes_${_currVersion}.txt;
-                if [ "${PIPESTATUS[0]}" -ne 0 ]; then
-                  echo "Error getting configmap contents, taking no action";
-                  sleep 5;
-                  continue;
-                fi;
-                for _route in `comm -23 routes_${_lastVersion}.txt routes_${_currVersion}.txt`; do
-                  [ ! -z "`ip route show | grep ${_route} | grep ${_gateway}`" ] || continue;
-                  echo "Deleting ${_route} via ${_gateway} ...";
-                  ip route del ${_route} via ${_gateway};
-                done;
-                for _route in `comm -1 routes_${_lastVersion}.txt routes_${_currVersion}.txt | awk '{print $1;}'`; do
-                  [ -z "`ip route show | grep ${_route} | grep ${_gateway}`" ] || continue;
-                  echo "Adding ${_route} via ${_gateway} ...";
-                  ip route add ${_route} via ${_gateway};
-                done;
+          #command: ["/bin/bash", "-c"]
+          # args:
+          #   - >
+          #     _gateway=`"${GATEWAY_IP}"`;
+          #     touch routes_${_lastVersion}.txt;
+          #     while true;
+          #     do
+          #       _currVersion=`kubectl get configmap static-routes -o go-template --template '{{.metadata.resourceVersion}}'`
+          #       if [ $? -ne 0 ]; then
+          #         echo "Error getting configmap version, taking no action";
+          #         sleep 15;
+          #         continue;
+          #       fi;
+          #       if [ "${_lastVersion}" == "${_currVersion}" ]; then
+          #         _lastVersion=${_currVersion};
+          #         sleep 5;
+          #         continue;
+          #       fi;
+          #       echo "Change detected to configmap (lastVersion=${_lastVersion}, currVersion=${_currVersion})!";
+          #       kubectl get configmap static-routes -o go-template --template '{{.data.routes}}' | jq -r 'join("\n")' | sort | uniq > routes_${_currVersion}.txt;
+          #       if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+          #         echo "Error getting configmap contents, taking no action";
+          #         sleep 5;
+          #         continue;
+          #       fi;
+          #       for _route in `comm -23 routes_${_lastVersion}.txt routes_${_currVersion}.txt`; do
+          #         [ ! -z "`ip route show | grep ${_route} | grep ${_gateway}`" ] || continue;
+          #         echo "Deleting ${_route} via ${_gateway} ...";
+          #         ip route del ${_route} via ${_gateway};
+          #       done;
+          #       for _route in `comm -1 routes_${_lastVersion}.txt routes_${_currVersion}.txt | awk '{print $1;}'`; do
+          #         [ -z "`ip route show | grep ${_route} | grep ${_gateway}`" ] || continue;
+          #         echo "Adding ${_route} via ${_gateway} ...";
+          #         ip route add ${_route} via ${_gateway};
+          #       done;
 
-                rm -f routes_${_lastVersion}.txt;
-                _lastVersion=${_currVersion};
-              done
+          #       rm -f routes_${_lastVersion}.txt;
+          #       _lastVersion=${_currVersion};
+          #     done
           securityContext:
             capabilities:
               add:
