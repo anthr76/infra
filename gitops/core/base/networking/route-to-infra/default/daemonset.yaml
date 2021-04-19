@@ -16,11 +16,14 @@ spec:
       containers:
         - name: route-to-infra
           image: docker.io/bitnami/kubectl
+          env:
+            - name: GATEWAY_IP
+              value: "${SECRET_WIREGUARD_GATEWAY_IP}"
           imagePullPolicy: Always
           command: ["/bin/bash", "-c"]
           args:
             - >
-              _gateway=`"${SECRET_WIREGUARD_GATEWAY_IP}"`;
+              _gateway=`"${GATEWAY_IP}"`;
               touch routes_${_lastVersion}.txt;
               while true;
               do
