@@ -22,6 +22,9 @@ spec:
       containers:
         - name: route-to-infra
           image: docker.io/bitnami/kubectl
+          securityContext:
+            capabilities:
+              add: ["NET_ADMIN"]
           env:
             - name: GATEWAY_IP
               value: "10.136.136.11"
@@ -65,7 +68,3 @@ spec:
                 rm -f "routes_${lastversion}";
                 lastversion=${currentversion};
               done
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
