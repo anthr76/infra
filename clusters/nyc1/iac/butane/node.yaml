@@ -1,0 +1,42 @@
+---
+variant: fcos # TO-DO Rework for master
+version: 1.3.0
+storage:
+  files:
+    - path: /etc/kubernetes/init-config.yaml
+      overwrite: true
+      contents:
+        inline: |
+            ---
+            apiVersion: kubeadm.k8s.io/v1beta2
+            kind: JoinConfiguration
+            discovery:
+              bootstrapToken:
+                token: "${token}"
+                apiServerEndpoint: "${control_plane_ip}:6443"
+                unsafeSkipCAVerification: true
+            controlPlane:
+              certificateKey: ${certificate_key}
+systemd:
+  units:
+    - name: cluster-creation.service
+      enabled: true
+      contents: |
+        [Unit]
+        ConditionPathExists=!/var/lib/issuegen-cluster-creation
+        After=issuegen-first-boot.service crio.service kubelet.service
+        Requires=issuegen-first-boot.service crio.service
+        StartLimitInterval=1200s
+        StartLimitBurst=5
+        [Service]
+        EnvironmentFile=/etc/sysconfig/kubelet
+        Type=oneshot
+        ExecStartPre=/usr/bin/kubeadm reset --force
+        ExecStart=/usr/bin/kubeadm join --config /etc/kubernetes/init-config.yaml
+        ExecStartPost=/usr/bin/touch /var/lib/issuegen-cluster-creation
+        ExecStartPost=/usr/bin/rm --recursive --force /etc/kubernetes/manifests.d/
+        ExecStartPost=/usr/bin/rm /etc/kubernetes/init-config.yaml
+        Restart=on-failure
+        RestartSec=120s
+        [Install]
+        WantedBy=multi-user.target

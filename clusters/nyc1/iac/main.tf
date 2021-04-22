@@ -10,22 +10,17 @@ terraform {
       source  = "digitalocean/digitalocean"
       version = "2.7.0"
     }
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.7.0"
-    }
-    flux = {
-      source  = "fluxcd/flux"
-      version = "0.1.3"
-    }
-
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "2.1.0"
-    }
     sops = {
       source = "carlpett/sops"
       version = "~> 0.6.2"
+    }
+    ct = {
+      source  = "poseidon/ct"
+      version = "0.8.0"
+    }
+    dns = {
+      source = "hashicorp/dns"
+      version = "3.1.0"
     }
 
   }
@@ -42,41 +37,18 @@ data "sops_file" "tf_secrets" {
   source_file = "tf-secrets.yaml"
 }
 
-provider "kubectl" {
-  host             = digitalocean_kubernetes_cluster.nyc1.endpoint
-  token            = digitalocean_kubernetes_cluster.nyc1.kube_config[0].token
-  cluster_ca_certificate = base64decode(
-    digitalocean_kubernetes_cluster.nyc1.kube_config[0].cluster_ca_certificate
-  )
-  apply_retry_count = 5
+# Upload the Kubic Image
+resource "digitalocean_custom_image" "kubic_image" {
+  name    = "kubic_digitalocean"
+  url     = "https://download.opensuse.org/repositories/devel:/kubic:/images/openSUSE_Tumbleweed/openSUSE-MicroOS.x86_64-16.0.0-Kubic-kubeadm-DigitalOcean-Cloud-Build130.1.qcow2" # Replace with non-devel image
+  regions = ["nyc1"]
 }
 
-provider "kubernetes" {
-  host             = digitalocean_kubernetes_cluster.nyc1.endpoint
-  token            = digitalocean_kubernetes_cluster.nyc1.kube_config[0].token
-  cluster_ca_certificate = base64decode(
-    digitalocean_kubernetes_cluster.nyc1.kube_config[0].cluster_ca_certificate
-  )
-}
-
-data "digitalocean_vpc" "nyc1_idm" {
-  name = "idm-nyc1"
-}
-
-# We use DOKS until https://bugzilla.opensuse.org/show_bug.cgi?id=1182227
-resource "digitalocean_kubernetes_cluster" "nyc1" {
-  name          = "nyc1"
-  region        = "nyc1"
-  auto_upgrade  = true
-  surge_upgrade = true
-  version       = "1.20.2-do.0"
-  vpc_uuid      = data.digitalocean_vpc.nyc1_idm.id
-
-  node_pool {
-    name       = "autoscale-worker-pool"
-    size       = "s-2vcpu-2gb"
-    auto_scale = true
-    min_nodes  = 1
-    max_nodes  = 5
+provider "dns" {
+  update {
+    server        = "den.rabbito.tech"
+    key_algorithm = "hmac-sha256"
+    key_name      = "externaldns."
+    key_secret    = data.sops_file.tf_secrets.data["data.dns_tsig_key"]
   }
 }

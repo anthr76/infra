@@ -1,0 +1,36 @@
+---
+variant: fcos
+version: 1.3.0
+storage:
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: nyc1-worker-${count}
+    - path: /etc/kubernetes/init-config.yaml
+      overwrite: true
+      contents:
+        inline: |
+            ---
+            apiVersion: kubeadm.k8s.io/v1beta2
+            kind: JoinConfiguration
+            discovery:
+              bootstrapToken:
+                token: "${token}"
+                apiServerEndpoint: "${control_plane_ip}:6443"
+                unsafeSkipCAVerification: true
+            nodeRegistration:
+              kubeletExtraArgs:
+                node-ip: "$${DO_PRIVATE_IPV4}"
+systemd:
+  units:
+    - name: cluster-creation.service
+      dropins:
+        - name: cluster-creation-join-worker.conf
+          contents: |
+            [Service]
+            ExecStartPre=/usr/bin/kubeadm reset --force
+            ExecStart=/usr/bin/kubeadm join --config /etc/kubernetes/init-config.yaml
+            ExecStartPost=/usr/bin/touch /var/lib/issuegen-cluster-creation
+            ExecStartPost=/usr/bin/rm /etc/kubernetes/init-config.yaml
