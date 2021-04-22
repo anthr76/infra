@@ -47,8 +47,3 @@ systemd:
             ExecStartPost=/usr/bin/rm --recursive --force /etc/kubernetes/manifests.d/
             ExecStartPost=/usr/bin/sudo -u localanthony /usr/bin/helm repo add cilium https://helm.cilium.io/
             ExecStartPost=/usr/bin/sudo -u localanthony /usr/bin/helm install cilium cilium/cilium --namespace kube-system --set etcd.enabled=true --set etcd.managed=true --set kubeProxyReplacement=strict --set k8sServiceHost=${control_plane_ip} --set k8sServicePort=6443
-    - name: set-vars.service
-      dropins:
-        - name: var-cluster-creation-inital-master.conf
-          contents: |
-            ExecStartPost=/bin/sh -c envsubst < /etc/kubernetes/init-config.tmpl > /etc/kubernetes/init-config.yaml
