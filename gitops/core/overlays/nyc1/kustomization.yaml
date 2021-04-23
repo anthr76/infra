@@ -5,4 +5,3 @@ resources:
 - ../../base/crds/traefik/crds.yaml
 - ../../base/crds/origin-ca-issuer/crds.yaml
 - ../../base/crds/external-dns/crds.yaml
-- ../../base/deployments/dccm
