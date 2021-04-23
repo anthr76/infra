@@ -8,8 +8,8 @@ resource "dns_a_record_set" "first_master_node" {
 
 resource "dns_a_record_set" "master_nodes" {
   zone  = "k8s.rabbito.tech."
-  count = var.count_masters
-  name  = "nyc1-master-${count.index + 1}"
+  count = var.count_masters - 1
+  name  = "nyc1-master-${count.index + 2}"
   ttl   = 15
   addresses = [element(digitalocean_droplet.kubic_master.*.ipv4_address_private, count.index)]
 }
