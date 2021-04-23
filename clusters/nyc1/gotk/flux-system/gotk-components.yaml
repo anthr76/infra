@@ -2773,4 +2773,3 @@ spec:
         name: data
       - emptyDir: {}
         name: tmp
----
