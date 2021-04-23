@@ -7,6 +7,17 @@ metadata:
   name: system:cloud-controller-manager
 rules:
 - apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - watch
+  - list
+  - create
+  - update
+  - delete
+- apiGroups:
   - ""
   resources:
   - events
@@ -50,6 +61,15 @@ rules:
   - serviceaccounts
   verbs:
   - create
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  verbs:
+  - get
+  - list
+  - update
+  - watch
 - apiGroups:
   - ""
   resources:

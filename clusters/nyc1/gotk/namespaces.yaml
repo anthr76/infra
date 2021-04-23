@@ -19,14 +19,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: namespaces
+  name: core-crd
   namespace: flux-system
 spec:
   interval: 10m0s
-  dependsOn:
-    - name: core
-  path: ./gitops/namespaces/overlays/nyc1
-  prune: true
+  path: ./gitops/core-crd/overlays/nyc1
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -50,7 +48,33 @@ metadata:
 spec:
   interval: 10m0s
   path: ./gitops/core/overlays/nyc1
-  prune: false
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: Secret
+        name: cluster-secrets
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: namespaces
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: core
+  path: ./gitops/namespaces/overlays/nyc1
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
