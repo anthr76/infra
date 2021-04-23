@@ -8,7 +8,7 @@ storage:
       overwrite: true
       contents:
         inline: nyc1-master-${count}
-    - path: /etc/kubernetes/init-config.yaml
+    - path: /etc/kubernetes/init-config.tmpl
       overwrite: true
       contents:
         inline: |
@@ -22,11 +22,11 @@ storage:
                 unsafeSkipCAVerification: true
             controlPlane:
               certificateKey: ${certificate_key}
+              localAPIEndpoint:
+                advertiseAddress: "${DO_PRIVATE_IPV4}"
             nodeRegistration:
               kubeletExtraArgs:
-                node-ip: "$${DO_PRIVATE_IPV4}"
-            localAPIEndpoint:
-              advertiseAddress: "$${DO_PRIVATE_IPV4}"
+                node-ip: "${DO_PRIVATE_IPV4}"
 systemd:
   units:
     - name: cluster-creation.service

@@ -121,7 +121,7 @@ systemd:
         ConditionPathExists=!/var/lib/issuegen-metadata
         [Service]
         Type=oneshot
-        ExecStart=/bin/bash -c 'echo "DO_PRIVATE_IPV4=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)" >> /var/lib/issuegen-metadata'
+        ExecStart=/bin/bash -c 'echo DO_PRIVATE_IPV4=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address) >> /var/lib/issuegen-metadata'
         [Install]
         WantedBy=multi-user.target
     - name: set-vars.service
@@ -132,9 +132,9 @@ systemd:
         After=retrive-vars.service
         ConditionPathExists=!/etc/kubernetes/init-config.yaml
         [Service]
-        Type=oneshot
         EnvironmentFile=/var/lib/issuegen-metadata
-        ExecStart=/bin/bash -c 'cat /etc/kubernetes/init-config.tmpl | envsubst > /etc/kubernetes/init-config.yaml'
+        Type=oneshot
+        ExecStart=/bin/bash -c 'envsubst < /etc/kubernetes/init-config.tmpl > /etc/kubernetes/init-config.yaml'
         ExecStartPost=/usr/bin/rm /etc/kubernetes/init-config.tmpl
         [Install]
         WantedBy=multi-user.target

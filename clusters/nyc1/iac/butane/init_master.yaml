@@ -20,9 +20,9 @@ storage:
             certificateKey: "${certificate_key}"
             nodeRegistration:
               kubeletExtraArgs:
-                node-ip: "$${DO_PRIVATE_IPV4}"
+                node-ip: "${DO_PRIVATE_IPV4}"
             localAPIEndpoint:
-              advertiseAddress: "$${DO_PRIVATE_IPV4}"
+              advertiseAddress: "${DO_PRIVATE_IPV4}"
             ---
             apiVersion: kubeadm.k8s.io/v1beta2
             kind: ClusterConfiguration
