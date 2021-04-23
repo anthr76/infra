@@ -27,6 +27,7 @@ storage:
             nodeRegistration:
               kubeletExtraArgs:
                 node-ip: "${DO_PRIVATE_IPV4}"
+                cloud-provider: "external"
 systemd:
   units:
     - name: cluster-creation.service
