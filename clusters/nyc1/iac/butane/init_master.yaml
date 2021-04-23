@@ -28,6 +28,9 @@ storage:
             apiVersion: kubeadm.k8s.io/v1beta2
             kind: ClusterConfiguration
             controlPlaneEndpoint: "${control_plane_ip}:6443"
+            controllerManager:
+              extraArgs:
+                allocate-node-cidrs: "true"
 systemd:
   units:
     - name: cluster-creation.service
