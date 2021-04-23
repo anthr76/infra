@@ -8,7 +8,7 @@ storage:
       overwrite: true
       contents:
         inline: nyc1-master-${count}
-    - path: /etc/kubernetes/init-config.tmpl
+    - path: /etc/kubernetes/init-config.yaml
       overwrite: true
       contents:
         inline: |
@@ -22,11 +22,8 @@ storage:
                 unsafeSkipCAVerification: true
             controlPlane:
               certificateKey: ${certificate_key}
-              localAPIEndpoint:
-                advertiseAddress: "${DO_PRIVATE_IPV4}"
             nodeRegistration:
               kubeletExtraArgs:
-                node-ip: "${DO_PRIVATE_IPV4}"
                 cloud-provider: "external"
 systemd:
   units:

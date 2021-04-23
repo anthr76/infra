@@ -8,7 +8,7 @@ storage:
       overwrite: true
       contents:
         inline: nyc1-worker-${count}
-    - path: /etc/kubernetes/init-config.tmpl
+    - path: /etc/kubernetes/init-config.yaml
       overwrite: true
       contents:
         inline: |
@@ -22,7 +22,6 @@ storage:
                 unsafeSkipCAVerification: true
             nodeRegistration:
               kubeletExtraArgs:
-                node-ip: "${DO_PRIVATE_IPV4}"
                 cloud-provider: "external"
 systemd:
   units:

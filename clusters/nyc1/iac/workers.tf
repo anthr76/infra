@@ -13,7 +13,6 @@ data "ct_config" "worker" {
         control_plane_ip = var.control_plane_ip
         token            = data.sops_file.tf_secrets.data["data.kubeadm_token"]
         count            = (count.index + 1)
-        DO_PRIVATE_IPV4  = "$${DO_PRIVATE_IPV4}"
       }
     ),]
   strict       = true

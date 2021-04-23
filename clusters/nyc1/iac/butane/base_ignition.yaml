@@ -112,29 +112,3 @@ systemd:
 
         [Install]
         WantedBy=multi-user.target
-    - name: retrive-vars.service
-      enabled: true
-      contents: |
-        [Unit]
-        Before=cluster-creation.service
-        After=network-online.target wicked.service wickedd.service
-        ConditionPathExists=!/var/lib/issuegen-metadata
-        [Service]
-        Type=oneshot
-        ExecStart=/bin/bash -c 'echo DO_PRIVATE_IPV4=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address) >> /var/lib/issuegen-metadata'
-        [Install]
-        WantedBy=multi-user.target
-    - name: set-vars.service
-      enabled: true
-      contents: |
-        [Unit]
-        Before=cluster-creation.service
-        After=retrive-vars.service
-        ConditionPathExists=!/etc/kubernetes/init-config.yaml
-        [Service]
-        EnvironmentFile=/var/lib/issuegen-metadata
-        Type=oneshot
-        ExecStart=/bin/bash -c 'envsubst < /etc/kubernetes/init-config.tmpl > /etc/kubernetes/init-config.yaml'
-        ExecStartPost=/usr/bin/rm /etc/kubernetes/init-config.tmpl
-        [Install]
-        WantedBy=multi-user.target
