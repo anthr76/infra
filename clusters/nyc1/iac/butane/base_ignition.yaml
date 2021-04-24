@@ -41,7 +41,6 @@ storage:
     - path: /etc/sysconfig/network/config
       append:
         - inline: |
-            NETCONFIG_DNS_STATIC_SEARCHLIST="k8s.rabbito.tech"
             NETCONFIG_DNS_STATIC_SERVERS="10.136.153.234 10.136.42.191"
             DHCLIENT_SET_HOSTNAME='no'
     - path: /etc/sysconfig/network/ifroute-eth1
