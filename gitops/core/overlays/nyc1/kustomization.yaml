@@ -7,3 +7,4 @@ resources:
 - ../../base/deployments/dccm
 - ../../base/deployments/cilium
 - ../../../namespaces/base/flux-system/helm-chart-repositories
+- ../../base/git-keys/gitlab-infra-ssh.yaml
