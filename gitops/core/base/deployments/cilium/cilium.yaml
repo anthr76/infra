@@ -41,5 +41,5 @@ spec:
         # Valid options are "disabled", "probe", "partial", "strict".
         # ref: https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free/
         kubeProxyReplacement: "probe"
-        k8sServiceHost: ${CONTROL_PLANE_ENDPOINT}
+        k8sServiceHost: "${CONTROL_PLANE_ENDPOINT}"
         k8sServicePort: 6443
