@@ -33,7 +33,7 @@ spec:
       # host stack (true) or directly and more efficiently out of BPF (false) if
       # the kernel supports it. The latter has the implication that it will also
       # bypass netfilter in the host namespace.
-      hostRouting: true
+      hostRouting: false
       # -- Configure the eBPF-based TPROXY to reduce reliance on iptables rules
       # for implementing Layer 7 policy.
       tproxy: true
