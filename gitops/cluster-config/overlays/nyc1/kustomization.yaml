@@ -5,4 +5,4 @@ resources:
   - ../../base/config/base-config.yaml
   - ../../base/secrets/base-secrets.yaml
   - cluster-secrets.yaml
-  - cluser-config.yaml
+  - cluster-config.yaml
