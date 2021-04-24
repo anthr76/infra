@@ -57,12 +57,12 @@ spec:
     #   - vxlan (default)
     #   - geneve
     tunnel: "disabled"
-  endpointRoutes:
-    # -- Enable use of per endpoint routes instead of routing via
-    # the cilium_host interface.
-    enabled: true
-  # -- Enable installation of PodCIDR routes between worker
-  # nodes if worker nodes share a common L2 network segment.
-  autoDirectNodeRoutes: true
-  hostServices:
-    enabled: true
+    endpointRoutes:
+      # -- Enable use of per endpoint routes instead of routing via
+      # the cilium_host interface.
+      enabled: true
+    # -- Enable installation of PodCIDR routes between worker
+    # nodes if worker nodes share a common L2 network segment.
+    autoDirectNodeRoutes: true
+    hostServices:
+      enabled: true
