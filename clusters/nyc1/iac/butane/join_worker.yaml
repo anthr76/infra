@@ -8,7 +8,7 @@ storage:
       overwrite: true
       contents:
         inline: nyc1-worker-${count}
-    - path: /etc/kubernetes/init-config.yaml
+    - path: /etc/kubernetes/init-config.tmpl
       overwrite: true
       contents:
         inline: |
@@ -23,6 +23,8 @@ storage:
             nodeRegistration:
               kubeletExtraArgs:
                 cloud-provider: "external"
+                node-ip: "$${DO_PRIVATE_IPV4}"
+                provider-id: "digitalocean://$${DO_PROVIDER_ID}"
 systemd:
   units:
     - name: cluster-creation.service

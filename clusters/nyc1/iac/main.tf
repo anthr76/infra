@@ -40,7 +40,7 @@ data "sops_file" "tf_secrets" {
 # Upload the Kubic Image
 resource "digitalocean_custom_image" "kubic_image" {
   name    = "kubic_digitalocean"
-  url     = "https://download.opensuse.org/repositories/devel:/kubic:/images/openSUSE_Tumbleweed/openSUSE-MicroOS.x86_64-16.0.0-Kubic-kubeadm-DigitalOcean-Cloud-Build130.1.qcow2" # Replace with non-devel image
+  url     = "http://download.opensuse.org/tumbleweed/appliances/openSUSE-MicroOS.x86_64-Kubic-kubeadm-DigitalOcean-Cloud.qcow2"
   regions = ["nyc1"]
 }
 

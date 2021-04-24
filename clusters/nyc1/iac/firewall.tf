@@ -8,6 +8,12 @@ resource "digitalocean_firewall" "k8s-cluster" {
 
   inbound_rule {
     protocol         = "tcp"
+    port_range       = "6443"
+    source_load_balancer_uids = [digitalocean_loadbalancer.kubic_k8s.id]
+  }
+
+  inbound_rule {
+    protocol         = "tcp"
     port_range       = "80"
     source_addresses = ["0.0.0.0/0", "::/0"]
   }
