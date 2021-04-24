@@ -1,10 +1,13 @@
+---
+# Flux version: v0.13.1
+# Components: source-controller,kustomize-controller,helm-controller,notification-controller
 apiVersion: v1
 kind: Namespace
 metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: flux-system
 ---
 apiVersion: apiextensions.k8s.io/v1
@@ -16,7 +19,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: alerts.notification.toolkit.fluxcd.io
 spec:
   group: notification.toolkit.fluxcd.io
@@ -191,7 +194,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: buckets.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -379,7 +382,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: gitrepositories.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -600,7 +603,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: helmcharts.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -799,7 +802,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: helmreleases.helm.toolkit.fluxcd.io
 spec:
   group: helm.toolkit.fluxcd.io
@@ -1334,7 +1337,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: helmrepositories.source.toolkit.fluxcd.io
 spec:
   group: source.toolkit.fluxcd.io
@@ -1504,7 +1507,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: kustomizations.kustomize.toolkit.fluxcd.io
 spec:
   group: kustomize.toolkit.fluxcd.io
@@ -1901,7 +1904,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: providers.notification.toolkit.fluxcd.io
 spec:
   group: notification.toolkit.fluxcd.io
@@ -2057,7 +2060,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: receivers.notification.toolkit.fluxcd.io
 spec:
   group: notification.toolkit.fluxcd.io
@@ -2237,7 +2240,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: helm-controller
   namespace: flux-system
 ---
@@ -2247,7 +2250,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: kustomize-controller
   namespace: flux-system
 ---
@@ -2257,7 +2260,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: notification-controller
   namespace: flux-system
 ---
@@ -2267,7 +2270,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: source-controller
   namespace: flux-system
 ---
@@ -2277,7 +2280,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: crd-controller-flux-system
 rules:
 - apiGroups:
@@ -2357,7 +2360,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: cluster-reconciler-flux-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -2377,7 +2380,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
   name: crd-controller-flux-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -2409,7 +2412,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
     control-plane: controller
   name: notification-controller
   namespace: flux-system
@@ -2429,7 +2432,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
     control-plane: controller
   name: source-controller
   namespace: flux-system
@@ -2449,7 +2452,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
     control-plane: controller
   name: webhook-receiver
   namespace: flux-system
@@ -2469,7 +2472,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
     control-plane: controller
   name: helm-controller
   namespace: flux-system
@@ -2532,9 +2535,6 @@ spec:
         kubernetes.io/os: linux
       serviceAccountName: helm-controller
       terminationGracePeriodSeconds: 600
-      tolerations:
-      - key: node.cloudprovider.kubernetes.io/uninitialized
-        operator: Exists
       volumes:
       - emptyDir: {}
         name: temp
@@ -2545,7 +2545,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
     control-plane: controller
   name: kustomize-controller
   namespace: flux-system
@@ -2610,9 +2610,6 @@ spec:
         fsGroup: 1337
       serviceAccountName: kustomize-controller
       terminationGracePeriodSeconds: 60
-      tolerations:
-      - key: node.cloudprovider.kubernetes.io/uninitialized
-        operator: Exists
       volumes:
       - emptyDir: {}
         name: temp
@@ -2623,7 +2620,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
     control-plane: controller
   name: notification-controller
   namespace: flux-system
@@ -2689,9 +2686,6 @@ spec:
         kubernetes.io/os: linux
       serviceAccountName: notification-controller
       terminationGracePeriodSeconds: 10
-      tolerations:
-      - key: node.cloudprovider.kubernetes.io/uninitialized
-        operator: Exists
       volumes:
       - emptyDir: {}
         name: temp
@@ -2702,7 +2696,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    app.kubernetes.io/version: latest
+    app.kubernetes.io/version: v0.13.1
     control-plane: controller
   name: source-controller
   namespace: flux-system
@@ -2774,11 +2768,9 @@ spec:
         fsGroup: 1337
       serviceAccountName: source-controller
       terminationGracePeriodSeconds: 10
-      tolerations:
-      - key: node.cloudprovider.kubernetes.io/uninitialized
-        operator: Exists
       volumes:
       - emptyDir: {}
         name: data
       - emptyDir: {}
         name: tmp
+---
