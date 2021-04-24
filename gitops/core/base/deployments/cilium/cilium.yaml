@@ -50,10 +50,19 @@ spec:
       algorithm: "maglev"
       # mode is the operation mode of load balancing for remote backends
       # e.g. snat, dsr, hybrid
-      mode: "snat"
+      mode: "hybrid"
     # -- Configure the encapsulation configuration for communication between nodes.
     # Possible values:
     #   - disabled
     #   - vxlan (default)
     #   - geneve
     tunnel: "disabled"
+  endpointRoutes:
+    # -- Enable use of per endpoint routes instead of routing via
+    # the cilium_host interface.
+    enabled: true
+  # -- Enable installation of PodCIDR routes between worker
+  # nodes if worker nodes share a common L2 network segment.
+  autoDirectNodeRoutes: true
+  hostServices:
+    enabled: true
