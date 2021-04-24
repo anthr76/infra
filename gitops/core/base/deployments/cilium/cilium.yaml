@@ -46,6 +46,7 @@ spec:
     kubeProxyReplacement: "probe"
     k8sServiceHost: "${CONTROL_PLANE_ENDPOINT}"
     k8sServicePort: 6443
+    devices: "eth1"
     # -- Configure service load balancing
     loadBalancer:
       # algorithm is the name of the load balancing algorithm for backend
