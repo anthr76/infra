@@ -46,14 +46,14 @@ spec:
     kubeProxyReplacement: "probe"
     k8sServiceHost: "${CONTROL_PLANE_ENDPOINT}"
     k8sServicePort: 6443
-    # # -- Configure service load balancing
-    # loadBalancer:
-    #   # algorithm is the name of the load balancing algorithm for backend
-    #   # selection e.g. random or maglev
-    #   algorithm: "maglev"
-    #   # mode is the operation mode of load balancing for remote backends
-    #   # e.g. snat, dsr, hybrid
-    #   mode: "snat"
+    # -- Configure service load balancing
+    loadBalancer:
+      # algorithm is the name of the load balancing algorithm for backend
+      # selection e.g. random or maglev
+      algorithm: "maglev"
+      # mode is the operation mode of load balancing for remote backends
+      # e.g. snat, dsr, hybrid
+      mode: "snat"
     # -- Configure the encapsulation configuration for communication between nodes.
     # Possible values:
     #   - disabled
