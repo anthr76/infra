@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: flux-system
+  name: nyc-1cluster-config
+data:
+  CLUSTER_NAME: "nyc1"
+  CLUSTER_ID: "1"

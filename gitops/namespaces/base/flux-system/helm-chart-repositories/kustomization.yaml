@@ -20,3 +20,4 @@ resources:
 - vmware-charts.yaml
 - weaveworks-kured-charts.yaml
 - wiremind-charts.yaml
+- cilium-charts.yaml

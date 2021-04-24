@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cilium
+  namespace: kube-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://helm.cilium.io/
+      chart: cilium
+      version: 1.9.90
+      sourceRef:
+        kind: HelmRepository
+        name: cilium-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    cluster:
+      # -- Name of the cluster. Only required for Cluster Mesh.
+      name: "${CLUSTER_NAME}"
+      # -- (int) Unique ID of the cluster. Must be unique across all connected
+      # clusters and in the range of 1 to 255. Only required for Cluster Mesh.
+      id: "${CLUSTER_1}"
+      bpf:
+        # -- Enable native IP masquerade support in eBPF
+        masquerade: true
+        # -- Configure whether direct routing mode should route traffic via
+        # host stack (true) or directly and more efficiently out of BPF (false) if
+        # the kernel supports it. The latter has the implication that it will also
+        # bypass netfilter in the host namespace.
+        hostRouting: true
+        # -- Configure the eBPF-based TPROXY to reduce reliance on iptables rules
+        # for implementing Layer 7 policy.
+        tproxy: true
+        # -- Configure the eBPF-based ip-masq-agent
+        ipMasqAgent:
+          enabled: false
+        # -- Configure the kube-proxy replacement in Cilium BPF datapath
+        # Valid options are "disabled", "probe", "partial", "strict".
+        # ref: https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free/
+        kubeProxyReplacement: "probe"
+        k8sServiceHost: ${CONTROL_PLANE_ENDPOINT}
+        k8sServicePort: 6443
