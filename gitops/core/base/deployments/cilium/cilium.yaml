@@ -23,7 +23,6 @@ spec:
       # -- (int) Unique ID of the cluster. Must be unique across all connected
       # clusters and in the range of 1 to 255. Only required for Cluster Mesh.
       id: "${CLUSTER_ID}"
-
     # -- Specify the CIDR for native routing (ie to avoid IP masquerade for).
     # This value corresponds to the configured cluster-cidr.
     nativeRoutingCIDR: "${NATIVE_ROUTING_CIDR}"
@@ -58,3 +57,9 @@ spec:
       # acceleration is the option to accelerate service handling via XDP
       # e.g. native, disabled
       acceleration: native
+    # -- Configure the encapsulation configuration for communication between nodes.
+    # Possible values:
+    #   - disabled
+    #   - vxlan (default)
+    #   - geneve
+    tunnel: "disabled"
