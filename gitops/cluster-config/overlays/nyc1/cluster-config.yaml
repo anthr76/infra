@@ -7,3 +7,4 @@ metadata:
 data:
   CLUSTER_NAME: "nyc1"
   CLUSTER_ID: "1"
+  NATIVE_ROUTING_CIDR: "10.136.0.0/16"

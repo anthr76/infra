@@ -22,24 +22,39 @@ spec:
       name: "${CLUSTER_NAME}"
       # -- (int) Unique ID of the cluster. Must be unique across all connected
       # clusters and in the range of 1 to 255. Only required for Cluster Mesh.
-      id: "${CLUSTER_1}"
-      bpf:
-        # -- Enable native IP masquerade support in eBPF
-        masquerade: true
-        # -- Configure whether direct routing mode should route traffic via
-        # host stack (true) or directly and more efficiently out of BPF (false) if
-        # the kernel supports it. The latter has the implication that it will also
-        # bypass netfilter in the host namespace.
-        hostRouting: true
-        # -- Configure the eBPF-based TPROXY to reduce reliance on iptables rules
-        # for implementing Layer 7 policy.
-        tproxy: true
-        # -- Configure the eBPF-based ip-masq-agent
-        ipMasqAgent:
-          enabled: false
-        # -- Configure the kube-proxy replacement in Cilium BPF datapath
-        # Valid options are "disabled", "probe", "partial", "strict".
-        # ref: https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free/
-        kubeProxyReplacement: "probe"
-        k8sServiceHost: "${CONTROL_PLANE_ENDPOINT}"
-        k8sServicePort: 6443
+      id: "${CLUSTER_ID}"
+
+    # -- Specify the CIDR for native routing (ie to avoid IP masquerade for).
+    # This value corresponds to the configured cluster-cidr.
+    nativeRoutingCIDR: "${NATIVE_ROUTING_CIDR}"
+    bpf:
+      # -- Enable native IP masquerade support in eBPF
+      masquerade: true
+      # -- Configure whether direct routing mode should route traffic via
+      # host stack (true) or directly and more efficiently out of BPF (false) if
+      # the kernel supports it. The latter has the implication that it will also
+      # bypass netfilter in the host namespace.
+      hostRouting: true
+      # -- Configure the eBPF-based TPROXY to reduce reliance on iptables rules
+      # for implementing Layer 7 policy.
+      tproxy: true
+    # -- Configure the eBPF-based ip-masq-agent
+    ipMasqAgent:
+      enabled: true
+    # -- Configure the kube-proxy replacement in Cilium BPF datapath
+    # Valid options are "disabled", "probe", "partial", "strict".
+    # ref: https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free/
+    kubeProxyReplacement: "probe"
+    k8sServiceHost: "${CONTROL_PLANE_ENDPOINT}"
+    k8sServicePort: 6443
+    # -- Configure service load balancing
+    loadBalancer:
+      # algorithm is the name of the load balancing algorithm for backend
+      # selection e.g. random or maglev
+      algorithm: "maglev"
+      # mode is the operation mode of load balancing for remote backends
+      # e.g. snat, dsr, hybrid
+      mode: hybrid
+      # acceleration is the option to accelerate service handling via XDP
+      # e.g. native, disabled
+      acceleration: native
