@@ -37,13 +37,10 @@ spec:
       # -- Configure the eBPF-based TPROXY to reduce reliance on iptables rules
       # for implementing Layer 7 policy.
       tproxy: true
-    # -- Configure the eBPF-based ip-masq-agent
-    ipMasqAgent:
-      enabled: true
     # -- Configure the kube-proxy replacement in Cilium BPF datapath
     # Valid options are "disabled", "probe", "partial", "strict".
     # ref: https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free/
-    kubeProxyReplacement: "probe"
+    kubeProxyReplacement: "strict"
     k8sServiceHost: "${CONTROL_PLANE_ENDPOINT}"
     k8sServicePort: 6443
     # -- Configure service load balancing
