@@ -4,5 +4,6 @@ resources:
 - ../../base/flux-system/helm-chart-repositories
 - ../../base/kube-system
 - ../../base/kube-system/descheduler
+- ../../base/kube-system/kured/kured.yaml
 # patchesStrategicMerge:
 # - patch.yaml

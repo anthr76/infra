@@ -39,6 +39,7 @@ spec:
       create: false
     configuration:
       timeZone: "America/New_York"
+      slackHookUrl: "${KURED_DISCORD_WEBHOOK}"
   valuesFrom:
   - kind: Secret
     name: "kured-helm-values"
