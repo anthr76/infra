@@ -69,12 +69,3 @@ spec:
     autoDirectNodeRoutes: true
     enableIPv4Masquerade: false
     enableIPv6Masquerade: false
-    etcd:
-      # -- Enable etcd mode for the agent.
-      enabled: true
-      # -- Enable managed etcd mode based on the cilium-etcd-operator.
-      managed: true
-      # -- If etcd is behind a k8s service set this option to true so that Cilium
-      # does the service translation automatically without requiring a DNS to be
-      # running.
-      k8sService: true
