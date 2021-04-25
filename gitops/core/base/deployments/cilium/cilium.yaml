@@ -26,6 +26,9 @@ spec:
     # -- Specify the CIDR for native routing (ie to avoid IP masquerade for).
     # This value corresponds to the configured cluster-cidr.
     nativeRoutingCIDR: "${NATIVE_ROUTING_CIDR}"
+    # -- Configure the eBPF-based ip-masq-agent
+    ipMasqAgent:
+      enabled: true
     bpf:
       # -- Enable native IP masquerade support in eBPF
       masquerade: true
@@ -37,10 +40,14 @@ spec:
       # -- Configure the eBPF-based TPROXY to reduce reliance on iptables rules
       # for implementing Layer 7 policy.
       tproxy: true
+      # -- Configure the FIB lookup bypass optimization for nodeport reverse
+      # NAT handling.
+      lbBypassFIBLookup: true
     # -- Configure the kube-proxy replacement in Cilium BPF datapath
     # Valid options are "disabled", "probe", "partial", "strict".
     # ref: https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free/
     kubeProxyReplacement: "strict"
+    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     k8sServiceHost: "${CONTROL_PLANE_ENDPOINT}"
     k8sServicePort: 6443
     # -- Configure service load balancing
@@ -50,19 +57,15 @@ spec:
       algorithm: "maglev"
       # mode is the operation mode of load balancing for remote backends
       # e.g. snat, dsr, hybrid
-      mode: "hybrid"
+      mode: "dsr"
     # -- Configure the encapsulation configuration for communication between nodes.
     # Possible values:
     #   - disabled
     #   - vxlan (default)
     #   - geneve
     tunnel: "disabled"
-    endpointRoutes:
-      # -- Enable use of per endpoint routes instead of routing via
-      # the cilium_host interface.
-      enabled: true
     # -- Enable installation of PodCIDR routes between worker
     # nodes if worker nodes share a common L2 network segment.
     autoDirectNodeRoutes: true
-    hostServices:
-      enabled: true
+    enableIPv4Masquerade: false
+    enableIPv6Masquerade: false
