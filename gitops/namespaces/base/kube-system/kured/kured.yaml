@@ -38,5 +38,4 @@ spec:
     metrics:
       create: false
     configuration:
-      timeZone: "America/New_York"
       slackHookUrl: "${KURED_DISCORD_WEBHOOK}"
