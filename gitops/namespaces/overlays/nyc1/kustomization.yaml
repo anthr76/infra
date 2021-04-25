@@ -6,5 +6,6 @@ resources:
 - ../../base/kube-system/descheduler
 - ../../base/kube-system/kured/kured.yaml
 - ../../base/openebs
+- ../../base/openebs/openebs/cstor
 # patchesStrategicMerge:
 # - patch.yaml
