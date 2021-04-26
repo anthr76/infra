@@ -7,7 +7,7 @@ storage:
       mode: 0644
       overwrite: true
       contents:
-        inline: nyc1-worker-${count}
+        inline: nyc1-worker-${count}.rabbito.tech
     - path: /etc/kubernetes/init-config.tmpl
       overwrite: true
       contents:
