@@ -36,12 +36,12 @@ resource "digitalocean_firewall" "k8s-cluster" {
   inbound_rule {
     protocol         = "udp"
     port_range       = "1-65535"
-    source_addresses = [data.digitalocean_vpc.nyc1_idm.ip_range]
+    source_addresses = [data.digitalocean_vpc.nyc1_idm.ip_range, var.pod_cidr_range]
   }
 
   inbound_rule {
     protocol         = "tcp"
     port_range       = "1-65535"
-    source_addresses = [data.digitalocean_vpc.nyc1_idm.ip_range]
+    source_addresses = [data.digitalocean_vpc.nyc1_idm.ip_range, var.pod_cidr_range]
   }
 }
