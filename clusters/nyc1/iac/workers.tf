@@ -40,7 +40,7 @@ resource "digitalocean_volume" "openebs" {
   description             = "openEBS cstor volume mount"
 }
 
-resource "digitalocean_volume_attachment" "foobar" {
+resource "digitalocean_volume_attachment" "ebs_vols" {
   count      = var.count_workers
   droplet_id = digitalocean_droplet.kubic_worker[count.index].id
   volume_id  = digitalocean_volume.openebs[count.index].id
