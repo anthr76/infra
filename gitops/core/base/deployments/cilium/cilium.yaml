@@ -26,9 +26,6 @@ spec:
     # -- Specify the CIDR for native routing (ie to avoid IP masquerade for).
     # This value corresponds to the configured cluster-cidr.
     nativeRoutingCIDR: "${NATIVE_ROUTING_CIDR}"
-    # -- Configure the eBPF-based ip-masq-agent
-    ipMasqAgent:
-      enabled: true
     bpf:
       # -- Enable native IP masquerade support in eBPF
       masquerade: true
@@ -67,9 +64,11 @@ spec:
     # -- Enable installation of PodCIDR routes between worker
     # nodes if worker nodes share a common L2 network segment.
     autoDirectNodeRoutes: true
-    enableIPv4Masquerade: false
-    enableIPv6Masquerade: false
     ipam:
       operator:
         clusterPoolIPv4PodCIDR: "${CLUSTER_POD_CIDR}"
         clusterPoolIPv4MaskSize: 24
+    endpointRoutes:
+      # -- Enable use of per endpoint routes instead of routing via
+      # the cilium_host interface.
+      enabled: true
