@@ -68,7 +68,3 @@ spec:
       operator:
         clusterPoolIPv4PodCIDR: "${CLUSTER_POD_CIDR}"
         clusterPoolIPv4MaskSize: 24
-    endpointRoutes:
-      # -- Enable use of per endpoint routes instead of routing via
-      # the cilium_host interface.
-      enabled: true
