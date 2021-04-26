@@ -29,6 +29,9 @@ storage:
             apiVersion: kubeadm.k8s.io/v1beta2
             kind: ClusterConfiguration
             controlPlaneEndpoint: "${control_plane_ip}:6443"
+            networking:
+              serviceSubnet: "${service_cidr_range}"
+              podSubnet: "${pod_cidr_range}"
 systemd:
   units:
     - name: cluster-creation.service

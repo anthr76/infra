@@ -14,6 +14,8 @@ data "ct_config" "first_master" {
         certificate_key  = data.sops_file.tf_secrets.data["data.kubeadm_certificate_key"]
         token            = data.sops_file.tf_secrets.data["data.kubeadm_token"]
         count            = (count.index + 1)
+        service_cidr_range = var.service_cidr_range
+        pod_cidr_range    = var.pod_cidr_range
       }
     ),
   ]

@@ -69,3 +69,7 @@ spec:
     autoDirectNodeRoutes: true
     enableIPv4Masquerade: false
     enableIPv6Masquerade: false
+    ipam:
+      operator:
+        clusterPoolIPv4PodCIDR: "${CLUSTER_POD_CIDR}"
+        clusterPoolIPv4MaskSize: 24
