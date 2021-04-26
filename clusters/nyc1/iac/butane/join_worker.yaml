@@ -34,5 +34,6 @@ systemd:
             [Service]
             ExecStartPre=/usr/bin/kubeadm reset --force
             ExecStart=/usr/bin/kubeadm join --config /etc/kubernetes/init-config.yaml
+            ExecStartPost=/usr/bin/mkdir --parents /etc/kubernetes/manifests
             ExecStartPost=/usr/bin/touch /var/lib/issuegen-cluster-creation
             ExecStartPost=/usr/bin/rm /etc/kubernetes/init-config.yaml
