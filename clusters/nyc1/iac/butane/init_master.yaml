@@ -51,5 +51,5 @@ systemd:
             ExecStartPost=/usr/bin/rm /etc/kubernetes/init-config.yaml
             ExecStartPost=/usr/bin/rm --recursive --force /etc/kubernetes/manifests.d/
             ExecStartPost=/usr/bin/sudo -u localanthony /usr/bin/helm repo add cilium https://helm.cilium.io/
-            ExecStartPost=/usr/bin/sudo -u localanthony /usr/bin/helm install cilium cilium/cilium --namespace kube-system --set kubeProxyReplacement=strict --set k8sServiceHost=${control_plane_ip} --set k8sServicePort=6443
+            ExecStartPost=/usr/bin/sudo -u localanthony /usr/bin/helm install cilium cilium/cilium --namespace kube-system --set kubeProxyReplacement=strict --set k8sServiceHost=${control_plane_ip} --set k8sServicePort=6443 --set ipam.operator.clusterPoolIPv4PodCIDR=${pod_cidr_range}
             ExecStartPost=/usr/bin/sudo -u localanthony /usr/bin/kubectl taint nodes --all node.cloudprovider.kubernetes.io/uninitialized-
