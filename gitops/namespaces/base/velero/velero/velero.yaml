@@ -80,12 +80,6 @@ spec:
     snapshotsEnabled: true
     # Whether to deploy the restic daemonset.
     deployRestic: true
-    # Backup schedules to create.
-    schedules:
-      daily-backup:
-        schedule: '0 9 * * *'
-        template:
-          ttl: '120h'
     credentials:
       secretContents:
         cloud: |
