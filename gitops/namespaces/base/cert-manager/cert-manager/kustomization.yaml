@@ -6,5 +6,4 @@ resources:
 - letsencrypt-production.yaml
 - letsencrypt-staging.yaml
 - origin-ca-issuer.yaml
-- service-monitor.yaml
 - wildcard-certificate.yaml

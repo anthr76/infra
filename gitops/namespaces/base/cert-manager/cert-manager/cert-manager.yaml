@@ -16,15 +16,12 @@ spec:
         name: jetstack-charts
         namespace: flux-system
       interval: 5m
-  dependsOn:
-    - name: sealed-secrets
-      namespace: kube-system
   values:
     installCRDs: true
     prometheus:
       enabled: true
       servicemonitor:
-        enabled: false
+        enabled: true
     webhook:
       enabled: true
     extraArgs:
