@@ -38,7 +38,18 @@ spec:
           - name: metrics-server
             args:
             - --cert-dir=/tmp
-            - --secure-port=443
-            - --kubelet-preferred-address-types=InternalIP
+            - --secure-port=4443
+            - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
             - --kubelet-use-node-status-port
             - --metric-resolution=15s
+            - --kubelet-certificate-authority=/var/lib/kubelet/pki/kubelet-ca.crt
+            - --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS
+        extraVolumeMounts:
+        - name: pki
+          mountPath: /var/lib/kubelet/pki/kubelet-ca.crt
+          readOnly: true
+        extraVolumes:
+        - name: pki
+          hostPath:
+            path: /var/lib/kubelet/pki/kubelet-ca.crt
+            type: File
