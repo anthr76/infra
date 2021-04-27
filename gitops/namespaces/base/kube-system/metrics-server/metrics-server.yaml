@@ -43,6 +43,12 @@ spec:
             - --metric-resolution=15s
             - --kubelet-certificate-authority=/var/lib/kubelet/pki/kubelet-ca.crt
             - --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS
+            volumeMounts:
+            - name: tmp-dir
+              mountPath: /tmp
+            - name: pki
+              mountPath: /var/lib/kubelet/pki/kubelet-ca.crt
+              readOnly: true
           volumes:
           # mount in tmp so we can safely use from-scratch images and/or read-only containers
           - name: tmp-dir
@@ -51,9 +57,3 @@ spec:
             hostPath:
               path: /var/lib/kubelet/pki/kubelet-ca.crt
               type: File
-            volumeMounts:
-            - name: tmp-dir
-              mountPath: /tmp
-            - name: pki
-              mountPath: /var/lib/kubelet/pki/kubelet-ca.crt
-              readOnly: true
