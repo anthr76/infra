@@ -58,6 +58,9 @@ spec:
           s3ForcePathStyle: true
           region: "${NYC1_VELERO_S3_REGION}"
           s3Url: "${NYC1_VELERO_S3_ENDPOINT}"
+        credential:
+          key: cloud
+          name: velero
       # Parameters for the `default` VolumeSnapshotLocation. See
       # https://velero.io/docs/v1.5/api-types/volumesnapshotlocation/
       volumeSnapshotLocation:
