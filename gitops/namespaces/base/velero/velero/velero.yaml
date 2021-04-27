@@ -58,6 +58,7 @@ spec:
           s3ForcePathStyle: true
           region: "${NYC1_VELERO_S3_REGION}"
           s3Url: "${NYC1_VELERO_S3_ENDPOINT}"
+          profile: "do"
         credential:
           key: cloud
           name: velero
@@ -72,6 +73,7 @@ spec:
           region: "${NYC1_VELERO_S3_REGION}"
           bucket: "${NYC1_VELERO_S3_BUCKET_NAME}"
           s3Url: "${NYC1_VELERO_S3_ENDPOINT}"
+          profile: "do"
     # Settings for Velero's prometheus metrics. Enabled by default.
     metrics:
       enabled: true
@@ -100,6 +102,6 @@ spec:
     credentials:
       secretContents:
         cloud: |
-          [default]
+          [do]
           aws_access_key_id = "${DO_SPACES_S3_KEY_ID}"
           aws_secret_access_key = "${DO_SPACES_S3_APP_KEY}"
