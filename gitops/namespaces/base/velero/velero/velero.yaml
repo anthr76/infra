@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: velero
-  namespace: backups
+  namespace: velero
 spec:
   interval: 5m
   chart:
@@ -29,10 +29,6 @@ spec:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
-  # Depends on having the sealed secret cloud-credentials un-encrypted.
-  dependsOn:
-    - name: sealed-secrets
-      namespace: kube-system
   values:
     # Init containers to add to the Velero deployment's pod spec. At least one plugin provider image is required.
     initContainers:
