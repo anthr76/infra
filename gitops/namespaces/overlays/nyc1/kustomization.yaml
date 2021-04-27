@@ -11,6 +11,5 @@ resources:
 - ../../base/velero
 - ../../base/openebs
 - ../../base/default
-- ../../base/default/pvc-test
 patchesStrategicMerge:
 - patch.yaml
