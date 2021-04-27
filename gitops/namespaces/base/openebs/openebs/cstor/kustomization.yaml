@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
 - openebs.yaml
 - cspc.yaml
+- storageclass.yaml
