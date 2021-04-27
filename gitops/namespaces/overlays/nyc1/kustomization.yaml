@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
 - ../../base/cert-manager/cert-manager
 - ../../base/cert-manager
-- ../../base/origin-ca-issuer
+- ../../base/cert-manager/origin-ca-issuer
 - ../../base/flux-system/helm-chart-repositories
 - ../../base/kube-system
 - ../../base/kube-system/descheduler
