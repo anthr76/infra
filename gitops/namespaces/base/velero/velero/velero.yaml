@@ -52,23 +52,23 @@ spec:
       # Parameters for the `default` BackupStorageLocation. See
       # https://velero.io/docs/v1.5/api-types/backupstoragelocation/
       backupStorageLocation:
-        name: default
-        bucket: ${VELERO_S3_BUCKET_NAME}
+        name: nyc1
+        bucket: "${NYC1_VELERO_S3_BUCKET_NAME}"
         config:
           s3ForcePathStyle: true
-          region: ${VELERO_S3_REGION}
-          s3Url: ${VELERO_S3_ENDPOINT}
+          region: "${NYC1_VELERO_S3_REGION}"
+          s3Url: "${NYC1_VELERO_S3_ENDPOINT}"
       # Parameters for the `default` VolumeSnapshotLocation. See
       # https://velero.io/docs/v1.5/api-types/volumesnapshotlocation/
       volumeSnapshotLocation:
         provider: openebs.io/cstor-blockstore
-        name: default
+        name: nyc1
         config:
           prefix: cstor
           provider: aws
-          region: ${VELERO_S3_REGION}
-          bucket: ${VELERO_S3_BUCKET_NAME}
-          s3Url: ${VELERO_S3_ENDPOINT}
+          region: "${NYC1_VELERO_S3_REGION}"
+          bucket: "${NYC1_VELERO_S3_BUCKET_NAME}"
+          s3Url: "${NYC1_VELERO_S3_ENDPOINT}"
     # Settings for Velero's prometheus metrics. Enabled by default.
     metrics:
       enabled: true
@@ -87,15 +87,16 @@ spec:
         template:
           ttl: '120h'
           snapshotVolumes: true
+          includeClusterResources: false
           includedNamespaces:
             - "*"
           includedResources:
             - "persistentvolumeclaims"
-          excludedResources:
-            - "*"
+          volumeSnapshotLocations:
+            - "${CLUSTER_NAME}"
     credentials:
       secretContents:
         cloud: |
           [default]
-          aws_access_key_id = ${VELERO_S3_KEY_ID}
-          aws_secret_access_key = ${VELERO_S3_APP_KEY}
+          aws_access_key_id = ${DO_SPACES_S3_KEY_ID}
+          aws_secret_access_key = ${DO_SPACES_APP_KEY}
