@@ -11,7 +11,8 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
-  interval: 1m0s
+        namespace: flux-system
+  interval: 5m
   values:
     image:
       registry: k8s.gcr.io
