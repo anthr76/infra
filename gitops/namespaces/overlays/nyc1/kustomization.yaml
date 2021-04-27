@@ -6,6 +6,7 @@ resources:
 - ../../base/kube-system
 - ../../base/kube-system/descheduler
 - ../../base/kube-system/kured/kured.yaml
+- ../../base/kube-system/metrics-server
 - ../../base/velero/velero/velero.yaml
 - ../../base/velero
 - ../../base/openebs
