@@ -47,6 +47,13 @@ spec:
           # mount in tmp so we can safely use from-scratch images and/or read-only containers
           - name: tmp-dir
             emptyDir: {}
-          volumeMounts:
-          - name: tmp-dir
-            mountPath: /tmp
+          - name: pki
+            hostPath:
+              path: /var/lib/kubelet/pki/kubelet-ca.crt
+              type: File
+            volumeMounts:
+            - name: tmp-dir
+              mountPath: /tmp
+            - name: pki
+              mountPath: /var/lib/kubelet/pki/kubelet-ca.crt
+              readOnly: true
