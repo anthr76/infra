@@ -8,6 +8,6 @@ resources:
 - ../../base/kube-system/kured/kured.yaml
 - ../../base/openebs
 - ../../base/default
-- ../../base/default/busybox
+- ../../base/default/pvc-test
 patchesStrategicMerge:
 - patch.yaml
