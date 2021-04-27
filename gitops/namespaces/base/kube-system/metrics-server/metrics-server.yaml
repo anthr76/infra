@@ -10,12 +10,7 @@ spec:
       chart: metrics-server
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: stevehipwell-charts
         namespace: flux-system
   interval: 5m
   values:
-    image:
-      registry: k8s.gcr.io
-      repository: metrics-server/metrics-server
-      tag: v0.4.1
-    command: ["/metrics-server"]
