@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  namespace: default
+  labels:
+    app: busybox
+spec:
+  containers:
+  - command:
+    - sh
+    - -c
+    - 'date >> /mnt/openebs-csi/date.txt; hostname >> /mnt/openebs-csi/hostname.txt; sync; sleep 5; sync; tail -f /dev/null;'
+    image: busybox
+    imagePullPolicy: Always
+    name: busybox
+    volumeMounts:
+    - mountPath: /mnt/openebs-csi
+      name: demo-vol
+  volumes:
+  - name: demo-vol
+    persistentVolumeClaim:
+      claimName: csi-claim
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: csi-claim
+spec:
+  storageClassName: cstor-replica-pool
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
