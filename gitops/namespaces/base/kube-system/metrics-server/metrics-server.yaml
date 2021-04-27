@@ -44,12 +44,16 @@ spec:
             - --metric-resolution=15s
             - --kubelet-certificate-authority=/var/lib/kubelet/pki/kubelet-ca.crt
             - --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS
-        extraVolumeMounts:
+        volumes:
         - name: pki
           mountPath: /var/lib/kubelet/pki/kubelet-ca.crt
           readOnly: true
-        extraVolumes:
+        - name: tmp-dir
+          emptyDir: {}
+        volumeMounts:
         - name: pki
           hostPath:
             path: /var/lib/kubelet/pki/kubelet-ca.crt
             type: File
+        - name: tmp-dir
+          mountPath: /tmp
