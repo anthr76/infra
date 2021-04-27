@@ -18,4 +18,4 @@ spec:
       registry: k8s.gcr.io
       repository: metrics-server/metrics-server
       tag: v0.4.1
-  command: [""]
+    command: [""]
