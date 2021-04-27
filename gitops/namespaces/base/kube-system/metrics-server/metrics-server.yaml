@@ -25,21 +25,21 @@ spec:
     kind: GitRepository
     name: metrics-server-manifests
   timeout: 2m
-patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: metrics-server
-    namespace: kube-system
-  spec:
-    template:
-      spec:
-        containers:
-          - name: metrics-server
-            args:
-              - --cert-dir=/tmp
-              - --secure-port=4443
-              - --kubelet-preferred-address-types=InternalIP
-              - --kubelet-use-node-status-port
-              - --metric-resolution=15s
+  patchesStrategicMerge:
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: metrics-server
+      namespace: kube-system
+    spec:
+      template:
+        spec:
+          containers:
+            - name: metrics-server
+              args:
+                - --cert-dir=/tmp
+                - --secure-port=4443
+                - --kubelet-preferred-address-types=InternalIP
+                - --kubelet-use-node-status-port
+                - --metric-resolution=15s
