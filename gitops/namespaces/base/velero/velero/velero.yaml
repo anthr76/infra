@@ -53,8 +53,11 @@ spec:
       # https://velero.io/docs/v1.5/api-types/backupstoragelocation/
       backupStorageLocation:
         name: default
+        bucket: ${VELERO_S3_BUCKET_NAME}
         config:
           s3ForcePathStyle: true
+          region: ${VELERO_S3_REGION}
+          s3Url: ${VELERO_S3_ENDPOINT}
       # Parameters for the `default` VolumeSnapshotLocation. See
       # https://velero.io/docs/v1.5/api-types/volumesnapshotlocation/
       volumeSnapshotLocation:
@@ -63,6 +66,9 @@ spec:
         config:
           prefix: cstor
           provider: aws
+          region: ${VELERO_S3_REGION}
+          bucket: ${VELERO_S3_BUCKET_NAME}
+          s3Url: ${VELERO_S3_ENDPOINT}
     # Settings for Velero's prometheus metrics. Enabled by default.
     metrics:
       enabled: true
@@ -80,7 +86,9 @@ spec:
         schedule: '0 9 * * *'
         template:
           ttl: '120h'
-  valuesFrom:
-    - kind: Secret
-      name: "velero-helm-values"
-      optional: false
+    credentials:
+      secretContents:
+        cloud: |
+          [default]
+          aws_access_key_id = ${VELERO_S3_KEY_ID}
+          aws_secret_access_key = ${VELERO_S3_APP_KEY}

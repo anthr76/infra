@@ -29,6 +29,8 @@ terraform {
 provider "digitalocean" {
   # Provider is configured using environment variables:
   # DIGITALOCEAN_TOKEN, DIGITALOCEAN_ACCESS_TOKEN
+  spaces_access_id  = data.sops_file.tf_secrets.data["data.spaces_access_id"]
+  spaces_secret_key = data.sops_file.tf_secrets.data["data.spaces_secret_key"]
 }
 
 provider "sops" {}
