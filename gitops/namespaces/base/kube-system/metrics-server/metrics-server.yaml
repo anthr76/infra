@@ -41,13 +41,13 @@ spec:
             - --secure-port=4443
             - --kubelet-use-node-status-port
             - --metric-resolution=15s
-            - --kubelet-certificate-authority=/var/lib/kubelet/pki/kubelet-ca.crt
+            - --kubelet-certificate-authority=/etc/kubernetes/pki/ca.crt
             - --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS
             volumeMounts:
             - name: tmp-dir
               mountPath: /tmp
             - name: pki
-              mountPath: /var/lib/kubelet/pki/kubelet-ca.crt
+              mountPath: /etc/kubernetes/pki/ca.crt
               readOnly: true
           volumes:
           # mount in tmp so we can safely use from-scratch images and/or read-only containers
@@ -55,5 +55,5 @@ spec:
             emptyDir: {}
           - name: pki
             hostPath:
-              path: /var/lib/kubelet/pki/kubelet-ca.crt
+              path: /etc/kubernetes/pki/ca.crt
               type: File
