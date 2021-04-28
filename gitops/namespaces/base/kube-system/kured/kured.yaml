@@ -39,5 +39,5 @@ spec:
       create: false
     configuration:
       slackHookUrl: "${KURED_DISCORD_WEBHOOK}"
-    extraArgs:
-      reboot-command: "/sbin/kexec -l /boot/vmlinuz --initrd=/boot/initrd --reuse-cmdline && /usr/bin/sync && /usr/bin/systemctl kexec"
+    # extraArgs:
+    #   reboot-command: "/sbin/kexec -l /boot/vmlinuz --initrd=/boot/initrd --reuse-cmdline && /usr/bin/sync && /usr/bin/systemctl kexec"
