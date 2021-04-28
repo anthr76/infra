@@ -8,9 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://openebs.github.io/cstor-operators
       chart: cstor
-      version: 2.7.2
       sourceRef:
         kind: HelmRepository
         name: openebs-charts
@@ -20,3 +18,25 @@ spec:
     ndm:
       filters:
         excludePaths: "loop,fd0,sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd,/dev/vda,/dev/vdb"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: networking
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: traefik
+      sourceRef:
+        kind: HelmRepository
+        name: traefik-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    service:
+      spec:
+        externalTrafficPolicy: Local
+        annotations:
+          - service.beta.kubernetes.io/do-loadbalancer-name: traefik-lb-nyc1

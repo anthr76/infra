@@ -44,6 +44,7 @@ spec:
       host: "den.rabbito.tech"
       zone: "k8s.rabbito.tech."
       tsigKeyname: externaldns
+      tsigSecret: "${INT_TSIG_KEY}"
     domainFilters:
       - "k8s.rabbito.tech"
     crd:
@@ -51,6 +52,3 @@ spec:
     serviceAccount:
       name: externaldns
     policy: sync
-  valuesFrom:
-    - kind: Secret
-      name: "externaldns-internal-helm-values"

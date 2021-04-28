@@ -1,3 +1,4 @@
+---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -5,13 +6,12 @@ metadata:
   namespace: traefik
 spec:
   routes:
-  - match: Host(`traefik.k8s.rabbito.tech`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+  - match: Host(`traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
     kind: Rule
     services:
     - name: api@internal
       kind: TraefikService
     middlewares:
     - name: internal
-    - name: traefik-forward-auth@kubernetescrd
   tls:
     secretName: rabbito-tech-tls
