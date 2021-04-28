@@ -82,7 +82,7 @@ spec:
     # Whether to create volumesnapshotlocation crd, if false => disable snapshot feature
     snapshotsEnabled: true
     # Whether to deploy the restic daemonset.
-    deployRestic: true
+    deployRestic: false
     # Backup schedules to create.
     schedules:
       daily-backup:
