@@ -48,7 +48,7 @@ spec:
     domainFilters:
       - "k8s.rabbito.tech"
     crd:
-      create: true
+      create: false
     serviceAccount:
       name: externaldns
     policy: sync

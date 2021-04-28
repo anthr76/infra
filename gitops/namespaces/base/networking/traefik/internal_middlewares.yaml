@@ -2,7 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: internal
-  namespace: traefik
+  namespace: networking
 spec:
   chain:
     middlewares:
@@ -12,7 +12,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: known-ips
-  namespace: traefik
+  namespace: networking
 spec:
   ipWhiteList:
     sourceRange:

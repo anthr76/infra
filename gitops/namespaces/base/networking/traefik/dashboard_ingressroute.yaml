@@ -3,7 +3,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefikdashboard
-  namespace: traefik
+  namespace: networking
 spec:
   routes:
   - match: Host(`traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
