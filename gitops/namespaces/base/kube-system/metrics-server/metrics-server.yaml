@@ -42,4 +42,6 @@ spec:
             - --kubelet-use-node-status-port
             - --metric-resolution=15s
             - --kubelet-insecure-tls
-            - --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS
+            - --v=2
+            - --logtostderr
+            - --kubelet-preferred-address-types=InternalIP
