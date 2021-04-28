@@ -10,6 +10,9 @@ resources:
 - ../../base/kube-system/descheduler
 - ../../base/kube-system/kured/kured.yaml
 - ../../base/kube-system/metrics-server/metrics-server.yaml
+- ../../base/networking
+- ../../base/networking/traefik
+- ../../base/external-dns/internal
 - ../../base/velero/velero/velero.yaml
 - ../../base/velero
 - ../../base/openebs

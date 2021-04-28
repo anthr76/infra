@@ -1,2 +1,0 @@
-rfc2136:
-  tsigSecret: "$INT_TSIG_KEY"
