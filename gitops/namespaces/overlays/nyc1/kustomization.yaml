@@ -12,7 +12,7 @@ resources:
 - ../../base/kube-system/metrics-server/metrics-server.yaml
 - ../../base/networking
 - ../../base/networking/traefik
-- ../../base/external-dns/internal
+- ../../base/networking/external-dns/internal
 - ../../base/velero/velero/velero.yaml
 - ../../base/velero
 - ../../base/openebs
