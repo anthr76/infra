@@ -6,5 +6,4 @@ resources:
 - ../../base/crds/external-dns/crds.yaml
 - ../../base/crds/origin-ca-issuer/crds.yaml
 - ../../base/crds/kube-prometheus-stack/crds.yaml
-- ../../base/crds/external-dns/crds.yaml
 - ../../base/crds/cert-manager/
