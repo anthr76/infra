@@ -51,6 +51,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
+  dependsOn:
+    - name: core-crd
   path: ./gitops/core/overlays/nyc1
   prune: true
   sourceRef:
@@ -81,6 +83,7 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: core
+    - name: core-crd
   path: ./gitops/namespaces/overlays/nyc1
   prune: true
   sourceRef:
