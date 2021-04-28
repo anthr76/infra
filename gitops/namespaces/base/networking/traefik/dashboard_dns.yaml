@@ -3,7 +3,7 @@ apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
   name: traefik-dashboard
-  namespace: traefik
+  namespace: networking
 spec:
   endpoints:
   - dnsName: traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}

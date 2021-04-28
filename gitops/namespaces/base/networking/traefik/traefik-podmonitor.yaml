@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: traefik-pod-monitor
-  namespace: traefik
+  namespace: networking
 spec:
   namespaceSelector:
     matchNames:
