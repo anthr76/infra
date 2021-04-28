@@ -7,5 +7,5 @@ spec:
   requestType: OriginECC
   auth:
     serviceKeyRef:
-      name: cloudflare-origin-ca
-      key: key
+      name: cert-manager
+      key: ORIGIN_CA_KEY

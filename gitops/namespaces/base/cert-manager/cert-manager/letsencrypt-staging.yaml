@@ -14,5 +14,5 @@ spec:
         cloudflare:
           email: ted437@gmail.com
           apiKeySecretRef:
-            name: cloudflare-api-key
-            key: api-key
+            name: cert-manager
+            key: CF_API_KEY

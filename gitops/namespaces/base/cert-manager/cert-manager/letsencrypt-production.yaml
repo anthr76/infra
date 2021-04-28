@@ -15,4 +15,4 @@ spec:
           email: ted437@gmail.com
           apiKeySecretRef:
             name: cert-manager
-            key: ORIGIN_CA_KEY
+            key: CF_API_KEY
