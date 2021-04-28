@@ -4,7 +4,7 @@ metadata:
   name: traefik-config
   labels:
     name: traefik-config
-  namespace: traefik
+  namespace: networking
 data:
   dyn.yaml: |
     # https://doc.traefik.io/traefik/https/tls/
