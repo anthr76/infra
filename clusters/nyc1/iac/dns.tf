@@ -28,3 +28,10 @@ resource "dns_a_record_set" "load_balancer" {
   ttl   = 15
   addresses = [digitalocean_loadbalancer.kubic_k8s.ip]
 }
+
+resource "dns_a_record_set" "traefik_lb" {
+  zone  = "k8s.rabbito.tech."
+  name  = "nyc1-lb-2"
+  ttl   = 15
+  addresses = [digitalocean_loadbalancer.traefik_lb.ip]
+}
