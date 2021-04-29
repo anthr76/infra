@@ -23,10 +23,9 @@ spec:
       # -- (int) Unique ID of the cluster. Must be unique across all connected
       # clusters and in the range of 1 to 255. Only required for Cluster Mesh.
       id: "${CLUSTER_ID}"
-    # -- Specify the CIDR for native routing (ie to avoid IP masquerade for).
-    # This value corresponds to the configured cluster-cidr.
-    nativeRoutingCIDR: "${NATIVE_ROUTING_CIDR}"
+    rollOutCiliumPods: true
     bpf:
+      clockProbe: true
       # -- Enable native IP masquerade support in eBPF
       masquerade: true
       # -- Configure whether direct routing mode should route traffic via
@@ -55,16 +54,28 @@ spec:
       # mode is the operation mode of load balancing for remote backends
       # e.g. snat, dsr, hybrid
       mode: "dsr"
+      # acceleration is the option to accelerate service handling via XDP
+      # e.g. native, disabled
+      acceleration: native
     # -- Configure the encapsulation configuration for communication between nodes.
     # Possible values:
     #   - disabled
     #   - vxlan (default)
     #   - geneve
-    tunnel: "disabled"
+    tunnel: "vxlan"
     # -- Enable installation of PodCIDR routes between worker
     # nodes if worker nodes share a common L2 network segment.
-    autoDirectNodeRoutes: true
+    autoDirectNodeRoutes: false
     ipam:
       operator:
         clusterPoolIPv4PodCIDR: "${CLUSTER_POD_CIDR}"
         clusterPoolIPv4MaskSize: 24
+    operator:
+      # -- Roll out cilium-operator pods automatically when configmap is updated.
+      rollOutPods: true
+    externalIPs:
+      # -- Enable ExternalIPs service support.
+      enabled: true
+    nodePort:
+      # -- Enable the Cilium NodePort service implementation.
+      enabled: true
