@@ -49,6 +49,8 @@ spec:
       create: false
     rbac:
       create: true
+    cloudflare:
+      apiToken: "${KUTARA_CF_TOKEN}"
     policy: sync
   valuesFrom:
     - kind: Secret
