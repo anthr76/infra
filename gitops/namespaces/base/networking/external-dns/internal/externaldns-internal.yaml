@@ -21,11 +21,13 @@ spec:
   install:
     remediation: # perform remediation when helm install fails
       retries: 3
+    crds: Skip
   upgrade:
     remediation: # perform remediation when helm upgrade fails
       retries: 3
       remediateLastFailure: true # remediate the last failure, when no retries remain
     cleanupOnFail: true
+    crds: Skip
   rollback:
     timeout: 10m
     recreate: true
