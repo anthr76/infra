@@ -52,6 +52,3 @@ spec:
     cloudflare:
       apiToken: "${KUTARA_CF_TOKEN}"
     policy: sync
-  valuesFrom:
-    - kind: Secret
-      name: "externaldns-external-helm-values"
