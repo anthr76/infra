@@ -56,16 +56,16 @@ spec:
       mode: "dsr"
       # acceleration is the option to accelerate service handling via XDP
       # e.g. native, disabled
-      acceleration: native
+      acceleration: "native"
     # -- Configure the encapsulation configuration for communication between nodes.
     # Possible values:
     #   - disabled
     #   - vxlan (default)
     #   - geneve
-    tunnel: "vxlan"
+    tunnel: "disabled"
     # -- Enable installation of PodCIDR routes between worker
     # nodes if worker nodes share a common L2 network segment.
-    autoDirectNodeRoutes: false
+    autoDirectNodeRoutes: true
     ipam:
       operator:
         clusterPoolIPv4PodCIDR: "${CLUSTER_POD_CIDR}"
