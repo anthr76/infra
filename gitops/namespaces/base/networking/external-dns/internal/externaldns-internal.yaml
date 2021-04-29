@@ -51,4 +51,6 @@ spec:
       create: false
     serviceAccount:
       name: externaldns
+    rbac:
+      create: true
     policy: sync
