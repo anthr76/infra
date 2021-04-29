@@ -5,3 +5,5 @@ resources:
 - ../../base/deployments/cilium
 - ../../../namespaces/base/flux-system/helm-chart-repositories
 - ../../base/git-keys/gitlab-infra-ssh.yaml
+patchesStrategicMerge:
+- patch.yaml
