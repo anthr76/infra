@@ -48,9 +48,39 @@ spec:
     domainFilters:
       - "k8s.rabbito.tech"
     crd:
-      create: true
+      create: false
     rbac:
       create: false
     serviceAccount:
       name: externaldns
     policy: sync
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: external-dns
+rules:
+  - apiGroups: ['']
+    resources: ['endpoints', 'pods', 'services']
+    verbs: ['get', 'watch', 'list']
+  - apiGroups: ['extensions']
+    resources: ['ingresses']
+    verbs: ['get', 'watch', 'list']
+  - apiGroups: ['']
+    resources: ['nodes']
+    verbs: ['list']
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: external-dns
+  name: external-dns-viewer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: external-dns
+subjects:
+  - kind: ServiceAccount
+    name: external-dns
+    namespace: networking
