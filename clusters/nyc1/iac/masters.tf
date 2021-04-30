@@ -53,7 +53,7 @@ resource "digitalocean_droplet" "kubic_first_master" {
   ssh_keys           = [28165998]
   image              = digitalocean_custom_image.kubic_image.id
   region             = "nyc1"
-  size               = "s-2vcpu-2gb"
+  size               = "s-2vcpu-4gb"
   tags               = [ "k8s:master" ]
   private_networking = true
   user_data          = data.ct_config.first_master[count.index].rendered
@@ -66,7 +66,7 @@ resource "digitalocean_droplet" "kubic_master" {
   ssh_keys           = [28165998]
   image              = digitalocean_custom_image.kubic_image.id
   region             = "nyc1"
-  size               = "s-2vcpu-2gb"
+  size               = "s-2vcpu-4gb"
   tags               = [ "k8s:master" ]
   private_networking = true
   user_data          = data.ct_config.master[count.index].rendered

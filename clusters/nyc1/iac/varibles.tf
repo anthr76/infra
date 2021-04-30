@@ -9,6 +9,11 @@ variable "count_workers" {
   default     = 3
 }
 
+variable "count_block_storage" {
+  description = "number of a single block device to be created on workers"
+  default     = 3
+}
+
 variable "control_plane_ip" {
   description = "IP Address of Control plane endpoint"
   default     = "nyc1-lb-1.k8s.rabbito.tech"

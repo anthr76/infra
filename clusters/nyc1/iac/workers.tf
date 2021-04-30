@@ -25,7 +25,7 @@ resource "digitalocean_droplet" "kubic_worker" {
   ssh_keys           = [28165998]
   image              = digitalocean_custom_image.kubic_image.id
   region             = "nyc1"
-  size               = "s-2vcpu-2gb"
+  size               = "s-2vcpu-4gb"
   tags               = [ "k8s:worker" ]
   private_networking = true
   user_data          = data.ct_config.worker[count.index].rendered
@@ -41,7 +41,7 @@ resource "digitalocean_volume" "openebs" {
 }
 
 resource "digitalocean_volume_attachment" "ebs_vols" {
-  count      = var.count_workers
+  count      = var.count_block_storage
   droplet_id = digitalocean_droplet.kubic_worker[count.index].id
   volume_id  = digitalocean_volume.openebs[count.index].id
 }

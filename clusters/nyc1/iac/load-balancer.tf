@@ -28,7 +28,6 @@
   vpc_uuid = data.digitalocean_vpc.nyc1_idm.id
   enable_proxy_protocol = true
 
-
   forwarding_rule {
     entry_port     = 80
     entry_protocol = "https"
