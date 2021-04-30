@@ -21,6 +21,8 @@ spec:
       namespace: networking
     - name: externaldns-external
       namespace: networking
+    - name: cert-manager
+      namespace: cert-manager
   values:
     deployment:
       kind: DaemonSet
