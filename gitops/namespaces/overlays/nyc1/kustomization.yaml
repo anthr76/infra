@@ -5,6 +5,8 @@ resources:
 - ../../base/cert-manager
 - ../../base/cert-manager/cert-manager
 - ../../base/cert-manager/origin-ca-issuer
+- ../../base/database
+- ../../base/database/postgress
 - ../../base/flux-system/helm-chart-repositories
 - ../../base/kube-system
 - ../../base/kube-system/descheduler
