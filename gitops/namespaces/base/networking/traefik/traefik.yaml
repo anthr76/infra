@@ -19,6 +19,8 @@ spec:
   dependsOn:
     - name: external-dns-internal
       namespace: networking
+    - name: external-dns-external
+      namespace: networking
   values:
     deployment:
       kind: DaemonSet
