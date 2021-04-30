@@ -38,5 +38,5 @@ spec:
     service:
       spec:
         externalTrafficPolicy: Local
-        annotations:
-          - service.beta.kubernetes.io/do-loadbalancer-name: traefik-lb-nyc1
+      annotations:
+        - service.beta.kubernetes.io/do-loadbalancer-name: traefik-lb-nyc1
