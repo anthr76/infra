@@ -48,7 +48,7 @@ spec:
       name: externaldns
       create: false
     rbac:
-      create: true
+      create: false
     cloudflare:
       apiToken: "${KUTARA_CF_TOKEN}"
     policy: sync
