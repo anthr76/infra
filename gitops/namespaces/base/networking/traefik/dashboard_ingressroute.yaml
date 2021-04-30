@@ -11,8 +11,6 @@ spec:
     services:
     - name: api@internal
       kind: TraefikService
-    middlewares:
-    - name: internal
   tls:
     secretName: traefik-dashboard-crt-tls
 ---
