@@ -40,7 +40,7 @@ spec:
           - name: metrics-server
             args:
             - --cert-dir=/tmp
-            - --secure-port=443
+            - --secure-port=4443
             - --kubelet-use-node-status-port
             - --metric-resolution=15s
             - --kubelet-insecure-tls
