@@ -48,45 +48,12 @@ spec:
     domainFilters:
       - "k8s.rabbito.tech"
     crd:
+      # disabled --pulled from source repo https://raw.githubusercontent.com/kubernetes-sigs/external-dns/master/docs/contributing/crd-source/crd-manifest.yam
       create: false
+      apiversion: externaldns.k8s.io/v1alpha1
+      kind: DNSEndpoint
     rbac:
-      create: false
+      create: true
     serviceAccount:
       name: externaldns
     policy: sync
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRole
-metadata:
-  name: external-dns
-rules:
-  - apiGroups: ['']
-    resources: ['endpoints', 'pods', 'services', 'nodes']
-    verbs: ['get', 'watch', 'list']
-  - apiGroups: ['extensions', 'networking.k8s.io', 'getambassador.io']
-    resources: ['ingresses', 'hosts']
-    verbs: ['get', 'watch', 'list']
-  - apiGroups: ['']
-    resources: ['nodes']
-    verbs: ['list','watch']
-  - apiGroups: ['externaldns.k8s.io']
-    resources: ['dnsendpoints/status']
-    verbs: ['update']
-  - apiGroups: ['externaldns.k8s.io']
-    resources: ['dnsendpoints']
-    verbs: ['get', 'list', 'watch']
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/instance: external-dns
-  name: external-dns-viewer
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: external-dns
-subjects:
-  - kind: ServiceAccount
-    name: externaldns
-    namespace: networking

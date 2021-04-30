@@ -31,4 +31,3 @@ spec:
       kind: CustomResourceDefinition
       name: dnsendpoints.externaldns.k8s.io
   timeout: 2m
----
