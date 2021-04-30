@@ -14,4 +14,16 @@ spec:
     middlewares:
     - name: internal
   tls:
-    secretName: rabbito-tech-tls
+    secretName: traefik-dashboard-crt-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-dashboard-crt
+  namespace: traefik
+spec:
+  secretName: traefik-dashboard-crt-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}"

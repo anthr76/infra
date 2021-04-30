@@ -34,6 +34,14 @@ spec:
     ingressRoute:
       dashboard:
         enabled: true
+    experimental:
+      plugins:
+        enabled: true
+    tlsOptions:
+      default:
+        minVersion: VersionTLS12
+        maxVersion: VersionTLS13
+        sniStrict: true
     additionalArguments:
       - "--ping"
       - "--entrypoints.websecure.http.tls"
@@ -50,10 +58,3 @@ spec:
         port: 8082
         expose: true
         exposedPort: 8082
-    volumes:
-      - name: kutara-io-tls
-        mountPath: '/certs'
-        type: secret
-      - name: traefik-config
-        mountPath: '/config'
-        type: configMap

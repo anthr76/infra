@@ -4,6 +4,5 @@ resources:
 - dashboard_dns.yaml
 - dashboard_ingressroute.yaml
 - internal_middlewares.yaml
-- traefik-config.yaml
 - traefik-podmonitor.yaml
 - traefik.yaml
