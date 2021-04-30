@@ -82,5 +82,5 @@ roleRef:
   name: external-dns
 subjects:
   - kind: ServiceAccount
-    name: external-dns
+    name: externaldns
     namespace: networking
