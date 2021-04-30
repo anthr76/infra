@@ -17,9 +17,9 @@ spec:
         namespace: flux-system
       interval: 5m
   dependsOn:
-    - name: external-dns-internal
+    - name: externaldns-internal
       namespace: networking
-    - name: external-dns-external
+    - name: externaldns-external
       namespace: networking
   values:
     deployment:
