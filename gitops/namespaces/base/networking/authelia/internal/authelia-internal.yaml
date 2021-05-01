@@ -1,0 +1,70 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authelia-internal
+  namespace: networking
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: authelia
+      version: 0.3.13
+      sourceRef:
+        kind: HelmRepository
+        name: authelia-charts
+        namespace: flux-system
+      interval: 10m
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    cleanupOnFail: true
+    recreate: true
+  dependsOn:
+    - name: traefik
+      namespace: traefik
+  values:
+    image:
+      registry: ghcr.io
+    smtp:
+      enabled: false
+    domain: rabbito.tech
+    storage:
+      postgres:
+      enabled: true
+      host: acid-authelia-cluster
+      database: authelia_internal
+      username: postgres
+    secret:
+      storage:
+        key: STORAGE_PASSWORD
+        value: "${password}"
+      ldap:
+        key: LDAP_PASSWORD
+        value: "${LDAP_BIND_PW}"
+    authentication_backend:
+      ldap:
+        enabled: true
+        implementation: custom
+        url: ldap://den.rabbito.tech:389
+        tls:
+          skip_verify: true
+        base_dn: cn=accounts,dc=rabbito,dc=tech
+        users_filter: "(objectClass=posixAccount)"
+        username_attribute: "mail"
+        additional_users_dn: cn=users
+        additional_groups_dn: cn=groups
+        groups_filter: "(objectClass=groupofnames)"
+        mail_attribute: "mail"
+        user: uid=system,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
+      redis:
+        enabled: false
