@@ -5,3 +5,4 @@ resources:
 - openebs.yaml
 - cspc.yaml
 - storageclass.yaml
+- volumesnapshotclass.yaml
