@@ -28,7 +28,11 @@ spec:
       kind: DaemonSet
     logs:
       general:
+        format: json
         level: DEBUG
+      access:
+        enabled: true
+        format: json
     ingressClass:
       enabled: true
       isDefaultClass: true
@@ -44,6 +48,9 @@ spec:
         minVersion: VersionTLS12
         maxVersion: VersionTLS13
         sniStrict: true
+    pilot:
+      enabled: true
+      token: "${TRAEFIK_PIOLT_TOKEN}"
     additionalArguments:
       - "--ping"
       - "--entrypoints.websecure.http.tls"
@@ -55,7 +62,17 @@ spec:
     ports:
       web:
         redirectTo: websecure
+      websecure:
+        tls:
+          enabled: true
+          options: "default"
       metrics:
         port: 8082
         expose: true
         exposedPort: 8082
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 500m
+      limits:
+        memory: 500Mi
