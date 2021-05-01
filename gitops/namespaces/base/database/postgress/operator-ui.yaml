@@ -29,3 +29,4 @@ spec:
       tls:
       - hosts:
         - "postgres-${CLUSTER_NAME}.${DNS_K8S_ZONE}"
+        secretName: postgres-${CLUSTER_NAME}-tls
