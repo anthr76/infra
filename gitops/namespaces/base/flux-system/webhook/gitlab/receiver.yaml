@@ -23,7 +23,7 @@ spec:
       kind: HelmChart
       name: '*'
       namespace: 'flux-system'
-    - apiVersion: helmreleases.helm.toolkit.fluxcd.io
-      kind: HelmRelease
-      name: '*'
-      namespace: '*'
+    # - apiVersion: helmreleases.helm.toolkit.fluxcd.io
+    #   kind: HelmRelease
+    #   name: '*'
+    #   namespace: '*'
