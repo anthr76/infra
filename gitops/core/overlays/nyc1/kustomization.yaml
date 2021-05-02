@@ -5,5 +5,11 @@ resources:
 - ../../base/deployments/cilium
 - ../../../namespaces/base/flux-system/helm-chart-repositories
 - ../../base/git-keys/gitlab-infra-ssh.yaml
+- ../../base/crds/traefik/traefik-default.yaml
+- ../../base/crds/external-dns/external-dns-default.yaml
+- ../../base/crds/origin-ca-issuer/origin-ca-issuer-default.yaml
+- ../../base/crds/kube-prometheus-stack/kube-prometheus-stack-default.yaml
+- ../../base/crds/postgres/postgres-default.yaml
+- ../../base/crds/cert-manager/cert-manager-default.yaml
 patchesStrategicMerge:
 - patch.yaml
