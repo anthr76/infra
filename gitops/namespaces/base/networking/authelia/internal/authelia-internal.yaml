@@ -39,8 +39,6 @@ spec:
       existingSecret: "authelia-secrets"
     domain: rabbito.tech
     configMap:
-      smtp:
-        enabled: false
       storage:
         postgres:
         enabled: true
