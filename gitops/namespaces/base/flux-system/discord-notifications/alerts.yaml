@@ -2,7 +2,7 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
-  name: nwk1-discord
+  name: ${CLUSTER_NAME}-discord
   namespace: flux-system
 spec:
   providerRef:
@@ -18,7 +18,7 @@ spec:
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
-  name: nwk1-discord-hr
+  name: ${CLUSTER_NAME}-discord-hr
   namespace: flux-system
 spec:
   providerRef:
@@ -41,7 +41,7 @@ spec:
       namespace: 'openebs'
       name: '*'
     - kind: HelmRelease
-      namespace: 'traefik'
+      namespace: 'networking'
       name: '*'
     - kind: HelmRelease
       namespace: 'default'
