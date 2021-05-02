@@ -45,12 +45,7 @@ spec:
       database: authelia_internal
       username: postgres
     secret:
-      storage:
-        key: STORAGE_PASSWORD
-        value: "${password}"
-      ldap:
-        key: LDAP_PASSWORD
-        value: "${LDAP_BIND_PW}"
+      existingSecret: "authelia-secrets"
     authentication_backend:
       ldap:
         enabled: true
