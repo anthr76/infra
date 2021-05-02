@@ -13,11 +13,11 @@ spec:
   resources:
     - apiVersion: source.toolkit.fluxcd.io/v1beta1
       kind: GitRepository
-      name: '*'
+      name: 'flux-system'
       namespace: 'flux-system'
     - apiVersion: kustomizations.kustomize.toolkit.fluxcd.io
       kind: Kustomization
-      name: '*'
+      name: 'flux-system'
       namespace: 'flux-system'
     # - apiVersion: helmcharts.source.toolkit.fluxcd.io
     #   kind: HelmChart
