@@ -53,13 +53,15 @@ spec:
           url: ldap://den.rabbito.tech:389
           tls:
             skip_verify: true
-          base_dn: cn=accounts,dc=rabbito,dc=tech
-          users_filter: "(objectClass=posixAccount)"
-          username_attribute: "mail"
-          additional_users_dn: cn=users
-          additional_groups_dn: cn=groups
-          groups_filter: "(objectClass=groupofnames)"
+          base_dn: dc=rabbito,dc=tech
+          users_filter: "(&({username_attribute}={input})(objectClass=person))"
+          username_attribute: "uid"
+          additional_users_dn: cn=users,cn=accounts
+          additional_groups_dn: cn=groups,cn=accounts
+          groups_filter: "(&(member=uid={input},cn=users,cn=accounts,dc=DOMAIN,dc=TLD)(objectclass=groupofnames))"
+          group_name_attribute: "cn"
           mail_attribute: "mail"
+          display_name_attribute: "givenName"
           user: uid=system,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
         redis:
           enabled: false
