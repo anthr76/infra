@@ -15,21 +15,7 @@ spec:
         kind: HelmRepository
         name: authelia-charts
         namespace: flux-system
-      interval: 10m
-  test:
-    enable: false
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 3
-      remediateLastFailure: true
-    cleanupOnFail: true
-  rollback:
-    timeout: 10m
-    cleanupOnFail: true
-    recreate: true
+      interval: 5m
   dependsOn:
     - name: traefik
       namespace: networking
