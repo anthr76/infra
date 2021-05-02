@@ -35,31 +35,32 @@ spec:
   values:
     image:
       registry: ghcr.io
-    smtp:
-      enabled: false
-    domain: rabbito.tech
-    storage:
-      postgres:
-      enabled: true
-      host: acid-authelia-cluster
-      database: authelia_internal
-      username: postgres
     secret:
       existingSecret: "authelia-secrets"
-    authentication_backend:
-      ldap:
-        enabled: true
-        implementation: custom
-        url: ldap://den.rabbito.tech:389
-        tls:
-          skip_verify: true
-        base_dn: cn=accounts,dc=rabbito,dc=tech
-        users_filter: "(objectClass=posixAccount)"
-        username_attribute: "mail"
-        additional_users_dn: cn=users
-        additional_groups_dn: cn=groups
-        groups_filter: "(objectClass=groupofnames)"
-        mail_attribute: "mail"
-        user: uid=system,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
-      redis:
+    domain: rabbito.tech
+    configMap:
+      smtp:
         enabled: false
+      storage:
+        postgres:
+        enabled: true
+        host: acid-authelia-cluster
+        database: authelia_internal
+        username: postgres
+      authentication_backend:
+        ldap:
+          enabled: true
+          implementation: custom
+          url: ldap://den.rabbito.tech:389
+          tls:
+            skip_verify: true
+          base_dn: cn=accounts,dc=rabbito,dc=tech
+          users_filter: "(objectClass=posixAccount)"
+          username_attribute: "mail"
+          additional_users_dn: cn=users
+          additional_groups_dn: cn=groups
+          groups_filter: "(objectClass=groupofnames)"
+          mail_attribute: "mail"
+          user: uid=system,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
+        redis:
+          enabled: false
