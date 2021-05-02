@@ -65,3 +65,5 @@ spec:
           user: uid=system,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
         redis:
           enabled: false
+        access_control:
+          default_policy: bypass
