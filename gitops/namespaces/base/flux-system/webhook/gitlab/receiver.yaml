@@ -19,10 +19,10 @@ spec:
       kind: Kustomization
       name: '*'
       namespace: 'flux-system'
-    - apiVersion: helmcharts.source.toolkit.fluxcd.io
-      kind: HelmChart
-      name: '*'
-      namespace: 'flux-system'
+    # - apiVersion: helmcharts.source.toolkit.fluxcd.io
+    #   kind: HelmChart
+    #   name: '*'
+    #   namespace: 'flux-system'
     # - apiVersion: helmreleases.helm.toolkit.fluxcd.io
     #   kind: HelmRelease
     #   name: '*'
