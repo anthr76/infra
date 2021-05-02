@@ -8,8 +8,9 @@ spec:
   interval: 5m
   chart:
     spec:
+      # renovate: registryUrl=https://charts.authelia.com
       chart: authelia
-      version: 0.3.13
+      version: 0.3.15
       sourceRef:
         kind: HelmRepository
         name: authelia-charts
