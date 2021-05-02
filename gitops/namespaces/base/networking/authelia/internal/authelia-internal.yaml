@@ -31,7 +31,7 @@ spec:
     recreate: true
   dependsOn:
     - name: traefik
-      namespace: traefik
+      namespace: networking
   values:
     image:
       registry: ghcr.io
