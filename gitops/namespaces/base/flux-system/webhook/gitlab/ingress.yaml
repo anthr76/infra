@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: "traefik"
   rules:
-  - host: "flux-receiver.${SECRET_DOMAIN}"
+  - host: "flux-receiver-${CLUSTER_NAME}.kutara.io"
     http:
       paths:
       - path: /
