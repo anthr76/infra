@@ -1,0 +1,30 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Provider
+metadata:
+  name: discord
+  namespace: flux-system
+spec:
+  type: discord
+  username: tom-servo
+  channel: flux
+  secretRef:
+    name: discord-webhook-url
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Alert
+metadata:
+  name: ${CLUSTER_NAME}-discord
+  namespace: flux-system
+spec:
+  summary: "${CLUSTER_NAME}"
+  providerRef:
+    name: discord
+  eventSeverity: error
+  eventSources:
+    - kind: HelmRelease
+      namespace: '*'
+      name: '*'
+    - kind: Kustomization
+      name: '*'
+  suspend: false

@@ -9,7 +9,7 @@ resources:
 - ../../base/monitoring/do-agent
 - ../../base/database
 - ../../base/database/postgress
-- ../../base/flux-system/helm-chart-repositories
+- ../../base/flux-system
 - ../../base/kube-system
 - ../../base/kube-system/descheduler
 - ../../base/kube-system/kured/kured.yaml
