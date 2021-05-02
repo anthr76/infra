@@ -17,13 +17,21 @@ spec:
       namespace: 'flux-system'
     - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
       kind: Kustomization
-      name: '*'
+      name: 'flux-system'
       namespace: 'flux-system'
-    # - apiVersion: helmcharts.source.toolkit.fluxcd.io
-    #   kind: HelmChart
-    #   name: '*'
-    #   namespace: 'flux-system'
-    # - apiVersion: helmreleases.helm.toolkit.fluxcd.io
-    #   kind: HelmRelease
-    #   name: '*'
-    #   namespace: '*'
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+      kind: Kustomization
+      name: 'cluster-config'
+      namespace: 'flux-system'
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+      kind: Kustomization
+      name: 'core-crd'
+      namespace: 'flux-system'
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+      kind: Kustomization
+      name: 'core'
+      namespace: 'flux-system'
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+      kind: Kustomization
+      name: 'namespaces'
+      namespace: 'flux-system'
