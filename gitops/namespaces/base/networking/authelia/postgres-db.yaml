@@ -13,6 +13,7 @@ spec:
     postgres:
     - superuser
     - createdb
+    authelia: []
   databases:
     authelia_internal: postgres
     authelia_external: postgres
