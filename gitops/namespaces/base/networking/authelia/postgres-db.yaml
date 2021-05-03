@@ -20,9 +20,9 @@ spec:
   databases:
     authelia_internal: authelia
     authelia_external: authelia
-  # preparedDatabases:
-  #   authelia_internal: []
-  #   authelia_external: []
+  preparedDatabases:
+    authelia_internal: {}
+    authelia_external: {}
   postgresql:
     version: "13"
   resources:
