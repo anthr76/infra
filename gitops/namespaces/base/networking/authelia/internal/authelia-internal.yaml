@@ -53,4 +53,4 @@ spec:
         redis:
           enabled: false
       access_control:
-        default_policy: bypass
+        default_policy: one_factor
