@@ -25,3 +25,4 @@ spec:
     limits:
       cpu: 500m
       memory: 500Mi
+  enableConnectionPooler: true
