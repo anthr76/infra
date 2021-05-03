@@ -35,6 +35,8 @@ spec:
       notifier:
         smtp:
           enabled: false
+        filesystem:
+          enabled: true
       authentication_backend:
         ldap:
           enabled: true
