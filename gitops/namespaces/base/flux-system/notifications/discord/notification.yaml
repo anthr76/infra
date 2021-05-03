@@ -23,7 +23,6 @@ spec:
   eventSeverity: error
   eventSources:
     - kind: HelmRelease
-      namespace: '*'
       name: '*'
     - kind: Kustomization
       name: '*'
