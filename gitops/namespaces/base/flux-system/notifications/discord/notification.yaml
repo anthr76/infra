@@ -27,5 +27,6 @@ spec:
       name: '*'
     - kind: Kustomization
       name: '*'
-      namespace: '*'
+    - kind: GitRepository
+      name: '*'
   suspend: false

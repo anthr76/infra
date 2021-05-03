@@ -22,8 +22,6 @@ spec:
   eventSeverity: info
   eventSources:
     - kind: Kustomization
-      namespace: '*'
       name: '*'
     - kind: HelmRelease
-      namespace: '*'
       name: '*'
