@@ -27,4 +27,5 @@ spec:
       name: '*'
     - kind: Kustomization
       name: '*'
+      namespace: '*'
   suspend: false
