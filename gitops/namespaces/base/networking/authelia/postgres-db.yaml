@@ -22,4 +22,4 @@ spec:
           name: authelia-secrets
           key: STORAGE_PASSWORD
     - name: PGDATA
-      value: /var/lib/postgresql/data/pgdata
+      value: "/var/lib/postgresql/data/pgdata"
