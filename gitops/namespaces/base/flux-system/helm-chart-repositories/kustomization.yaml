@@ -21,4 +21,4 @@ resources:
 - vmware-charts.yaml
 - weaveworks-kured-charts.yaml
 - cilium-charts.yaml
-- opstree-chartrs.yaml
+- opstree-charts.yaml
