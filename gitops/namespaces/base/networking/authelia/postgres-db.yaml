@@ -8,16 +8,16 @@ spec:
   replicas: 2
   image: postgres:13.2
   database:
-  size: 500Mi
-  storageClassName: cstor-replica-pool
-env:
-  - name: POSTGRES_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: authelia-secrets
-        key: STORAGE_PASSWORD
-  - name: POSTGRES_REPLICATION_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: authelia-secrets
-        key: STORAGE_PASSWORD
+    size: 500Mi
+    storageClassName: cstor-replica-pool
+  env:
+    - name: POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authelia-secrets
+          key: STORAGE_PASSWORD
+    - name: POSTGRES_REPLICATION_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authelia-secrets
+          key: STORAGE_PASSWORD
