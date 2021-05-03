@@ -1,32 +1,32 @@
-# ---
-# apiVersion: "acid.zalan.do/v1"
-# kind: postgresql
-# metadata:
-#   name: acid-authelia-cluster
-#   namespace: networking
-# spec:
-#   teamId: "acid"
-#   volume:
-#     size: 1Gi
-#   numberOfInstances: 2
-#   users:
-#     postgres:
-#     - superuser
-#     - createdb
-#     authelia:
-#     - createdb
-#     - login
-#     - createrole
-#   databases:
-#     authelia_internal: authelia
-#     authelia_external: authelia
-#   postgresql:
-#     version: "13"
-#   resources:
-#     requests:
-#       cpu: 100m
-#       memory: 100Mi
-#     limits:
-#       cpu: 500m
-#       memory: 500Mi
-#   enableConnectionPooler: true
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: acid-authelia-cluster
+  namespace: networking
+spec:
+  teamId: "acid"
+  volume:
+    size: 1Gi
+  numberOfInstances: 2
+  users:
+    postgres:
+    - superuser
+    - createdb
+    authelia:
+    - createdb
+    - login
+    - createrole
+  databases:
+    authelia_internal: authelia
+    authelia_external: authelia
+  postgresql:
+    version: "13"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi
+  enableConnectionPooler: true
