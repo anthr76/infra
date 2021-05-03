@@ -30,9 +30,8 @@ spec:
         postgres:
           enabled: true
           host: authelia-db
-          database: authelia_internal
+          database: postgres
           username: postgres
-          #sslmode: require
       authentication_backend:
         ldap:
           enabled: true
