@@ -29,7 +29,7 @@ spec:
       storage:
         postgres:
           enabled: true
-          host: acid-authelia-cluster
+          host: acid-authelia-cluster-pooler
           database: authelia_internal
           username: postgres
       authentication_backend:
