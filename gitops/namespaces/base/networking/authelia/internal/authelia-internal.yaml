@@ -49,7 +49,8 @@ spec:
           mail_attribute: "mail"
           display_name_attribute: "givenName"
           user: uid=system,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
-      redis:
-        enabled: false
+      session:
+        redis:
+          enabled: false
       access_control:
         default_policy: bypass
