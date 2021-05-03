@@ -32,6 +32,7 @@ spec:
           host: acid-authelia-cluster
           database: authelia_internal
           username: authelia
+          sslmode: require
       authentication_backend:
         ldap:
           enabled: true
