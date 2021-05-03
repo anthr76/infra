@@ -26,3 +26,14 @@ spec:
       cpu: 500m
       memory: 500Mi
   enableConnectionPooler: true
+  patroni:
+    pg_hba:
+    - local     all  all  trust
+    - host      all  all  0.0.0.0/0   md5
+    - host      all  all  ::1/128     md5
+    - hostssl   all  all  all  md5
+    - hostssl   all  +zalandos all        pam
+    - hostssl   all  +zalandos 0.0.0.0/0  pam
+    - hostssl   all  +zalandos ::1/128    pam
+    - hostssl  replication  standby  all md5
+    - hostnossl all  all  all  reject
