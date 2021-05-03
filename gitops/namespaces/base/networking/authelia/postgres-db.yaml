@@ -26,6 +26,8 @@ spec:
     limits:
       cpu: 500m
       memory: 500Mi
+  enableConnectionPooler: true
+  # enableReplicaConnectionPooler: false
   # patroni:
   #   pg_hba:
   #   - local all all trust
