@@ -32,6 +32,9 @@ spec:
           host: authelia-db
           database: postgres
           username: postgres
+      notifier:
+        smtp:
+          enabled: false
       authentication_backend:
         ldap:
           enabled: true
