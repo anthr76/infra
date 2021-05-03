@@ -2,12 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: postgres-default
+  name: kubegres-default
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./gitops/core/base/crds/postgres/default
-  prune: false
+  path: ./gitops/core/base/deployments/kubegres/default
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

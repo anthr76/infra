@@ -7,8 +7,7 @@ resources:
 - ../../base/cert-manager/origin-ca-issuer
 - ../../base/monitoring
 - ../../base/monitoring/do-agent
-- ../../base/database
-- ../../base/database/postgress
+- ../../base/kubegres-system
 - ../../base/flux-system
 - ../../base/kube-system
 - ../../base/kube-system/descheduler
