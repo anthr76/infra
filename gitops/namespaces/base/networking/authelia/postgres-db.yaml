@@ -18,6 +18,9 @@ spec:
     authelia_external: postgres
   postgresql:
     version: "13"
+  enableMasterLoadBalancer: true
+  allowedSourceRanges:
+  - ${CLUSTER_POD_CIDR}
   resources:
     requests:
       cpu: 100m
