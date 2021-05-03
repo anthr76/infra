@@ -1,47 +1,32 @@
----
-apiVersion: "acid.zalan.do/v1"
-kind: postgresql
-metadata:
-  name: acid-authelia-cluster
-  namespace: networking
-spec:
-  teamId: "acid"
-  volume:
-    size: 1Gi
-  numberOfInstances: 2
-  users:
-    postgres:
-    - superuser
-    - createdb
-    authelia:
-    - createdb
-    - login
-    - createrole
-  databases:
-    authelia_internal: authelia
-    authelia_external: authelia
-  preparedDatabases:
-    authelia_internal: {}
-    authelia_external: {}
-  postgresql:
-    version: "13"
-  resources:
-    requests:
-      cpu: 100m
-      memory: 100Mi
-    limits:
-      cpu: 500m
-      memory: 500Mi
-  enableConnectionPooler: true
-  # enableReplicaConnectionPooler: false
-  # patroni:
-  #   pg_hba:
-  #   - local all all trust
-  #   - hostssl all +zalandos 127.0.0.1/32 pam
-  #   - host all all 127.0.0.1/32 md5
-  #   - hostssl all +zalandos ::1/128 pam
-  #   - host all all ::1/128 md5
-  #   - hostssl replication  postgres all md5
-  #   - hostssl all +zalandos all pam
-  #   - hostssl all all  all  md5
-  #   - hostnossl all all ${CLUSTER_POD_CIDR} md5
+# ---
+# apiVersion: "acid.zalan.do/v1"
+# kind: postgresql
+# metadata:
+#   name: acid-authelia-cluster
+#   namespace: networking
+# spec:
+#   teamId: "acid"
+#   volume:
+#     size: 1Gi
+#   numberOfInstances: 2
+#   users:
+#     postgres:
+#     - superuser
+#     - createdb
+#     authelia:
+#     - createdb
+#     - login
+#     - createrole
+#   databases:
+#     authelia_internal: authelia
+#     authelia_external: authelia
+#   postgresql:
+#     version: "13"
+#   resources:
+#     requests:
+#       cpu: 100m
+#       memory: 100Mi
+#     limits:
+#       cpu: 500m
+#       memory: 500Mi
+#   enableConnectionPooler: true
