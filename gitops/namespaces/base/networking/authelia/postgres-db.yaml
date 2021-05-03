@@ -15,8 +15,8 @@ spec:
     - createdb
     authelia: []
   databases:
-    authelia_internal: postgres
-    authelia_external: postgres
+    authelia_internal: authelia
+    authelia_external: authelia
   postgresql:
     version: "13"
   resources:
