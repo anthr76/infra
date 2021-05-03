@@ -36,4 +36,4 @@ spec:
     - hostssl   all  +zalandos 0.0.0.0/0  pam
     - hostssl   all  +zalandos ::1/128    pam
     - hostssl  replication  standby  all md5
-    - hostnossl all  all  all  reject
+    - hostnossl all  all  all  md5
