@@ -28,10 +28,10 @@ spec:
     configMap:
       storage:
         postgres:
-        enabled: true
-        host: acid-authelia-cluster
-        database: authelia_internal
-        username: postgres
+          enabled: true
+          host: acid-authelia-cluster
+          database: authelia_internal
+          username: postgres
       authentication_backend:
         ldap:
           enabled: true
