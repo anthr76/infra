@@ -1,34 +1,38 @@
 ---
-name: renovate-helmrelease-schedule
 
-on:
+name: Schedule - Renovate Helm Releases
+
+on: # yamllint disable-line rule:truthy
   workflow_dispatch:
   schedule:
-  - cron: "0 * * * *"
+  - cron: '0 */12 * * *'
 
 jobs:
-  renovate-helmrelease:
-    runs-on: ubuntu-latest
+  renovate-helm-releases:
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
       with:
+        token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 1
 
-    - name: Update NWK1 Helm Releases
-      run: |
-        docker-compose -f .github/contrib/docker-compose.yml run -T --rm builder .github/contrib/renovate-helm-releases.sh
+    - name: Renovate Helm Releases
+      uses: k8s-at-home/renovate-helm-releases@v1
+      with:
+        cluster-path: "./gitops"
 
-    - name: Create Pull Request
+    - name: Create pull request for renovatebot helm-release annotations
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        branch: update/pre-commit-auto-update
+        branch: renovate-annotations
         delete-branch: true
-        title: Add renovate annotation
+        title: "update renovate annotations"
         signoff: true
         committer: "Anthony Rabbito <hello@anthonyrabbito.com>"
         author: "Anthony Rabbito <hello@anthonyrabbito.com>"
-        commit-message: Add renovate annotation
+        assignees: "anthr76"
+        commit-message: "update renovate annotations"
         body: |
-          Signed-off-by: Anthony Rabbito <hello@anthonyrabbito.com>
-        labels: dependencies, merge
+          Update HelmReleases inorder for Renovate to pick up new versions of Helm charts
+        labels: renovate/annotations
