@@ -16,4 +16,8 @@ spec:
         name: opstree-charts
         namespace: flux-system
       interval: 10m
+  install:
+    crds: Skip
+  upgrade:
+    crds: Skip
   values:
