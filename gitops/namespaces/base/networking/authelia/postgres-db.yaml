@@ -26,8 +26,8 @@ spec:
       cpu: 500m
       memory: 500Mi
   enableConnectionPooler: true
-  patroni:
-    pg_hba:
-    - local all all trust
-    - host replication standby all md5
-    - host all all all md5
+  # patroni:
+  #   pg_hba:
+  #   - local all all trust
+  #   - host replication standby all md5
+  #   - host all all all md5
