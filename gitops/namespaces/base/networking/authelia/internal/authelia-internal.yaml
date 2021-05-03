@@ -45,7 +45,7 @@ spec:
           username_attribute: "uid"
           additional_users_dn: cn=users,cn=accounts
           additional_groups_dn: cn=groups,cn=accounts
-          groups_filter: "(&(member=uid={input},cn=users,cn=accounts,dc=DOMAIN,dc=TLD)(objectclass=groupofnames))"
+          groups_filter: "(&(member=uid={input},cn=users,cn=accounts,dc=rabbito,dc=tech)(objectclass=groupofnames))"
           group_name_attribute: "cn"
           mail_attribute: "mail"
           display_name_attribute: "givenName"
