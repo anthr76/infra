@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: zalando-postgres-operator
+  name: opstree-charts
   namespace: flux-system
 spec:
   interval: 10m
-  url: https://raw.githubusercontent.com/zalando/postgres-operator/master/charts/postgres-operator/
+  url: https://ot-container-kit.github.io/helm-charts
   timeout: 3m
