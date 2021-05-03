@@ -31,7 +31,7 @@ spec:
           enabled: true
           host: acid-authelia-cluster-pooler
           database: authelia_internal
-          username: pooler
+          username: authelia
       authentication_backend:
         ldap:
           enabled: true
