@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - ../../base/deployments/dccm
+- ../../base/config-maps/coredns
 - ../../base/deployments/cilium
 - ../../../namespaces/base/flux-system/helm-chart-repositories
 - ../../base/git-keys/gitlab-infra-ssh.yaml
