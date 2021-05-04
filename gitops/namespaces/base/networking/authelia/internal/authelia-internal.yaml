@@ -29,7 +29,7 @@ spec:
       storage:
         postgres:
           enabled: true
-          host: authelia-db
+          host: authelia-postgres
           database: postgres
           username: postgres
       notifier:
