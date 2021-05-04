@@ -70,7 +70,7 @@ spec:
         redis:
           enabled: true
           enabledSecret: true
-          host: authelia-redis-master-headless
+          host: authelia-redis-headless
           username:
       access_control:
         default_policy: one_factor
