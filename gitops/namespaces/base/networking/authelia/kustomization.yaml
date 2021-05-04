@@ -6,3 +6,4 @@ resources:
 - postgres-db.yaml
 - redis-db.yaml
 - authelia.yaml
+- traefik-middlewares.yaml
