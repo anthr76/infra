@@ -24,7 +24,7 @@ spec:
       registry: ghcr.io
     secret:
       existingSecret: "authelia-secrets"
-    domain: rabbito.tech
+    domain: kutara.io
     configMap:
       storage:
         postgres:
@@ -34,9 +34,11 @@ spec:
           username: postgres
       notifier:
         smtp:
-          enabled: false
-        filesystem:
           enabled: true
+          username: "authelia@mg.kutara.io"
+          host: "smtp.mailgun.org"
+          port: "465"
+          sender: "authelia@mg.kutara.io"
       authentication_backend:
         ldap:
           enabled: true
@@ -57,6 +59,7 @@ spec:
       session:
         redis:
           enabled: true
-          #host:
+          host: authelia-redis-master-headless
+          username: ""
       access_control:
         default_policy: one_factor
