@@ -1,4 +1,0 @@
-secret: ${TRAEFIK_FORWARD_AUTH_SECRET}
-providers:
-  oidc:
-    clientSecret: ${DEX_STATIC_CLIENT_SECRET}
