@@ -7,4 +7,4 @@ metadata:
 spec:
   headers:
     customResponseHeaders:
-      contentSecurityPolicy: "" # Removes
+      contentSecurityPolicy: "script-src 'self' ajax.cloudflare.com;" # Removes
