@@ -22,7 +22,7 @@ spec:
     - name: externaldns-external
       namespace: networking
     - name: cert-manager
-      namespace: cert-manager
+      namespace: networking
   values:
     deployment:
       kind: DaemonSet
