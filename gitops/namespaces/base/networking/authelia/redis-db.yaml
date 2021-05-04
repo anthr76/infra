@@ -12,7 +12,7 @@ spec:
     imagePullPolicy: IfNotPresent
     existingPasswordSecret:
       name: authelia-secrets
-      key: REDIS_PASSWORD
+      key: REDIS_SECRET
     resources:
       requests:
         cpu: 100m
