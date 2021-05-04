@@ -2,7 +2,7 @@
 apiVersion: kubegres.reactive-tech.io/v1
 kind: Kubegres
 metadata:
-  name: authelia-db
+  name: authelia-postgres
   namespace: networking
 spec:
   replicas: 2

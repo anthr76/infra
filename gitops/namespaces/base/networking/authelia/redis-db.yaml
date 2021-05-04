@@ -22,7 +22,7 @@ spec:
         memory: 128Mi
   master:
     service:
-      type: NodePort
+      type: ClusterIP
     redisConfig: {}
   slave:
     service:
