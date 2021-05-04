@@ -71,6 +71,5 @@ spec:
           enabled: true
           enabledSecret: true
           host: authelia-redis-headless
-          username:
       access_control:
         default_policy: one_factor
