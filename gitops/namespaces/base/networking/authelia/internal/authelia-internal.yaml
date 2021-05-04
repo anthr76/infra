@@ -37,7 +37,7 @@ spec:
           enabled: true
           username: "authelia@mg.kutara.io"
           host: "smtp.mailgun.org"
-          port: "465"
+          port: "587"
           sender: "authelia@mg.kutara.io"
       authentication_backend:
         ldap:
@@ -59,6 +59,7 @@ spec:
       session:
         redis:
           enabled: true
+          enabledSecret: true
           host: authelia-redis-master-headless
           username: ""
       access_control:
