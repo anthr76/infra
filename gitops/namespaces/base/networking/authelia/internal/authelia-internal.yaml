@@ -55,7 +55,7 @@ spec:
           group_name_attribute: "cn"
           mail_attribute: "mail"
           display_name_attribute: "givenName"
-          user: uid=system,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
+          user: uid=authelia,cn=sysaccounts,cn=etc,dc=rabbito,dc=tech
       session:
         redis:
           enabled: true
