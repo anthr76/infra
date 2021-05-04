@@ -2,7 +2,7 @@ apiVersion: cert-manager.k8s.cloudflare.com/v1
 kind: OriginIssuer
 metadata:
   name: cloudflare-issuer
-  namespace: cert-manager
+  namespace: networking
 spec:
   requestType: OriginECC
   auth:

@@ -7,3 +7,4 @@ resources:
 - letsencrypt-staging.yaml
 - origin-ca-issuer.yaml
 - wildcard-certificate.yaml
+- cert-manager-secrets.yaml

@@ -2,9 +2,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- ../../base/cert-manager
-- ../../base/cert-manager/cert-manager
-- ../../base/cert-manager/origin-ca-issuer
 - ../../base/database
 - ../../base/database/redis-operator
 - ../../base/monitoring
@@ -16,6 +13,8 @@ resources:
 - ../../base/kube-system/kured/kured.yaml
 - ../../base/kube-system/metrics-server/metrics-server.yaml
 - ../../base/networking
+- ../../base/networking/cert-manager
+- ../../base/networking/origin-ca-issuer
 - ../../base/networking/traefik
 - ../../base/networking/external-dns/internal
 - ../../base/networking/external-dns/external
