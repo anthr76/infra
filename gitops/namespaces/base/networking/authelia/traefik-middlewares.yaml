@@ -7,4 +7,4 @@ metadata:
 spec:
   headers:
     customResponseHeaders:
-      contentSecurityPolicy: "script-src 'self' ajax.cloudflare.com;" # Removes
+      contentSecurityPolicy: "script-src 'self' ajax.cloudflare.com;" # https://support.cloudflare.com/hc/en-us/articles/216537517-Using-Content-Security-Policy-CSP-with-Cloudflare
