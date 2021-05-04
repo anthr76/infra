@@ -5,8 +5,7 @@ metadata:
   name: authelia-redis
   namespace: networking
 spec:
-  mode: cluster
-  size: 3
+  mode: standalone
   global:
     image: quay.io/opstree/redis:v6.2
     imagePullPolicy: IfNotPresent
@@ -20,19 +19,11 @@ spec:
       limits:
         cpu: 100m
         memory: 128Mi
-  master:
-    service:
-      type: ClusterIP
-    redisConfig: {}
-  slave:
-    service:
-      type: ClusterIP
-    redisConfig: {}
   service:
     type: ClusterIP
   redisConfig: {}
   redisExporter:
-    enabled: false
+    enabled: true
     image: quay.io/opstree/redis-exporter:1.0
     imagePullPolicy: Always
     resources:
