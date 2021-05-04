@@ -1,0 +1,40 @@
+---
+apiVersion: redis.redis.opstreelabs.in/v1beta1
+kind: Redis
+metadata:
+  name: redis
+spec:
+  mode: cluster
+  size: 3
+  global:
+    image: quay.io/opstree/redis:v6.2
+    imagePullPolicy: IfNotPresent
+    existingPasswordSecret:
+      name: authelia-secrets
+      key: REDIS_PASSWORD
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
+  master:
+    service:
+      type: NodePort
+    redisConfig: {}
+  slave:
+    service:
+      type: ClusterIP
+    redisConfig: {}
+  service:
+    type: ClusterIP
+  redisConfig: {}
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: cstor-replica-pool
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

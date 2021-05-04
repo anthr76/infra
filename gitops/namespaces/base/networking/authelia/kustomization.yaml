@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
 - autheila-secrets.yaml
 - postgres-db.yaml
+- redis-db.yaml
