@@ -16,8 +16,6 @@ resources:
 - ../../base/kube-system/kured/kured.yaml
 - ../../base/kube-system/metrics-server/metrics-server.yaml
 - ../../base/networking
-- ../../base/networking/authelia
-- ../../base/networking/authelia/internal
 - ../../base/networking/traefik
 - ../../base/networking/external-dns/internal
 - ../../base/networking/external-dns/external
