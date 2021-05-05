@@ -56,8 +56,8 @@ spec:
         pathType: ImplementationSpecific
   tls:
   - hosts:
-    - "whoami.kutara.io"
-  - secretName: whoami-kutara-io-tls
+    - whoami.kutara.io
+    secretName: whoami-ext-tls
 ---
 kind: Ingress
 apiVersion: networking.k8s.io/v1
@@ -82,5 +82,5 @@ spec:
         pathType: ImplementationSpecific
   tls:
   - hosts:
-    - "whoami.k8s.rabbito.tech"
-  - secretName: whoami-rabbito-tech-tls
+    - whoami.k8s.rabbito.tech
+    secretName: whoami-int-tls
