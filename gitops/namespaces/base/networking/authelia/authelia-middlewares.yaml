@@ -3,6 +3,8 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: forwardauth-authelia
+  namespace: networking
+spec:
   forwardAuth:
     address: http:/authelia.networking.svc.cluster.local/api/verify?rd=https://auth.kutara.io/#/
     trustForwardHeader: true
@@ -16,6 +18,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: headers-authelia
+  namespace: networking
 spec:
   headers:
     browserXssFilter: true
@@ -28,6 +31,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: chain-authelia
+  namespace: networking
 spec:
   chain:
     middlewares:
