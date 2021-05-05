@@ -53,7 +53,7 @@ spec:
             port:
               number: 80
         path: /
-        pathType: ImplementationSpecific
+        pathType: Prefix
   tls:
   - hosts:
     - whoami.kutara.io
@@ -79,7 +79,7 @@ spec:
             port:
               number: 80
         path: /
-        pathType: ImplementationSpecific
+        pathType: Prefix
   tls:
   - hosts:
     - whoami.k8s.rabbito.tech
