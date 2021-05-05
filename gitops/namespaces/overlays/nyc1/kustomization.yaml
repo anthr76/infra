@@ -23,5 +23,6 @@ resources:
 - ../../base/velero
 - ../../base/openebs
 - ../../base/default
+- ../../base/default/whoami
 patchesStrategicMerge:
 - patch.yaml
