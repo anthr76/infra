@@ -19,7 +19,8 @@ jobs:
     - name: Renovate Helm Releases
       uses: k8s-at-home/renovate-helm-releases@v1
       with:
-        cluster-path: "./gitops"
+        cluster-path: "./gitops/namespaces/base"
+        debug: 'yes'
 
     - name: Create pull request for renovatebot helm-release annotations
       uses: peter-evans/create-pull-request@v3
