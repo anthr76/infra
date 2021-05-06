@@ -25,3 +25,5 @@ spec:
       name: '*'
     - kind: HelmRelease
       name: '*'
+  exclusionList:
+    - "waiting.*socket"

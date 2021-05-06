@@ -28,4 +28,6 @@ spec:
       name: '*'
     - kind: GitRepository
       name: '*'
+  exclusionList:
+    - "waiting.*socket"
   suspend: false
