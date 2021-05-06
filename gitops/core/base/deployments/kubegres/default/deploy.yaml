@@ -33,14 +33,14 @@ spec:
       name: kubegres.kubegres.reactive-tech.io
     - apiVersion: v1
       kind: Namespace
-      name: kubegres-system
+      name: database
     - apiVersion: v1
       kind: ServiceAccount
-      namespace: kubegres-system
+      namespace: database
       name: kubegres-controller-manager
     - apiVersion: rbac.authorization.k8s.io/v1
       kind: Role
-      namespace: kubegres-system
+      namespace: database
       name: kubegres-leader-election-role
     - apiVersion: rbac.authorization.k8s.io/v1
       kind: ClusterRole
@@ -48,5 +48,5 @@ spec:
     - apiVersion: apps/v1
       kind: Deployment
       name: kubegres-controller-manager
-      namespace: kubegres-system
+      namespace: database
   timeout: 2m
