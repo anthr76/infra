@@ -6,7 +6,6 @@ resources:
 - ../../base/database/redis-operator
 - ../../base/monitoring
 - ../../base/monitoring/do-agent
-- ../../base/kubegres-system
 - ../../base/flux-system
 - ../../base/kube-system
 - ../../base/kube-system/descheduler
