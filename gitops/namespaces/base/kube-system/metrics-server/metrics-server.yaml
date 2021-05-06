@@ -13,7 +13,7 @@ spec:
     # exclude all
     /*
     # include deploy crds manifest
-    !/manifests/base/
+    !/manifests/release/
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
