@@ -1,9 +1,6 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- authelia-secrets.yaml
-- postgres-db.yaml
+- values.yaml
 - redis-db.yaml
-- authelia.yaml
-- authelia-middlewares.yaml
+- postgres-db.yaml
