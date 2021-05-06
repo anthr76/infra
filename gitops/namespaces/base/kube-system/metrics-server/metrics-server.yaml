@@ -23,6 +23,7 @@ metadata:
 spec:
   interval: 5m
   prune: true
+  path: "./manifests/release/"
   sourceRef:
     kind: GitRepository
     name: metrics-server-manifests
