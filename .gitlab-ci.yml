@@ -12,6 +12,8 @@ image: docker:stable
 variables:
   KUBECTL: v1.21.0
   KIND: v0.8.1
+  FLUX_VERSION: v0.13.3
+  FLUX: docker run --rm -it ghcr.io/fluxcd/flux-cli:$FLUX_VERSION
 services:
   - docker:dind
 stages:
