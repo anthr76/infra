@@ -8,6 +8,7 @@ resources:
 - ../../base/monitoring/do-agent
 - ../../base/flux-system
 - ../../base/kube-system
+- ../../base/kube-system/gitlab
 - ../../base/kube-system/descheduler
 - ../../base/kube-system/kured/kured.yaml
 - ../../base/kube-system/metrics-server/metrics-server.yaml
