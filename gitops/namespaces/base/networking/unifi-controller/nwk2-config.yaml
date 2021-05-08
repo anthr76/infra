@@ -57,7 +57,7 @@ data:
               }
             },
             {
-              "{WG_NWK1_PUBLIC_KEY}": {
+              "${WG_NWK1_PUBLIC_KEY}": {
                 "allowed-ips": [
                   "10.200.200.7/32",
                   "192.168.3.0/24",
