@@ -42,7 +42,6 @@ spec:
         service.beta.kubernetes.io/do-loadbalancer-name: traefik-lb-nyc1
         service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true"
         service.beta.kubernetes.io/do-loadbalancer-size-slug: lb-small
-        service.beta.kubernetes.io/do-loadbalancer-algorithm: round_robin
         service.beta.kubernetes.io/do-loadbalancer-healthcheck-healthy-threshold: "2"
         service.beta.kubernetes.io/do-loadbalancer-healthcheck-unhealthy-threshold: "10"
         service.beta.kubernetes.io/do-loadbalancer-healthcheck-check-interval-seconds: "3"
