@@ -32,7 +32,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.priority: "10"
-        path: /controller
+        path: /inform
         hosts:
           - unifi.kutara.io
         tls:
