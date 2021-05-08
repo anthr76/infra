@@ -15,7 +15,3 @@ output "worker_nodes_private" {
 output "load_balancer" {
     value = digitalocean_loadbalancer.kubic_k8s.ip
 }
-
-output "traefik_lb_proxy_proto" {
-    value = digitalocean_loadbalancer.traefik_lb.ip
-}

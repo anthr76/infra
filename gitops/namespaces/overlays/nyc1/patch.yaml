@@ -46,3 +46,4 @@ spec:
         service.beta.kubernetes.io/do-loadbalancer-healthcheck-unhealthy-threshold: "10"
         service.beta.kubernetes.io/do-loadbalancer-healthcheck-check-interval-seconds: "3"
         service.beta.kubernetes.io/do-loadbalancer-healthcheck-response-timeout-seconds: "3"
+        external-dns.alpha.kubernetes.io/hostname: ${INGRESS_ENDPOINT_HOSTNAME}
