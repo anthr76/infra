@@ -39,6 +39,7 @@ spec:
     sources:
       - crd
       - ingress
+      - service
     provider: rfc2136
     rfc2136:
       host: "den.rabbito.tech"
