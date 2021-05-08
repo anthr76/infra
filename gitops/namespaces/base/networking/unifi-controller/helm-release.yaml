@@ -32,6 +32,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.priority: "10"
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
         path: /inform
         hosts:
           - unifi.kutara.io
@@ -44,6 +45,7 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
       hosts:
         - unifi.kutara.io
       tls:
