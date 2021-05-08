@@ -21,7 +21,7 @@ spec:
       repository: jacobalberty/unifi
       tag: 6.1.71
     persistence:
-      enabled: false
+      enabled: true
       existingClaim: unifi-controller
     controllerService:
       enabled: true
@@ -55,5 +55,5 @@ spec:
         cpu: "100m"
         memory: "50Mi"
       limits:
-        cpu: "300m"
+        cpu: "400m"
         memory: "512Mi"
