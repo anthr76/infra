@@ -52,6 +52,7 @@ spec:
       enabled: true
       token: "${TRAEFIK_PIOLT_TOKEN}"
     additionalArguments:
+      - "--serverstransport.insecureskipverify=true"
       - "--ping"
       - "--entrypoints.websecure.http.tls"
       - "--api.dashboard=true"
