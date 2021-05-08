@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dendrite
+  name: dendrite-eduserver
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: dendrite
+  template:
+    spec:
+      containers:
+      - image: matrixdotorg/dendrite-polylith:latest
+        name: dendrite-polylith
+        resources: {}
+        command: ["eduserver"]
+status: {}
