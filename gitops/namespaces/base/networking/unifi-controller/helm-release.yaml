@@ -23,6 +23,8 @@ spec:
     persistence:
       enabled: true
       existingClaim: unifi-controller
+    stunService:
+      enabled: true
     controllerService:
       enabled: true
       type: ClusterIP
