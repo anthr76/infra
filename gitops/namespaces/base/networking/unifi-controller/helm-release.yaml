@@ -23,34 +23,20 @@ spec:
     persistence:
       enabled: false
       existingClaim: unifi-controller
-    # controllerService:
-    #   enabled: true
-    #   ingress:
-    #     enbaled: true
-    #     annotations:
-    #       cert-manager.io/cluster-issuer: letsencrypt-production
-    #       traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    #     path: /controller
-    #     hosts:
-    #       - unifi.kutara.io
-    #     tls:
-    #       - secretName: unifi-kutara-tls
-    #         hosts:
-    #           - unifi.kutara.io
-    # discoveryService:
-    #   enabled: true
-    #   ingress:
-    #     enbaled: true
-    #     annotations:
-    #       cert-manager.io/cluster-issuer: letsencrypt-production
-    #       traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    #     path: /discover
-    #     hosts:
-    #       - unifi.kutara.io
-    #     tls:
-    #       - secretName: unifi-kutara-tls
-    #         hosts:
-    #           - unifi.kutara.io
+    controllerService:
+      enabled: true
+      type: ClusterIP
+      ingress:
+        enbaled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        hosts:
+          - unifi.kutara.io
+        tls:
+          - secretName: unifi-kutara-tls
+            hosts:
+              - unifi.kutara.io
     ingress:
       enabled: true
       annotations:
