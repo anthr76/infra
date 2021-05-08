@@ -50,10 +50,10 @@ spec:
         - secretName: unifi-kutara-tls
           hosts:
             - unifi.kutara.io
-    resources:
-      requests:
-        cpu: "200m"
-        memory: "50Mi"
-      limits:
-        cpu: "600m"
-        memory: "900Mi"
+    # resources:
+    #   requests:
+    #     cpu: "200m"
+    #     memory: "50Mi"
+    #   limits:
+    #     cpu: "600m"
+    #     memory: "900Mi"
