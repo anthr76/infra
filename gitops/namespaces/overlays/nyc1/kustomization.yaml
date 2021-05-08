@@ -14,6 +14,7 @@ resources:
 - ../../base/kube-system/metrics-server/metrics-server.yaml
 - ../../base/networking
 - ../../base/networking/cert-manager
+- ../../base/networking/unifi-controller
 - ../../base/networking/origin-ca-issuer
 - ../../base/networking/authentik
 - ../../base/networking/traefik

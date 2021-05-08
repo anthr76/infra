@@ -1,0 +1,65 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: unifi
+  namespace: networking
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: unifi
+      version: 2.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: jacobalberty/unifi
+      tag: 6.1.71
+    persistence:
+      enabled: false
+      existingClaim: unifi-controller
+    controllerService:
+      enabled: true
+      ingress:
+        enbaled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        path: /controller
+        hosts:
+          - unifi.kutara.io
+        tls:
+          - secretName: unifi-kutara-tls
+            hosts:
+              - unifi.kutara.io
+    discoveryService:
+      enabled: true
+      ingress:
+        enbaled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        path: /discover
+        hosts:
+          - unifi.kutara.io
+        tls:
+          - secretName: unifi-kutara-tls
+            hosts:
+              - unifi.kutara.io
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      path: /
+      hosts:
+        - unifi.kutara.io
+      tls:
+        - secretName: unifi-kutara-tls
+          hosts:
+            - unifi.kutara.io
