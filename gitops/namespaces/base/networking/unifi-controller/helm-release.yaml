@@ -52,8 +52,8 @@ spec:
             - unifi.kutara.io
     resources:
       requests:
-        cpu: "100m"
+        cpu: "200m"
         memory: "50Mi"
       limits:
-        cpu: "400m"
+        cpu: "600m"
         memory: "512Mi"
