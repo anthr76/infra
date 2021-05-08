@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: scr-config
+  name: nwk2-config
   namespace: networking
 data:
   config.gateway.json: |-
