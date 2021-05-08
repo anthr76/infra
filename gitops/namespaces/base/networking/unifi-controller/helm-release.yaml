@@ -27,7 +27,7 @@ spec:
       enabled: true
       type: ClusterIP
       ingress:
-        enbaled: true
+        enabled: true
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
