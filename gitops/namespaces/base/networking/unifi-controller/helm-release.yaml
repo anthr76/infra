@@ -57,3 +57,17 @@ spec:
     #   limits:
     #     cpu: "600m"
     #     memory: "900Mi"
+    extraVolumes:
+      - name: nwk2-config
+        configMap:
+          name: nwk2-config
+      - name: scr-config
+        configMap:
+          name: scr-config
+    extraVolumeMounts:
+      - name: nwk2-config
+        mountPath: /unifi/data/sites/pw0snr9m/config.gateway.json
+        subPath: config.gateway.json
+      - name: scr-config
+        mountPath: /unifi/data/sites/20rblc9i/config.gateway.json
+        subPath: config.gateway.json

@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scr-config
+  namespace: networking
+data:
+  config.gateway.json: |-
+    {
+      "firewall": {
+        "group": {
+          "network-group": {
+            "remote_user_vpn_network": {
+              "description": "Remote User VPN subnets",
+              "network": [
+                "10.200.200.0/24"
+              ]
+            }
+          }
+        }
+      },
+      "interfaces": {
+        "wireguard": {
+          "wg0": {
+            "address": [
+              "10.200.200.6/32"
+            ],
+            "firewall": {
+              "in": {
+                "name": "LAN_IN"
+              },
+              "local": {
+                "name": "LAN_LOCAL"
+              },
+              "out": {
+                "name": "LAN_OUT"
+              }
+            },
+            "listen-port": "51820",
+            "peer": [{
+              "${WG_SCR_PUBLIC_KEY}": {
+                "allowed-ips": [
+                  "10.200.200.11/32",
+                  "192.168.11.0/24",
+                  "192.168.13.0/24",
+                  "192.168.99.1/32"
+                ],
+                "endpoint": "${WG_SCR_ENDPOINT}"
+              }
+            },
+            {
+              "${WG_ROUTER_PUBLIC_KEY}": {
+                "allowed-ips": [
+                  "10.200.200.1/24",
+                  "10.136.0.0/16"
+                ],
+                "endpoint": "${WG_ROUTER_ENDPOINT}"
+              }
+            },
+            {
+              "{WG_NWK1_PUBLIC_KEY}": {
+                "allowed-ips": [
+                  "10.200.200.7/32",
+                  "192.168.3.0/24",
+                  "192.168.4.0/24"
+                ],
+                "endpoint": "${WG_NWK1_ENDPOINT}"
+              }
+            }],
+            "private-key": "/config/auth/wireguard/wg_private.key",
+            "route-allowed-ips": "true"
+          }
+        }
+      }
+    }

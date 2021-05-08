@@ -4,3 +4,5 @@ kind: Kustomization
 resources:
 - helm-release.yaml
 - config-pvc.yaml
+- scr-config.yaml
+- nwk2-config.yaml
