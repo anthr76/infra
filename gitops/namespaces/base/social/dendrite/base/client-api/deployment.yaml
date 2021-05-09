@@ -5,6 +5,7 @@ metadata:
   labels:
     app: dendrite
   name: dendrite-clientapi
+  namespace: default
 spec:
   strategy:
     rollingUpdate:
@@ -15,8 +16,29 @@ spec:
   template:
     spec:
       containers:
-      - image: matrixdotorg/dendrite-polylith:latest
+      - image: matrixdotorg/dendrite-polylith
         name: dendrite-polylith
-        resources: {}
+        resources:
+          requests:
+            cpu: 100m
+            memory: 300Mi
+          limits:
+            cpu: 500m
+            memory: 600Mi
+        ports:
+        - name: client_api
+          containerPort: 7771
+          protocol: TCP
+        readinessProbe:
+          tcpSocket:
+            port: 7771
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          failureThreshold: 3
         command: ["clientapi"]
-status: {}

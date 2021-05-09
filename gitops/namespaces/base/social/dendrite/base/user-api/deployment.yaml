@@ -5,6 +5,7 @@ metadata:
   labels:
     app: dendrite
   name: dendrite-userapi
+  namepsace: default
 spec:
   strategy:
     rollingUpdate:
@@ -15,16 +16,24 @@ spec:
   template:
     spec:
       containers:
-      - image: matrixdotorg/dendrite-polylith:latest
-        name: dendrite-polylith
-        resources: {}
+      - image: matrixdotorg/dendrite-polylith
+        name: dendrite-userapi
+        resources:
+          requests:
+            cpu: 100m
+            memory: 300Mi
+          limits:
+            cpu: 500m
+            memory: 600Mi
+        ports:
+        - name: user_api
+          containerPort: 7781
+          protocol: TCP
         readinessProbe:
-          httpGet:
-            path: /health
-            port: http
-            scheme: HTTP
+          tcpSocket:
+            port: 7781
+          initialDelaySeconds: 5
           periodSeconds: 10
-          failureThreshold: 3
         livenessProbe:
           httpGet:
             path: /health
@@ -33,4 +42,3 @@ spec:
           periodSeconds: 10
           failureThreshold: 3
         command: ["userapi"]
-status: {}

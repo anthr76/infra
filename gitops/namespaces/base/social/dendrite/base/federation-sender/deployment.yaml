@@ -15,8 +15,30 @@ spec:
   template:
     spec:
       containers:
-      - image: matrixdotorg/dendrite-polylith:latest
+      - image: matrixdotorg/dendrite-polylith
         name: dendrite-polylith
-        resources: {}
+        resources:
+          requests:
+            cpu: 100m
+            memory: 300Mi
+          limits:
+            cpu: 500m
+            memory: 600Mi
+        ports:
+        - name: federation_sender
+          containerPort: 7775
+          protocol: TCP
+        readinessProbe:
+          tcpSocket:
+            port: 7775
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          failureThreshold: 3
         command: ["federationsender"]
 status: {}
