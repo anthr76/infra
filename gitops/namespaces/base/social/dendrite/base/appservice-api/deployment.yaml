@@ -4,16 +4,20 @@ kind: Deployment
 metadata:
   labels:
     app: dendrite
+    k8s-app: dendrite
   name: dendrite-appservice-api
   namespace: default
 spec:
+  selector:
+    matchLabels:
+      k8s-app: dendrite
   strategy:
     rollingUpdate:
       maxUnavailable: 0
-  selector:
-    matchLabels:
-      app: dendrite
   template:
+    metadata:
+      labels:
+        k8s-app: dendrite
     spec:
       containers:
       - image: matrixdotorg/dendrite-polylith
@@ -26,7 +30,7 @@ spec:
             cpu: 500m
             memory: 600Mi
         ports:
-        - name: appservice_api
+        - name: appservice-api
           containerPort: 7777
           protocol: TCP
         readinessProbe:
@@ -41,4 +45,4 @@ spec:
             scheme: HTTP
           periodSeconds: 10
           failureThreshold: 3
-        command: ["appservice"]
+        args: ["appservice"]
