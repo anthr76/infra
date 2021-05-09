@@ -1,14 +1,15 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-bases:
+resources:
   - https://github.com/kubernetes-sigs/metrics-server/tree/master/manifests/base
 images:
   - name: gcr.io/k8s-staging-metrics-server/metrics-server
     newName: k8s.gcr.io/metrics-server/metrics-server
     newTag: v0.4.1
 patchesStrategicMerge:
-  - apiVersion: apps/v1
+  - |-
+    apiVersion: apps/v1
     kind: Deployment
     metadata:
       name: metrics-server
@@ -17,11 +18,11 @@ patchesStrategicMerge:
       template:
         spec:
           containers:
-            - name: metrics-server
-              args:
-                - --cert-dir=/tmp
-                - --secure-port=4443
-                - --kubelet-use-node-status-port
-                - --metric-resolution=15s
-                - --kubelet-insecure-tls
-                - --kubelet-preferred-address-types=InternalIP
+          - name: metrics-server
+            args:
+            - --cert-dir=/tmp
+            - --secure-port=4443
+            - --kubelet-use-node-status-port
+            - --metric-resolution=15s
+            - --kubelet-insecure-tls
+            - --kubelet-preferred-address-types=InternalIP
