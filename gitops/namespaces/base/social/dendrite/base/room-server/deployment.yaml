@@ -6,7 +6,7 @@ metadata:
     app: dendrite
     k8s-app: dendrite
   name: dendrite-roomserver
-  namepsace: default
+  namespace: default
 spec:
   selector:
     matchLabels:
@@ -30,7 +30,7 @@ spec:
             cpu: 500m
             memory: 600Mi
         ports:
-        - name: room_server
+        - name: room-server
           containerPort: 7770
           protocol: TCP
         readinessProbe:

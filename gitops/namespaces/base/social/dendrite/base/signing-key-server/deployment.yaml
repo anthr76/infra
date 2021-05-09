@@ -6,7 +6,7 @@ metadata:
     app: dendrite
     k8s-app: dendrite
   name: dendrite-signingkeyserver
-  namepsace: default
+  namespace: default
 spec:
   selector:
     matchLabels:
@@ -30,7 +30,7 @@ spec:
             cpu: 500m
             memory: 600Mi
         ports:
-        - name: signing_key_server
+        - name: key-server
           containerPort: 7780
           protocol: TCP
         readinessProbe:

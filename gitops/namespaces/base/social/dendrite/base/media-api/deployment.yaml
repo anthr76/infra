@@ -30,7 +30,7 @@ spec:
             cpu: 500m
             memory: 600Mi
         ports:
-        - name: media_api
+        - name: media-api
           containerPort: 7780
           protocol: TCP
         readinessProbe:

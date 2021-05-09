@@ -30,7 +30,7 @@ spec:
             cpu: 500m
             memory: 600Mi
         ports:
-        - name: key_server
+        - name: key-server
           containerPort: 7779
           protocol: TCP
         readinessProbe:

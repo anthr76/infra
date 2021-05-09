@@ -6,7 +6,7 @@ metadata:
     app: dendrite
     k8s-app: dendrite
   name: dendrite-syncapi
-  namepsace: default
+  namespace: default
 spec:
   selector:
     matchLabels:
@@ -30,7 +30,7 @@ spec:
             cpu: 500m
             memory: 600Mi
         ports:
-        - name: sync_api
+        - name: sync-api
           containerPort: 7773
           protocol: TCP
         readinessProbe:

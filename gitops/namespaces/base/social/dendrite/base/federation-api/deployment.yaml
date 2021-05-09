@@ -30,7 +30,7 @@ spec:
             cpu: 500m
             memory: 600Mi
         ports:
-        - name: federation_api
+        - name: federation-api
           containerPort: 7775
           protocol: TCP
         readinessProbe:
