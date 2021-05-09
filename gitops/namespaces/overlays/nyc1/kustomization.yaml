@@ -11,7 +11,7 @@ resources:
 - ../../base/kube-system/gitlab
 - ../../base/kube-system/descheduler
 - ../../base/kube-system/kured/kured.yaml
-- ../../base/kube-system/metrics-server/metrics-server.yaml
+- ../../base/kube-system/metrics-server/
 - ../../base/networking
 - ../../base/networking/cert-manager
 - ../../base/social
