@@ -39,7 +39,8 @@ spec:
     sources:
       - crd
       - ingress
-      - service
+    txtOwnerId: "int"
+    txtPrefix: "${CLUSTER_NAME}"
     provider: rfc2136
     rfc2136:
       host: "den.rabbito.tech"
