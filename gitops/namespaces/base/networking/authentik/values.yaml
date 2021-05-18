@@ -21,7 +21,7 @@ spec:
       namespace: networking
   values:
     image:
-      name: docker.beryju.org/authentik/server
+      name: beryju.org/authentik/server
       tag: gh-next
     ingress:
       enabled: true
