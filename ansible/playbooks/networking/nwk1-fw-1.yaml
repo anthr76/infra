@@ -1,0 +1,10 @@
+---
+- name: Configure switch
+  #connection: network_cli
+  hosts: 'nwk1-fw-1.int.rabbito.tech'
+  tasks:
+
+  - name: Retrieve VyOS version info
+    vyos.vyos.vyos_command:
+      commands: show version
+    when: ansible_network_os == 'vyos.vyos.vyos'
