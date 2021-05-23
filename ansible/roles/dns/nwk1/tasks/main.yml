@@ -1,3 +1,0 @@
----
-
-include_tasks: nyc1-k8s-rabbito-tech.yml

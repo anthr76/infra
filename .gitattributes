@@ -1,7 +1,0 @@
-**.secrets.env filter=git-crypt diff=git-crypt
-**.env filter=git-crypt diff=git-crypt
-**mercury-config filter=git-crypt diff=git-crypt
-**.creds filter=git-crypt diff=git-crypt
-**/secrets.yml filter=git-crypt diff=git-crypt
-**/secrets.yaml filter=git-crypt diff=git-crypt
-**.pem filter=git-crypt diff=git-crypt
