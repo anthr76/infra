@@ -1,9 +1,0 @@
-- hosts: k8s-cluster
-  become: true
-  roles:
-  - dockerhub
-
-- name: Include kubespray tasks
-  become: true
-  become_user: root
-  include: kubespray/cluster.yml
