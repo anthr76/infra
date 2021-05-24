@@ -28,6 +28,16 @@
       - /etc/hosts:/etc/hosts:ro
       - /config/user-data/Corefile:/etc/Corefile
   become: true
+  register: podman_run
+
+- name: copy hack for unstable podman CLI
+  ansible.builtin.copy:
+    src: postconfig-bootup.sh
+    dest: /config/scripts/vyos-postconfig-bootup.script
+    owner: root
+    group: vyattacfg
+    mode: '0775'
+  become: true
 
 - name: set facts for network connection
   set_fact:
