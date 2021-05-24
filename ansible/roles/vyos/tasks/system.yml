@@ -1,0 +1,17 @@
+---
+
+- name: configure name servers
+  vyos.vyos.vyos_system:
+    name_servers:
+    - 1.1.1.1
+    - 1.0.0.1
+
+- name: configure domain search suffixes
+  vyos.vyos.vyos_system:
+    domain_search:
+    - int.rabbito.tech
+
+- name: configure hostname and domain-name
+  vyos.vyos.vyos_system:
+    host_name: nwk1-fw-1
+    domain_name: int.rabbito.tech

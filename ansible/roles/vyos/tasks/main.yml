@@ -1,0 +1,13 @@
+---
+
+- include_tasks: dhcp.yml
+
+- include_tasks: interface.yml
+
+- include_tasks: system.yml
+
+# - include_tasks: "{{ role_path }}/tasks/content.yml"
+#   args:
+#     apply:
+#       become: yes
+#       become_user: dev
