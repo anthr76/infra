@@ -9,9 +9,3 @@
 - include_tasks: service.yml
 
 - include_tasks: coredns.yml
-
-# - include_tasks: "{{ role_path }}/tasks/content.yml"
-#   args:
-#     apply:
-#       become: yes
-#       become_user: dev
