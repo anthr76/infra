@@ -1,4 +1,4 @@
 ---
-- hosts: 'nwk1-fw-1.int.rabbito.tech'
+- hosts: 'fw-1.nwk1.rabbito.tech'
   roles:
     - role: vyos
