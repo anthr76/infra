@@ -3,60 +3,60 @@
 - name: configure LAN DHCP
   vyos.vyos.vyos_config:
     lines:
-      - set service dhcp-server shared-network-name LAN subnet {{ data.LAN.CIDR }} default-router '{{ data.LAN.GW }}'
-      - set service dhcp-server shared-network-name LAN subnet {{ data.LAN.CIDR }} dns-server '{{ data.LAN.GW }}'
-      - set service dhcp-server shared-network-name LAN subnet {{ data.LAN.CIDR }} domain-name '{{ data.ZONE }}.rabbito.tech'
-      - set service dhcp-server shared-network-name LAN subnet {{ data.LAN.CIDR }} lease '86400'
-      - set service dhcp-server shared-network-name LAN subnet {{ data.LAN.CIDR }} range 0 start '{{ data.LAN.DHCP_RANGE_START }}'
-      - set service dhcp-server shared-network-name LAN subnet {{ data.LAN.CIDR }} range 0 stop '{{ data.LAN.DHCP_RANGE_END }}'
+      - set service dhcp-server shared-network-name LAN subnet {{ LAN.CIDR }} default-router '{{ LAN.GW }}'
+      - set service dhcp-server shared-network-name LAN subnet {{ LAN.CIDR }} dns-server '{{ LAN.GW }}'
+      - set service dhcp-server shared-network-name LAN subnet {{ LAN.CIDR }} domain-name '{{ ZONE }}.rabbito.tech'
+      - set service dhcp-server shared-network-name LAN subnet {{ LAN.CIDR }} lease '86400'
+      - set service dhcp-server shared-network-name LAN subnet {{ LAN.CIDR }} range 0 start '{{ LAN.DHCP_RANGE_START }}'
+      - set service dhcp-server shared-network-name LAN subnet {{ LAN.CIDR }} range 0 stop '{{ LAN.DHCP_RANGE_END }}'
 
 - name: configure VLAN 10 DHCP
   vyos.vyos.vyos_config:
     lines:
-      - set service dhcp-server shared-network-name VLAN_10 subnet {{ data.VLAN_10.CIDR }} default-router '{{ data.VLAN_10.GW }}'
-      - set service dhcp-server shared-network-name VLAN_10 subnet {{ data.VLAN_10.CIDR }} dns-server '{{ data.VLAN_10.GW }}'
-      - set service dhcp-server shared-network-name VLAN_10 subnet {{ data.VLAN_10.CIDR }} domain-name '{{ data.ZONE }}.rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_10 subnet {{ data.VLAN_10.CIDR }} domain-search ''{{ data.ZONE }}.rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_10 subnet {{ data.VLAN_10.CIDR }} domain-search 'rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_10 subnet {{ data.VLAN_10.CIDR }} lease '86400'
-      - set service dhcp-server shared-network-name VLAN_10 subnet {{ data.VLAN_10.CIDR }} range 0 start '{{ data.VLAN_10.DHCP_RANGE_START }}'
-      - set service dhcp-server shared-network-name VLAN_10 subnet {{ data.VLAN_10.CIDR }} range 0 stop '{{ data.VLAN_10.DHCP_RANGE_END }}'
+      - set service dhcp-server shared-network-name VLAN_10 subnet {{ VLAN_10.CIDR }} default-router '{{ VLAN_10.GW }}'
+      - set service dhcp-server shared-network-name VLAN_10 subnet {{ VLAN_10.CIDR }} dns-server '{{ VLAN_10.GW }}'
+      - set service dhcp-server shared-network-name VLAN_10 subnet {{ VLAN_10.CIDR }} domain-name '{{ ZONE }}.rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_10 subnet {{ VLAN_10.CIDR }} domain-search ''{{ ZONE }}.rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_10 subnet {{ VLAN_10.CIDR }} domain-search 'rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_10 subnet {{ VLAN_10.CIDR }} lease '86400'
+      - set service dhcp-server shared-network-name VLAN_10 subnet {{ VLAN_10.CIDR }} range 0 start '{{ VLAN_10.DHCP_RANGE_START }}'
+      - set service dhcp-server shared-network-name VLAN_10 subnet {{ VLAN_10.CIDR }} range 0 stop '{{ VLAN_10.DHCP_RANGE_END }}'
 
 - name: configure VLAN 99 DHCP
   vyos.vyos.vyos_config:
     lines:
-      - set service dhcp-server shared-network-name VLAN_99 subnet {{ data.VLAN_99.CIDR }} default-router '{{ data.VLAN_99.GW }}'
-      - set service dhcp-server shared-network-name VLAN_99 subnet {{ data.VLAN_99.CIDR }} dns-server '{{ data.VLAN_99.GW }}'
-      - set service dhcp-server shared-network-name VLAN_99 subnet {{ data.VLAN_99.CIDR }} domain-name '{{ data.ZONE }}.rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_99 subnet {{ data.VLAN_99.CIDR }} domain-search '{{ data.ZONE }}.rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_99 subnet {{ data.VLAN_99.CIDR }} domain-search 'rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_99 subnet {{ data.VLAN_99.CIDR }} lease '86400'
-      - set service dhcp-server shared-network-name VLAN_99 subnet {{ data.VLAN_99.CIDR }} range 0 start '{{ data.VLAN_99.DHCP_RANGE_START }}'
-      - set service dhcp-server shared-network-name VLAN_99 subnet {{ data.VLAN_99.CIDR }} range 0 stop '{{ data.VLAN_99.DHCP_RANGE_END }}'
+      - set service dhcp-server shared-network-name VLAN_99 subnet {{ VLAN_99.CIDR }} default-router '{{ VLAN_99.GW }}'
+      - set service dhcp-server shared-network-name VLAN_99 subnet {{ VLAN_99.CIDR }} dns-server '{{ VLAN_99.GW }}'
+      - set service dhcp-server shared-network-name VLAN_99 subnet {{ VLAN_99.CIDR }} domain-name '{{ ZONE }}.rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_99 subnet {{ VLAN_99.CIDR }} domain-search '{{ ZONE }}.rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_99 subnet {{ VLAN_99.CIDR }} domain-search 'rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_99 subnet {{ VLAN_99.CIDR }} lease '86400'
+      - set service dhcp-server shared-network-name VLAN_99 subnet {{ VLAN_99.CIDR }} range 0 start '{{ VLAN_99.DHCP_RANGE_START }}'
+      - set service dhcp-server shared-network-name VLAN_99 subnet {{ VLAN_99.CIDR }} range 0 stop '{{ VLAN_99.DHCP_RANGE_END }}'
 
 - name: configure VLAN 100 DHCP
   vyos.vyos.vyos_config:
     lines:
-      - set service dhcp-server shared-network-name VLAN_100 subnet {{ data.VLAN_100.CIDR }} default-router '{{ data.VLAN_100.GW }}'
-      - set service dhcp-server shared-network-name VLAN_100 subnet {{ data.VLAN_100.CIDR }} dns-server '{{ data.VLAN_100.GW }}'
-      - set service dhcp-server shared-network-name VLAN_100 subnet {{ data.VLAN_100.CIDR }} domain-name '{{ data.ZONE }}.rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_100 subnet {{ data.VLAN_100.CIDR }} domain-search '{{ data.ZONE }}.rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_100 subnet {{ data.VLAN_100.CIDR }} domain-search 'rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_100 subnet {{ data.VLAN_100.CIDR }} lease '86400'
-      - set service dhcp-server shared-network-name VLAN_100 subnet {{ data.VLAN_100.CIDR }} range 0 start '{{ data.VLAN_100.DHCP_RANGE_START }}'
-      - set service dhcp-server shared-network-name VLAN_100 subnet {{ data.VLAN_100.CIDR }} range 0 stop '{{ data.VLAN_100.DHCP_RANGE_END }}'
+      - set service dhcp-server shared-network-name VLAN_100 subnet {{ VLAN_100.CIDR }} default-router '{{ VLAN_100.GW }}'
+      - set service dhcp-server shared-network-name VLAN_100 subnet {{ VLAN_100.CIDR }} dns-server '{{ VLAN_100.GW }}'
+      - set service dhcp-server shared-network-name VLAN_100 subnet {{ VLAN_100.CIDR }} domain-name '{{ ZONE }}.rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_100 subnet {{ VLAN_100.CIDR }} domain-search '{{ ZONE }}.rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_100 subnet {{ VLAN_100.CIDR }} domain-search 'rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_100 subnet {{ VLAN_100.CIDR }} lease '86400'
+      - set service dhcp-server shared-network-name VLAN_100 subnet {{ VLAN_100.CIDR }} range 0 start '{{ VLAN_100.DHCP_RANGE_START }}'
+      - set service dhcp-server shared-network-name VLAN_100 subnet {{ VLAN_100.CIDR }} range 0 stop '{{ VLAN_100.DHCP_RANGE_END }}'
 
 - name: configure VLAN 101 DHCP
   vyos.vyos.vyos_config:
     lines:
-      - set service dhcp-server shared-network-name VLAN_101 subnet {{ data.VLAN_101.CIDR }} default-router '{{ data.VLAN_101.GW }}'
-      - set service dhcp-server shared-network-name VLAN_101 subnet {{ data.VLAN_101.CIDR }} dns-server '{{ data.VLAN_101.GW }}'
-      - set service dhcp-server shared-network-name VLAN_101 subnet {{ data.VLAN_101.CIDR }} domain-name '{{ data.ZONE }}.rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_101 subnet {{ data.VLAN_101.CIDR }} domain-search '{{ data.ZONE }}.rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_101 subnet {{ data.VLAN_101.CIDR }} domain-search 'rabbito.tech'
-      - set service dhcp-server shared-network-name VLAN_101 subnet {{ data.VLAN_101.CIDR }} lease '86400'
-      - set service dhcp-server shared-network-name VLAN_101 subnet {{ data.VLAN_101.CIDR }} range 0 start '{{ data.VLAN_101.DHCP_RANGE_START }}'
-      - set service dhcp-server shared-network-name VLAN_101 subnet {{ data.VLAN_101.CIDR }} range 0 stop '{{ data.VLAN_101.DHCP_RANGE_END }}'
+      - set service dhcp-server shared-network-name VLAN_101 subnet {{ VLAN_101.CIDR }} default-router '{{ VLAN_101.GW }}'
+      - set service dhcp-server shared-network-name VLAN_101 subnet {{ VLAN_101.CIDR }} dns-server '{{ VLAN_101.GW }}'
+      - set service dhcp-server shared-network-name VLAN_101 subnet {{ VLAN_101.CIDR }} domain-name '{{ ZONE }}.rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_101 subnet {{ VLAN_101.CIDR }} domain-search '{{ ZONE }}.rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_101 subnet {{ VLAN_101.CIDR }} domain-search 'rabbito.tech'
+      - set service dhcp-server shared-network-name VLAN_101 subnet {{ VLAN_101.CIDR }} lease '86400'
+      - set service dhcp-server shared-network-name VLAN_101 subnet {{ VLAN_101.CIDR }} range 0 start '{{ VLAN_101.DHCP_RANGE_START }}'
+      - set service dhcp-server shared-network-name VLAN_101 subnet {{ VLAN_101.CIDR }} range 0 stop '{{ VLAN_101.DHCP_RANGE_END }}'
 
 - name: configure host file updating
   vyos.vyos.vyos_config:

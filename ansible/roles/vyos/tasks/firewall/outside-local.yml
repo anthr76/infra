@@ -18,8 +18,8 @@
               - number: 20
                 action: accept
                 protocol: icmp
-                icmp:
-                  type_name: echo-request
+                # icmp: https://github.com/ansible-collections/vyos.vyos/issues/170
+                #   type_name: echo-request
                 description: 'rule 20 configured by ansible'
                 state:
                   new: true

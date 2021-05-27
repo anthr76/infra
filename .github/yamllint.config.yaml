@@ -3,6 +3,8 @@ ignore: |
     .github/
     .secrets/
     *.encrypted.yaml
+    *.sops.yaml
+    *.sops.yml
     *-crds.yaml
 extends: default
 rules:

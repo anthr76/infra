@@ -1,0 +1,5 @@
+---
+- name: for idempotency, use full-form commands
+  vyos.vyos.vyos_config:
+    lines:
+      - set interface ethernet eth2 description 'OUTSIDE'

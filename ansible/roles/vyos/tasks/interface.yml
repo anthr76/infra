@@ -21,27 +21,27 @@
   vyos.vyos.vyos_config:
     lines:
       - set interfaces ethernet eth0 address 'dhcp'
-      - set interfaces ethernet eth1 address '{{ data.LAN.GW }}/24'
-      - set interfaces ethernet eth1 vif 10 address '{{ data.VLAN_10.GW }}/24'
-      - set interfaces ethernet eth1 vif 99 address '{{ data.VLAN_99.GW }}/24'
-      - set interfaces ethernet eth1 vif 100 address '{{ data.VLAN_100.GW }}/24'
-      - set interfaces ethernet eth1 vif 101 address '{{ data.VLAN_101.GW }}/24'
+      - set interfaces ethernet eth1 address '{{ LAN.GW }}/24'
+      - set interfaces ethernet eth1 vif 10 address '{{ VLAN_10.GW }}/24'
+      - set interfaces ethernet eth1 vif 99 address '{{ VLAN_99.GW }}/24'
+      - set interfaces ethernet eth1 vif 100 address '{{ VLAN_100.GW }}/24'
+      - set interfaces ethernet eth1 vif 101 address '{{ VLAN_101.GW }}/24'
 
 - name: configure interface NAT
   vyos.vyos.vyos_config:
     lines:
       - set nat source rule 1 outbound-interface 'eth0'
-      - set nat source rule 1 source address '{{ data.LAN.CIDR }}'
+      - set nat source rule 1 source address '{{ LAN.CIDR }}'
       - set nat source rule 1 translation address 'masquerade'
       - set nat source rule 10 outbound-interface 'eth0'
-      - set nat source rule 10 source address '{{ data.VLAN_10.CIDR }}'
+      - set nat source rule 10 source address '{{ VLAN_10.CIDR }}'
       - set nat source rule 10 translation address 'masquerade'
       - set nat source rule 99 outbound-interface 'eth0'
-      - set nat source rule 99 source address '{{ data.VLAN_99.CIDR }}'
+      - set nat source rule 99 source address '{{ VLAN_99.CIDR }}'
       - set nat source rule 99 translation address 'masquerade'
       - set nat source rule 100 outbound-interface 'eth0'
-      - set nat source rule 100 source address '{{ data.VLAN_100.CIDR }}'
+      - set nat source rule 100 source address '{{ VLAN_100.CIDR }}'
       - set nat source rule 100 translation address 'masquerade'
       - set nat source rule 101 outbound-interface 'eth0'
-      - set nat source rule 101 source address '{{ data.VLAN_101.CIDR }}'
+      - set nat source rule 101 source address '{{ VLAN_101.CIDR }}'
       - set nat source rule 101 translation address 'masquerade'
