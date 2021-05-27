@@ -1,5 +1,4 @@
 ---
-
 - name: set facts for ansible ssh
   set_fact:
     ansible_connection: ssh
@@ -11,7 +10,7 @@
     dest: /config/user-data/Corefile
     owner: root
     group: vyattacfg
-    mode: '0775'
+    mode: "0775"
   become: true
 
 - name: start coredns
@@ -36,7 +35,7 @@
     dest: /config/scripts/vyos-postconfig-bootup.script
     owner: root
     group: vyattacfg
-    mode: '0775'
+    mode: "0775"
   become: true
 
 - name: set facts for network connection

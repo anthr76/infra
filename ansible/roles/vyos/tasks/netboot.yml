@@ -1,5 +1,4 @@
 ---
-
 - name: set facts for ansible ssh
   set_fact:
     ansible_connection: ssh
