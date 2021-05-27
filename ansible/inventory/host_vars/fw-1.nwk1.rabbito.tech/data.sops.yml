@@ -1,15 +1,40 @@
 # yamllint disable
 Kind: Secret
 data:
-    hostname: ENC[AES256_GCM,data:IgkFcg==,iv:3USBUHd8if2MVdSc/M2uwi+2qolbWHtdZhCS72gjm78=,tag:OLENdq6rFCGXkW5BBu3RMw==,type:str]
+    LAN:
+        CIDR: ENC[AES256_GCM,data:Cu7rXxCuDMYzKMZqZiM=,iv:+FBfLbIThxab8MPpidxwjWtGHTkl3j4tYlVDf7bb34M=,tag:9FbDsL4UI9lcKhXHPfLNJg==,type:str]
+        DHCP_RANGE_START: ENC[AES256_GCM,data:+3FopjmW746ylRs=,iv:cVMCzEDe92QT9aIMhBg0ch+FfZgoMe1GBmOluLAO07Y=,tag:2MHHgVDnq7aLYwzxobBLWQ==,type:str]
+        DHCP_RANGE_END: ENC[AES256_GCM,data:2CGx1Vqg5jup+PRE4Q==,iv:Y00T+usBTuwZmqmGrn9UGMEoglxeDd4amZ+6hXFL6KQ=,tag:eMmD5yK3VKUcOsUNvB2kOQ==,type:str]
+        GW: ENC[AES256_GCM,data:U1e+lKqJeIZ6g+U=,iv:4GcvyqMMyVlypvA0GYLgEckI6TxpkBfAI2VdgoMndWY=,tag:hay6V3YQMq3AyHINl8xgFA==,type:str]
+    VLAN_10:
+        CIDR: ENC[AES256_GCM,data:Jw3RBiuN7s5YEhAZLpE=,iv:2QiZrBi1MxeAA7MPmTrVrD3x3Xk1T38SdjSzvj8sOCY=,tag:WDcAA+PzRSaswrwfIGMj/Q==,type:str]
+        DHCP_RANGE_START: ENC[AES256_GCM,data:KOErgy1sV0yRoGk=,iv:3yK8g/cZnbedzLklkA0X6pfgWyIyI5Uhk7kCRqLbt+Q=,tag:VcmUApWX7hieYjtsW8NVGw==,type:str]
+        DHCP_RANGE_END: ENC[AES256_GCM,data:sOzyErlKshDEKZeEmQ==,iv:hwdElxcrRZpmhPKlH5YE/NovAaaMPTufkq2oGQemh+M=,tag:x/1VpRicj9W4N20jCaqoAA==,type:str]
+        GW: ENC[AES256_GCM,data:Q+w5mlPLC86ddsE=,iv:YID+dddQx4+LnnnQaSjIXkuWw/IJQhamQHs4Qah2IAE=,tag:KoQe1IP1hkpVjfgVYJFG0A==,type:str]
+    VLAN_99:
+        CIDR: ENC[AES256_GCM,data:JeSUbjIgXA/iRh4gJw==,iv:8vDjOklWbIWXH1eqZSjp6Uh6go0K08QE3DfpWs1LDlM=,tag:NOAL28CDr8YqcKiQBTwaQQ==,type:str]
+        DHCP_RANGE_START: ENC[AES256_GCM,data:y+OPAhNoFbOswg==,iv:nGX1Dp7XmtXVHfH51RXV/9YjpZcdFHotDQPXfMHIZjM=,tag:mhbfPyJ+IHHFOLJ0Xa0CbA==,type:str]
+        DHCP_RANGE_END: ENC[AES256_GCM,data:YFCdGuwRWsljJrx6,iv:a4Aq80h+bBmQptlIADqGIDF/apJRacGd6SPWF/HTVa8=,tag:tnjSDDgUXSzkmsaNhI3DZw==,type:str]
+        GW: ENC[AES256_GCM,data:2VwB7QLvLxsQUw==,iv:1Lbt6omIEcqYTC4v9VVQW/aD5mJZ7+4O+dq5AsP0g8g=,tag:juBc6xqydOQ0U8pKb6RWkw==,type:str]
+    VLAN_100:
+        CIDR: ENC[AES256_GCM,data:8StiJ5YCj6ltXrN9g9w=,iv:Ci4dyo1wgYStjEYVB+oow+c44490VfDuMsBTJ35xSvA=,tag:4a9wo5iSWMqzIn3i7pNWyw==,type:str]
+        DHCP_RANGE_START: ENC[AES256_GCM,data:mmtxSYlop+F+t7c=,iv:bRcCQXZqzyHnUe166dQd3WtWJ26cAu3IxNZcj4ekYq4=,tag:0iT1/qPPI7fkc95KF55Unw==,type:str]
+        DHCP_RANGE_END: ENC[AES256_GCM,data:LecHSGFcD2/QtB0sdg==,iv:e9bPddjGKIoC5hfU5nlAMzXF+1AGe0uvj2KqMq6aZFE=,tag:cJ8fDPQ2ncfUTfZMs++/1g==,type:str]
+        GW: ENC[AES256_GCM,data:kXoUkRAEmj2DP/A=,iv:K9TwuM48fgpjYzrY+1+nPW095PFjpO3JruXAWnvxAH0=,tag:gxKYqqSX3u8PlEhKeWNYfA==,type:str]
+    VLAN_101:
+        CIDR: ENC[AES256_GCM,data:u0So3EMIVT9hyY3NwHA=,iv:bKHjYHcl4KgWmtGkqkhHO2Ye1g/7cagHIbeK9L3hTL8=,tag:hUA6Rr8uAlqM8u32UpEptA==,type:str]
+        DHCP_RANGE_START: ENC[AES256_GCM,data:MHu3vzmGtjLrgjE=,iv:v9rh121D/LzB0f00eFlNM9WL1RRmkoeqgYXpGzP3Cl8=,tag:sAhcsokjPzWHuteEkmYArA==,type:str]
+        DHCP_RANGE_END: ENC[AES256_GCM,data:DxHmgd+XMQWfr7wm9w==,iv:ZrQO75/tJBSBbZFmP/zHyoaZaBfi5DH7vi33EzpbA/g=,tag:OLfU2sDRniJIRhOOKCDf3Q==,type:str]
+        GW: ENC[AES256_GCM,data:i5dKmx1E+1cO6Ro=,iv:1zeGVtNBvXUIMwKV1LY+G5+Q0hvtT+Khfk+tPFaU7Ww=,tag:6hETjW7kaqqyrGmTWjI70A==,type:str]
+    ZONE: ENC[AES256_GCM,data:hCik/A==,iv:V8ZZdLWAOWbg7irWoz10XXMWf8Ioz5k5ONjPBjyX9WE=,tag:I1K9hZJ++V8SB8IX7D8zSw==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-05-26T17:31:42Z"
-    mac: ENC[AES256_GCM,data:kCSZAByOGEgj5It1IMtOPiki0gYyhRtCBPUBPCA7z5XT6EEl22KAYAojpKMxsCDYOtmzzQzgLNAF+dvUgzNtSVJuOzgsnTZIsAU5X7CS91T03Hd2I54ibppEoHpxjB8KqbzRvpTjchqzE39EMx2ZqzZrtCf8kjFkw0O+8z6IXEs=,iv:qZFO2M5DJS6RJ0sSE375ZHBsMa7SRxX7ZIYtrdQ9Cx4=,tag:orSBt8ox8Q+d4kcqgelExQ==,type:str]
+    lastmodified: "2021-05-27T01:39:22Z"
+    mac: ENC[AES256_GCM,data:loF0QQm6DcNyETDawhhLmDB3XW60JPBmteSgtzR7CMUWJTh88wAlE18byOC2O3xkQtiRzLfCI58bKZGbe9CK/f5TDTlquvO6kY9ddURB9kPoKyhdFk9aOv0jY8pJHuxDAE7G78DT67+3Wc9jpzGGxZWiucbitFxUYiIBMJWVTWM=,iv:+UeQ4fHv6qJVI8UhX4TXjM9ijTpSta/0rVRcyJQIdhM=,tag:sih4ZzM4NUAeToTcpdY88Q==,type:str]
     pgp:
         - created_at: "2021-05-26T17:26:01Z"
           enc: |

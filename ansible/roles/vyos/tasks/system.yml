@@ -13,7 +13,7 @@
 
 - name: configure hostname and domain-name
   vyos.vyos.vyos_system:
-    host_name: "{{ data.hostname }}-nwk1"
+    host_name: fw-1-nwk1
     domain_name: nwk1.rabbito.tech
 
 - name: set vyos host mapping in VLAN_99
