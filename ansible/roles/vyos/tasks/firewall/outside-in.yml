@@ -1,0 +1,45 @@
+---
+
+- name: configure OUTSIDE-IN firewall rules
+  vyos.vyos.vyos_firewall_rules:
+    config:
+      - afi: ipv6
+        rule_sets:
+          - name: V6-OUTSIDE-IN
+            description: incoming WAN ruleset
+            default_action: drop
+            rules:
+              - number: 10
+                action: accept
+                description: 'rule 10 configured by ansible'
+                state:
+                  established: true
+                  related: true
+      - afi: ipv4
+        rule_sets:
+          - name: OUTSIDE-IN
+            description: incoming WAN ruleset
+            default_action: drop
+            rules:
+              - number: 10
+                action: accept
+                description: 'rule 10 configured by ansible'
+                state:
+                  established: true
+                  related: true
+    state: merged
+
+- name: configure OUTSIDE-IN firewall interface
+  vyos.vyos.vyos_firewall_interfaces:
+    config:
+      - access_rules:
+          - afi: ipv4
+            rules:
+              - name: OUTSIDE-IN
+                direction: in
+          - afi: ipv6
+            rules:
+              - name: V6-OUTSIDE-IN
+                direction: in
+        name: eth0
+    state: merged
