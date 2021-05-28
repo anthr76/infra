@@ -1,5 +1,4 @@
 ---
-
 - name: configure OUTSIDE-LOCAL firewall rules
   vyos.vyos.vyos_firewall_rules:
     config:
@@ -11,7 +10,7 @@
             rules:
               - number: 10
                 action: accept
-                description: 'rule 10 configured by ansible'
+                description: "rule 10 configured by ansible"
                 state:
                   established: true
                   related: true
@@ -20,7 +19,7 @@
                 protocol: icmp
                 # icmp: https://github.com/ansible-collections/vyos.vyos/issues/170
                 #   type_name: echo-request
-                description: 'rule 20 configured by ansible'
+                description: "rule 20 configured by ansible"
                 state:
                   new: true
       - afi: ipv4
@@ -31,7 +30,7 @@
             rules:
               - number: 10
                 action: accept
-                description: 'rule 10 configured by ansible'
+                description: "rule 10 configured by ansible"
                 state:
                   established: true
                   related: true
@@ -40,7 +39,7 @@
                 protocol: icmp
                 icmp:
                   type_name: echo-request
-                description: 'rule 20 configured by ansible'
+                description: "rule 20 configured by ansible"
                 state:
                   new: true
     state: merged
