@@ -16,7 +16,7 @@
 - name: start coredns
   containers.podman.podman_container:
     name: coredns
-    image: docker.io/coredns/coredns:1.8.3
+    image: docker.io/coredns/coredns:1.8.4
     state: started
     restart_policy: always
     network: host
