@@ -26,7 +26,7 @@ spec:
           "autodiscover": "true",
           "dryRun": false,
           "printConfig": true,
-          "logLevel": "debug",
+          "logLevel": "debug"
         }
     cronjob:
       schedule: '0 * * * *'
