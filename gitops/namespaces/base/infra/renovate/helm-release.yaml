@@ -24,7 +24,7 @@ spec:
           "endpoint": "https://gitlab.com/api/v4",
           "token": "${RENOVATE_PAT}",
           "autodiscover": "true",
-          "dryRun": true,
+          "dryRun": false,
           "printConfig": true,
           "logLevel": "debug"
         }
