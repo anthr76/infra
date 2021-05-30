@@ -10,6 +10,6 @@ images:
 - name: ghcr.io/fluxcd/kustomize-controller
   newTag: v0.12.1
 - name: ghcr.io/fluxcd/notification-controller
-  newTag: v0.13.0
+  newTag: v0.14.1
 - name: ghcr.io/fluxcd/source-controller
   newTag: v0.12.2
