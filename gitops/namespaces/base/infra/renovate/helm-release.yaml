@@ -27,7 +27,7 @@ spec:
           "dryRun": false,
           "printConfig": true,
           "logLevel": "debug",
-          "repositories": ["anthr76/infra", "anthr76/*"]
+          "autodiscoverFilter": "anthr76/*
         }
     cronjob:
       schedule: '0 * * * *'
