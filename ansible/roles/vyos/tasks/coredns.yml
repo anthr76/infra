@@ -27,7 +27,6 @@
       - /etc/hosts:/etc/hosts:ro
       - /config/user-data/Corefile:/etc/Corefile
   become: true
-  register: podman_run
 
 - name: copy hack for unstable podman CLI
   ansible.builtin.copy:

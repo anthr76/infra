@@ -27,6 +27,14 @@
                 state:
                   established: true
                   related: true
+              - number: 15
+                action: accept
+                description: 'rule 15 (wireguard) configured by ansible'
+                protocol: udp
+                source:
+                  port: "{{ wireguard.wg01.PORT }}"
+                destination:
+                  address: "{{ wireguard.wg01.CIDR }}"
     state: merged
 
 - name: configure OUTSIDE-IN firewall interface

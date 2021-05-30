@@ -11,3 +11,5 @@
 - include_tasks: coredns.yml
 
 - include_tasks: firewall/main.yml
+
+- include_tasks: wireguard.yml
