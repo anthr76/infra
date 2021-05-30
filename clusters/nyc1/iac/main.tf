@@ -11,18 +11,17 @@ terraform {
       version = "2.7.0"
     }
     sops = {
-      source = "carlpett/sops"
-      version = "~> 0.6.2"
+      source  = "carlpett/sops"
+      version = "0.6.2"
     }
     ct = {
       source  = "poseidon/ct"
       version = "0.8.0"
     }
-    dns = {
-      source = "hashicorp/dns"
-      version = "3.1.0"
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "2.21.0"
     }
-
   }
 }
 
@@ -46,11 +45,7 @@ resource "digitalocean_custom_image" "kubic_image" {
   regions = ["nyc1"]
 }
 
-provider "dns" {
-  update {
-    server        = "den.rabbito.tech"
-    key_algorithm = "hmac-sha256"
-    key_name      = "externaldns."
-    key_secret    = data.sops_file.tf_secrets.data["data.dns_tsig_key"]
-  }
+provider "cloudflare" {
+  email   = data.sops_file.tf_secrets.data["data.cf_email"]
+  api_key = data.sops_file.tf_secrets.data["data.cf_api_key"]
 }

@@ -26,12 +26,9 @@ data:
         reload
         loadbalance
     }
-    rabbito.tech:53 {
-        forward . dns://10.136.42.191:53 dns://10.136.153.234:53 {
-        force_tcp
-        }
+    nwk1.rabbito.tech:53 {
+        forward . dns://192.168.4.1:53
         log
         reload
         errors
-        loadbalance
     }

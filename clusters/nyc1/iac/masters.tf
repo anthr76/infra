@@ -10,12 +10,12 @@ data "ct_config" "first_master" {
     templatefile(
       "butane/init_master.yaml",
       {
-        control_plane_ip = var.control_plane_ip
-        certificate_key  = data.sops_file.tf_secrets.data["data.kubeadm_certificate_key"]
-        token            = data.sops_file.tf_secrets.data["data.kubeadm_token"]
-        count            = (count.index + 1)
+        control_plane_ip   = var.control_plane_ip
+        certificate_key    = data.sops_file.tf_secrets.data["data.kubeadm_certificate_key"]
+        token              = data.sops_file.tf_secrets.data["data.kubeadm_token"]
+        count              = (count.index + 1)
         service_cidr_range = var.service_cidr_range
-        pod_cidr_range    = var.pod_cidr_range
+        pod_cidr_range     = var.pod_cidr_range
       }
     ),
   ]
@@ -54,7 +54,7 @@ resource "digitalocean_droplet" "kubic_first_master" {
   image              = digitalocean_custom_image.kubic_image.id
   region             = "nyc1"
   size               = "s-2vcpu-4gb"
-  tags               = [ "k8s:master" ]
+  tags               = ["k8s:master"]
   private_networking = true
   user_data          = data.ct_config.first_master[count.index].rendered
   name               = "kubic-master-${count.index + 1}"
@@ -67,7 +67,7 @@ resource "digitalocean_droplet" "kubic_master" {
   image              = digitalocean_custom_image.kubic_image.id
   region             = "nyc1"
   size               = "s-2vcpu-4gb"
-  tags               = [ "k8s:master" ]
+  tags               = ["k8s:master"]
   private_networking = true
   user_data          = data.ct_config.master[count.index].rendered
   name               = "kubic-master-${count.index + 2}"

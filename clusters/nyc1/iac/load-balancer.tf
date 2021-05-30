@@ -1,6 +1,6 @@
- resource "digitalocean_loadbalancer" "kubic_k8s" {
-  name   = "kubic-lb"
-  region = "nyc1"
+resource "digitalocean_loadbalancer" "kubic_k8s" {
+  name     = "kubic-lb"
+  region   = "nyc1"
   vpc_uuid = data.digitalocean_vpc.nyc1_idm.id
 
   forwarding_rule {

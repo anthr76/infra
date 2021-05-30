@@ -14,7 +14,7 @@ data "ct_config" "worker" {
         token            = data.sops_file.tf_secrets.data["data.kubeadm_token"]
         count            = (count.index + 1)
       }
-    ),]
+  ), ]
   strict       = true
   pretty_print = false
 }
@@ -26,18 +26,18 @@ resource "digitalocean_droplet" "kubic_worker" {
   image              = digitalocean_custom_image.kubic_image.id
   region             = "nyc1"
   size               = "s-2vcpu-4gb"
-  tags               = [ "k8s:worker" ]
+  tags               = ["k8s:worker"]
   private_networking = true
   user_data          = data.ct_config.worker[count.index].rendered
   name               = "kubic-worker-${count.index + 1}"
 }
 
 resource "digitalocean_volume" "openebs" {
-  count                   = var.count_workers
-  region                  = "nyc1"
-  name                    = "openebs-cstor-${count.index + 1}"
-  size                    = 100
-  description             = "openEBS cstor volume mount"
+  count       = var.count_workers
+  region      = "nyc1"
+  name        = "openebs-cstor-${count.index + 1}"
+  size        = 100
+  description = "openEBS cstor volume mount"
 }
 
 resource "digitalocean_volume_attachment" "ebs_vols" {
