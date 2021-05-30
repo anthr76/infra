@@ -28,3 +28,5 @@ spec:
           "printConfig": true,
           "logLevel": "debug"
         }
+    cronjob:
+      schedule: '0 * * * *'
