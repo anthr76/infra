@@ -27,7 +27,6 @@ spec:
           "dryRun": false,
           "printConfig": true,
           "logLevel": "debug",
-          "autodiscoverFilter": "anthr76/*"
         }
     cronjob:
       schedule: '0 * * * *'
