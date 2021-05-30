@@ -29,7 +29,8 @@ spec:
           "dryRun": false,
           "printConfig": true,
           "logLevel": "debug",
-          "gitAuthor": "Renovate Bot <bot@renovateapp.com>"
+          "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
+          "gitPrivateKey": "${RENOVATE_PGP}"
         }
     cronjob:
       schedule: '0 * * * *'
