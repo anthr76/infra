@@ -22,6 +22,8 @@ resources:
 - ../../base/networking/external-dns/external
 - ../../base/velero/velero/velero.yaml
 - ../../base/velero
+- ../../base/infra
+- ../../base/infra/renovate
 - ../../base/openebs
 - ../../base/default
 - ../../base/default/whoami

@@ -23,3 +23,4 @@ resources:
 - cilium-charts.yaml
 - opstree-charts.yaml
 - authentik-charts.yaml
+- renovate-charts.yaml
