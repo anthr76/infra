@@ -1,33 +1,46 @@
-# You can override the included template(s) by including variable overrides
-# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
-# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
-# Note that environment variables can be set in several places
-# See https://docs.gitlab.com/ee/ci/variables/#priority-of-environment-variables
 include:
 - template: Security/Secret-Detection.gitlab-ci.yml
 - template: Security/License-Scanning.gitlab-ci.yml
+- template: Terraform.latest.gitlab-ci.yml
 
+# Rewrite Stages
 
-# image: docker:stable
-# variables:
-#   KUBECTL: v1.21.0
-#   KIND: v0.8.1
-#   FLUX_VERSION: v0.13.3
-#   FLUX: docker run --rm -it ghcr.io/fluxcd/flux-cli:$FLUX_VERSION
-# services:
-#   - docker:dind
-# stages:
-#   - test
-# test:
-#   stage: test
-#   script:
-#     - apk add -U wget
-#     - wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND}/kind-linux-amd64
-#     - chmod +x /usr/local/bin/kind
-#     - wget -O /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${KUBECTL}/bin/linux/amd64/kubectl
-#     - chmod +x /usr/local/bin/kubectl
-#     - kind create cluster --config=./.github/contrib/kind-config.yaml
-#     - sed -i -E -e 's/localhost|0\.0\.0\.0/docker/g' "$HOME/.kube/config"
-#     - kubectl get nodes -o wide
-#     - kubectl get pods --all-namespaces -o wide
-#     - kubectl get services --all-namespaces -o wide
+license_scanning:
+  stage: 💨 smoke test
+  script:
+    - /run.sh analyze .
+
+.secret-analyzer:
+  stage: 💨 smoke test
+
+.init: &init
+  stage: 🛠️ prep
+
+.validate: &validate
+  stage: 💨 smoke test
+
+.build: &build
+  stage: 👀 plan
+
+.deploy: &deploy
+  stage: 🚀 deploy
+
+stages:
+  - 💨 smoke test
+  - 🛠️ prep
+  - 👀 plan
+  - 🚀 deploy
+
+nyc1_cluster_plan:
+  extends: .build
+  variables:
+    TERRAFORM_DIRECTORY: "staging/"
+  artifacts:
+    name: NYC1-Cluster
+
+core_plan:
+  extends: .build
+  variables:
+    TERRAFORM_DIRECTORY: "production/"
+  artifacts:
+    name: core
