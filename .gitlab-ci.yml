@@ -21,6 +21,13 @@ license_scanning:
 
 .build: &build
   stage: 👀 plan
+  script:
+    - echo "plan ready"
+  artifacts:
+    paths:
+      - ${TF_ROOT}/plan.cache
+    reports:
+      terraform: ${TF_ROOT}/plan.json
 
 .deploy: &deploy
   stage: 🚀 deploy
@@ -33,6 +40,7 @@ stages:
 
 nyc1_cluster_plan:
   extends: .build
+  stage: 👀 plan
   variables:
     TERRAFORM_DIRECTORY: "clusters/nyc1/iac"
   artifacts:
