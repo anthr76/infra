@@ -29,10 +29,10 @@ license_scanning:
   only:
     changes:
       - clusters/nyc1/iac/**/*
-  environment:
-    name: production
     refs:
       - branches
+  environment:
+    name: production
   before_script:
     - echo ${TEST}
     - apk add --no-cache curl gnupg
