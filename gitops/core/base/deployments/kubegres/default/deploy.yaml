@@ -8,7 +8,7 @@ spec:
   interval: 10m
   url: https://github.com/reactive-tech/kubegres.git
   ref:
-    tag: "v1.1"
+    tag: "v1.5"
   ignore: |
     # exclude all
     /*
