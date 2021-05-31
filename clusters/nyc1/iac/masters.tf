@@ -47,7 +47,6 @@ data "ct_config" "master" {
 }
 
 
-# Create Kubic master nodes.
 resource "digitalocean_droplet" "kubic_first_master" {
   count              = 1
   ssh_keys           = [28165998]
