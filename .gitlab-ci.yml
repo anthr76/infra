@@ -12,11 +12,17 @@ cache:
 # Rewrite Stages
 
 license_scanning:
+  only:
+    refs:
+      - merge_requests
   stage: 💨 smoke test
   script:
     - /run.sh analyze .
 
 .secret-analyzer:
+  only:
+    refs:
+      - merge_requests
   stage: 💨 smoke test
 
 .init: &init
