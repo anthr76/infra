@@ -20,7 +20,6 @@ license_scanning:
       - clusters/nyc1/iac/**/*
     refs:
       - branches
-      - merge_requests
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac"]
@@ -30,11 +29,10 @@ license_scanning:
   only:
     changes:
       - clusters/nyc1/iac/**/*
-    variables:
-      - $CI_COMMIT_REF_PROTECTED
+  environment:
+    name: production
     refs:
       - branches
-      - merge_requests
   before_script:
     - echo ${TEST} > this
     - cat this
@@ -53,8 +51,8 @@ license_scanning:
       - clusters/nyc1/iac/**/*
     refs:
       - merge_requests
-    variables:
-      - $CI_COMMIT_REF_PROTECTED
+  environment:
+    name: production
   before_script:
     - echo ${TEST}
     - apk add --no-cache curl gnupg
