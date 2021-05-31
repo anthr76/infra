@@ -1,5 +1,6 @@
 terraform {
   backend "http" {
+    # TODO local GL vars
   }
   required_providers {
     digitalocean = {
