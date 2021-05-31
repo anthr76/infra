@@ -1,9 +1,5 @@
 terraform {
-  backend "remote" {
-    organization = "rabbito-home"
-    workspaces {
-      name = "kubic-cloud-prod"
-    }
+  backend "http" {
   }
   required_providers {
     digitalocean = {
