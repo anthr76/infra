@@ -34,7 +34,6 @@ license_scanning:
   environment:
     name: production
   before_script:
-    - echo ${TEST}
     - apk add --no-cache curl gnupg
     - curl -qsL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /usr/local/bin/sops
     - chmod +x /usr/local/bin/sops
@@ -53,7 +52,6 @@ license_scanning:
   environment:
     name: production
   before_script:
-    - echo ${TEST}
     - apk add --no-cache curl gnupg
     - curl -qsL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /usr/local/bin/sops
     - chmod +x /usr/local/bin/sops
@@ -70,7 +68,6 @@ license_scanning:
       - clusters/nyc1/iac/**/*
   stage: 🚀 deploy
   before_script:
-    - echo ${TEST}
     - apk add --no-cache curl gnupg
     - curl -qsL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /usr/local/bin/sops
     - chmod +x /usr/local/bin/sops
