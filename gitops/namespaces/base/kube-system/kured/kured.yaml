@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://weaveworks.github.io/kured
       chart: kured
-      version: 2.4.3
+      version: 2.6.0
       sourceRef:
         kind: HelmRepository
         name: weaveworks-kured-charts
@@ -32,7 +32,7 @@ spec:
     cleanupOnFail: true
   values:
     image:
-      repository: registry.opensuse.org/kubic/kured
+      repository: raspbernetes/kured
     service:
       create: true
     metrics:
