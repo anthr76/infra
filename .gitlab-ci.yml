@@ -17,7 +17,7 @@ license_scanning:
   stage: 🛠️ prep
   only:
     changes:
-      - ${TF_ROOT}/**/*
+      - clusters/nyc1/iac/**/*
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac"]
@@ -26,7 +26,7 @@ license_scanning:
   stage: 💨 smoke test
   only:
     changes:
-      - ${TF_ROOT}/**/*
+      - clusters/nyc1/iac/**/*
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac"]
@@ -35,7 +35,7 @@ license_scanning:
   stage: 👀 plan
   only:
     changes:
-      - ${TERRAFORM_DIRECTORY}/**/*
+      - clusters/nyc1/iac/**/*
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac"]
