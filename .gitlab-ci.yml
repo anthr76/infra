@@ -34,13 +34,6 @@ stages:
 nyc1_cluster_plan:
   extends: .build
   variables:
-    TERRAFORM_DIRECTORY: "staging/"
+    TERRAFORM_DIRECTORY: "clusters/nyc1/iac"
   artifacts:
     name: NYC1-Cluster
-
-core_plan:
-  extends: .build
-  variables:
-    TERRAFORM_DIRECTORY: "production/"
-  artifacts:
-    name: core
