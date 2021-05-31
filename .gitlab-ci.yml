@@ -15,19 +15,30 @@ license_scanning:
 
 .init: &init
   stage: 🛠️ prep
+  only:
+    changes:
+      - ${TF_ROOT}/**/*
+  parallel:
+    matrix:
+      - TF_ROOT: ["clusters/nyc1/iac"]
 
 .validate: &validate
   stage: 💨 smoke test
+  only:
+    changes:
+      - ${TF_ROOT}/**/*
+  parallel:
+    matrix:
+      - TF_ROOT: ["clusters/nyc1/iac"]
 
 .build: &build
   stage: 👀 plan
-  script:
-    - echo "plan ready"
-  artifacts:
-    paths:
-      - ${TF_ROOT}/plan.cache
-    reports:
-      terraform: ${TF_ROOT}/plan.json
+  only:
+    changes:
+      - ${TERRAFORM_DIRECTORY}/**/*
+  parallel:
+    matrix:
+      - TF_ROOT: ["clusters/nyc1/iac"]
 
 .deploy: &deploy
   stage: 🚀 deploy
@@ -37,11 +48,3 @@ stages:
   - 🛠️ prep
   - 👀 plan
   - 🚀 deploy
-
-nyc1_cluster_plan:
-  extends: .build
-  stage: 👀 plan
-  variables:
-    TERRAFORM_DIRECTORY: "clusters/nyc1/iac"
-  artifacts:
-    name: NYC1-Cluster
