@@ -11,6 +11,15 @@ spec:
   secretRef:
     name: flux-system
   url: ssh://git@gitlab.com/anthr76/infra
+  ignore: |
+    # exclude all
+    /*
+    # include gitops dirs
+    !/clusters
+    !/gitops
+    # exclude text files from gitops dirs
+    /deploy/**/*.md
+    /deploy/**/*.txt
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
