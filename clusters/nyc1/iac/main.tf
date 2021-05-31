@@ -1,14 +1,12 @@
 terraform {
   backend "http" {
-    config = {
-      address        = "https://gitlab.com/api/v4/projects/27033486/terraform/state/kubic-cloud-prod"
-      lock_address   = "https://gitlab.com/api/v4/projects/27033486/terraform/state/kubic-cloud-prod/lock"
-      unlock_address = "https://gitlab.com/api/v4/projects/27033486/terraform/state/kubic-cloud-prod/lock"
-      username       = "anthr76"
-      lock_method    = "POST"
-      unlock_method  = "DELETE"
-      retry_wait_min = 5
-    }
+    address        = "https://gitlab.com/api/v4/projects/27033486/terraform/state/kubic-cloud-prod"
+    lock_address   = "https://gitlab.com/api/v4/projects/27033486/terraform/state/kubic-cloud-prod/lock"
+    unlock_address = "https://gitlab.com/api/v4/projects/27033486/terraform/state/kubic-cloud-prod/lock"
+    username       = "anthr76"
+    lock_method    = "POST"
+    unlock_method  = "DELETE"
+    retry_wait_min = 5
   }
   required_providers {
     digitalocean = {
