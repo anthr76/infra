@@ -3,12 +3,6 @@ include:
 - template: Security/License-Scanning.gitlab-ci.yml
 - template: Terraform.latest.gitlab-ci.yml
 
-# Cache
-cache:
-  key: nyc1-cluster
-  paths:
-    - ${TF_ROOT}/.terraform
-
 # Rewrite Stages
 
 license_scanning:
