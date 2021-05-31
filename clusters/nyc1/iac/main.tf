@@ -41,7 +41,6 @@ data "sops_file" "tf_secrets" {
   source_file = "tf-secrets.yaml"
 }
 
-# Upload the Kubic Image
 resource "digitalocean_custom_image" "kubic_image" {
   name    = "kubic_digitalocean"
   url     = "http://download.opensuse.org/tumbleweed/appliances/openSUSE-MicroOS.x86_64-Kubic-kubeadm-DigitalOcean-Cloud.qcow2"
