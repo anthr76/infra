@@ -56,6 +56,12 @@ license_scanning:
     - curl -qsL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /usr/local/bin/sops
     - chmod +x /usr/local/bin/sops
     - gpg --import ${SOPS_SYSTEM_KEY}
+  artifacts:
+    public: false
+    paths:
+      - ${TF_ROOT}/plan.cache
+    reports:
+      terraform: ${TF_ROOT}/plan.json
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac"]
