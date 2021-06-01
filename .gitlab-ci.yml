@@ -16,8 +16,7 @@ license_scanning:
 .init: &init
   stage: 🛠️ prep
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH
-      changes:
+    - changes:
         - clusters/nyc1/iac/**/*
   parallel:
     matrix:
@@ -26,8 +25,7 @@ license_scanning:
 .validate: &validate
   stage: 💨 smoke test
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH
-      changes:
+    - changes:
         - clusters/nyc1/iac/**/*
   before_script:
     - apk add --no-cache curl gnupg
@@ -40,8 +38,7 @@ license_scanning:
 
 .tf_lint: &tf_lint
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH
-      changes:
+    - changes:
         - clusters/nyc1/iac/**/*
   stage: ✨ lint
   script: terraform fmt -diff -check
