@@ -38,6 +38,11 @@ license_scanning:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac"]
 
+tf_lint:
+  extends: .validate
+  stage: ✨ lint
+  script: terraform fmt -recursive -diff -check
+
 .build: &build
   stage: 👀 plan
   rules:
@@ -59,6 +64,11 @@ license_scanning:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac"]
 
+tf_lint_pr:
+  extends: .build
+  stage: ✨ lint
+  script: terraform fmt -recursive -diff -check
+
 .deploy: &deploy
   only:
     variables:
@@ -78,5 +88,6 @@ license_scanning:
 stages:
   - 💨 smoke test
   - 🛠️ prep
+  - ✨ lint
   - 👀 plan
   - 🚀 deploy
