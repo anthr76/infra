@@ -22,7 +22,7 @@ _Below are some of the tools I find useful_
 
 | Tool                                                   | Purpose                                                                                                   |
 |--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| [git-crypt](https://github.com/AGWA/git-crypt)         | Encrypt certain files in my repository that can only be decrypted with a key on my computers              |
+| [sops](https://github.com/mozilla/sops)                | Simple and flexible tool for managing secrets                                                             |
 | [pre-commit](https://github.com/pre-commit/pre-commit) | Ensure the YAML and shell script in my repo are consistent                                                |
 
 ---
