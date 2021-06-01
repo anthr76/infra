@@ -38,10 +38,13 @@ license_scanning:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac"]
 
-tf_lint:
-  extends: .validate
+.tf_lint: &tf_lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH
+      changes:
+        - clusters/nyc1/iac/**/*
   stage: ✨ lint
-  script: terraform fmt -recursive -diff -check
+  script: terraform fmt -diff -check
 
 .build: &build
   stage: 👀 plan
@@ -64,10 +67,13 @@ tf_lint:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac"]
 
-tf_lint_pr:
-  extends: .build
+.tf_lint_pr: &tf_lint_pr
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - clusters/nyc1/iac/**/*
   stage: ✨ lint
-  script: terraform fmt -recursive -diff -check
+  script: terraform fmt -diff -check
 
 .deploy: &deploy
   only:
