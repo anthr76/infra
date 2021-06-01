@@ -22,7 +22,6 @@ spec:
   values:
     image:
       name: beryju.org/authentik/server
-      tag: gh-next
     ingress:
       enabled: true
       ingressClassName: "traefik"
