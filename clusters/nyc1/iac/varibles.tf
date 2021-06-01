@@ -28,20 +28,3 @@ variable "pod_cidr_range" {
   description = "K8s pod CIDR"
   default     = "10.43.0.0/16"
 }
-
-variable "kubeadm_token" {
-  type        = string
-  description = "The token use for bootstrapping the kubernetes cluster.\nGenerate with: \n$ kubeadm token generate"
-  sensitive   = true
-}
-
-variable "kubeadm_certificate_key" {
-  type        = string
-  description = "The key used to encrypt the control-plane certificates.\nGenerate with: \n$ kubeadm alpha certs certificate-key\n"
-  sensitive   = true
-}
-
-variable "localanthony_ssh_key" {
-  description = "SSH user localanthony key"
-  sensitive   = true
-}
