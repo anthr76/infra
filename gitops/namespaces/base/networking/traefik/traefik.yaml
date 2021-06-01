@@ -17,8 +17,6 @@ spec:
         namespace: flux-system
       interval: 5m
   dependsOn:
-    - name: externaldns-internal
-      namespace: networking
     - name: externaldns-external
       namespace: networking
     - name: cert-manager
