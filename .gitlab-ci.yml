@@ -58,8 +58,6 @@ license_scanning:
     - gpg --import ${SOPS_SYSTEM_KEY}
   artifacts:
     public: false
-    paths:
-      - ${TF_ROOT}/plan.cache
     reports:
       terraform: ${TF_ROOT}/plan.json
   parallel:
