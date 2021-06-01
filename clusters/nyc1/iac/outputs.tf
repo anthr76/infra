@@ -22,7 +22,6 @@ output "worker_nodes_public" {
   value = digitalocean_droplet.kubic_worker.*.ipv4_address
 }
 
-# The control-plane address output
 output "load_balancer" {
   value = digitalocean_loadbalancer.kubic_k8s.ip
 }
