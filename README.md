@@ -12,7 +12,7 @@ Get involved with the community!
  - [k8s@home](https://discord.gg/5sutTcCav5)
  - [SelfHosted](https://selfhosted.show/)
 
-Docs are hosted on Github pages and can be read [here](https://anthr76.github.io/infra/)
+~~Docs are hosted on Github pages and can be read [here](https://anthr76.github.io/infra/)~~
 
 ---
 
