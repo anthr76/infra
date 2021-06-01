@@ -8,7 +8,6 @@ variable "count_workers" {
   default     = 3
 }
 
-# improve
 
 variable "count_block_storage" {
   description = "number of a single block device to be created on workers"
