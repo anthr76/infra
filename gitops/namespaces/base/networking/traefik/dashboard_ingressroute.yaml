@@ -27,4 +27,3 @@ spec:
   commonName: "traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}"
   dnsNames:
   - "traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}"
-  - "www.traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}"
