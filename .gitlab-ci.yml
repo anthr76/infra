@@ -55,7 +55,7 @@ license_scanning:
     - chmod +x /usr/local/bin/sops
     - gpg --import ${SOPS_SYSTEM_KEY}
   artifacts:
-    public: false
+    public: true
     reports:
       terraform: ${TF_ROOT}/plan.json
     paths:
