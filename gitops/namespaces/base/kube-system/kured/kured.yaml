@@ -31,8 +31,8 @@ spec:
     recreate: true
     cleanupOnFail: true
   values:
-    image:
-      repository: raspbernetes/kured
+    #image:
+      #repository: raspbernetes/kured
     service:
       create: true
     metrics:
