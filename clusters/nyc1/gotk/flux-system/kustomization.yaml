@@ -12,4 +12,4 @@ images:
 - name: ghcr.io/fluxcd/notification-controller
   newTag: v0.14.1
 - name: ghcr.io/fluxcd/source-controller
-  newTag: v0.13.1
+  newTag: v0.13.2
