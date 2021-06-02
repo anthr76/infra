@@ -22,8 +22,9 @@ metadata:
 spec:
   secretName: traefik-dashboard-crt-tls
   issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
+    group: cert-manager.k8s.cloudflare.com
+    kind: OriginIssuer
+    name: cloudflare-issuer
   commonName: "traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}"
   dnsNames:
   - "traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}"
