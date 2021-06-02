@@ -40,7 +40,7 @@ spec:
       - crd
       - ingress
       - service
-    txtPrefix: "${CLUSTER_NAME}"
+    txtOwnerId: "${CLUSTER_NAME}"
     provider: cloudflare
     domainFilters:
       - "kutara.io"
