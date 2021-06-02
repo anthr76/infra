@@ -15,4 +15,4 @@ data:
   BD_WORKER_1: "blockdevice-875da5408aa2ae5f70bdc421826eed60"
   BD_WORKER_2: "blockdevice-a2158ed10e255bb01c292f32322b41ea"
   BD_WORKER_3: "blockdevice-4b143569f1ecf7748b7b53c36e1c5161"
-  INGRESS_ENDPOINT_HOSTNAME: "nyc1-lb-2.kutara.io"
+  INGRESS_ENDPOINT_HOSTNAME: "nyc1-lb-2.k8s.rabbito.tech"
