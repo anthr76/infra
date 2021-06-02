@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: externaldns-external
+  name: externaldns
   namespace: networking
 spec:
   interval: 5m
@@ -40,18 +40,21 @@ spec:
       - crd
       - ingress
       - service
-    txtOwnerId: "ext"
     txtPrefix: "${CLUSTER_NAME}"
     provider: cloudflare
     domainFilters:
       - "kutara.io"
+      - "rabbito.tech"
     crd:
+      # disabled --pulled from source repo https://raw.githubusercontent.com/kubernetes-sigs/external-dns/master/docs/contributing/crd-source/crd-manifest.yaml
       create: false
+      apiversion: externaldns.k8s.io/v1alpha1
+      kind: DNSEndpoint
     serviceAccount:
       name: externaldns
-      create: false
+      create: true
     rbac:
-      create: false
+      create: true
     cloudflare:
-      apiToken: "${KUTARA_CF_TOKEN}"
+      apiToken: "${DNS_CF_TOKEN}"
     policy: sync

@@ -19,7 +19,7 @@ resources:
 - ../../base/networking/authentik
 - ../../base/networking/traefik
 #- ../../base/networking/external-dns/internal
-- ../../base/networking/external-dns/external
+- ../../base/networking/external-dns
 - ../../base/velero/velero/velero.yaml
 - ../../base/velero
 - ../../base/infra
