@@ -8,7 +8,7 @@ images:
 - name: ghcr.io/fluxcd/helm-controller
   newTag: v0.10.1
 - name: ghcr.io/fluxcd/kustomize-controller
-  newTag: v0.12.1
+  newTag: v0.12.2
 - name: ghcr.io/fluxcd/notification-controller
   newTag: v0.14.1
 - name: ghcr.io/fluxcd/source-controller
