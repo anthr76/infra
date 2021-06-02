@@ -38,6 +38,8 @@ spec:
     metrics:
       create: false
     configuration:
-      slackHookUrl: "${KURED_DISCORD_WEBHOOK}"
-    # extraArgs:
-    #   reboot-command: "/sbin/kexec -l /boot/vmlinuz --initrd=/boot/initrd --reuse-cmdline && /usr/bin/sync && /usr/bin/systemctl kexec"
+      notifyUrl: "${KURED_DISCORD_WEBHOOK}"
+      messageTemplateDrain: "⏳ Draining node %s"
+      messageTemplateReboot: "🤯 Rebooted node %s"
+    extraArgs:
+      reboot-command: "/sbin/kexec -l /boot/vmlinuz --initrd=/boot/initrd --reuse-cmdline && /usr/bin/sync && /usr/bin/systemctl kexec"
