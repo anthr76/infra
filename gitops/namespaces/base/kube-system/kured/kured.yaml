@@ -43,4 +43,4 @@ spec:
       messageTemplateReboot: "🤯 Rebooted node %s"
       period: "0h1m0s" #delete me
     extraArgs:
-      reboot-command: "/usr/bin/systemctl kexec"
+      reboot-command: "/usr/bin/systemctl reboot"
