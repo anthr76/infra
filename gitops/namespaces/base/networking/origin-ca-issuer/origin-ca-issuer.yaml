@@ -16,9 +16,3 @@ spec:
         namespace: flux-system
       interval: 10m
   values:
-    # Value specific to the origin-ca-issuer controller
-    controller:
-      image:
-        repository: cloudflare/origin-ca-issuer
-        tag: v0.6.0
-        pullPolicy: Always
