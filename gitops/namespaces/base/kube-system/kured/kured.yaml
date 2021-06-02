@@ -41,5 +41,7 @@ spec:
       notifyUrl: "${KURED_DISCORD_WEBHOOK}"
       messageTemplateDrain: "⏳ Draining node %s"
       messageTemplateReboot: "🤯 Rebooted node %s"
+      startTime: "4:00"
+      endTime: "10:00"
     extraArgs:
       reboot-command: "/usr/bin/systemctl reboot"
