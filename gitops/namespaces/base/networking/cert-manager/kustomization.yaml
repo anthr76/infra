@@ -4,5 +4,4 @@ resources:
 - cert-manager.yaml
 - letsencrypt-production.yaml
 - letsencrypt-staging.yaml
-- origin-ca-issuer.yaml
 - cert-manager-secrets.yaml
