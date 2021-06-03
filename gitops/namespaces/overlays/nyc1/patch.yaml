@@ -47,4 +47,4 @@ spec:
         service.beta.kubernetes.io/do-loadbalancer-healthcheck-check-interval-seconds: "3"
         service.beta.kubernetes.io/do-loadbalancer-healthcheck-response-timeout-seconds: "3"
         external-dns.alpha.kubernetes.io/hostname: ${INGRESS_ENDPOINT_HOSTNAME}
-        external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+        #external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
