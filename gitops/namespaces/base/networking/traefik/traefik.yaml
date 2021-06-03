@@ -41,11 +41,11 @@ spec:
     experimental:
       plugins:
         enabled: true
-    # tlsOptions:
-    #   default:
-    #     minVersion: VersionTLS12
-    #     maxVersion: VersionTLS13
-    #     sniStrict: true
+    tlsOptions:
+      default:
+        minVersion: VersionTLS12
+        maxVersion: VersionTLS13
+        sniStrict: true
     pilot:
       enabled: true
       token: "${TRAEFIK_PIOLT_TOKEN}"
