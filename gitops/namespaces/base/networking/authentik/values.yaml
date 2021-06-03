@@ -25,7 +25,9 @@ spec:
       ingressClassName: "traefik"
       annotations:
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        cert-manager.io/cluster-issuer: letsencrypt-production
+        cert-manager.io/issuer: cloudflare-issuer
+        cert-manager.io/issuer-kind: OriginIssuer
+        cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
       hosts:
         - host: auth.kutara.io
           paths:
@@ -33,7 +35,7 @@ spec:
               pathType: Prefix
       tls:
         - hosts: [auth.kutara.io]
-          secretName: auth.kutara.io
+          secretName: auth-kutara-io-tls
     authentik:
       secret_key: ${AUTHENTIK_SECRET_KEY}
       log_level: debug
