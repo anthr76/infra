@@ -31,7 +31,7 @@ spec:
     cleanupOnFail: true
   values:
     image:
-      repository: registry.opensuse.org/kubic/velero
+      repository: docker.io/velero/velero
     # Init containers to add to the Velero deployment's pod spec. At least one plugin provider image is required.
     initContainers:
       - name: velero-plugin-for-aws
