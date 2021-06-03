@@ -6,7 +6,9 @@ metadata:
   namespace: flux-system
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    cert-manager.io/cluster-issuer: letsencrypt-production
+    cert-manager.io/issuer: cloudflare-issuer
+    cert-manager.io/issuer-kind: OriginIssuer
+    cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
 spec:
   ingressClassName: "traefik"
   rules:

@@ -12,3 +12,5 @@ resources:
 - webhook/gitlab/ingress.yaml
 - webhook/gitlab/receiver.yaml
 - webhook/gitlab/secret.enc.yaml
+- origin-ca-secret.yaml
+- origin-ca-issuer.yaml
