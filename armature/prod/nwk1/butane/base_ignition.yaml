@@ -6,6 +6,7 @@ passwd:
     - name: anthonyjrabbito
       groups:
         - wheel
+        - sudo
       ssh_authorized_keys:
         - ${anthonyjrabbito_ssh_key}
 storage:
@@ -14,9 +15,6 @@ storage:
       mode: 0644
       contents:
         inline: ${hostname}
-  links:
-    - path: /etc/localtime
-      target: ../usr/share/zoneinfo/America/New_York
     - path: /etc/zincati/config.d/51-rollout-wariness.toml
       contents:
         inline: |
@@ -31,3 +29,28 @@ storage:
           days = [ "Sat", "Sun" ]
           start_time = "22:30"
           length_minutes = 60
+  links:
+    - path: /etc/localtime
+      target: ../usr/share/zoneinfo/America/New_York
+systemd:
+  units:
+    - name: podman-caddy.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Run caddy
+        After=network-online.target
+        Wants=network-online.target
+
+        [Service]
+        ExecStartPre=mkdir -p /var/lib/caddy
+        ExecStartPre=-/bin/podman kill caddy
+        ExecStartPre=-/bin/podman rm caddy
+        ExecStartPre=-/bin/podman pull docker.io/library/caddy:latest
+        ExecStart=/bin/podman run --name caddy --net=host \
+                  docker.io/library/caddy:latest
+
+        ExecStop=/bin/podman stop caddy
+
+        [Install]
+        WantedBy=multi-user.target

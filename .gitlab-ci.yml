@@ -1,3 +1,4 @@
+# yamllint disable
 include:
 - template: Security/Secret-Detection.gitlab-ci.yml
 - template: Security/License-Scanning.gitlab-ci.yml
@@ -18,9 +19,10 @@ license_scanning:
   rules:
     - changes:
         - clusters/nyc1/iac/**/*
+        - armature/prod/nwk1/**/*
   parallel:
     matrix:
-      - TF_ROOT: ["clusters/nyc1/iac"]
+      - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/nwk1"]
 
 .validate: &validate
   stage: 💨 smoke test

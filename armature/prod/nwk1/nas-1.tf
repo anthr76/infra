@@ -67,6 +67,7 @@ resource "libvirt_domain" "coreos-machine" {
 
   network_interface {
     network_name   = "sr-iov"
+    mac            = "52:54:00:82:f0:16"
     wait_for_lease = false
   }
 }
