@@ -1,0 +1,33 @@
+---
+variant: fcos
+version: 1.3.0
+passwd:
+  users:
+    - name: anthonyjrabbito
+      groups:
+        - wheel
+      ssh_authorized_keys:
+        - ${anthonyjrabbito_ssh_key}
+storage:
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: ${hostname}
+  links:
+    - path: /etc/localtime
+      target: ../usr/share/zoneinfo/America/New_York
+    - path: /etc/zincati/config.d/51-rollout-wariness.toml
+      contents:
+        inline: |
+          [identity]
+          rollout_wariness = 0.001
+    - path: /etc/zincati/config.d/55-updates-strategy.toml
+      contents:
+        inline: |
+          [updates]
+          strategy = "periodic"
+          [[updates.periodic.window]]
+          days = [ "Sat", "Sun" ]
+          start_time = "22:30"
+          length_minutes = 60
