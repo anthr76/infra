@@ -42,7 +42,7 @@ resource "libvirt_domain" "coreos-machine" {
   memory = "2048"
 
   ## Use qemu-agent in conjunction with the container
-  #qemu_agent = true
+  qemu_agent = true
   coreos_ignition = libvirt_ignition.core_os_config.id
 
   disk {
@@ -68,11 +68,15 @@ resource "libvirt_domain" "coreos-machine" {
   network_interface {
     network_name   = "sr-iov"
     mac            = "52:54:00:82:f0:16"
+    addresses      = ["192.168.4.45"]
     wait_for_lease = false
   }
 }
 
 # -[Output]-------------------------------------------------------------
-output "hostname" {
-  value = "${local.hostname}.nwk1.rabbito.tech"
+output "connections" {
+  value = [
+  "${local.hostname}.nwk1.rabbito.tech",
+  libvirt_domain.coreos-machine.*.network_interface.0.addresses
+  ]
 }

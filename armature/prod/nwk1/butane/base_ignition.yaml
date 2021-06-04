@@ -54,3 +54,28 @@ systemd:
 
         [Install]
         WantedBy=multi-user.target
+    - name: rpm-ostree-install-qga.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Layer qemu-guest-agent with rpm-ostree
+        # We run after `systemd-machine-id-commit.service` to ensure that
+        # `ConditionFirstBoot=true` services won't rerun on the next boot.
+        After=systemd-machine-id-commit.service
+        After=network-online.target
+        ConditionPathExists=!/var/lib/rpm-ostree-install-qga.stamp
+        StartLimitInterval=1200s
+        StartLimitBurst=5
+
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/usr/bin/rpm-ostree cancel
+        ExecStart=/usr/bin/rpm-ostree install --allow-inactive qemu-guest-agent
+        ExecStart=/bin/touch /var/lib/rpm-ostree-install-qga.stamp
+        ExecStart=/bin/systemctl --no-block reboot
+        Restart=on-failure
+        RestartSec=120s
+
+        [Install]
+        WantedBy=multi-user.target
