@@ -19,10 +19,9 @@ license_scanning:
   rules:
     - changes:
         - clusters/nyc1/iac/**/*
-        - armature/prod/nwk1/**/*
   parallel:
     matrix:
-      - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/nwk1"]
+      - TF_ROOT: ["clusters/nyc1/iac"]
 
 .validate: &validate
   stage: 💨 smoke test
