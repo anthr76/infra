@@ -1,0 +1,12 @@
+---
+- name: configure policy based routing
+  vyos.vyos.vyos_config:
+    lines:
+      - set interfaces ethernet eth1 policy route 'HTTP-ALT'
+      - set interfaces ethernet eth1 vif 10 policy route 'HTTP-ALT'
+      - set interfaces ethernet eth1 vif 100 policy route 'HTTP-ALT'
+      - set policy route HTTP-ALT rule 9 destination address '{{ VLAN_100.CIDR }}'
+      - set policy route HTTP-ALT rule 9 set table 'main'
+      - set policy route HTTP-ALT rule 10 set table '11'
+      - set policy route HTTP-ALT rule 10 source address '{{ WAN_2.NAS_ADDRESS }}/32'
+  when: "'nwk1' in inventory_hostname"

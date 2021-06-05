@@ -1,6 +1,6 @@
 ---
 
-- name: configure OUTSIDE-IN firewall rules
+- name: configure default OUTSIDE-IN firewall rules
   vyos.vyos.vyos_firewall_rules:
     config:
       - afi: ipv6
@@ -37,6 +37,44 @@
                   address: "{{ wireguard.wg01.CIDR }}"
     state: merged
 
+- name: configure alt OUTSIDE-IN firewall rules
+  vyos.vyos.vyos_firewall_rules:
+    config:
+      - afi: ipv6
+        rule_sets:
+          - name: V6-OUTSIDE-IN-ALT
+            description: incoming WAN ruleset
+            default_action: drop
+            rules:
+              - number: 10
+                action: accept
+                description: 'rule 10 configured by ansible'
+                state:
+                  established: true
+                  related: true
+      - afi: ipv4
+        rule_sets:
+          - name: OUTSIDE-IN-ALT
+            description: incoming WAN ruleset
+            default_action: drop
+            rules:
+              - number: 10
+                action: accept
+                description: 'rule 10 configured by ansible'
+                state:
+                  established: true
+                  related: true
+              - number: 25
+                action: accept
+                description: 'rule 25 (alt-http) configured by ansible'
+                protocol: tcp
+                source:
+                  port: 443,80
+                destination:
+                  address: "{{ WAN_2.NAS_ADDRESS }}"
+    state: merged
+  when: "'nwk1' in inventory_hostname"
+
 - name: configure OUTSIDE-IN firewall interface
   vyos.vyos.vyos_firewall_interfaces:
     config:
@@ -51,3 +89,19 @@
                 direction: in
         name: eth0
     state: merged
+
+- name: configure OUTSIDE-IN-ALT firewall interface
+  vyos.vyos.vyos_firewall_interfaces:
+    config:
+      - access_rules:
+          - afi: ipv4
+            rules:
+              - name: OUTSIDE-IN-ALT
+                direction: in
+          - afi: ipv6
+            rules:
+              - name: V6-OUTSIDE-IN-ALT
+                direction: in
+        name: eth2
+    state: merged
+  when: "'nwk1' in inventory_hostname"

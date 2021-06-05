@@ -24,4 +24,10 @@
 - name: configure default route
   vyos.vyos.vyos_config:
     lines:
-      - set protocols static route 0.0.0.0/0 interface eth0
+      - set protocols static route 0.0.0.0/0 dhcp-interface 'eth0'
+
+- name: configure alt default route
+  vyos.vyos.vyos_config:
+    lines:
+      - set protocols static table 10 route 0.0.0.0/0 dhcp-interface 'eth0'
+      - set protocols static table 11 route 0.0.0.0/0 interface 'eth2'

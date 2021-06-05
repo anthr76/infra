@@ -62,14 +62,16 @@ wireguard:
 ZONE: ENC[AES256_GCM,data:/exygA==,iv:w4g/s2DZojcn3xPdbUSTwnUQYyKdWaUPCZwpC/QE6E0=,tag:rdFugbIt0qjK4TrtoTqnsg==,type:str]
 ansible_host: ENC[AES256_GCM,data:ACY2gBFlwezOXqY=,iv:Kurf0PeRVgLzM5Vm6sWZVARCAloF9Q+QW6mAfaV8xZE=,tag:dXPNI4/48O47w4CtoHNKmA==,type:str]
 ansible_user: ENC[AES256_GCM,data:MlUUFw==,iv:HvUWjLnXCWEto8dXy2N/XQKNmZCDnZhZDKe3fdyAYL4=,tag:2T0ZACPEncQnsoZgzcnjrA==,type:str]
+WAN_2:
+    NAS_ADDRESS: ENC[AES256_GCM,data:EBAWfppCYIFnGtlO,iv:1WTQe79P7lFFxXQu7y0DF3C8g4PcNClFhnrqHhqSC0Q=,tag:JC5vdEb6bTc9QVeDOlljpg==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-05-30T12:06:24Z"
-    mac: ENC[AES256_GCM,data:4y7mmGM4JM44lsQYcc8LMcOU6KYL2Q7epr7It2yQM5cNU1qjK2emtTLBOiyZxuTT2bQTdVtcKu9PoTh/Kpk5hHBXz+T5uXxJ6EAE8nIzdGQ4e8guZRelXFE9MlTy6o0m0Y0ySBzhhgkjxMx2WjznfSpuYxoTAYrh9bk4NSNc59c=,iv:5sih9W+Jl5iBxG7+NMBHGjWJ9i60WsVJZAsLn6Rp9ys=,tag:cNQ1E2QOAhFYDbZIJmmcHw==,type:str]
+    lastmodified: "2021-06-05T00:05:17Z"
+    mac: ENC[AES256_GCM,data:KmvHKwiBO/2xXfr1qx6r4K00urHZo2RrbzL37d4LCAECA+792WShJMUEfRvOhs8zjFSgz283A51F1JgJRMDMg/2WokBtOSBWmFF7CTIWwAdAq55SXT8u/HjnAfp/EzGZd52hJb5a/n7Lxp3bnk1mSu3gvUzL/oARc7/BI5aNUY4=,iv:NYKw38Cd7SkBoBGKVumxeUR8E75uKu6FVzP3gP3WcAs=,tag:QluhTle3cFixbmcl2FI2Kg==,type:str]
     pgp:
         - created_at: "2021-05-27T15:17:11Z"
           enc: |

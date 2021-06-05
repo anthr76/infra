@@ -17,6 +17,20 @@
           - vlan_id: 101
             description: "VLAN_101"
 
+- name: configure alt interface
+  vyos.vyos.vyos_interfaces:
+    config:
+      - name: eth2
+        description: "OUTSIDE-ALT"
+        enabled: true
+  when: "'nwk1' in inventory_hostname"
+
+- name: configure alt interface addresses
+  vyos.vyos.vyos_config:
+    lines:
+      - set interfaces ethernet eth2 address 'dhcp'
+  when: "'nwk1' in inventory_hostname"
+
 - name: configure interface addresses
   vyos.vyos.vyos_config:
     lines:
@@ -26,6 +40,12 @@
       - set interfaces ethernet eth1 vif 99 address '{{ VLAN_99.GW }}/24'
       - set interfaces ethernet eth1 vif 100 address '{{ VLAN_100.GW }}/24'
       - set interfaces ethernet eth1 vif 101 address '{{ VLAN_101.GW }}/24'
+
+- name: configure alt interface addresses
+  vyos.vyos.vyos_config:
+    lines:
+      - set interfaces ethernet eth2 address 'dhcp'
+  when: "'nwk1' in inventory_hostname"
 
 - name: configure interface NAT
   vyos.vyos.vyos_config:
@@ -45,3 +65,11 @@
       - set nat source rule 101 outbound-interface 'eth0'
       - set nat source rule 101 source address '{{ VLAN_101.CIDR }}'
       - set nat source rule 101 translation address 'masquerade'
+
+- name: configure alt interface NAT
+  vyos.vyos.vyos_config:
+    lines:
+      - set nat source rule 9 outbound-interface 'eth2'
+      - set nat source rule 9 source address '{{ WAN_2.NAS_ADDRESS }}/32'
+      - set nat source rule 9 translation address 'masquerade'
+  when: "'nwk1' in inventory_hostname"

@@ -58,3 +58,19 @@
                 direction: local
         name: eth0
     state: merged
+
+- name: configure alt OUTSIDE-LOCAL firewall interface
+  vyos.vyos.vyos_firewall_interfaces:
+    config:
+      - access_rules:
+          - afi: ipv4
+            rules:
+              - name: OUTSIDE-LOCAL
+                direction: local
+          - afi: ipv6
+            rules:
+              - name: V6-OUTSIDE-LOCAL
+                direction: local
+        name: eth2
+    state: merged
+  when: "'nwk1' in inventory_hostname"
