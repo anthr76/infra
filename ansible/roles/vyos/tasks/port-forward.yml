@@ -1,45 +1,21 @@
 ---
 
-# - name: configure alt HTTP port forward
-#   vyos.vyos.vyos_config:
-#     lines:
-#       - set nat destination rule 10 description 'Port Forward HTTP HTTPS'
-#       - set nat destination rule 10 destination port '80'
-#       - set nat destination rule 10 destination port '443'
-#       - set nat destination rule 10 inbound-interface 'eth2'
-#       - set nat destination rule 10 protocol 'tcp'
-#       - set nat destination rule 10 translation address '{{ WAN_2.NAS_ADDRESS }}'
-#   when: "'nwk1' in inventory_hostname"
+- name: configure alt HTTP port forward
+  vyos.vyos.vyos_config:
+    lines:
+      - set nat destination rule 8080 description 'ALT PortForward HTTP'
+      - set nat destination rule 8080 destination port '80'
+      - set nat destination rule 8080 inbound-interface 'eth2'
+      - set nat destination rule 8080 protocol 'tcp'
+      - set nat destination rule 8080 translation address '{{ WAN_2.NAS_ADDRESS }}'
+  when: "'nwk1' in inventory_hostname"
 
-# - name: configure alt HTTPS port forward
-#   vyos.vyos.vyos_config:
-#     lines:
-#       - set nat destination rule 10 description 'Port Forward HTTP HTTPS'
-#       - set nat destination rule 10 destination port '80'
-#       - set nat destination rule 10 inbound-interface 'eth2'
-#       - set nat destination rule 10 protocol 'tcp'
-#       - set nat destination rule 10 translation address '{{ WAN_2.NAS_ADDRESS }}'
-#   when: "'nwk1' in inventory_hostname"
-
-# "- name: configure alt HTTP hairpin NAT
-#   vyos.vyos.vyos_config:
-#     lines:
-#       - set nat destination rule 100 description 'Regular destination NAT from external'
-#       - set nat destination rule 100 destination port '443'
-#       - set nat destination rule 100 destination port '80'
-#       - set nat destination rule 100 inbound-interface 'eth2'
-#       - set nat destination rule 100 protocol 'tcp'
-#       - set nat destination rule 100 translation address '{{ WAN_2.NAS_ADDRESS }}'
-#       - set nat destination rule 110 description 'NAT Reflection INSIDE'
-#       - set nat destination rule 110 destination port '443'
-#       - set nat destination rule 110 destination port '80'
-#       - set nat destination rule 110 inbound-interface 'eth1.10'
-#       - set nat destination rule 110 protocol 'tcp'
-#       - set nat destination rule 110 translation address '{{ WAN_2.NAS_ADDRESS }}'
-#       - set nat source rule 110 description 'NAT Reflection INSIDE'
-#       - set nat source rule 110 destination address '192.0.2.0/24'
-#       - set nat source rule 110 outbound-interface 'eth0.10'
-#       - set nat source rule 110 protocol 'tcp'
-#       - set nat source rule 110 source address '192.0.2.0/24'
-#       - set nat source rule 110 translation address 'masquerade'
-#   when: "'nwk1' in inventory_hostname""
+- name: configure alt HTTPS port forward
+  vyos.vyos.vyos_config:
+    lines:
+      - set nat destination rule 8443 description 'ALT PortForward HTTPS'
+      - set nat destination rule 8443 destination port '443'
+      - set nat destination rule 8443 inbound-interface 'eth2'
+      - set nat destination rule 8443 protocol 'tcp'
+      - set nat destination rule 8443 translation address '{{ WAN_2.NAS_ADDRESS }}'
+  when: "'nwk1' in inventory_hostname"

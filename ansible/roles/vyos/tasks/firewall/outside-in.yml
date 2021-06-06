@@ -70,10 +70,9 @@
                 state:
                   new: true
                 protocol: tcp
-                source:
-                  port: 443,80
                 destination:
                   address: "{{ WAN_2.NAS_ADDRESS }}"
+                  port: 443,80
     state: merged
   when: "'nwk1' in inventory_hostname"
 
