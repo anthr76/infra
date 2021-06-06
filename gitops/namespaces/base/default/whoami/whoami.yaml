@@ -92,14 +92,14 @@ spec:
 kind: Ingress
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: whoami-int
+  name: whoami-int-test
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     cert-manager.io/issuer: letsencrypt-production
 spec:
   ingressClassName: traefik
   rules:
-  - host: whoami.rabbito.tech
+  - host: whoami-test.nyc1.rabbito.tech
     http:
       paths:
       - backend:
