@@ -92,6 +92,10 @@ license_scanning:
     - curl -qsL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /usr/local/bin/sops
     - chmod +x /usr/local/bin/sops
     - gpg --import ${SOPS_SYSTEM_KEY}
+  script:
+    - cd ${TF_ROOT}
+    - gitlab-terraform init
+    - terraform -auto-approve
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
