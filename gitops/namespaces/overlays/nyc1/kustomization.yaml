@@ -15,7 +15,7 @@ resources:
 - ../../base/networking
 - ../../base/networking/cert-manager
 - ../../base/social
-- ../../base/networking/origin-ca-issuer
+#- ../../base/networking/origin-ca-issuer
 - ../../base/networking/authentik
 - ../../base/networking/traefik
 #- ../../base/networking/external-dns/internal
