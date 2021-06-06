@@ -95,7 +95,7 @@ metadata:
   name: whoami-int-test
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    cert-manager.io/issuer: letsencrypt-production
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: traefik
   rules:
