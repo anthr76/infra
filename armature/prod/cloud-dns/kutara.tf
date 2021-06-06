@@ -15,8 +15,6 @@ resource "cloudflare_zone_settings_override" "kutara_cf_settings" {
         mirage = "on"
         waf = "off"
         ipv6 = "on"
-        http3 = "off"
-        http2 = "off"
         always_use_https = "off"
         min_tls_version = "1.0"
         universal_ssl = "off"
