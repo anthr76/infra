@@ -39,9 +39,7 @@ metadata:
   name: whoami-ext
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    cert-manager.io/issuer: cloudflare-issuer
-    cert-manager.io/issuer-kind: OriginIssuer
-    cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
+    cert-manager.io/cluster-issuer: letsencrypt-production
     traefik.ingress.kubernetes.io/router.middlewares: networking-ak-outpost-traefik@kubernetescrd
 spec:
   ingressClassName: traefik
@@ -67,14 +65,12 @@ metadata:
   name: whoami-int
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    cert-manager.io/issuer: cloudflare-issuer
-    cert-manager.io/issuer-kind: OriginIssuer
-    cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
+    cert-manager.io/cluster-issuer: letsencrypt-production
     traefik.ingress.kubernetes.io/router.middlewares: networking-ak-outpost-traefik@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
-  - host: whoami.rabbito.tech
+  - host: whoami.k8s.rabbito.tech
     http:
       paths:
       - backend:
@@ -86,7 +82,7 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - whoami.rabbito.tech
+    - whoami.k8s.rabbito.tech
     secretName: whoami-int-tls
 ---
 kind: Ingress
