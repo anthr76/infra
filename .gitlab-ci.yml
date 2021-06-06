@@ -94,8 +94,7 @@ license_scanning:
     - gpg --import ${SOPS_SYSTEM_KEY}
   script:
     - cd ${TF_ROOT}
-    - gitlab-terraform init
-    - terraform apply -auto-approve
+    - gitlab-terraform init && terraform apply -auto-approve
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
