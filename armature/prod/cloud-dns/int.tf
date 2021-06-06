@@ -1,8 +1,3 @@
-resource "cloudflare_authenticated_origin_pulls" "int_auth_origin" {
-  zone_id = data.sops_file.tf_secrets.data["int_zone_id"]
-  enabled = false
-}
-
 resource "cloudflare_zone_settings_override" "int_cf_settings" {
     zone_id = data.sops_file.tf_secrets.data["int_zone_id"]
     settings {

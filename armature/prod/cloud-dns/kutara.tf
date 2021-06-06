@@ -1,7 +1,3 @@
-resource "cloudflare_authenticated_origin_pulls" "kutara_auth_origin" {
-  zone_id = data.sops_file.tf_secrets.data["kutara_zone_id"]
-  enabled = false
-}
 resource "cloudflare_zone_settings_override" "kutara_cf_settings" {
     zone_id = data.sops_file.tf_secrets.data["kutara_zone_id"]
     settings {
@@ -27,7 +23,6 @@ resource "cloudflare_zone_settings_override" "kutara_cf_settings" {
         origin_error_page_pass_thru = "on"
         prefetch_preload = "on"
         privacy_pass = "on"
-        response_buffering = "on"
         rocket_loader = "on"
         server_side_exclude = "on"
         sort_query_string_for_cache = "on"
