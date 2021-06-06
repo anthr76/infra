@@ -28,7 +28,6 @@ resource "cloudflare_zone_settings_override" "int_cf_settings" {
         origin_error_page_pass_thru = "on"
         prefetch_preload = "on"
         privacy_pass = "on"
-        response_buffering = "on"
         rocket_loader = "on"
         server_side_exclude = "on"
         sort_query_string_for_cache = "on"
