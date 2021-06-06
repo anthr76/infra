@@ -67,6 +67,8 @@
               - number: 25
                 action: accept
                 description: 'rule 25 (alt-http) configured by ansible'
+                state:
+                  new: true
                 protocol: tcp
                 source:
                   port: 443,80
