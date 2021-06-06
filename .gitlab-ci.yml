@@ -19,15 +19,17 @@ license_scanning:
   rules:
     - changes:
         - clusters/nyc1/iac/**/*
+        - armature/prod/cloud-dns/**/*
   parallel:
     matrix:
-      - TF_ROOT: ["clusters/nyc1/iac"]
+      - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
 
 .validate: &validate
   stage: 💨 smoke test
   rules:
     - changes:
         - clusters/nyc1/iac/**/*
+        - armature/prod/cloud-dns/**/*
   before_script:
     - apk add --no-cache curl gnupg
     - curl -qsL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /usr/local/bin/sops
@@ -35,12 +37,13 @@ license_scanning:
     - gpg --import ${SOPS_SYSTEM_KEY}
   parallel:
     matrix:
-      - TF_ROOT: ["clusters/nyc1/iac"]
+      - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
 
 .tf_lint: &tf_lint
   rules:
     - changes:
         - clusters/nyc1/iac/**/*
+        - armature/prod/cloud-dns/**/*
   stage: ✨ lint
   script: terraform fmt -diff -check
 
@@ -50,6 +53,7 @@ license_scanning:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes:
         - clusters/nyc1/iac/**/*
+        - armature/prod/cloud-dns/**/*
   before_script:
     - apk add --no-cache curl gnupg
     - curl -qsL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /usr/local/bin/sops
@@ -63,13 +67,14 @@ license_scanning:
       - ${TF_ROOT}/plan.json
   parallel:
     matrix:
-      - TF_ROOT: ["clusters/nyc1/iac"]
+      - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
 
 .tf_lint_pr: &tf_lint_pr
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes:
         - clusters/nyc1/iac/**/*
+        - armature/prod/cloud-dns/**/*
   stage: ✨ lint
   script: terraform fmt -diff -check
 
@@ -79,6 +84,7 @@ license_scanning:
       - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     changes:
       - clusters/nyc1/iac/**/*
+      - armature/prod/cloud-dns/**/*
   stage: 🚀 deploy
   when: on_success
   before_script:
@@ -88,7 +94,7 @@ license_scanning:
     - gpg --import ${SOPS_SYSTEM_KEY}
   parallel:
     matrix:
-      - TF_ROOT: ["clusters/nyc1/iac"]
+      - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
 
 stages:
   - 💨 smoke test
