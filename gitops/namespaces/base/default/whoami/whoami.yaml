@@ -88,3 +88,28 @@ spec:
   - hosts:
     - whoami.rabbito.tech
     secretName: whoami-int-tls
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: whoami-int
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/issuer: letsencrypt-production
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: whoami.rabbito.tech
+    http:
+      paths:
+      - backend:
+          service:
+            name: whoami
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - whoami-test.nyc1.rabbito.tech
+    secretName: whoami-test-int-tls
