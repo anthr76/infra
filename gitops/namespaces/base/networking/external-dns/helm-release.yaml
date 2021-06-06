@@ -57,4 +57,5 @@ spec:
       create: true
     cloudflare:
       apiToken: "${DNS_CF_TOKEN}"
+      proxied: false
     policy: sync
