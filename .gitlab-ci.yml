@@ -95,7 +95,7 @@ license_scanning:
   script:
     - cd ${TF_ROOT}
     - gitlab-terraform init
-    - gitlab-terraform -chdir=$PWD apply -input=false
+    - gitlab-terraform -chdir=$PWD apply -input=false -auto-approve
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
