@@ -9,7 +9,7 @@ spec:
   - match: Host(`traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
     kind: Rule
     middlewares:
-    - name: ak-outpost-traefik
+    - name: ak-outpost-int-rabbito-outpost
       namespace: networking
     services:
     - name: api@internal
