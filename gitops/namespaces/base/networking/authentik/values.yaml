@@ -22,7 +22,7 @@ spec:
   values:
     image:
       name: beryju.org/authentik/server
-      tag: gh-proxy-cookie-domain-1623070918
+      tag: gh-proxy-cookie-domain-1623074278
       pullPolicy: IfNotPresent
     ingress:
       enabled: true
