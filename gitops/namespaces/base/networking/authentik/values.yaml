@@ -20,6 +20,9 @@ spec:
     - name: traefik
       namespace: networking
   values:
+    image:
+      name: ghcr.io/goauthentik/server
+      tag: gh-proxy-cookie-domain
     ingress:
       enabled: true
       ingressClassName: "traefik"
