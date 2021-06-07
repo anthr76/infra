@@ -6,7 +6,7 @@ metadata:
   namespace: networking
 spec:
   routes:
-  - match: Host(`traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+  - match: Host(`traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
     kind: Rule
     middlewares:
     - name: ak-outpost-traefik
@@ -27,6 +27,6 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}"
+  commonName: "traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}"
   dnsNames:
-  - "traefik-${CLUSTER_NAME}.${DNS_K8S_ZONE}"
+  - "traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}"
