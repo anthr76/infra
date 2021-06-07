@@ -21,7 +21,7 @@ spec:
       namespace: networking
   values:
     image:
-      name: beryju.org/authentik
+      name: beryju.org/authentik/server
       tag: gh-proxy-cookie-domain
     ingress:
       enabled: true
