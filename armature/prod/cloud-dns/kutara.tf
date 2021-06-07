@@ -8,10 +8,9 @@ resource "cloudflare_zone_settings_override" "kutara_cf_settings" {
         automatic_https_rewrites = "off"
         always_online = "on"
         browser_check = "on"
-        waf = "off"
         ipv6 = "on"
         always_use_https = "off"
-        min_tls_version = "1.0"
+        min_tls_version = "1.1"
         universal_ssl = "off"
         ssl = "off"
         development_mode = "off"
@@ -19,25 +18,19 @@ resource "cloudflare_zone_settings_override" "kutara_cf_settings" {
         hotlink_protection = "on"
         ip_geolocation = "on"
         opportunistic_onion = "on"
-        origin_error_page_pass_thru = "on"
-        prefetch_preload = "on"
         privacy_pass = "on"
         rocket_loader = "on"
         server_side_exclude = "on"
-        sort_query_string_for_cache = "on"
         tls_client_auth = "off"
-        true_client_ip_header = "off"
-        webp = "off"
         websockets = "off"
-        zero_rtt = "off"
-        tls_1_3 = "off"
+        tls_1_3 = "zrt"
         minify {
             css = "on"
             js = "on"
             html = "on"
         }
         security_header {
-            enabled = true
+            enabled = false
         }
     }
 }
