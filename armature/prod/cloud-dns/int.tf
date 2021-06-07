@@ -8,7 +8,6 @@ resource "cloudflare_zone_settings_override" "int_cf_settings" {
         automatic_https_rewrites = "off"
         always_online = "on"
         browser_check = "on"
-        mirage = "on"
         waf = "off"
         ipv6 = "on"
         always_use_https = "off"
