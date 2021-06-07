@@ -33,7 +33,7 @@ spec:
               pathType: Prefix
       tls:
         - hosts: [auth.kutara.io]
-          secretName: auth.kutara.io
+          secretName: auth-kutara-io-tls
     authentik:
       secret_key: ${AUTHENTIK_SECRET_KEY}
       log_level: debug
