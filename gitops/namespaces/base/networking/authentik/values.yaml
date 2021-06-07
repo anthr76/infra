@@ -21,7 +21,7 @@ spec:
       namespace: networking
   values:
     image:
-      name: ghcr.io/goauthentik/server
+      name: beryju.org/authentik
       tag: gh-proxy-cookie-domain
     ingress:
       enabled: true
