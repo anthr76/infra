@@ -19,6 +19,7 @@ terraform {
   }
 }
 
+# Possibly don't need brackets on newer TFs
 provider "sops" {}
 
 data "sops_file" "tf_secrets" {
