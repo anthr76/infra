@@ -22,8 +22,8 @@ spec:
   values:
     image:
       name: beryju.org/authentik/server
-      name_outposts: beryju.org/authentik/outpost-proxy:gh-proxy-cookie-domain
-      tag: gh-proxy-cookie-domain
+      name_outposts: beryju.org/authentik/outpost-%(type)s:gh-next
+      tag: gh-next
       # pullPolicy: Always to ensure you always get the latest version
       pullPolicy: Always
     ingress:
