@@ -8,7 +8,7 @@
 
 - include_tasks: service.yml
 
-- include_tasks: coredns.yml
+- include_tasks: dns.yml
 
 - include_tasks: firewall/main.yml
 

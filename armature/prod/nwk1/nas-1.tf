@@ -22,7 +22,8 @@ data "ct_config" "core_os_config" {
     "butane/base_ignition.yaml",
     {
       anthonyjrabbito_ssh_key = data.sops_file.tf_secrets.data["anthonyjrabbito_ssh_key"],
-      hostname                = local.hostname
+      hostname                = local.hostname,
+      CF_API_KEY              = data.sops_file.tf_secrets.data["cf_api_key"]
     },
   )
   strict       = true

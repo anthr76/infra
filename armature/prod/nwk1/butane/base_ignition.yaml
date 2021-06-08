@@ -54,6 +54,10 @@ storage:
               # Or serve a PHP site through php-fpm:
               # php_fastcgi localhost:9000
           }
+          :443 {
+              root * /usr/share/caddy
+              file_server
+          }
           # Refer to the Caddy docs for more information:
           # https://caddyserver.com/docs/caddyfile
   links:
@@ -79,6 +83,26 @@ systemd:
                   docker.io/library/caddy:latest
 
         ExecStop=/bin/podman stop caddy
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: podman-dyndns.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Run cloudflare DynDNS
+        After=network-online.target
+        Wants=network-online.target
+
+        [Service]
+        ExecStartPre=-/bin/podman kill cloudflare-ddns
+        ExecStartPre=-/bin/podman rm cloudflare-ddns
+        ExecStartPre=-/bin/podman pull oznu/cloudflare-ddns:latest
+        ExecStart=/bin/podman run --env SUBDOMAIN=nwk1 --env ZONE=rabbito.tech \
+        --net=host --env API_KEY=${CF_API_KEY} --name cloudflare-ddns \
+        oznu/cloudflare-ddnslatest
+
+        ExecStop=/bin/podman stop cloudflare-ddns
 
         [Install]
         WantedBy=multi-user.target
