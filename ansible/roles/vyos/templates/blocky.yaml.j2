@@ -5,7 +5,10 @@ blocking:
   blackLists:
     ads:
       - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+  whiteLists:
+    ads:
+      - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
   clientGroupsBlock:
     default:
       - ads
-port: {{ LAN.GW | ansible.netcommon.ipmath(1) }}:53
+port: {{ LAN.GW }}:53

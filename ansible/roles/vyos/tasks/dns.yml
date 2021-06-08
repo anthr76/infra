@@ -5,8 +5,8 @@
     ansible_user: vyos
 
 - name: copy coredns corefile
-  ansible.builtin.copy:
-    src: Corefile
+  ansible.builtin.template:
+    src: Corefile.j2
     dest: /config/user-data/Corefile
     owner: root
     group: vyattacfg
@@ -28,18 +28,18 @@
     ansible_network_os: vyos.vyos.vyos
     ansible_user: vyos
 
-# - name: configure and start coredns
-#   vyos.vyos.vyos_config:
-#     lines:
-#       - set container name coredns image 'docker.io/coredns/coredns:1.8.4'
-#       - set container name coredns allow-host-networks
-#       - set container name coredns volume corefile destination '/etc/Corefile'
-#       - set container name coredns volume corefile source '/config/user-data/Corefile'
+- name: configure and start coredns
+  vyos.vyos.vyos_config:
+    lines:
+      - set container name coredns image 'docker.io/coredns/coredns:1.8.4'
+      - set container name coredns allow-host-networks
+      - set container name coredns volume corefile destination '/etc/Corefile'
+      - set container name coredns volume corefile source '/config/user-data/Corefile'
 
-# - name: configure and start blocky
+# - name: configure and start blocky # Can't bind address and can't use overlay network
 #   vyos.vyos.vyos_config:
 #     lines:
-#       - set container name blocky image 'docker.io/coredns/coredns:1.8.4'
+#       - set container name blocky image 'ghcr.io/0xerr0r/blocky:v0.14'
 #       - set container name blocky allow-host-networks
-#       - set container name blocky volume corefile destination '/etc/Corefile'
-#       - set container name blocky volume corefile source '/config/user-data/Corefile'
+#       - set container name blocky volume corefile destination '/app/config.yml'
+#       - set container name blocky volume corefile source '/config/user-data/blocky.yaml'

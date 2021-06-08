@@ -1,8 +1,8 @@
 Kind: Secret
 LAN:
     CIDR: ENC[AES256_GCM,data:52CWWdp8v6Z4tthkGOA=,iv:4qSaGNA/x9KNqsy2bfpn4DWCFy2dHrzuvWrMmF90G5w=,tag:06E5NC1MIAX9VNBB6I+n6w==,type:str]
-    DHCP_RANGE_START: ENC[AES256_GCM,data:o9KCZdTWD+Eqq8s=,iv:RTD8JAgsWotVq5/hDhHZmYajtpabUjzPAasJ5iJ9Q+g=,tag:IGwTLn2Tp7kEwue80pV9fQ==,type:str]
-    DHCP_RANGE_END: ENC[AES256_GCM,data:REGWADay+7vtFKbbVg==,iv:JhJNQFZbCCk9IbFYl02kA/dfCXFcXcf69FNTOy286e4=,tag:gMvMoQlD0qXBE8lQdSpEZQ==,type:str]
+    DHCP_RANGE_START: ENC[AES256_GCM,data:1GNyDhZZaGo1Bvw=,iv:WAqAApOWgDEggjlLS++yHqSgbxzAgU6XOOOKVDcYf4g=,tag:r+RGWDuAy3VawhtOd9yTCw==,type:str]
+    DHCP_RANGE_END: ENC[AES256_GCM,data:Py2if45/caHR/5+V,iv:DjpmCmUIy7RzghhlVecqb2P2YEB3exwtZZNNTE2ft9k=,tag:Afz/IbiaqVE1DJBWpiTP9g==,type:str]
     GW: ENC[AES256_GCM,data:rRiS28KvXzuXbLw=,iv:3sz4bog5tQhYstFp/SmmbwNhcnGuOIlQ+EqwIc/KU2g=,tag:Uv2lMHDtPfRICZ1WHbg72w==,type:str]
 VLAN_10:
     CIDR: ENC[AES256_GCM,data:sI2T11dM83tQ9F+XTJM=,iv:EVR828aDgo93AnuXKfFIzHPSJXBVeOTYG1IruTWQxw0=,tag:1elnpJyMXjPmGyUONjh9Xg==,type:str]
@@ -70,8 +70,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-06-05T00:05:17Z"
-    mac: ENC[AES256_GCM,data:KmvHKwiBO/2xXfr1qx6r4K00urHZo2RrbzL37d4LCAECA+792WShJMUEfRvOhs8zjFSgz283A51F1JgJRMDMg/2WokBtOSBWmFF7CTIWwAdAq55SXT8u/HjnAfp/EzGZd52hJb5a/n7Lxp3bnk1mSu3gvUzL/oARc7/BI5aNUY4=,iv:NYKw38Cd7SkBoBGKVumxeUR8E75uKu6FVzP3gP3WcAs=,tag:QluhTle3cFixbmcl2FI2Kg==,type:str]
+    lastmodified: "2021-06-08T23:39:20Z"
+    mac: ENC[AES256_GCM,data:ftrQCATXtLgpqWLvD0FW7+7ophkMbUL405GU7hggBjI80JBdMVe848UQ21BIowipAQ5XIz4xbl4TEPae1gc1rwowHRsI555kAoe7ib2r38oYE+JGOopt4qLCQYixNwaIWucgSHKAZghgNTZDN0WmB8uchEZIbt0sl3YNM92K9fs=,iv:HeFe6JQbo5+nbVwiXDmfVyu1hDIFFMZ4y4ekXwULQJM=,tag:Aq9aRGDbfPgrRkWmvYoR6g==,type:str]
     pgp:
         - created_at: "2021-05-27T15:17:11Z"
           enc: |
