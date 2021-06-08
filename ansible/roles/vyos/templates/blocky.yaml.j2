@@ -1,0 +1,11 @@
+upstream:
+  externalResolvers:
+    - 127.0.0.1
+blocking:
+  blackLists:
+    ads:
+      - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+  clientGroupsBlock:
+    default:
+      - ads
+port: {{ LAN.GW | ansible.netcommon.ipmath(1) }}:53
