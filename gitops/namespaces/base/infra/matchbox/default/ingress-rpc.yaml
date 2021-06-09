@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: matchbox-rpc
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: HostSNI(`matchbox-rpc.${CLUSTER_NAME}.${DNS_INT_ZONE}`)
+      services:
+        - name: matchbox
+          port: 8080
+  tls:
+    passthrough: true
