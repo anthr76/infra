@@ -32,3 +32,8 @@ provider "sops" {}
 data "sops_file" "tf_secrets" {
   source_file = "tf-secrets.sops.yaml"
 }
+
+provider "cloudflare" {
+  email   = data.sops_file.tf_secrets.data["cf_email"]
+  api_key = data.sops_file.tf_secrets.data["cf_api_key"]
+}

@@ -9,10 +9,20 @@ passwd:
         - sudo
       ssh_authorized_keys:
         - ${anthonyjrabbito_ssh_key}
+    - name: core
+      ssh_authorized_keys:
+        - ${anthonyjrabbito_ssh_key}
 storage:
+  directories:
+    - path: /var/data
+      user:
+        id: 1000
+      group:
+        id: 1000
   files:
     - path: /etc/hostname
       mode: 0644
+      overwrite: true
       contents:
         inline: ${hostname}
     - path: /etc/zincati/config.d/51-rollout-wariness.toml
@@ -32,34 +42,12 @@ storage:
     - path: /etc/caddy/Caddyfile
       contents:
         inline: |
-          # The Caddyfile is an easy way to configure your Caddy web server.
-          #
-          # Unless the file starts with a global options block, the first
-          # uncommented line is always the address of your site.
-          #
-          # To use your own domain name (with automatic HTTPS), first make
-          # sure your domain's A/AAAA DNS records are properly pointed to
-          # this machine's public IP, then replace ":80" below with your
-          # domain name.
-          :80 {
-              # Set this path to your site's directory.
-              root * /usr/share/caddy
-
-              # Enable the static file server.
-              file_server
-
-              # Another common task is to set up a reverse proxy:
-              # reverse_proxy localhost:8080
-
-              # Or serve a PHP site through php-fpm:
-              # php_fastcgi localhost:9000
-          }
-          :443 {
-              root * /usr/share/caddy
-              file_server
-          }
-          # Refer to the Caddy docs for more information:
-          # https://caddyserver.com/docs/caddyfile
+          s3.nwk1.rabbito.tech {
+              reverse_proxy http://nas-1.nwk1.rabbito.tech:9000 {
+                  header_up X-Forwarded-Proto {scheme}
+                  header_up X-Forwarded-Host {host}
+                  header_up Host {host}
+              }
   links:
     - path: /etc/localtime
       target: ../usr/share/zoneinfo/America/New_York
@@ -70,18 +58,18 @@ systemd:
       contents: |
         [Unit]
         Description=Run caddy
-        After=network-online.target
+        After=var-data.mount network-online.target
         Wants=network-online.target
 
         [Service]
         ExecStartPre=mkdir -p /var/lib/caddy
         ExecStartPre=-/bin/podman kill caddy
         ExecStartPre=-/bin/podman rm caddy
-        ExecStartPre=-/bin/podman pull docker.io/library/caddy:latest
+        ExecStartPre=-/bin/podman pull docker.io/library/caddy:2.4.1-alpine
         ExecStart=/bin/podman run --name caddy --net=host \
                   -v /etc/caddy/Caddyfile:/etc/caddy/Caddyfile:z \
-                  docker.io/library/caddy:latest
-
+                  -v /var/data:/data \
+                  docker.io/library/caddy:2.4.1-alpine
         ExecStop=/bin/podman stop caddy
 
         [Install]
@@ -97,11 +85,10 @@ systemd:
         [Service]
         ExecStartPre=-/bin/podman kill cloudflare-ddns
         ExecStartPre=-/bin/podman rm cloudflare-ddns
-        ExecStartPre=-/bin/podman pull oznu/cloudflare-ddns:latest
-        ExecStart=/bin/podman run --env SUBDOMAIN=nwk1 --env ZONE=rabbito.tech \
-        --net=host --env API_KEY=${CF_API_KEY} --name cloudflare-ddns \
-        oznu/cloudflare-ddnslatest
-
+        ExecStartPre=-/bin/podman pull docker.io/oznu/cloudflare-ddns:latest
+        ExecStart=/bin/podman run --env SUBDOMAIN=lb-2.nwk1 --env ZONE=rabbito.tech \
+                  --net=host --env API_KEY=${CF_API_KEY} --name cloudflare-ddns \
+                  docker.io/oznu/cloudflare-ddns:latest
         ExecStop=/bin/podman stop cloudflare-ddns
 
         [Install]
@@ -130,5 +117,17 @@ systemd:
         Restart=on-failure
         RestartSec=120s
 
+        [Install]
+        WantedBy=multi-user.target
+    - name: var-data.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Host container data mount
+        [Mount]
+        What=/host/data/
+        Where=/var/data/
+        Type=9p
+        Options=trans=virtio,version=9p2000.L,rw
         [Install]
         WantedBy=multi-user.target

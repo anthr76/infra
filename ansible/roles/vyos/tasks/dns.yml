@@ -39,7 +39,7 @@
 - name: set static DNS host mappings
   vyos.vyos.vyos_config:
     lines:
-      - set system static-host-mapping host-name '{{ item.key }}' inet {{ item.value }}'
+      - set system static-host-mapping host-name '{{ item.key }}' inet '{{ item.value }}'
   with_items:
     - "{{ static_dns | dict2items }}"
 
