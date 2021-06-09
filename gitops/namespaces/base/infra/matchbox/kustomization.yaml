@@ -11,7 +11,7 @@ namespace: infra
 secretGenerator:
   - name: matchbox-rpc
     files:
-      - "ca.crt.enc"
-      - "server.crt.enc"
-      - "server.key.enc"
+      - "ca.crt=ca.crt.enc"
+      - "server.crt=server.crt.enc"
+      - "server.key=server.key.enc"
     type: "Opaque"
