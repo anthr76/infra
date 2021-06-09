@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: matchbox
@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: "traefik"
   rules:
-  - host: matchbox.${CLUSTER_NAME}.${DNS_INT_ZONE}
+  - host: "matchbox.${CLUSTER_NAME}.${DNS_INT_ZONE}"
     http:
       paths:
       - path: /
