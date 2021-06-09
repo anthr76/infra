@@ -41,6 +41,8 @@ spec:
         - hosts: [auth.kutara.io]
           secretName: auth-kutara-io-tls
     authentik:
+      outposts:
+        docker_image_base: beryju.org/authentik/outpost-%(type)s:gh-%(build_hash)s
       secret_key: ${AUTHENTIK_SECRET_KEY}
       log_level: debug
       postgresql:
