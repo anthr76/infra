@@ -9,17 +9,17 @@ metadata:
 spec:
   ingressClassName: "traefik"
   rules:
-    - host: matchbox.${CLUSTER_NAME}.${DNS_INT_ZONE}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: matchbox
-                port:
-                  number: 8080
+  - host: matchbox.${CLUSTER_NAME}.${DNS_INT_ZONE}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: matchbox
+            port:
+              number: 8080
   tls:
-    - hosts:
-        - "matchbox.${CLUSTER_NAME}.${DNS_INT_ZONE}"
-      secretName: matchbox-${CLUSTER_NAME}-rabbito-tls
+  - hosts:
+    - "matchbox.${CLUSTER_NAME}.${DNS_INT_ZONE}"
+    secretName: matchbox-${CLUSTER_NAME}-rabbito-tls
