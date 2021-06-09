@@ -10,6 +10,6 @@ spec:
     - match: HostSNI(`matchbox-rpc.${CLUSTER_NAME}.${DNS_INT_ZONE}`)
       services:
         - name: matchbox
-          port: 8080
+          port: 8081
   tls:
     passthrough: true
