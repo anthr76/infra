@@ -24,7 +24,7 @@ resources:
 - ../../base/velero
 - ../../base/infra
 - ../../base/infra/renovate
-#- ../../base/infra/matchbox
+- ../../base/infra/matchbox
 - ../../base/openebs
 - ../../base/default
 - ../../base/default/whoami
