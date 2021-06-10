@@ -13,7 +13,7 @@ spec:
       version: 0.29.0
       sourceRef:
         kind: HelmRepository
-        name: gitlab-runner
+        name: gitlab-charts
         namespace: flux-system
       interval: 5m
   values:
