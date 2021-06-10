@@ -25,6 +25,7 @@ resources:
 - ../../base/infra
 - ../../base/infra/renovate
 - ../../base/infra/matchbox
+- ../../base/infra/gitlab-runner
 - ../../base/openebs
 - ../../base/default
 - ../../base/default/whoami
