@@ -10,7 +10,7 @@ spec:
     branch: main
   secretRef:
     name: flux-system
-  url: ssh://git@gitlab.com/anthr76/infra
+  url: ssh://git@gitlab.com/kutara/infra
   ignore: |
     # exclude all
     /*
