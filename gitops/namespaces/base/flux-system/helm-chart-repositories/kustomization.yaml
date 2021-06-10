@@ -24,3 +24,4 @@ resources:
 - opstree-charts.yaml
 - authentik-charts.yaml
 - renovate-charts.yaml
+- gitlab-charts.yaml
