@@ -32,6 +32,10 @@ spec:
             image = "alpine:3.13"
             [runners.kubernetes.node_selector]
               "kubernetes.io/arch" = "amd64"
+            [[runners.kubernetes.volumes.host_path]]
+              name = "buildah"
+              mount_path = "/var/lib/containers_ci/"
+              read_only = false
       tags: "kutara-cloud"
     nodeSelector:
       kubernetes.io/arch: amd64
