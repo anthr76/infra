@@ -25,6 +25,7 @@ spec:
     runners:
       config: |
         [[runners]]
+        environment = ["container=kube"]
           [runners.feature_flags]
             FF_GITLAB_REGISTRY_HELPER_IMAGE = true
           [runners.kubernetes]
