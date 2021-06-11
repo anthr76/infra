@@ -36,6 +36,10 @@ spec:
               name = "buildah"
               mount_path = "/var/lib/containers/"
               read_only = false
+            [[runners.kubernetes.volumes.host_path]]
+              name = "fuse"
+              mount_path = "/dev/fuse"
+              read_only = false
       tags: "kutara-cloud"
     nodeSelector:
       kubernetes.io/arch: amd64
