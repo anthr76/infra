@@ -5,6 +5,8 @@
   loadbalance
   cache
   local
+  mdns {{ ZONE }}.rabbito.tech
+  wgsd {{ ZONE }}.rabbito.tech. wg01
   hosts {
     fallthrough
     reload 300ms

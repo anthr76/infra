@@ -31,7 +31,7 @@
 - name: configure and start coredns
   vyos.vyos.vyos_config:
     lines:
-      - set container name coredns image 'docker.io/coredns/coredns:1.8.4'
+      - set container name coredns image 'ghcr.io/k8s-at-home/coredns:v1.8.4'
       - set container name coredns allow-host-networks
       - set container name coredns volume corefile destination '/etc/Corefile'
       - set container name coredns volume corefile source '/config/user-data/Corefile'
