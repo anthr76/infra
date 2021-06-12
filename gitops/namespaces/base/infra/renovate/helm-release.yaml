@@ -32,4 +32,4 @@ spec:
           "gitAuthor": "Renovate Bot <bot@renovateapp.com>"
         }
     cronjob:
-      schedule: '0 * * * *'
+      schedule: '*/10 * * * *'
