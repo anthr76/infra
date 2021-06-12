@@ -31,6 +31,10 @@
   ],
   packageRules: [
     {
+      matchPackageNames: ["renovate"],
+      automerge: true,
+    },
+    {
       matchPackageNames: ["reactive-tech/kubegres"],
       versioning: "loose",
     },
