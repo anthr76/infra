@@ -10,9 +10,13 @@ license_scanning:
   stage: 💨 smoke test
   script:
     - /run.sh analyze .
+  tags:
+    - kutara-cloud
 
 .secret-analyzer:
   stage: 💨 smoke test
+  tags:
+    - kutara-cloud
 
 .init: &init
   stage: 🛠️ prep
@@ -20,9 +24,13 @@ license_scanning:
     - changes:
         - clusters/nyc1/iac/**/*
         - armature/prod/cloud-dns/**/*
+  before_script:
+    - gitlab-terraform -chdir=$CI_PROJECT_DIR/${TF_ROOT} init -upgrade
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
+  tags:
+    - kutara-cloud
 
 .validate: &validate
   stage: 💨 smoke test
@@ -35,6 +43,7 @@ license_scanning:
     - curl -qsL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /usr/local/bin/sops
     - chmod +x /usr/local/bin/sops
     - gpg --import ${SOPS_SYSTEM_KEY}
+    - gitlab-terraform -chdir=$CI_PROJECT_DIR/${TF_ROOT} init -upgrade
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
@@ -46,6 +55,8 @@ license_scanning:
         - armature/prod/cloud-dns/**/*
   stage: ✨ lint
   script: terraform fmt -diff -check
+  tags:
+    - kutara-cloud
 
 .build: &build
   stage: 👀 plan
@@ -59,6 +70,7 @@ license_scanning:
     - curl -qsL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /usr/local/bin/sops
     - chmod +x /usr/local/bin/sops
     - gpg --import ${SOPS_SYSTEM_KEY}
+    - gitlab-terraform -chdir=$CI_PROJECT_DIR/${TF_ROOT} init -upgrade
   artifacts:
     public: true
     reports:
@@ -77,6 +89,8 @@ license_scanning:
         - armature/prod/cloud-dns/**/*
   stage: ✨ lint
   script: terraform fmt -diff -check
+  tags:
+    - kutara-cloud
 
 .deploy: &deploy
   only:
