@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://docs.renovatebot.com/helm-charts
       chart: renovate
-      version: 25.40.0
+      version: 25.38.5
       sourceRef:
         kind: HelmRepository
         name: renovate-charts
@@ -31,4 +31,7 @@ spec:
           "gitAuthor": "Renovate Bot <bot@renovateapp.com>"
         }
     cronjob:
-      schedule: '*/10 * * * *'
+      schedule: '0 * * * *'
+    env:
+    - name: LOG_LEVEL
+      value: debug
