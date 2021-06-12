@@ -28,7 +28,6 @@ spec:
           "autodiscover": "true",
           "dryRun": false,
           "printConfig": true,
-          "logLevel": "debug",
           "gitAuthor": "Renovate Bot <bot@renovateapp.com>"
         }
     cronjob:
