@@ -33,5 +33,4 @@ spec:
     cronjob:
       schedule: '0 * * * *'
     env:
-    - name: LOG_LEVEL
-      value: debug
+      LOG_LEVEL: debug
