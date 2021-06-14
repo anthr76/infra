@@ -33,8 +33,10 @@
     lines:
       - set container name coredns image 'ghcr.io/k8s-at-home/coredns:v1.8.4'
       - set container name coredns allow-host-networks
-      - set container name coredns volume corefile destination '/etc/Corefile'
+      - set container name coredns volume corefile destination '/config/Corefile'
       - set container name coredns volume corefile source '/config/user-data/Corefile'
+      - set container name coredns volume hosts destination '/etc/hosts'
+      - set container name coredns volume hosts source '/etc/hosts'
 
 - name: set static DNS host mappings
   vyos.vyos.vyos_config:
