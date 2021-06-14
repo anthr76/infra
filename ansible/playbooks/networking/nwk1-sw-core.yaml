@@ -19,17 +19,20 @@
         commands:
           - /interface bridge port add bridge=bridge interface=sfp-sfpplus2 pvid=100
           - /interface bridge port add bridge=bridge interface=sfp-sfpplus3 pvid=10
+          - /interface bridge port add bridge=bridge interface=sfp-sfpplus4 pvid=9
 
     - name: Set access ports egress
       community.routeros.command:
         commands:
           - /interface bridge vlan add bridge=bridge untagged=sfp-sfpplus2 vlan-ids=100
-          - /interface bridge vlan add bridge=bridge untagged=sfp-sfpplus3 vlan-ids=10
+          - /interface bridge vlan add bridge=bridge untagged=sfp-sfpplus4 vlan-ids=9
 
     - name: Set interface comments
       community.routeros.command:
         commands:
-          - /interface ethernet set sfp-sfpplus3 comment="nwk1-nas-1"
+          - /interface ethernet set sfp-sfpplus2 comment="anthonys-fedora-workstation"
+          - /interface ethernet set sfp-sfpplus3 comment="nas-1"
+          - /interface ethernet set sfp-sfpplus3 comment="worker-1"
 
     - name: Configure vlan trunks ingress
       community.routeros.command:
