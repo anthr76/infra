@@ -30,6 +30,7 @@ spec:
             FF_GITLAB_REGISTRY_HELPER_IMAGE = true
           [runners.kubernetes]
             image = "alpine:3.13"
+            cap_add = ["CAP_SETUID", "CAP_SETGID"]
             [runners.kubernetes.node_selector]
               "kubernetes.io/arch" = "amd64"
             [[runners.kubernetes.volumes.host_path]]
