@@ -34,7 +34,7 @@ spec:
               "kubernetes.io/arch" = "amd64"
             [[runners.kubernetes.volumes.host_path]]
               name = "buildah"
-              mount_path = "/var/lib/containers/"
+              mount_path = "/var/lib/containers_ci/"
               read_only = false
       tags: "kutara-cloud"
     nodeSelector:
