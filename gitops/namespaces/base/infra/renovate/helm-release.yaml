@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://docs.renovatebot.com/helm-charts
       chart: renovate
-      version: 25.46.0
+      version: 25.47.2
       sourceRef:
         kind: HelmRepository
         name: renovate-charts
