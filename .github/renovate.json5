@@ -13,11 +13,11 @@
   assignees: ["@anthr76"],
   reviewersFromCodeOwners: true,
   "helm-values": {
-    fileMatch: ["gitops/namespaces/.+\\.yaml$"],
+    fileMatch: ["gitops/.+\\.yaml$"],
   },
   regexManagers: [
     {
-      fileMatch: ["gitops/namespaces/.+\\.yaml$"],
+      fileMatch: ["gitops/.+\\.yaml$"],
       matchStrings: [
         // helm releases
         "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
