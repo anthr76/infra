@@ -21,11 +21,7 @@ spec:
       namespace: networking
   values:
     image:
-      name: beryju.org/authentik/server
-      name_outposts: beryju.org/authentik/outpost-%(type)s:gh-next
-      tag: gh-next
-      # pullPolicy: Always to ensure you always get the latest version
-      pullPolicy: Always
+      tag: 2021.6.1
     ingress:
       enabled: true
       ingressClassName: "traefik"
