@@ -17,3 +17,5 @@
 - include_tasks: pbr.yml
 
 - include_tasks: port-forward.yml
+
+- include_tasks: netboot.yml
