@@ -43,14 +43,16 @@ storage:
       contents:
         inline: |
           s3.nwk1.rabbito.tech {
-              reverse_proxy http://nas-1.nwk1.rabbito.tech:9000 {
-                  header_up X-Forwarded-Host {host}
-                  header_up Host {host}
-              }
+                  reverse_proxy http://nas-1.nwk1.rabbito.tech:9000 {
+                          header_up X-Forwarded-Host {host}
+                          header_up Host {host}
+                  }
           }
           netboot.nwk1.rabbito.tech {
-              reverse_proxy http://127.0.0.1:8080
-              tls internal
+                  reverse_proxy http://127.0.0.1:8080
+                  tls {
+                          dns cloudflare ${CF_API_KEY}
+                  }
           }
   links:
     - path: /etc/localtime
@@ -69,11 +71,12 @@ systemd:
         ExecStartPre=mkdir -p /var/lib/caddy
         ExecStartPre=-/bin/podman kill caddy
         ExecStartPre=-/bin/podman rm caddy
-        ExecStartPre=-/bin/podman pull docker.io/library/caddy:2.4.1-alpine
+        ExecStartPre=-/bin/podman pull quay.io/kutara/caddy:latest
         ExecStart=/bin/podman run --name caddy --net=host \
                   -v /etc/caddy/Caddyfile:/config/Caddyfile:z \
                   -v /var/data:/data \
-                  docker.io/library/caddy:2.4.1-alpine caddy run --config /config/Caddyfile --adapter caddyfile
+                  --user root \
+                  quay.io/kutara/caddy:latest /caddy run --config /config/Caddyfile --adapter caddyfile
         ExecStop=/bin/podman stop caddy
 
         [Install]
@@ -89,9 +92,9 @@ systemd:
         [Service]
         ExecStartPre=-/bin/podman kill netbootxyz
         ExecStartPre=-/bin/podman rm netbootxyz
-        ExecStartPre=-/bin/podman pull quay.io/kutara/netbootxyz:v1.1.0
+        ExecStartPre=-/bin/podman pull quay.io/kutara/netbootxyz:latest
         ExecStart=/bin/podman run --name netbootxyz -p 127.0.0.1:8080:8080 -p 69:69/udp \
-                  quay.io/kutara/netbootxyz:v1.1.0
+                  quay.io/kutara/netbootxyz:latest
         ExecStop=/bin/podman stop netbootxyz
 
         [Install]
