@@ -48,8 +48,9 @@ storage:
                   header_up Host {host}
               }
           }
-          netboot.nwk1.rabbito.tech:80 {
+          netboot.nwk1.rabbito.tech {
               reverse_proxy http://127.0.0.1:8080
+              tls internal
           }
   links:
     - path: /etc/localtime
@@ -70,9 +71,9 @@ systemd:
         ExecStartPre=-/bin/podman rm caddy
         ExecStartPre=-/bin/podman pull docker.io/library/caddy:2.4.1-alpine
         ExecStart=/bin/podman run --name caddy --net=host \
-                  -v /etc/caddy/Caddyfile:/etc/caddy/Caddyfile:z \
+                  -v /etc/caddy/Caddyfile:/config/Caddyfile:z \
                   -v /var/data:/data \
-                  docker.io/library/caddy:2.4.1-alpine
+                  docker.io/library/caddy:2.4.1-alpine caddy run --config /config /etc/caddy/Caddyfile --adapter caddyfile
         ExecStop=/bin/podman stop caddy
 
         [Install]
