@@ -73,7 +73,7 @@ systemd:
         ExecStart=/bin/podman run --name caddy --net=host \
                   -v /etc/caddy/Caddyfile:/config/Caddyfile:z \
                   -v /var/data:/data \
-                  docker.io/library/caddy:2.4.1-alpine caddy run --config /config /etc/caddy/Caddyfile --adapter caddyfile
+                  docker.io/library/caddy:2.4.1-alpine caddy run --config /config/Caddyfile --adapter caddyfile
         ExecStop=/bin/podman stop caddy
 
         [Install]
