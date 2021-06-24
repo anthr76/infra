@@ -3,3 +3,44 @@
   set_fact:
     ansible_connection: ssh
     ansible_user: vyos
+
+- name: copy pxe configuration
+  ansible.builtin.template:
+    src: pxe.conf.j2
+    dest: /config/user-data/pxe.conf.j2
+    owner: root
+    group: vyattacfg
+    mode: "0775"
+  become: true
+
+- name: copy blocky config
+  ansible.builtin.template:
+    src: blocky.yaml.j2
+    dest: /config/user-data/blocky.yaml
+    owner: root
+    group: vyattacfg
+    mode: "0750"
+  become: true
+
+- name: set facts for network connection
+  set_fact:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: vyos.vyos.vyos
+    ansible_user: vyos
+
+- name: configure and start coredns
+  vyos.vyos.vyos_config:
+    lines:
+      - set container name coredns image 'ghcr.io/k8s-at-home/coredns:v1.8.4'
+      - set container name coredns allow-host-networks
+      - set container name coredns volume corefile destination '/config/Corefile'
+      - set container name coredns volume corefile source '/config/user-data/Corefile'
+      - set container name coredns volume hosts destination '/etc/hosts'
+      - set container name coredns volume hosts source '/etc/hosts'
+
+- name: set static DNS host mappings
+  vyos.vyos.vyos_config:
+    lines:
+      - set system static-host-mapping host-name '{{ item.key }}' inet '{{ item.value }}'
+  with_items:
+    - "{{ static_dns | dict2items }}"

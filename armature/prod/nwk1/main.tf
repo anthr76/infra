@@ -35,5 +35,5 @@ data "sops_file" "tf_secrets" {
 
 provider "cloudflare" {
   email   = data.sops_file.tf_secrets.data["cf_email"]
-  api_key = data.sops_file.tf_secrets.data["cf_api_key"]
+  api_key = data.sops_file.tf_secrets.data["cf_api_key_alt"]
 }

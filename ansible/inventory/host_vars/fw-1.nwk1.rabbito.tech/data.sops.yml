@@ -68,6 +68,7 @@ static_dns:
     fw-1.nwk1.rabbito.tech: ENC[AES256_GCM,data:34SUWKnu57K2og==,iv:Gw7aQHura49VFT/6oKxjjJntlFxhDELzsGikdr/P8Zs=,tag:CaggdB6TSSlgGZtXj68QMg==,type:str]
     sw-core.nwk1.rabbito.tech: ENC[AES256_GCM,data:zqtPZBqhnUE+C5k=,iv:dL/P2ZiT37rAAcWILa8qI5Y9TUTTYGd6PJTqIau06zA=,tag:SUxb9v6eCg4z/J1/mgbX9w==,type:str]
     s3.nwk1.rabbito.tech: ENC[AES256_GCM,data:869/2EjJRCn878QT,iv:0bUZpoOyedg9xKl8zF7+k4Bhu1RMHI0OfkoHMoL+OUY=,tag:7LQkvFdmcUM49X5Xc/qjsA==,type:str]
+    netboot.nwk1.rabbito.tech: ENC[AES256_GCM,data:hbxcYVok1mRIDIc1,iv:L8stROtx2fnI1JnFLsIhmOwyU/scKuBZHBHgPmsAkjw=,tag:ACxB4gWSmnvFwn7qbor3Sw==,type:str]
 HOSTNAME: ENC[AES256_GCM,data:mTo1Ng==,iv:zp9udt5DFSPesUO93Y/ozyJ62PHWNwwQB9tyot2OYJc=,tag:FTL92si3I051tsIg0Nuchw==,type:str]
 sops:
     kms: []
@@ -75,8 +76,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-06-09T22:05:04Z"
-    mac: ENC[AES256_GCM,data:W/tEsvXpmL4mvOMoIQYAkqYWnuCywqZQz5iKlOySffQr5R3Tupmp62thW8KiDSIYUgM9JktXU+D/s9ck/p7ea8cyB39bTEwhLlSJxTXq54BF5uozLELy70lDYVqF/wv3CxKUP/du2bOXMn7sxnj61EwEsoHXzzr76A/rSmH6Dzg=,iv:EDmEvsupjI7ZXON78ielC5aB78UxVOAGa9dtOFyBCA4=,tag:KyCuVEeUZ9KjLrGmMYWMPg==,type:str]
+    lastmodified: "2021-06-24T10:27:03Z"
+    mac: ENC[AES256_GCM,data:Q0Fe6sU4q/Bb9vtA+JLdoY9wD0fDraYjsAY/OPTuJOVucB2w4bE/mkSYkQh2/ZcLUZajcrGmD06B68Tp1kchDiApko+FJuqTGp9Gr1upZ33MaJEjr/+ghyvQ15yglaiIfAvBnsMO7U9AIftWIMDwEBY7JQf0oyDRg5GPasrHcbE=,iv:vRm3oWB+Ubq1TgCXFvPskbOn0DJzn5CFiuNdJvNSrZ8=,tag:KHv6Em3EucKIX1hvdj98fA==,type:str]
     pgp:
         - created_at: "2021-05-27T15:17:11Z"
           enc: |
