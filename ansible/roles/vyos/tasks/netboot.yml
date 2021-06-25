@@ -35,3 +35,4 @@
       - set service dhcp-server global-parameters "include &quot;/config/user-data/option-space.conf&quot;;"
       - set service dhcp-server shared-network-name VLAN_10 subnet {{ VLAN_10.CIDR }} subnet-parameters "include &quot;/config/user-data/pxe.conf&quot;;"
       - set service dhcp-server shared-network-name VLAN_8 subnet {{ VLAN_8.CIDR }} subnet-parameters "include &quot;/config/user-data/pxe.conf&quot;;"
+      - set service dhcp-server shared-network-name VLAN_99 subnet {{ VLAN_8.CIDR }} subnet-parameters "include &quot;/config/user-data/pxe.conf&quot;;"
