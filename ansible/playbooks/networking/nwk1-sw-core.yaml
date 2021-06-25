@@ -36,8 +36,8 @@
           - /interface ethernet set sfp-sfpplus2 comment="anthonys-fedora-workstation"
           - /interface ethernet set sfp-sfpplus2 comment="nas-1"
           - /interface ethernet set sfp-sfpplus3 comment="worker-1"
-          - /interface ethernet set sfp-sfpplus3 comment="worker-2"
-          - /interface ethernet set sfp-sfpplus3 comment="worker-3"
+          - /interface ethernet set sfp-sfpplus4 comment="worker-2"
+          - /interface ethernet set sfp-sfpplus5 comment="worker-3"
 
     - name: Configure vlan trunks ingress
       community.routeros.command:
