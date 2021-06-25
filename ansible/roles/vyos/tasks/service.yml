@@ -3,6 +3,7 @@
   vyos.vyos.vyos_config:
     lines:
       - set service mdns repeater interface 'eth1'
+      - set service mdns repeater interface 'eth1.8'
       - set service mdns repeater interface 'eth1.10'
       - set service mdns repeater interface 'eth1.100'
       - set service mdns repeater interface 'eth1.101'

@@ -8,6 +8,8 @@
       - name: eth1
         description: "INSIDE"
         vifs:
+          - vlan_id: 8
+            description: "VLAN_8"
           - vlan_id: 10
             description: "VLAN_10"
           - vlan_id: 99
@@ -36,7 +38,8 @@
     lines:
       - set interfaces ethernet eth0 address 'dhcp'
       - set interfaces ethernet eth1 address '{{ LAN.GW }}/28'
-      - set interfaces ethernet eth1 vif 10 address '{{ VLAN_10.GW }}/24'
+      - set interfaces ethernet eth1 vif 8 address '{{ VLAN_8.GW }}/26'
+      - set interfaces ethernet eth1 vif 10 address '{{ VLAN_10.GW }}/26'
       - set interfaces ethernet eth1 vif 99 address '{{ VLAN_99.GW }}/24'
       - set interfaces ethernet eth1 vif 100 address '{{ VLAN_100.GW }}/24'
       - set interfaces ethernet eth1 vif 101 address '{{ VLAN_101.GW }}/24'
@@ -72,4 +75,7 @@
       - set nat source rule 9 outbound-interface 'eth2'
       - set nat source rule 9 source address '{{ WAN_2.NAS_ADDRESS }}/32'
       - set nat source rule 9 translation address 'masquerade'
+      - set nat source rule 8 outbound-interface 'eth2'
+      - set nat source rule 8 source address '{{ VLAN_8.CIDR }}'
+      - set nat source rule 8 translation address 'masquerade'
   when: "'nwk1' in inventory_hostname"

@@ -4,10 +4,15 @@ LAN:
     DHCP_RANGE_START: ENC[AES256_GCM,data:1GNyDhZZaGo1Bvw=,iv:WAqAApOWgDEggjlLS++yHqSgbxzAgU6XOOOKVDcYf4g=,tag:r+RGWDuAy3VawhtOd9yTCw==,type:str]
     DHCP_RANGE_END: ENC[AES256_GCM,data:Py2if45/caHR/5+V,iv:DjpmCmUIy7RzghhlVecqb2P2YEB3exwtZZNNTE2ft9k=,tag:Afz/IbiaqVE1DJBWpiTP9g==,type:str]
     GW: ENC[AES256_GCM,data:rRiS28KvXzuXbLw=,iv:3sz4bog5tQhYstFp/SmmbwNhcnGuOIlQ+EqwIc/KU2g=,tag:Uv2lMHDtPfRICZ1WHbg72w==,type:str]
+VLAN_8:
+    CIDR: ENC[AES256_GCM,data:2OempuTvLmFzKqsfKflkuw==,iv:Gx1YBEcEIIU83cFX+EUlD28PZVcWgXkIYtLmIDwLPDs=,tag:ZXny1IpA8CKgEoBSX7zRGg==,type:str]
+    DHCP_RANGE_START: ENC[AES256_GCM,data:6mqPwKikAFb/6oTdlQ==,iv:D8++J9BtTCVbootoJvpIUWTNbnE1LDTK+uLimpb8fn8=,tag:Myxd8A+Huw0SeEmOP770Mg==,type:str]
+    DHCP_RANGE_END: ENC[AES256_GCM,data:/D9fZhqYUOcSC0LTGg==,iv:b+2xUIJfnHriewqHxWZSUQYpYICfhI3TnFYbwDWNftM=,tag:nhhMSYfZ9DAwULpLiydxcw==,type:str]
+    GW: ENC[AES256_GCM,data:y7SJHib5Ie0SmI2kng==,iv:qhj1wlXSt2f1JKiFo6LGPJm+QVHlv0LtL6DkeI6Gzzo=,tag:ohqxWHP+xaIynoy0XX8NDA==,type:str]
 VLAN_10:
-    CIDR: ENC[AES256_GCM,data:sI2T11dM83tQ9F+XTJM=,iv:EVR828aDgo93AnuXKfFIzHPSJXBVeOTYG1IruTWQxw0=,tag:1elnpJyMXjPmGyUONjh9Xg==,type:str]
+    CIDR: ENC[AES256_GCM,data:IJ7oDC1pCWS1wm0a4p8=,iv:1KhhSA2K63sTpQp6Q1brKPPe+zIAKA3JrYnlVj4rNuo=,tag:dV/v3RlQLe7DxgWrsNtVKw==,type:str]
     DHCP_RANGE_START: ENC[AES256_GCM,data:vqlFu9IpIz9cRk4=,iv:On0P8ZaNNrZbOFEvZcOSC8nuUuKxektWpVA+pikFOOc=,tag:HAnSXP9Vg75fSlH07xeFGw==,type:str]
-    DHCP_RANGE_END: ENC[AES256_GCM,data:dTBdexPml89VkVXmsQ==,iv:RtewF8kqLD+LxvgZNOPRrzd/EMhqwWXS47snNV6A9YI=,tag:MKiChv9LlmAGYaKhpQdi3Q==,type:str]
+    DHCP_RANGE_END: ENC[AES256_GCM,data:u2u8wR8Lv9VNyM7Q,iv:wIlHSxdvrUibs66o4cPQQEiLLStTJalL0kLajgi5I+Q=,tag:COV9TddvRIGUTuPtwQxXPg==,type:str]
     GW: ENC[AES256_GCM,data:TzUs8QuaMnQOb14=,iv:WjPOdE6b4e70hGsrP9yCNTzUk3WMx+MakCnSBTtAExQ=,tag:mGRdayL0Amraln9qJVmBJg==,type:str]
 VLAN_99:
     CIDR: ENC[AES256_GCM,data:hUd5EHpIXfh8816qmQ==,iv:PvAswVSFAES0eK75qBDf/oA2l1gIeaI46lvGEWA8EGc=,tag:aB9CjMoEmqjQK80L90H4zg==,type:str]
@@ -76,8 +81,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-06-24T10:27:03Z"
-    mac: ENC[AES256_GCM,data:Q0Fe6sU4q/Bb9vtA+JLdoY9wD0fDraYjsAY/OPTuJOVucB2w4bE/mkSYkQh2/ZcLUZajcrGmD06B68Tp1kchDiApko+FJuqTGp9Gr1upZ33MaJEjr/+ghyvQ15yglaiIfAvBnsMO7U9AIftWIMDwEBY7JQf0oyDRg5GPasrHcbE=,iv:vRm3oWB+Ubq1TgCXFvPskbOn0DJzn5CFiuNdJvNSrZ8=,tag:KHv6Em3EucKIX1hvdj98fA==,type:str]
+    lastmodified: "2021-06-25T04:20:20Z"
+    mac: ENC[AES256_GCM,data:Psg+qA9IUuAkCzNhTo6iGB8ndX+hTpaXfBJQM0q6BLEuCw+qxr+FZ7FT/PfuTCmwgGIWvz4Yps4E5AZKaGEBKIcH96U6I1X7jZtQg9pKwSJ8eUStraFGcoFlb2VsXuINAyE7riJC44eowHJEgeJGdHASIjEk/BCvQ63DpGoBwcw=,iv:kRz/Hri1X2QCcUgccaLwjWH6aMrHJixgG8UNB8D9MhI=,tag:MKgmsM08SE5ZYDtNWfXLFA==,type:str]
     pgp:
         - created_at: "2021-05-27T15:17:11Z"
           enc: |
