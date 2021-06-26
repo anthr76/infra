@@ -21,6 +21,7 @@
           - /interface bridge port add bridge=bridge interface=sfp-sfpplus3 pvid=10
           - /interface bridge port add bridge=bridge interface=sfp-sfpplus4 pvid=8
           - /interface bridge port add bridge=bridge interface=sfp-sfpplus5 pvid=8
+          - /interface bridge port add bridge=bridge interface=sfp-sfpplus6 pvid=8
 
     - name: Set access ports egress
       community.routeros.command:
@@ -29,15 +30,16 @@
           - /interface bridge vlan add bridge=bridge untagged=sfp-sfpplus3 vlan-ids=10
           - /interface bridge vlan add bridge=bridge untagged=sfp-sfpplus4 vlan-ids=8
           - /interface bridge vlan add bridge=bridge untagged=sfp-sfpplus5 vlan-ids=8
+          - /interface bridge vlan add bridge=bridge untagged=sfp-sfpplus6 vlan-ids=8
 
     - name: Set interface comments
       community.routeros.command:
         commands:
           - /interface ethernet set sfp-sfpplus2 comment="anthonys-fedora-workstation"
-          - /interface ethernet set sfp-sfpplus2 comment="nas-1"
-          - /interface ethernet set sfp-sfpplus3 comment="worker-1"
-          - /interface ethernet set sfp-sfpplus4 comment="worker-2"
-          - /interface ethernet set sfp-sfpplus5 comment="worker-3"
+          - /interface ethernet set sfp-sfpplus3 comment="nas-1"
+          - /interface ethernet set sfp-sfpplus4 comment="worker-1"
+          - /interface ethernet set sfp-sfpplus5 comment="worker-2"
+          - /interface ethernet set sfp-sfpplus6 comment="worker-3"
 
     - name: Configure vlan trunks ingress
       community.routeros.command:
@@ -69,6 +71,7 @@
           - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus3]
           - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus4]
           - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus5]
+          - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus6]
           - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=sfp-sfpplus1]
           - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=sfp-sfpplus8]
           - /interface bridge port set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=ether1]

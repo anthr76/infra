@@ -17,7 +17,7 @@
       - set service dhcp-server shared-network-name VLAN_8 subnet {{ VLAN_8.CIDR }} range 0 start '{{ VLAN_8.DHCP_RANGE_START }}'
       - set service dhcp-server shared-network-name VLAN_8 subnet {{ VLAN_8.CIDR }} range 0 stop '{{ VLAN_8.DHCP_RANGE_END }}'
       - set service dhcp-server shared-network-name VLAN_8 subnet {{ VLAN_8.CIDR }} lease '86400'
-      - set service dhcp-server shared-network-name VLAN_8 subnet {{ VLAN_8.CIDR }} dns-server '{{ VLAN_10.GW }}'
+      - set service dhcp-server shared-network-name VLAN_8 subnet {{ VLAN_8.CIDR }} dns-server '{{ VLAN_8.GW }}'
 
 - name: configure VLAN 10 DHCP
   vyos.vyos.vyos_config:

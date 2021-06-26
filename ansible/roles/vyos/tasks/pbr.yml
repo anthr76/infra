@@ -3,10 +3,20 @@
   vyos.vyos.vyos_config:
     lines:
       - set interfaces ethernet eth1 policy route 'HTTP-ALT'
+      - set interfaces ethernet eth1 vif 8 policy route 'HTTP-ALT'
       - set interfaces ethernet eth1 vif 10 policy route 'HTTP-ALT'
+      - set interfaces ethernet eth1 vif 99 policy route 'HTTP-ALT'
       - set interfaces ethernet eth1 vif 100 policy route 'HTTP-ALT'
+      - set policy route HTTP-ALT rule 6 destination address '!{{ WAN_2.NAS_ADDRESS }}/32'
+      - set policy route HTTP-ALT rule 6 set table 'main'
+      - set policy route HTTP-ALT rule 7 destination address '{{ VLAN_10.CIDR }}'
+      - set policy route HTTP-ALT rule 7 set table 'main'
+      - set policy route HTTP-ALT rule 8 destination address '{{ VLAN_99.CIDR }}'
+      - set policy route HTTP-ALT rule 8 set table 'main'
       - set policy route HTTP-ALT rule 9 destination address '{{ VLAN_100.CIDR }}'
       - set policy route HTTP-ALT rule 9 set table 'main'
       - set policy route HTTP-ALT rule 10 set table '11'
       - set policy route HTTP-ALT rule 10 source address '{{ WAN_2.NAS_ADDRESS }}/32'
+      - set policy route HTTP-ALT rule 11 set table '11'
+      - set policy route HTTP-ALT rule 11 source address '{{ VLAN_8.CIDR }}'
   when: "'nwk1' in inventory_hostname"

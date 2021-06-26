@@ -1,3 +1,4 @@
+allow bootp;
 allow booting;
 next-server {{ static_dns["netboot.nwk1.rabbito.tech"] }};
 
@@ -8,5 +9,5 @@ if option arch = 00:07 {
 } elsif option arch = 00:0b {
     filename "netboot.xyz-arm64.efi";
 } else {
-    filename "netboot.xyz.efi";
+    filename "netboot.xyz-undionly.kpxe";
 }

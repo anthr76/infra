@@ -37,9 +37,9 @@
   vyos.vyos.vyos_config:
     lines:
       - set interfaces ethernet eth0 address 'dhcp'
-      - set interfaces ethernet eth1 address '{{ LAN.GW }}/28'
-      - set interfaces ethernet eth1 vif 8 address '{{ VLAN_8.GW }}/26'
-      - set interfaces ethernet eth1 vif 10 address '{{ VLAN_10.GW }}/26'
+      - set interfaces ethernet eth1 address '{{ LAN.GW }}/24'
+      - set interfaces ethernet eth1 vif 8 address '{{ VLAN_8.GW }}/24'
+      - set interfaces ethernet eth1 vif 10 address '{{ VLAN_10.GW }}/24'
       - set interfaces ethernet eth1 vif 99 address '{{ VLAN_99.GW }}/24'
       - set interfaces ethernet eth1 vif 100 address '{{ VLAN_100.GW }}/24'
       - set interfaces ethernet eth1 vif 101 address '{{ VLAN_101.GW }}/24'
