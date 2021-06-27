@@ -13,6 +13,13 @@ resource "matchbox_profile" "kubic_arm" {
   ]
 }
 
+// Default matcher group for machines
+resource "matchbox_group" "default" {
+  name    = "default"
+  profile = matchbox_profile.kubic_arm.name
+}
+
+
 resource "minio_s3_object" "autoyast_aarch64" {
   bucket_name    = "matchbox-assets"
   object_name    = "kubicaarch64/autoyast2/kubicxaarch64.xml"
