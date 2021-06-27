@@ -77,12 +77,6 @@ spec:
         port: 8082
         expose: true
         exposedPort: 8082
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 500m
-      limits:
-        memory: 500Mi
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -94,4 +88,10 @@ spec:
                     operator: In
                     values:
                       - traefik
-                topologyKey: kubernetes.io/hostname
+              topologyKey: kubernetes.io/hostname
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 500m
+      limits:
+        memory: 500Mi
