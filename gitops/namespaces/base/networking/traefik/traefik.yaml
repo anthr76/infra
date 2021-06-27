@@ -22,8 +22,12 @@ spec:
     - name: cert-manager
       namespace: networking
   values:
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
     deployment:
-      kind: DaemonSet
+      kind: Deployment
     logs:
       general:
         format: json
@@ -79,3 +83,15 @@ spec:
         cpu: 500m
       limits:
         memory: 500Mi
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - traefik
+              topologyKey: kubernetes.io/hostname
