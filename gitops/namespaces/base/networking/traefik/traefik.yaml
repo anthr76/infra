@@ -84,15 +84,15 @@ spec:
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/name
-                    operator: In
-                    values:
-                      - traefik
-              topologyKey: kubernetes.io/hostname
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - traefik
+            topologyKey: kubernetes.io/hostname
     resources:
       requests:
         memory: 100Mi
