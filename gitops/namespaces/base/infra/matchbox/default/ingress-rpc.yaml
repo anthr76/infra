@@ -5,7 +5,7 @@ metadata:
   name: matchbox-rpc
 spec:
   entryPoints:
-    - webs
+    - web
   routes:
     - match: HostSNI(`matchbox-rpc.${CLUSTER_NAME}.${DNS_INT_ZONE}`)
       services:
