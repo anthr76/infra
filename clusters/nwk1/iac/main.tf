@@ -24,12 +24,25 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "2.21.0"
     }
+    minio = {
+      source = "aminueza/minio"
+      version = "1.2.0"
+    }
   }
 }
 
+data "sops_file" "tf_secrets" {
+  source_file = "tf-secrets.sops.yaml"
+}
 provider "matchbox" {
   endpoint    = "matchbox-rpc.nyc1.rabbito.tech:443"
   client_cert = "${file("~/.matchbox/client.crt")}"
   client_key  = "${file("~/.matchbox/client.key")}"
   ca          = "${file("~/.matchbox/ca.crt")}"
+}
+provider "minio" {
+  minio_server = "s3.nwk1.rabbito.tech"
+  minio_region = "us-east-1"
+  minio_access_key = data.sops_file.tf_secrets.data["minio_access_key"]
+  minio_secret_key = data.sops_file.tf_secrets.data["minio_secret_key"]
 }
