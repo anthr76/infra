@@ -24,7 +24,7 @@ spec:
   values:
     autoscaling:
       enabled: true
-      minReplicas: 2
+      minReplicas: 3
       maxReplicas: 5
     deployment:
       kind: Deployment
@@ -75,8 +75,12 @@ spec:
           options: "default"
       metrics:
         port: 8082
-        expose: true
+        expose: false
         exposedPort: 8082
+      tcp:
+        port: 8080
+        expose: true
+        exposedPort: 8080
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
