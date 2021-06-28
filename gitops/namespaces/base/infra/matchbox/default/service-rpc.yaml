@@ -4,7 +4,8 @@ kind: Service
 metadata:
   name: matchbox-rpc
   annotations:
-    traefik.ingress.kubernetes.io/service.serversscheme: h2c
+    #traefik.ingress.kubernetes.io/service.serversscheme: h2c
+    traefik.ingress.kubernetes.io/service.serversscheme: https
 spec:
   type: ClusterIP
   selector:
