@@ -82,7 +82,7 @@ spec:
         port: 8080
         expose: true
         exposedPort: 8080
-        protocol: TCP
+        protocol: h2c
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
