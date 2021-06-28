@@ -5,7 +5,7 @@ resources:
   - default/deployment.yaml
   - default/rpc-service.yaml
   - default/ingress.yaml
-  - default/rpc-dns.yaml
+  #- default/rpc-dns.yaml
   - default/service.yaml
 namespace: infra
 secretGenerator:
