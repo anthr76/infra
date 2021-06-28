@@ -10,7 +10,7 @@ spec:
     - match: HostSNI(`matchbox-rpc.nyc1.rabbito.tech`)
       services:
         - name: matchbox
-          terminationDelay: 35m
+          #terminationDelay: 35m
           port: 8081
   tls:
     options:
