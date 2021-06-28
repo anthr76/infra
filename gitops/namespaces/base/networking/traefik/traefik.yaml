@@ -78,11 +78,6 @@ spec:
         port: 8082
         expose: false
         exposedPort: 8082
-      tcp:
-        port: 8080
-        expose: true
-        exposedPort: 8080
-        protocol: TCP
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:

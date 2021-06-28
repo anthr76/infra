@@ -35,7 +35,7 @@ data "sops_file" "tf_secrets" {
   source_file = "tf-secrets.sops.yaml"
 }
 provider "matchbox" {
-  endpoint    = "matchbox-rpc.nyc1.rabbito.tech:8080"
+  endpoint    = "matchbox-rpc.nyc1.rabbito.tech:443"
   client_cert = file("~/.matchbox/client.crt")
   client_key  = file("~/.matchbox/client.key")
   ca          = file("~/.matchbox/ca.crt")
