@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - tcp
   routes:
-    - match: Host(`matchbox-rpc.nyc1.rabbito.tech`)
+    - match: HostSNI(`*`)
       services:
         - name: matchbox
           port: 8081
