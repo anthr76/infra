@@ -4,12 +4,6 @@ kind: Service
 metadata:
   annotations:
     external-dns.alpha.kubernetes.io/hostname: matchbox-rpc.${CLUSTER_NAME}.${DNS_INT_ZONE}
-    service.beta.kubernetes.io/do-loadbalancer-healthcheck-check-interval-seconds: "3"
-    service.beta.kubernetes.io/do-loadbalancer-healthcheck-healthy-threshold: "2"
-    service.beta.kubernetes.io/do-loadbalancer-healthcheck-response-timeout-seconds: "3"
-    service.beta.kubernetes.io/do-loadbalancer-healthcheck-unhealthy-threshold: "10"
-    service.beta.kubernetes.io/do-loadbalancer-name: traefik-lb-nyc1
-    service.beta.kubernetes.io/do-loadbalancer-size-slug: lb-small
   name: matchbox-rpc
   namespace: infra
 spec:
