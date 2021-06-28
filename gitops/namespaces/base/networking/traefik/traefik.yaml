@@ -46,7 +46,7 @@ spec:
       plugins:
         enabled: true
       kubernetesGateway:
-        enabled: true
+        enabled: false
     tlsOptions:
       default:
         minVersion: VersionTLS12
