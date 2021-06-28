@@ -9,7 +9,7 @@ spec:
   routes:
     - match: HostSNI(`matchbox-rpc.nyc1.rabbito.tech`)
       services:
-        - name: https
+        - name: matchbox-rpc
           port: 8081
   tls:
     options:
