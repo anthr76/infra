@@ -7,6 +7,7 @@ metadata:
   name: matchbox-rpc
   namespace: infra
 spec:
+  type: NodePort
   externalTrafficPolicy: Local
   ipFamilies:
   - IPv4
@@ -18,4 +19,3 @@ spec:
     targetPort: https
   selector:
     app.kubernetes.io/name: matchbox
-  type: LoadBalancer
