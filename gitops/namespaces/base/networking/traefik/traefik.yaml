@@ -31,7 +31,7 @@ spec:
     logs:
       general:
         format: json
-        level: DEBUG
+        level: INFO
       access:
         enabled: true
         format: json
@@ -47,11 +47,11 @@ spec:
         enabled: true
       kubernetesGateway:
         enabled: true
-    tlsOptions:
-      default:
-        minVersion: VersionTLS12
-        maxVersion: VersionTLS13
-        sniStrict: true
+    # tlsOptions:
+    #   default:
+    #     minVersion: VersionTLS12
+    #     maxVersion: VersionTLS13
+    #     sniStrict: true
     pilot:
       enabled: true
       token: "${TRAEFIK_PIOLT_TOKEN}"
