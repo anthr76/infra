@@ -5,7 +5,7 @@ metadata:
   name: matchbox-rpc
 spec:
   entryPoints:
-    - tcp
+    - websecure
   routes:
     - kind: Rule
       match: Host(`matchbox-rpc.nyc1.rabbito.tech`)
