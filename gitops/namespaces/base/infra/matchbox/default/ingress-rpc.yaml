@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: matchbox
+  name: matchbox-rpc
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
