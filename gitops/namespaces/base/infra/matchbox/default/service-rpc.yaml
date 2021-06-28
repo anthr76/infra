@@ -6,6 +6,7 @@ metadata:
   annotations:
     #traefik.ingress.kubernetes.io/service.serversscheme: h2c
     traefik.ingress.kubernetes.io/service.serversscheme: https
+    traefik.ingress.kubernetes.io/router.tls: "false"
 spec:
   type: ClusterIP
   selector:
