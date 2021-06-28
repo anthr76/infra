@@ -1,13 +1,13 @@
 ---
 apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRouteTCP
+kind: IngressRoute
 metadata:
   name: matchbox-rpc
 spec:
   entryPoints:
     - tcp
   routes:
-    - match: HostSNI(`matchbox-rpc.nyc1.rabbito.tech`)
+    - match: Host(`matchbox-rpc.nyc1.rabbito.tech`)
       services:
         - name: matchbox-rpc
           port: 8081
