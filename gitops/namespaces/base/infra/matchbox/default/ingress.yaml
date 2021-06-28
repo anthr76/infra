@@ -1,15 +1,25 @@
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRouteTCP
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: matchbox-rpc
+  name: matchbox
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
-  entryPoints:
-    - tcp
-  routes:
-    - match: HostSNI(`matchbox-rpc.${CLUSTER_NAME}.${DNS_INT_ZONE}`)
-      services:
-        - name: matchbox-rpc
-          port: 8081
+  ingressClassName: "traefik"
+  rules:
+  - host: "matchbox.${CLUSTER_NAME}.${DNS_INT_ZONE}"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: matchbox
+            port:
+              number: 8080
   tls:
-    passthrough: true
+  - hosts:
+    - "matchbox.${CLUSTER_NAME}.${DNS_INT_ZONE}"
+    secretName: matchbox-${CLUSTER_NAME}-rabbito-tls
