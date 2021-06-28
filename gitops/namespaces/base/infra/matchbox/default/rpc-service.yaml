@@ -11,7 +11,7 @@ metadata:
     service.beta.kubernetes.io/do-loadbalancer-name: traefik-lb-nyc1
     service.beta.kubernetes.io/do-loadbalancer-size-slug: lb-small
   name: matchbox-rpc
-  namespace: networking
+  namespace: infra
 spec:
   externalTrafficPolicy: Local
   ipFamilies:
