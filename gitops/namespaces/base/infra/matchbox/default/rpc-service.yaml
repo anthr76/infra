@@ -18,4 +18,4 @@ spec:
     protocol: TCP
     targetPort: https
   selector:
-    app.kubernetes.io/name: matchbox
+    app: matchbox
