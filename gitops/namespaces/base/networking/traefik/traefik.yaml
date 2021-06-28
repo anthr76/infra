@@ -51,7 +51,7 @@ spec:
       default:
         minVersion: VersionTLS12
         maxVersion: VersionTLS13
-        sniStrict: false
+        sniStrict: true
     pilot:
       enabled: true
       token: "${TRAEFIK_PIOLT_TOKEN}"
