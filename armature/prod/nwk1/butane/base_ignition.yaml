@@ -19,6 +19,11 @@ storage:
         id: 1000
       group:
         id: 1000
+    - path: /var/podman/netbootxyz
+      user:
+        id: 65534
+      group:
+        id: 65534
   files:
     - path: /etc/hostname
       mode: 0644
@@ -54,6 +59,12 @@ storage:
                           dns cloudflare ${CF_API_KEY}
                   }
           }
+    - path: /var/podman/netbootxyz/MAC-dca63203594d.ipxe
+      contents:
+        inline: |
+          #!ipxe
+          dhcp
+          chain https://matchbox.nyc1.rabbito.tech
   links:
     - path: /etc/localtime
       target: ../usr/share/zoneinfo/America/New_York
@@ -93,7 +104,7 @@ systemd:
         ExecStartPre=-/bin/podman kill netbootxyz
         ExecStartPre=-/bin/podman rm netbootxyz
         ExecStartPre=-/bin/podman pull quay.io/kutara/netbootxyz:latest
-        ExecStart=/bin/podman run --name netbootxyz -p 127.0.0.1:8080:8080 -p 69:69/udp \
+        ExecStart=/bin/podman run --name netbootxyz -p 127.0.0.1:8080:8080 -p 69:69/udp -v /var/podman/netbootxyz:/config/menus/local:z \
                   quay.io/kutara/netbootxyz:latest
         ExecStop=/bin/podman stop netbootxyz
 

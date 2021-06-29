@@ -3,7 +3,7 @@
 <profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
   <bootloader>
     <global>
-      <append>ignition.platform.id=metal \$ignition_firstboot rd.neednet=1 ip=dhcp ignition.config.url=http://nwk1-app-1.rabbito.tech:8082/opensuse/autoyast2/test.ign</append>
+      <append>ignition.platform.id=metal \$ignition_firstboot rd.neednet=1 ip=dhcp ignition.config.url=http://${var.matchbox_http_endpoint}/ignition?uuid=$${uuid}&mac=$${mac:hexhyp}</append>
     </global>
   </bootloader>
   <general>

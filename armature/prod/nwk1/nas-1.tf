@@ -1,6 +1,6 @@
 resource "libvirt_volume" "coreos_disk" {
   name             = "nas-1-vm"
-  base_volume_name = "fedora-coreos-34.20210518.3.0-qemu.x86_64.qcow2"
+  base_volume_name = "fedora-coreos-34.20210529.3.0-qemu.x86_64.qcow2"
   pool             = "default"
   size             = 20442450944
   format           = "qcow2"
