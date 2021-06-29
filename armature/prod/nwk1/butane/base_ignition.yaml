@@ -52,6 +52,9 @@ storage:
                           header_up X-Forwarded-Host {host}
                           header_up Host {host}
                   }
+                  tls {
+                          dns cloudflare ${CF_API_KEY}
+                  }
           }
           netboot.nwk1.rabbito.tech {
                   reverse_proxy http://127.0.0.1:8080
