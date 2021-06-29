@@ -72,10 +72,10 @@
 - name: configure alt interface NAT
   vyos.vyos.vyos_config:
     lines:
+      - set nat source rule 8 outbound-interface 'eth0'
+      - set nat source rule 8 source address '{{ VLAN_8.CIDR }}'
+      - set nat source rule 8 translation address 'masquerade'
       - set nat source rule 9 outbound-interface 'eth2'
       - set nat source rule 9 source address '{{ WAN_2.NAS_ADDRESS }}/32'
       - set nat source rule 9 translation address 'masquerade'
-      - set nat source rule 8 outbound-interface 'eth2'
-      - set nat source rule 8 source address '{{ VLAN_8.CIDR }}'
-      - set nat source rule 8 translation address 'masquerade'
   when: "'nwk1' in inventory_hostname"

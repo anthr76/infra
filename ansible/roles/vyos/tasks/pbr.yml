@@ -17,6 +17,4 @@
       - set policy route HTTP-ALT rule 9 set table 'main'
       - set policy route HTTP-ALT rule 10 set table '11'
       - set policy route HTTP-ALT rule 10 source address '{{ WAN_2.NAS_ADDRESS }}/32'
-      - set policy route HTTP-ALT rule 11 set table '11'
-      - set policy route HTTP-ALT rule 11 source address '{{ VLAN_8.CIDR }}'
   when: "'nwk1' in inventory_hostname"
