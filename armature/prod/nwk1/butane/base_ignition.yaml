@@ -66,6 +66,9 @@ storage:
                           header_up X-Forwarded-Host {host}
                           header_up Host {host}
                   }
+                  route /minio/* {
+                          redir https://s3.nwk1.rabbito.tech/minio{uri}
+                  }
           }
           netboot.nwk1.rabbito.tech {
                   reverse_proxy http://127.0.0.1:8080
