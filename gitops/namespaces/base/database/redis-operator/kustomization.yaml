@@ -1,4 +1,6 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- redis-operator.yaml
+- github.com/OT-CONTAINER-KIT/redis-operator/config/default?ref=v0.6.0
+namespace: database
