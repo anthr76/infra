@@ -1,15 +1,15 @@
 resource "matchbox_profile" "kubic_aarch64" {
   name = "kubic-worker-aarch64"
-  kernel = "https://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/boot/aarch64/linux"
+  kernel = "http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/boot/aarch64/linux"
   initrd = [
-    "https://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/boot/aarch64/initrd"
+    "http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/boot/aarch64/initrd"
   ]
   args = [
     "ip=dhcp",
     "netsetup=dhcp",
     "autoupgrade=1",
-    "install=https://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/",
-    "autoyast=https://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/autoyast2/kubicxaarch64.xml",
+    "install=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/",
+    "autoyast=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/autoyast2/kubicxaarch64.xml",
   ]
 }
 
