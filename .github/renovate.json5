@@ -38,6 +38,10 @@
       matchPackageNames: ["reactive-tech/kubegres"],
       versioning: "loose",
     },
+    {
+      matchPackageNames: ["OT-CONTAINER-KIT/helm-charts"],
+      versioning: "loose",
+    },
     // Setup datasources
     {
       datasources: ["helm"],
