@@ -62,6 +62,7 @@ storage:
                           dns cloudflare ${CF_API_KEY}
                   }
           }
+          preferred_chains smallest ISRG Root X1
     - path: /var/podman/netbootxyz/MAC-dca63203594d.ipxe
       contents:
         inline: |

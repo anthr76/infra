@@ -13,6 +13,15 @@
     mode: "0775"
   become: true
 
+- name: copy k8s pxe configuration
+  ansible.builtin.template:
+    src: pxe-k8s.conf.j2
+    dest: /config/user-data/pxe-k8s.conf
+    owner: root
+    group: vyattacfg
+    mode: "0775"
+  become: true
+
 - name: copy option space configuration
   ansible.builtin.copy:
     src: option-space.conf
@@ -34,5 +43,5 @@
       - set service dhcp-server global-parameters "deny bootp;"
       - set service dhcp-server global-parameters "include &quot;/config/user-data/option-space.conf&quot;;"
       - set service dhcp-server shared-network-name VLAN_10 subnet {{ VLAN_10.CIDR }} subnet-parameters "include &quot;/config/user-data/pxe.conf&quot;;"
-      - set service dhcp-server shared-network-name VLAN_8 subnet {{ VLAN_8.CIDR }} subnet-parameters "include &quot;/config/user-data/pxe.conf&quot;;"
+      - set service dhcp-server shared-network-name VLAN_8 subnet {{ VLAN_8.CIDR }} subnet-parameters "include &quot;/config/user-data/pxe-k8s.conf&quot;;"
       - set service dhcp-server shared-network-name VLAN_99 subnet {{ VLAN_99.CIDR }} subnet-parameters "include &quot;/config/user-data/pxe.conf&quot;;"

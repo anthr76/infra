@@ -1,0 +1,16 @@
+allow bootp;
+allow booting;
+next-server {{ static_dns["netboot.nwk1.rabbito.tech"] }};
+option tftp-server-name "{{ static_dns["netboot.nwk1.rabbito.tech"] }}";
+
+if exists user-class and ( option user-class = "iPXE" ) {
+    filename "https://matchbox.nyc1.rabbito.tech/boot.ipxe";
+} elsif option arch = 00:07 {
+    filename "netboot.xyz.efi";
+} elsif option arch = 00:00 {
+    filename "netboot.xyz.kpxe";
+} elsif option arch = 00:0b {
+    filename "netboot.xyz-arm64.efi";
+} else {
+    filename "netboot.xyz-undionly.kpxe";
+}

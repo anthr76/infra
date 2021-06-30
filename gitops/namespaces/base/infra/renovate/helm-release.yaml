@@ -33,4 +33,5 @@ spec:
     cronjob:
       schedule: '0 * * * *'
     env:
-      LOG_LEVEL: debug
+      LOG_LEVEL: info
+      RENOVATE_REDIS_URL: renovate-redis-headless
