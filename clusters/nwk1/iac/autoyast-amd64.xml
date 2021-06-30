@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
+  <bootloader>
+    <global>
+      <append>ignition.platform.id=metal \$ignition_firstboot rd.neednet=1 ip=dhcp ignition.config.url=http://nwk1-app-1.rabbito.tech:8082/opensuse/autoyast2/test.ign</append>
+    </global>
+  </bootloader>
+  <general>
+    <ask-list config:type="list"/>
+    <mode>
+      <confirm config:type="boolean">false</confirm>
+      <second_stage config:type="boolean">false</second_stage>
+    </mode>
+    <proposals config:type="list"/>
+  </general>
+  <ssh_import>
+    <copy_config config:type="boolean">false</copy_config>
+    <import config:type="boolean">false</import>
+  </ssh_import>
+  <keyboard>
+    <keymap>english-us</keymap>
+  </keyboard>
+  <language>
+    <language>en_US</language>
+    <languages/>
+  </language>
+<partitioning config:type="list">
+  <drive>
+    <initialize config:type="boolean">true</initialize>
+    <skip_list config:type="list">
+      <listentry>
+        <!-- skip devices that are smaller than 1GB -->
+        <skip_key>size_k</skip_key>
+        <skip_value>1048576</skip_value>
+        <skip_if_less_than config:type="boolean">true</skip_if_less_than>
+      </listentry>
+        <listentry>
+          <!-- skip devices that are larger than 520GB -->
+          <skip_key>size_k</skip_key>
+          <skip_value>545259241</skip_value>
+          <skip_if_more_than config:type="boolean">true</skip_if_more_than>
+        </listentry>
+      </skip_list>
+    </drive>
+  </partitioning>
+  <timezone>
+    <hwclock>UTC</hwclock>
+    <timezone>America/New_York</timezone>
+  </timezone>
+  <software>
+    <products config:type="list">
+      <product>MicroOS</product>
+    </products>
+    <install_recommended config:type="boolean">false</install_recommended>
+    <patterns config:type="list">
+      <pattern>microos_base</pattern>
+      <pattern>microos_base_zypper</pattern>
+      <pattern>microos_defaults</pattern>
+      <pattern>microos_hardware</pattern>
+      <pattern>microos_selinux</pattern>
+      <pattern>kubeadm</pattern>
+      <pattern>container_runtime_kubernetes</pattern>
+    </patterns>
+    <packages config:type="list">
+      <package>ignition</package>
+      <package>ignition-dracut-grub2</package>
+    </packages>
+    <do_online_update config:type="boolean">true</do_online_update>
+  </software>
+<add-on>
+  <add_on_others config:type="list">
+    <listentry>
+      <media_url>http://download.opensuse.org/tumbleweed/repo/oss/</media_url>
+      <alias>repo-oss</alias>
+      <name>openSUSE-Tumbleweed-Oss</name>
+    </listentry>
+    <listentry>
+      <media_url>http://download.opensuse.org/debug/tumbleweed/repo/oss/</media_url>
+      <alias>repo-debug</alias>
+      <name>openSUSE-Tumbleweed-Debug</name>
+    </listentry>
+    <listentry>
+      <media_url>http://download.opensuse.org/tumbleweed/repo/non-oss/</media_url>
+      <alias>repo-non-oss</alias>
+      <name>openSUSE-Tumbleweed-Non-Oss</name>
+    </listentry>
+    <listentry>
+      <media_url>http://download.opensuse.org/source/tumbleweed/repo/oss/</media_url>
+      <alias>repo-source</alias>
+      <name>openSUSE-Tumbleweed-Source</name>
+    </listentry>
+    <listentry>
+      <media_url>http://download.opensuse.org/update/tumbleweed/</media_url>
+      <alias>repo-update</alias>
+      <name>openSUSE-Tumbleweed-Update</name>
+    </listentry>
+  </add_on_others>
+</add-on>
+  <services-manager>
+    <default_target>multi-user</default_target>
+    <services>
+      <disable config:type="list">
+        <service>kdump-early</service>
+        <service>kdump</service>
+      </disable>
+      <enable config:type="list">
+        <service>sshd</service>
+        <service>kubelet</service>
+        <service>systemd-timesyncd</service>
+      </enable>
+    </services>
+  </services-manager>
+<kdump>
+  <!-- memory reservation -->
+  <add_crash_kernel config:type="boolean">false</add_crash_kernel>
+</kdump>
+</profile>
