@@ -26,9 +26,6 @@ spec:
       limits:
         cpu: 101m
         memory: 128Mi
-    redisSecret:
-      name: redis-secret
-      key: password
     serviceType: ClusterIP
   redisConfig: {}
   storage:
