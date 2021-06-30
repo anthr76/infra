@@ -39,7 +39,7 @@
       versioning: "loose",
     },
     {
-      matchPackageNames: ["OT-CONTAINER-KIT/helm-charts"],
+      matchPackageNames: ["OT-CONTAINER-KIT/redis-operator"],
       versioning: "loose",
     },
     // Setup datasources

@@ -1,5 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- https://github.com/OT-CONTAINER-KIT/helm-charts/charts/redis-operator/crds/redis-cluster.yaml?ref=redis-operator-0.6.0
-- https://github.com/OT-CONTAINER-KIT/helm-charts/charts/redis-operator/crds/redis.yaml?ref=redis-operator-0.6.0
+- https://github.com/OT-CONTAINER-KIT/redis-operator/config/crd?ref=v0.6.0
