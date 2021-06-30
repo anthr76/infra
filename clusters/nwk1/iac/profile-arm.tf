@@ -25,7 +25,7 @@ resource "matchbox_group" "default_aarch64" {
 
 resource "minio_s3_object" "autoyast_aarch64" {
   bucket_name    = "matchbox-assets"
-  object_name    = "kubicaarch64/autoyast2/kubicxaarch64.xml"
+  object_name    = "kubicaarch64/autoyast2/kubicaarch64.xml"
   content        = file("${path.module}/autoyast-aarch64.xml")
   #etag           = filemd5("./autoyast-aarch64.xml")
 }
