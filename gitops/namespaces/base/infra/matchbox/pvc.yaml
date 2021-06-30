@@ -4,7 +4,7 @@ apiVersion: v1
 metadata:
   name: matchbox-data
 spec:
-  volumeMode: Block
+  volumeMode: Filesystem
   storageClassName: cstor-replica-pool
   accessModes:
     - ReadWriteOnce
