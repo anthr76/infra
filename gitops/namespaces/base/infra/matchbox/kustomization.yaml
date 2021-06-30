@@ -8,7 +8,7 @@ resources:
   - default/rpc-dns.yaml
   - default/service.yaml
   - default/service-rpc.yaml
-  #- pvc.yaml
+  - pvc.yaml
 namespace: infra
 secretGenerator:
   - name: matchbox-rpc
