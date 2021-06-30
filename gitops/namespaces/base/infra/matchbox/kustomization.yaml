@@ -17,10 +17,19 @@ secretGenerator:
       - "server.crt=server.crt.enc"
       - "server.key=server.key.enc"
     type: "Opaque"
-patches:
-  - path: volume-mount.yaml
-    target:
-      group: apps
-      version: v1
-      kind: Deployment
-      labelSelector: "app=matchbox"
+patchesStrategicMerge:
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: matchbox
+    spec:
+        volumes:
+          - name: data
+            persistentVolumeClaim:
+              claimName: matchbox-data
+          - name: config
+            secret:
+              secretName: matchbox-rpc
+          - name: assets
+            emptyDir: {}
