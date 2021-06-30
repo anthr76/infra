@@ -1,0 +1,13 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: matchbox-data
+spec:
+  volumeMode: Block
+  storageClassName: cstor-replica-pool
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

@@ -16,3 +16,10 @@ secretGenerator:
       - "server.crt=server.crt.enc"
       - "server.key=server.key.enc"
     type: "Opaque"
+patches:
+  - path: pvc.yaml
+    target:
+      group: apps
+      version: v1
+      kind: Deployment
+      labelSelector: "app=matchbox"
