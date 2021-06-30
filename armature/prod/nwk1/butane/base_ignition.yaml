@@ -61,6 +61,12 @@ storage:
                           }
                   }
           }
+          s3.nwk1.rabbito.tech:80 {
+                  reverse_proxy http://nas-1.nwk1.rabbito.tech:9000 {
+                          header_up X-Forwarded-Host {host}
+                          header_up Host {host}
+                  }
+          }
           netboot.nwk1.rabbito.tech {
                   reverse_proxy http://127.0.0.1:8080
                   tls {
