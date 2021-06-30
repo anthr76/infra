@@ -48,3 +48,4 @@ spec:
         password: ${AUTHENTIK_POSTGRES_PASSWORD}
       redis:
         host: "authentik-redis-headless"
+        password: ""
