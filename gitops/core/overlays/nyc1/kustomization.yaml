@@ -8,6 +8,7 @@ resources:
 - ../../base/git-keys/gitlab-infra-ssh.yaml
 - ../../base/crds/traefik/traefik-default.yaml
 - ../../base/crds/gateway/gateway-default.yaml
+- ../../base/crds/redis-operator/redis-default.yaml
 - ../../base/crds/external-dns/external-dns-default.yaml
 #- ../../base/crds/origin-ca-issuer/origin-ca-issuer-default.yaml
 - ../../base/crds/kube-prometheus-stack/kube-prometheus-stack-default.yaml
