@@ -61,6 +61,7 @@ spec:
           secret:
             secretName: matchbox-rpc
         - name: data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: matchbox-data
         - name: assets
           emptyDir: {}
