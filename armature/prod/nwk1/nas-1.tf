@@ -22,7 +22,8 @@ data "ct_config" "core_os_config" {
     {
       anthonyjrabbito_ssh_key = data.sops_file.tf_secrets.data["anthonyjrabbito_ssh_key"],
       hostname                = local.hostname,
-      CF_API_KEY              = data.sops_file.tf_secrets.data["cf_api_key"]
+      CF_API_KEY              = data.sops_file.tf_secrets.data["cf_api_key"],
+      CF_EMAIL              = data.sops_file.tf_secrets.data["cf_email"]
     },
   )
   strict       = true

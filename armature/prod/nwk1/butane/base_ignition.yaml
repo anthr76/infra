@@ -53,7 +53,12 @@ storage:
                           header_up Host {host}
                   }
                   tls {
-                          dns cloudflare ${CF_API_KEY}
+                          protocols tls1.2 tls1.2
+                          ciphers TLS_RSA_WITH_AES_256_CBC_SHA TLS_RSA_WITH_AES_128_CBC_SHA
+                          issuer acme {
+                                  preferred_chains smallest
+                                  dns cloudflare ${CF_API_KEY}
+                          }
                   }
           }
           netboot.nwk1.rabbito.tech {
@@ -62,7 +67,6 @@ storage:
                           dns cloudflare ${CF_API_KEY}
                   }
           }
-          preferred_chains smallest ISRG Root X1
     - path: /var/podman/netbootxyz/MAC-dca63203594d.ipxe
       contents:
         inline: |
@@ -107,9 +111,9 @@ systemd:
         [Service]
         ExecStartPre=-/bin/podman kill netbootxyz
         ExecStartPre=-/bin/podman rm netbootxyz
-        ExecStartPre=-/bin/podman pull quay.io/kutara/netbootxyz:latest
+        ExecStartPre=-/bin/podman pull quay.io/kutara/netbootxyz:tls-fc3f059
         ExecStart=/bin/podman run --name netbootxyz -p 127.0.0.1:8080:8080 -p 69:69/udp -v /var/podman/netbootxyz:/config/menus/local:z \
-                  quay.io/kutara/netbootxyz:latest
+                  quay.io/kutara/netbootxyz:tls-fc3f059
         ExecStop=/bin/podman stop netbootxyz
 
         [Install]
