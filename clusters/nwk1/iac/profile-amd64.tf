@@ -10,6 +10,7 @@ resource "matchbox_profile" "kubic_amd64" {
     "autoupgrade=1",
     "install=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicax86/",
     "autoyast=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicx86/autoyast2/kubicamd64.xml",
+    "initrd=initrd"
   ]
 }
 
