@@ -10,14 +10,14 @@ spec:
     spec:
       # renovate: registryUrl=https://ot-container-kit.github.io/helm-charts
       chart: redis-operator
-      version: 0.6.0
+      version: 0.5.0
       sourceRef:
         kind: HelmRepository
         name: opstree-charts
         namespace: flux-system
       interval: 10m
-  # install:
-  #   crds: Skip
-  # upgrade:
-  #   crds: Skip
+  install:
+    crds: Skip
+  upgrade:
+    crds: Skip
   values:
