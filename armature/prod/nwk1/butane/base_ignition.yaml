@@ -73,6 +73,17 @@ storage:
           netboot.nwk1.rabbito.tech {
                   reverse_proxy http://127.0.0.1:8080
                   tls {
+                          protocols tls1.2 tls1.2
+                          issuer acme {
+                                  preferred_chains smallest
+                                  dns cloudflare ${CF_API_KEY}
+                                  email ${CF_EMAIL}
+                          }
+                  }
+          }
+          netboot.nwk1.rabbito.tech:80 {
+                  reverse_proxy http://127.0.0.1:8080
+                  tls {
                           dns cloudflare ${CF_API_KEY}
                   }
           }
