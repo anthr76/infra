@@ -17,7 +17,7 @@ resource "matchbox_profile" "kubic_amd64" {
 resource "matchbox_group" "default_amd64" {
   count   = length(var.x86_mac_address)
   name    = "kubic-amd64-${count.index}"
-  profile = matchbox_profile.kubic_aarch64.name
+  profile = matchbox_profile.kubic_amd64.name
   selector = {
       mac = var.x86_mac_address[count.index]
   }
