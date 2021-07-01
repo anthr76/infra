@@ -15,10 +15,11 @@ resource "matchbox_profile" "kubic_amd64" {
 }
 
 resource "matchbox_group" "default_amd64" {
-  name    = "default"
+  count   = length(var.x86_mac_address)
+  name    = "kubic-amd64-${count.index}"
   profile = matchbox_profile.kubic_aarch64.name
   selector = {
-    mac = "a0:36:9f:ff:ff:ff"
+      mac = var.x86_mac_address[count.index]
   }
 }
 
