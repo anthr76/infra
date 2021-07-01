@@ -91,25 +91,43 @@ storage:
       contents:
         inline: |
           #!ipxe
-          dhcp
+          imgfree
+          sleep 10
+          chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
+    - path: /var/podman/netbootxyz/MAC-dca63203cf77.ipxe
+      contents:
+        inline: |
+          #!ipxe
+          imgfree
+          sleep 10
+          chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
+    - path: /var/podman/netbootxyz/MAC-dca6203d2ff.ipxe
+      contents:
+        inline: |
+          #!ipxe
+          imgfree
+          sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
     - path: /var/podman/netbootxyz/MAC-a0369fffffff.ipxe
       contents:
         inline: |
           #!ipxe
-          dhcp
+          imgfree
+          sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
     - path: /var/podman/netbootxyz/MAC-90e2ba8c703a.ipxe
       contents:
         inline: |
           #!ipxe
-          dhcp
+          imgfree
+          sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
     - path: /var/podman/netbootxyz/MAC-90e2ba8c7498.ipxe
       contents:
         inline: |
           #!ipxe
-          dhcp
+          imgfree
+          sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
   links:
     - path: /etc/localtime
@@ -150,7 +168,7 @@ systemd:
         ExecStartPre=-/bin/podman kill netbootxyz
         ExecStartPre=-/bin/podman rm netbootxyz
         ExecStartPre=-/bin/podman pull quay.io/kutara/netbootxyz:tls-fc3f059
-        ExecStart=/bin/podman run --name netbootxyz -p 127.0.0.1:8080:8080 -p 69:69/udp -v /var/podman/netbootxyz:/config/menus/local:z \
+        ExecStart=/bin/podman run --name netbootxyz --cap-add=NET_ADMIN -p 127.0.0.1:8080:8080 -p 69:69 -p 69:69/udp -v /var/podman/netbootxyz:/config/menus/local:z \
                   quay.io/kutara/netbootxyz:tls-fc3f059
         ExecStop=/bin/podman stop netbootxyz
 

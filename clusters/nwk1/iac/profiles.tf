@@ -6,8 +6,7 @@ resource "matchbox_profile" "worker_kubic_amd64" {
     "http://s3.nwk1.rabbito.tech/matchbox-assets/kubicx86/boot/x86_64/loader/initrd"
   ]
   args = [
-    "ip=dhcp",
-    "netsetup=dhcp",
+    "ifcfg=eth*=dhcp",
     "install=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicx86",
     "autoyast=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicx86/autoyast2/kubicamd64.xml",
     "initrd=initrd",
@@ -23,8 +22,7 @@ resource "matchbox_profile" "master_kubic_aarch64" {
     "http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/boot/aarch64/initrd"
   ]
   args = [
-    "ip=dhcp",
-    "netsetup=dhcp",
+    "ifcfg=eth*=dhcp",
     "install=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/",
     "autoyast=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/autoyast2/kubicaarch64.xml",
     "initrd=initrd",
@@ -40,8 +38,7 @@ resource "matchbox_profile" "worker_kubic_aarch64" {
     "http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/boot/aarch64/initrd"
   ]
   args = [
-    "ip=dhcp",
-    "netsetup=dhcp",
+    "ifcfg=eth*=dhcp",
     "install=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/",
     "autoyast=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/autoyast2/kubicaarch64.xml",
     "initrd=initrd",

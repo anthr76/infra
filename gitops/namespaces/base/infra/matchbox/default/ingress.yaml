@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: matchbox
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure, web
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: "traefik"
