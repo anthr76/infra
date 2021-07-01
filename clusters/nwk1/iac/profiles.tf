@@ -23,7 +23,7 @@ resource "matchbox_profile" "master_kubic_aarch64" {
   ]
   args = [
     "ifcfg=eth*=dhcp",
-    "install=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/",
+    "install=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64",
     "autoyast=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/autoyast2/kubicaarch64.xml",
     "initrd=initrd",
     "linux",
