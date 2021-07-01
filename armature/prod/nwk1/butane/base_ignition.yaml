@@ -103,7 +103,7 @@ storage:
           imgfree
           sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
-    - path: /var/podman/netbootxyz/MAC-dca6203d2ff.ipxe
+    - path: /var/podman/netbootxyz/MAC-dca63203d2ff.ipxe
       contents:
         inline: |
           #!ipxe
@@ -128,6 +128,38 @@ storage:
           sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
     - path: /var/podman/netbootxyz/MAC-90e2ba8c7498.ipxe
+      contents:
+        inline: |
+          #!ipxe
+          ntp 0.pool.ntp.org
+          imgfree
+          sleep 10
+          chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
+    - path: /var/podman/netbootxyz/MAC-dca632cc34a6.ipxe
+      contents:
+        inline: |
+          #!ipxe
+          ntp 0.pool.ntp.org
+          imgfree
+          sleep 10
+          chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
+    - path: /var/podman/netbootxyz/MAC-dca63246d63c.ipxe
+      contents:
+        inline: |
+          #!ipxe
+          ntp 0.pool.ntp.org
+          imgfree
+          sleep 10
+          chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
+    - path: /var/podman/netbootxyz/MAC-dca632395d69.ipxe
+      contents:
+        inline: |
+          #!ipxe
+          ntp 0.pool.ntp.org
+          imgfree
+          sleep 10
+          chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
+    - path: /var/podman/netbootxyz/MAC-dca632397689.ipxe
       contents:
         inline: |
           #!ipxe
