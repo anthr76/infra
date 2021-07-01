@@ -91,6 +91,7 @@ storage:
       contents:
         inline: |
           #!ipxe
+          ntp 0.pool.ntp.org
           imgfree
           sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
@@ -98,6 +99,7 @@ storage:
       contents:
         inline: |
           #!ipxe
+          ntp 0.pool.ntp.org
           imgfree
           sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
@@ -105,6 +107,7 @@ storage:
       contents:
         inline: |
           #!ipxe
+          ntp 0.pool.ntp.org
           imgfree
           sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
@@ -112,6 +115,7 @@ storage:
       contents:
         inline: |
           #!ipxe
+          ntp 0.pool.ntp.org
           imgfree
           sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
@@ -119,6 +123,7 @@ storage:
       contents:
         inline: |
           #!ipxe
+          ntp 0.pool.ntp.org
           imgfree
           sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
@@ -126,6 +131,7 @@ storage:
       contents:
         inline: |
           #!ipxe
+          ntp 0.pool.ntp.org
           imgfree
           sleep 10
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
