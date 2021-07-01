@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: matchbox
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: "traefik"
@@ -19,7 +19,7 @@ spec:
             name: matchbox
             port:
               number: 8080
-  # tls:
-  # - hosts:
-  #   - "matchbox.${CLUSTER_NAME}.${DNS_INT_ZONE}"
-  #   secretName: matchbox-${CLUSTER_NAME}-rabbito-tls
+  tls:
+  - hosts:
+    - "matchbox.${CLUSTER_NAME}.${DNS_INT_ZONE}"
+    secretName: matchbox-${CLUSTER_NAME}-rabbito-tls
