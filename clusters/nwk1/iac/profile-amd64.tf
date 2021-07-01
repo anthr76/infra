@@ -12,6 +12,8 @@ resource "matchbox_profile" "kubic_amd64" {
     "initrd=initrd",
     "linux",
   ]
+
+  raw_ignition = data.ct_config.worker.rendered
 }
 
 resource "matchbox_group" "default_amd64" {
@@ -21,6 +23,11 @@ resource "matchbox_group" "default_amd64" {
   selector = {
       mac = var.x86_mac_address[count.index]
   }
+}
+
+data "ct_config" "worker" {
+  content      = file("worker.yaml")
+  strict       = true
 }
 
 resource "minio_s3_object" "autoyast_amd64" {
