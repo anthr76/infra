@@ -99,6 +99,18 @@ storage:
           #!ipxe
           dhcp
           chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
+    - path: /var/podman/netbootxyz/MAC-90e2ba8c703a.ipxe
+      contents:
+        inline: |
+          #!ipxe
+          dhcp
+          chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
+    - path: /var/podman/netbootxyz/MAC-90e2ba8c7498.ipxe
+      contents:
+        inline: |
+          #!ipxe
+          dhcp
+          chain https://matchbox.nyc1.rabbito.tech/boot.ipxe
   links:
     - path: /etc/localtime
       target: ../usr/share/zoneinfo/America/New_York
