@@ -3,7 +3,7 @@
 <profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
   <bootloader>
     <global>
-      <append>ignition.platform.id=metal \$ignition_firstboot rd.neednet=1 ip=dhcp ignition.config.url=http://${var.matchbox_http_endpoint}/ignition?uuid=$${uuid}&mac=$${mac:hexhyp}</append>
+      <append>ignition.platform.id=metal \$ignition_firstboot rd.neednet=1 ip=dhcp</append>
     </global>
   </bootloader>
   <general>
