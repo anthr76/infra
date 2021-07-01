@@ -7,9 +7,10 @@ resource "matchbox_profile" "kubic_aarch64" {
   args = [
     "ip=dhcp",
     "netsetup=dhcp",
-    "autoupgrade=1",
     "install=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/",
     "autoyast=http://s3.nwk1.rabbito.tech/matchbox-assets/kubicaarch64/autoyast2/kubicxaarch64.xml",
+    "initrd=initrd",
+    "linux",
   ]
 }
 
