@@ -68,7 +68,7 @@ spec:
       - "--entryPoints.tcp.proxyProtocol.trustedIPs=10.136.0.0/16"
       - "--providers.kubernetesingress.ingressendpoint.hostname=${INGRESS_ENDPOINT_HOSTNAME}"
     ports:
-      web:
+      #web:
         #redirectTo: websecure
       websecure:
         tls:
