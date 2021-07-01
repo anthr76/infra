@@ -69,7 +69,7 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.hostname=${INGRESS_ENDPOINT_HOSTNAME}"
     ports:
       web:
-        redirectTo: websecure
+        #redirectTo: websecure
       websecure:
         tls:
           enabled: true
