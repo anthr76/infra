@@ -1,3 +1,27 @@
+terraform {
+  backend "http" {
+    address        = "https://gitlab.com/api/v4/projects/27033486/terraform/state/nwk1-cluster-prod"
+    lock_address   = "https://gitlab.com/api/v4/projects/27033486/terraform/state/nwk1-cluster-prod/lock"
+    unlock_address = "https://gitlab.com/api/v4/projects/27033486/terraform/state/nwk1-cluster-prod/lock"
+    lock_method    = "POST"
+    unlock_method  = "DELETE"
+    retry_wait_min = 5
+  }
+  required_providers {
+    matchbox = {
+      source = "poseidon/matchbox"
+      version = "0.4.1"
+    }
+  }
+}
+
+provider "matchbox" {
+  endpoint    = "matchbox-rpc.nyc1.rabbito.tech:443"
+  client_cert = file("~/.matchbox/client.crt")
+  client_key  = file("~/.matchbox/client.key")
+  ca          = file("~/.matchbox/ca.crt")
+}
+
 module "nwk1-arm64" {
   source = "git::https://gitlab.com/kutara/typhoon//bare-metal/opensuse-kubic/kubernetes?ref=opensuse-kubic"
 
@@ -55,9 +79,9 @@ module "nwk1-arm64" {
 module "nwk1-amd64-workers" {
   source = "git::https://gitlab.com/kutara/typhoon//bare-metal/opensuse-kubic/kubernetes/workers?ref=opensuse-kubic"
   name = "amd64-storage"
-  matchbox_http_endpoint  = var.ssh_authorized_key
-  ssh_authorized_key = var.ssh_authorized_key
-  kubeconfig         = module.nwk1-arm64.kubeconfig
+  matchbox_http_endpoint  = "https://matchbox.nyc1.rabbito.tech"
+  ssh_authorized_key = "ssh-rsa AAAAB3N."
+  kubeconfig         = module.nwk1-arm64.kubeconfig-admin
   workers = [
     {
     name="worker-1",
