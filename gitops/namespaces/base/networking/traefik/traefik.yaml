@@ -84,7 +84,7 @@ spec:
         - labelSelector:
             matchExpressions:
             - key: app
-              operator: In
+              operator: NotIn
               values:
               - traefik
           topologyKey: "kubernetes.io/hostname"
