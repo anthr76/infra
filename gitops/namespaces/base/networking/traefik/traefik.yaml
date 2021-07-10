@@ -83,8 +83,8 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchExpressions:
-            - key: app
-              operator: NotIn
+            - key: app.kubernetes.io/name
+              operator: In
               values:
               - traefik
           topologyKey: "kubernetes.io/hostname"
