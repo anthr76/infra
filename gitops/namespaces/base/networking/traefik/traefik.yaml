@@ -88,6 +88,7 @@ spec:
               values:
               - traefik
           topologyKey: "kubernetes.io/hostname"
+    resources:
       requests:
         memory: 100Mi
         cpu: 500m
