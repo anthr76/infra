@@ -61,7 +61,7 @@ module "nwk1-arm64" {
 
   # bare-metal
   cluster_name            = "nwk1"
-  matchbox_http_endpoint  = "https://matchbox.nyc1.rabbito.tech"
+  matchbox_http_endpoint  = "http://matchbox.nyc1.rabbito.tech"
   arch = "arm64"
   autoyast_url = "https://s3.nwk1.rabbito.tech/matchbox-assets/autoyast2/kubic-arm64.xml"
 
@@ -114,7 +114,7 @@ module "nwk1-arm64" {
 module "nwk1-amd64-workers" {
   source = "git::https://gitlab.com/kutara/typhoon//bare-metal/opensuse-kubic/kubernetes/workers?ref=opensuse-kubic"
   name = "amd64-storage"
-  matchbox_http_endpoint  = "https://matchbox.nyc1.rabbito.tech"
+  matchbox_http_endpoint  = "http://matchbox.nyc1.rabbito.tech"
   autoyast_url = "https://s3.nwk1.rabbito.tech/matchbox-assets/autoyast2/kubic-amd64.xml"
   ssh_authorized_key = "ssh-rsa AAAAB3N."
   kubeconfig         = module.nwk1-arm64.kubeconfig-admin
