@@ -58,7 +58,7 @@ spec:
     additionalArguments:
       - "--serverstransport.insecureskipverify=true"
       - "--ping"
-      - "--entrypoints.websecure.http.tls"
+      #- "--entrypoints.websecure.http.tls"
       - "--api.dashboard=true"
       - "--metrics.prometheus=true"
       - "--metrics.prometheus.entryPoint=metrics"
