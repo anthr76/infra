@@ -16,6 +16,11 @@ terraform {
       source = "aminueza/minio"
       version = "1.2.0"
     }
+    sops = {
+      source  = "carlpett/sops"
+      version = "0.6.3"
+    }
+
   }
 }
 
@@ -27,6 +32,11 @@ provider "matchbox" {
 }
 
 # NOTE: This is nessecary until an explanation for https://bugzilla.opensuse.org/show_bug.cgi?id=1188186 is brought to light..
+
+data "sops_file" "tf_secrets" {
+  source_file = "tf-secrets.sops.yaml"
+}
+
 provider "minio" {
   minio_server = "s3.nwk1.rabbito.tech"
   minio_region = "us-east-1"
@@ -53,7 +63,7 @@ module "nwk1-arm64" {
   cluster_name            = "nwk1"
   matchbox_http_endpoint  = "https://matchbox.nyc1.rabbito.tech"
   arch = "arm64"
-  autoyast_url = "foo"
+  autoyast_url = "https://s3.nwk1.rabbito.tech/matchbox-assets/autoyast2/kubic-arm64.xml"
 
   # configuration
   k8s_domain_name    = "k8s.nwk1.rabbito.tech"
@@ -105,7 +115,7 @@ module "nwk1-amd64-workers" {
   source = "git::https://gitlab.com/kutara/typhoon//bare-metal/opensuse-kubic/kubernetes/workers?ref=opensuse-kubic"
   name = "amd64-storage"
   matchbox_http_endpoint  = "https://matchbox.nyc1.rabbito.tech"
-  autoyast_url = "foo"
+  autoyast_url = "https://s3.nwk1.rabbito.tech/matchbox-assets/autoyast2/kubic-amd64.xml"
   ssh_authorized_key = "ssh-rsa AAAAB3N."
   kubeconfig         = module.nwk1-arm64.kubeconfig-admin
   workers = [
