@@ -59,6 +59,7 @@ spec:
       - "--serverstransport.insecureskipverify=true"
       - "--ping"
       - "--entrypoints.websecure.http.tls"
+      - "--entrypoints.web.http.redirections.entrypoint.priority=10"
       - "--api.dashboard=true"
       - "--metrics.prometheus=true"
       - "--metrics.prometheus.entryPoint=metrics"
