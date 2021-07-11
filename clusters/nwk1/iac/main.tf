@@ -12,6 +12,10 @@ terraform {
       source = "poseidon/matchbox"
       version = "0.4.1"
     }
+    minio = {
+      source = "aminueza/minio"
+      version = "1.2.0"
+    }
   }
 }
 
@@ -22,6 +26,26 @@ provider "matchbox" {
   ca          = file("~/.matchbox/ca.crt")
 }
 
+# NOTE: This is nessecary until an explanation for https://bugzilla.opensuse.org/show_bug.cgi?id=1188186 is brought to light..
+provider "minio" {
+  minio_server = "s3.nwk1.rabbito.tech"
+  minio_region = "us-east-1"
+  minio_access_key = data.sops_file.tf_secrets.data["minio_access_key"]
+  minio_secret_key = data.sops_file.tf_secrets.data["minio_secret_key"]
+}
+
+resource "minio_s3_object" "autoyast-arm64" {
+  bucket_name    = "matchbox-assets"
+  object_name    = "autoyast2/kubic-arm64.xml"
+  content        = module.nwk1-arm64.autoyast
+}
+
+resource "minio_s3_object" "autoyast-amd64" {
+  bucket_name    = "matchbox-assets"
+  object_name    = "autoyast2/kubic-amd64.xml"
+  content        = module.nwk1-amd64-workers.autoyast
+}
+
 module "nwk1-arm64" {
   source = "git::https://gitlab.com/kutara/typhoon//bare-metal/opensuse-kubic/kubernetes?ref=opensuse-kubic"
 
@@ -29,6 +53,7 @@ module "nwk1-arm64" {
   cluster_name            = "nwk1"
   matchbox_http_endpoint  = "https://matchbox.nyc1.rabbito.tech"
   arch = "arm64"
+  autoyast_url = "foo"
 
   # configuration
   k8s_domain_name    = "k8s.nwk1.rabbito.tech"
@@ -80,6 +105,7 @@ module "nwk1-amd64-workers" {
   source = "git::https://gitlab.com/kutara/typhoon//bare-metal/opensuse-kubic/kubernetes/workers?ref=opensuse-kubic"
   name = "amd64-storage"
   matchbox_http_endpoint  = "https://matchbox.nyc1.rabbito.tech"
+  autoyast_url = "foo"
   ssh_authorized_key = "ssh-rsa AAAAB3N."
   kubeconfig         = module.nwk1-arm64.kubeconfig-admin
   workers = [
