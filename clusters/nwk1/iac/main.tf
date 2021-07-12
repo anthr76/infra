@@ -138,7 +138,7 @@ module "nwk1-amd64-workers" {
     templatefile(
       "butane/new-interface.yaml",
       {
-        NEW_INTERFACE = eth2
+        NEW_INTERFACE = "eth2"
       }
     ),
   ]
