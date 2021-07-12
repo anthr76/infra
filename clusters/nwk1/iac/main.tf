@@ -67,7 +67,7 @@ module "nwk1-arm64" {
 
   # configuration
   k8s_domain_name    = "k8s.nwk1.rabbito.tech"
-  ssh_authorized_key = "ssh-rsa AAAAB3N."
+  ssh_authorized_key = data.sops_file.tf_secrets.data["ssh_key"]
 
   # machines
   controllers = [
@@ -116,7 +116,7 @@ module "nwk1-amd64-workers" {
   name = "amd64-storage"
   matchbox_http_endpoint  = "http://matchbox.nyc1.rabbito.tech"
   autoyast_url = "https://s3.nwk1.rabbito.tech/matchbox-assets/autoyast2/kubic-amd64.xml"
-  ssh_authorized_key = "ssh-rsa AAAAB3N."
+  ssh_authorized_key = data.sops_file.tf_secrets.data["ssh_key"]
   kubeconfig         = module.nwk1-arm64.kubeconfig-admin
   workers = [
     {
@@ -133,5 +133,13 @@ module "nwk1-amd64-workers" {
     mac="90:e2:ba:8c:74:98",
     domain="worker-3.nwk1.rabbito.tech"
     }
+  ]
+  snippets = [
+    templatefile(
+      "butane/new-interface.yaml",
+      {
+        NEW_INTERFACE = eth2
+      }
+    ),
   ]
 }
