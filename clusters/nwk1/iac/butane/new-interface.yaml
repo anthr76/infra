@@ -15,3 +15,21 @@ storage:
         inline: |
             BOOTPROTO='dhcp'
             STARTMODE='auto'
+            DHCLIENT_SET_HOSTNAME="yes"
+systemd:
+  units:
+    - name: kutara-setup-wickedd.service
+      enabled: true
+      contents: |
+        [Unit]
+        After=network-online.target wicked.service wickedd.service
+        ConditionPathExists=!/var/lib/issuegen-wickedd
+        ConditionPathExists=/etc/sysconfig/network/ifcfg-${NEW_INTERFACE}
+        [Service]
+        Type=oneshot
+        ExecStart=/sbin/wicked ifreload all
+        ExecStart=/sbin/wicked ifup all
+        ExecStart=/sbin/wicked ifdown --delete eth0
+        ExecStartPost=/usr/bin/touch /var/lib/issuegen-wickedd
+        [Install]
+        WantedBy=multi-user.targe
