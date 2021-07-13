@@ -37,24 +37,24 @@ data "sops_file" "tf_secrets" {
   source_file = "tf-secrets.sops.yaml"
 }
 
-provider "minio" {
-  minio_server = "s3.nwk1.rabbito.tech"
-  minio_region = "us-east-1"
-  minio_access_key = data.sops_file.tf_secrets.data["minio_access_key"]
-  minio_secret_key = data.sops_file.tf_secrets.data["minio_secret_key"]
-}
+# provider "minio" {
+#   minio_server = "s3.nwk1.rabbito.tech"
+#   minio_region = "us-east-1"
+#   minio_access_key = data.sops_file.tf_secrets.data["minio_access_key"]
+#   minio_secret_key = data.sops_file.tf_secrets.data["minio_secret_key"]
+# }
 
-resource "minio_s3_object" "autoyast-arm64" {
-  bucket_name    = "matchbox-assets"
-  object_name    = "autoyast2/kubic-arm64.xml"
-  content        = module.nwk1-arm64.autoyast
-}
+# resource "minio_s3_object" "autoyast-arm64" {
+#   bucket_name    = "matchbox-assets"
+#   object_name    = "autoyast2/kubic-arm64.xml"
+#   content        = module.nwk1-arm64.autoyast
+# }
 
-resource "minio_s3_object" "autoyast-amd64" {
-  bucket_name    = "matchbox-assets"
-  object_name    = "autoyast2/kubic-amd64.xml"
-  content        = module.nwk1-amd64-workers.autoyast
-}
+# resource "minio_s3_object" "autoyast-amd64" {
+#   bucket_name    = "matchbox-assets"
+#   object_name    = "autoyast2/kubic-amd64.xml"
+#   content        = module.nwk1-amd64-workers.autoyast
+# }
 
 module "nwk1-arm64" {
   source = "git::https://gitlab.com/kutara/typhoon//bare-metal/opensuse-kubic/kubernetes?ref=opensuse-kubic"
@@ -63,8 +63,6 @@ module "nwk1-arm64" {
   cluster_name            = "nwk1"
   matchbox_http_endpoint  = "http://matchbox.nyc1.rabbito.tech"
   arch = "arm64"
-  autoyast_url = "https://s3.nwk1.rabbito.tech/matchbox-assets/autoyast2/kubic-arm64.xml"
-
   # configuration
   k8s_domain_name    = "k8s.nwk1.rabbito.tech"
   ssh_authorized_key = data.sops_file.tf_secrets.data["ssh_key"]
@@ -115,7 +113,6 @@ module "nwk1-amd64-workers" {
   source = "git::https://gitlab.com/kutara/typhoon//bare-metal/opensuse-kubic/kubernetes/workers?ref=opensuse-kubic"
   name = "amd64-storage"
   matchbox_http_endpoint  = "http://matchbox.nyc1.rabbito.tech"
-  autoyast_url = "https://s3.nwk1.rabbito.tech/matchbox-assets/autoyast2/kubic-amd64.xml"
   ssh_authorized_key = data.sops_file.tf_secrets.data["ssh_key"]
   kubeconfig         = module.nwk1-arm64.kubeconfig-admin
   workers = [
