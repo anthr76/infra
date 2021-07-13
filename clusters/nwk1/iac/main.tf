@@ -37,12 +37,12 @@ data "sops_file" "tf_secrets" {
   source_file = "tf-secrets.sops.yaml"
 }
 
-# provider "minio" {
-#   minio_server = "s3.nwk1.rabbito.tech"
-#   minio_region = "us-east-1"
-#   minio_access_key = data.sops_file.tf_secrets.data["minio_access_key"]
-#   minio_secret_key = data.sops_file.tf_secrets.data["minio_secret_key"]
-# }
+provider "minio" {
+  minio_server = "s3.nwk1.rabbito.tech"
+  minio_region = "us-east-1"
+  minio_access_key = data.sops_file.tf_secrets.data["minio_access_key"]
+  minio_secret_key = data.sops_file.tf_secrets.data["minio_secret_key"]
+}
 
 # resource "minio_s3_object" "autoyast-arm64" {
 #   bucket_name    = "matchbox-assets"
@@ -130,13 +130,5 @@ module "nwk1-amd64-workers" {
     mac="90:e2:ba:8c:74:98",
     domain="worker-3.nwk1.rabbito.tech"
     }
-  ]
-  snippets = [
-    templatefile(
-      "butane/new-interface.yaml",
-      {
-        NEW_INTERFACE = "eth2"
-      }
-    ),
   ]
 }
