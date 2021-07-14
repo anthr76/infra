@@ -39,6 +39,10 @@
       versioning: "loose",
     },
     {
+      matchPackageNames: ["cilium/cilium"],
+      "automerge": false,
+    },
+    {
       matchPackageNames: ["OT-CONTAINER-KIT/redis-operator"],
       versioning: "loose",
     },
