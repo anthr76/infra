@@ -5,6 +5,20 @@ metadata:
   name: renovate-redis
   namespace: infra
 spec:
+  mode: standalone
+  global:
+    image: quay.io/opstree/redis:v6.2
+    imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
+  service:
+    type: ClusterIP
+  redisConfig: {}
   redisExporter:
     enabled: true
     image: quay.io/opstree/redis-exporter:1.0
@@ -16,18 +30,6 @@ spec:
       limits:
         cpu: 100m
         memory: 128Mi
-  kubernetesConfig:
-    image: quay.io/opstree/redis:v6.2
-    imagePullPolicy: IfNotPresent
-    resources:
-      requests:
-        cpu: 101m
-        memory: 128Mi
-      limits:
-        cpu: 101m
-        memory: 128Mi
-    serviceType: ClusterIP
-  redisConfig: {}
   storage:
     volumeClaimTemplate:
       spec:
