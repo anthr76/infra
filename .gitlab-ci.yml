@@ -10,13 +10,13 @@ license_scanning:
   stage: 💨 smoke test
   script:
     - /run.sh analyze .
-  tags:
-    - kutara-cloud
+  #tags:
+    #- kutara-cloud
 
 .secret-analyzer:
   stage: 💨 smoke test
-  tags:
-    - kutara-cloud
+  #tags:
+    #- kutara-cloud
 
 .init: &init
   stage: 🛠️ prep
@@ -29,8 +29,8 @@ license_scanning:
   parallel:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
-  tags:
-    - kutara-cloud
+  #tags:
+    #- kutara-cloud
 
 .validate: &validate
   stage: 💨 smoke test
@@ -55,8 +55,8 @@ license_scanning:
         - armature/prod/cloud-dns/**/*
   stage: ✨ lint
   script: terraform fmt -diff -check
-  tags:
-    - kutara-cloud
+  #tags:
+    #- kutara-cloud
 
 .build: &build
   stage: 👀 plan
@@ -89,8 +89,8 @@ license_scanning:
         - armature/prod/cloud-dns/**/*
   stage: ✨ lint
   script: terraform fmt -diff -check
-  tags:
-    - kutara-cloud
+  #tags:
+    #- kutara-cloud
 
 .deploy: &deploy
   only:
