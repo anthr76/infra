@@ -61,6 +61,8 @@
       - set protocols static route {{ item }} interface wg01
   with_items:
     - "{{ wireguard.wg02.ALLOWED_IPS }}"
+  when:
+    - wireguard.wg02 is defined
 
 - name: configure wireguard mesh VPN peer wg03
   vyos.vyos.vyos_config:
@@ -72,6 +74,8 @@
       - set protocols static route {{ item }} interface wg01
   with_items:
     - "{{ wireguard.wg03.ALLOWED_IPS }}"
+  when:
+    - wireguard.wg03 is defined
 
 - name: configure wireguard mesh VPN peer wg04
   vyos.vyos.vyos_config:
@@ -83,3 +87,5 @@
       - set protocols static route {{ item }} interface wg01
   with_items:
     - "{{ wireguard.wg04.ALLOWED_IPS }}"
+  when:
+    - wireguard.wg04 is defined
