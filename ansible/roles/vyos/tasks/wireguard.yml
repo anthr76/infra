@@ -60,19 +60,6 @@
   when:
     - wireguard.wg02 is defined
 
-# - name: configure wireguard mesh VPN peer wg02
-#   vyos.vyos.vyos_config:
-#     lines:
-#       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} allowed-ips '{{ item }}'
-#       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} address '{{ lookup('community.general.dig', '{{ wireguard.wg02.ENDPOINT }}.')}}'
-#       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} port '{{ wireguard.wg02.PORT }}'
-#       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} pubkey '{{ wireguard.wg02.PUBKEY }}'
-#       - set protocols static route {{ item }} interface wg01
-#   with_items:
-#     - "{{ wireguard.wg02.ALLOWED_IPS }}"
-#   when:
-#     - wireguard.wg02 is defined
-
 - name: configure wireguard mesh VPN peer wg03
   vyos.vyos.vyos_config:
     lines:
