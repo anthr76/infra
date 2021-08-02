@@ -35,6 +35,15 @@
                   port: "{{ wireguard.wg01.PORT }}"
                 destination:
                   address: "{{ wireguard.wg01.CIDR }}"
+              - number: 25
+                action: accept
+                description: 'rule 25 (http) configured by ansible'
+                state:
+                  new: true
+                protocol: tcp
+                destination:
+                  address: "{{ FIREWALL.INGRESS_ADDRESS }}"
+                  port: 443,80
     state: merged
 
 - name: configure alt OUTSIDE-IN firewall rules

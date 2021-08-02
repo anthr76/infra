@@ -58,7 +58,10 @@ ZONE: ENC[AES256_GCM,data:Z7Mq6A==,iv:P0dov8J/nHL5tjNwdiewQ1LLdpGhuA+5cAj+yhgcQ+
 ansible_host: ENC[AES256_GCM,data:OFGbYwXDJi9igLM=,iv:W3u1qOHQC6OtF8ytFPNY/7xfbPQQVN28wV6wwIRewpc=,tag:WnF/tMOBB12Fcg6/4aPfmw==,type:str]
 ansible_user: ENC[AES256_GCM,data:MlUUFw==,iv:HvUWjLnXCWEto8dXy2N/XQKNmZCDnZhZDKe3fdyAYL4=,tag:2T0ZACPEncQnsoZgzcnjrA==,type:str]
 static_dns:
-    fw-1.nwk2.rabbito.tech: ENC[AES256_GCM,data:74PcT3u3PJlnFw==,iv:+oiajrl7VSEJRGsHUakivM8Lfz08UI3Q6W8rXOERDaQ=,tag:3afTFSHNi12K2JBy9gTMvQ==,type:str]
+    fw-1.nwk2.rabbito.tech: ENC[AES256_GCM,data:CVKs/5Al8AJpxA==,iv:dNtKShdvjmI9PVoUtQudmgf63Qlbnt4Lu8yJWfHWA8o=,tag:gzPcYMe9HMWVmnim15PGnA==,type:str]
+    plex.anthonyrabbito.com: ENC[AES256_GCM,data:/lStzz3pb3+M9Ws=,iv:ljCh7t+197DVozIEO07EHGkCO0Y1h3PGqjwdl27POp0=,tag:NnwQszwxffu4j5OlXRrNfg==,type:str]
+FIREWALL:
+    INGRESS_ADDRESS: ENC[AES256_GCM,data:zynOMzXUJLtFn6U=,iv:BlRIA+uP5PF8KeO2DOIrhTFhqQtXxTiJg0zuJRXUftQ=,tag:lmygLxrIxu//XlC2aBpT6A==,type:str]
 HOSTNAME: ENC[AES256_GCM,data:mTo1Ng==,iv:zp9udt5DFSPesUO93Y/ozyJ62PHWNwwQB9tyot2OYJc=,tag:FTL92si3I051tsIg0Nuchw==,type:str]
 sops:
     kms: []
@@ -66,8 +69,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-08-01T18:36:30Z"
-    mac: ENC[AES256_GCM,data:jCQYIOpXG4trZ1IkVC05incwXivLsssXqRP+6P103cd5TAyeCUoXAA56NjKerQowF9WZQUuY5/GbLgZYnPkJ+0zmJ1NprsFOi8dGWRLplfja0ifZ7ffVZwJKGw1EUzQ0J/Jvu/apqKw/of+SAJZpfIL+wQz10ctaP6MVrQrKXp4=,iv:YRp1sTWTI/bMUIFOMFqQNY4UugPTiN08C3ztIy1LGwk=,tag:i/UZAqmIGOAXDfzRfVn+aw==,type:str]
+    lastmodified: "2021-08-01T22:11:01Z"
+    mac: ENC[AES256_GCM,data:6ia4zwGNoFVUeM314pf4X6OyRWMV2S2RZwvmBRvMVZ5meAq4A2f4kPzjN/9QGEH2wsYsh+5jU31CG3WZKC3la98hCThjoiU8O052jgTpjjC9KVkpn2sYcToPEXHbMdApiCxBQSBbXWDOOP1jYLZweEzz30S9juN39euECeOrYps=,iv:bx8SZ3UHGT4RJPnNxkAEvOYQNTMVmnOIgR24/e1jseg=,tag:tEVXZjMixJQtaMlvZRdlPA==,type:str]
     pgp:
         - created_at: "2021-05-27T15:17:11Z"
           enc: |

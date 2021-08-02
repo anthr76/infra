@@ -18,4 +18,4 @@
 
 - include_tasks: dhcp.yml
 
-- include_tasks: netboot.yml
+#- include_tasks: netboot.yml

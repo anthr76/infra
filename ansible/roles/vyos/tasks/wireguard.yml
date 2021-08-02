@@ -43,17 +43,13 @@
       - name: wg01
         enabled: true
 
-- name: configure wireguard mesh VPN
+- name: configure wireguard mesh VPN and wg02
   vyos.vyos.vyos_config:
     lines:
-      #- set interfaces wireguard wg01 private-key '{{ wireguard.wg01.PRIVKEY }}' KP01
+      #- set interfaces wireguard wg01 private-key '{{ wireguard.wg01.PRIVKEY }}' default
       - set interfaces wireguard wg01 address '{{ wireguard.wg01.CIDR }}'
       - set interfaces wireguard wg01 port '{{ wireguard.wg01.PORT }}'
       - set interfaces wireguard wg01 description 'VPN-VPC-MESH'
-
-- name: configure wireguard mesh VPN peer wg02
-  vyos.vyos.vyos_config:
-    lines:
       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} allowed-ips '{{ item }}'
       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} address '{{ lookup('community.general.dig', '{{ wireguard.wg02.ENDPOINT }}.')}}'
       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} port '{{ wireguard.wg02.PORT }}'
@@ -63,6 +59,19 @@
     - "{{ wireguard.wg02.ALLOWED_IPS }}"
   when:
     - wireguard.wg02 is defined
+
+# - name: configure wireguard mesh VPN peer wg02
+#   vyos.vyos.vyos_config:
+#     lines:
+#       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} allowed-ips '{{ item }}'
+#       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} address '{{ lookup('community.general.dig', '{{ wireguard.wg02.ENDPOINT }}.')}}'
+#       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} port '{{ wireguard.wg02.PORT }}'
+#       - set interfaces wireguard wg01 peer {{ wireguard.wg02.NAME }} pubkey '{{ wireguard.wg02.PUBKEY }}'
+#       - set protocols static route {{ item }} interface wg01
+#   with_items:
+#     - "{{ wireguard.wg02.ALLOWED_IPS }}"
+#   when:
+#     - wireguard.wg02 is defined
 
 - name: configure wireguard mesh VPN peer wg03
   vyos.vyos.vyos_config:
