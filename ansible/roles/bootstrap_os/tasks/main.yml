@@ -1,6 +1,5 @@
 ---
-
-- name: 'fetch /etc/os-release'
+- name: "fetch /etc/os-release"
   raw: cat /etc/os-release
   register: os_release
   changed_when: false
@@ -18,12 +17,12 @@
 
 # Workaround for https://github.com/ansible/ansible/issues/42726
 # (1/3)
-- name: 'gather host facts to get ansible_os_family'
+- name: "gather host facts to get ansible_os_family"
   setup:
-    gather_subset: '!all'
+    gather_subset: "!all"
     filter: ansible_*
 
-- name: 'assign inventory name to unconfigured hostnames (non-CoreOS, non-Flatcar, Suse and ClearLinux)'
+- name: "assign inventory name to unconfigured hostnames (non-CoreOS, non-Flatcar, Suse and ClearLinux)"
   hostname:
     name: "{{ inventory_hostname }}"
   when:
@@ -31,7 +30,7 @@
     - ansible_os_family not in ['Suse', 'openSUSE MicroOS',  'Flatcar Container Linux by Kinvolk', 'ClearLinux'] and not is_fedora_coreos
 
 # (2/3)
-- name: 'assign inventory name to unconfigured hostnames (CoreOS, Flatcar, Suse and ClearLinux only)'
+- name: "assign inventory name to unconfigured hostnames (CoreOS, Flatcar, Suse and ClearLinux only)"
   command: "hostnamectl set-hostname {{ inventory_hostname }}"
   register: hostname_changed
   become: true
@@ -41,9 +40,9 @@
     - ansible_os_family in ['Suse', 'openSUSE MicroOS', 'Flatcar Container Linux by Kinvolk', 'ClearLinux'] or is_fedora_coreos
 
 # (3/3)
-- name: 'update hostname fact (CoreOS, Flatcar, Suse and ClearLinux only)'
+- name: "update hostname fact (CoreOS, Flatcar, Suse and ClearLinux only)"
   setup:
-    gather_subset: '!all'
+    gather_subset: "!all"
     filter: ansible_hostname
   when:
     - override_system_hostname

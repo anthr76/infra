@@ -1,5 +1,4 @@
 ---
-
 - name: configure HTTP port forward
   vyos.vyos.vyos_config:
     lines:

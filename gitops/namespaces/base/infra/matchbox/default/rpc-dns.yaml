@@ -5,7 +5,7 @@ metadata:
   name: matchbox-rpc
 spec:
   endpoints:
-  - dnsName: matchbox-rpc.${CLUSTER_NAME}.${DNS_INT_ZONE}
-    recordType: CNAME
-    targets:
-    - ${INGRESS_ENDPOINT_HOSTNAME}
+    - dnsName: matchbox-rpc.${CLUSTER_NAME}.${DNS_INT_ZONE}
+      recordType: CNAME
+      targets:
+        - ${INGRESS_ENDPOINT_HOSTNAME}

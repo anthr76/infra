@@ -2,13 +2,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- helm-chart-repositories
-- notifications/discord/notification.yaml
-- notifications/discord/secret.enc.yaml
-- notifications/github/notification.yaml
-- notifications/github/secret.enc.yaml
-- notifications/gitlab/notification.yaml
-- notifications/gitlab/secret.enc.yaml
-- webhook/gitlab/ingress.yaml
-- webhook/gitlab/receiver.yaml
-- webhook/gitlab/secret.enc.yaml
+  - helm-chart-repositories
+  - notifications/discord/notification.yaml
+  - notifications/discord/secret.enc.yaml
+  - notifications/github/notification.yaml
+  - notifications/github/secret.enc.yaml
+  - notifications/gitlab/notification.yaml
+  - notifications/gitlab/secret.enc.yaml
+  - webhook/gitlab/ingress.yaml
+  - webhook/gitlab/receiver.yaml
+  - webhook/gitlab/secret.enc.yaml

@@ -1,15 +1,14 @@
 ---
-
 kubernetes_role: master
 
 kubernetes_kubelet_extra_args: ""
 kubernetes_kubeadm_init_extra_opts: ""
 
-kubernetes_apiserver_advertise_address: ''
+kubernetes_apiserver_advertise_address: ""
 
 kubernetes_control_plane_endpoint:
-  address: ' {{ ansible_default_ipv4.address }}'
-  port: '6443'
+  address: " {{ ansible_default_ipv4.address }}"
+  port: "6443"
 
 kubernetes_pod_network:
-  cidr: '10.244.0.0/16'
+  cidr: "10.244.0.0/16"

@@ -1,5 +1,4 @@
 ---
-
 - name: preflight checks to see if varibles changed
   ansible.builtin.include_tasks: pre_checks.yml
 
@@ -8,7 +7,7 @@
   when:
     - not cluster_node_active
 
-- name: 'inform user kured has been notified to be reboot'
+- name: "inform user kured has been notified to be reboot"
   ansible.builtin.debug:
     msg: kured has been notfied for reboot
   when:

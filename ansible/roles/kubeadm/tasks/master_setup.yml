@@ -1,12 +1,11 @@
 ---
-
-- name: 'pull control plane images'
+- name: "pull control plane images"
   command: kubeadm config images pull
   register: kubeadm_images
   changed_when: '"pulled" in kubeadm_images.stdout'
   when: not cluster_node_active
 
-- name: 'initalize control plane'
+- name: "initalize control plane"
   command: >
     kubeadm init
     --pod-network-cidr={{ kubernetes_pod_network.cidr }}
@@ -22,25 +21,25 @@
 - name: flush handlers
   meta: flush_handlers
 
-- name: 'upload certificates from control plane'
+- name: "upload certificates from control plane"
   command: kubeadm init phase upload-certs --upload-certs
   register: kubeadm_controlplane_certs
   run_once: true
   when: cluster_node_active
 
-- name: 'set certificate key fact'
+- name: "set certificate key fact"
   set_fact:
     control_plane_key: "{{ kubeadm_controlplane_certs.stdout_lines[2] }}"
   run_once: true
   when: cluster_node_active
 
-- name: 'get control plane kubeadm join command'
+- name: "get control plane kubeadm join command"
   command: kubeadm token create --print-join-command --certificate-key {{ control_plane_key }}
   register: kubernetes_control_plane_join_command_result
   run_once: true
   when: cluster_node_active
 
-- name: 'set fact for kubeadm join command on control plane nodes globally'
+- name: "set fact for kubeadm join command on control plane nodes globally"
   set_fact:
     kubernetes_control_plane_join_command: >
       "{{ kubernetes_control_plane_join_command_result.stdout }}"
@@ -49,13 +48,13 @@
   with_items: "{{ groups['all'] }}"
   when: cluster_node_active
 
-- name: 'join remaining control plane nodes'
-  command: '{{ kubernetes_control_plane_join_command }}'
+- name: "join remaining control plane nodes"
+  command: "{{ kubernetes_control_plane_join_command }}"
   register: kubeadm_join
   when: not cluster_node_active
   notify: pre checks
 
-- name: 'symlink the kubectl admin.conf to ~/.kube/conf'
+- name: "symlink the kubectl admin.conf to ~/.kube/conf"
   file:
     src: /etc/kubernetes/admin.conf
     dest: ~/.kube/config

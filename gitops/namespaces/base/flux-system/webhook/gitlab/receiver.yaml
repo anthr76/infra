@@ -13,21 +13,21 @@ spec:
   resources:
     - apiVersion: source.toolkit.fluxcd.io/v1beta1
       kind: GitRepository
-      name: 'flux-system'
-      namespace: 'flux-system'
+      name: "flux-system"
+      namespace: "flux-system"
     - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
       kind: Kustomization
-      name: 'flux-system'
-      namespace: 'flux-system'
+      name: "flux-system"
+      namespace: "flux-system"
     - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
       kind: Kustomization
-      name: 'cluster-config'
-      namespace: 'flux-system'
+      name: "cluster-config"
+      namespace: "flux-system"
     - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
       kind: Kustomization
-      name: 'core'
-      namespace: 'flux-system'
+      name: "core"
+      namespace: "flux-system"
     - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
       kind: Kustomization
-      name: 'namespaces'
-      namespace: 'flux-system'
+      name: "namespaces"
+      namespace: "flux-system"

@@ -1,5 +1,4 @@
 ---
-
 - include_tasks: interface.yml
 
 - include_tasks: system.yml
@@ -17,5 +16,4 @@
 - include_tasks: port-forward.yml
 
 - include_tasks: dhcp.yml
-
 #- include_tasks: netboot.yml

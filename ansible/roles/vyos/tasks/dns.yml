@@ -44,7 +44,6 @@
       - set system static-host-mapping host-name '{{ item.key }}' inet '{{ item.value }}'
   with_items:
     - "{{ static_dns | dict2items }}"
-
 # - name: configure and start blocky # Can't bind address and can't use overlay network
 #   vyos.vyos.vyos_config:
 #     lines:

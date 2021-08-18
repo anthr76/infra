@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: raspbernetes/descheduler
-      tag: 'v0.21.0'
+      tag: "v0.21.0"
     deschedulerPolicy:
       strategies:
         RemoveDuplicates:

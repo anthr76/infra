@@ -15,7 +15,7 @@ spec:
       labels:
         app: digitalocean-cloud-controller-manager
       annotations:
-        scheduler.alpha.kubernetes.io/critical-pod: ''
+        scheduler.alpha.kubernetes.io/critical-pod: ""
     spec:
       dnsPolicy: Default
       hostNetwork: true

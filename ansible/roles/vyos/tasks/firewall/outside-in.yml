@@ -1,5 +1,4 @@
 ---
-
 - name: configure default OUTSIDE-IN firewall rules
   vyos.vyos.vyos_firewall_rules:
     config:
@@ -11,7 +10,7 @@
             rules:
               - number: 10
                 action: accept
-                description: 'rule 10 configured by ansible'
+                description: "rule 10 configured by ansible"
                 state:
                   established: true
                   related: true
@@ -23,13 +22,13 @@
             rules:
               - number: 10
                 action: accept
-                description: 'rule 10 configured by ansible'
+                description: "rule 10 configured by ansible"
                 state:
                   established: true
                   related: true
               - number: 15
                 action: accept
-                description: 'rule 15 (wireguard) configured by ansible'
+                description: "rule 15 (wireguard) configured by ansible"
                 protocol: udp
                 source:
                   port: "{{ wireguard.wg01.PORT }}"
@@ -37,7 +36,7 @@
                   address: "{{ wireguard.wg01.CIDR }}"
               - number: 25
                 action: accept
-                description: 'rule 25 (http) configured by ansible'
+                description: "rule 25 (http) configured by ansible"
                 state:
                   new: true
                 protocol: tcp
@@ -57,7 +56,7 @@
             rules:
               - number: 10
                 action: accept
-                description: 'rule 10 configured by ansible'
+                description: "rule 10 configured by ansible"
                 state:
                   established: true
                   related: true
@@ -69,13 +68,13 @@
             rules:
               - number: 10
                 action: accept
-                description: 'rule 10 configured by ansible'
+                description: "rule 10 configured by ansible"
                 state:
                   established: true
                   related: true
               - number: 25
                 action: accept
-                description: 'rule 25 (alt-http) configured by ansible'
+                description: "rule 25 (alt-http) configured by ansible"
                 state:
                   new: true
                 protocol: tcp

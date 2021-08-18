@@ -6,14 +6,14 @@ metadata:
   namespace: networking
 spec:
   routes:
-  - match: Host(`traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
-    kind: Rule
-    middlewares:
-    - name: ak-outpost-int-fw-auth
-      namespace: networking
-    services:
-    - name: api@internal
-      kind: TraefikService
+    - match: Host(`traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      kind: Rule
+      middlewares:
+        - name: ak-outpost-int-fw-auth
+          namespace: networking
+      services:
+        - name: api@internal
+          kind: TraefikService
   tls:
     secretName: traefik-dashboard-crt-tls
 ---
@@ -29,4 +29,4 @@ spec:
     kind: ClusterIssuer
   commonName: "traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}"
   dnsNames:
-  - "traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}"
+    - "traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}"

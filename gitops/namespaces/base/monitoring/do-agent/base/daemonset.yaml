@@ -18,31 +18,31 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       hostNetwork: true
       containers:
-      - name: do-node-agent
-        image: docker.io/digitalocean/do-agent:stable
-        resources:
-          limits:
-            cpu: 102m
-            memory: 100Mi
-          requests:
-            cpu: 102m
-            memory: 80Mi
-        volumeMounts:
-        - mountPath: /host/proc
-          name: proc
-          readOnly: true
-        - mountPath: /host/sys
-          name: sys
-          readOnly: true
-        - mountPath: /host/root
-          mountPropagation: HostToContainer
-          name: root
-          readOnly: true
-        command:
-        - "/bin/do-agent"
-        - "--path.procfs=/host/proc"
-        - "--path.sysfs=/host/sys"
-        - "--k8s-metrics-path=http://kube-state-metrics.kube-system.svc.cluster.local:8080/metrics"
+        - name: do-node-agent
+          image: docker.io/digitalocean/do-agent:stable
+          resources:
+            limits:
+              cpu: 102m
+              memory: 100Mi
+            requests:
+              cpu: 102m
+              memory: 80Mi
+          volumeMounts:
+            - mountPath: /host/proc
+              name: proc
+              readOnly: true
+            - mountPath: /host/sys
+              name: sys
+              readOnly: true
+            - mountPath: /host/root
+              mountPropagation: HostToContainer
+              name: root
+              readOnly: true
+          command:
+            - "/bin/do-agent"
+            - "--path.procfs=/host/proc"
+            - "--path.sysfs=/host/sys"
+            - "--k8s-metrics-path=http://kube-state-metrics.kube-system.svc.cluster.local:8080/metrics"
       nodeSelector:
         beta.kubernetes.io/os: linux
       securityContext:
@@ -50,15 +50,15 @@ spec:
         runAsUser: 65534
       serviceAccountName: do-agent
       tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
       volumes:
-      - hostPath:
-          path: /proc
-        name: proc
-      - hostPath:
-          path: /sys
-        name: sys
-      - hostPath:
-          path: /
-        name: root
+        - hostPath:
+            path: /proc
+          name: proc
+        - hostPath:
+            path: /sys
+          name: sys
+        - hostPath:
+            path: /
+          name: root
