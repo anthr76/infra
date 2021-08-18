@@ -7,7 +7,6 @@ vars:
   CLUSTER_DIR: "{{.PROJECT_DIR}}/clusters"
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/ansible"
 
-
 includes:
   ansible: .taskfiles/ansible.yml
   format: .taskfiles/format.yml

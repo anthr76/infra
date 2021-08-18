@@ -1,42 +1,41 @@
 - hosts: all
   become: true
   pre_tasks:
+    - name: Update repository index (CentOS)
+      tags: always
+      dnf:
+        update_cache: yes
+      changed_when: false
+      when: ansible_distribution == "CentOS"
 
-  - name: Update repository index (CentOS)
-    tags: always
-    dnf:
-      update_cache: yes
-    changed_when: false
-    when: ansible_distribution == "CentOS"
-
-  - name: Update repository index (Ubuntu & Debian)
-    tags: always
-    apt:
-      update_cache: yes
-    changed_when: false
-    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+    - name: Update repository index (Ubuntu & Debian)
+      tags: always
+      apt:
+        update_cache: yes
+      changed_when: false
+      when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
 - hosts: all
   become: true
   roles:
-  - upgrade
+    - upgrade
 
 - hosts: docker
   become: false
   roles:
-  - update_docker
+    - update_docker
 
 - hosts: minecraft
   become: true
   roles:
-  - minecraft
+    - minecraft
 
 - hosts: nyc1
   become: true
   roles:
-  - reboot
+    - reboot
 
 - hosts: home
   become: true
   roles:
-  - reboot
+    - reboot

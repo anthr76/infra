@@ -1,7 +1,6 @@
 ---
-
 # To-Do Scale non kubic nodes
 
 - name: notify kured for reboot
   command:
-    cmd: 'transactional-update reboot'
+    cmd: "transactional-update reboot"

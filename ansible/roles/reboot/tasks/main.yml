@@ -1,5 +1,4 @@
 ---
-
 - name: prefight checks
   include_tasks: pre_checks.yml
 

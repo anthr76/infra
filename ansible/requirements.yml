@@ -1,9 +1,9 @@
 ---
 collections:
-- name: kubernetes.core
-- name: ansible.posix
-- name: community.general
-- name: community.general
-- name: community.sops
-- name: vyos.vyos
-- name: community.routeros
+  - name: kubernetes.core
+  - name: ansible.posix
+  - name: community.general
+  - name: community.general
+  - name: community.sops
+  - name: vyos.vyos
+  - name: community.routeros

@@ -10,17 +10,17 @@ metadata:
 spec:
   ingressClassName: "traefik"
   rules:
-  - host: "flux-receiver-${CLUSTER_NAME}.kutara.io"
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: webhook-receiver
-            port:
-              number: 80
+    - host: "flux-receiver-${CLUSTER_NAME}.kutara.io"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webhook-receiver
+                port:
+                  number: 80
   tls:
-  - hosts:
-    - "flux-receiver-${CLUSTER_NAME}.kutara.io"
-    secretName: flux-receiver-${CLUSTER_NAME}-tls
+    - hosts:
+        - "flux-receiver-${CLUSTER_NAME}.kutara.io"
+      secretName: flux-receiver-${CLUSTER_NAME}-tls

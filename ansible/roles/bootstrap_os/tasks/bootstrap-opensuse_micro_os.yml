@@ -1,7 +1,6 @@
 ---
-
-- name: 'prefight checks'
+- name: "prefight checks"
   include_tasks: micro_os/pre_checks_micro_os.yml
 
-- name: 'prepare kubic'
+- name: "prepare kubic"
   include_tasks: micro_os/prepare_kubic.yml

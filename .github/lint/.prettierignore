@@ -1,0 +1,5 @@
+.private
+.vscode
+*.sops.*
+gotk-components.yaml
+*.terraform/

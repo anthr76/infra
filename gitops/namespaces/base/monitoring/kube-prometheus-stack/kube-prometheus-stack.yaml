@@ -31,10 +31,10 @@ spec:
     recreate: true
     cleanupOnFail: true
   dependsOn:
-  - name: sealed-secrets
-    namespace: kube-system
-  - name: thanos
-    namespace: monitoring
+    - name: sealed-secrets
+      namespace: kube-system
+    - name: thanos
+      namespace: monitoring
   timeout: 20m
   values:
     fullnameOverride: x
@@ -81,9 +81,9 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
         hosts:
-        - "alert-manager.k8s.rabbito.tech"
+          - "alert-manager.k8s.rabbito.tech"
         tls:
-        - secretName: "rabbito-tech-tls"
+          - secretName: "rabbito-tech-tls"
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -100,16 +100,16 @@ spec:
         storageClassName: "openebs-cstor-sparse"
         size: 10Gi
         accessModes:
-        - ReadWriteOnce
+          - ReadWriteOnce
       ingress:
         enabled: true
         ingressClassName: traefik
         annotations:
           #external-dns.alpha.kubernetes.io/target: nwk1.kutara.io
         hosts:
-        - "grafana.kutara.io"
+          - "grafana.kutara.io"
         tls:
-        - secretName: "rabbito-tech-tls"
+          - secretName: "rabbito-tech-tls"
       sidecar:
         datasources:
           enabled: true
@@ -119,25 +119,25 @@ spec:
           enabled: true
           searchNamespace: ALL
       plugins:
-      - natel-discrete-panel
-      - pr0ps-trackmap-panel
-      - grafana-piechart-panel
-      - vonage-status-panel
-      - grafana-worldmap-panel
-      - grafana-clock-panel
+        - natel-discrete-panel
+        - pr0ps-trackmap-panel
+        - grafana-piechart-panel
+        - vonage-status-panel
+        - grafana-worldmap-panel
+        - grafana-clock-panel
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
           providers:
-          - name: 'default'
-            orgId: 1
-            folder: ''
-            type: file
-            disableDeletion: false
-            allowUiUpdates: true
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/default
+            - name: "default"
+              orgId: 1
+              folder: ""
+              type: file
+              disableDeletion: false
+              allowUiUpdates: true
+              editable: true
+              options:
+                path: /var/lib/grafana/dashboards/default
       dashboards:
         default:
           cert-manager:
@@ -198,15 +198,15 @@ spec:
             url: https://grafana.com/api/dashboards/11462/revisions/1/download
             datasource: Prometheus
       additionalDataSources:
-      - name: Prometheus
-        type: prometheus
-        access: proxy
-        url: http://thanos-query-http:10902/
-        isDefault: true
-      - name: Loki
-        type: loki
-        access: proxy
-        url: http://loki.monitoring.svc.cluster.local:3100
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://thanos-query-http:10902/
+          isDefault: true
+        - name: Loki
+          type: loki
+          access: proxy
+          url: http://loki.monitoring.svc.cluster.local:3100
     prometheus:
       enabled: false
       fullnameOverride: prometheus
@@ -216,9 +216,9 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
         hosts:
-        - "prometheus.k8s.rabbito.tech"
+          - "prometheus.k8s.rabbito.tech"
         tls:
-        - secretName: "rabbito-tech-tls"
+          - secretName: "rabbito-tech-tls"
       prometheusSpec:
         ruleSelector: {}
         ruleNamespaceSelector: {}
@@ -253,5 +253,5 @@ spec:
     prometheus-node-exporter:
       fullnameOverride: node-exporter
   valuesFrom:
-  - kind: Secret
-    name: "kube-prometheus-stack-helm-values"
+    - kind: Secret
+      name: "kube-prometheus-stack-helm-values"

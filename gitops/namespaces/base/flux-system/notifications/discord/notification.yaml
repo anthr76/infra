@@ -23,11 +23,11 @@ spec:
   eventSeverity: error
   eventSources:
     - kind: HelmRelease
-      name: '*'
+      name: "*"
     - kind: Kustomization
-      name: '*'
+      name: "*"
     - kind: GitRepository
-      name: '*'
+      name: "*"
   exclusionList:
     - "waiting.*socket"
   suspend: false
