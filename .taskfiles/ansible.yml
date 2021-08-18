@@ -1,0 +1,54 @@
+
+---
+version: "3"
+
+env:
+  ANSIBLE_CONFIG: "{{.PROJECT_DIR}}/ansible/ansible.cfg"
+
+vars:
+  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
+  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
+
+tasks:
+  deps:
+    desc: Upgrade Ansible galaxy deps
+    dir: ansible
+    cmds:
+      - "ansible-galaxy install -r requirements.yml --force"
+      - "pip3 install -r requirements.txt"
+    silent: true
+
+  list:
+    desc: List all the hosts
+    dir: ansible
+    cmds:
+      - "ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/home-cluster/hosts.yml --list-hosts"
+    silent: true
+
+  ping:
+    desc: Ping all the hosts
+    dir: ansible
+    cmds:
+      - "ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/home-cluster/hosts.yml --one-line -m 'ping'"
+    silent: true
+
+  uptime:
+    desc: Uptime of all the hosts
+    dir: ansible
+    cmds:
+      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/home-cluster/hosts.yml --one-line -a 'uptime'
+    silent: true
+
+  reboot:
+    desc: Reboot all the k8s nodes
+    dir: ansible
+    cmds:
+      - "ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/home-cluster/hosts.yml -m reboot"
+    silent: true
+
+  shutdown:
+    desc: Shutdown all the k8s nodes
+    dir: ansible
+    cmds:
+      - "ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/home-cluster/hosts.yml -m shutdown"
+    silent: true
