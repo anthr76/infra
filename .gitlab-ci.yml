@@ -1,8 +1,8 @@
 # yamllint disable
 include:
-  - template: Security/Secret-Detection.gitlab-ci.yml
-  - template: Security/License-Scanning.gitlab-ci.yml
-  - template: Terraform.latest.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml
+- template: Security/License-Scanning.gitlab-ci.yml
+- template: Terraform.latest.gitlab-ci.yml
 
 # Rewrite Stages
 
@@ -11,12 +11,12 @@ license_scanning:
   script:
     - /run.sh analyze .
   #tags:
-  #- kutara-cloud
+    #- kutara-cloud
 
 .secret-analyzer:
   stage: 💨 smoke test
   #tags:
-  #- kutara-cloud
+    #- kutara-cloud
 
 .init: &init
   stage: 🛠️ prep
@@ -30,7 +30,7 @@ license_scanning:
     matrix:
       - TF_ROOT: ["clusters/nyc1/iac", "armature/prod/cloud-dns"]
   #tags:
-  #- kutara-cloud
+    #- kutara-cloud
 
 .validate: &validate
   stage: 💨 smoke test
@@ -56,7 +56,7 @@ license_scanning:
   stage: ✨ lint
   script: terraform fmt -diff -check
   #tags:
-  #- kutara-cloud
+    #- kutara-cloud
 
 .build: &build
   stage: 👀 plan
@@ -90,7 +90,7 @@ license_scanning:
   stage: ✨ lint
   script: terraform fmt -diff -check
   #tags:
-  #- kutara-cloud
+    #- kutara-cloud
 
 .deploy: &deploy
   only:

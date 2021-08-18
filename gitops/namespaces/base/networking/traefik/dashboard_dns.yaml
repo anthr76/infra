@@ -6,7 +6,7 @@ metadata:
   namespace: networking
 spec:
   endpoints:
-    - dnsName: traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}
-      recordType: CNAME
-      targets:
-        - ${INGRESS_ENDPOINT_HOSTNAME}
+  - dnsName: traefik.${CLUSTER_NAME}.${DNS_INT_ZONE}
+    recordType: CNAME
+    targets:
+    - ${INGRESS_ENDPOINT_HOSTNAME}

@@ -1,9 +1,10 @@
 ---
+
 # See https://github.com/cilium/cilium/issues/10645
-- name: "set net.ipv4.conf.*.rp_filter to 0 for systemd 245 workaround"
+- name: 'set net.ipv4.conf.*.rp_filter to 0 for systemd 245 workaround'
   ansible.posix.sysctl:
-    name: "{{ item }}"
-    value: "0"
+    name: '{{ item }}'
+    value: '0'
     sysctl_file: /etc/sysctl.d/98-override_cilium_rp_filter.conf
     reload: false
   loop:
@@ -11,7 +12,7 @@
     - net.ipv4.conf.default.rp_filter
   notify: restart systemd-sysctl
 
-- name: "mount sys-fs-bpf"
+- name: 'mount sys-fs-bpf'
   ansible.posix.mount:
     path: /sys/fs/bpf
     src: bpffs
@@ -19,12 +20,12 @@
     state: mounted
     fstype: bpf
 
-- name: "add cilium helm repo"
+- name: 'add cilium helm repo'
   community.kubernetes.helm_repository:
     name: cilium
     repo_url: "https://helm.cilium.io/"
 
-- name: "deploy cilium"
+- name: 'deploy cilium'
   run_once: true
   community.kubernetes.helm:
     name: cilium
@@ -36,6 +37,6 @@
 - name: Apply kube-router manifests
   community.kubernetes.k8s:
     state: present
-    template: "generic-kuberouter-only-advertise-routes.yaml.j2"
+    template: 'generic-kuberouter-only-advertise-routes.yaml.j2'
   when:
     - cni_kube_router_enabled

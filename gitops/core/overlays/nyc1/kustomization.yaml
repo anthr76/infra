@@ -1,18 +1,18 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../base/deployments/dccm
-  - ../../base/config-maps/coredns
-  - ../../base/deployments/cilium
-  - ../../../namespaces/base/flux-system/helm-chart-repositories
-  - ../../base/git-keys/gitlab-infra-ssh.yaml
-  - ../../base/crds/traefik/traefik-default.yaml
-  - ../../base/crds/gateway/gateway-default.yaml
-  - ../../base/crds/redis-operator/redis-operator-default.yaml
-  - ../../base/crds/external-dns/external-dns-default.yaml
-  #- ../../base/crds/origin-ca-issuer/origin-ca-issuer-default.yaml
-  - ../../base/crds/kube-prometheus-stack/kube-prometheus-stack-default.yaml
-  - ../../base/deployments/kubegres/kubegres-default.yaml
-  - ../../base/crds/cert-manager/cert-manager-default.yaml
+- ../../base/deployments/dccm
+- ../../base/config-maps/coredns
+- ../../base/deployments/cilium
+- ../../../namespaces/base/flux-system/helm-chart-repositories
+- ../../base/git-keys/gitlab-infra-ssh.yaml
+- ../../base/crds/traefik/traefik-default.yaml
+- ../../base/crds/gateway/gateway-default.yaml
+- ../../base/crds/redis-operator/redis-operator-default.yaml
+- ../../base/crds/external-dns/external-dns-default.yaml
+#- ../../base/crds/origin-ca-issuer/origin-ca-issuer-default.yaml
+- ../../base/crds/kube-prometheus-stack/kube-prometheus-stack-default.yaml
+- ../../base/deployments/kubegres/kubegres-default.yaml
+- ../../base/crds/cert-manager/cert-manager-default.yaml
 patchesStrategicMerge:
-  - patch.yaml
+- patch.yaml

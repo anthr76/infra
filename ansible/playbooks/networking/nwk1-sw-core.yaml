@@ -3,6 +3,7 @@
   connection: network_cli
   hosts: sw-core
   tasks:
+
     - name: Set system identity
       community.routeros.command:
         commands:

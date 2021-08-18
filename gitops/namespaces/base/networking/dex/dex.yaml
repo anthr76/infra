@@ -72,7 +72,7 @@ spec:
         skipApprovalScreen: true
       frontend:
         logoURL: https://raw.githubusercontent.com/raspbernetes/docs/master/website/static/img/logo.png
-        theme: "tectonic"
+        theme: 'tectonic'
   valuesFrom:
     - kind: Secret
       name: "dex-helm-values"

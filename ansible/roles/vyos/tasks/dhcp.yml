@@ -1,4 +1,5 @@
 ---
+
 - name: configure LAN DHCP
   vyos.vyos.vyos_config:
     lines:

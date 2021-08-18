@@ -1,44 +1,45 @@
 ---
-- name: "ensure kubernetes manifests directory"
-  ansible.builtin.file:
-    path: "/etc/kubernetes/manifests"
-    state: "directory"
 
-- name: "ensure kubelet is running and enabled"
+- name: 'ensure kubernetes manifests directory'
+  ansible.builtin.file:
+    path: '/etc/kubernetes/manifests'
+    state: 'directory'
+
+- name: 'ensure kubelet is running and enabled'
   ansible.builtin.service:
     name: kubelet
     state: started
     enabled: true
 
-- name: "ensure required modules are loaded"
+- name: 'ensure required modules are loaded'
   community.general.modprobe:
-    name: "{{ item }}"
-    state: "present"
+    name: '{{ item }}'
+    state: 'present'
   loop:
-    - "overlay"
-    - "br_netfilter"
+  - 'overlay'
+  - 'br_netfilter'
 
-- name: "ensure required modules load at system startup"
+- name: 'ensure required modules load at system startup'
   ansible.builtin.copy:
-    dest: "/etc/modules-load.d/kubernetes-modules.conf"
+    dest: '/etc/modules-load.d/kubernetes-modules.conf'
     content: |
       overlay
       br_netfilter
 
-- name: "ensure sysctl options are configured for container runtime"
+- name: 'ensure sysctl options are configured for container runtime'
   ansible.posix.sysctl:
-    name: "{{ item }}"
-    value: "1"
-    state: "present"
-    sysctl_file: "/etc/sysctl.d/99-kubernetes-sysctl.conf"
+    name: '{{ item }}'
+    value: '1'
+    state: 'present'
+    sysctl_file: '/etc/sysctl.d/99-kubernetes-sysctl.conf'
     reload: false
   loop:
-    - net.bridge.bridge-nf-call-iptables
-    - net.bridge.bridge-nf-call-ip6tables
-    - net.ipv4.ip_forward
+  - net.bridge.bridge-nf-call-iptables
+  - net.bridge.bridge-nf-call-ip6tables
+  - net.ipv4.ip_forward
   notify: restart systemd-sysctl
 
-- name: "ensure .kube exists"
+- name: 'ensure .kube exists'
   file:
     path: ~/.kube
     state: directory

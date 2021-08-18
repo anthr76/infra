@@ -31,7 +31,7 @@ spec:
           "gitAuthor": "Renovate Bot <bot@renovateapp.com>"
         }
     cronjob:
-      schedule: "0 * * * *"
+      schedule: '0 * * * *'
     env:
-      LOG_LEVEL: "info"
-      RENOVATE_REDIS_URL: "redis://renovate-redis-headless:6379"
+      LOG_LEVEL: 'info'
+      RENOVATE_REDIS_URL: 'redis://renovate-redis-headless:6379'

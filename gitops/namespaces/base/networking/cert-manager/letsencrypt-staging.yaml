@@ -10,9 +10,9 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
-      - dns01:
-          cloudflare:
-            email: ted437@gmail.com
-            apiKeySecretRef:
-              name: cert-manager
-              key: CF_API_KEY
+    - dns01:
+        cloudflare:
+          email: ted437@gmail.com
+          apiKeySecretRef:
+            name: cert-manager
+            key: CF_API_KEY

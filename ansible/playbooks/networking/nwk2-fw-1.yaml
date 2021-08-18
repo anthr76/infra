@@ -1,5 +1,5 @@
 ---
-- hosts: "fw-1.nwk2.rabbito.tech"
+- hosts: 'fw-1.nwk2.rabbito.tech'
   gather_facts: true
   connection: network_cli
   any_errors_fatal: yes

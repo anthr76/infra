@@ -7,16 +7,16 @@ storage:
       overwrite: true
       contents:
         inline: |
-          ---
-          apiVersion: kubeadm.k8s.io/v1beta2
-          kind: JoinConfiguration
-          discovery:
-            bootstrapToken:
-              token: "${token}"
-              apiServerEndpoint: "${control_plane_ip}:6443"
-              unsafeSkipCAVerification: true
-          controlPlane:
-            certificateKey: ${certificate_key}
+            ---
+            apiVersion: kubeadm.k8s.io/v1beta2
+            kind: JoinConfiguration
+            discovery:
+              bootstrapToken:
+                token: "${token}"
+                apiServerEndpoint: "${control_plane_ip}:6443"
+                unsafeSkipCAVerification: true
+            controlPlane:
+              certificateKey: ${certificate_key}
 systemd:
   units:
     - name: cluster-creation.service

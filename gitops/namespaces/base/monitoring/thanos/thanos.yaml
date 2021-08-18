@@ -35,9 +35,9 @@ spec:
           annotations:
             traefik.ingress.kubernetes.io/router.middlewares: traefik-internal@kubernetescrd
           hosts:
-            - thanos.k8s.rabbtio.tech
+          - thanos.k8s.rabbtio.tech
           tls:
-            - secretName: rabbito-tech-tls
+          - secretName: rabbito-tech-tls
     compact:
       retentionResolution1h: 5y
     objstore:
@@ -54,5 +54,5 @@ spec:
           enable: false
         part_size: 0
   valuesFrom:
-    - kind: Secret
-      name: "thanos-helm-values"
+  - kind: Secret
+    name: "thanos-helm-values"

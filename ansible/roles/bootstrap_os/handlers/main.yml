@@ -12,10 +12,10 @@
     state: restarted
 
 # Cannot use include_role in Ansible Handlers: https://github.com/ansible/ansible/issues/20493
-- name: "reboot system"
+- name: 'reboot system'
   ansible.builtin.include_tasks: reboot.yml
 
-- name: "give system notice for reboot"
+- name: 'give system notice for reboot'
   ansible.builtin.file:
     path: /var/run/reboot-required
     state: touch
