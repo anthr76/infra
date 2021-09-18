@@ -7,3 +7,8 @@ collections:
   - name: community.sops
   - name: vyos.vyos
   - name: community.routeros
+roles:
+  - src: git@github.com:anthr76/routeros-configure.git
+    scm: git
+    name: anthr76.routeros-configure
+    version: main
