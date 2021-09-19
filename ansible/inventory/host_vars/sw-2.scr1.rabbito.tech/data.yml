@@ -30,7 +30,10 @@ interface:
           comment: "24p-poe-unifi"
         - port: "sfp-sfpplus1"
           base_vlan: 99
-          comment: "24p-poe-unifi"
+          comment: "sw-core-1"
+        - port: "ether24"
+          base_vlan: 99
+          comment: "mgmt-sw"
       supplement_vlans:
         - port: ether1
           pvid: 100

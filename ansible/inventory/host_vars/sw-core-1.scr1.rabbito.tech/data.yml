@@ -25,12 +25,24 @@ interface:
         comment: "808-office"
       - port: "sfp-sfpplus4"
         pvid: 10
-        #comment: "808-office"
+        comment: "k8s-worker-1"
+      - port: "sfp-sfpplus5"
+        pvid: 10
+        comment: "k8s-worker-2"
+      - port: "sfp-sfpplus6"
+        pvid: 10
+        comment: "k8s-worker-1"
+      - port: "sfp-sfpplus24"
+        pvid: 10
+        comment: "nas-1"
     trunk:
       phys:
         - port: "sfp-sfpplus3"
           base_vlan: 99
           comment: "sw-2"
+        - port: "ether1"
+          base_vlan: 99
+          comment: "mgmt-sw"
       supplement_vlans:
         - port: sfp-sfpplus3
           pvid: 100
