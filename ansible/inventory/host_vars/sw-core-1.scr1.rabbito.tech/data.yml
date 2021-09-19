@@ -1,0 +1,38 @@
+---
+ansible_network_os: community.routeros.routeros
+ansible_connection: ansible.netcommon.network_cli
+ansible_command_timeout: 30
+ansible_user: anthonyjrabbito+cet1024w
+system:
+  hostname: "sw-core-1.scr1.rabbito.tech"
+  timezone: "America/New_York"
+  ntp:
+    enabled: false
+    server_dns_names: ""
+  interface:
+    mgmt:
+      pvid: 99
+      address: 10.20.99.20/24
+      dns: 10.20.99.1
+interface:
+  bridge:
+    name: bridge
+    protocol_mode: rstp
+    vlan_filtering: false
+    phys:
+      - port: "sfp-sfpplus1"
+        pvid: 100
+        comment: "808-office"
+      - port: "sfp-sfpplus4"
+        pvid: 10
+        #comment: "808-office"
+    trunk:
+      phys:
+        - port: "sfp-sfpplus3"
+          base_vlan: 99
+          comment: "sw-2"
+      supplement_vlans:
+        - port: sfp-sfpplus3
+          pvid: 100
+        - port: sfp-sfpplus3
+          pvid: 10

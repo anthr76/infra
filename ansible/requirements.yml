@@ -3,10 +3,10 @@ collections:
   - name: kubernetes.core
   - name: ansible.posix
   - name: community.general
-  - name: community.general
   - name: community.sops
   - name: vyos.vyos
   - name: community.routeros
+    version: "2.0.0-a1"
 roles:
   - src: git@github.com:anthr76/routeros-configure.git
     scm: git

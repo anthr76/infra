@@ -1,0 +1,8 @@
+---
+
+- name: configure switches
+  connection: ansible.netcommon.network_cli
+  hosts: scr1_switches
+  gather_facts: yes
+  roles:
+    - name: anthr76.routeros-configure
