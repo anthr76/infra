@@ -18,7 +18,7 @@ interface:
   bridge:
     name: bridge
     protocol_mode: rstp
-    vlan_filtering: false
+    vlan_filtering: true
     phys:
       - port: "sfp-sfpplus1"
         pvid: 100
@@ -35,14 +35,14 @@ interface:
       - port: "sfp-sfpplus24"
         pvid: 10
         comment: "nas-1"
+      - port: "ether1"
+        pvid: 99
+        comment: "mgmt-sw"
     trunk:
       phys:
         - port: "sfp-sfpplus3"
           base_vlan: 99
           comment: "sw-2"
-        - port: "ether1"
-          base_vlan: 99
-          comment: "mgmt-sw"
       supplement_vlans:
         - port: sfp-sfpplus3
           pvid: 100

@@ -18,11 +18,14 @@ interface:
   bridge:
     name: bridge
     protocol_mode: rstp
-    vlan_filtering: false
+    vlan_filtering: true
     phys:
-      - port: "ether2"
-        pvid: 10
-        #comment: "808-office"
+      # - port: "ether2"
+      #   pvid: 10
+      #   comment: "808-office"
+      - port: "ether24"
+        pvid: 99
+        comment: "mgmt-sw"
     trunk:
       phys:
         - port: "ether1"
@@ -31,9 +34,6 @@ interface:
         - port: "sfp-sfpplus1"
           base_vlan: 99
           comment: "sw-core-1"
-        - port: "ether24"
-          base_vlan: 99
-          comment: "mgmt-sw"
       supplement_vlans:
         - port: ether1
           pvid: 100
