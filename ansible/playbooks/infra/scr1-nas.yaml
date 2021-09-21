@@ -8,6 +8,7 @@
           - podman
           - cockpit
           - cockpit-podman
+          - cockpit-machines
           - zfsutils-linux
 
     - name: enable and start cockpit socket

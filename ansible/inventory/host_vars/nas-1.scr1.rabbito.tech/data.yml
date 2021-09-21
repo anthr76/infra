@@ -1,9 +1,10 @@
 ansible_python_interpreter: /usr/bin/python3
 zfs_install_update: false
-zfs_enable_nfs: false
+zfs_enable_nfs: true
 zfs_enable_samba: false
 zfs_enable_performance_tuning: true
 zfs_create_pools: true
+zfs_create_filesystems: true
 zfs_pools:
   - name: "tank"
     action: "create"
@@ -23,3 +24,33 @@ zfs_pools:
       - "/dev/disk/by-id/nvme-INTEL_SSDPEKNW010T9_BTNR03240QH11P0B"
     type: "cache"
     state: "present"
+zfs_filesystems:
+  - name: media
+    pool: tank
+    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24,ro=192.168.150.21,ro=192.168.150.28"
+    state: present
+  - name: frigate
+    pool: tank
+    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24"
+    state: present
+  - name: persistentVolumeClaims
+    pool: tank
+    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24"
+    state: present
+  - name: minio
+    pool: tank
+    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24"
+    state: present
+  - name: system
+    pool: tank
+    state: present
+zfs_enable_monitoring: true
+zfs_monitoring_capacity_threshold: 80
+zfs_monitoring_scrub_max_age: 8
+zfs_monitoring_email_dest: anthonyjrabbito@localhost
+zfs_pools_scrub_cron:
+  minute: 0
+  hour: 0
+  day: "*"
+  month: "*"
+  weekday: sun
