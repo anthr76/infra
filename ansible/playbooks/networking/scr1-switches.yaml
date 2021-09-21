@@ -1,5 +1,4 @@
 ---
-
 - name: configure switches
   connection: ansible.netcommon.network_cli
   hosts: scr1_switches

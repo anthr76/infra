@@ -1,0 +1,25 @@
+ansible_python_interpreter: /usr/bin/python3
+zfs_install_update: false
+zfs_enable_nfs: false
+zfs_enable_samba: false
+zfs_enable_performance_tuning: true
+zfs_create_pools: true
+zfs_pools:
+  - name: "tank"
+    action: "create"
+    atime: "on"
+    compression: "lz4"
+    devices:
+      - "/dev/disk/by-id/ata-WDC_WD100PURZ-85W86Y0_7JKXA2VC"
+      - "/dev/disk/by-id/ata-WDC_WD100PURZ-85W86Y0_7PKY328C"
+      - "/dev/disk/by-id/ata-WDC_WD100PURZ-85W86Y0_7JKZBJZC"
+      - "/dev/disk/by-id/ata-WDC_WD100PURZ-85W86Y0_7JG1MHAC"
+    type: "raidz"
+    state: "present"
+  - name: "tank"
+    action: "add"
+    compression: "lz4"
+    devices:
+      - "/dev/disk/by-id/nvme-INTEL_SSDPEKNW010T9_BTNR03240QH11P0B"
+    type: "cache"
+    state: "present"

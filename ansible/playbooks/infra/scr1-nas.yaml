@@ -1,0 +1,20 @@
+---
+- hosts: "scr1_nas"
+  become: true
+  tasks:
+    - name: install nas-packages
+      apt:
+        pkg:
+          - podman
+          - cockpit
+          - cockpit-podman
+          - zfsutils-linux
+
+    - name: enable and start cockpit socket
+      ansible.builtin.systemd:
+        state: started
+        enabled: yes
+        name: cockpit.socket
+
+  roles:
+    - role: "mrlesmithjr.zfs"

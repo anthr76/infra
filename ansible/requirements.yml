@@ -12,3 +12,7 @@ roles:
     scm: git
     name: anthr76.routeros-configure
     version: main
+  - src: https://github.com/mrlesmithjr/ansible-zfs.git
+    scm: git
+    name: mrlesmithjr.zfs
+    version: b80e84d6938eb7730faeffc7ff7d8aa06ad5bef7

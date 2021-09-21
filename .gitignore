@@ -14,3 +14,4 @@ ansible/roles/anthr76.routeros-configure
 
 # Sops
 .decrypted~*.yaml
+/ansible/roles/mrlesmithjr.zfs
