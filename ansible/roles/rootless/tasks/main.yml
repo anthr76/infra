@@ -68,5 +68,5 @@
 - name: install delegate.conf for rootless users
   ansible.builtin.copy:
     src: delegate.conf
-    dest: /etc/systemd/system/user@.service.d/delegate.conf
+    dest: "/etc/systemd/system/user@.service.d/delegate.conf"
   notify: reload systemd daemon
