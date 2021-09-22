@@ -2,9 +2,12 @@
 collections:
   - name: kubernetes.core
   - name: ansible.posix
+    version: "1.3.0"
   - name: community.general
   - name: community.sops
   - name: vyos.vyos
+  - name: containers.podman
+    version: "1.8.1-dev"
   - name: community.routeros
     version: "2.0.0-a1"
 roles:

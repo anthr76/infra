@@ -1,4 +1,5 @@
 ansible_python_interpreter: /usr/bin/python3
+ansible_user: anthonyjrabbito
 zfs_install_update: false
 zfs_enable_nfs: true
 zfs_enable_samba: false
@@ -54,3 +55,23 @@ zfs_pools_scrub_cron:
   day: "*"
   month: "*"
   weekday: sun
+apt_remove_packages:
+  - apport
+  - byobu
+  - friendly-recovery
+  - landscape-common
+  - ntfs-3g
+  - popularity-contest
+  - snapd
+  - sosreport
+  - ubuntu-advantage-tools
+  - ufw
+apt_install_packages:
+  - podman
+  - cockpit
+  - cockpit-podman
+  - cockpit-machines
+  - zfsutils-linux
+  - smartmontools
+  - nvme-cli
+  - neovim
