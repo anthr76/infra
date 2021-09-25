@@ -1,0 +1,111 @@
+---
+# ----------------------
+# Ansible configuration
+# ----------------------
+
+ansible_host: "10.20.99.1"
+ansible_python_interpreter: /usr/bin/python3
+
+# ---------------------
+# System configuration
+# ---------------------
+
+vyos_save_config: true
+
+vyos_hostname: fw-1.scr1.rabbito.tech
+vyos_upstream_dns:
+  - 1.1.1.1
+
+vyos_timezone: "{{ timezone }}"
+
+# -------------------------
+# Interfaces configuration
+# -------------------------
+
+vyos_interfaces:
+  wan:
+    interface: eth4
+    ipv4_addr: dhcp
+    desc: "old-OUTSIDE-in"
+  critical:
+    desc: "core-1"
+    interface: eth1
+    ipv4_addr: true
+  lan:
+    desc: "core-2"
+    interface: eth2
+    ipv4_addr: true
+  management:
+    desc: "MGMT"
+    vlan_id: 99
+    interface: eth1
+    ipv4_addr: true
+  lan_808:
+    desc: "808_END"
+    vlan_id: 808
+    interface: eth1
+    ipv4_addr: true
+  server:
+    desc: "server"
+    vlan_id: 10
+    interface: eth1
+    ipv4_addr: true
+  k8s:
+    desc: "k8s"
+    vlan_id: 8
+    interface: eth1
+    ipv4_addr: true
+  lan_806:
+    desc: "806_END"
+    vlan_id: 806
+    interface: eth2
+    ipv4_addr: true
+  lan_810:
+    desc: "810_END"
+    vlan_id: 810
+    interface: eth2
+    ipv4_addr: true
+  iot:
+    desc: "iot"
+    vlan_id: 101
+    interface: eth2
+    ipv4_addr: true
+
+# ------------------
+# NAT configuration
+# ------------------
+
+vyos_nat:
+  rules:
+    - type: snat
+      interface: wan
+      source:
+        address: 0.0.0.0/0
+      destination:
+        address: masquerade
+
+# -----------------------
+# Services configuration
+# -----------------------
+
+vyos_coredns:
+  enabled: true
+  interfaces:
+    - lan
+    - lan_2
+  config_path: /config/coredns
+  container:
+    repository: ghcr.io/k8s-at-home/coredns
+    tag: v1.8.4
+  k8s_gateway:
+    enabled: false
+
+vyos_dhcp_server:
+  enabled: true
+  host-decl-name: true
+  hostfile-update: true
+  interfaces:
+    lan:
+      domain: "{{ vyos_domain }}"
+    lan_2:
+      domain: "{{ vyos_domain }}"
