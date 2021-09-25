@@ -1,10 +1,17 @@
 ---
+
+# Connection details
+ansible_connection: ansible.netcommon.network_cli
+ansible_network_os: vyos.vyos.vyos
+
 # ----------------------
 # Ansible configuration
 # ----------------------
 
 ansible_host: "10.20.99.1"
 ansible_python_interpreter: /usr/bin/python3
+
+vyos_domain: "scr1.rabbito.tech"
 
 # ---------------------
 # System configuration
@@ -91,9 +98,16 @@ vyos_nat:
 vyos_coredns:
   enabled: true
   interfaces:
+    - critical
     - lan
-    - lan_2
-  config_path: /config/coredns
+    - management
+    - lan_808
+    - server
+    - k8s
+    - lan_806
+    - lan_810
+    - iot
+  #config_path: /config/coredns
   container:
     repository: ghcr.io/k8s-at-home/coredns
     tag: v1.8.4
@@ -105,7 +119,21 @@ vyos_dhcp_server:
   host-decl-name: true
   hostfile-update: true
   interfaces:
+    management:
+      domain: "{{ vyos_domain }}"
     lan:
       domain: "{{ vyos_domain }}"
-    lan_2:
+    critical:
+      domain: "{{ vyos_domain }}"
+    lan_808:
+      domain: "{{ vyos_domain }}"
+    server:
+      domain: "{{ vyos_domain }}"
+    k8s:
+      domain: "{{ vyos_domain }}"
+    lan_806:
+      domain: "{{ vyos_domain }}"
+    lan_810:
+      domain: "{{ vyos_domain }}"
+    iot:
       domain: "{{ vyos_domain }}"
