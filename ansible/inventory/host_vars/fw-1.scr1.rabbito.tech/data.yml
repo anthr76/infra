@@ -47,6 +47,7 @@ vyos_interfaces:
     vlan_id: 99
     interface: eth1
     ipv4_addr: true
+    skip_creation: true
   lan_808:
     desc: "808_END"
     vlan_id: 808
