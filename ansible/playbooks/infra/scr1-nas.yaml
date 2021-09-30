@@ -12,7 +12,7 @@
         dest: "/etc/sudoers.d/{{ ansible_user }}_nopasswd"
         mode: "0440"
 
-    - name: 'add dominic as a user'
+    - name: "add dominic as a user"
       ansible.builtin.user:
         name: dominicrabbito
         comment: Dominic Rabbito

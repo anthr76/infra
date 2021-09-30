@@ -7,7 +7,7 @@
   any_errors_fatal: true
 
   #vars:
-    #vyos_address_book: "{{ address_book.copy() }}"
+  #vyos_address_book: "{{ address_book.copy() }}"
 
   tasks:
     - name: "role: ansible-role-vyos"
