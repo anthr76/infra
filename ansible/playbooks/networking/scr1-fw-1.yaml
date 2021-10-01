@@ -6,8 +6,5 @@
   gather_facts: false
   any_errors_fatal: true
 
-  vars:
-    vyos_address_book: "{{ address_book.copy() }}"
-
   roles:
     - role: ansible-role-vyos

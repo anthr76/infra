@@ -12,6 +12,11 @@
         dest: "/etc/sudoers.d/{{ ansible_user }}_nopasswd"
         mode: "0440"
 
+    - name: "add dominic as a user"
+      ansible.builtin.user:
+        name: dominicrabbito
+        comment: Dominic Rabbito
+
     - name: gather installed packages
       ansible.builtin.package_facts:
         manager: auto

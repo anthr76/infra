@@ -1,5 +1,4 @@
 ---
-
 # Connection details
 ansible_connection: ansible.netcommon.network_cli
 ansible_network_os: vyos.vyos.vyos
@@ -46,6 +45,7 @@ vyos_interfaces:
     vlan_id: 99
     interface: eth0
     ipv4_addr: true
+    skip_creation: true
   lan_808:
     #desc: "808_END"
     vlan_id: 808
