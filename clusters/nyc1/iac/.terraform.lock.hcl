@@ -153,13 +153,13 @@ provider "registry.terraform.io/hashicorp/kubernetes" {
 }
 
 provider "registry.terraform.io/poseidon/ct" {
-  version     = "0.9.0"
-  constraints = "0.9.0"
+  version     = "0.9.1"
+  constraints = "0.9.1"
   hashes = [
-    "h1:MJaqS/uKK33e0219paCEiSCxlOiP4TwVovL+4Rjb2+s=",
-    "zh:539bd09ce72ad0da4c28f782454be70115996cbc710e79a32c3e4f641c557fbd",
-    "zh:698e9255325f0ee14563ff99feab72b609928775d04f02f2542383b68e3ce00c",
-    "zh:6b2ec5659796740dcbe1877706905ddc56cfbc3d90a3336372c3af6b17578502",
-    "zh:c957920def9389908a348569dc6a4a3eb74d972920605b3592da1b570970fc23",
+    "h1:5eLxHZTRorwY/7QCfXelFR7FIxLs+GuHr7prAUBilyM=",
+    "h1:LWMX1hhWX97slT1xwxomQp6V4MMem3fc3yoUWro97rY=",
+    "h1:P4k4FJRY25ROC+mib4e9hRmcwsMy0yn/p3s/xosdOes=",
+    "h1:mNrWYeIjoCGIC3Wl4cKjAsY969beae5/yYUI87IUPJ0=",
+    "h1:xqhXddg3sQAgnNQw7ld32pdOAUaPc0WJZsK6IOo/F8c=",
   ]
 }
