@@ -8,7 +8,6 @@ ansible_network_os: vyos.vyos.vyos
 # Ansible configuration
 # ----------------------
 
-ansible_host: "10.20.99.1"
 ansible_python_interpreter: /usr/bin/python3
 
 vyos_domain: "scr1.rabbito.tech"
@@ -31,52 +30,56 @@ vyos_timezone: "{{ timezone }}"
 
 vyos_interfaces:
   wan:
-    interface: eth4
+    interface: eth6
     ipv4_addr: dhcp
     desc: "old-OUTSIDE-in"
   critical:
     desc: "core-1"
-    interface: eth1
+    interface: eth0
     ipv4_addr: true
   lan:
     desc: "core-2"
-    interface: eth2
+    interface: eth1
     ipv4_addr: true
   management:
-    desc: "MGMT"
+    #desc: "MGMT"
     vlan_id: 99
-    interface: eth1
+    interface: eth0
     ipv4_addr: true
   lan_808:
-    desc: "808_END"
+    #desc: "808_END"
     vlan_id: 808
-    interface: eth1
+    interface: eth0
     ipv4_addr: true
   server:
-    desc: "server"
+    #desc: "server"
     vlan_id: 10
-    interface: eth1
+    interface: eth0
     ipv4_addr: true
   k8s:
-    desc: "k8s"
+    #desc: "k8s"
     vlan_id: 8
-    interface: eth1
+    interface: eth0
     ipv4_addr: true
   lan_806:
-    desc: "806_END"
+    #desc: "806_END"
     vlan_id: 806
-    interface: eth2
+    interface: eth1
     ipv4_addr: true
   lan_810:
-    desc: "810_END"
+    #desc: "810_END"
     vlan_id: 810
-    interface: eth2
+    interface: eth1
     ipv4_addr: true
   iot:
-    desc: "iot"
+    #desc: "iot"
     vlan_id: 101
-    interface: eth2
+    interface: eth1
     ipv4_addr: true
+  rescue:
+    skip_creation: true
+    ipv4_addr: true
+    interface: eth7
 
 # ------------------
 # NAT configuration
@@ -98,8 +101,8 @@ vyos_nat:
 vyos_coredns:
   enabled: true
   interfaces:
-    - critical
-    - lan
+    #- critical
+    #- lanwan
     - management
     - lan_808
     - server
@@ -107,12 +110,13 @@ vyos_coredns:
     - lan_806
     - lan_810
     - iot
-  #config_path: /config/coredns
+  config_path: /config/coredns
   container:
     repository: ghcr.io/k8s-at-home/coredns
     tag: v1.8.4
   k8s_gateway:
     enabled: false
+
 
 vyos_dhcp_server:
   enabled: true
