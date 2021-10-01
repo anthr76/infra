@@ -9,4 +9,4 @@ resources:
   - base/serviceaccount.yaml
 images:
   - name: digitalocean/digitalocean-cloud-controller-manager
-    newTag: v0.1.33
+    newTag: v0.1.34
