@@ -17,23 +17,23 @@ provider "registry.terraform.io/carlpett/sops" {
 }
 
 provider "registry.terraform.io/cloudflare/cloudflare" {
-  version     = "2.24.0"
-  constraints = "2.24.0"
+  version     = "2.27.0"
+  constraints = "2.27.0"
   hashes = [
-    "h1:+fGNZaqk0IPH3M5yOsu978u5t9Q5YP1PrGXSggJUlFQ=",
-    "zh:10bb13bff60c8c9e234b64ea3d8c37be512459f40fdd97aafc5d60631377b46e",
-    "zh:1ba01e5636fe79c205908e55a966cb6249f66a657aca62ea040b5b41717a1763",
-    "zh:1f5870e2602ebaeca40f048c1466e976ac0db66e41297b327ac816001c4090d5",
-    "zh:203f03b9aa58e9a7516f09f13cff08c00e8e534921ac597cf05634e793f6c9fe",
-    "zh:2cae731aeee1c511ba26aa64ecb4537931f5ab467e4bc8e07bbbdf82fe11e6c0",
-    "zh:89f0eb8df82407fb48add3fe4dd38817e4625f5986a69259535bdf5b6ac6d281",
-    "zh:952c5a213acdace04f86ca4a79a99f476b7da6f69edd0e616e47fb75aa3b77f9",
-    "zh:958d08bc7a3ca6275106db0d4251a19fa8a5ad0302652439b3c2cc57a80fed74",
-    "zh:b7797b2fa0377a5c2610d42bf9a1306c1dec4895d5d52e8f7e50340d072d3065",
-    "zh:c95a1680531f3c1640d7869d69a4abbc184f36a060462920acc756b6ac6c91d9",
-    "zh:ca7e8438967d31afb8a73473fff237dcddcefc5e5ca3a3159ab941df1e683de1",
-    "zh:ddfae3c9305aa7299744992e70b61e4919cbe44a4ca561161f77e011a77a0233",
-    "zh:e85b3814322e1f0a73718fec46bbf3a3d0bda3ea86cc6a875b4b584517558051",
+    "h1:8aI3M91kMr7B1QV9G3IjGxrKmFMD3vGEJwI9VKb1YhY=",
+    "h1:9UYkGgkiOMOv5/2rTfLXgflq/UwV83rczj3hCP1MBic=",
+    "h1:AI4IEvBTQnESyWCRc/EHdarhu6ejYnQbBO5Y03m4a3s=",
+    "h1:Cbo1qOLvk5KYUp5+EhV3GkcxPMQXY+3mwkKeTqtykkI=",
+    "h1:E8XxO2sA+j9wjbehKyQym7e6nl/sTIZ6f3oLecctva0=",
+    "h1:FuXwhMBWAIbOdUO5lZff8ls9ms/EH4MoxG20OLOvOkA=",
+    "h1:LS9s1uazT0H7k3H5q/1zeI8goj/W8RicA5NLdh0lMic=",
+    "h1:NuXfGshoYN1Cm09EIaOUNtdLdxLfFTwAcHbAHhXNTWs=",
+    "h1:ONNWuLzxhIMn84Tev4+9W2285nN5IdzUT44U9uftGRw=",
+    "h1:WE9CXL4fBDnj6bIKAjiGTPb1lqEoD8ezHkkDWIg+EdY=",
+    "h1:gSl1jCJxo0oIzHJ7fYnP6FoXEHcLDLQvzUpSirYSldk=",
+    "h1:oIaG4g43i2ts961qg2t1OPSgJ7OmvingS6MFscKwPps=",
+    "h1:r+Nd4IvXRHVLUVllMDRxryNV+XNwYdrBDsWCkRUoWKs=",
+    "h1:tLjQdB+6eHKdn71+JmafCFSAhXVxQcfXhdNhPNzpfGg=",
   ]
 }
 
