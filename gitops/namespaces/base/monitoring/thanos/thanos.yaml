@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: docker.io/raspbernetes/thanos
-      tag: v0.22.0
+      tag: v0.23.0
     sidecar:
       metrics:
         serviceMonitor:
