@@ -10,7 +10,7 @@ terraform {
   required_providers {
     matchbox = {
       source = "poseidon/matchbox"
-      version = "0.4.1"
+      version = "0.5.0"
     }
     minio = {
       source = "aminueza/minio"

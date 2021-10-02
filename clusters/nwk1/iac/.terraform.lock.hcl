@@ -124,13 +124,13 @@ provider "registry.terraform.io/poseidon/ct" {
 }
 
 provider "registry.terraform.io/poseidon/matchbox" {
-  version     = "0.4.1"
-  constraints = "0.4.1"
+  version     = "0.5.0"
+  constraints = "0.5.0"
   hashes = [
-    "h1:CkiLkjOTFCmIMEEBugsXGUxx7VRVy45+yHHNDi2GA5g=",
-    "zh:31cff12ea12dac249e0a79cb51f72123f216ef25b6cdecd180b6148247edf767",
-    "zh:44b512969904bd093765259f84dfbfde6185a9c7e6aa48c403c373a1d6e02977",
-    "zh:b2ee2351a23e7f3eef72fdeb328794211cca9a84981a6e8f345c298cb26f06bb",
-    "zh:d6e29d59c61db9a1923f3a8f334d02a84c36d068a77cbdaca167638ed3354e21",
+    "h1:W1RPZSWtZ5VzOSqxR7SLM2Ik4WncdbSiPs6M9zXBAcw=",
+    "h1:X3naXYNkP1W3Abk3F8tdjB5ce5xRJkyAA+UwOSjETMo=",
+    "h1:Y19w65FaqGkHB4qV0ejSRiTFSdlh/CfLwZenhAY2x5s=",
+    "h1:YccquDQrDKEKcjrQ/BOi6Q8nMAVNcw7154lnM0MF1zc=",
+    "h1:mEsMi6uzqfGpzrZEELs3QfFTRHzY2ez7EglaYIOA38Q=",
   ]
 }
