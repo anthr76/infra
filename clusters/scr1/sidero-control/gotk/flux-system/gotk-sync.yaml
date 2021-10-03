@@ -7,10 +7,19 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: kustomize
+    branch: talos-prep
   secretRef:
     name: flux-system
   url: ssh://git@github.com/anthr76/infra
+  ignore: |
+    # exclude all
+    /*
+    # include gitops dirs
+    !/clusters
+    !/gitops
+    # exclude text files from gitops dirs
+    /deploy/**/*.md
+    /deploy/**/*.txt
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
@@ -19,7 +28,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/kind/gotk
+  path: ./clusters/scr1/sidero-control/gotk
   prune: true
   sourceRef:
     kind: GitRepository

@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sidero-control-cluster-config
+  namespace: flux-system
+data:
+  CLUSTER_NAME: "sidero-control"

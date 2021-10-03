@@ -41,7 +41,7 @@ spec:
       serverClassRef:
         apiVersion: metal.sidero.dev/v1alpha1
         kind: ServerClass
-        name: pi-cluster
+        name: pi-master
 ---
 apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
 kind: TalosControlPlane
@@ -61,7 +61,7 @@ spec:
     kind: MetalMachineTemplate
     name: scr1-cluster-0-cp
   replicas: 1
-  version: 1.22.2
+  version: v1.22.2
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
 kind: TalosConfigTemplate
@@ -109,4 +109,4 @@ spec:
       serverClassRef:
         apiVersion: metal.sidero.dev/v1alpha1
         kind: ServerClass
-        name: any
+        name: all-workers

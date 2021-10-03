@@ -2,25 +2,20 @@
 creation_rules:
   - path_regex: gitops/.*\.ya?ml
     encrypted_regex: '((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))'
-    pgp: >-
-      CA884EABD6B220A791FF22D8DF099FFFAEB19845,
-      A54D8FB506C103352E67737587CB975CFF2E7D8F
+    age: >-
+      age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
   - path_regex: gitops/.*\.*
-    pgp: >-
-      CA884EABD6B220A791FF22D8DF099FFFAEB19845,
-      A54D8FB506C103352E67737587CB975CFF2E7D8F
+    age: >-
+      age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
   - path_regex: clusters/.*\.ya?ml
     encrypted_regex: '((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))'
-    pgp: >-
-      CA884EABD6B220A791FF22D8DF099FFFAEB19845,
-      A54D8FB506C103352E67737587CB975CFF2E7D8F
+    age: >-
+      age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
   - path_regex: armature/.*\.sops\.ya?ml
     unencrypted_regex: '^(Kind)$'
-    pgp: >-
-      CA884EABD6B220A791FF22D8DF099FFFAEB19845,
-      A54D8FB506C103352E67737587CB975CFF2E7D8F
+    age: >-
+      age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
   - path_regex: ansible/.*\.sops\.ya?ml
     unencrypted_regex: '^(Kind)$'
-    pgp: >-
-      CA884EABD6B220A791FF22D8DF099FFFAEB19845,
-      A54D8FB506C103352E67737587CB975CFF2E7D8F
+    age: >-
+      age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
