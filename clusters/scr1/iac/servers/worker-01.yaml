@@ -1,0 +1,27 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: Server
+metadata:
+  name: d057a478-09c5-430f-9759-d05099defa93
+spec:
+  accepted: true
+  bmc:
+    endpoint: worker-1-bmc.scr1.rabbito.tech
+    userFrom:
+      secretKeyRef:
+        name: ipmi-credentials
+        key: asrock-username
+    passFrom:
+      secretKeyRef:
+        name: ipmi-credentials
+        key: asrock-password
+  cpu:
+    manufacturer: Advanced Micro Devices, Inc.
+    version: AMD Ryzen 5 PRO 2400GE w/ Radeon Vega Graphics
+  system:
+    family: Unknown
+    manufacturer: Unknown
+    productName: Unknown
+    serialNumber: Unknown
+    skuNumber: Unknown
+    version: Unknown

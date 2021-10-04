@@ -1,0 +1,17 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: Server
+metadata:
+  name: 00c03111-0000-0000-0000-dca632397689
+spec:
+  accepted: true
+  cpu:
+    manufacturer: Broadcom
+    version: BCM2711 (ARM Cortex-A72)
+  system:
+    family: Raspberry Pi
+    manufacturer: Raspberry Pi Foundation
+    productName: Raspberry Pi 4 Model B
+    serialNumber: 0000DCA632397689
+    skuNumber: 0000000000C03111
+    version: C03111
