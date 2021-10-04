@@ -1,0 +1,23 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: ServerClass
+metadata:
+  name: pi-master
+spec:
+  configPatches:
+    - op: add
+      path: /machine/network/interfaces
+      value:
+        - interface: eth0
+          dhcp: true
+          vip:
+            ip: 192.168.8.5
+    - op: replace
+      path: /cluster/network/cni
+      value:
+        name: "custom"
+        urls:
+          - "https://raw.githubusercontent.com/cilium/cilium/v1.9/install/kubernetes/quick-install.yaml"
+  selector:
+    matchLabels:
+      pi-master: "true"
