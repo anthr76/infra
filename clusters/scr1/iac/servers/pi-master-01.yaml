@@ -7,6 +7,7 @@ metadata:
   name: 00c03111-0000-0000-0000-dca632395d69
 spec:
   accepted: true
+  hostname: pi-master-01.scr1.rabbito.tech
   cpu:
     manufacturer: Broadcom
     version: BCM2711 (ARM Cortex-A72)
