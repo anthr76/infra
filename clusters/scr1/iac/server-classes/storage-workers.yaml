@@ -13,7 +13,7 @@ spec:
       value:
         - interface: eth0
           ignore: true
-        - interface: eth3
+        - interface: eth2
           dhcp: true
   qualifiers:
     cpu:

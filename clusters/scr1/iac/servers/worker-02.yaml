@@ -5,6 +5,7 @@ metadata:
   name: d057a478-09c5-430f-9759-d05099defa97
 spec:
   accepted: true
+  hostname: worker-02.scr1.rabbito.tech
   bmc:
     endpoint: worker-2-bmc.scr1.rabbito.tech
     userFrom:
