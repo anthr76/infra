@@ -5,6 +5,7 @@ metadata:
   name: 00d03114-0000-0000-0000-dca632cc34a6
 spec:
   accepted: true
+  hostname: worker-04.scr1.rabbito.tech
   cpu:
     manufacturer: Broadcom
     version: BCM2711 (ARM Cortex-A72)
