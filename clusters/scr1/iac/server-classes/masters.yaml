@@ -2,7 +2,7 @@
 apiVersion: metal.sidero.dev/v1alpha1
 kind: ServerClass
 metadata:
-  name: pi-masters
+  name: masters
 spec:
   configPatches:
     - op: replace
