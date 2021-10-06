@@ -117,7 +117,6 @@ vyos_coredns:
   k8s_gateway:
     enabled: false
 
-
 vyos_dhcp_server:
   enabled: true
   host-decl-name: true
