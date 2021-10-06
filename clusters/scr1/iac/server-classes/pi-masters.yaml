@@ -15,12 +15,6 @@ spec:
           dhcp: true
           vip:
             ip: 192.168.8.6
-    - op: replace
-      path: /cluster/network/cni
-      value:
-        name: "custom"
-        urls:
-          - "https://raw.githubusercontent.com/cilium/cilium/v1.9/install/kubernetes/quick-install.yaml"
   selector:
     matchLabels:
       pi-master: "true"
