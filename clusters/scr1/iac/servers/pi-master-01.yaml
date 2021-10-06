@@ -8,6 +8,7 @@ metadata:
 spec:
   accepted: true
   hostname: pi-master-01.scr1.rabbito.tech
+  pxeBootAlways: true
   cpu:
     manufacturer: Broadcom
     version: BCM2711 (ARM Cortex-A72)
