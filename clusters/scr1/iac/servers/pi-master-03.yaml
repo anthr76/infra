@@ -8,6 +8,10 @@ metadata:
 spec:
   accepted: true
   hostname: pi-master-03.scr1.rabbito.tech
+  configPatches:
+    - op: add
+      path: /machine/network/hostname
+      value: pi-master-03.scr1.rabbito.tech
   pxeBootAlways: true
   cpu:
     manufacturer: Broadcom

@@ -6,6 +6,10 @@ metadata:
 spec:
   accepted: true
   hostname: worker-03.scr1.rabbito.tech
+  configPatches:
+    - op: add
+      path: /machine/network/hostname
+      value: worker-03.scr1.rabbito.tech
   bmc:
     endpoint: worker-3-bmc.scr1.rabbito.tech
     userFrom:
