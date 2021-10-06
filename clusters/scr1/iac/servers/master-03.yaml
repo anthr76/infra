@@ -1,0 +1,30 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: Server
+metadata:
+  name: 3a0a1648-d534-11e3-a6b5-4dfee0117903
+spec:
+  accepted: true
+  hostname: master-03.scr1.rabbito.tech
+  bmc:
+    endpoint: master-03-bmc.scr1.rabbito.tech
+    userFrom:
+      secretKeyRef:
+        name: ipmi-credentials
+        namespace: default
+        key: supermicro-username
+    passFrom:
+      secretKeyRef:
+        name: ipmi-credentials
+        namespace: default
+        key: supermicro-password
+  cpu:
+    manufacturer: Intel
+    version: Intel(R) Xeon(R) CPU E5-2637 v2 @ 3.50GHz
+  system:
+    family: Unknown
+    manufacturer: SYNNEX
+    productName: HYVE-ZEUS
+    serialNumber: HYZ05051408599
+    skuNumber: HYVE-ZEUS-D-SH
+    version: "0123456789"
