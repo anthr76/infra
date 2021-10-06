@@ -5,6 +5,9 @@ metadata:
   name: pi-masters
 spec:
   configPatches:
+    - op: replace
+      path: /machine/install/disk
+      value: /dev/sda
     - op: add
       path: /machine/network/interfaces
       value:

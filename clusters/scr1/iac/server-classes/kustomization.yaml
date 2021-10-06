@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - pi-masters.yaml
   - storage-workers.yaml
+  - all-workers.yaml
