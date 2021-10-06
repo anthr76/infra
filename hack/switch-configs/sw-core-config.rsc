@@ -96,20 +96,21 @@ add bridge=bridge interface=ether1 pvid=99
 add bridge=bridge interface=sfp-sfpplus3
 add bridge=bridge interface=sfp-sfpplus2
 add bridge=bridge interface=sfp-sfpplus1
+add bridge=bridge interface=sfp-sfpplus22
+add bridge=bridge interface=sfp-sfpplus23
+add bridge=bridge interface=sfp-sfpplus21
 
 # egress behavior
 /interface bridge vlan
 
 # Purple Trunk. L2 switching only, Bridge not needed as tagged member (except BASE_VLAN)
-set bridge=bridge tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3 [find vlan-ids=8]
-set bridge=bridge tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3 [find vlan-ids=10]
-set bridge=bridge tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3 [find vlan-ids=100]
-set bridge=bridge tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3 [find vlan-ids=101]
-set [find bridge=bridge vlan-ids=8] tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3
-set [find bridge=bridge vlan-ids=100] tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3
-set [find bridge=bridge vlan-ids=10] tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3
-set [find bridge=bridge vlan-ids=101] tagged=sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3
-add bridge=bridge tagged=bridge,sfp-sfpplus1,sfp-sfpplus2,sfp-sfpplus3 vlan-ids=99
+add bridge=bridge tagged=sfp-sfpplus1,sfp-sfpplus23,sfp-sfpplus21 vlan-ids=8
+add bridge=bridge tagged=sfp-sfpplus1,sfp-sfpplus23,sfp-sfpplus21 vlan-ids=10
+add bridge=bridge tagged=sfp-sfpplus1,sfp-sfpplus23,sfp-sfpplus21 vlan-ids=808
+add bridge=bridge tagged=sfp-sfpplus22,sfp-sfpplus21 vlan-ids=806
+add bridge=bridge tagged=sfp-sfpplus22,sfp-sfpplus21 vlan-ids=810
+add bridge=bridge tagged=sfp-sfpplus22,sfp-sfpplus21 vlan-ids=101
+add bridge=bridge tagged=bridge,sfp-sfpplus1,sfp-sfpplus23,sfp-sfpplus21 vlan-ids=99
 
 
 #######################################
@@ -162,15 +163,15 @@ set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-prio
 set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus18]
 set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus19]
 set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus20]
-set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus21]
-set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus22]
-set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus23]
 set bridge=bridge ingress-filtering=yes frame-types=admit-only-untagged-and-priority-tagged [find interface=sfp-sfpplus24]
 
 # Only allow ingress packets WITH tags on Trunk Ports
 set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=sfp-sfpplus1]
 set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=sfp-sfpplus2]
 set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=sfp-sfpplus3]
+set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=sfp-sfpplus21]
+set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=sfp-sfpplus22]
+set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find interface=sfp-sfpplus23]
 
 
 #######################################
@@ -195,13 +196,17 @@ set bridge=bridge ingress-filtering=yes frame-types=admit-only-vlan-tagged [find
 
 
 set [ find default-name=ether1 ] comment=mgmt-sw
-set [ find default-name=sfp-sfpplus1 ] comment=new-router
+set [ find default-name=sfp-sfpplus1 ] comment=fw-1
 set [ find default-name=sfp-sfpplus2 ] comment=808-office
 set [ find default-name=sfp-sfpplus3 ] comment=sw-2
 set [ find default-name=sfp-sfpplus4 ] comment=k8s-worker-1
 set [ find default-name=sfp-sfpplus5 ] comment=k8s-worker-2
 set [ find default-name=sfp-sfpplus6 ] comment=k8s-worker-1
 set [ find default-name=sfp-sfpplus24 ] comment=nas-1
+set [ find default-name=sfp-sfpplus21 ] comment=core-2-sfp-4
+set [ find default-name=sfp-sfpplus22 ] comment=core-2-sfp-4
+set [ find default-name=sfp-sfpplus23 ] comment=core-2-sfp-2
+
 
 disable qsfpplus1-1
 disable qsfpplus1-2
@@ -225,9 +230,6 @@ disable sfp-sfpplus17
 disable sfp-sfpplus18
 disable sfp-sfpplus19
 disable sfp-sfpplus20
-disable sfp-sfpplus21
-disable sfp-sfpplus22
-disable sfp-sfpplus23
 
 #######################################
 # Turn on VLAN mode

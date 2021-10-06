@@ -10,7 +10,7 @@ terraform {
   required_providers {
     libvirt = {
       source  = "dmacvicar/libvirt"
-      version = "0.6.3"
+      version = "0.6.11"
     }
     sops = {
       source  = "carlpett/sops"
@@ -18,11 +18,11 @@ terraform {
     }
     ct = {
       source  = "poseidon/ct"
-      version = "0.9.0"
+      version = "0.9.1"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "2.24.0"
+      version = "3.1.0"
     }
   }
 }
