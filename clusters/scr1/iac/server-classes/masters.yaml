@@ -1,0 +1,29 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: ServerClass
+metadata:
+  name: masters
+spec:
+  configPatches:
+    - op: replace
+      path: /machine/install/disk
+      value: /dev/sda
+    - op: add
+      path: /machine/network/interfaces
+      value:
+        - interface: eth0
+          dhcp: true
+          vip:
+            ip: 192.168.8.5
+    - op: replace
+      path: /cluster/proxy/disabled
+      value: true
+    - op: replace
+      path: /cluster/network/cni
+      value:
+        name: "custom"
+        urls:
+          - "https://raw.githubusercontent.com/anthr76/infra/talos-prep/clusters/scr1/intergrations/cilium-quick-install/quick_install.yaml"
+  selector:
+    matchLabels:
+      master: "true"

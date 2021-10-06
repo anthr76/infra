@@ -1,0 +1,26 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: ServerClass
+metadata:
+  name: all-workers
+spec:
+  configPatches:
+    - op: replace
+      path: /machine/install/disk
+      value: /dev/sda
+  selector:
+    matchExpressions:
+      - key: master
+        operator: NotIn
+        values:
+          - "true"
+      - key: pi-master
+        operator: NotIn
+        values:
+          - "true"
+  qualifiers:
+    cpu:
+      - manufacturer: "Advanced Micro Devices, Inc."
+        version: "AMD Ryzen 5 PRO 2400GE w/ Radeon Vega Graphics"
+      - manufacturer: "Broadcom"
+        version: "BCM2711 (ARM Cortex-A72)"

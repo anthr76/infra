@@ -15,3 +15,8 @@ ansible/roles/anthr76.routeros-configure
 # Sops
 .decrypted~*.yaml
 /ansible/roles/mrlesmithjr.zfs
+
+# Temp
+/clusters/scr1/intergrations/server-classes
+/clusters/scr1/intergrations/servers
+/clusters/scr1/intergrations/scr1-cluster-0.yaml
