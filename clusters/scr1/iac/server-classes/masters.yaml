@@ -16,6 +16,9 @@ spec:
           vip:
             ip: 192.168.8.5
     - op: replace
+      path: /cluster/proxy/disabled
+      value: true
+    - op: replace
       path: /cluster/network/cni
       value:
         name: "custom"
