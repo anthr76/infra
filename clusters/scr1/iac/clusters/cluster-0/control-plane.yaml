@@ -62,4 +62,4 @@ spec:
     kind: MetalMachineTemplate
     name: scr1-cluster-0-cp
   replicas: 1
-  version: v1.22.2
+  version: v1.22.1
