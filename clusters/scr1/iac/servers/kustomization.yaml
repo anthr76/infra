@@ -1,0 +1,17 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ipmi-credentials.sops.yaml
+  - master-01.yaml
+  - master-02.yaml
+  - master-03.yaml
+  - pi-master-01.yaml
+  - pi-master-02.yaml
+  - pi-master-03.yaml
+  - worker-01.yaml
+  - worker-02.yaml
+  - worker-03.yaml
+  - worker-04.yaml
+  - worker-05.yaml
+  - worker-07.yaml
