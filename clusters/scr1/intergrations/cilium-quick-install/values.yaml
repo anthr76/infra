@@ -1,1 +1,1 @@
-kubeProxyReplacement: "disabled"
+kubeProxyReplacement: "strict"
