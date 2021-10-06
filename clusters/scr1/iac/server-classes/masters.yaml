@@ -17,7 +17,7 @@ spec:
       value:
         name: "custom"
         urls:
-          - "https://raw.githubusercontent.com/cilium/cilium/v1.9/install/kubernetes/quick-install.yaml"
+          - "https://raw.githubusercontent.com/anthr76/infra/talos-prep/clusters/scr1/intergrations/cilium-quick-install/quick_install.yaml"
   selector:
     matchLabels:
       master: "true"

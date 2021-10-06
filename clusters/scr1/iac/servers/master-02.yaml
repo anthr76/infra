@@ -3,6 +3,8 @@ apiVersion: metal.sidero.dev/v1alpha1
 kind: Server
 metadata:
   name: a1e84776-ca2b-11e3-890c-2715cdd68d02
+  labels:
+    master: "true"
 spec:
   accepted: true
   hostname: master-02.scr1.rabbito.tech
