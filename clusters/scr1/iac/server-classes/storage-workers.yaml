@@ -8,6 +8,10 @@ spec:
     - op: replace
       path: /machine/install/disk
       value: /dev/sda
+    - op: add
+      path: /machine/kubelet/extraArgs
+      value:
+        rotate-server-certificates: true
     - op: replace
       path: /persist
       value: false
