@@ -10,3 +10,6 @@ data:
   CONTROL_PLANE_ENDPOINT: "cluster-0.scr1.rabbito.tech"
   CLUSTER_POD_CIDR: "10.244.0.0/16"
   NATIVE_CIDR: "192.168.8.0/24"
+  OSD_HOSTNAME_1: "worker-01"
+  OSD_HOSTNAME_2: "worker-02"
+  OSD_HOSTNAME_3: "worker-03"

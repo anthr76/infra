@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - ../../../base/flux-system/helm-chart-repositories
   - ../../../base/rook-ceph
+  - ../../../base/rook-ceph/cluster
   - ../../../base/rook-ceph/operator
