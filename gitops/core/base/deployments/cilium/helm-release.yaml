@@ -37,3 +37,21 @@ spec:
       rollOutPods: true
     containerRuntime:
       integration: containerd
+    hubble:
+      enabled: true
+      metrics:
+        enabled:
+          - dns:query;ignoreAAAA
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - http
+      listenAddress: ":4244"
+      relay:
+        enabled: true
+        rollOutPods: true
+      ui:
+        enabled: true
+        rollOutPods: true
