@@ -9,3 +9,4 @@ data:
   CLUSTER_ID: "1"
   CONTROL_PLANE_ENDPOINT: "cluster-0.scr1.rabbito.tech"
   CLUSTER_POD_CIDR: "10.244.0.0/16"
+  NATIVE_CIDR: "192.168.8.0/24"
