@@ -17,11 +17,6 @@ spec:
     # include gitops dirs
     !/clusters
     !/gitops
-    # exclude text files from gitops dirs
-    /clusters/**/*.md
-    /clusters/**/*.txt
-    /gitops/**/*.md
-    /gitops/**/*.txt
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
