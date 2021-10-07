@@ -21,12 +21,6 @@ spec:
       name: "${CLUSTER_NAME}"
       id: "${CLUSTER_ID}"
     rollOutCiliumPods: true
-    bpf:
-      clockProbe: true
-      masquerade: true
-      hostRouting: false
-      tproxy: true
-      lbBypassFIBLookup: true
     kubeProxyReplacement: "strict"
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     ipv4NativeRoutingCIDR: ${CLUSTER_POD_CIDR}
