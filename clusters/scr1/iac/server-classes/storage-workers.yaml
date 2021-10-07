@@ -8,13 +8,24 @@ spec:
     - op: replace
       path: /machine/install/disk
       value: /dev/sda
-    # - op: add
-    #   path: /machine/network/interfaces
-    #   value:
-    #     - interface: eth0
-    #       ignore: true
-    #     - interface: eth2
-    #       dhcp: true
+    - op: add
+      path: /machine/sysctls
+      value:
+        vm.nr_hugepages: "512"
+    - op: add
+      path: /machine/kubelet/extraMounts
+      value:
+        - destination: /var/local
+          type: bind
+          source: /var/local
+          options:
+            - rbind
+            - rshared
+            - rw
+    - op: add
+      path: /machine/kubelet/extraArgs
+      value:
+        node-labels: openebs.io/engine=mayastor
   qualifiers:
     cpu:
       - manufacturer: "Advanced Micro Devices, Inc."
