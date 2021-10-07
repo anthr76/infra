@@ -2,4 +2,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://github.com/alex1989hu/kubelet-serving-cert-approver/deploy/ha?ref=v0.2.2
+  - deploy.yaml
