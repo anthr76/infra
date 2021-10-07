@@ -18,6 +18,6 @@ spec:
       interval: 5m
   values:
     args:
-      - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      - --kubelet-preferred-address-types=InternalIP,ExternalIP
       - --kubelet-use-node-status-port
       - --metric-resolution=15s
