@@ -29,22 +29,17 @@ spec:
       lbBypassFIBLookup: true
     kubeProxyReplacement: "strict"
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-    ipv4NativeRoutingCIDR: ${NATIVE_CIDR}
+    ipv4NativeRoutingCIDR: ${CLUSTER_POD_CIDR}
     k8sServiceHost: "${CONTROL_PLANE_ENDPOINT}"
     k8sServicePort: 6443
     loadBalancer:
       algorithm: "maglev"
       mode: "dsr"
-      acceleration: "native"
     tunnel: "disabled"
     autoDirectNodeRoutes: true
     ipam:
-      operator:
-        clusterPoolIPv4PodCIDR: "${CLUSTER_POD_CIDR}"
-        clusterPoolIPv4MaskSize: 24
+      mode: "kubernetes"
     operator:
       rollOutPods: true
-    externalIPs:
-      enabled: true
-    nodePort:
-      enabled: true
+    containerRuntime:
+      integration: containerd
