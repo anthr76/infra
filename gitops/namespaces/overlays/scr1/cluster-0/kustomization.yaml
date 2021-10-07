@@ -6,3 +6,4 @@ resources:
   - ../../../base/rook-ceph
   - ../../../base/rook-ceph/cluster
   - ../../../base/rook-ceph/operator
+  - ../../../base/kubelet-serving-cert-approver/kubelet-serving-cert-approver
