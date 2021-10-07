@@ -6,3 +6,6 @@ metadata:
   namespace: flux-system
 data:
   CLUSTER_NAME: "cluster-0"
+  CLUSTER_ID: "1"
+  CONTROL_PLANE_ENDPOINT: "cluster-0.scr1.rabbito.tech"
+  CLUSTER_POD_CIDR: "10.244.0.0/16"
