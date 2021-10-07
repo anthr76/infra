@@ -25,3 +25,4 @@ resources:
   - authentik-charts.yaml
   - renovate-charts.yaml
   - gitlab-charts.yaml
+  - metrics-server-charts.yaml
