@@ -8,6 +8,9 @@ spec:
     - op: replace
       path: /machine/install/disk
       value: /dev/sda
+    - op: replace
+      path: /persist
+      value: false
     - op: add
       path: /machine/sysctls
       value:
