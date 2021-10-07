@@ -27,7 +27,6 @@ spec:
     - name: cluster-config
   path: ./gitops/core/overlays/scr1/cluster-0
   prune: true
-  force: true
   sourceRef:
     kind: GitRepository
     name: flux-system
