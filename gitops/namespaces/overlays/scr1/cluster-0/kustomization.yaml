@@ -3,3 +3,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../../base/flux-system/helm-chart-repositories
+  - ../../../base/rook-ceph
+  - ../../../base/rook-ceph/operator
