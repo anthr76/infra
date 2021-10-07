@@ -27,5 +27,5 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux
+    name: kubelet-serving-cert-approver
   validation: client
