@@ -23,7 +23,7 @@ spec:
       value:
         name: "custom"
         urls:
-          - "https://raw.githubusercontent.com/anthr76/infra/main/clusters/scr1/intergrations/cilium-quick-install/quick_install.yaml"
+          - "https://github.com/anthr76/infra/blob/main/clusters/scr1/intergrations/cilium-quick-install/cluster_0_quick_install.yaml"
   selector:
     matchLabels:
       master: "true"
