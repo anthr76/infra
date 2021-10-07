@@ -8,10 +8,6 @@ spec:
     - op: replace
       path: /machine/install/disk
       value: /dev/sda
-    - op: add
-      path: /machine/certSANs
-      value:
-        - cluster-0.scr1.rabbito.tech
     # - op: add
     #   path: /machine/network/interfaces
     #   value:
