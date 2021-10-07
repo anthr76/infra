@@ -15,6 +15,10 @@ spec:
           dhcp: true
           vip:
             ip: 192.168.8.5
+    - op: add
+      path: /machine/certSANs
+      value:
+        - cluster-0.scr1.rabbito.tech
     - op: replace
       path: /cluster/proxy/disabled
       value: true
