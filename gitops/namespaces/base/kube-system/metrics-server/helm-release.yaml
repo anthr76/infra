@@ -17,5 +17,3 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    args:
-      - --metric-resolution=15s
