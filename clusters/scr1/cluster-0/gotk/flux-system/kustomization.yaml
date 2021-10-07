@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   #- https://github.com/fluxcd/flux2/manifests/install?ref=v0.17.2
   - gotk-sync.yaml
+  - flux.yaml
