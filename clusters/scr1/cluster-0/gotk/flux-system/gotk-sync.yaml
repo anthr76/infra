@@ -25,7 +25,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/scr1/cluster-0/gotk
+  path: ./clusters/scr1/cluster-0/gotk/flux-system
   prune: true
   sourceRef:
     kind: GitRepository
