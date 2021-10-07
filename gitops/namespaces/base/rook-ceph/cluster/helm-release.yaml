@@ -28,13 +28,13 @@ spec:
           metadataDevice:
           osdsPerDevice: "1"
         nodes:
-          - name: "$OSD_HOSTNAME_1"
+          - name: "${OSD_HOSTNAME_1}"
             devices:
               - name: "nvme0n1"
-          - name: "$OSD_HOSTNAME_2"
+          - name: "${OSD_HOSTNAME_2}"
             devices:
               - name: "nvme0n1"
-          - name: "$OSD_HOSTNAME_3"
+          - name: "${OSD_HOSTNAME_3}"
             devices:
               - name: "nvme0n1"
     cephFileSystems: []
