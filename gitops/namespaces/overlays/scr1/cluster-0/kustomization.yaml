@@ -12,3 +12,5 @@ resources:
   - ../../../base/networking
   - ../../../base/networking/cert-manager
   - ../../../base/networking/traefik
+patchesStrategicMerge:
+  - patch.yaml
