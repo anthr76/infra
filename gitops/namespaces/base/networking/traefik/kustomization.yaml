@@ -1,8 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - dashboard_dns.yaml
-  - dashboard_ingressroute.yaml
-  - internal_middlewares.yaml
-  - traefik-podmonitor.yaml
-  - traefik.yaml
+  # - dashboard_dns.yaml
+  # - dashboard_ingressroute.yaml
+  # - internal_middlewares.yaml
+  # - traefik-podmonitor.yaml
+  - helm-release.yaml
