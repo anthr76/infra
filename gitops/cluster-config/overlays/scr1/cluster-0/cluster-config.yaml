@@ -8,6 +8,7 @@ data:
   CLUSTER_NAME: "cluster-0"
   CLUSTER_ID: "1"
   CONTROL_PLANE_ENDPOINT: "cluster-0.scr1.rabbito.tech"
+  INGRESS_ENDPOINT_HOSTNAME: "cluster-0-ie.scr1.rabbito.tech"
   CLUSTER_POD_CIDR: "10.244.0.0/16"
   NATIVE_CIDR: "192.168.8.0/24"
   OSD_HOSTNAME_1: "worker-01"
