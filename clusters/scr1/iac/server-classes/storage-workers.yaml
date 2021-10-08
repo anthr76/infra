@@ -20,7 +20,6 @@ spec:
       path: /machine/sysctls
       value:
         vm.nr_hugepages: "512"
-
   qualifiers:
     cpu:
       - manufacturer: "Advanced Micro Devices, Inc."
