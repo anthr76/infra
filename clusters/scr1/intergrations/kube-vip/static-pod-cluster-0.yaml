@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  name: kube-vip
+  namespace: kube-system
+spec:
+  containers:
+    - args:
+        - manager
+      env:
+        - name: vip_arp
+          value: "false"
+        - name: vip_interface
+          value: lo
+        - name: port
+          value: "6443"
+        - name: vip_cidr
+          value: "32"
+        - name: cp_enable
+          value: "true"
+        - name: svc_enable
+          value: "false"
+        - name: cp_namespace
+          value: kube-system
+        - name: vip_startleader
+          value: "false"
+        - name: vip_loglevel
+          value: "5"
+        - name: bgp_enable
+          value: "true"
+        - name: bgp_routerinterface
+          value: "eth2"
+        - name: bgp_as
+          value: "64512"
+        - name: bgp_peeraddress
+          value: "10.20.99.1"
+        - name: bgp_peeras
+          value: "64512"
+        - name: vip_address
+          value: "192.168.8.5"
+      image: ghcr.io/kube-vip/kube-vip:v0.3.8
+      imagePullPolicy: Always
+      name: kube-vip
+      resources: {}
+      securityContext:
+        capabilities:
+          add:
+            - NET_ADMIN
+            - NET_RAW
+            - SYS_TIME
+      volumeMounts:
+        - mountPath: /etc/kubernetes/admin.conf
+          name: kubeconfig
+  hostNetwork: true
+  volumes:
+    - hostPath:
+        path: /etc/kubernetes/admin.conf
+      name: kubeconfig
+status: {}
