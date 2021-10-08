@@ -12,6 +12,8 @@ spec:
       env:
         - name: vip_arp
           value: "false"
+        - name: inCluster
+          value: "true"
         - name: vip_interface
           value: lo
         - name: port
@@ -50,12 +52,39 @@ spec:
             - NET_ADMIN
             - NET_RAW
             - SYS_TIME
-      volumeMounts:
-        - mountPath: /etc/kubernetes/admin.conf
-          name: kubeconfig
   hostNetwork: true
-  volumes:
-    - hostPath:
-        path: /etc/kubernetes/admin.conf
-      name: kubeconfig
+  serviceAccountName: kube-vip
 status: {}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kube-vip
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  name: system:kube-vip-role
+rules:
+  - apiGroups: [""]
+    resources: ["services", "services/status", "nodes"]
+    verbs: ["list", "get", "watch", "update"]
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["list", "get", "watch", "update", "create"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: system:kube-vip-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:kube-vip-role
+subjects:
+  - kind: ServiceAccount
+    name: kube-vip
+    namespace: kube-system
