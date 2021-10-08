@@ -16,7 +16,7 @@ spec:
       interval: 5m
   values:
     additionalArguments:
-      - "--providers.kubernetesingress.ingressendpoint.hostname=${INGRESS_ENDPOINT_HOSTNAME}"
+      - "--providers.kubernetesingress.ingressendpoint.hostname=cluster-0-ie.scr1.rabbito.tech"
     service:
       enabled: true
       type: LoadBalancer
