@@ -2,13 +2,14 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: external-dns-crd-source
+  name: external-dns-crd
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 30m
+  # renovate: datasource=github-releases
   url: https://github.com/kubernetes-sigs/external-dns.git
   ref:
-    tag: "v0.8.0"
+    tag: "v0.10.0"
   ignore: |
     # exclude all
     /*
@@ -18,10 +19,10 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: external-dns-issuer-crd
+  name: external-dns-crd
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 15m
   prune: false
   sourceRef:
     kind: GitRepository

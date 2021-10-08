@@ -11,3 +11,4 @@ resources:
   - ../../../base/kube-system/metrics-server
   - ../../../base/networking
   - ../../../base/networking/cert-manager
+  - ../../../base/networking/traefik

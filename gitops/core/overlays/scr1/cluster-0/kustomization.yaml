@@ -4,5 +4,7 @@ kind: Kustomization
 resources:
   - ../../../base/crds/kube-prometheus-stack/kube-prometheus-stack-default.yaml
   - ../../../base/crds/rook-ceph
+  - ../../../base/crds/traefik/traefik-default.yaml
+  - ../../../base/crds/external-dns/external-dns-default.yaml
   - ../../../base/crds/cert-manager/cert-manager-default.yaml
   - ../../../base/deployments/cilium

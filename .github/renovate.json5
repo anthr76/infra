@@ -1,33 +1,92 @@
 {
-  extends: ["config:base", ":gitSignOff"],
-  enabled: true,
-  timezone: "America/New_York",
-  dependencyDashboard: true,
-  dependencyDashboardTitle: "Renovate Dashboard",
-  // "gitAuthor": "Anthony Rabbito <hello@anthonyrabbito.com>",
-  // "commitBody": "Signed-off-by: Anthony Rabbito <hello@anthonyrabbito.com>",
-  // Do not notify on closed unmerged PRs
-  suppressNotifications: ["prIgnoreNotification"],
-  // Do not rebase PRs
-  rebaseWhen: "conflicted",
-  assignees: ["@anthr76"],
-  reviewersFromCodeOwners: true,
-  "helm-values": {
-    fileMatch: ["gitops/.+\\.yaml$"],
+  "enabled": true,
+  "timezone": "America/New_York",
+  "semanticCommits": "enabled",
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "commitBody": "Signed-off-by: Anthony Rabbito <hello@anthonyrabbito.com>",
+  "suppressNotifications": ["prIgnoreNotification"],
+  "rebaseWhen": "conflicted",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "commitMessageSuffix": "",
+  // set up Renovate Managers
+  "helmv3": {
+    "fileMatch": ["gitops/.+/Chart\\.yaml$"]
   },
-  regexManagers: [
+  "helm-values": {
+    "fileMatch": ["gitops/.+/helm-release\\.yaml$"]
+  },
+  "kubernetes": {
+    "fileMatch": [
+      "clusters/.+\\.yaml$",
+      "gitops/.+\\.yaml$"
+    ]
+  },
+  "regexManagers": [
+    // regexManager to read and process HelmRelease files
     {
-      fileMatch: ["gitops/.+\\.yaml$"],
-      matchStrings: [
-        // helm releases
-        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
-        // kube-prometheus-stack crd
-        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n",
-        // cert-manager crd
-        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/",
+      "fileMatch": [
+        "gitops/.+\\.yaml$"
       ],
-      datasourceTemplate: "helm",
+      "matchStrings": [
+        // helm releases
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
     },
+    // regexManager to read and process cert-manager CRD's
+    {
+      "fileMatch": [
+        "gitops/core/base/crds/cert-manager/default/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    // regexManager to read and process kube-prometheus-stack and velero CRD's
+    {
+      "fileMatch": [
+        "gitops/core/base/crds/kube-prometheus-stack/default/.+\\.yaml$",
+        "gitops/core/base/crds/velero/default/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    // regexManager to read and process Traefik CRD's
+    {
+      "fileMatch": [
+        "gitops/core/base/crds/traefik/default/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: v(?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    // regexManager to read and process Rook-Ceph CRD's
+    {
+      "fileMatch": [
+        "gitops/core/base/crds/rook-ceph/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    // regexManager to read and process External Snapshotter and External DNS CRD's
+    {
+      "fileMatch": [
+        "gitops/core/base/crds/external-snapshotter/default/.+\\.yaml$",
+        "gitops/core/base/crds/external-dns/default/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "github-releases"
+    }
   ],
   packageRules: [
     {
