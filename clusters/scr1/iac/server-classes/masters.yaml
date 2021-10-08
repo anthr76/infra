@@ -8,10 +8,6 @@ spec:
     - op: replace
       path: /machine/install/disk
       value: /dev/sda
-    - op: add
-      path: /cluster/extraManifests
-      value:
-        - https://raw.githubusercontent.com/anthr76/infra/main/clusters/scr1/intergrations/kube-vip/static-pod-cluster-0.yaml
     - op: replace
       path: /persist
       value: false
@@ -19,6 +15,7 @@ spec:
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: true
+        feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
     - op: add
       path: /machine/certSANs
       value:

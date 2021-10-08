@@ -12,6 +12,7 @@ spec:
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: true
+        feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
     - op: replace
       path: /persist
       value: false
@@ -19,6 +20,7 @@ spec:
       path: /machine/sysctls
       value:
         vm.nr_hugepages: "512"
+
   qualifiers:
     cpu:
       - manufacturer: "Advanced Micro Devices, Inc."
