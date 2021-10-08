@@ -9,12 +9,12 @@ spec:
       path: /machine/install/disk
       value: /dev/sda
     - op: add
-      path: /machine/network/interfaces
+      path: /cluster/extraManifests
       value:
-        - interface: eth0
-          dhcp: true
-          vip:
-            ip: 192.168.8.5
+        - https://raw.githubusercontent.com/anthr76/infra/main/clusters/scr1/intergrations/kube-vip/static-pod-cluster-0.yaml
+    - op: replace
+      path: /persist
+      value: false
     - op: add
       path: /machine/kubelet/extraArgs
       value:
