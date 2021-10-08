@@ -22,7 +22,7 @@ spec:
   redisConfig: {}
   redisExporter:
     enabled: true
-    image: quay.io/opstree/redis-exporter:1.0
+    image: quay.io/opstree/redis-exporter:2.0
     imagePullPolicy: Always
     resources:
       requests:
