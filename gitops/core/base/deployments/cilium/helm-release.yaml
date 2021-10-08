@@ -56,6 +56,6 @@ spec:
         enabled: true
         rollOutPods: true
     bgp:
-      enabled: false
+      enabled: true
       announce:
         loadbalancerIP: true
