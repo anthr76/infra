@@ -9,3 +9,5 @@ resources:
   - ../../../base/kubelet-serving-cert-approver/kubelet-serving-cert-approver
   - ../../../base/kube-system
   - ../../../base/kube-system/metrics-server
+  - ../../../base/networking
+  - ../../../base/networking/cert-manager
