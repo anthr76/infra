@@ -16,7 +16,7 @@ spec:
       interval: 5m
   values:
     additionalArguments:
-      - "--providers.kubernetesingress.ingressendpoint.hostname=cluster-0-ie.scr1.rabbito.tech"
+      - "--providers.kubernetesingress.ingressendpoint.hostname=${INGRESS_ENDPOINT_HOSTNAME}"
     service:
       enabled: true
       type: LoadBalancer
@@ -25,4 +25,4 @@ spec:
           - "10.45.0.0"
         externalTrafficPolicy: Local
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: cluster-0-ie.scr1.rabbito.tech
+        external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
