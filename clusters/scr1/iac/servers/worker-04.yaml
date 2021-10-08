@@ -4,6 +4,9 @@ kind: Server
 metadata:
   name: 00d03114-0000-0000-0000-dca632cc34a6
 spec:
+  environmentRef:
+    namespace: default
+    name: default-arm64
   accepted: true
   hostname: worker-04.scr1.rabbito.tech
   pxeBootAlways: true
