@@ -155,6 +155,25 @@
           - "/tank/minio:/data:z"
       become: false
 
+    #
+    # - name: run pull-through cache
+    #   containers.podman.podman_container:
+    #     name: registry-docker.io
+    #     image: "docker.io/library/registry:2"
+    #     state: started
+    #     command:
+    #       - "server"
+    #       - "/data"
+    #       - "--console-address"
+    #       - ":9001"
+    #     ports:
+    #       - "5000:5000"
+    #     env:
+    #       REGISTRY_PROXY_REMOTEURL: "https://registry-1.docker.io"
+    #     volume:
+    #       - "/tank/minio:/data:z"
+    #   become: false
+
     - name: warn if reboot required
       debug:
         msg: "Reboot is required"
