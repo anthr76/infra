@@ -16,6 +16,12 @@ spec:
     - op: replace
       path: /persist
       value: false
+    - op: add
+      path: /machine/time
+      value:
+        disabled: false
+        servers:
+          - time.cloudflare.com
   selector:
     matchExpressions:
       - key: master
