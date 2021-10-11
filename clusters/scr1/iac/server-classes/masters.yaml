@@ -27,7 +27,8 @@ spec:
       path: /cluster/network/cni
       value:
         name: "custom"
-        urls: []
+        urls:
+          - "https://raw.githubusercontent.com/anthr76/infra/main/clusters/scr1/intergrations/cilium-quick-install/cluster_0_quick_install.yaml"
   selector:
     matchLabels:
       master: "true"
