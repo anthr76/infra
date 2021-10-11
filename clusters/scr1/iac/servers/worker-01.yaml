@@ -10,10 +10,6 @@ spec:
     - op: add
       path: /machine/network/hostname
       value: worker-01.scr1.rabbito.tech
-    - op: add
-      path: /machine/kubelet/extraArgs
-      value:
-        node-labels: feature.kutara.io/backbone=10g
   bmc:
     endpoint: worker-1-bmc.scr1.rabbito.tech
     userFrom:

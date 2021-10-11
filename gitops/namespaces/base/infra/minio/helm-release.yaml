@@ -27,7 +27,7 @@ spec:
       - secretRef:
           name: minio
     nodeSelector:
-      feature.kutara.io/backbone: 10g
+      kubernetes.io/arch: amd64
     args:
       - server
       - /data
