@@ -17,6 +17,12 @@ spec:
         rotate-server-certificates: true
         feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
     - op: add
+      path: /machine/time
+      value:
+        disabled: false
+        servers:
+          - time.cloudflare.com
+    - op: add
       path: /machine/certSANs
       value:
         - cluster-0.scr1.rabbito.tech
