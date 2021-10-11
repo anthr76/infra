@@ -16,8 +16,9 @@ spec:
       value:
         vm.nr_hugepages: "512"
     - op: add
-      path: /machine/kubelet/extraArgs/node-labels
-      value: feature.kutara.io/backbone=10g
+      path: /machine/kubelet/extraArgs
+      value:
+        node-labels: feature.kutara.io/backbone=10g
   qualifiers:
     cpu:
       - manufacturer: "Advanced Micro Devices, Inc."
