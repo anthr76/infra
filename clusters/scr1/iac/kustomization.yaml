@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - servers
   - server-classes
-  - clusters
+  #- clusters
   - environments
