@@ -127,34 +127,6 @@
         - swap
         - none
 
-    - name: setup minio directory
-      ansible.builtin.file:
-        path: /tank/minio
-        state: directory
-        group: "1000"
-        owner: "1000"
-        mode: "0600"
-
-    - name: run minio
-      containers.podman.podman_container:
-        name: minio
-        image: "quay.io/minio/minio:RELEASE.2021-09-18T18-09-59Z"
-        state: started
-        command:
-          - "server"
-          - "/data"
-          - "--console-address"
-          - ":9001"
-        ports:
-          - "9000:9000"
-          - "9001:9001"
-        env:
-          MINIO_UPDATE: "off"
-          MINIO_PROMETHEUS_AUTH_TYPE: "public"
-        volume:
-          - "/tank/minio:/data:z"
-      become: false
-
     #
     # - name: run pull-through cache
     #   containers.podman.podman_container:
