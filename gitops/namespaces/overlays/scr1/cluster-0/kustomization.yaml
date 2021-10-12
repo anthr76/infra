@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ../../../base/flux-system/helm-chart-repositories
   - ../../../base/infra
-  - ../../../base/infra/minio
+  #- ../../../base/infra/minio
   - ../../../base/rook-ceph
   - ../../../base/rook-ceph/cluster
   - ../../../base/rook-ceph/operator
