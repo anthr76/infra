@@ -50,7 +50,7 @@ zfs_filesystems:
     mountpoint: "/tank/persistentVolumeClaims"
   - name: minio
     pool: tank
-    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24"
+    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24,rw=@192.168.8.0/24,ro=192.168.9.0/24"
     state: present
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
