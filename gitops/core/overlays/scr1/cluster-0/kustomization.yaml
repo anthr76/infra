@@ -8,3 +8,4 @@ resources:
   - ../../../base/crds/external-dns/external-dns-default.yaml
   - ../../../base/crds/cert-manager/cert-manager-default.yaml
   - ../../../base/deployments/cilium
+  - ../../../base/deployments/kubegres-default.yaml

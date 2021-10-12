@@ -20,8 +20,6 @@ spec:
     - name: traefik
       namespace: networking
   values:
-    image:
-      tag: 2021.6.1
     ingress:
       enabled: true
       ingressClassName: "traefik"
