@@ -41,9 +41,10 @@
         ".+\\.yaml$"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\\n *tag: v(?<currentValue>.*)\n"
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*=?)\n*tag: (?<currentValue>.*=?)"
       ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      "registryUrlTemplate": "{{#if registryUrl}}{{{registryUrl}}}{{else}}{{/if}}"
     }
   ],
   packageRules: [
