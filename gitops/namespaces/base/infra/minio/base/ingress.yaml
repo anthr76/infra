@@ -1,0 +1,39 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  labels:
+    app.kubernetes.io/instance: minio
+    app.kubernetes.io/name: minio
+  name: minio
+  namespace: infra
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: minio."${INT_DOMAIN}"
+      http:
+        paths:
+          - backend:
+              service:
+                name: minio
+                port:
+                  number: 9001
+            path: /
+            pathType: Prefix
+    - host: s3."${INT_DOMAIN}"
+      http:
+        paths:
+          - backend:
+              service:
+                name: minio
+                port:
+                  number: 9000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - minio."${INT_DOMAIN}"
+        - s3."${INT_DOMAIN}"
