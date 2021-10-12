@@ -24,7 +24,15 @@ spec:
       containers:
         - name: minio
           args:
-            - "gateway nas /data -S /etc/minio/certs/ --address :9000 --console-address :9001"
+            - "gateway"
+            - "nas"
+            - "/data"
+            - "-S"
+            - "/etc/minio/certs/"
+            - "--address"
+            - ":9000"
+            - "--console-address"
+            - ":9001"
           env:
             - name: MINIO_PROMETHEUS_AUTH_TYPE
               value: "public"
