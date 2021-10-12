@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: minio."${INT_DOMAIN}"
+    - host: minio.${INT_DOMAIN}
       http:
         paths:
           - backend:
@@ -23,7 +23,7 @@ spec:
                   number: 9001
             path: /
             pathType: Prefix
-    - host: s3."${INT_DOMAIN}"
+    - host: s3.${INT_DOMAIN}
       http:
         paths:
           - backend:
@@ -35,5 +35,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - minio."${INT_DOMAIN}"
-        - s3."${INT_DOMAIN}"
+        - minio.${INT_DOMAIN}
+        - s3.${INT_DOMAIN}
