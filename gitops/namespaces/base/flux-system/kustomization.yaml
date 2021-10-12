@@ -4,11 +4,9 @@ kind: Kustomization
 resources:
   - helm-chart-repositories
   - notifications/discord/notification.yaml
-  - notifications/discord/secret.enc.yaml
+  - notifications/discord/secret.sops.yaml
   - notifications/github/notification.yaml
-  - notifications/github/secret.enc.yaml
-  - notifications/gitlab/notification.yaml
-  - notifications/gitlab/secret.enc.yaml
-  - webhook/gitlab/ingress.yaml
-  - webhook/gitlab/receiver.yaml
-  - webhook/gitlab/secret.enc.yaml
+  - notifications/github/secret.sops.yaml
+  - webhook/github/ingress.yaml
+  - webhook/github/receiver.yaml
+  - webhook/github/secret.sops.yaml
