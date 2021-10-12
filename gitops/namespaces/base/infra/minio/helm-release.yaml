@@ -30,6 +30,10 @@ spec:
       MINIO_PROMETHEUS_AUTH_TYPE: "public"
       MINIO_UPDATE: "off"
       TZ: "America/New_York"
+    securityContext:
+      runAsUser: 65534
+      runAsGroup: 65534
+      fsGroup: 65534
     resources:
       requests:
         memory: 100Mi
