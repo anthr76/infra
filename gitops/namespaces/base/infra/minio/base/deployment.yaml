@@ -22,7 +22,8 @@ spec:
         app.kubernetes.io/name: minio
     spec:
       containers:
-        - command:
+        - name: minio
+          command:
             - "/bin/sh"
             - "-ce"
             - "/usr/bin/docker-entrypoint.sh minio gateway nas /data -S /etc/minio/certs/ --address :9000 --console-address :9001 "
@@ -52,7 +53,6 @@ spec:
             tcpSocket:
               port: 9001
             timeoutSeconds: 1
-          name: minio
           ports:
             - containerPort: 9000
               name: api
