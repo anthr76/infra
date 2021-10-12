@@ -26,4 +26,4 @@ resources:
   - renovate-charts.yaml
   - gitlab-charts.yaml
   - metrics-server-charts.yaml
-  - k8s-at-home-library-chart.yaml
+  - minio-charts.yaml

@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: k8s-at-home-library-charts
+  name: minio-charts
   namespace: flux-system
 spec:
   interval: 10m
-  url: https://library-charts.k8s-at-home.com
+  url: https://charts.min.io/
   timeout: 3m
