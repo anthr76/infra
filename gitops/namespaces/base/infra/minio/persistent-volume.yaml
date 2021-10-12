@@ -9,6 +9,8 @@ spec:
     storage: 1Mi
   accessModes:
     - ReadWriteMany
+  mountOptions:
+    - nfsvers=4.1
   nfs:
     server: "${NAS_1_ADDRESS}"
     path: "/tank/minio"
