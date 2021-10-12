@@ -38,7 +38,8 @@
     // Generic Flux Regex Manager
     {
       "fileMatch": [
-        ".+\\.yaml$"
+        "clusters/.+\\.yaml$",
+        "gitops/.+\\.yaml$"
       ],
       "matchStrings": [
         "datasource=(?<datasource>.*?) depName=(?<depName>.*=?)\n*tag: (?<currentValue>.*=?)"
