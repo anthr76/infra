@@ -8,14 +8,19 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: common
-      version: 4.0.1
+      chart: minio
+      version: 3.1.9
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-library-charts
+        name: minio-charts
         namespace: flux-system
       interval: 5m
   values:
+    mode: gateway
+    existingSecret: "minio"
+    gateway:
+      replicas: 1
+    
     image:
       repository: quay.io/minio/minio
       tag: RELEASE.2021-10-08T23-58-24Z
