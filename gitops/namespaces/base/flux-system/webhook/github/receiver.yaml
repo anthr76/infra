@@ -2,14 +2,14 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Receiver
 metadata:
-  name: gitlab-receiver
+  name: github-receiver
   namespace: flux-system
 spec:
-  type: gitlab
+  type: github
   events:
     - "Push Hook"
   secretRef:
-    name: gitlab-webhook-token
+    name: github-webhook-token
   resources:
     - apiVersion: source.toolkit.fluxcd.io/v1beta1
       kind: GitRepository
