@@ -34,6 +34,18 @@ spec:
       runAsUser: 65534
       runAsGroup: 65534
       fsGroup: 65534
+    makeUserJob:
+      securityContext:
+        enabled: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+    makeBucketJob:
+      securityContext:
+        enabled: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
     resources:
       requests:
         memory: 100Mi

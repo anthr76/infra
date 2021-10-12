@@ -52,8 +52,8 @@ zfs_filesystems:
     pool: tank
     sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24,rw=@192.168.8.0/24,ro=192.168.9.0/24"
     state: present
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    owner: "65534"
+    group: "65534"
     mountpoint: "/tank/minio"
   - name: system
     pool: tank
