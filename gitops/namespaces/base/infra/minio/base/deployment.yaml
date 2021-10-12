@@ -23,10 +23,8 @@ spec:
     spec:
       containers:
         - name: minio
-          command:
-            - "/bin/sh"
-            - "-ce"
-            - "/usr/bin/docker-entrypoint.sh minio gateway nas /data -S /etc/minio/certs/ --address :9000 --console-address :9001"
+          args:
+            - "gateway nas /data -S /etc/minio/certs/ --address :9000 --console-address :9001"
           env:
             - name: MINIO_PROMETHEUS_AUTH_TYPE
               value: "public"
