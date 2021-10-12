@@ -37,3 +37,4 @@ spec:
     - hosts:
         - minio.${INT_DOMAIN}
         - s3.${INT_DOMAIN}
+      secretName: minio-tls
