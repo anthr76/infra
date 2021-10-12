@@ -22,7 +22,7 @@ spec:
         app.kubernetes.io/name: minio
     spec:
       containers:
-        - args:
+        - command:
             - "/bin/sh"
             - "-ce"
             - "/usr/bin/docker-entrypoint.sh minio gateway nas /data -S /etc/minio/certs/ --address :9000 --console-address :9001 "
