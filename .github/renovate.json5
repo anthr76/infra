@@ -35,7 +35,7 @@
       ],
       "datasourceTemplate": "helm"
     },
-    // Generic Regex Manager
+    // Generic Flux Regex Manager
     {
       "fileMatch": [
         ".+\\.yaml$"
