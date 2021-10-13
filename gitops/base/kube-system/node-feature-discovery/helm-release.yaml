@@ -15,3 +15,17 @@ spec:
         kind: HelmRepository
         name: node-feature-discovery-charts
         namespace: flux-system
+  postRenderers:
+    - kustomize:
+        patchesJson6902:
+          - target:
+              version: v1
+              kind: DaemonSet
+              name: node-feature-discovery-worker
+            patch:
+              - op: remove
+                path: /spec/template/spec/containers/[name=worker]/volumeMounts
+                value: host-usr-src
+              - op: remove
+                path: /spec/template/spec/volumes
+                value: host-usr-src
