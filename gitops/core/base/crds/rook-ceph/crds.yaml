@@ -9,7 +9,7 @@ spec:
   url: https://github.com/rook/rook.git
   ref:
     # renovate: datasource=github-releases depName=rook/rook
-    tag: v1.7.4
+    tag: v1.7.5
   ignore: |
     # exclude all
     /*
