@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-config
+  namespace: flux-system
+data:
+  CLUSTER_NAME: "scr1-cluster-0"
+  CLUSTER_ID: "1"
+  CONTROL_PLANE_ENDPOINT: "cluster-0.scr1.rabbito.tech"
+  INGRESS_ENDPOINT_HOSTNAME: "cluster-0-ie.scr1.rabbito.tech"
+  CLUSTER_POD_CIDR: "10.244.0.0/16"
+  NATIVE_CIDR: "192.168.8.0/24"
+  OSD_HOSTNAME_1: "worker-01"
+  OSD_HOSTNAME_2: "worker-02"
+  OSD_HOSTNAME_3: "worker-03"
+  NAS_1_ADDRESS: "nas-1.scr1.rabbito.tech"
+  INT_DOMAIN: "scr1.rabbito.tech"

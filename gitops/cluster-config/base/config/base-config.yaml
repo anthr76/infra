@@ -1,8 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: flux-system
-  name: cluster-config
-data:
-  FOO_BAR: "this"
