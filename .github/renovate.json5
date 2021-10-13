@@ -47,7 +47,7 @@
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
       "registryUrlTemplate": "{{#if registryUrl}}{{{registryUrl}}}{{else}}{{/if}}",
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}{{/if}}",
-      "depNameTemplate": "{{#if depName}}{{{depName}}}{{else}}{{/if}}"
+      "depNameTemplate": "{{#if depName}}{{{depName}}}{{else}}{{/if}}",
     }
   ],
   packageRules: [
