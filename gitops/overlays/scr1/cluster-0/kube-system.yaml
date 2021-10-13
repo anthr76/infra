@@ -54,18 +54,3 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  postBuild:
-    substitute: {}
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-config
-      - kind: Secret
-        name: cluster-secrets
-      - kind: ConfigMap
-        name: cluster-0-cluster-config
-      - kind: Secret
-        name: cluster-0-cluster-secrets

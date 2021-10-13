@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cluster-0-cluster-config
+  name: cluster-config
   namespace: flux-system
 data:
-  CLUSTER_NAME: "cluster-0"
+  CLUSTER_NAME: "scr1-cluster-0"
   CLUSTER_ID: "1"
   CONTROL_PLANE_ENDPOINT: "cluster-0.scr1.rabbito.tech"
   INGRESS_ENDPOINT_HOSTNAME: "cluster-0-ie.scr1.rabbito.tech"
