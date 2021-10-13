@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/infra"
+  path: "./gitops/base/infra"
   prune: true
   wait: true
   sourceRef:
