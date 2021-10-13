@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/rook-ceph"
+  path: "./gitops/base/rook-ceph"
   prune: true
   wait: true
   sourceRef:
@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/rook-ceph/operator"
+  path: "./gitops/base/rook-ceph/operator"
   prune: true
   wait: true
   sourceRef:
@@ -34,7 +34,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/rook-ceph/cluster"
+  path: "./gitops/base/rook-ceph/cluster"
   prune: true
   wait: true
   sourceRef:

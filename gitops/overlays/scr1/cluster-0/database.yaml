@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/database"
+  path: "./gitops/base/database"
   prune: true
   wait: true
   sourceRef:
@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/database/kubegres"
+  path: "./gitops/base/database/kubegres"
   prune: true
   wait: true
   sourceRef:

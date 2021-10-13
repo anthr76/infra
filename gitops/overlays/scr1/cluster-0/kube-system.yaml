@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/kube-system"
+  path: "./gitops/base/kube-system"
   prune: true
   wait: true
   sourceRef:
@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/kube-system/home-dns"
+  path: "./gitops/base/kube-system/home-dns"
   prune: true
   wait: true
   sourceRef:
@@ -34,7 +34,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/kube-system/metrics-server"
+  path: "./gitops/base/kube-system/metrics-server"
   prune: true
   wait: true
   sourceRef:
@@ -48,7 +48,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/kube-system/cilium"
+  path: "./gitops/base/kube-system/cilium"
   prune: true
   wait: true
   sourceRef:
