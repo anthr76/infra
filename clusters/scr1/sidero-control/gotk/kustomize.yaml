@@ -54,20 +54,22 @@ spec:
         metadata:
           name: not-used
           namespace: not-used
-        decryption:
-          provider: sops
-          secretRef:
-            name: sops-age
-        postBuild:
-          substitute: {}
-          substituteFrom:
-            - kind: ConfigMap
-              name: global-cluster-config
-            - kind: Secret
-              name: global-cluster-secrets
-            - kind: ConfigMap
-              name: cluster-config
-            - kind: Secret
+        spec:
+          decryption:
+            provider: sops
+            secretRef:
+              name: sops-age
+          postBuild:
+            substitute: {}
+            substituteFrom:
+              - kind: ConfigMap
+                name: global-cluster-config
+              - kind: Secret
+                name: global-cluster-secrets
+              - kind: ConfigMap
+                name: cluster-config
+              - kind: Secret
+                name: cluster-secrets
               name: cluster-secrets
       target:
         kind: Kustomization
