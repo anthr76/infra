@@ -15,19 +15,15 @@ spec:
       kind: GitRepository
       name: "flux-system"
       namespace: "flux-system"
-    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
       kind: Kustomization
       name: "flux-system"
       namespace: "flux-system"
-    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
       kind: Kustomization
       name: "cluster-config"
       namespace: "flux-system"
-    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-      kind: Kustomization
-      name: "core"
-      namespace: "flux-system"
-    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
       kind: Kustomization
       name: "namespaces"
       namespace: "flux-system"

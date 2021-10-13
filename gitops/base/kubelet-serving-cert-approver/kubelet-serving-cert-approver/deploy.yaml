@@ -16,7 +16,7 @@ spec:
     # include gitops dirs
     !/deploy
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: kubelet-serving-cert-approver
@@ -25,7 +25,7 @@ spec:
   interval: 10m0s
   path: ./deploy/ha
   prune: true
+  wait: true
   sourceRef:
     kind: GitRepository
     name: kubelet-serving-cert-approver
-  validation: client

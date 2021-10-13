@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: cluster-0-iac
@@ -8,6 +8,7 @@ spec:
   interval: 5m0s
   path: ./clusters/scr1/cluster-0/iac
   prune: true
+  wait: true
   sourceRef:
     kind: GitRepository
     name: flux-system
