@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./gitops/namespaces/base/flux-system/cluster-config/overlays/scr1/sidero-control
+  path: ./gitops/base/flux-system/cluster-config/overlays/scr1/sidero-control
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: cluster-config
-  path: ./gitops/namespaces/overlays/scr1/sidero-control
+  path: ./gitops/overlays/scr1/sidero-control
   prune: true
   sourceRef:
     kind: GitRepository
