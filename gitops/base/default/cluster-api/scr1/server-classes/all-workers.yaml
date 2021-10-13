@@ -23,6 +23,14 @@ spec:
         disabled: false
         servers:
           - time.cloudflare.com
+    - op: add
+      path: /machine/registries
+      value:
+        registries:
+          mirrors:
+            docker.io:
+              endpoints:
+                - nas-1:5000
   selector:
     matchExpressions:
       - key: master
