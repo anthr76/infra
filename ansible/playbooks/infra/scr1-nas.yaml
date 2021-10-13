@@ -127,6 +127,20 @@
         - swap
         - none
 
+    - name: setup podman user directory
+      ansible.builtin.file:
+        path: /tank/system/user
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: setup podman pull-through directory
+      ansible.builtin.file:
+        path: /tank/system/user/docker_cache
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
     - name: run docker pull-through cache
       containers.podman.podman_container:
         name: registry-docker.io
@@ -137,7 +151,7 @@
         env:
           REGISTRY_PROXY_REMOTEURL: "https://registry-1.docker.io"
         volume:
-          - "/tank/minio:/data:z"
+          - "/tank/system/user/docker_cache:/var/lib/registry:z"
       become: false
 
     - name: warn if reboot required
