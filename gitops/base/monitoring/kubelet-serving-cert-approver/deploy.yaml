@@ -26,6 +26,7 @@ spec:
   path: ./deploy/ha
   prune: true
   wait: true
+  targetNamespace: monitoring
   sourceRef:
     kind: GitRepository
     name: kubelet-serving-cert-approver
