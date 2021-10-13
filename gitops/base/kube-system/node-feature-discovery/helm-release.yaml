@@ -15,6 +15,9 @@ spec:
         kind: HelmRepository
         name: node-feature-discovery-charts
         namespace: flux-system
+  values:
+    image:
+      repository: docker.io/raspbernetes/node-feature-discovery
   postRenderers:
     - kustomize:
         patchesJson6902:
