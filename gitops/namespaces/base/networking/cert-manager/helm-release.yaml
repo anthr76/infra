@@ -16,8 +16,12 @@ spec:
         name: jetstack-charts
         namespace: flux-system
       interval: 5m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
-    installCRDs: false
+    installCRDs: true
     prometheus:
       enabled: true
       servicemonitor:
@@ -27,8 +31,6 @@ spec:
     extraArgs:
       - --dns01-recursive-nameservers=1.1.1.1:53
       - --dns01-recursive-nameservers-only
-    cainjector:
-      replicaCount: 1
     podDnsPolicy: "None"
     podDnsConfig:
       nameservers:

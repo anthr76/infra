@@ -1,0 +1,71 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-namespace
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/namespaces/base/kube-system"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-home-dns
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/namespaces/base/kube-system/home-dns"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-metrics-server
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/namespaces/base/kube-system/metrics-server"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-cilium
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/namespaces/base/kube-system/cilium"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+      - kind: Secret
+        name: cluster-secrets
+      - kind: ConfigMap
+        name: cluster-0-cluster-config
+      - kind: Secret
+        name: cluster-0-cluster-secrets

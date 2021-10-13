@@ -1,0 +1,28 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kubelet-serving-cert-approver-namespace
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/namespaces/base/kubelet-serving-cert-approver"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kubelet-serving-cert-approver-deploy
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/namespaces/base/kubelet-serving-cert-approver/kubelet-serving-cert-approver"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
