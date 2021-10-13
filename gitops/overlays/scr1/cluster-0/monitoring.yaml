@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: monitoring-namespace
+  name: monitoring-monitoring-namespace
   namespace: flux-system
 spec:
   interval: 5m
@@ -16,7 +16,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: kubelet-serving-cert-approver-deploy
+  name: monitoring-kubelet-serving-cert-approver-deploy
   namespace: flux-system
 spec:
   interval: 5m
