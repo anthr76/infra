@@ -5,6 +5,7 @@ metadata:
   labels:
     pi-master: "true"
   name: 00c03111-0000-0000-0000-dca632395d69
+  namespace: default
 spec:
   accepted: true
   hostname: pi-master-01.scr1.rabbito.tech

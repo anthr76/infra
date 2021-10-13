@@ -3,6 +3,7 @@ apiVersion: metal.sidero.dev/v1alpha1
 kind: ServerClass
 metadata:
   name: all-workers
+  namespace: default
 spec:
   configPatches:
     - op: replace

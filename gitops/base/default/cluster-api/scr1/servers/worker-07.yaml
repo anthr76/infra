@@ -3,6 +3,7 @@ apiVersion: metal.sidero.dev/v1alpha1
 kind: Server
 metadata:
   name: 00c03111-0000-0000-0000-dca632397689
+  namespace: default
 spec:
   environmentRef:
     namespace: default
