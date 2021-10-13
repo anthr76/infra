@@ -22,7 +22,8 @@ spec:
   interval: 5m
   path: "./gitops/base/default/cluster-api/scr1"
   prune: true
-  wait: true
+  # Flux gets big mad with wait true
+  wait: false
   sourceRef:
     kind: GitRepository
     name: flux-system
