@@ -19,6 +19,41 @@ spec:
     image:
       # https://github.com/kubernetes-sigs/node-feature-discovery/issues/426
       repository: docker.io/raspbernetes/node-feature-discovery
+    master:
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: "node-role.kubernetes.io/master"
+                    operator: In
+                    values: [""]
+    worker:
+      config: |-
+        core:
+          sources:
+          - custom
+          - pci
+          - usb
+        sources:
+          usb:
+            deviceClassWhitelist:
+            - "02"
+            - "03"
+            - "0e"
+            - "ef"
+            - "fe"
+            - "ff"
+            deviceLabelFields:
+            - "class"
+            - "vendor"
+            - "device"
   # https://github.com/kubernetes-sigs/node-feature-discovery/issues/584
   postRenderers:
     - kustomize:
