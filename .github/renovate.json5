@@ -42,7 +42,7 @@
         "gitops/.+\\.yaml$"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*=?) registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: (?<currentValue>.*)\n"
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*=?)\n*tag: (?<currentValue>.*=?)"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
       "registryUrlTemplate": "{{#if registryUrl}}{{{registryUrl}}}{{else}}{{/if}}"
