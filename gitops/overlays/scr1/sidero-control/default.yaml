@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/default"
+  path: "./gitops/base/default"
   prune: true
   wait: true
   sourceRef:
@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/default/cluster-api/scr1"
+  path: "./gitops/base/default/cluster-api/scr1"
   prune: true
   wait: true
   sourceRef:

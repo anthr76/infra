@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/sidero-system"
+  path: "./gitops/base/sidero-system"
   prune: true
   wait: true
   sourceRef:
