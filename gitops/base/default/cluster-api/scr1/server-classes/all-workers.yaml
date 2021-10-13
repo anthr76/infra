@@ -29,7 +29,7 @@ spec:
         mirrors:
           docker.io:
             endpoints:
-              - nas-1:5000
+              - http://nas-1.scr1.rabbito.tech:5000
   selector:
     matchExpressions:
       - key: master
