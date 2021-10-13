@@ -1,0 +1,75 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: networking
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/namespaces/base/networking"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: networking-cert-manager
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/namespaces/base/networking/cert-manager"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: networking-traefik
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/namespaces/base/networking/traefik"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  patches:
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2beta1
+        kind: HelmRelease
+        metadata:
+          name: traefik
+          namespace: networking
+        spec:
+          interval: 5m
+          chart:
+            spec:
+              chart: traefik
+              sourceRef:
+                kind: HelmRepository
+                name: traefik-charts
+                namespace: flux-system
+              interval: 5m
+          values:
+            additionalArguments:
+              - "--providers.kubernetesingress.ingressendpoint.hostname=${INGRESS_ENDPOINT_HOSTNAME}"
+            service:
+              enabled: true
+              type: LoadBalancer
+              spec:
+                externalIPs:
+                  - "10.45.0.0"
+                externalTrafficPolicy: Local
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
+      target:
+        kind: HelmRelease
+        name: "traefik"
+        namespace: networking

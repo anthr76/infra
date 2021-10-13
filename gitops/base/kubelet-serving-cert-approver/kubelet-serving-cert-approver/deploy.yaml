@@ -2,30 +2,30 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: flux
+  name: kubelet-serving-cert-approver
   namespace: flux-system
 spec:
   interval: 9m0s
   ref:
     branch: main
-    tag: v0.18.3
-  url: https://github.com/fluxcd/flux2
+    tag: v0.2.2
+  url: https://github.com/alex1989hu/kubelet-serving-cert-approver
   ignore: |
     # exclude all
     /*
     # include gitops dirs
-    !/manifests
+    !/deploy
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: flux
+  name: kubelet-serving-cert-approver
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./manifests/install
+  path: ./deploy/ha
   prune: true
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux
+    name: kubelet-serving-cert-approver
