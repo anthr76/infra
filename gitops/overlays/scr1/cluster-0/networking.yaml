@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/networking"
+  path: "./gitops/base/networking"
   prune: true
   wait: true
   sourceRef:
@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/networking/cert-manager"
+  path: "./gitops/base/networking/cert-manager"
   prune: true
   wait: true
   sourceRef:
@@ -34,7 +34,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/networking/traefik"
+  path: "./gitops/base/networking/traefik"
   prune: true
   wait: true
   sourceRef:

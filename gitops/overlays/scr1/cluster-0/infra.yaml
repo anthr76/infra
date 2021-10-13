@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/namespaces/base/infra/minio"
+  path: "./gitops/base/infra/minio"
   prune: true
   wait: true
   sourceRef:
