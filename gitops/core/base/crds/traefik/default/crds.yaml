@@ -24,6 +24,7 @@ metadata:
 spec:
   interval: 5m
   prune: false
+  path: ./traefik/crds
   sourceRef:
     kind: GitRepository
     name: traefik-crd
