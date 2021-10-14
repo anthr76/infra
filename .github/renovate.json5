@@ -24,17 +24,17 @@
     ]
   },
   "regexManagers": [
-    // // regexManager to read and process HelmRelease files
-    // {
-    //   "fileMatch": [
-    //     "gitops/.+\\.yaml$"
-    //   ],
-    //   "matchStrings": [
-    //     // helm releases
-    //     "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
-    //   ],
-    //   "datasourceTemplate": "helm"
-    // },
+    // regexManager to read and process HelmRelease files
+    {
+      "fileMatch": [
+        "gitops/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        // helm releases
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    },
     // Generic Flux Regex Manager
     {
       "fileMatch": [
@@ -45,7 +45,7 @@
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*=?)( registryUrl=(?<registryUrl>.*?))?( versioning=(?<versioning>.*?))?\n*tag: (?<currentValue>.*=?)"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-      // "registryUrlTemplate": "{{#if registryUrl}}{{{registryUrl}}}{{else}}{{/if}}"
+      "registryUrlTemplate": "{{#if registryUrl}}{{{registryUrl}}}{{else}}{{/if}}"
     }
   ],
   packageRules: [
