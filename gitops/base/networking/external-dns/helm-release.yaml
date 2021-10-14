@@ -17,7 +17,7 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    interval: 5m
+    interval: 6m
     logLevel: debug
     provider: cloudflare
     env:
