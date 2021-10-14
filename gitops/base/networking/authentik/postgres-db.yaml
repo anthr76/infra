@@ -8,16 +8,16 @@ spec:
   replicas: 1
   image: docker.io/library/postgres:14.0
   database:
-    size: 1Gi
+    size: 5Gi
     storageClassName: ceph-block
   env:
     - name: POSTGRES_PASSWORD
       valueFrom:
         secretKeyRef:
           name: authentik
-          key: postgressPassword
+          key: postgresPassword
     - name: POSTGRES_REPLICATION_PASSWORD
       valueFrom:
         secretKeyRef:
           name: authentik
-          key: postgressPassword
+          key: postgresPassword

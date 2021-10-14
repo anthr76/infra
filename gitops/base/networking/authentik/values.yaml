@@ -34,16 +34,23 @@ spec:
       tls:
         - hosts: [auth.kutara.io]
           secretName: auth-kutara-io-tls
+    envValueFrom:
+      AUTHENTIK_POSTGRESQL__PASSWORD:
+        secretKeyRef:
+          key: postgresPassword
+          name: authentik
+      AUTHENTIK_SECRET_KEY:
+        secretKeyRef:
+          key: secretKey
+          name: authentik
     authentik:
-      outposts:
-        docker_image_base: beryju.org/authentik/outpost-%(type)s:gh-next
-      secret_key: ${AUTHENTIK_SECRET_KEY}
       log_level: debug
       postgresql:
         host: "authentik-postgres"
         name: "postgres"
         user: "postgres"
-        password: ${AUTHENTIK_POSTGRES_PASSWORD}
       redis:
-        host: "authentik-redis-headless"
-        password: ""
+        enabled: true
+        image:
+          repository: library/redis
+          tag: "6.2.6"
