@@ -9,7 +9,7 @@ spec:
   ref:
     branch: main
     # renovate: datasource=github-releases depName=hetznercloud/hcloud-cloud-controller-manager
-    tag: v1.11.0
+    tag: v1.11.1
   url: https://github.com/fluxcd/flux2
   ignore: |
     # exclude all
