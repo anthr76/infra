@@ -5,6 +5,7 @@ resources:
   - authentik-charts.yaml
   - bitnami-charts.yaml
   - cilium-charts.yaml
+  - external-dns-charts.yaml
   - grafana-loki-charts.yaml
   - infracloudio-charts.yaml
   - jetstack-charts.yaml
