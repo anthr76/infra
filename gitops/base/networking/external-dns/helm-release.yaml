@@ -24,13 +24,13 @@ spec:
       - name: CF_API_EMAIL
         valueFrom:
           secretKeyRef:
-            name: cloudflare-creds
-            key: email
+            name: external-dns
+            key: cf-email
       - name: CF_API_KEY
         valueFrom:
           secretKeyRef:
-            name: cloudflare-creds
-            key: api-key
+            name: external-dns
+            key: cf-api-key
     policy: sync
     sources:
       - ingress
