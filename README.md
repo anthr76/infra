@@ -40,6 +40,7 @@ A lot of inspiration for this repo came from the following people:
 - [bjw-s/k8s-gitops](https://github.com/bjw-s/k8s-gitops)
 - [toboshii/k8s-gitops](https://github.com/toboshii/k8s-gitops)
 - [nlopez/k8s_home](https://github.com/nlopez/k8s_home)
+- rwaltr/infra
 - [ironicbadger/inra](https://github.com/IronicBadger/infra)
 - [onedr0p/k3s-gitops](https://github.com/onedr0p/k3s-gitops)
 
