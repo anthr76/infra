@@ -2,7 +2,7 @@
 apiVersion: kubegres.reactive-tech.io/v1
 kind: Kubegres
 metadata:
-  name: authentik
+  name: authentik-postgres
   namespace: networking
 spec:
   replicas: 1
