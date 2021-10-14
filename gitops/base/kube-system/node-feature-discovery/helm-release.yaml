@@ -25,6 +25,7 @@ spec:
           sources:
           - pci
           - usb
+          - network
         sources:
           usb:
             deviceClassWhitelist:
