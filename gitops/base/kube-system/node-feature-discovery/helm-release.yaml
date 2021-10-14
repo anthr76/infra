@@ -49,6 +49,15 @@ spec:
               name: node-feature-discovery-worker
             patch:
               - op: remove
-                path: /spec/template/spec/containers/0/volumeMounts/5
+                path: /spec/template/spec/containers/0/volumeMounts
+                value:
+                  - mountPath: /host-usr/src
+                    name: host-usr-src
+                    readOnly: true
               - op: remove
-                path: /spec/template/spec/volumes/5
+                path: /spec/template/spec/volumes
+                value:
+                  - name: host-usr-src
+                    hostPath:
+                      path: /usr/src
+                      type: ""
