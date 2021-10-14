@@ -30,7 +30,11 @@ spec:
         sources:
           pci:
             deviceClassWhitelist:
-            - "0"
+            - "02"
+            deviceLabelFields:
+            - "class"
+            - "vendor"
+            - "device"
           usb:
             deviceClassWhitelist:
             - "02"
