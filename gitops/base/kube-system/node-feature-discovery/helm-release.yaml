@@ -19,6 +19,7 @@ spec:
     image:
       # https://github.com/kubernetes-sigs/node-feature-discovery/issues/426
       repository: docker.io/raspbernetes/node-feature-discovery
+      tag: v0.9.0
     worker:
       config: |-
         core:
