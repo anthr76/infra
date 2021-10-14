@@ -50,7 +50,5 @@ spec:
             patch:
               - op: remove
                 path: /spec/template/spec/containers/0/volumeMounts/5
-                value: host-usr-src
               - op: remove
-                path: /spec/template/spec/volumes
-                value: host-usr-src
+                path: /spec/template/spec/volumes/5
