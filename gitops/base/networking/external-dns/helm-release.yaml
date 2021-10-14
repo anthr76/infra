@@ -32,8 +32,6 @@ spec:
             name: external-dns
             key: cf-api-key
     policy: sync
-    sources:
-      - ingress
     txtPrefix: "${CLUSTER_NAME}."
     domainFilters:
       - "kutara.io"
