@@ -9,11 +9,11 @@ spec:
   chart:
     spec:
       # renovate: registryUrl=https://kubernetes-sigs.github.io/node-feature-discovery/charts
-      chart: node-feature-discovery
-      version: 0.9.0
+      chart: /deployment/helm/node-feature-discovery/
+      # version: 0.9.0
       sourceRef:
-        kind: HelmRepository
-        name: node-feature-discovery-charts
+        kind: GitRepository
+        name: node-feature-discovery
         namespace: flux-system
   values:
     image:
@@ -26,6 +26,7 @@ spec:
           - pci
           - usb
           - network
+          - custom
         sources:
           usb:
             deviceClassWhitelist:
@@ -39,25 +40,16 @@ spec:
             - "class"
             - "vendor"
             - "device"
-  # https://github.com/kubernetes-sigs/node-feature-discovery/issues/584
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - target:
-              version: v1
-              kind: DaemonSet
-              name: node-feature-discovery-worker
-            patch:
-              - op: remove
-                path: /spec/template/spec/containers/0/volumeMounts/5
-                value:
-                  - mountPath: /host-usr/src
-                    name: host-usr-src
-                    readOnly: true
-              - op: remove
-                path: /spec/template/spec/volumes/5
-                value:
-                  - name: host-usr-src
-                    hostPath:
-                      path: /usr/src
-                      type: ""
+          custom:
+          - name: "zwave"
+            matchOn:
+            - usbId:
+                class: ["02"]
+                vendor: ["0658"]
+                device: ["0200"]
+          - name: "zigbee"
+            matchOn:
+            - usbId:
+                class: ["ff"]
+                vendor: ["1a86"]
+                device: ["7523"]

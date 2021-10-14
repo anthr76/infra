@@ -1,0 +1,16 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: node-feature-discovery
+  namespace: flux-system
+spec:
+  interval: 9m0s
+  ref:
+    branch: main
+  url: https://github.com/kubernetes-sigs/node-feature-discovery.git
+  ignore: |
+    # exclude all
+    /*
+    # include gitops dirs
+    !/deployment/helm/node-feature-discovery/
