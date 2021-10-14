@@ -49,58 +49,35 @@
     }
   ],
   packageRules: [
+    // setup datasources
     {
-      matchPackageNames: ["renovate"],
-      automerge: true,
+      "enabled": true,
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm", "repology"],
+      "matchUpdateTypes": ["major", "minor", "patch"],
     },
     {
-      matchPackageNames: ["reactive-tech/kubegres"],
-      versioning: "loose",
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm", "repology"],
+      "semanticCommitScope": "deps",
+      "separateMinorPatch": true
+    },
+    // add labels according to package and update types
+    {
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm", "repology"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(deps): ",
+      "labels": ["dep/major"]
     },
     {
-      matchPackageNames: ["cilium/cilium"],
-      "automerge": false,
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm", "repology"],
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "labels": ["dep/minor"]
     },
     {
-      matchPackageNames: ["OT-CONTAINER-KIT/redis-operator"],
-      versioning: "loose",
-    },
-    // Setup datasources
-    {
-      datasources: ["helm"],
-      commitMessageTopic: "Helm chart {{depName}}",
-      separateMinorPatch: true,
-    },
-    // Add labels according to package and update types
-    {
-      datasources: ["docker"],
-      updateTypes: ["major"],
-      labels: ["renovate/image-release", "dependency/major"],
-    },
-    {
-      datasources: ["docker"],
-      updateTypes: ["minor"],
-      labels: ["renovate/image-release", "dependency/minor"],
-    },
-    {
-      datasources: ["docker"],
-      updateTypes: ["patch"],
-      labels: ["renovate/image-release", "dependency/patch"],
-    },
-    {
-      datasources: ["helm"],
-      updateTypes: ["major"],
-      labels: ["renovate/helm-release", "dependency/major"],
-    },
-    {
-      datasources: ["helm"],
-      updateTypes: ["minor"],
-      labels: ["renovate/helm-release", "dependency/minor"],
-    },
-    {
-      datasources: ["helm"],
-      updateTypes: ["patch"],
-      labels: ["renovate/helm-release", "dependency/patch"],
+      "matchDatasources": ["docker", "github-releases", "pypi", "npm", "repology"],
+      "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "fix",
+      "labels": ["dep/patch"]
     },
     // Custom version schemes
     {
