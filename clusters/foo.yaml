@@ -9,7 +9,7 @@ spec:
   ref:
     branch: main
     # renovate: datasource=github-releases depName=sachaos/viddy
-    tag: v0.2.1
+    tag: v0.2.2
   url: https://github.com/fluxcd/flux2
   ignore: |
     # exclude all
