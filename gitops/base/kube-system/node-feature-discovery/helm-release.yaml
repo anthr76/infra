@@ -26,6 +26,7 @@ spec:
           sources:
           - pci
           - usb
+          - network
           - custom
         sources:
           pci:
