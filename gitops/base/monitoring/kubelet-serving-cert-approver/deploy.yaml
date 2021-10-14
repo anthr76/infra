@@ -7,7 +7,6 @@ metadata:
 spec:
   interval: 9m0s
   ref:
-    branch: main
     tag: v0.2.2
   url: https://github.com/alex1989hu/kubelet-serving-cert-approver
   ignore: |
