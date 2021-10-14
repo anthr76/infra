@@ -35,6 +35,8 @@ spec:
     sources:
       - ingress
     txtPrefix: "${CLUSTER_NAME}."
+    domainFilters:
+      - "kutara.io"
     resources:
       requests:
         memory: 100Mi
