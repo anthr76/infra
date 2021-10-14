@@ -76,7 +76,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/base/monitoring/kubelet-serving-cert-approver"
+  path: "./gitops/base/kube-system/kubelet-serving-cert-approver"
   prune: true
   wait: true
   sourceRef:
