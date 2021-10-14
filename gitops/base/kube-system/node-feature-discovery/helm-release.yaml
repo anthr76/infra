@@ -28,6 +28,9 @@ spec:
           - usb
           - custom
         sources:
+          pci:
+            deviceClassWhitelist:
+            - "0"
           usb:
             deviceClassWhitelist:
             - "02"
