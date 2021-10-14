@@ -49,7 +49,7 @@ spec:
               name: node-feature-discovery-worker
             patch:
               - op: remove
-                path: /spec/template/spec/containers/0/volumeMounts
+                path: /spec/template/spec/containers/0/volumeMounts/5
                 value: host-usr-src
               - op: remove
                 path: /spec/template/spec/volumes
