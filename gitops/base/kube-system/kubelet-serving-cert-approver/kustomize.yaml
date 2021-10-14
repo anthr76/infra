@@ -7,6 +7,7 @@ metadata:
 spec:
   interval: 9m0s
   ref:
+    # renovate: datasource=github-releases depName=alex1989hu/kubelet-serving-cert-approver
     tag: v0.2.2
   url: https://github.com/alex1989hu/kubelet-serving-cert-approver
   ignore: |
@@ -25,7 +26,7 @@ spec:
   path: ./deploy/ha
   prune: true
   wait: true
-  targetNamespace: monitoring
+  targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
     name: kubelet-serving-cert-approver
