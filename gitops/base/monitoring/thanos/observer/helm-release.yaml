@@ -1,0 +1,65 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: thanos
+  namespace: monitoring
+spec:
+  interval: 12h
+  maxHistory: 2
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      chart: thanos
+      version: 6.0.12
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+  values:
+    image:
+      registry: docker.io
+      repository: raspbernetes/thanos
+      tag: v0.23.1
+    existingObjstoreSecret: thanos-objstore-secret
+    query:
+      enabled: true
+      logFormat: json
+      replicaLabels:
+        - replica
+      extraFlags:
+        - "--grpc-client-tls-secure"
+        - "--web.prefix-header=X-Forwarded-Prefix"
+      #stores:
+      #- "${THANOS_ENDPOINT}:443"
+      replicaCount: 1
+    queryFrontend:
+      enabled: false
+    bucketweb:
+      enabled: true
+    compactor:
+      enabled: true
+      persistence:
+        enabled: false
+    storegateway:
+      enabled: true
+      persistence:
+        enabled: true
+        size: 20Gi
+    ruler:
+      enabled: true
+      dnsDiscovery:
+        enabled: true
+      clusterName: ${CLUSTER_NAME}
+      extraFlags:
+        - "--web.prefix-header=X-Forwarded-Prefix"
+      config: |-
+        groups:
+          - name: "metamonitoring"
+            rules:
+              - alert: "PrometheusDown"
+                expr: absent(up{prometheus="monitoring/prom-prometheus"})
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
