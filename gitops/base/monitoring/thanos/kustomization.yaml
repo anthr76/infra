@@ -4,4 +4,4 @@ kind: Kustomization
 secretGenerator:
   - name: thanos-objstore-secret
     files:
-      - objstore.yml=objstore.sops.yaml=
+      - objstore.yml=objstore.sops.yaml
