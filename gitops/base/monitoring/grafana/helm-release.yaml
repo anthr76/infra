@@ -20,6 +20,9 @@ spec:
     replicas: 1
     envFromSecret: "grafana-secrets"
     env:
+      GF_EXPLORE_ENABLED: true
+      GF_PANELS_DISABLE_SANITIZE_HTML: true
+      GF_LOG_FILTERS: rendering:debug
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
       GF_DATE_FORMATS_INTERVAL_SECOND: "hh:mm:ss a"
@@ -60,19 +63,18 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
-    plugins:
-      - digrich-bubblechart-panel
-      - grafana-clock-panel
-      - grafana-simple-json-datasource
-      - grafana-piechart-panel
     datasources:
       datasources.yaml:
         apiVersion: 1
+        # list of datasources that should be deleted from the database
+        deleteDatasources:
+          - name: Loki
+            orgId: 1
         datasources:
           - name: Prometheus
             type: prometheus
-            url: http://thanos-query:9090
             access: proxy
+            url: http://thanos-query:9090/
             isDefault: true
           - name: Loki
             type: loki
@@ -152,6 +154,13 @@ spec:
       datasources:
         enabled: true
         searchNamespace: ALL
+    plugins:
+      - natel-discrete-panel
+      - pr0ps-trackmap-panel
+      - grafana-piechart-panel
+      - vonage-status-panel
+      - grafana-worldmap-panel
+      - grafana-clock-panel
     serviceMonitor:
       enabled: true
     ingress:
