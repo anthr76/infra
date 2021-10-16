@@ -27,11 +27,8 @@ spec:
       logFormat: json
       replicaLabels:
         - replica
-      extraFlags:
-        - "--grpc-client-tls-secure"
-        - "--web.prefix-header=X-Forwarded-Prefix"
-      #stores:
-      #- "${THANOS_ENDPOINT}:443"
+      stores:
+        - "prom-thanos-discovery.monitoring.svc.cluster.local:10901"
       replicaCount: 1
     queryFrontend:
       enabled: false
