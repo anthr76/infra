@@ -1,0 +1,50 @@
+prometheus:
+  thanosService:
+    enabled: true
+    annotations:
+      traefik.ingress.kubernetes.io/service.serversscheme: h2c
+  thanosServiceMonitor:
+    enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
+    hosts:
+      - "prom.${GENERIC_CLUSTER_INGRESS}"
+    tls:
+      - hosts:
+          - "prom.${GENERIC_CLUSTER_INGRESS}"
+  prometheusSpec:
+    externalUrl: "https://prom.${GENERIC_CLUSTER_INGRESS}/"
+    routePrefix: "/prom"
+    externalLabels:
+      cluster: ${CLUSTER_NAME}
+    replicaExternalLabelName: "replica"
+    ruleSelector: {}
+    ruleNamespaceSelector: {}
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelector: {}
+    podMonitorNamespaceSelector: {}
+    podMonitorSelectorNilUsesHelmValues: false
+    retention: 2d
+    enableAdminAPI: true
+    walCompression: true
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: ceph-block
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
+    thanos:
+      image: docker.io/raspbernetes/thanos:v0.22.0
+      version: v0.22.0
+      objectStorageConfig:
+        name: thanos-objstore-secret
+        key: objstore.yml

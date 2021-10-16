@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: monitoring-monitoring-namespace
+  name: monitoring-namespace
   namespace: flux-system
 spec:
   interval: 5m
@@ -12,3 +12,79 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-kps
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/monitoring/kube-prometheus-stack"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-prometheus-rules
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/monitoring/kube-prometheus-stack/prometheus-rules"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: monitoring-kps
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-thanos
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/monitoring/thanos"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-thanos-observer
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/monitoring/thanos/observer"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: monitoring-thanos
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-grafana
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/monitoring/grafana"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: database-kubegres
