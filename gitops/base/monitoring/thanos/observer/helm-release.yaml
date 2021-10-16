@@ -29,7 +29,6 @@ spec:
         - replica
       stores:
         - "prom-thanos-discovery.monitoring.svc.cluster.local:10901"
-      replicaCount: 1
     queryFrontend:
       enabled: false
     bucketweb:
