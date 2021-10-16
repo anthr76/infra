@@ -47,7 +47,8 @@ alertmanager:
     hosts:
       - "alert-manager.${GENERIC_CLUSTER_INGRESS}"
     tls:
-      - hosts:
+      - secretName: alert-manager-tls
+        hosts:
           - "alert-manager.${GENERIC_CLUSTER_INGRESS}"
   alertmanagerSpec:
     externalUrl: "https://alert-manager.${GENERIC_CLUSTER_INGRESS}/"
