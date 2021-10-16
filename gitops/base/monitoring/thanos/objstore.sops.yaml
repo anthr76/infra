@@ -1,10 +1,10 @@
 type: s3
 config:
-    bucket: s3.scr1.rabbito.tech
-    endpoint: thanos
+    bucket: thanos
+    endpoint: s3.scr1.rabbito.tech
     access_key: ENC[AES256_GCM,data:D3AAYQMzpz3GzrEDptkNFeQCY4I=,iv:qmXh0mjbGPOCMXmguvjg0+Nu9mfnFk0d0mXl+tqAPWw=,tag:MSXBtcA54GaeLvdDH6jC8A==,type:str]
     secret_key: ENC[AES256_GCM,data:2N1gq0B4IDN+iBlTGL6Rd9mfbZpbD9ldJvWL0VWxxRichLkTwZn36Q==,iv:nfdSLUYB/s2RAoDy6GdE4tvu2cREaFM/id7JZPNaC8A=,tag:GYQihTJyDpgmTY2L/2PLGQ==,type:str]
-    insecure: true
+    insecure: false
 sops:
     kms: []
     gcp_kms: []
@@ -20,8 +20,8 @@ sops:
             WE5vMTJwSWdZcHZ2aEg3YzJqSml3VU0KchxvqK0mjWMBr+YD7EjzFgk/XSaGIyqH
             0ftLp1GUJFioVydvmJaFAJxzZcYKCXgLXvfAwwbjlM/aGFjjuTHAhw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2021-10-15T00:09:57Z"
-    mac: ENC[AES256_GCM,data:ykgx0vBAsHfT52nyjgQYKrRs9bBBESeXVJYYRTjsEcNCxM8/MLpTWvsCYWLT4CCF8sBlFUqAc0Bsw3NRdGWV/P6yjZo3W5jhnyUvgYKKEcH3uNo4XdZ/jcvDzc4RIAKpYKAgVCVLmlci9TF2PVsPnI5mAhjTMVC0OXahUIvK8IM=,iv:zmWzoDgCaeaevggpojzsIf5nPoyl4UOSFeJjVfXowe0=,tag:aqsn3LDOsx+rE7U2YFUv4Q==,type:str]
+    lastmodified: "2021-10-16T04:38:12Z"
+    mac: ENC[AES256_GCM,data:RH99FIvM9bZzGSTpeZZFa/6xX67/0csZMf3G4u9BBxdzZtYvceA/i+8gmxliT8VXV7Nf2adbonOIX0KoymSy4mEYuvC7QO3ZKl0hZrIgnFw4hxEYq6WlzC8Z+z1N6AMbIGsG7l6yKYqRPDu/OdZDm+aRObpso9xmxoLNXGcVjHI=,iv:Im1+Twa1ih8VCieo/Nee3/DS8VwCXzWmjmS5m6SrsAw=,tag:wcVpjRfj4oPSoWymyiWHVA==,type:str]
     pgp: []
     encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.7.1
