@@ -10,6 +10,7 @@ prometheus:
     ingressClassName: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
+      cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
       - "prom.${GENERIC_CLUSTER_INGRESS}"
     tls:

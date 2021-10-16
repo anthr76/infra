@@ -43,6 +43,7 @@ alertmanager:
     ingressClassName: "traefik"
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
+      cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
       - "alert-manager.${GENERIC_CLUSTER_INGRESS}"
     tls:
