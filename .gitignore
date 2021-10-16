@@ -8,7 +8,6 @@ ansible/roles/anthr76.ansible_vfio*
 ansible/k8s-cilium-exec.sh
 clusters/nwk1/gitops/openebs/openebs/uninstall.sh
 bin/
-flux
 .vscode
 ansible/roles/anthr76.routeros-configure
 
