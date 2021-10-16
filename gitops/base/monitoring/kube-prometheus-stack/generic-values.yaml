@@ -1,0 +1,35 @@
+fullnameOverride: prom
+kubeControllerManager:
+  enabled: false
+coreDns:
+  enabled: true
+kubeEtcd:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+prometheusOperator:
+  admissionWebhooks:
+    certManager:
+      enabled: true
+      issuerRef:
+        name: "letsencrypt-production"
+        kind: "ClusterIssuer"
+  # Setting this option to 0 to disable cpu limits
+  # see https://github.com/prometheus-operator/prometheus-operator/blob/master/cmd/operator/main.go#L175
+  configReloaderCpu: 0
+grafana:
+  enabled: false
+  forceDeployDashboards: true
+  sidecar:
+    dashboards:
+      multicluster:
+        global:
+          enabled: true
+prometheus-node-exporter:
+  fullnameOverride: node-exporter
+kubeStateMetrics:
+  enabled: true
+kube-state-metrics:
+  fullnameOverride: kube-state-metrics
