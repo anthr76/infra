@@ -12,9 +12,7 @@ spec:
     - op: add
       path: /machine/files
       value:
-        - content: |
-            "nameserver 1.1.1.1
-            nameserver 1.0.0.1"
+        - content: "nameserver 192.168.8.1"
           permissions: 0o644
           path: /etc/resolv.conf
           op: overwrite
