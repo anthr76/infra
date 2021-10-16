@@ -50,6 +50,8 @@ spec:
       enabled: true
       dnsDiscovery:
         enabled: true
+      alertmanagers:
+        - http://alertmanager-operated.monitoring.svc.cluster.local:9093
       clusterName: ${CLUSTER_NAME}
       extraFlags:
         - "--web.prefix-header=X-Forwarded-Prefix"
