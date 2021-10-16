@@ -19,5 +19,5 @@ spec:
     - name: POSTGRES_REPLICATION_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: grafana-postgres
+          name: grafana-secrets
           key: GF_DATABASE_PASSWORD
