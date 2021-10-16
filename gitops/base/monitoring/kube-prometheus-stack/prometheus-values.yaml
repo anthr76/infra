@@ -14,7 +14,8 @@ prometheus:
     hosts:
       - "prom.${GENERIC_CLUSTER_INGRESS}"
     tls:
-      - hosts:
+      - secretName: prometheus-tls
+        hosts:
           - "prom.${GENERIC_CLUSTER_INGRESS}"
   prometheusSpec:
     externalUrl: "https://prom.${GENERIC_CLUSTER_INGRESS}/"
