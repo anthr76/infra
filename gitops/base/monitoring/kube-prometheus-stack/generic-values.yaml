@@ -10,12 +10,6 @@ kubeScheduler:
 kubeProxy:
   enabled: false
 prometheusOperator:
-  admissionWebhooks:
-    certManager:
-      enabled: true
-      issuerRef:
-        name: "letsencrypt-production"
-        kind: "ClusterIssuer"
   # Setting this option to 0 to disable cpu limits
   # see https://github.com/prometheus-operator/prometheus-operator/blob/master/cmd/operator/main.go#L175
   configReloaderCpu: 0
