@@ -6,6 +6,13 @@ metadata:
   namespace: default
 spec:
   configPatches:
+    - op: add
+      path: /machine/files
+      value:
+        - content: "nameserver 192.168.8.1"
+          permissions: 0o644
+          path: /etc/resolv.conf
+          op: overwrite
     - op: replace
       path: /machine/install/disk
       value: /dev/sda
