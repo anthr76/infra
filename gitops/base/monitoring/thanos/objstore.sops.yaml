@@ -4,7 +4,7 @@ config:
     endpoint: s3.scr1.rabbito.tech
     access_key: ENC[AES256_GCM,data:1MwAOhvOc2hAXNWLXI435TQp6u8=,iv:tJcM+yhV7tb1qWYBjv4K7imFgcljMY++B485W6E3u8I=,tag:oP4VNd2ccUuGxK+MMneZbQ==,type:str]
     secret_key: ENC[AES256_GCM,data:TvnhZy2U3TnPseVtfyOC1n0KCoTaVp1Nt3se1U6v+61rIhUiuMg4GQ==,iv:y1utlg3LbhedfQeXdEXHZfJ8sM0gPwyxuKCb0ivzLSI=,tag:M7V5oBgsCF8cxv05vhwkZw==,type:str]
-    insecure: false
+    insecure: true
 sops:
     kms: []
     gcp_kms: []
@@ -20,8 +20,8 @@ sops:
             WE5vMTJwSWdZcHZ2aEg3YzJqSml3VU0KchxvqK0mjWMBr+YD7EjzFgk/XSaGIyqH
             0ftLp1GUJFioVydvmJaFAJxzZcYKCXgLXvfAwwbjlM/aGFjjuTHAhw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2021-10-16T04:44:02Z"
-    mac: ENC[AES256_GCM,data:m2qL16XnZVeWfq9kWyHKp+yItFAmPekXC2DXKta1/QeZmsFHzvmcT5sGCSjUgl2TB6OLXDEHk8zyJO8Ti5t4mghz6U/m8rNm1WtZ1MqGuMh8CmcG4g4TfFCoKqp64j0u1YqWe6kZd2EHpDwki7Jg8SksPw7V2up61IA+va5OAGA=,iv:giSXJv21KivqZ+ZheF+O/qbofffF/f6v0nu6Gt9n/wo=,tag:asyrjFHBgQTqyYwTsTqYmA==,type:str]
+    lastmodified: "2021-10-16T04:46:06Z"
+    mac: ENC[AES256_GCM,data:tE+1B6JcOLP2mc+SZ8rWy2tuXVv+wPM9cLq4WrFdKuR8ZYDLVXyo69QMsMQqINJMt/czU2CA75/uhRtHbBYp6NiE0rDU3OYp5kII4ncMA/lL8FsaQ8Zfz7VGegNgVhaE+U3dUtZzo9dwM/GplRRvy5OHrqBd0dmZt+Tc88lM69c=,iv:SRtlIEYN8/qD5fdIukAXYBfptq/UMD/oaDlETXv/maw=,tag:xTrVmd3Qu2ps47ZkEX/gfg==,type:str]
     pgp: []
     encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.7.1
