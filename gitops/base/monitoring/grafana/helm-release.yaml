@@ -162,5 +162,8 @@ spec:
         - secretName: grafana-tls
           hosts:
             - "grafana.kutara.io"
+    serviceAccount:
+      create: true
+      autoMount: true
     persistence:
       enabled: false
