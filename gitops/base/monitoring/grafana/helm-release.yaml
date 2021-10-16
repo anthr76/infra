@@ -98,7 +98,8 @@ spec:
       hosts:
         - "grafana.kutara.io"
       tls:
-        - hosts:
+        - secretName: grafana-tls
+          hosts:
             - "grafana.kutara.io"
     persistence:
       enabled: false
