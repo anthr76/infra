@@ -92,7 +92,7 @@ spec:
               enabled: true
               type: LoadBalancer
               spec:
-                externalIPs:
+                loadBalancerIp:
                   - "10.45.0.0"
                 externalTrafficPolicy: Local
               annotations:
