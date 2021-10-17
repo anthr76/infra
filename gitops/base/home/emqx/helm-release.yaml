@@ -20,7 +20,8 @@ spec:
     image:
       repository: public.ecr.aws/emqx/emqx
     replicaCount: 3
-    envFromSecret: "emqx"
+    # https://github.com/emqx/emqx/pull/5778
+    # envFromSecret: "emqx"
     recreatePods: true
     service:
       type: LoadBalancer
@@ -29,6 +30,9 @@ spec:
     emqxConfig:
       EMQX_ALLOW_ANONYMOUS: "false"
       EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
+      EMQX_ADMIN_PASSWORD: "${MQTT_ADMIN_PW}"
+      EMQX_AUTH__USER__1__USERNAME: "${MQTT_USER}"
+      EMQX_AUTH__USER__1__PASSWORD: "${MQTT_USER_PW}"
     emqxLoadedPlugins: >
       {emqx_management, true}.
       {emqx_recon, true}.
