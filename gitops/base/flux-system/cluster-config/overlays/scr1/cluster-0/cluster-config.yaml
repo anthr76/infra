@@ -17,3 +17,4 @@ data:
   NAS_1_ADDRESS: "nas-1.scr1.rabbito.tech"
   INT_DOMAIN: "scr1.rabbito.tech"
   GENERIC_CLUSTER_INGRESS: "cluster-0.scr1.rabbito.tech"
+  SVC_EQMX_ADDR: 10.45.0.2
