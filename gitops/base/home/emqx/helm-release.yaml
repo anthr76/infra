@@ -25,7 +25,7 @@ spec:
     recreatePods: true
     service:
       type: LoadBalancer
-      externalIPs:
+      loadBalancerIP:
         - "${SVC_EMQX_ADDR}"
     emqxConfig:
       EMQX_ALLOW_ANONYMOUS: "false"
