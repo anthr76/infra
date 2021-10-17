@@ -21,7 +21,7 @@ metadata:
 spec:
   interval: 5m
   path: "./gitops/base/kube-system/coredns"
-  prune: true
+  prune: false
   wait: true
   sourceRef:
     kind: GitRepository
