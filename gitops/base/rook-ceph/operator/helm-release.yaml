@@ -17,7 +17,7 @@ spec:
         namespace: flux-system
   values:
     crds:
-      enabled: false
+      enabled: true
     resources:
       requests:
         cpu: 100m
@@ -25,3 +25,5 @@ spec:
       limits:
         cpu: 1000m
         memory: 256Mi
+    monitoring:
+      enabled: true
