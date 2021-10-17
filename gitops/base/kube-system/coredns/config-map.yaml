@@ -20,17 +20,9 @@ data:
             fallthrough in-addr.arpa ip6.arpa
         }
         prometheus :9153
-        forward . tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001 {
-          tls_servername cloudflare-dns.com
-        }
+        forward . /etc/resolv.conf
         cache 30
         loop
         reload
         loadbalance
-    }
-    scr1.rabbito.tech:53 {
-        forward . dns://192.168.8.1:53
-        log
-        reload
-        errors
     }
