@@ -12,4 +12,4 @@ generatorOptions:
 secretGenerator:
   - name: code-server
     files:
-      - id_ed25519=deploy-key.sops
+      - id_rsa=deploy-key.sops
