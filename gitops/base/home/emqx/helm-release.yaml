@@ -26,8 +26,6 @@ spec:
       type: LoadBalancer
       externalIPs:
         - "${SVC_EMQX_ADDR}"
-      annotations:
-        external-dns.alpha.kubernetes.io/hostname: cluster-0-mqtt.scr1.rabbito.tech
     emqxConfig:
       EMQX_ALLOW_ANONYMOUS: "false"
       EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
