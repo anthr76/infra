@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - authentik-charts.yaml
-  - eqmx-charts.yaml
+  - emqx-charts.yaml
   - bitnami-charts.yaml
   - cilium-charts.yaml
   - external-dns-charts.yaml

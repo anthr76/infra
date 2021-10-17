@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: eqmx-config-v1
+  name: emqx-config-v1
   namespace: home
 spec:
   accessModes:
