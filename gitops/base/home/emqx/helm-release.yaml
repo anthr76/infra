@@ -25,8 +25,7 @@ spec:
     recreatePods: true
     service:
       type: LoadBalancer
-      loadBalancerIP:
-        - "${SVC_EMQX_ADDR}"
+      loadBalancerIP: "${SVC_EMQX_ADDR}"
     emqxConfig:
       EMQX_ALLOW_ANONYMOUS: "false"
       EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
