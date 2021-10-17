@@ -10,13 +10,6 @@ spec:
       path: /machine/install/disk
       value: /dev/sda
     - op: add
-      path: /machine/files
-      value:
-        - content: "nameserver 192.168.8.1"
-          permissions: 0o644
-          path: /etc/resolv.conf
-          op: overwrite
-    - op: add
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: true
