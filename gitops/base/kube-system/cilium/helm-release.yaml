@@ -39,6 +39,8 @@ spec:
       integration: containerd
     hubble:
       enabled: true
+      serviceMonitor:
+        enabled: true
       metrics:
         enabled:
           - dns:query;ignoreAAAA
@@ -48,13 +50,23 @@ spec:
           - port-distribution
           - icmp
           - http
-      listenAddress: ":4244"
       relay:
         enabled: true
         rollOutPods: true
       ui:
         enabled: true
         rollOutPods: true
+        ingress:
+          enabled: true
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            cert-manager.io/cluster-issuer: letsencrypt-production
+          hosts:
+            - "hubble.${INT_DOMAIN}"
+          tls:
+            - secretName: hubble-tls
+              hosts:
+                - "hubble.${INT_DOMAIN}"
     bgp:
       enabled: true
       announce:
