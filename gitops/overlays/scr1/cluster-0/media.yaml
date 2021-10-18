@@ -16,7 +16,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: home-prowlarr
+  name: media-prowlarr
   namespace: flux-system
 spec:
   interval: 5m
@@ -30,7 +30,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: home-radarr
+  name: media-radarr
   namespace: flux-system
 spec:
   interval: 5m
@@ -44,7 +44,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: home-sonarr
+  name: media-sonarr
   namespace: flux-system
 spec:
   interval: 5m
@@ -58,7 +58,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: home-qbittorrect
+  name: media-qbittorrect
   namespace: flux-system
 spec:
   interval: 5m
@@ -72,7 +72,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: home-sabnzbd
+  name: media-sabnzbd
   namespace: flux-system
 spec:
   interval: 5m
