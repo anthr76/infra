@@ -79,8 +79,8 @@ spec:
           value:
             k8s.v1.cni.cncf.io/networks: |
               [{
-                "name:" "macvlan-iot",
-                "namespace:" "kube-system"
+                "name":"macvlan-iot",
+                "namespace": "kube-system"
               }]
       target:
         kind: HelmRelease
