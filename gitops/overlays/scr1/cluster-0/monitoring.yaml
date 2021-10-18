@@ -28,12 +28,12 @@ spec:
     name: flux-system
   patches:
     - patch: |-
-        apiVersion: v1
-        kind: ConfigMap
+        apiVersion: helm.toolkit.fluxcd.io/v2beta1
+        kind: HelmRelease
         metadata:
           name: not-used
-        data:
-          values.yaml: |
+        spec:
+          values:
             kubeEtcd:
               enabled: true
               endpoints:
@@ -41,7 +41,7 @@ spec:
                 - master-02.scr1.rabbito.tech
                 - master-03.scr1.rabbito.tech
       target:
-        kind: ConfigMap
+        kind: HelmRelease
         labelSelector: "kustomize.toolkit.fluxcd.io/name=monitoring-kps"
         namespace: monitoring
 ---
