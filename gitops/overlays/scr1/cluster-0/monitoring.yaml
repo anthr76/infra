@@ -29,7 +29,7 @@ spec:
   patches:
     - patch: |
         - op: add
-          path: /spec/values/kubeEtcd
+          path: /data/values.yaml/kubeEtcd
           value:
             enabled: true
             endpoints:
@@ -37,8 +37,8 @@ spec:
               - master-02.scr1.rabbito.tech
               - master-03.scr1.rabbito.tech
       target:
-        kind: HelmRelease
-        name: kube-prometheus-stack
+        kind: ConfigMap
+        labelSelector: "kustomize.toolkit.fluxcd.io/name=monitoring-kps"
         namespace: monitoring
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
