@@ -79,7 +79,7 @@ spec:
           value:
             k8s.v1.cni.cncf.io/networks: |
               [{
-                "name":"macvlan-iot",
+                "name":"macvlan-iot,macvlan-808",
                 "namespace": "kube-system"
               }]
       target:
