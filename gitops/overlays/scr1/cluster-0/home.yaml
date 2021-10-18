@@ -68,3 +68,18 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  patches:
+    - patch: |
+        - op: add
+          path: /spec/values/podAnnotations
+          value:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"macvlan-iot-static",
+                "namespace": "kube-system",
+                "ips": ["192.168.12.5/24"]
+              }]
+      target:
+        kind: HelmRelease
+        name: home-assistant
+        namespace: home
