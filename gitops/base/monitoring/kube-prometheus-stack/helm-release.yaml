@@ -5,8 +5,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
-  interval: 6h
-  maxHistory: 2
+  interval: 5m
   chart:
     spec:
       # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
@@ -31,10 +30,9 @@ spec:
     kubeEtcd:
       enabled: true
       service:
+        enabled: true
         port: 2381
         targetPort: 2381
-    kubeScheduler:
-      enabled: true
     kubeProxy:
       enabled: false
     defaultRules:
