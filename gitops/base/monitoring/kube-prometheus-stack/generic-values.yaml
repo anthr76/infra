@@ -5,6 +5,9 @@ coreDns:
   enabled: true
 kubeEtcd:
   enabled: false
+  serviceMonitor:
+    scheme: https
+    insecureSkipVerify: true
 kubeScheduler:
   enabled: true
 kubeProxy:
