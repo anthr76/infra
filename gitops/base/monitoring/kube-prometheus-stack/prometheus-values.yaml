@@ -18,8 +18,8 @@ prometheus:
         hosts:
           - "prom.${GENERIC_CLUSTER_INGRESS}"
   prometheusSpec:
-    externalUrl: "https://prom.${GENERIC_CLUSTER_INGRESS}/"
-    routePrefix: "/prom"
+    externalUrl: "https://prom.${GENERIC_CLUSTER_INGRESS}"
+    routePrefix: "/"
     externalLabels:
       cluster: ${CLUSTER_NAME}
     replicaExternalLabelName: "replica"
