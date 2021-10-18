@@ -58,3 +58,5 @@ spec:
                     values:
                       - emqx
               topologyKey: kubernetes.io/hostname
+    nodeSelector:
+      beta.kubernetes.io/arch: amd64
