@@ -11,6 +11,14 @@ spec:
     - op: add
       path: /machine/network/hostname
       value: worker-03.scr1.rabbito.tech
+    - op: replace
+      path: /machine/network/interfaces
+      value:
+        - interface: eth2
+          dhcp: true
+          vlans:
+            - vlanId: 101
+              dhcp: false
   bmc:
     endpoint: worker-3-bmc.scr1.rabbito.tech
     userFrom:
