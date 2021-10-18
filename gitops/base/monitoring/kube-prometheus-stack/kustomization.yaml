@@ -14,6 +14,3 @@ configMapGenerator:
   - name: prometheus-values
     files:
       - values.yaml=prometheus-values.yaml
-  - name: generic-values
-    files:
-      - values.yaml=generic-values.yaml
