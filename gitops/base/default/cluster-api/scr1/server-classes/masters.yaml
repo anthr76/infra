@@ -33,7 +33,7 @@ spec:
     - op: add
       path: /cluster/etcd/extraArgs
       value:
-        listen-metrics-urls: http://0.0.0.0:2379
+        listen-metrics-urls: http://0.0.0.0:2381
     - op: replace
       path: /cluster/network/cni
       value:
