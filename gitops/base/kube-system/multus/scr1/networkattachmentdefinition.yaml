@@ -2,7 +2,7 @@
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
-  name: macvlan-iot-static
+  name: macvlan-iot
   namespace: kube-system
 spec:
   config: |
@@ -13,6 +13,13 @@ spec:
       "master": "eth0.101",
       "capabilities": { "ips": true },
       "ipam": {
-        "type": "static"
+        "type": "host-local",
+        "ranges": [
+            [ {
+                 "subnet": "192.168.12.0/24",
+                 "rangeStart": "192.168.12.4",
+                 "rangeEnd": "192.168.12.8",
+                 "gateway": "192.168.12.1"
+            } ]
       }
     }
