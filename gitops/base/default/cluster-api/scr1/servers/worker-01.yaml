@@ -11,14 +11,11 @@ spec:
     - op: add
       path: /machine/network/hostname
       value: worker-01.scr1.rabbito.tech
-    - op: replace
-      path: /machine/network/interfaces
+    # NFD Doesn't work on kexec
+    - op: add
+      path: /machine/sysctls
       value:
-        - interface: eth2
-          dhcp: true
-          vlans:
-            - vlanId: 101
-              dhcp: false
+        kernel.kexec_load_disabled: "1"
   bmc:
     endpoint: worker-1-bmc.scr1.rabbito.tech
     userFrom:

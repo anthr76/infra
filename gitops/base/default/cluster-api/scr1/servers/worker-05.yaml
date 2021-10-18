@@ -15,6 +15,22 @@ spec:
     - op: add
       path: /machine/network/hostname
       value: worker-05.scr1.rabbito.tech
+    - op: add
+      path: /machine/kubelet/extraArgs
+      value:
+        node-labels: kutara.io/feature=multus
+    - op: add
+      path: /machine/network/interfaces
+      value:
+        - interface: eth0
+          dhcp: true
+          vlans:
+            - vlanId: 101
+              dhcp: false
+            - vlanId: 808
+              dhcp: false
+            - vlanId: 806
+              dhcp: false
   cpu:
     manufacturer: Broadcom
     version: BCM2711 (ARM Cortex-A72)
