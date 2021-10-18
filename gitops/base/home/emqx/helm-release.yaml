@@ -43,7 +43,7 @@ spec:
       {emqx_auth_mnesia, true}.
     persistence:
       enabled: true
-      existingClaim: eqmx-config-v1
+      existingClaim: emqx-config-v1
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
