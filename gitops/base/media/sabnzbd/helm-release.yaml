@@ -30,12 +30,12 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-          - host: "sabnzbd.${SECRET_DOMAIN}"
+          - host: "sabnzbd.${INT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: sabnabd-tls
+          - secretName: sabnzbd-tls
             hosts:
               - "sabnzbd.${INT_DOMAIN}"
     podSecurityContext:
