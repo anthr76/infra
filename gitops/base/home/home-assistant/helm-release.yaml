@@ -41,13 +41,6 @@ spec:
           - secretName: hass-tls
             hosts:
               - "hass.kutara.io"
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
     persistence:
       config:
         enabled: true
