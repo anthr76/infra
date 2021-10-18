@@ -27,22 +27,18 @@ spec:
     kind: GitRepository
     name: flux-system
   patches:
-    - patch: |-
-        apiVersion: helm.toolkit.fluxcd.io/v2beta1
-        kind: HelmRelease
-        metadata:
-          name: not-used
-        spec:
-          values:
-            kubeEtcd:
-              enabled: true
-              endpoints:
-                - master-01.scr1.rabbito.tech
-                - master-02.scr1.rabbito.tech
-                - master-03.scr1.rabbito.tech
+    - patch: |
+        - op: add
+          path: /spec/values/kubeEtcd
+          value:
+            enabled: true
+            endpoints:
+              - master-01.scr1.rabbito.tech
+              - master-02.scr1.rabbito.tech
+              - master-03.scr1.rabbito.tech
       target:
         kind: HelmRelease
-        labelSelector: "kustomize.toolkit.fluxcd.io/name=monitoring-kps"
+        name: kube-prometheus-stack
         namespace: monitoring
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
