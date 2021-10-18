@@ -29,7 +29,7 @@ zfs_pools:
 zfs_filesystems:
   - name: media
     pool: tank
-    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24,ro=192.168.150.21,ro=192.168.150.28"
+    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24,rw=@192.168.8.0/24"
     state: present
     owner: 1000
     group: 1000
