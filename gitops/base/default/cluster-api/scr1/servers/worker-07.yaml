@@ -16,10 +16,6 @@ spec:
       path: /machine/network/hostname
       value: worker-07.scr1.rabbito.tech
     - op: add
-      path: /machine/kubelet/extraArgs
-      value:
-        node-labels: kutara.io/feature=multus
-    - op: add
       path: /machine/network/interfaces
       value:
         - interface: eth0
