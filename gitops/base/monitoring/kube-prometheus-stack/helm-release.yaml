@@ -28,3 +28,4 @@ spec:
       name: prometheus-values
     - kind: ConfigMap
       name: alertmanager-values
+  values:
