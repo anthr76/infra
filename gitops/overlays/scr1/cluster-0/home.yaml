@@ -77,8 +77,10 @@ spec:
         - op: add
           path: /spec/values/podAnnotations
           value:
-            k8s.v1.cni.cncf.io/networks: kube-system/macvlan-iot, kube-system/macvlan-808
+            k8s.v1.cni.cncf.io/networks: kube-system/macvlan-iot, kube-system/macvlan-808, kube-system/macvlan-806
       target:
         kind: HelmRelease
         name: home-assistant
         namespace: home
+      dependsOn:
+        - name: kube-system-multus-scr1
