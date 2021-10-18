@@ -27,15 +27,19 @@ spec:
     kind: GitRepository
     name: flux-system
   patches:
-    - patch: |
-        - op: add
-          path: /data/values.yaml/kubeEtcd
-          value:
-            enabled: true
-            endpoints:
-              - master-01.scr1.rabbito.tech
-              - master-02.scr1.rabbito.tech
-              - master-03.scr1.rabbito.tech
+    - patch: |-
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: not-used
+        data:
+          values.yaml: |
+            kubeEtcd:
+              enabled: true
+              endpoints:
+                - master-01.scr1.rabbito.tech
+                - master-02.scr1.rabbito.tech
+                - master-03.scr1.rabbito.tech
       target:
         kind: ConfigMap
         labelSelector: "kustomize.toolkit.fluxcd.io/name=monitoring-kps"
