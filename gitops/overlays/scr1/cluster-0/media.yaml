@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/base/home/prowlarr"
+  path: "./gitops/base/media/prowlarr"
   prune: true
   wait: true
   sourceRef:
