@@ -50,6 +50,8 @@ spec:
           multicluster:
             global:
               enabled: true
+            etcd:
+              enabled: true
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     kubeStateMetrics:
