@@ -1,8 +1,4 @@
 fullnameOverride: prom
-kubeControllerManager:
-  enabled: false
-coreDns:
-  enabled: true
 kubeEtcd:
   enabled: false
   serviceMonitor:
