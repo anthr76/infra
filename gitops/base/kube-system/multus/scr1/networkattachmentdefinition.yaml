@@ -1,0 +1,78 @@
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: macvlan-iot
+  namespace: kube-system
+spec:
+  config: |
+    {
+      "cniVersion": "0.3.1",
+      "name": "macvlan-iot",
+      "type": "macvlan",
+      "master": "eth0.101",
+      "capabilities": { "ips": true },
+      "ipam": {
+        "type": "host-local",
+        "ranges": [
+            [ {
+                 "subnet": "192.168.12.0/24",
+                 "rangeStart": "192.168.12.4",
+                 "rangeEnd": "192.168.12.8",
+                 "gateway": "192.168.12.1"
+            } ]
+        ]
+      }
+    }
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: macvlan-808
+  namespace: kube-system
+spec:
+  config: |
+    {
+      "cniVersion": "0.3.1",
+      "name": "macvlan-808",
+      "type": "macvlan",
+      "master": "eth0.808",
+      "capabilities": { "ips": true },
+      "ipam": {
+        "type": "host-local",
+        "ranges": [
+            [ {
+                 "subnet": "192.168.9.0/24",
+                 "rangeStart": "192.168.9.4",
+                 "rangeEnd": "192.168.9.8",
+                 "gateway": "192.168.9.1"
+            } ]
+        ]
+      }
+    }
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: macvlan-806
+  namespace: kube-system
+spec:
+  config: |
+    {
+      "cniVersion": "0.3.1",
+      "name": "macvlan-806",
+      "type": "macvlan",
+      "master": "eth0.806",
+      "capabilities": { "ips": true },
+      "ipam": {
+        "type": "host-local",
+        "ranges": [
+            [ {
+                 "subnet": "192.168.6.0/24",
+                 "rangeStart": "192.168.6.4",
+                 "rangeEnd": "192.168.6.8",
+                 "gateway": "192.168.6.1"
+            } ]
+        ]
+      }
+    }

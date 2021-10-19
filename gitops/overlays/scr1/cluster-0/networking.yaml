@@ -92,11 +92,20 @@ spec:
               enabled: true
               type: LoadBalancer
               spec:
-                externalIPs:
-                  - "10.45.0.0"
+                loadBalancerIP: "10.45.0.0"
                 externalTrafficPolicy: Local
               annotations:
                 external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
+            # affinity:
+              #nodeAffinity:
+                #preferredDuringSchedulingIgnoredDuringExecution:
+                  #- weight: 1
+                    #preference:
+                      #matchExpressions:
+                        #- key: feature.node.kubernetes.io/custom-intel-10g
+                          #operator: In
+                          #values:
+                            #- true
       target:
         kind: HelmRelease
         name: "traefik"

@@ -29,8 +29,6 @@ spec:
             - "/data"
             - "-S"
             - "/etc/minio/certs/"
-            - "--address"
-            - ":9000"
             - "--console-address"
             - ":9001"
           env:

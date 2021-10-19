@@ -1,0 +1,87 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: home-assistant
+      version: 11.0.5
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/home-assistant/home-assistant
+      tag: 2021.10.6
+    env:
+      TZ: "America/New_York"
+    envFrom:
+      - secretRef:
+          name: home-assistant
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hosts:
+          - host: "hass.kutara.io"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: hass-tls
+            hosts:
+              - "hass.kutara.io"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: home-assistant-config-v1
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: ghcr.io/k8s-at-home/code-server
+          tag: v3.12.0
+        git:
+          deployKeySecret: code-server
+        workingDir: "/config"
+        args:
+          - --auth
+          - "none"
+          - --user-data-dir
+          - "/config/.vscode"
+          - --extensions-dir
+          - "/config/.vscode"
+        ingress:
+          enabled: true
+          ingressClassName: "traefik"
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+          hosts:
+            - host: "hass-config.${INT_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - secretName: hass-config-tls
+              hosts:
+                - "hass-config.${INT_DOMAIN}"
+        volumeMounts:
+          - name: config
+            mountPath: /config
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      limits:
+        memory: 4000Mi
