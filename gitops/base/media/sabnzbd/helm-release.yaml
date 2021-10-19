@@ -17,6 +17,15 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    initContainers:
+      update-volume-permission:
+        image: busybox
+        command: ["sh", "-c", "chown -R 1000:1000 /config"]
+        volumeMounts:
+          - name: config
+            mountPath: /config
+        securityContext:
+          runAsUser: 0
     image:
       repository: ghcr.io/k8s-at-home/sabnzbd
       tag: v3.4.2
@@ -40,8 +49,9 @@ spec:
             hosts:
               - "sabnzbd.${INT_DOMAIN}"
     podSecurityContext:
-      supplementalGroups:
-        - 1000
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       config:
         enabled: true
