@@ -16,3 +16,5 @@ data:
   OSD_HOSTNAME_3: "worker-03"
   NAS_1_ADDRESS: "nas-1.scr1.rabbito.tech"
   INT_DOMAIN: "scr1.rabbito.tech"
+  GENERIC_CLUSTER_INGRESS: "cluster-0.scr1.rabbito.tech"
+  SVC_EMQX_ADDR: 10.45.0.1

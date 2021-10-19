@@ -30,6 +30,10 @@ spec:
     - op: replace
       path: /cluster/proxy/disabled
       value: true
+    - op: add
+      path: /cluster/etcd/extraArgs
+      value:
+        listen-metrics-urls: http://0.0.0.0:2381
     - op: replace
       path: /cluster/network/cni
       value:

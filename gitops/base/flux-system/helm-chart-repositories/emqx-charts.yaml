@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: grafana-loki-charts
+  name: emqx-charts
   namespace: flux-system
 spec:
-  interval: 10m
-  url: https://grafana.github.io/loki/charts
+  interval: 15m
+  url: https://repos.emqx.io/charts
   timeout: 3m

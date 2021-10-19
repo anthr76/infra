@@ -1,0 +1,84 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-namespace
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/media"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-prowlarr
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/media/prowlarr"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-radarr
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/media/radarr"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-sonarr
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/media/sonarr"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-qbittorrect
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/media/qbittorrent"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-sabnzbd
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/media/sabnzbd"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

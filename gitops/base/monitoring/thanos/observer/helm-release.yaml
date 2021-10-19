@@ -11,7 +11,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: thanos
-      version: 6.0.13
+      version: 6.0.14
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
@@ -27,12 +27,8 @@ spec:
       logFormat: json
       replicaLabels:
         - replica
-      extraFlags:
-        - "--grpc-client-tls-secure"
-        - "--web.prefix-header=X-Forwarded-Prefix"
-      #stores:
-      #- "${THANOS_ENDPOINT}:443"
-      replicaCount: 1
+      stores:
+        - "prom-thanos-discovery.monitoring.svc.cluster.local:10901"
     queryFrontend:
       enabled: false
     bucketweb:
@@ -50,6 +46,8 @@ spec:
       enabled: true
       dnsDiscovery:
         enabled: true
+      alertmanagers:
+        - http://alertmanager-operated.monitoring.svc.cluster.local:9093
       clusterName: ${CLUSTER_NAME}
       extraFlags:
         - "--web.prefix-header=X-Forwarded-Prefix"
