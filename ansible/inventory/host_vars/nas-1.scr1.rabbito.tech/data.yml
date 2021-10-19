@@ -13,7 +13,7 @@ zfs_pools:
     atime: "on"
     compression: "lz4"
     devices:
-      - "/dev/disk/by-id/ata-WDC_WD100PURZ-85W86Y0_7JKXA2VC"
+      - "/dev/disk/by-id/ata-WDC_WD100EMAZ-00WJTA0_JEJNGLMN"
       - "/dev/disk/by-id/ata-WDC_WD100PURZ-85W86Y0_7PKY328C"
       - "/dev/disk/by-id/ata-WDC_WD100PURZ-85W86Y0_7JKZBJZC"
       - "/dev/disk/by-id/ata-WDC_WD100PURZ-85W86Y0_7JG1MHAC"
