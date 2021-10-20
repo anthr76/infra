@@ -39,8 +39,8 @@ spec:
             hosts:
               - "sonarr.${INT_DOMAIN}"
     podSecurityContext:
-      supplementalGroups:
-        - 1000
+      runAsUser: 1000
+      runAsGroup: 1000
     metrics:
       enabled: true
       serviceMonitor:

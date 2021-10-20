@@ -23,10 +23,8 @@ spec:
     env:
       TZ: "America/New_York"
     podSecurityContext:
-      supplementalGroups:
-        - 44
-        - 109
-        - 100
+      runAsUser: 1000
+      runAsGroup: 1000
     service:
       main:
         annotations:
