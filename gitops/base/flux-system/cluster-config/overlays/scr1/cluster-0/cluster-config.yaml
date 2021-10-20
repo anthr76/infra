@@ -18,3 +18,4 @@ data:
   INT_DOMAIN: "scr1.rabbito.tech"
   GENERIC_CLUSTER_INGRESS: "cluster-0.scr1.rabbito.tech"
   SVC_EMQX_ADDR: 10.45.0.1
+  SVC_PLEX_ADDR: 10.45.0.2
