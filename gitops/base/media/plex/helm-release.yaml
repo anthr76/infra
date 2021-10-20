@@ -1,0 +1,88 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: plex
+      version: 6.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/k8s-at-home/plex
+      tag: v1.24.4.5081-e362dc1ee
+    env:
+      TZ: "America/New_York"
+    podSecurityContext:
+      supplementalGroups:
+        - 44
+        - 109
+        - 100
+    service:
+      main:
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: https
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hosts:
+          - host: "plex.kutara.io"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: plex-tls
+            hosts:
+              - "plex.kutara.io"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: plex-config-v1
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "${NAS_1_ADDRESS}"
+            path: /tank/media
+        mountPath: /media
+        readOnly: true
+      transcode:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 1000Mi
+      limits:
+        memory: 16000Mi
+    addons:
+      promtail:
+        enabled: true
+        image:
+          repository: ghcr.io/k8s-at-home/promtail
+          tag: 2.3.0
+        loki: http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push
+        logs:
+          - name: promtail/plex
+            path: "/config/Library/Application Support/Plex Media Server/Logs/*.log"
+          - name: promtail/plex/plugins
+            path: "/config/Library/Application Support/Plex Media Server/Logs/PMS Plugin Logs/*.log"
+        volumeMounts:
+          - name: config
+            mountPath: /config
+            readOnly: true
