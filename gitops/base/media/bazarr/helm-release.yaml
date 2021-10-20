@@ -62,7 +62,7 @@ spec:
         volumeSpec:
           nfs:
             server: "${NAS_1_ADDRESS}"
-            path: /tycho/media
+            path: /tank/media
         mountPath: /media
     resources:
       requests:
