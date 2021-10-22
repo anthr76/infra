@@ -27,14 +27,17 @@ spec:
       path: /machine/certSANs
       value:
         - cluster-0.scr1.rabbito.tech
+    # Please let me know a better way to do this...
     - op: add
       path: /cluster/controllerManager/extraArgs
       value:
         bind-address: 0.0.0.0
+        authorization-always-allow-paths: /healthz,/readyz,/livez
     - op: add
       path: /cluster/scheduler/extraArgs
       value:
         bind-address: 0.0.0.0
+        authorization-always-allow-paths: /healthz,/readyz,/livez
     - op: replace
       path: /cluster/proxy/disabled
       value: true
