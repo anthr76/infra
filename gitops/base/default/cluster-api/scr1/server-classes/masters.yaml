@@ -32,12 +32,12 @@ spec:
       path: /cluster/controllerManager/extraArgs
       value:
         bind-address: 0.0.0.0
-        authorization-always-allow-paths: /healthz,/readyz,/livez
+        authorization-always-allow-paths: /healthz,/readyz,/livez,/healthz
     - op: add
       path: /cluster/scheduler/extraArgs
       value:
         bind-address: 0.0.0.0
-        authorization-always-allow-paths: /healthz,/readyz,/livez
+        authorization-always-allow-paths: /healthz,/readyz,/livez,/healthz
     - op: replace
       path: /cluster/proxy/disabled
       value: true
