@@ -39,8 +39,8 @@ spec:
         enabled: true
         port: 10257
         targetPort: 10257
-      selector:
-        k8s-app: kube-controller-manager
+        selector:
+          k8s-app: kube-controller-manager
       serviceMonitor:
         https: true
         insecureSkipVerify: true
@@ -50,8 +50,8 @@ spec:
         enabled: true
         port: 10259
         targetPort: 10259
-      selector:
-        k8s-app: kube-scheduler
+        selector:
+          k8s-app: kube-scheduler
       serviceMonitor:
         https: true
         insecureSkipVerify: true
