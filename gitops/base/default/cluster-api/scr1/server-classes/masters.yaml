@@ -27,6 +27,14 @@ spec:
       path: /machine/certSANs
       value:
         - cluster-0.scr1.rabbito.tech
+    - op: add
+      path: /cluster/controllerManager/extraArgs
+      value:
+        bind-address: 0.0.0.0
+    - op: add
+      path: /cluster/scheduler/extraArgs
+      value:
+        bind-address: 0.0.0.0
     - op: replace
       path: /cluster/proxy/disabled
       value: true
