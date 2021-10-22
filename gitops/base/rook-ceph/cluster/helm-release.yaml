@@ -22,7 +22,7 @@ spec:
       enabled: true
     cephClusterSpec:
       dashboard:
-        enabled: false
+        enabled: true
       storage:
         useAllNodes: false
         useAllDevices: false
