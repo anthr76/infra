@@ -20,10 +20,6 @@ spec:
   values:
     toolbox:
       enabled: false
-    configOverride: |
-      [global]
-      # Default of 0.05 is too aggressive for my cluster. (seconds)
-      mon clock drift allowed = 0.1
     monitoring:
       enabled: true
     cephClusterSpec:
