@@ -42,8 +42,6 @@ spec:
         enabled: true
         allow_sign_up: false
         name: Authentik
-        client_id: grafana
-        client_secret: ${SECRET_AUTHENTIK_GRAFANA_CLIENT_SECRET}
         scopes: openid profile email
         auth_url: https://auth.kutara.io/application/o/authorize/
         token_url: https://auth.kutara.io/application/o/token/
