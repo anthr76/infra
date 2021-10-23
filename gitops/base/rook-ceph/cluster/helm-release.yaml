@@ -18,6 +18,8 @@ spec:
   dependsOn:
     - name: rook-ceph
   values:
+    toolbox:
+      enabled: false
     configOverride: |
       [global]
       # Default of 0.05 is too aggressive for my cluster. (seconds)
