@@ -7,4 +7,4 @@ data:
   config: |
     [global]
     # Default of 0.05 is too aggressive for my cluster. (seconds)
-    mon clock drift allowed = 0.1
+    mon clock drift allowed = 0.8
