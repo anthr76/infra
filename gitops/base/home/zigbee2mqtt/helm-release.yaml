@@ -1,0 +1,84 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zigbee2mqtt
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: zigbee2mqtt
+      version: 9.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/koenkk/zigbee2mqtt
+      tag: 1.21.2
+    env:
+      TZ: America/New_York
+      ZIGBEE2MQTT_DATA: /data
+    config:
+      homeassistant: true
+      device_options:
+        retain: true
+      permit_join: false
+      mqtt:
+        base_topic: zigbee2mqtt
+        server: "mqtt://emqx-headless.home.svc.cluster.local"
+        user: "${MQTT_USER}"
+        password: "${MQTT_USER_PW}"
+      serial:
+        port: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+      advanced:
+        log_output:
+          - console
+        network_key: GENERATE
+      frontend:
+        port: 8080
+      experimental:
+        new_api: true
+    securityContext:
+      privileged: true
+    ingress:
+      enabled: true
+      ingressClassName: "traefik"
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+      hosts:
+        - host: "zigbee2mqtt.${INT_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: zigbee2mqtt-tls
+          hosts:
+            - "zigbee2mqtt.${INT_DOMAIN}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: zigbee2mqtt-config-v1
+        mountPath: "/data"
+    additionalVolumeMounts:
+      - name: usb
+        mountPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+    additionalVolumes:
+      - name: usb
+        hostPath:
+          path: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+          type: CharDevice
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: feature.node.kubernetes.io/custom-zigbee
+                  operator: In
+                  values:
+                    - "true"
