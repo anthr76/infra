@@ -66,14 +66,11 @@ spec:
         enabled: true
         existingClaim: zigbee2mqtt-config-v1
         mountPath: "/data"
-    additionalVolumeMounts:
-      - name: usb
-        mountPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
-    additionalVolumes:
-      - name: usb
-        hostPath:
-          path: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
-          type: CharDevice
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+        hostPathType: CharDevice
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
