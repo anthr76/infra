@@ -11,11 +11,6 @@ spec:
     - op: add
       path: /machine/network/hostname
       value: worker-02.scr1.rabbito.tech
-    # NFD Doesn't work on kexec
-    - op: add
-      path: /machine/sysctls
-      value:
-        kernel.kexec_load_disabled: "1"
   bmc:
     endpoint: worker-2-bmc.scr1.rabbito.tech
     userFrom:
