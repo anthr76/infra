@@ -63,7 +63,7 @@ spec:
       enabled: true
       exporter:
         image:
-          repository: ghcr.io/k8s-at-home/prometheus-qbittorrent-exporter
+          repository: docker.io/esanchezm/prometheus-qbittorrent-exporter
           tag: v1.2.0
       serviceMonitor:
         interval: 1m
