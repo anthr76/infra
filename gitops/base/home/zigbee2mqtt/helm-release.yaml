@@ -80,9 +80,9 @@ spec:
         volumeSpec:
           configMap:
             name: extra-zigbee-devices
-      subPath:
-        - path: 3156105.js
-          mountPath: /data/3156105.js
+        subPath:
+          - path: 3156105.js
+            mountPath: /data/3156105.js
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
