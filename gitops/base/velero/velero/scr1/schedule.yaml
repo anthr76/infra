@@ -7,13 +7,5 @@ metadata:
 spec:
   schedule: 0 6 * * *
   template:
-    includedNamespaces:
-      - "*"
-    includedResources:
-      - "pv"
-      - "pvc"
-    snapshotVolumes: false
     storageLocation: scr1
-    volumeSnapshotLocations:
-      - scr1
     ttl: "120h"
