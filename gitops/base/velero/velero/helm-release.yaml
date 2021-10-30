@@ -25,7 +25,7 @@ spec:
           - mountPath: /target
             name: plugins
     credentials:
-      existingSecret: s3-credentials
+      useSecret: false
     configuration: {}
     metrics:
       enabled: true
@@ -38,16 +38,7 @@ spec:
       image:
         repository: ghcr.io/k8s-at-home/kubectl
         tag: v1.22.3
-    schedules:
-      daily-backup:
-        schedule: "0 6 * * *"
-        template:
-          ttl: "120h"
-          includeClusterResources: false
-          includedNamespaces:
-            - "*"
-          includedResources:
-            - "persistentvolumeclaims"
+    schedules: {}
     restic:
       resources:
         requests:
