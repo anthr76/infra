@@ -24,8 +24,15 @@ spec:
         volumeMounts:
           - mountPath: /target
             name: plugins
+      - name: velero-plugin-for-aws
+        image: docker.io/velero/velero/velero-plugin-for-csi:v0.1.0
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
     configuration:
       provider: velero.io/aws
+      features: EnableCSI
     credentials:
       useSecret: false
     metrics:
