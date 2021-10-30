@@ -48,6 +48,10 @@ spec:
     backupsEnabled: true
     snapshotsEnabled: false
     deployRestic: true
+    kubectl:
+      image:
+        repository: ghcr.io/k8s-at-home/kubectl
+        tag: v1.22.3
     schedules:
       daily-backup:
         schedule: "0 6 * * *"
