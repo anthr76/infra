@@ -1,0 +1,11 @@
+---
+apiVersion: velero.io/v1
+kind: VolumeSnapshotLocation
+metadata:
+  name: scr1
+  namespace: velero
+spec:
+  provider: velero.io/aws
+  config:
+    region: us-east-1
+    profile: "scr1"
