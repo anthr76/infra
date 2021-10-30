@@ -1,0 +1,20 @@
+---
+apiVersion: velero.io/v1
+kind: BackupStorageLocation
+metadata:
+  name: scr1
+  namespace: velero
+spec:
+  provider: velero.io/aws
+  objectStorage:
+    bucket: velero
+    prefix: ${CLUSTER_NAME}
+  config:
+    region: us-east-1
+    s3ForcePathStyle: "true"
+    s3Url: "https://s3.scr1.rabbito.tech"
+    publicUrl: "https://minio.scr1.rabbito.tech"
+    profile: "scr1"
+  credential:
+    name: s3-credentials
+    key: cloud
