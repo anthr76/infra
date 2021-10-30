@@ -49,6 +49,7 @@ spec:
     schedules:
       daily-backup:
         schedule: "0 6 * * *"
+        storageLocation: scr1
         template:
           ttl: "120h"
           includeClusterResources: false
