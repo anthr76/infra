@@ -39,8 +39,8 @@ spec:
           s3Url: http://s3.scr1.rabbito.tech
           publicUrl: https://minio.scr1.rabbito.tech
         credential:
-          name: s3-credentials
-          key: aws
+          name: scr1-s3-credentials
+          key: cloud
     metrics:
       enabled: true
       serviceMonitor:
