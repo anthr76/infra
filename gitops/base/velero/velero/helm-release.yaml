@@ -36,7 +36,7 @@ spec:
         config:
           s3ForcePathStyle: true
           region: us-east-1
-          s3Url: s3.scr1.rabbito.tech
+          s3Url: https://s3.scr1.rabbito.tech
           publicUrl: https://minio.scr1.rabbito.tech
         credential:
           name: scr1-s3-credentials
