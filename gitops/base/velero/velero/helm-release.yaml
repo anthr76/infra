@@ -24,8 +24,8 @@ spec:
         volumeMounts:
           - mountPath: /target
             name: plugins
-    credentials:
-      existingSecret: s3-credentials
+    # credentials:
+    #   existingSecret: s3-credentials
     configuration:
       extraEnvVars:
         TZ: "America/New_York"
@@ -38,6 +38,9 @@ spec:
           region: us-east-1
           s3Url: http://s3.scr1.rabbito.tech
           publicUrl: https://minio.scr1.rabbito.tech
+        credential:
+          name: s3-credentials
+          key: aws
     metrics:
       enabled: true
       serviceMonitor:
