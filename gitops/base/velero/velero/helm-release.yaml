@@ -48,7 +48,7 @@ spec:
       serviceMonitor:
         enabled: true
     backupsEnabled: true
-    snapshotsEnabled: false
+    snapshotsEnabled: true
     deployRestic: true
     kubectl:
       image:
