@@ -63,8 +63,6 @@ spec:
             - "*"
           includedResources:
             - "persistentvolumeclaims"
-          volumeSnapshotLocations:
-            - "${CLUSTER_NAME}"
     restic:
       resources:
         requests:
