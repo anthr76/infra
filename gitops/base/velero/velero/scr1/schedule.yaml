@@ -2,7 +2,7 @@
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  name: velero-daily-backup
+  name: daily-backup
   namespace: velero
 spec:
   schedule: 0 6 * * *
