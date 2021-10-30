@@ -43,7 +43,7 @@ spec:
     snapshotsEnabled: false
     deployRestic: true
     schedule:
-      velero-daily-backup:
+      velero-daily-backups:
         disabled: true
     kubectl:
       image:
