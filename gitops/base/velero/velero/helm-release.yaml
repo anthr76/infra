@@ -37,7 +37,7 @@ spec:
           s3ForcePathStyle: true
           region: us-east-1
           s3Url: http://s3.scr1.rabbito.tech
-          publicUrl: https://minio.scr1.rabbito.tech
+          #publicUrl: https://minio.scr1.rabbito.tech
         credential:
           key: cloud
           name: s3-credentials
