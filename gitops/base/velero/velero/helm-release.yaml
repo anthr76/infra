@@ -26,7 +26,7 @@ spec:
             name: plugins
     credentials:
       existingSecret: s3-credentials
-    configuration: []
+    configuration: {}
     metrics:
       enabled: true
       serviceMonitor:
