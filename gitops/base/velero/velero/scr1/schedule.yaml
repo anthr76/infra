@@ -6,7 +6,16 @@ metadata:
   namespace: velero
 spec:
   schedule: 0 6 * * *
-  snapshotVolumes: false
   template:
+    includedNamespaces:
+      - "*"
+    includedResources:
+      - "pv"
+      - "pvc"
+      - "volumesnapshot"
+      - "volumesnapshotcontent"
+    snapshotVolumes: true
     storageLocation: scr1
+    volumeSnapshotLocations:
+      - scr1
     ttl: "120h"
