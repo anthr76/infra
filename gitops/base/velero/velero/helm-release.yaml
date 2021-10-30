@@ -16,6 +16,20 @@ spec:
         name: vmware-charts
         namespace: flux-system
       interval: 5m
+  postRenderers:
+    - kustomize:
+        # https://github.com/vmware-tanzu/helm-charts/issues/294
+        patchesJson6902:
+          - target:
+              version: velero.io/v1
+              kind: BackupStorageLocation
+              name: default
+            patch:
+              - op: add
+                path: /spec/credential
+                value:
+                  name: s3-credentials
+                  key: cloud
   values:
     initContainers:
       - name: velero-plugin-for-aws
@@ -40,9 +54,6 @@ spec:
           region: us-east-1
           s3Url: https://s3.scr1.rabbito.tech
           publicUrl: https://minio.scr1.rabbito.tech
-        credential:
-          name: s3-credentials
-          key: cloud
     metrics:
       enabled: true
       serviceMonitor:
