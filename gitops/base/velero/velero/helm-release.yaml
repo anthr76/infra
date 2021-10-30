@@ -24,6 +24,8 @@ spec:
         volumeMounts:
           - mountPath: /target
             name: plugins
+    credentials:
+      existingSecret: s3-credentials
     configuration:
       extraEnvVars:
         TZ: "America/New_York"
