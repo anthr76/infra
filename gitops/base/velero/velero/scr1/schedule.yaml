@@ -10,9 +10,10 @@ spec:
     includedNamespaces:
       - "*"
     includedResources:
-      - "persistentvolumeclaim"
-      - "persistentvolume"
-    includeClusterResources: false
+      - "persistentvolumeclaims"
+      - "persistentvolumes"
+      - "volumesnapshots"
+    includeClusterResources: true
     snapshotVolumes: true
     storageLocation: scr1
     volumeSnapshotLocations:
