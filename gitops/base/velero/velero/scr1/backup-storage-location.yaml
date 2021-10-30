@@ -12,7 +12,7 @@ spec:
   config:
     region: us-east-1
     s3ForcePathStyle: "true"
-    publicUrl: "https://minio.scr1.rabbito.tech"
+    publicUrl: "https://s3.scr1.rabbito.tech"
     s3Url: "https://s3.scr1.rabbito.tech"
     profile: "scr1"
   credential:
