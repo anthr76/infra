@@ -26,9 +26,6 @@ spec:
             name: plugins
     credentials:
       existingSecret: s3-credentials
-    configuration:
-      extraEnvVars:
-        TZ: "America/New_York"
     metrics:
       enabled: true
       serviceMonitor:
