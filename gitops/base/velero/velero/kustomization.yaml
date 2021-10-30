@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - secret.sops.yaml
-  - scr1-backupstoragelocation.yaml
