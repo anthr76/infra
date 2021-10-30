@@ -44,6 +44,8 @@ spec:
     deployRestic: true
     schedule:
       disabled: true
+    nodeSelector:
+      kubernetes.io/arch: amd64
     kubectl:
       image:
         repository: ghcr.io/k8s-at-home/kubectl
