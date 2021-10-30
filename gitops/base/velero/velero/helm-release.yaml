@@ -42,7 +42,7 @@ spec:
           publicUrl: https://minio.scr1.rabbito.tech
           profile: "scr1"
         credential:
-          name: scr1-s3-credentials
+          name: s3-credentials
           key: cloud
     metrics:
       enabled: true
