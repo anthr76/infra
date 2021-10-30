@@ -25,19 +25,22 @@ spec:
           - mountPath: /target
             name: plugins
     credentials:
-      useSecret: false
+      existingSecret: s3-credentials
     configuration:
       extraEnvVars:
         TZ: "America/New_York"
       provider: aws
       backupStorageLocation:
         name: scr1
-        bucket: "velero-${CLUSTER_NAME}"
+        objectStorage:
+          bucket: velero
+          prefix: ${CLUSTER_NAME}
         config:
           s3ForcePathStyle: true
           region: us-east-1
           s3Url: https://s3.scr1.rabbito.tech
           publicUrl: https://minio.scr1.rabbito.tech
+          profile: "scr1"
         credential:
           name: scr1-s3-credentials
           key: cloud
