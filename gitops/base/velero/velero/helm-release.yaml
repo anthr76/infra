@@ -29,21 +29,6 @@ spec:
     configuration:
       extraEnvVars:
         TZ: "America/New_York"
-      provider: aws
-      backupStorageLocation:
-        name: scr1
-        objectStorage:
-          bucket: velero
-          prefix: ${CLUSTER_NAME}
-        config:
-          s3ForcePathStyle: true
-          region: us-east-1
-          s3Url: https://s3.scr1.rabbito.tech
-          publicUrl: https://minio.scr1.rabbito.tech
-          profile: "scr1"
-        credential:
-          name: s3-credentials
-          key: cloud
     metrics:
       enabled: true
       serviceMonitor:
