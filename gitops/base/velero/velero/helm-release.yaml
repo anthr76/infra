@@ -24,9 +24,10 @@ spec:
         volumeMounts:
           - mountPath: /target
             name: plugins
+    configuration:
+      provider: velero.io/aws
     credentials:
       useSecret: false
-    configuration: {}
     metrics:
       enabled: true
       serviceMonitor:
