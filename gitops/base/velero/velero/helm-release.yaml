@@ -31,19 +31,14 @@ spec:
         TZ: "America/New_York"
       provider: velero.io/aws
       backupStorageLocation:
-        name: scr1
-        objectStorage:
-          bucket: velero
-          prefix: ${CLUSTER_NAME}
+        name: default
+        bucket: velero
+        prefix: ${CLUSTER_NAME}
         config:
           s3ForcePathStyle: true
           region: us-east-1
           s3Url: https://s3.scr1.rabbito.tech
           publicUrl: https://minio.scr1.rabbito.tech
-          profile: "scr1"
-        credential:
-          name: s3-credentials
-          key: cloud
     metrics:
       enabled: true
       serviceMonitor:
@@ -60,7 +55,6 @@ spec:
         schedule: "0 6 * * *"
         template:
           ttl: "120h"
-          storageLocation: scr1
           includeClusterResources: false
           includedNamespaces:
             - "*"
