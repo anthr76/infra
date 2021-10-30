@@ -32,6 +32,7 @@ spec:
       provider: velero.io/aws
       backupStorageLocation:
         name: default
+        default: true
         bucket: velero
         prefix: ${CLUSTER_NAME}
         config:
