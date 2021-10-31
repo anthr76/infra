@@ -52,8 +52,6 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
     persistence:
       config:
         enabled: true
