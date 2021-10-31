@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - backup-storage-location.yaml
   - schedule.yaml
-  - volume-snapshot-location.yaml
+  # - volume-snapshot-location.yaml
 namespace: velero
 generatorOptions:
   disableNameSuffixHash: true

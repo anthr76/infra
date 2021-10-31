@@ -16,6 +16,6 @@ spec:
       - "volumesnapshotcontent"
     snapshotVolumes: true
     storageLocation: default
-    volumeSnapshotLocations:
-      - default
+    # volumeSnapshotLocations:
+    #   - default
     ttl: "120h"
