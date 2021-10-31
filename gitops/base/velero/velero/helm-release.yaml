@@ -33,6 +33,7 @@ spec:
     configuration:
       provider: velero.io/aws
       features: EnableCSI
+      defaultVolumesToRestic: true
     credentials:
       useSecret: false
     metrics:
