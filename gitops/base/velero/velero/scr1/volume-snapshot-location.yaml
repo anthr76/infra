@@ -8,4 +8,4 @@ spec:
   provider: velero.io/aws
   config:
     region: us-east-1
-    profile: "scr1"
+    profile: "default"

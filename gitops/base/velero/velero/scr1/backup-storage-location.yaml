@@ -14,7 +14,7 @@ spec:
     s3ForcePathStyle: "true"
     publicUrl: "https://s3.scr1.rabbito.tech"
     s3Url: "https://s3.scr1.rabbito.tech"
-    profile: "scr1"
+    profile: "default"
   credential:
     name: s3-credentials
     key: cloud
