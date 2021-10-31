@@ -14,7 +14,7 @@ spec:
       - "pvc"
       - "volumesnapshot"
       - "volumesnapshotcontent"
-    snapshotVolumes: true
+    snapshotVolumes: false
     storageLocation: default
     # volumeSnapshotLocations:
     #   - default
