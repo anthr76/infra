@@ -79,7 +79,7 @@ spec:
         volumeSpec:
           nfs:
             server: "${NAS_1_ADDRESS}"
-            path: /tank/Media
+            path: /tank/media
         mountPath: /media
     resources:
       requests:
