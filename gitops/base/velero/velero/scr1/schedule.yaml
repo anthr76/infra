@@ -12,8 +12,8 @@ spec:
     includedResources:
       - "pv"
       - "pvc"
-      - "volumesnapshot"
-      - "volumesnapshotcontent"
+      # - "volumesnapshot"
+      # - "volumesnapshotcontent"
     snapshotVolumes: false
     storageLocation: default
     # volumeSnapshotLocations:
