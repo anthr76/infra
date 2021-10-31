@@ -17,6 +17,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     initContainers:
       update-volume-permission:
         image: busybox
@@ -79,7 +81,6 @@ spec:
             server: "${NAS_1_ADDRESS}"
             path: /tank/media
         mountPath: /media
-    podAnnotations:
     resources:
       requests:
         memory: 250Mi

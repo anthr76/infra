@@ -17,6 +17,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     image:
       repository: ghcr.io/koenkk/zigbee2mqtt
       tag: 1.21.2
