@@ -15,7 +15,7 @@ spec:
       - "volumesnapshot"
       - "volumesnapshotcontent"
     snapshotVolumes: true
-    storageLocation: scr1
+    storageLocation: default
     volumeSnapshotLocations:
-      - scr1
+      - default
     ttl: "120h"
