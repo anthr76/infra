@@ -138,3 +138,31 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-radarr-uhd
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/media/radarr-uhd"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-sonarr-uhd
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/media/sonarr-uhd"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
