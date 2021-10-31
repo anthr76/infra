@@ -2,7 +2,7 @@
 apiVersion: velero.io/v1
 kind: BackupStorageLocation
 metadata:
-  name: scr1
+  name: default
   namespace: velero
 spec:
   provider: velero.io/aws
