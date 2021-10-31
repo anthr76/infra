@@ -5,7 +5,7 @@ resources:
   - backup-storage-location.yaml
   - schedule.yaml
   - volume-snapshot-location.yaml
-  - schedule-snapshot.yaml
+  #- schedule-snapshot.yaml
 namespace: velero
 generatorOptions:
   disableNameSuffixHash: true
