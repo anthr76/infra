@@ -14,7 +14,4 @@ spec:
       - "pvc"
       - "pod"
     storageLocation: default
-    # snapshotVolumes: false
-    # volumeSnapshotLocations:
-    #   - default
     ttl: "120h"
