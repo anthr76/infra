@@ -41,14 +41,14 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: "sonarr-uhd.${SECRET_DOMAIN}"
+          - host: "sonarr-uhd.${INT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: sonarr-uhd-tls
             hosts:
-              - "sonarr-uhd.${SECRET_DOMAIN}"
+              - "sonarr-uhd.${INT_DOMAIN}"
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
