@@ -2,7 +2,7 @@
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  name: daily-backup
+  name: daily-backup-restic
   namespace: velero
 spec:
   schedule: 0 6 * * *
@@ -12,10 +12,9 @@ spec:
     includedResources:
       - "pv"
       - "pvc"
-      # - "volumesnapshot"
-      # - "volumesnapshotcontent"
-    snapshotVolumes: false
+      - "pod"
     storageLocation: default
+    # snapshotVolumes: false
     # volumeSnapshotLocations:
     #   - default
     ttl: "120h"
