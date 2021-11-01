@@ -17,6 +17,15 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: feature.node.kubernetes.io/custom-intel-10g
+                  operator: In
+                  values:
+                    - "true"
     podAnnotations:
       backup.velero.io/backup-volumes: config
     initContainers:
