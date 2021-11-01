@@ -88,6 +88,15 @@ spec:
                   values:
                     - traefik
             topologyKey: "kubernetes.io/hostname"
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+                - key: feature.node.kubernetes.io/custom-intel-10g
+                  operator: In
+                  values:
+                    - "true"
     resources:
       requests:
         memory: 100Mi
