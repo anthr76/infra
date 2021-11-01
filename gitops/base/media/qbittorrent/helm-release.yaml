@@ -17,10 +17,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    nodeSelector:
-      kubernetes.io/arch: amd64
     initContainers:
       update-volume-permission:
         image: busybox
@@ -97,3 +93,15 @@ spec:
         cpu: 500m
       limits:
         memory: 6000Mi
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+                - key: feature.node.kubernetes.io/custom-intel-10g
+                  operator: In
+                  values:
+                    - "true"

@@ -17,8 +17,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
     initContainers:
       update-volume-permission:
         image: busybox
@@ -87,3 +85,5 @@ spec:
         cpu: 500m
       limits:
         memory: 1500Mi
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
