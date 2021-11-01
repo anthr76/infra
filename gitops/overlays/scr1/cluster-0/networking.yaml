@@ -96,16 +96,26 @@ spec:
                 externalTrafficPolicy: Local
               annotations:
                 external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
-            # affinity:
-              #nodeAffinity:
-                #preferredDuringSchedulingIgnoredDuringExecution:
-                  #- weight: 1
-                    #preference:
-                      #matchExpressions:
-                        #- key: feature.node.kubernetes.io/custom-intel-10g
-                          #operator: In
-                          #values:
-                            #- true
+              affinity:
+                nodeAffinity:
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                    nodeSelectorTerms:
+                    - matchExpressions:
+                      - key: feature.node.kubernetes.io/custom-intel-10g
+                        operator: In
+                        values:
+                        - "true"
+                podAntiAffinity:
+                  preferredDuringSchedulingIgnoredDuringExecution:
+                  - weight: 100
+                    podAffinityTerm:
+                      labelSelector:
+                        matchExpressions:
+                        - key: app.kubernetes.io/name
+                          operator: In
+                          values:
+                          - traefik
+                      topologyKey: "kubernetes.io/hostname"
       target:
         kind: HelmRelease
         name: "traefik"
