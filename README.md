@@ -41,8 +41,4 @@ A lot of inspiration for this repo came from the following people:
 - [toboshii/k8s-gitops](https://github.com/toboshii/k8s-gitops)
 - [nlopez/k8s_home](https://github.com/nlopez/k8s_home)
 - [ironicbadger/inra](https://github.com/IronicBadger/infra)
-- [onedr0p/k3s-gitops](https://github.com/onedr0p/k3s-gitops)
-
----
-
-[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B21154%2Finfra.svg?type=large)](https://app.fossa.com/projects/custom%2B21154%2Finfra?ref=badge_large)
+- [onedr0p/home-cluster](https://github.com/onedr0p/home-cluster)
