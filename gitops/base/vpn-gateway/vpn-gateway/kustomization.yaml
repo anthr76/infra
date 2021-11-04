@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - helm-release.yaml
 namespace: vpn-gateway
+generatorOptions:
+  disableNameSuffixHash: true
 secretGenerator:
   - name: vpn-gateway-vpnconfig
     files:
