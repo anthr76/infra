@@ -71,7 +71,6 @@ spec:
     routed_namespaces:
       - media
     settings:
-      VXLAN_ID: 43
       VPN_INTERFACE: wg0
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "${VPN_GATEWAY_VPN_PORT}"
