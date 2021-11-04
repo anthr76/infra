@@ -26,18 +26,18 @@ spec:
       dashboard:
         enabled: true
         urlPrefix: /
-    ingress:
-      dashboard:
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          cert-manager.io/cluster-issuer: letsencrypt-production
-        host:
-          name: "rook.${GENERIC_CLUSTER_INGRESS}"
-          path: "/"
-        tls:
-          - secretName: rook-tls
-            hosts:
-              - "rook.${GENERIC_CLUSTER_INGRESS}"
+      ingress:
+        dashboard:
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            cert-manager.io/cluster-issuer: letsencrypt-production
+          host:
+            name: "rook.${GENERIC_CLUSTER_INGRESS}"
+            path: "/"
+          tls:
+            - secretName: rook-tls
+              hosts:
+                - "rook.${GENERIC_CLUSTER_INGRESS}"
       storage:
         useAllNodes: false
         useAllDevices: false
