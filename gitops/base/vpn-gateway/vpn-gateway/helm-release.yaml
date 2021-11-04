@@ -33,7 +33,7 @@ spec:
           privileged: true
         env:
           TZ: "America/New_York"
-          IPTABLES_BACKEND: nft
+          IPTABLES_BACKEND: legacy
           KILLSWITCH: "false"
         configFileSecret: vpn-gateway-vpnconfig
         resources:
