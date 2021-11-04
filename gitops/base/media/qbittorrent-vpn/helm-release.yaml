@@ -59,10 +59,8 @@ spec:
       prometheusRule:
         enabled: true
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 1000
     persistence:
       config:
         enabled: true
