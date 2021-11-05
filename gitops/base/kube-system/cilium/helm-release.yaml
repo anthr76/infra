@@ -30,6 +30,7 @@ spec:
     loadBalancer:
       algorithm: "maglev"
       mode: "dsr"
+      acceleration: native
     tunnel: "disabled"
     autoDirectNodeRoutes: true
     ipam:
