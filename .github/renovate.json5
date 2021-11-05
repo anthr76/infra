@@ -48,68 +48,110 @@
       "registryUrlTemplate": "{{#if registryUrl}}{{{registryUrl}}}{{else}}{{/if}}"
     }
   ],
-  packageRules: [
+  "packageRules": [
     // setup datasources
     {
-      "enabled": true,
-      "matchDatasources": ["docker", "github-releases", "helm", "github-tags"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
+      "matchDatasources": ["helm"],
+      "semanticCommitScope": "charts",
+      "separateMinorPatch": true,
+      "ignoreDeprecated": true
     },
     {
-      "matchDatasources": ["docker", "github-releases", "helm", "github-tags"],
-      "semanticCommitScope": "deps",
+      "matchDatasources": ["docker"],
+      "enabled": true,
+      "matchUpdateTypes": ["major", "minor", "patch"]
+    },
+    {
+      "matchDatasources": ["docker"],
+      "semanticCommitScope": "images",
       "separateMinorPatch": true
     },
     // add labels according to package and update types
     {
-      "matchDatasources": ["docker", "github-releases", "helm", "github-tags"],
+      "matchDatasources": ["docker"],
       "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(deps)!: ",
-      "labels": ["dep/major"]
+      "commitMessagePrefix": "feat(images)!: ",
+      "labels": ["renovate/image", "dep/major"]
     },
     {
-      "matchDatasources": ["docker", "github-releases", "helm", "github-tags"],
+      "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor"],
       "semanticCommitType": "feat",
-      "labels": ["dep/minor"]
+      "labels": ["renovate/image", "dep/minor"]
     },
     {
-      "matchDatasources": ["docker", "github-releases", "helm", "github-tags"],
+      "matchDatasources": ["docker"],
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
-      "labels": ["dep/patch"]
+      "labels": ["renovate/image", "dep/patch"]
     },
-    // Custom version schemes
     {
-      datasources: ["docker"],
-      versionScheme: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)$",
-      packageNames: ["blakeblackshear/frigate"],
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(charts)!: ",
+      "labels": ["renovate/helm", "dep/major"]
     },
-    // Pin package versions
     {
-      datasources: ["docker"],
-      allowedVersions: "<4.3.0",
-      packageNames: ["k8sathome/qbittorrent"],
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["minor"],
+      "semanticCommitType": "feat",
+      "labels": ["renovate/helm", "dep/minor"]
     },
-    // Version strategies
     {
-      datasources: ["docker"],
-      versioning: "loose",
-      packageNames: ["plexinc/pms-docker"],
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["patch"],
+      "semanticCommitType": "fix",
+      "labels": ["renovate/helm", "dep/patch"]
     },
-    // Enable auto-merge docker
+    // custom version schemes
     {
-      datasources: ["docker"],
-      automerge: true,
-      requiredStatusChecks: null,
-      updateTypes: ["minor", "patch"],
+      "matchDatasources": ["docker"],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)$",
+      "matchPackageNames": ["blakeblackshear/frigate"]
     },
-    // Enable auto-merge helm
     {
-      datasources: ["helm"],
-      automerge: true,
-      requiredStatusChecks: null,
-      updateTypes: ["patch"],
+      "matchDatasources": ["docker"],
+      "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$",
+      "matchPackageNames": ["quay.io/minio/minio"]
     },
-  ],
+    // version strategies
+    {
+      "matchDatasources": ["docker"],
+      "versioning": "loose",
+      "matchPackageNames": [
+        "ghcr.io/k8s-at-home/plex",
+        "ghcr.io/k8s-at-home/qbittorrent"
+      ]
+    },
+    // enable auto-merge
+    {
+      "matchDatasources": ["docker"],
+      "automerge": true,
+      "automergeType": "branch",
+      "requiredStatusChecks": null,
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": [
+        "ghcr.io/k8s-at-home/jackett",
+        "ghcr.io/k8s-at-home/prowlarr-nightly"
+     ]
+    },
+    // group packages
+    {
+      "matchDatasources": ["helm", "docker"],
+      "matchPackagePatterns": ["^rook.ceph"],
+      "groupName": "rook-ceph-suite",
+      "additionalBranchPrefix": "",
+      "separateMinorPatch": true
+    },
+    {
+      "matchDatasources": ["github-releases", "docker"],
+      "matchPackagePatterns": [
+        "external-snapshotter",
+        "snapshot-controller"
+      ],
+      "groupName": "external-snapshotter-suite",
+      "additionalBranchPrefix": "",
+      "separateMinorPatch": true
+    }
+  ]
 }
