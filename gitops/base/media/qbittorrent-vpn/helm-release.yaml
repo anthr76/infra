@@ -31,6 +31,16 @@ spec:
       tag: v4.3.9
     env:
       TZ: "America/New_York"
+    service:
+      bittorrent:
+        enabled: true
+        type: ClusterIP
+        ports:
+          bittorrent:
+            enabled: true
+            port: 6881
+            protocol: TCP
+            targetPort: 6881
     ingress:
       main:
         enabled: true
