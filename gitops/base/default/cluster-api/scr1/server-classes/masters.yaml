@@ -7,6 +7,21 @@ metadata:
 spec:
   configPatches:
     - op: replace
+      path: /cluster/apiServer/image
+      value: k8s.gcr.io/kube-apiserver:v1.22.3
+    - op: replace
+      path: /cluster/controllerManager/image
+      value: k8s.gcr.io/kube-controller-manager:v1.22.3
+    - op: replace
+      path: /cluster/scheduler/image
+      value: k8s.gcr.io/kube-scheduler:v1.22.3
+    - op: replace
+      path: /machine/kubelet/image
+      value: ghcr.io/talos-systems/kubelet:v1.22.3
+    - op: replace
+      path: /cluster/proxy/disabled
+      value: true
+    - op: replace
       path: /machine/install/disk
       value: /dev/sda
     - op: replace
@@ -36,9 +51,6 @@ spec:
       path: /cluster/scheduler/extraArgs
       value:
         bind-address: 0.0.0.0
-    - op: replace
-      path: /cluster/proxy/disabled
-      value: true
     - op: add
       path: /cluster/etcd/extraArgs
       value:
