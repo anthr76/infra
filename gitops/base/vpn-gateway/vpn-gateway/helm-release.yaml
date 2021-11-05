@@ -23,7 +23,7 @@ spec:
       tag: v1.4.0
     addons:
       netshoot:
-        enabled: false
+        enabled: true
       vpn:
         enabled: true
         type: wireguard
