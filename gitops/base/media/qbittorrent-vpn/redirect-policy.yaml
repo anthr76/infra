@@ -14,7 +14,7 @@ spec:
       matchLabels:
         app.kubernetes.io/name: wireguard
     toPorts:
-      - port: "56220"
+      - port: "51820"
         protocol: TCP
-      - port: "56220"
+      - port: "51820"
         protocol: UDP
