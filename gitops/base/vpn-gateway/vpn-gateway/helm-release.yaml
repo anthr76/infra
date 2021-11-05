@@ -35,8 +35,8 @@ spec:
           privileged: true
         env:
           TZ: "America/New_York"
-          IPTABLES_BACKEND: legacy
-          KILLSWITCH: "false"
+          IPTABLES_BACKEND: nft
+          KILLSWITCH: "true"
         configFileSecret: vpn-gateway-vpnconfig
         resources:
           requests:
