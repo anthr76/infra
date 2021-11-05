@@ -21,6 +21,8 @@ spec:
       repository: ghcr.io/k8s-at-home/wireguard
       pullPolicy: IfNotPresent
       tag: v1.0.20210914
+    securityContext:
+      privileged: true
     controller:
       enabled: true
       replicas: 1
