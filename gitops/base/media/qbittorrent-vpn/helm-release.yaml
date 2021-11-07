@@ -65,6 +65,7 @@ spec:
     podSecurityContext:
       supplementalGroups:
         - 1000
+        - 568
     persistence:
       config:
         enabled: true
@@ -123,6 +124,7 @@ spec:
           up: |-
             #!/bin/bash
             echo "connected" > /shared/vpnstatus
+            chmod 777 -R /shared/
           down: |-
             #!/bin/bash
             echo "disconnected" > /shared/vpnstatus
