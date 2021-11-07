@@ -1,0 +1,23 @@
+---
+apiVersion: kubegres.reactive-tech.io/v1
+kind: Kubegres
+metadata:
+  name: minecraft-postgres
+  namespace: infra
+spec:
+  replicas: 1
+  image: docker.io/library/postgres:13.4
+  database:
+    size: 20Gi
+    storageClassName: ceph-block
+  env:
+    - name: POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: minecraft-database
+          key: postgresPassword
+    - name: POSTGRES_REPLICATION_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: minecraft-database
+          key: postgresPassword
