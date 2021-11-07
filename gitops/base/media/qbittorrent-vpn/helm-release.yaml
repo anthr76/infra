@@ -31,16 +31,8 @@ spec:
       tag: v4.3.9
     env:
       TZ: "America/New_York"
-    service:
-      bittorrent:
-        enabled: true
-        type: ClusterIP
-        ports:
-          bittorrent:
-            enabled: true
-            port: 6881
-            protocol: TCP
-            targetPort: 6881
+    settings:
+      automaticPortSetup: false
     ingress:
       main:
         enabled: true
@@ -83,6 +75,10 @@ spec:
             server: "${NAS_1_ADDRESS}"
             path: /tank/media
         mountPath: /media
+      shared:
+        enabled: true
+        type: emptyDir
+        mountPath: /shared
     resources:
       requests:
         memory: 250Mi
@@ -102,3 +98,35 @@ spec:
                   operator: In
                   values:
                     - "true"
+    addons:
+      netshoot:
+        enabled: true
+      vpn:
+        enabled: true
+        type: wireguard
+        wireguard:
+          image:
+            repository: ghcr.io/k8s-at-home/wireguard
+            tag: v1.0.20210914
+            pullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
+        env:
+          TZ: "America/New_York"
+          IPTABLES_BACKEND: nft
+          KILLSWITCH: "true"
+          KILLSWITCH_EXCLUDEDNETWORKS_IPV4: "${CLUSTER_POD_CIDR} ${CLUSTER_SERVICE_CIDR}"
+        configFileSecret: qbittorrent-vpnconfig
+        scripts:
+          up: |-
+            #!/bin/bash
+            echo "connected" > /shared/vpnstatus
+          down: |-
+            #!/bin/bash
+            echo "disconnected" > /shared/vpnstatus
+        resources:
+          requests:
+            cpu: "0.001"
+            memory: 64Mi
+          limits:
+            memory: 128Mi
