@@ -17,10 +17,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    controller:
-      enabled: true
-      replicas: 1
-      strategy: RollingUpdate
     image:
       repository: ghcr.io/esphome/esphome
       tag: 2021.10.3
