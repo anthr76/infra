@@ -124,7 +124,7 @@ spec:
           up: |-
             #!/bin/bash
             echo "connected" > /shared/vpnstatus
-            chmod 777 -R /shared/
+            chmod -R 777 /shared/
           down: |-
             #!/bin/bash
             echo "disconnected" > /shared/vpnstatus
