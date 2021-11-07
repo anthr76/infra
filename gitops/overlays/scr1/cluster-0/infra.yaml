@@ -34,7 +34,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/base/infra/minecraft-database"
+  path: "./gitops/base/infra/minecraft/database"
   prune: true
   wait: true
   sourceRef:
