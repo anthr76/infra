@@ -120,14 +120,14 @@ spec:
           KILLSWITCH: "true"
           KILLSWITCH_EXCLUDEDNETWORKS_IPV4: "${CLUSTER_POD_CIDR};${CLUSTER_SERVICE_CIDR}"
         configFileSecret: qbittorrent-vpnconfig
-        scripts:
-          up: |-
-            #!/bin/bash
-            echo "connected" > /shared/vpnstatus
-            chmod -R 777 /shared/
-          down: |-
-            #!/bin/bash
-            echo "disconnected" > /shared/vpnstatus
+        # scripts:
+        #   up: |-
+        #     #!/bin/bash
+        #     echo "connected" > /shared/vpnstatus
+        #     chmod -R 777 /shared/
+        #   down: |-
+        #     #!/bin/bash
+        #     echo "disconnected" > /shared/vpnstatus
         resources:
           requests:
             cpu: "0.001"
