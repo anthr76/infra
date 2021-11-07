@@ -4,4 +4,9 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - helm-release.yaml
-  - redirect-policy.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+secretGenerator:
+  - name: qbittorrent-vpnconfig
+    files:
+      - wg0.conf=vpnConfigfile.ini.sops
