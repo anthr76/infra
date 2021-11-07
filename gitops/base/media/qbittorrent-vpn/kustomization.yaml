@@ -10,4 +10,4 @@ generatorOptions:
 secretGenerator:
   - name: qbittorrent-vpnconfig
     files:
-      - wg0.conf=vpnConfigfile.ini.sops
+      - vpnConfigfile=vpnConfigfile.ini.sops
