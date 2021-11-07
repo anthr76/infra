@@ -115,9 +115,9 @@ spec:
           privileged: true
         env:
           TZ: "America/New_York"
-          IPTABLES_BACKEND: legacy
+          IPTABLES_BACKEND: nft
           KILLSWITCH: "true"
-          KILLSWITCH_EXCLUDEDNETWORKS_IPV4: "${CLUSTER_POD_CIDR} ${CLUSTER_SERVICE_CIDR}"
+          KILLSWITCH_EXCLUDEDNETWORKS_IPV4: "${CLUSTER_POD_CIDR};${CLUSTER_SERVICE_CIDR}"
         configFileSecret: qbittorrent-vpnconfig
         scripts:
           up: |-
