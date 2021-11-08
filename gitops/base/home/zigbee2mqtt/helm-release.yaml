@@ -94,15 +94,6 @@ spec:
         type: hostPath
         hostPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
         hostPathType: CharDevice
-      extra-zigbee-devices:
-        enabled: true
-        type: custom
-        volumeSpec:
-          configMap:
-            name: extra-zigbee-devices
-        subPath:
-          - path: 3156105.js
-            mountPath: /data/3156105.js
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
