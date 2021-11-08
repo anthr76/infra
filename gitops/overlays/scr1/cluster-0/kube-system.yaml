@@ -118,7 +118,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/base/kube-system/rocm"
+  path: "./gitops/base/kube-system/rocm-k8s-device-plugin"
   prune: true
   wait: true
   sourceRef:
