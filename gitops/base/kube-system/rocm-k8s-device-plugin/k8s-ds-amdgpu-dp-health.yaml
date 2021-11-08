@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: amdgpu-device-plugin-daemonset
+  name: amdgpu-device-plugin
   namespace: kube-system
 spec:
   selector:
