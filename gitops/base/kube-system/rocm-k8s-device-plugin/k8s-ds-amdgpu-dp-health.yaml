@@ -23,7 +23,10 @@ spec:
           workingDir: /root
           command: ["./k8s-device-plugin"]
           args:
-            ["-logtostderr=true", "-stderrthreshold=INFO", "-v=5", "-pulse=2"]
+            - "-logtostderr=true"
+            - "-stderrthreshold=INFO"
+            - "-v=5"
+            - "-pulse=2"
           securityContext:
             privileged: true
             capabilities:
