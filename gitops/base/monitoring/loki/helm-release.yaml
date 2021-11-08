@@ -32,8 +32,6 @@ spec:
         - secretName: loki-tls
           hosts:
             - "loki.${GENERIC_CLUSTER_INGRESS}"
-    serviceMonitor:
-      enabled: true
     config:
       storage_config:
         aws:
@@ -48,15 +46,7 @@ spec:
           cache_location: /data/loki/index_cache
           resync_interval: 5s
           shared_store: s3
-# You cannot mount /tmp on talos. Come back to this later
-#      ruler:
-#        storage:
-#          type: local
-#          local:
-#            directory: /rules
-#        rule_path: /tmp/scratch
-#        alertmanager_url: http://prom-alertmanager:9093
-#        ring:
-#          kvstore:
-#            store: inmemory
-#        enable_api: true
+    persistence:
+      enabled: false
+    serviceMonitor:
+      enabled: true
