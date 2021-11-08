@@ -59,3 +59,8 @@ spec:
                 class: ["0200"]
                 vendor: ["8086"]
                 device: ["10fb"]
+          - name: "vega11-gpu"
+            matchOn:
+            - pciId:
+                vendor: ["1002"]
+                device: ["0300"]
