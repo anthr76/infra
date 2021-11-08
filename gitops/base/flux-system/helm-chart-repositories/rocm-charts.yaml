@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: renovate-charts
+  name: rocm-charts
   namespace: flux-system
 spec:
   interval: 10m
-  url: https://docs.renovatebot.com/helm-charts
+  url: https://radeonopencompute.github.io/k8s-device-plugin
   timeout: 3m

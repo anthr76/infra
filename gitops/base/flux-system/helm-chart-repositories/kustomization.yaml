@@ -18,7 +18,7 @@ resources:
   - nfd-charts.yaml
   - openebs-charts.yaml
   - prometheus-community-charts.yaml
-  - renovate-charts.yaml
+  - rocm-charts.yaml
   - rook-ceph-charts.yaml
   - traefik-charts.yaml
   - vmware-charts.yaml
