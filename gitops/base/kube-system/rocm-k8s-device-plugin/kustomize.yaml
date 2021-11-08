@@ -23,7 +23,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./k8s-ds-amdgpu-labeller.yaml
+  path: ./
   prune: true
   wait: true
   targetNamespace: kube-system
