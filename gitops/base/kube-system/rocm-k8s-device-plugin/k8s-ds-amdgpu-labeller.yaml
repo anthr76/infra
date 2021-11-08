@@ -1,0 +1,91 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: amd-gpu-labeller
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: amd-gpu-labeller-role
+rules:
+  - apiGroups:
+      - policy
+    resources:
+      - podsecuritypolicies
+    verbs:
+      - use
+    resourceNames:
+      - amd-gpu-labeller-role
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - watch
+      - get
+      - list
+      - update
+    resourceNames:
+      - amd-gpu-labeller-role
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: amd-gpu-labeller-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: amd-gpu-labeller-role
+subjects:
+  - kind: ServiceAccount
+    name: amd-gpu-labeller-role
+    namespace: default
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: amdgpu-labeller-daemonset
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: amdgpu-lr-ds
+  template:
+    metadata:
+      labels:
+        name: amdgpu-lr-ds
+    spec:
+      priorityClassName: system-node-critical
+      serviceAccount: amd-gpu
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+      containers:
+        - image: docker.io/rocm/k8s-device-plugin:labeller-1.18.0
+          name: amdgpu-lr-cntr
+          imagePullPolicy: Always
+          workingDir: /root
+          command: ["./k8s-node-labeller"]
+          args: ["-vram", "-cu-count", "-simd-count", "-device-id", "-family"]
+          env:
+            - name: DS_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          securityContext:
+            privileged: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: sys
+              mountPath: /sys
+            - name: dev
+              mountPath: /dev
+      volumes:
+        - name: sys
+          hostPath:
+            path: /sys
+        - name: dev
+          hostPath:
+            path: /dev
