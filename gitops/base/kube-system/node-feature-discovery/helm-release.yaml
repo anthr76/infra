@@ -29,9 +29,6 @@ spec:
           - custom
         sources:
           pci:
-            deviceClassWhitelist:
-            - "02"
-            - "03"
             deviceLabelFields:
             - "class"
             - "vendor"
