@@ -13,7 +13,7 @@ patchesJson6902:
       - op: add
         path: /spec/template/spec/nodeSelector
         value:
-          feature.node.kubernetes.io/pci-0300_1002.present: true
+          feature.node.kubernetes.io/pci-0300_1002.present: "true"
   - target:
       version: v1
       kind: DaemonSet
@@ -22,4 +22,4 @@ patchesJson6902:
       - op: add
         path: /spec/template/spec/nodeSelector
         value:
-          feature.node.kubernetes.io/pci-0300_1002.present: true
+          feature.node.kubernetes.io/pci-0300_1002.present: "true"
