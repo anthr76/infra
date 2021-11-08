@@ -8,6 +8,7 @@ spec:
   interval: 9m0s
   ref:
     branch: master
+    commit: 501ff375922feaf1c0346a6b6455d08fd2b9eae7
   url: https://github.com/kubernetes-sigs/node-feature-discovery.git
   ignore: |
     # exclude all
