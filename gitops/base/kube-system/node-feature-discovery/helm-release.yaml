@@ -28,11 +28,6 @@ spec:
           - usb
           - custom
         sources:
-          pci:
-            deviceLabelFields:
-            - "class"
-            - "vendor"
-            - "device"
           usb:
             deviceClassWhitelist:
             - "02"
