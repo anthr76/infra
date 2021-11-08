@@ -60,8 +60,6 @@ spec:
             0x01,
             0xca,
           ]
-      external_converters:
-        - 3156105.js
       frontend:
         port: 8080
       experimental:
