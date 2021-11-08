@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - k8s-ds-amdgpu-labeller.yaml
   - k8s-ds-amdgpu-dp-health.yaml
+namespace: kube-system
 patchesJson6902:
   - target:
       version: v1
