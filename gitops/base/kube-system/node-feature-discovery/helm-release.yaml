@@ -62,5 +62,6 @@ spec:
           - name: "vega11-gpu"
             matchOn:
             - pciId:
+                class: ["0300"]
                 vendor: ["1002"]
                 device: ["0300"]
