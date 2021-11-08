@@ -38,31 +38,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: k8s-device-plugin-labeller
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  path: ./k8s-ds-amdgpu-labeller.yaml
-  prune: true
-  wait: true
-  targetNamespace: kube-system
-  sourceRef:
-    kind: GitRepository
-    name: k8s-device-plugin
-  patches:
-    - patch: |
-        - op: add
-          path: /spec/template/spec/nodeSelector
-          value:
-            feature.node.kubernetes.io/pci-0300_1002.present: true
-      target:
-        kind: DaemonSet
-        name: amd-gpu-labeller-daemonset
-        namespace: kube-system
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
   name: k8s-device-plugin-amdgpu
   namespace: flux-system
 spec:
