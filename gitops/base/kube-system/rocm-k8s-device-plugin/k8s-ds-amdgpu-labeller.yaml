@@ -60,7 +60,7 @@ spec:
         name: amdgpu-lr-ds
     spec:
       priorityClassName: system-node-critical
-      serviceAccount: amd-gpu
+      serviceAccountName: amd-gpu
       tolerations:
         - key: CriticalAddonsOnly
           operator: Exists
