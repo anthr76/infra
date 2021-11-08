@@ -4,10 +4,3 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - helm-release.yaml
-namespace: home
-configMapGenerator:
-  - name: extra-zigbee-devices
-    files:
-      - 3156105.js
-generatorOptions:
-  disableNameSuffixHash: true
