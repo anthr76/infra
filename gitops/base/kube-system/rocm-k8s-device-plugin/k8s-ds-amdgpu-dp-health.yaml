@@ -7,11 +7,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      name: amdgpu-dp-ds
+      name: amdgpu-device-plugin
   template:
     metadata:
       labels:
-        name: amdgpu-dp-ds
+        name: amdgpu-device-plugin
     spec:
       priorityClassName: system-node-critical
       tolerations:
