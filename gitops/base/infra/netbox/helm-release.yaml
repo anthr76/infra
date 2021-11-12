@@ -1,0 +1,110 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: netbox
+  namespace: infra
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: netbox
+      version: 3.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: bootc-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: docker.io/netboxcommunity/netbox
+      pullPolicy: IfNotPresent
+      tag: "v3.0.2"
+    superuser:
+      name: admin
+      email: hello@anthonyrabbito.com
+    admins:
+      - ["Anthony Rabbito", "hello@anthonyrabbito.com"]
+    loginRequired: false
+    storageBackend: storages.backends.s3boto3.S3Boto3Storage
+    storageConfig:
+      AWS_ACCESS_KEY_ID: "${SECRET_MINIO_ACCESS_KEY}"
+      AWS_SECRET_ACCESS_KEY: "${SECRET_MINIO_SECRET_KEY}"
+      AWS_STORAGE_BUCKET_NAME: "netbox"
+      AWS_S3_ENDPOINT_URL: "minio:9000"
+      AWS_S3_REGION_NAME: "us-east-1"
+    metricsEnabled: true
+    existingSecret: "netbox"
+    postgresql:
+      enabled: false
+    externalDatabase:
+      host: netbox-postgres
+      port: 5432
+      database: postgres
+      username: postgres
+      existingSecretName: "netbox"
+      existingSecretKey: "db_password"
+    redis:
+      enabled: true
+      master:
+        nodeSelector:
+          kubernetes.io/arch: amd64
+      replica:
+        nodeSelector:
+          kubernetes.io/arch: amd64
+    persistence:
+      enabled: false
+    reportsPersistence:
+      enabled: false
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      hosts:
+        - host: netbox.scr1.rabbito.tech
+          paths:
+            - /
+      tls:
+        - secretName: netbox-int-tls
+          hosts:
+            - netbox.scr1.rabbito.tech
+    init:
+      image:
+        repository: docker.io/library/busybox
+        tag: 1.34.1
+        pullPolicy: IfNotPresent
+    nodeSelector:
+      kubernetes.io/arch: amd64
+    updateStrategy:
+      type: RollingUpdate
+    worker:
+      enabled: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      updateStrategy:
+        type: RollingUpdate
+  postRenderers:
+    - kustomize:
+        patchesJson6902:
+          - target:
+              version: v1beta1
+              kind: Ingress
+              name: netbox
+            patch:
+              - op: replace
+                path: /apiVersion
+                value: networking.k8s.io/v1
+              - op: remove
+                path: /spec/rules/0/http/paths/0/backend/servicePort
+              - op: remove
+                path: /spec/rules/0/http/paths/0/backend/serviceName
+              - op: add
+                path: /spec/rules/0/http/paths/0/backend/service
+                value:
+                  name: netbox
+                  port:
+                    name: http
+              - op: add
+                path: /spec/rules/0/http/paths/0/pathType
+                value: Prefix
