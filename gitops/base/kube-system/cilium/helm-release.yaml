@@ -31,6 +31,8 @@ spec:
       algorithm: "maglev"
       mode: "dsr"
     tunnel: "disabled"
+    endpointRoutes:
+      enabled: true
     autoDirectNodeRoutes: true
     ipam:
       mode: "kubernetes"
