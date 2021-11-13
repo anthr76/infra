@@ -5,3 +5,11 @@ resources:
   - secret.sops.yaml
   - postgres-db.yaml
   - helm-release.yaml
+namespace: infra
+generatorOptions:
+  disableNameSuffixHash: true
+secretGenerator:
+  - name: napalm-ssh
+    files:
+      - id_rsa=id_rsa.sops
+      - id_rsa.pub=id_rsa.pub.sops
