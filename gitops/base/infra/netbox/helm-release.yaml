@@ -104,12 +104,10 @@ spec:
       - name: install-plugins
         image: docker.io/library/busybox:1.34.1
         command:
-          [
-            "sh",
-            "-c",
-            'echo {netbox_ddns,\nnapalm-vyos,\nnapalm_ros} >> /opt/netbox/local_requirements.txt',
-            "pip install -r /opt/netbox/local_requirements.txt",
-          ]
+          - "sh"
+          - "-c"
+          - "echo {netbox_ddns,\nnapalm-vyos,\nnapalm_ros} >> /opt/netbox/local_requirements.txt"
+          - "pip install -r /opt/netbox/local_requirements.txt"
   postRenderers:
     - kustomize:
         patchesJson6902:
