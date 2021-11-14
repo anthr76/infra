@@ -25,10 +25,10 @@ spec:
       email: hello@anthonyrabbito.com
     admins:
       - ["Anthony Rabbito", "hello@anthonyrabbito.com"]
-    plugins:
-      - netbox_ddns
-      - napalm-vyos
-      - napalm_ros
+    # plugins:
+    #   - netbox_ddns
+    #   - napalm-vyos
+    #   - napalm_ros
     loginRequired: false
     storageBackend: storages.backends.s3boto3.S3Boto3Storage
     storageConfig:
@@ -124,28 +124,28 @@ spec:
               - op: add
                 path: /spec/rules/0/http/paths/0/pathType
                 value: Prefix
-          - target:
-              version: v1
-              kind: Deployment
-              name: netbox
-            patch:
-              - op: add
-                path: /spec/template/spec/initContainers
-                value:
-                  - name: init-plugins
-                    command:
-                      - "sh"
-                      - "-c"
-                      - "echo {netbox_ddns,\nnapalm-vyos,\nnapalm_ros} >> /opt/netbox/local_requirements.txt"
-                      - "pip install -r /opt/netbox/local_requirements.txt"
-                    image: docker.io/library/busybox:1.34.1
-                    imagePullPolicy: IfNotPresent
-                    resources: {}
-                    securityContext:
-                      capabilities:
-                        drop:
-                          - ALL
-                      readOnlyRootFilesystem: false
-                      runAsGroup: 1000
-                      runAsNonRoot: true
-                      runAsUser: 1000
+          # - target:
+          #     version: v1
+          #     kind: Deployment
+          #     name: netbox
+          #   patch:
+          #     - op: add
+          #       path: /spec/template/spec/initContainers/0/command
+          #       value:
+          #         - name: init-plugins
+          #           command:
+          #             - "sh"
+          #             - "-c"
+          #             - "echo {netbox_ddns,\nnapalm-vyos,\nnapalm_ros} >> /opt/netbox/local_requirements.txt"
+          #             - "pip install -r /opt/netbox/local_requirements.txt"
+          #           image: docker.io/library/busybox:1.34.1
+          #           imagePullPolicy: IfNotPresent
+          #           resources: {}
+          #           securityContext:
+          #             capabilities:
+          #               drop:
+          #                 - ALL
+          #             readOnlyRootFilesystem: false
+          #             runAsGroup: 1000
+          #             runAsNonRoot: true
+          #             runAsUser: 1000
