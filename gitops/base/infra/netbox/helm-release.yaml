@@ -25,8 +25,8 @@ spec:
       email: hello@anthonyrabbito.com
     admins:
       - ["Anthony Rabbito", "hello@anthonyrabbito.com"]
-    plugins:
-      - netbox_ddns
+    # plugins:
+    #   - netbox_ddns
       # - napalm-vyos
       # - napalm_ros
     loginRequired: false
