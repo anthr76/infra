@@ -129,7 +129,6 @@ spec:
             apiVersion: apps/v1
             metadata:
               name: netbox
-              namespace: infra
             spec:
               template:
                 spec:
