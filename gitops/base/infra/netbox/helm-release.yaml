@@ -17,7 +17,7 @@ spec:
       interval: 5m
   values:
     image:
-      repository: docker.io/netboxcommunity/netbox
+      repository: ghcr.io/anthr76/netbox-docker-kutara
       pullPolicy: IfNotPresent
       tag: "v3.0.10"
     superuser:
@@ -25,10 +25,10 @@ spec:
       email: hello@anthonyrabbito.com
     admins:
       - ["Anthony Rabbito", "hello@anthonyrabbito.com"]
-    # plugins:
-    #   - netbox_ddns
-    #   - napalm-vyos
-    #   - napalm_ros
+    plugins:
+      - netbox_ddns
+      - napalm-vyos
+      - napalm_ros
     loginRequired: false
     storageBackend: storages.backends.s3boto3.S3Boto3Storage
     storageConfig:
