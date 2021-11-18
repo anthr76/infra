@@ -39,6 +39,16 @@ spec:
           docker.io:
             endpoints:
               - http://nas-1.scr1.rabbito.tech:5000
+    - op: replace
+      path: /cluster/network/podSubnets
+      value:
+        - 10.244.0.0/16
+        - fddf:f7bc:9670::/48
+    - op: replace
+      path: /cluster/network/serviceSubnets
+      value:
+        - 10.96.0.0/12
+        - 2001:559:1104:fdb::/112
   selector:
     matchExpressions:
       - key: master
