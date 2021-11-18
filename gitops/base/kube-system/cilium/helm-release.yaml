@@ -37,7 +37,7 @@ spec:
     ipam:
       mode: "kubernetes"
     ipv6:
-      enabled: true
+      enabled: false
     operator:
       rollOutPods: true
     containerRuntime:
