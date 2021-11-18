@@ -51,6 +51,8 @@ spec:
       path: /cluster/controllerManager/extraArgs
       value:
         bind-address: 0.0.0.0
+        node-cidr-mask-size-ipv4: 24
+        node-cidr-mask-size-ipv6: 112
     - op: add
       path: /cluster/scheduler/extraArgs
       value:
