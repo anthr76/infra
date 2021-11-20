@@ -16,6 +16,7 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    nameOverride: survival
     image: docker.io/itzg/minecraft-server
     imageTag: latest@sha256:ca2d950ad18ca4fad20f5f8413dab3b80effca4b9128debcc35e5289ce4c9e5c
     resources:
