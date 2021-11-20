@@ -52,5 +52,5 @@ spec:
         volumes:
           - configMap:
               defaultMode: 420
-              name: minecraft-surival
+              name: minecraft-survival
             name: patches
