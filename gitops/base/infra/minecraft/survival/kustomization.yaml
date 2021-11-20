@@ -7,5 +7,6 @@ configMapGenerator:
   - name: minecraft-survival
     files:
       - patches.json
+namespace: infra
 generatorOptions:
   disableNameSuffixHash: true
