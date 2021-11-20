@@ -34,7 +34,7 @@ prevent-client-proxy-connections = false
 player-info-forwarding-mode = "MODERN"
 
 # If you are using modern or BungeeGuard IP forwarding, configure a unique secret here.
-forwarding-secret = ""
+forwarding-secret = "secret!"
 
 # Announce whether or not your server supports Forge. If you run a modded server, we
 # suggest turning this on.
