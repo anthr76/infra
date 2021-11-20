@@ -58,5 +58,5 @@ prometheus:
       - job_name: "vyos-coredns"
         static_configs:
           - targets:
-              - 10.5.0.3:9153
-              - 10.5.0.4:9153
+              - 10.5.0.7:9153
+              - 10.5.0.8:9153
