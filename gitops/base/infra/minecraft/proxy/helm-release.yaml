@@ -23,9 +23,8 @@ spec:
       requests:
         memory: 512Mi
         cpu: 50m
-    serviceAnnotations:
-      external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
-      external-dns.alpha.kubernetes.io/target: "50.223.56.162"
+    #serviceAnnotations:
+      #external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
     extraVolumes:
       - volumeMounts:
           - mountPath: /config/velocity.toml
