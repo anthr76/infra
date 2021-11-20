@@ -12,6 +12,18 @@
         "path": "$.settings['velocity-support'].enabled",
         "value": true
       }
+    },
+    {
+      "$set": {
+        "path": "$.settings['velocity-support'].online-mode",
+        "value": false
+      }
+    },
+    {
+      "$set": {
+        "path": "$.settings['secret'].online-mode",
+        "value": "secret!"
+      }
     }
   ]
 }
