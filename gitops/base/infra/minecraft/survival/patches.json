@@ -21,7 +21,7 @@
     },
     {
       "$set": {
-        "path": "$.settings['secret'].online-mode",
+        "path": "$.settings['velocity-support'].secret",
         "value": "secret!"
       }
     }
