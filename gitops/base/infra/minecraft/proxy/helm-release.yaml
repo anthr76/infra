@@ -22,8 +22,6 @@ spec:
       requests:
         memory: 2Gi
         cpu: 1000m
-    serviceAnnotations:
-      external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
     extraVolumes:
       - volumeMounts:
           - mountPath: /config/velocity.toml
