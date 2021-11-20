@@ -26,7 +26,7 @@ spec:
     extraEnv:
       OVERRIDE_SERVER_PROPERTIES: "TRUE"
       NETWORK_COMPRESSION_THRESHOLD: "-1"
-    minecraftserver:
+    minecraftServer:
       eula: "TRUE"
       version: "1.17.1"
       type: "PAPER"
