@@ -65,7 +65,7 @@ ping-passthrough = "DISABLED"
 [servers]
 # Configure your servers here. Each key represents the server's name, and the value
 # represents the IP address of the server to connect to.
-survival = "minecraft-survival-minecraft:25565"
+survival = "minecraft-survival-0:25565"
 
 # In what order we should try servers when a player logs in or is kicked from a server.
 try = [
@@ -74,7 +74,7 @@ try = [
 
 [forced-hosts]
 # Configure your forced hosts here.
-"minecraft-survival-minecraft" = [
+"minecraft-survival-0" = [
   "survival"
 ]
 
