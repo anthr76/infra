@@ -17,7 +17,7 @@ spec:
       interval: 5m
   values:
     image: docker.io/itzg/bungeecord
-    imageTag: sha256@a0e5909e1a2012402e2ca00e8b32ad623bbfb826303a97e85d14b0ca00b1e59e
+    imageTag: latest
     resources:
       requests:
         memory: 2Gi
@@ -41,3 +41,8 @@ spec:
       externalTrafficPolicy: Local
       loadBalancerIP: 10.45.0.4
       configFilePath: /config/velocity.toml
+  postRenderers:
+    - kustomize:
+        images:
+          - name: docker.io/itzg/bungeecord:latest
+            newName: docker.io/itzg/bungeecord@sha256:a0e5909e1a2012402e2ca00e8b32ad623bbfb826303a97e85d14b0ca00b1e59e
