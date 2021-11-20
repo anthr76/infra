@@ -26,6 +26,7 @@ spec:
     extraEnv:
       OVERRIDE_SERVER_PROPERTIES: "TRUE"
       NETWORK_COMPRESSION_THRESHOLD: "-1"
+      PATCH_DEFINITIONS: "/config"
     minecraftServer:
       eula: "TRUE"
       version: "1.17.1"
@@ -43,3 +44,13 @@ spec:
       dataDir:
         enabled: true
         Size: 20Gi
+    extraVolumes:
+      - volumeMounts:
+          - mountPath: /config/patches.json
+            name: patches
+            subPath: patches.json
+        volumes:
+          - configMap:
+              defaultMode: 420
+              name: minecraft-surival
+            name: patches

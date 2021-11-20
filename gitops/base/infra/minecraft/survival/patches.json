@@ -1,0 +1,21 @@
+{
+    "patches": [
+      {
+        "file": "/data/paper.yml",
+        "ops": [
+          {
+            "$set": {
+              "path": "$.verbose",
+              "value": true
+            }
+          },
+          {
+            "$set": {
+              "path": "$.settings['velocity-support'].enabled",
+              "value": true
+            }
+          }
+        ]
+      }
+    ]
+  }
