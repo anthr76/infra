@@ -27,7 +27,7 @@ spec:
       OVERRIDE_SERVER_PROPERTIES: "TRUE"
       NETWORK_COMPRESSION_THRESHOLD: "-1"
     minecraftserver:
-      eula: "TRUE"
+      eula: "true"
       version: "1.17.1"
       type: "PAPER"
       difficulty: normal
