@@ -73,7 +73,7 @@ spec:
       storageClass: ceph-block
       dataDir:
         enabled: true
-        existingClaim: minecraft-survival-0-datadir
+        existingClaim: minecraft-survival-v1
     extraVolumes:
       - volumeMounts:
           - mountPath: /patches/
