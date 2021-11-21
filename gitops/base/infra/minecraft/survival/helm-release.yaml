@@ -35,28 +35,6 @@ spec:
     envFrom:
       - secretRef:
           name: minecraft
-    extraPorts:
-      - name: map
-        containerPort: 8123
-        protocol: TCP
-        service:
-          enabled: true
-          embedded: true
-          type: ClusterIP
-          port: 8100
-        ingress:
-          enabled: true
-          annotations:
-            kubernetes.io/ingress.class: "traefik"
-            cert-manager.io/cluster-issuer: "letsencrypt-production"
-            traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
-          hosts:
-            - name: mc-map.kutara.io
-              path: /
-          tls:
-            - secretName: bluemap-survival-tls
-              hosts:
-                - mc-map.kutara.io
     minecraftServer:
       eula: "TRUE"
       version: "1.17.1"
@@ -69,6 +47,28 @@ spec:
       maxWorldSize: 29999984
       maxTickTime: -1
       memory: 3G
+      extraPorts:
+        - name: map
+          containerPort: 8123
+          protocol: TCP
+          service:
+            enabled: true
+            embedded: true
+            type: ClusterIP
+            port: 8100
+          ingress:
+            enabled: true
+            annotations:
+              kubernetes.io/ingress.class: "traefik"
+              cert-manager.io/cluster-issuer: "letsencrypt-production"
+              traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
+            hosts:
+              - name: mc-map.kutara.io
+                path: /
+            tls:
+              - secretName: bluemap-survival-tls
+                hosts:
+                  - mc-map.kutara.io
     persistence:
       storageClass: ceph-block
       dataDir:
