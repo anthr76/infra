@@ -23,19 +23,30 @@ spec:
       requests:
         memory: 512Mi
         cpu: 50m
+    extraEnv:
+      # COPY_CONFIG_DEST: /data
+      REPLACE_ENV_VARIABLES: "TRUE"
+      CFG_LP_SERVER: "proxy"
     serviceAnnotations:
-      #external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
+      # external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
       coredns.io/hostname: mc.kutara.io
     extraVolumes:
       - volumeMounts:
           - mountPath: /config/velocity.toml
             name: velocity-config
             subPath: velocity.toml
+          - mountPath: /server/plugins/luckperms
+            name: luckperms-config
+            subPath: config.yml
         volumes:
           - configMap:
               defaultMode: 420
               name: minecraft-proxy
             name: velocity-config
+          - configMap:
+              defaultMode: 420
+              name: minecraft-luckperms
+            name: luckperms-config
     minecraftProxy:
       type: VELOCITY
       velocityVersion: 1.1.9
@@ -43,3 +54,19 @@ spec:
       externalTrafficPolicy: Local
       loadBalancerIP: 10.45.0.4
       configFilePath: /config/velocity.toml
+  postRenderers:
+    - kustomize:
+        patchesStrategicMerge:
+          - kind: Deployment
+            apiVersion: apps/v1
+            metadata:
+              name: minecraft-proxy-0
+              namespace: infra
+            spec:
+              template:
+                spec:
+                  containers:
+                    - name: minecraft-proxy-0
+                      envFrom:
+                        - secretRef:
+                          name: minecraft

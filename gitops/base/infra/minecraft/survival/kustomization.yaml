@@ -4,9 +4,13 @@ kind: Kustomization
 resources:
   - helm-release.yaml
 configMapGenerator:
-  - name: minecraft-survival
+  - name: minecraft-survival-patches
     files:
       - patches.json
+  - name: minecraft-survival-bluemap-config
+    files:
+      - core.conf
+      - render.conf
 namespace: infra
 generatorOptions:
   disableNameSuffixHash: true
