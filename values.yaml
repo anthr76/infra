@@ -1,0 +1,80 @@
+nameOverride: "0"
+image: docker.io/itzg/minecraft-server
+imageTag: latest@sha256:ca2d950ad18ca4fad20f5f8413dab3b80effca4b9128debcc35e5289ce4c9e5c
+resources:
+  requests:
+    memory: 2Gi
+    cpu: 1000m
+extraEnv:
+  OVERRIDE_SERVER_PROPERTIES: "TRUE"
+  NETWORK_COMPRESSION_THRESHOLD: "-1"
+  PATCH_DEFINITIONS: "/patches"
+  COPY_CONFIG_DEST: "/data"
+  SYNC_SKIP_NEWER_IN_DESTINATION: "false"
+  REPLACE_ENV_VARIABLES: "TRUE"
+  REMOVE_OLD_MODS: "TRUE"
+  SPIGET_RESOURCES: "83557,28140,14573,60623"
+envFrom:
+  - secretRef:
+      name: minecraft
+extraPorts:
+  - name: map
+    containerPort: 8123
+    protocol: TCP
+    service:
+      enabled: true
+      embedded: true
+      type: ClusterIP
+      port: 8100
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "traefik"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
+      hosts:
+        - name: mc-map.kutara.io
+          path: /
+      tls:
+        - secretName: bluemap-survival-tls
+          hosts:
+            - mc-map.kutara.io
+minecraftServer:
+  eula: "TRUE"
+  version: "1.17.1"
+  type: "PAPER"
+  difficulty: normal
+  viewDistance: 20
+  gameMode: survival
+  pvp: true
+  onlineMode: false
+  maxWorldSize: 29999984
+  maxTickTime: -1
+  memory: 3G
+persistence:
+  storageClass: ceph-block
+  dataDir:
+    enabled: true
+    existingClaim: minecraft-survival-0-datadir
+extraVolumes:
+  - volumeMounts:
+      - mountPath: /patches/
+        name: patches
+      - mountPath: /config/plugins/BlueMap/
+        name: bluemap-config
+      - mountPath: /config/plugins/LuckPerms
+        name: luckperms-config
+        subPath: config.yml
+    volumes:
+      - configMap:
+          defaultMode: 420
+          name: minecraft-survival-patches
+        name: patches
+      - configMap:
+          defaultMode: 420
+          name: minecraft-survival-bluemap-config
+        name: bluemap-config
+      - configMap:
+          defaultMode: 420
+          name: minecraft-luckperms
+        name: luckperms-config
