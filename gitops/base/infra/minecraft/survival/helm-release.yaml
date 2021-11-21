@@ -83,9 +83,8 @@ spec:
             name: patches
           - mountPath: /config/plugins/BlueMap/
             name: bluemap-config
-          - mountPath: /config/plugins/LuckPerms
+          - mountPath: /config/plugins/LuckPerms/
             name: luckperms-config
-            subPath: config.yml
         volumes:
           - configMap:
               defaultMode: 420
