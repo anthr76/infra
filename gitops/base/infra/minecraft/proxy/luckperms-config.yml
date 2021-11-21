@@ -2,7 +2,7 @@ server: ${CFG_LP_SERVER}
 storage-method: PostgreSQL
 data:
   address: minecraft-postgres:5432
-  database: minecraft
+  database: postgres
   username: postgres
   password: ${CFG_DB_PASSWORD}
   pool-settings:
