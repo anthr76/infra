@@ -26,7 +26,37 @@ spec:
     extraEnv:
       OVERRIDE_SERVER_PROPERTIES: "TRUE"
       NETWORK_COMPRESSION_THRESHOLD: "-1"
-      PATCH_DEFINITIONS: "/config"
+      PATCH_DEFINITIONS: "/patches"
+      COPY_CONFIG_DEST: "/data"
+      SYNC_SKIP_NEWER_IN_DESTINATION: "false"
+      REPLACE_ENV_VARIABLES: "TRUE"
+      REMOVE_OLD_MODS: "TRUE"
+      SPIGET_RESOURCES: "83557,28140,14573,60623"
+    envFrom:
+      - secretRef:
+        name: minecraft
+    extraPorts:
+      - name: map
+        containerPort: 8123
+        protocol: TCP
+        service:
+          enabled: true
+          embedded: true
+          type: ClusterIP
+          port: 8100
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: "traefik"
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
+          hosts:
+            - name: mc-map.kutara.io
+              path: /
+          tls:
+            - secretName: bluemap-survival-tls
+              hosts:
+                - mc-map.kutara.io
     minecraftServer:
       eula: "TRUE"
       version: "1.17.1"
@@ -46,11 +76,23 @@ spec:
         Size: 20Gi
     extraVolumes:
       - volumeMounts:
-          - mountPath: /config/patches.json
+          - mountPath: /patches/
             name: patches
-            subPath: patches.json
+          - mountPath: /config/plugins/BlueMap/
+            name: bluemap-config
+          - mountPath: /config/plugins/LuckPerms
+            name: luckperms-config
+            subPath: config.yml
         volumes:
           - configMap:
               defaultMode: 420
-              name: minecraft-survival
+              name: minecraft-survival-patches
             name: patches
+          - configMap:
+              defaultMode: 420
+              name: minecraft-survival-bluemap-config
+            name: bluemap-config
+          - configMap:
+              defaultMode: 420
+              name: minecraft-luckperms
+            name: luckperms-config
