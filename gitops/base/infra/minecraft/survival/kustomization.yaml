@@ -15,3 +15,5 @@ configMapGenerator:
 namespace: infra
 generatorOptions:
   disableNameSuffixHash: true
+commonLabels:
+  kustomize.toolkit.fluxcd.io/substitute: "disabled"
