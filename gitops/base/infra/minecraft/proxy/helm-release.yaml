@@ -62,22 +62,22 @@ spec:
             metadata:
               name: minecraft-proxy-0
             spec:
-              initContainers:
-                - name: copy-config
-                  image: docker.io/library/busybox:1.28
-                  command:
-                    [
-                      "sh",
-                      "-c",
-                      "cp /data/config/plugins/luckperms/config.yml /data/server/plugins/luckperms/config.yml",
-                    ]
-                  volumeMounts:
-                    - mountPath: /data/config/plugins/luckperms
-                      name: luckperms-config
-                    - mountPath: /data/server
-                      name: datadir
               template:
                 spec:
+                  initContainers:
+                    - name: copy-config
+                      image: docker.io/library/busybox:1.28
+                      command:
+                        [
+                          "sh",
+                          "-c",
+                          "cp /data/config/plugins/luckperms/config.yml /data/server/plugins/luckperms/config.yml",
+                        ]
+                      volumeMounts:
+                        - mountPath: /data/config/plugins/luckperms
+                          name: luckperms-config
+                        - mountPath: /data/server
+                          name: datadir
                   containers:
                     - name: minecraft-proxy-0
                       envFrom:
