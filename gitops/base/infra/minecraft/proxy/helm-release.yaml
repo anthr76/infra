@@ -36,9 +36,9 @@ spec:
           - mountPath: /config/velocity.toml
             name: velocity-config
             subPath: velocity.toml
-          - mountPath: /tmp/plugins/luckperms
-            name: luckperms-config
-            readOnly: false
+          # - mountPath: /tmp/
+          #   name: luckperms-config
+          #   readOnly: false
         volumes:
           - configMap:
               defaultMode: 420
@@ -54,21 +54,3 @@ spec:
       externalTrafficPolicy: Local
       loadBalancerIP: 10.45.0.4
       configFilePath: /config/velocity.toml
-  postRenderers:
-    - kustomize:
-        patchesStrategicMerge:
-          - kind: Deployment
-            apiVersion: apps/v1
-            metadata:
-              name: minecraft-proxy-0
-            spec:
-              template:
-                spec:
-                  containers:
-                    - name: minecraft-proxy-0
-                      command: ["/usr/bin/bash"]
-                      args:
-                        - "-x"
-                        - "mkdir -p /server/plugins/luckperms"
-                        - "cp /tmp/plugins/luckperms/config.yml /server/plugins/luckperms/config.yml"
-                        - "/usr/bin/run-bungeecord.sh"
