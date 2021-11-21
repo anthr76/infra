@@ -34,7 +34,7 @@ spec:
       SPIGET_RESOURCES: "83557,28140,14573,60623"
     envFrom:
       - secretRef:
-        name: minecraft
+          name: minecraft
     extraPorts:
       - name: map
         containerPort: 8123
