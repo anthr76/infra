@@ -55,12 +55,12 @@ spec:
         enabled: true
       extraPorts:
         - name: map
-          containerPort: 8123
+          containerPort: 8100
           protocol: TCP
           service:
             enabled: true
             type: ClusterIP
-            port: 8123
+            port: 8100
           ingress:
             enabled: true
             annotations:
