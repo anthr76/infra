@@ -59,9 +59,8 @@ spec:
           protocol: TCP
           service:
             enabled: true
-            embedded: true
             type: ClusterIP
-            port: 8100
+            port: 8123
           ingress:
             enabled: true
             annotations:
