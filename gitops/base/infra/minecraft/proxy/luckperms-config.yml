@@ -1,10 +1,10 @@
-server: "${CFG_LP_SERVER}"
+server: ${CFG_LP_SERVER}
 storage-method: PostgreSQL
 data:
   address: minecraft-postgres:5432
   database: minecraft
   username: postgres
-  password: "${CFG_DB_PASSWORD}"
+  password: ${CFG_DB_PASSWORD}
   pool-settings:
     maximum-pool-size: 10
     minimum-idle: 10

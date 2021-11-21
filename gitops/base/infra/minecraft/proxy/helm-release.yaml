@@ -26,6 +26,7 @@ spec:
     extraEnv:
       # COPY_CONFIG_DEST: /data
       REPLACE_ENV_VARIABLES: "TRUE"
+      ENV_VARIABLE_PREFIX: "CFG_"
       CFG_LP_SERVER: "proxy"
       PLUGINS: "https://ci.lucko.me/job/LuckPerms/1376/artifact/velocity/build/libs/LuckPerms-Velocity-5.3.77.jar"
     serviceAnnotations:
