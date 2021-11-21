@@ -39,6 +39,7 @@ spec:
       eula: "TRUE"
       version: "1.17.1"
       type: "PAPER"
+      ops: iTz_Crush
       difficulty: normal
       viewDistance: 20
       gameMode: survival
