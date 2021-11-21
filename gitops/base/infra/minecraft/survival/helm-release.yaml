@@ -73,7 +73,7 @@ spec:
       storageClass: ceph-block
       dataDir:
         enabled: true
-        Size: 20Gi
+        existingClaim: minecraft-survival-0-datadir
     extraVolumes:
       - volumeMounts:
           - mountPath: /patches/
