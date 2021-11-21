@@ -71,6 +71,7 @@ spec:
                         [
                           "sh",
                           "-c",
+                          "mkdir -p /data/server/plugins",
                           "cp /data/config/plugins/luckperms/config.yml /data/server/plugins/luckperms/config.yml",
                         ]
                       volumeMounts:
