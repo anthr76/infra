@@ -36,7 +36,7 @@ spec:
           - mountPath: /config/velocity.toml
             name: velocity-config
             subPath: velocity.toml
-          - mountPath: /server/plugins/luckperms
+          - mountPath: /config/plugins/luckperms
             name: luckperms-config
         volumes:
           - configMap:
@@ -44,7 +44,7 @@ spec:
               name: minecraft-proxy-velocity
             name: velocity-config
           - configMap:
-              defaultMode: 775
+              defaultMode: 420
               name: minecraft-luckperms
             name: luckperms-config
     minecraftProxy:
