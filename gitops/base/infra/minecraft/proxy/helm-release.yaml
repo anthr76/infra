@@ -69,5 +69,6 @@ spec:
                       command: ["/usr/bin/bash"]
                       args:
                         - "-x"
+                        - "mkdir -p /server/plugins/luckperms"
                         - "cp /tmp/plugins/luckperms/config.yml /server/plugins/luckperms/config.yml"
                         - "/usr/bin/run-bungeecord.sh"
