@@ -39,7 +39,6 @@ spec:
             subPath: velocity.toml
           - mountPath: /server/plugins/luckperms
             name: luckperms-config
-            subPath: config.yml
         volumes:
           - configMap:
               defaultMode: 420
