@@ -36,9 +36,10 @@ spec:
           - mountPath: /config/velocity.toml
             name: velocity-config
             subPath: velocity.toml
-          # - mountPath: /tmp/
-          #   name: luckperms-config
-          #   readOnly: false
+          - mountPath: /server/plugins/luckperms/
+            subPath: config.yml
+            name: luckperms-config
+            readOnly: false
         volumes:
           - configMap:
               defaultMode: 420
