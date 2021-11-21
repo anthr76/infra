@@ -60,8 +60,6 @@ kind: Kustomization
 metadata:
   name: infra-minecraft-proxy
   namespace: flux-system
-  labels:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   interval: 5m
   path: "./gitops/base/infra/minecraft/proxy"
@@ -76,8 +74,6 @@ kind: Kustomization
 metadata:
   name: infra-minecraft-survival
   namespace: flux-system
-  labels:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   interval: 5m
   path: "./gitops/base/infra/minecraft/survival"

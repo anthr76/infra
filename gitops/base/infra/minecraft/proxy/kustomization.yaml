@@ -14,3 +14,5 @@ configMapGenerator:
       - config.yml=luckperms-config.yml
 generatorOptions:
   disableNameSuffixHash: true
+commonLabels:
+  kustomize.toolkit.fluxcd.io/substitute: "disabled"
