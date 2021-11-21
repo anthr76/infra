@@ -1,0 +1,76 @@
+server: "${CFG_LP_SERVER}"
+storage-method: PostgreSQL
+data:
+  address: minecraft-postgres:5432
+  database: minecraft
+  username: postgres
+  password: "${CFG_DB_PASSWORD}"
+  pool-settings:
+    maximum-pool-size: 10
+    minimum-idle: 10
+    maximum-lifetime: 1800000
+    keepalive-time: 0
+    connection-timeout: 5000
+    properties:
+      useUnicode: true
+      characterEncoding: utf8
+  table-prefix: "luckperms_"
+  mongodb-collection-prefix: ""
+  mongodb-connection-uri: ""
+split-storage:
+  enabled: false
+  methods:
+    user: h2
+    group: h2
+    track: h2
+    uuid: h2
+    log: h2
+sync-minutes: -1
+watch-files: true
+messaging-service: auto
+auto-push-updates: true
+push-log-entries: true
+broadcast-received-log-entries: false
+cancel-failed-logins: false
+temporary-add-behaviour: deny
+primary-group-calculation: parents-by-weight
+argument-based-command-permissions: false
+require-sender-group-membership-to-modify: false
+log-notify: true
+log-notify-filtered-descriptions:
+auto-install-translations: true
+meta-formatting:
+  prefix:
+    format:
+      - "highest"
+    duplicates: first-only
+    start-spacer: ""
+    middle-spacer: " "
+    end-spacer: ""
+  suffix:
+    format:
+      - "highest"
+    duplicates: first-only
+    start-spacer: ""
+    middle-spacer: " "
+    end-spacer: ""
+inheritance-traversal-algorithm: depth-first-pre-order
+post-traversal-inheritance-sort: false
+context-satisfy-mode: at-least-one-value-per-key
+disabled-contexts:
+include-global: true
+include-global-world: true
+apply-global-groups: true
+apply-global-world-groups: true
+meta-value-selection-default: inheritance
+meta-value-selection:
+apply-wildcards: true
+apply-sponge-implicit-wildcards: false
+apply-regex: true
+apply-shorthand: true
+world-rewrite:
+group-weight:
+debug-logins: false
+allow-invalid-usernames: false
+skip-bulkupdate-confirmation: false
+prevent-primary-group-removal: false
