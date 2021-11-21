@@ -41,8 +41,8 @@ spec:
         volumes:
           - configMap:
               defaultMode: 420
-              name: minecraft-proxy
-            name: minecraft-proxy-velocity
+              name: minecraft-proxy-velocity
+            name: velocity-config
           - configMap:
               defaultMode: 420
               name: minecraft-luckperms
