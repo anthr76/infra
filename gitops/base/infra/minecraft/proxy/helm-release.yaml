@@ -67,7 +67,7 @@ spec:
                       command:
                         - "sh"
                         - "-c"
-                        - "mkdir /server/plugins/luckperms/"
+                        - "mkdir -p /server/plugins/luckperms/"
                         - "cp /tmp/config.yml /server/plugins/luckperms/config.yml"
                         - "chown -R 1000:2000 /server"
                       volumeMounts:
