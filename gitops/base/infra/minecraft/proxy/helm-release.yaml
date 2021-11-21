@@ -61,7 +61,6 @@ spec:
             apiVersion: apps/v1
             metadata:
               name: minecraft-proxy-0
-              namespace: infra
             spec:
               template:
                 spec:
