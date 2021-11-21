@@ -48,6 +48,8 @@ spec:
       maxWorldSize: 29999984
       maxTickTime: -1
       memory: 3G
+      rcon:
+        enabled: true
       extraPorts:
         - name: map
           containerPort: 8123
