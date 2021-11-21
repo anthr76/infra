@@ -99,5 +99,5 @@ spec:
             name: bluemap-config
           - configMap:
               defaultMode: 420
-              name: minecraft-luckperms
+              name: minecraft-luckperms-template
             name: luckperms-config

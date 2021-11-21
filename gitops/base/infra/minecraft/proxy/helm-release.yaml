@@ -24,9 +24,6 @@ spec:
         memory: 512Mi
         cpu: 50m
     extraEnv:
-      REPLACE_ENV_VARIABLES: "TRUE"
-      ENV_VARIABLE_PREFIX: "CFG_"
-      CFG_LP_SERVER: "proxy"
       PLUGINS: "https://ci.lucko.me/job/LuckPerms/1376/artifact/velocity/build/libs/LuckPerms-Velocity-5.3.77.jar"
     serviceAnnotations:
       # external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
@@ -36,16 +33,15 @@ spec:
           - mountPath: /config/velocity.toml
             name: velocity-config
             subPath: velocity.toml
-          - mountPath: /config/plugins/luckperms
+          - mountPath: /server/plugins/luckperms
             name: luckperms-config
         volumes:
           - configMap:
               defaultMode: 420
               name: minecraft-proxy-velocity
             name: velocity-config
-          - configMap:
-              defaultMode: 420
-              name: minecraft-luckperms
+          - secret:
+              secretName: minecraft-luckperms-proxy
             name: luckperms-config
     minecraftProxy:
       type: VELOCITY
@@ -54,24 +50,3 @@ spec:
       externalTrafficPolicy: Local
       loadBalancerIP: 10.45.0.4
       configFilePath: /config/velocity.toml
-  postRenderers:
-    - kustomize:
-        patchesStrategicMerge:
-          - kind: Deployment
-            apiVersion: apps/v1
-            metadata:
-              name: minecraft-proxy-0
-            spec:
-              template:
-                spec:
-                  containers:
-                    - name: minecraft-proxy-0
-                      command:
-                        - "bash"
-                        - "-c"
-                        - "mkdir -p /data/server/plugins/luckperms"
-                        - "cp /config/plugins/luckperms/config.yml /data/server/plugins/luckperms/config.yml"
-                        - "/usr/bin/run-bungeecord.sh"
-                      envFrom:
-                        - secretRef:
-                            name: minecraft
