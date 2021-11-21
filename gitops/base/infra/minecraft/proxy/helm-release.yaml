@@ -42,7 +42,7 @@ spec:
           - configMap:
               defaultMode: 420
               name: minecraft-proxy
-            name: velocity-config
+            name: minecraft-proxy-velocity
           - configMap:
               defaultMode: 420
               name: minecraft-luckperms
