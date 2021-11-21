@@ -9,7 +9,7 @@ configMapGenerator:
     files:
       - velocity.toml
 secretGenerator:
-  - name: minecraft-luckperms
+  - name: minecraft-luckperms-proxy
     files:
       - config.yml=luckperms-config.sops.yml
 generatorOptions:
