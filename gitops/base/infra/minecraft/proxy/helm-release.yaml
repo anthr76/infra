@@ -69,6 +69,7 @@ spec:
                       command:
                         - "bash"
                         - "-c"
+                        - "mkdir -p /data/server/plugins/luckperms"
                         - "cp /config/plugins/luckperms/config.yml /data/server/plugins/luckperms/config.yml"
                         - "/usr/bin/run-bungeecord.sh"
                       envFrom:
