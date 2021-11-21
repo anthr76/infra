@@ -1,0 +1,96 @@
+server: proxy
+storage-method: PostgreSQL
+data:
+    address: ENC[AES256_GCM,data:K54CSiXli8dd36Banm1juhD+w3AqTyc=,iv:WVdbtwQ0dgqK6SotrfFzxPFZc3QP/zPL6SSXJ4Sc/OQ=,tag:WPDzul+ChB0uHrGMyLECaQ==,type:str]
+    database: ENC[AES256_GCM,data:gaPFVxzWZH4=,iv:ThseSLXbQWv6nw0u4A+IMC4epvq2ccuEm3NZO5g+0rg=,tag:gxsqi4GqgDxLlMrk5KxW+Q==,type:str]
+    username: ENC[AES256_GCM,data:TVLe+CjafOc=,iv:6gqSURPrvCw2emsYM/juV8/wXpIBfwlYZbs7dFhOtlA=,tag:xP4ttMhXCqK2mlQ2jBq2Lg==,type:str]
+    password: ENC[AES256_GCM,data:9rhaU+/6luc+JYfvjMxusmo98NSA6Ac=,iv:+C434/urpj/9T0ZkVOqZQouJNxUsBAsS1wn6jlKAN10=,tag:iHJNUIP8Ktf04aJj8HR5cw==,type:str]
+    pool-settings:
+        maximum-pool-size: ENC[AES256_GCM,data:JmY=,iv:Ji6A7dr96+kmgcdxRvIQ4GhQREo9a8j26MNiIxmsa40=,tag:YgZbRpZXcfTdkcvUv3gJWQ==,type:int]
+        minimum-idle: ENC[AES256_GCM,data:KNw=,iv:KaAC9eoP31zp/3m5gP1AG1g2GivuD9QlX8mUPy57Gbs=,tag:mi+lh3z1I9G2ws2tDsZNyQ==,type:int]
+        maximum-lifetime: ENC[AES256_GCM,data:qUSlTZF2Dw==,iv:IDeMTXULKzPcyZY6wg34JjT0KmQx7s5e8dar0DlWP1A=,tag:JWBBLPWmCkw5F0OokzYHOw==,type:int]
+        keepalive-time: ENC[AES256_GCM,data:Tw==,iv:ODFtemQv0ZSEJgg6lsHmzPz8sBsJeFC8qTUbbCKbW9k=,tag:fGlaD29rub2iGaoHq5kKZg==,type:int]
+        connection-timeout: ENC[AES256_GCM,data:igKS7Q==,iv:mLDUBHao1b0rNRMLO5qofKrgF63BP6Qy3hE6jvvqy5c=,tag:g5eqUj22TLk9H7qeg7rwuA==,type:int]
+        properties:
+            useUnicode: ENC[AES256_GCM,data:LrDUjw==,iv:9yN68tnnR/6GIREquiyH3FNT7I8SPViVt6Pcnu2j4r0=,tag:pXInJtBh8FH/588EKWP/2g==,type:bool]
+            characterEncoding: ENC[AES256_GCM,data:CwlDeA==,iv:ABgLekknUpXRrm+Ris2ziU4FWLD/+zdFrmeOzZmtN4U=,tag:lAdokgHqiAOaU+a6FJtpwQ==,type:str]
+    table-prefix: ENC[AES256_GCM,data:OICdjWg0Jnytfw==,iv:Ne2pcA2gSl1BorHbhlY5qvZb10ViY1PNRx5H2W8bqxk=,tag:RLpEkOORTzXUuJ/n/Iw4Vw==,type:str]
+    mongodb-collection-prefix: ""
+    mongodb-connection-uri: ""
+split-storage:
+    enabled: false
+    methods:
+        user: h2
+        group: h2
+        track: h2
+        uuid: h2
+        log: h2
+sync-minutes: -1
+watch-files: true
+messaging-service: auto
+auto-push-updates: true
+push-log-entries: true
+broadcast-received-log-entries: false
+cancel-failed-logins: false
+temporary-add-behaviour: deny
+primary-group-calculation: parents-by-weight
+argument-based-command-permissions: false
+require-sender-group-membership-to-modify: false
+log-notify: true
+log-notify-filtered-descriptions: null
+auto-install-translations: true
+meta-formatting:
+    prefix:
+        format:
+            - highest
+        duplicates: first-only
+        start-spacer: ""
+        middle-spacer: ' '
+        end-spacer: ""
+    suffix:
+        format:
+            - highest
+        duplicates: first-only
+        start-spacer: ""
+        middle-spacer: ' '
+        end-spacer: ""
+inheritance-traversal-algorithm: depth-first-pre-order
+post-traversal-inheritance-sort: false
+context-satisfy-mode: at-least-one-value-per-key
+disabled-contexts: null
+include-global: true
+include-global-world: true
+apply-global-groups: true
+apply-global-world-groups: true
+meta-value-selection-default: inheritance
+meta-value-selection: null
+apply-wildcards: true
+apply-sponge-implicit-wildcards: false
+apply-regex: true
+apply-shorthand: true
+world-rewrite: null
+group-weight: null
+debug-logins: false
+allow-invalid-usernames: false
+skip-bulkupdate-confirmation: false
+prevent-primary-group-removal: false
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiUkM2YVdHUEZYZXpFZTFT
+            dHB6ZmpyOTE1VUFXMDlkZmRSalRJMW5YeUdrCkNrMWNBTnVRM1JFeHhpekROdExK
+            bE1Uc3dWcDZPOGtWbW02eFdTM3FEMWsKLS0tIFQ3ZFNoaVFqeERycFh6VGlCNExq
+            Qm40aU5pRDY0RE0rOUtQeFBMOGRTTHMK872TyAZnZ9nllsEbMpkggNyIUqM1V7d3
+            Yov4jn0WKAIdk9PmNlreqlPK5DMdmkeaAXhSE/vDndwleCjRvCqlIw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2021-11-21T04:35:30Z"
+    mac: ENC[AES256_GCM,data:SUs7crMTk7PLpf7cHi5FOFdflknVz48kWFS6sqY3YNxL8ykWfd1zz9lafAzxyu6JZJDkhCxQ6A4xR7G2T3o2Xen+11CmDA41oEEz4baR+rEOL5FJThElfM8ZLDx7knvc0TVJ8OtddctuNTSxmGcYD0B2Tj8Y3/tAW/IKtU70XyM=,iv:komXaseTwD4HUcfZX32WzrgzhQB2L2EjzzMM8AQ/e0k=,tag:JfieAMD8Zs7UKbTE4hG+Tg==,type:str]
+    pgp: []
+    encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
+    version: 3.7.1
