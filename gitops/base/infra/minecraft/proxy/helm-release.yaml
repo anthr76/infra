@@ -36,16 +36,17 @@ spec:
           - mountPath: /config/velocity.toml
             name: velocity-config
             subPath: velocity.toml
-          - mountPath: /server/plugins/luckperms
+          - mountPath: /server/plugins/luckperms/
             name: luckperms-config
             readOnly: false
         volumes:
           - configMap:
-              defaultMode: 420
+              defaultMode: 777
               name: minecraft-proxy-velocity
             name: velocity-config
           - secret:
               secretName: minecraft-luckperms-proxy
+              defaultMode: 777
             name: luckperms-config
     minecraftProxy:
       type: VELOCITY
@@ -54,32 +55,18 @@ spec:
       externalTrafficPolicy: Local
       loadBalancerIP: 10.45.0.4
       configFilePath: /config/velocity.toml
-  postRenderers:
-    - kustomize:
-        patchesStrategicMerge:
-          - kind: Deployment
-            apiVersion: apps/v1
-            metadata:
-              name: minecraft-proxy-0
-            spec:
-              template:
-                spec:
-                  initContainers:
-                    - name: copy-config
-                      image: docker.io/library/busybox:1.28
-                      command:
-                        - "sh"
-                        - "-c"
-                        - "chown -R 1000:2000 /server/plugins/luckperms"
-                        - "cp"
-                      volumeMounts:
-                        - mountPath: /server
-                          name: datadir
-                          subPath: velocity.toml
-                        - mountPath: /server/plugins/luckperms
-                          name: luckperms-config
-                          readOnly: false
-                  # containers:
-                  #   - name: minecraft-proxy-0
-                  #     envFrom:
-                  #       - secretRef:
+  # postRenderers:
+  #   - kustomize:
+  #       patchesStrategicMerge:
+  #         - kind: Deployment
+  #           apiVersion: apps/v1
+  #           metadata:
+  #             name: minecraft-proxy-0
+  #           spec:
+  #             template:
+  #               spec:
+  #                 containers:
+  #                   - name: minecraft-proxy-0
+  #                     command: ["/usr/bin/bash"]
+  #                       - "cp /tmp/plugins/luckperms/config.yml /server/plugins/luckperms/config.yml"
+  #                       - "/usr/bin/run-bungeecord.sh"
