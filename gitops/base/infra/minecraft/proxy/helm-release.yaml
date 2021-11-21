@@ -24,7 +24,6 @@ spec:
         memory: 512Mi
         cpu: 50m
     extraEnv:
-      # COPY_CONFIG_DEST: /data
       REPLACE_ENV_VARIABLES: "TRUE"
       ENV_VARIABLE_PREFIX: "CFG_"
       CFG_LP_SERVER: "proxy"
@@ -45,7 +44,7 @@ spec:
               name: minecraft-proxy-velocity
             name: velocity-config
           - configMap:
-              defaultMode: 420
+              defaultMode: 666
               name: minecraft-luckperms
             name: luckperms-config
     minecraftProxy:
