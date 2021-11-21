@@ -64,23 +64,13 @@ spec:
             spec:
               template:
                 spec:
-                  initContainers:
-                    - name: copy-config
-                      image: docker.io/library/busybox:1.28
-                      command:
-                        [
-                          "sh",
-                          "-c",
-                          "mkdir -p /data/server/plugins",
-                          "cp /data/config/plugins/luckperms/config.yml /data/server/plugins/luckperms/config.yml",
-                        ]
-                      volumeMounts:
-                        - mountPath: /data/config/plugins/luckperms
-                          name: luckperms-config
-                        - mountPath: /data/server
-                          name: datadir
                   containers:
                     - name: minecraft-proxy-0
+                      command:
+                        - "bash"
+                        - "-c"
+                        - "cp /config/plugins/luckperms/config.yml /data/server/plugins/luckperms/config.yml"
+                        - "/usr/bin/run-bungeecord.sh"
                       envFrom:
                         - secretRef:
                             name: minecraft
