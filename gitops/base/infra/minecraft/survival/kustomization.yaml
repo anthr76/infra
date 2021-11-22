@@ -12,7 +12,6 @@ configMapGenerator:
   - name: minecraft-survival-bluemap-config
     files:
       - core.conf
-      #- render.conf
 namespace: infra
 generatorOptions:
   disableNameSuffixHash: true
