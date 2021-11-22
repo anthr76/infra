@@ -28,13 +28,10 @@ spec:
       NETWORK_COMPRESSION_THRESHOLD: "-1"
       PATCH_DEFINITIONS: "/patches"
       COPY_CONFIG_DEST: "/data"
-      SYNC_SKIP_NEWER_IN_DESTINATION: "false"
       REPLACE_ENV_VARIABLES: "TRUE"
-      REPLACE_ENV_DURING_SYNC: "TRUE"
-      ENV_VARIABLE_PREFIX: "CFG_"
-      CFG_LP_SERVER: "global"
       REMOVE_OLD_MODS: "TRUE"
       SPIGET_RESOURCES: "83557,28140,14573,60623,9089,34315"
+      CFG_LP_SERVER: "global"
     envFrom:
       - secretRef:
           name: minecraft
