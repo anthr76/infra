@@ -28,6 +28,7 @@ spec:
         cpu: 50m
     extraEnv:
       PLUGINS: "https://ci.lucko.me/job/LuckPerms/1376/artifact/velocity/build/libs/LuckPerms-Velocity-5.3.77.jar"
+      VELOCITY_VERSION: "3.0.1"
     serviceAnnotations:
       # external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
       coredns.io/hostname: mc.kutara.io
