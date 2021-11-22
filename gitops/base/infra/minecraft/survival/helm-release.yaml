@@ -44,7 +44,6 @@ spec:
       type: "PAPER"
       ops: "iTz_Crush"
       difficulty: "normal"
-      whitelist: "20dollarg, deupus_lippis, huffsmith18, itz_crush, mr.touchy"
       viewDistance: 20
       gameMode: survival
       pvp: true
