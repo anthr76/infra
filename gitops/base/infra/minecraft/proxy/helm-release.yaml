@@ -76,4 +76,4 @@ spec:
                         - mountPath: /config/plugins/luckperms/config.yml
                           subPath: config.yml
                           name: luckperms-config
-                          readOnly: false
+                          readOnly: true
