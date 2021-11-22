@@ -22,8 +22,6 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     strategyType: RollingUpdate
     nameOverride: "0"
-    image: docker.io/itzg/bungeecord
-    imageTag: latest@sha256:a0e5909e1a2012402e2ca00e8b32ad623bbfb826303a97e85d14b0ca00b1e59e
     resources:
       requests:
         memory: 512Mi
@@ -38,6 +36,10 @@ spec:
           - mountPath: /config/velocity.toml
             name: velocity-config
             subPath: velocity.toml
+          - mountPath: /config/plugins/luckperms/config.yml
+            subPath: config.yml
+            name: luckperms-config
+            readOnly: false
         volumes:
           - configMap:
               defaultMode: 420
@@ -63,17 +65,5 @@ spec:
             spec:
               template:
                 spec:
-                  initContainers:
-                    - name: setup-config
-                      image: docker.io/library/busybox:1.28
-                      command: ['sh', '-c', "cp -R /config /server", "chown -R 1000:1000 /server"]
-                      volumeMounts:
-                        - mountPath: /server
-                          name: datadir
-                        - mountPath: /config/velocity.toml
-                          name: velocity-config
-                          subPath: velocity.toml
-                        - mountPath: /config/plugins/luckperms/config.yml
-                          subPath: config.yml
-                          name: luckperms-config
-                          readOnly: true
+                  containers:
+                    image: docker.io/itzg/bungeecord:latest@sha256:aed5d3192682ebb5ff68379257dcc936884892cf25e2db10aa85ed6793a3cc27
