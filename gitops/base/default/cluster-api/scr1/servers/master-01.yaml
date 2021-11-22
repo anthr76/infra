@@ -13,6 +13,13 @@ spec:
     - op: add
       path: /machine/network/hostname
       value: master-01.scr1.rabbito.tech
+    - op: add
+      path: /machine/sysctls
+      value:
+        fs.inotify.max_user_watches: "1048576"
+        fs.inotify.max_user_instances: "8192"
+        vm.max_map_count: "524288"
+        net.ipv6.conf.eth0.accept_ra: "2"
   bmc:
     endpoint: master-01-bmc.scr1.rabbito.tech
     userFrom:
