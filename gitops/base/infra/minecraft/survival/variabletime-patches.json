@@ -3,7 +3,7 @@
     "ops": [
         {
             "$set": {
-                "path": "$.world['Day']",
+                "path": "$.world.Day",
                 "value": "0.4"
             }
         }
