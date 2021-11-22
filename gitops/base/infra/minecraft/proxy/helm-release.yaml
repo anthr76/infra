@@ -18,6 +18,8 @@ spec:
   values:
     securityContext:
       runAsNonRoot: true
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     strategyType: RollingUpdate
     nameOverride: "0"
     image: docker.io/itzg/bungeecord
@@ -32,15 +34,7 @@ spec:
       # external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
       coredns.io/hostname: mc.kutara.io
     extraVolumes:
-      - volumeMounts:
-          - mountPath: /config/velocity.toml
-            name: velocity-config
-            subPath: velocity.toml
-          - mountPath: /server/plugins/luckperms/
-            subPath: luckperms
-            name: luckperms-config
-            readOnly: false
-        volumes:
+      - volumes:
           - configMap:
               defaultMode: 420
               name: minecraft-proxy-velocity
@@ -55,3 +49,31 @@ spec:
       externalTrafficPolicy: Local
       loadBalancerIP: 10.45.0.4
       configFilePath: /config/velocity.toml
+  postRenderers:
+    - kustomize:
+        patchesStrategicMerge:
+          - kind: Deployment
+            apiVersion: apps/v1
+            metadata:
+              name: minecraft-proxy-0
+            spec:
+              template:
+                spec:
+                  initContainers:
+                    - name: setup-config
+                      image: docker.io/library/busybox:1.28
+                      command:
+                        - "sh"
+                        - "-x"
+                        - "cp -R /config /server"
+                        - "chown -R 1000:1000 /server"
+                      volumeMounts:
+                        - mountPath: /server
+                          name: datadir
+                        - mountPath: /config/velocity.toml
+                          name: velocity-config
+                          subPath: velocity.toml
+                        - mountPath: /config/plugins/luckperms/config.yml
+                          subPath: config.yml
+                          name: luckperms-config
+                          readOnly: false
