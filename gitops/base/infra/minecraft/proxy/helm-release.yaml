@@ -66,11 +66,7 @@ spec:
                   initContainers:
                     - name: setup-config
                       image: docker.io/library/busybox:1.28
-                      command:
-                        - "sh"
-                        - "-x"
-                        - "cp -R /config /server"
-                        - "chown -R 1000:1000 /server"
+                      command: ['sh', '-c', "cp -R /config /server", "chown -R 1000:1000 /server"]
                       volumeMounts:
                         - mountPath: /server
                           name: datadir
