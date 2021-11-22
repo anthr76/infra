@@ -1,0 +1,11 @@
+{
+    "file": "/data/plugins/VariableTime/config.yml",
+    "ops": [
+        {
+            "$set": {
+                "path": "$.world['Day']",
+                "value": "0.4"
+            }
+        }
+    ]
+}
