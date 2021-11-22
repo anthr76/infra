@@ -67,4 +67,4 @@ spec:
                 spec:
                   containers:
                     - name: minecraft-proxy-0
-                      image: docker.io/itzg/bungeecord:latest@sha256:c3a8d55cf32fc5fa42d5e733c9bf37dff4e06f8ea6beb25fed8b9fba825c2882
+                      image: docker.io/itzg/bungeecord:latest@sha256:67fac9c4a156b7952fe1d33521114f1c4e48b5e6611ff7655b30fc463d2418bf
