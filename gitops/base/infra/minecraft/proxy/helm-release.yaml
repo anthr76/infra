@@ -26,9 +26,6 @@ spec:
       requests:
         memory: 512Mi
         cpu: 50m
-    extraEnv:
-      PLUGINS: "https://ci.lucko.me/job/LuckPerms/1376/artifact/velocity/build/libs/LuckPerms-Velocity-5.3.77.jar"
-      VELOCITY_VERSION: "3.0.1"
     serviceAnnotations:
       # external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
       coredns.io/hostname: mc.kutara.io
@@ -51,11 +48,13 @@ spec:
             name: luckperms-config
     minecraftProxy:
       type: VELOCITY
-      velocityVersion: 1.1.9
+      velocityVersion: "3.0.1"
       serviceType: LoadBalancer
       externalTrafficPolicy: Local
       loadBalancerIP: 10.45.0.4
       configFilePath: /config/velocity.toml
+      plugins:
+        - https://ci.lucko.me/job/LuckPerms/1376/artifact/velocity/build/libs/LuckPerms-Velocity-5.3.77.jar
   postRenderers:
     - kustomize:
         patchesStrategicMerge:
