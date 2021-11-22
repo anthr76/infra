@@ -18,7 +18,7 @@ spec:
   values:
     nameOverride: "0"
     image: docker.io/itzg/minecraft-server
-    imageTag: latest@sha256:ca2d950ad18ca4fad20f5f8413dab3b80effca4b9128debcc35e5289ce4c9e5c
+    imageTag: "2021.22.0"
     resources:
       requests:
         memory: 2Gi
