@@ -31,8 +31,8 @@ spec:
           secretKeyRef:
             name: external-dns
             key: cf-api-key
-    extraArgs:
-      - --cloudflare-proxied
+    #extraArgs:
+    #- "--default-targets=50.223.56.162"
     policy: sync
     txtPrefix: "${CLUSTER_NAME}."
     domainFilters:
