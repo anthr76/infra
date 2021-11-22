@@ -34,7 +34,7 @@ spec:
       ENV_VARIABLE_PREFIX: "CFG_"
       CFG_LP_SERVER: "global"
       REMOVE_OLD_MODS: "TRUE"
-      SPIGET_RESOURCES: "83557,28140,14573,60623"
+      SPIGET_RESOURCES: "83557,28140,14573,60623,9089,34315"
     envFrom:
       - secretRef:
           name: minecraft
