@@ -34,7 +34,11 @@ spec:
       # external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
       coredns.io/hostname: mc.kutara.io
     extraVolumes:
-      - volumes:
+      - volumeMounts:
+          - mountPath: /config/velocity.toml
+            name: velocity-config
+            subPath: velocity.toml
+        volumes:
           - configMap:
               defaultMode: 420
               name: minecraft-proxy-velocity
