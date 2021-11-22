@@ -35,6 +35,10 @@ spec:
       bittorrent:
         enabled: true
         type: LoadBalancer
+        ipFamilyPolicy: PreferDualStack
+        ipFamilies:
+          - IPv4
+          - IPv6
         loadBalancerIP: "${SVC_QBITTORRENT_ADDR}"
         ports:
           bittorrent:
