@@ -55,6 +55,7 @@ spec:
       configFilePath: /config/velocity.toml
       plugins:
         - https://ci.lucko.me/job/LuckPerms/1376/artifact/velocity/build/libs/LuckPerms-Velocity-5.3.77.jar
+        - https://github.com/SkinsRestorer/SkinsRestorerX/releases/download/14.1.6/SkinsRestorer.jar
   postRenderers:
     - kustomize:
         patchesStrategicMerge:
