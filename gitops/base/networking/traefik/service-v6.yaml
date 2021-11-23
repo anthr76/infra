@@ -13,7 +13,6 @@ metadata:
 spec:
   allocateLoadBalancerNodePorts: true
   externalTrafficPolicy: Local
-  healthCheckNodePort: 31491
   internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv6
