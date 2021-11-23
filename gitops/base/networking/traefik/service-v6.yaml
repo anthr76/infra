@@ -8,7 +8,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: traefik
     app.kubernetes.io/name: traefik
-  name: traefik
+  name: traefik-v6
   namespace: networking
   resourceVersion: "33498138"
   uid: 3a4d74ea-98ff-45eb-842e-541ceb896a4b
