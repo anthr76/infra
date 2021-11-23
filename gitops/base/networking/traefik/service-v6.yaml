@@ -21,12 +21,10 @@ spec:
   # loadBalancerIP: 10.45.0.0
   ports:
   - name: web
-    nodePort: 32363
     port: 80
     protocol: TCP
     targetPort: web
   - name: websecure
-    nodePort: 31924
     port: 443
     protocol: TCP
     targetPort: websecure
