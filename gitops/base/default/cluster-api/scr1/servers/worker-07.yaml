@@ -27,6 +27,13 @@ spec:
               dhcp: false
             - vlanId: 806
               dhcp: false
+    - op: add
+      path: /machine/sysctls
+      value:
+        fs.inotify.max_user_watches: "1048576"
+        fs.inotify.max_user_instances: "8192"
+        vm.max_map_count: "524288"
+        net.ipv6.conf.eth0.accept_ra: "2"
   cpu:
     manufacturer: Broadcom
     version: BCM2711 (ARM Cortex-A72)
