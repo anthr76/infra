@@ -21,8 +21,11 @@ spec:
     imageTag: "2021.22.0"
     resources:
       requests:
-        memory: 2Gi
-        cpu: 1000m
+        memory: 4Gi
+        cpu: 1500m
+      limits:
+        memory: 8Gi
+        cpu: 3000m
     extraEnv:
       OVERRIDE_SERVER_PROPERTIES: "TRUE"
       NETWORK_COMPRESSION_THRESHOLD: "-1"
@@ -42,6 +45,7 @@ spec:
     minecraftServer:
       eula: "TRUE"
       version: "1.17.1"
+      jvmOpts: "-Xmns3G -Xmnx7G -Xgcpolicy:balanced -Xdisableexplicitgc -Dfml.readTimeout=300"
       type: "PAPER"
       difficulty: "normal"
       viewDistance: 20
