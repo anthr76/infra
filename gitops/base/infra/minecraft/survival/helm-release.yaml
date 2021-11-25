@@ -45,7 +45,7 @@ spec:
     minecraftServer:
       eula: "TRUE"
       version: "1.17.1"
-      jvmOpts: "-Xmns3G -Xmnx7G -Xgcpolicy:balanced -Xdisableexplicitgc -Dfml.readTimeout=300"
+      jvmOpts: "-XX:MaxRAMPercentage=75"
       type: "PAPER"
       difficulty: "normal"
       viewDistance: 20
@@ -54,7 +54,7 @@ spec:
       onlineMode: false
       maxWorldSize: 29999984
       maxTickTime: -1
-      memory: 3G
+      memory: ""
       rcon:
         enabled: true
       extraPorts:
