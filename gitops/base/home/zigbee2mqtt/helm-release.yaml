@@ -35,12 +35,9 @@ spec:
         server: "mqtt://emqx-headless.home.svc.cluster.local"
         user: "${MQTT_USER}"
         password: "${MQTT_USER_PW}"
-      serial:
-        port: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
       advanced:
         log_output:
           - console
-        rtscts: false
         network_key:
           [
             0x1e,
@@ -87,17 +84,3 @@ spec:
         enabled: true
         existingClaim: zigbee2mqtt-config-v1
         mountPath: "/data"
-      usb:
-        enabled: true
-        type: hostPath
-        hostPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
-        hostPathType: CharDevice
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: feature.node.kubernetes.io/custom-zigbee
-                  operator: In
-                  values:
-                    - "true"
