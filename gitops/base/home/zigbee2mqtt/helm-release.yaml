@@ -35,6 +35,8 @@ spec:
         server: "mqtt://emqx-headless.home.svc.cluster.local"
         user: "${MQTT_USER}"
         password: "${MQTT_USER_PW}"
+      serial:
+        port: "tcp://espressif.scr1.rabbito.tech:6638"
       advanced:
         log_output:
           - console
