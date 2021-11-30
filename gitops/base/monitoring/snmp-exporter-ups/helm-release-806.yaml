@@ -17,7 +17,7 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    fullnameOverride: snmp-exporter-ups-0
+    fullnameOverride: snmp-exporter-ups-806
     image:
       repository: quay.io/prometheus/snmp-exporter
     extraArgs:
