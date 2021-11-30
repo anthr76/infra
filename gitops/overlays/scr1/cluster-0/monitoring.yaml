@@ -148,3 +148,31 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-snmp-exporter-ups-0
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/monitoring/snmp-exporter-ups-0"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-speedtest-exporter
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/monitoring/speedtest-exporter"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
