@@ -20,4 +20,4 @@ roles:
     name: mrlesmithjr.zfs
     version: b80e84d6938eb7730faeffc7ff7d8aa06ad5bef7
   - src: https://github.com/bjw-s/ansible-role-vyos
-    version: v0.0.7
+    version: v0.1.1

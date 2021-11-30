@@ -19,3 +19,4 @@ ansible/roles/anthr76.routeros-configure
 /clusters/scr1/intergrations/server-classes
 /clusters/scr1/intergrations/servers
 /clusters/scr1/intergrations/scr1-cluster-0.yaml
+ansible/roles/ansible-role-vyos
