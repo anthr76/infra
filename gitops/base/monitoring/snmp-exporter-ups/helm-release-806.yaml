@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: snmp-exporter-ups-0
+  name: snmp-exporter-ups-806
   namespace: monitoring
 spec:
   interval: 5m
@@ -37,9 +37,8 @@ spec:
         conf:
           module:
             - apcups
-          targets:
+          target:
             - ups-806.scr1.rabbito.tech
-            - ups-808.scr1.rabbito.tech
       path: /snmp
       # interval: 60s
       scrapeTimeout: 10s
