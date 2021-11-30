@@ -37,7 +37,7 @@ spec:
         conf:
           module:
             - apcups
-          target:
+          targets:
             - ups-806.scr1.rabbito.tech
             - ups-808.scr1.rabbito.tech
       path: /snmp
