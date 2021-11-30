@@ -8,7 +8,7 @@ spec:
   template:
     spec:
       generateType: join
-      talosVersion: v0.13.2
+      talosVersion: v0.14.0-alpha.1
 ---
 apiVersion: cluster.x-k8s.io/v1alpha3
 kind: MachineDeployment
