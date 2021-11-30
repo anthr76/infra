@@ -21,7 +21,7 @@ spec:
       backup.velero.io/backup-volumes: config
     image:
       repository: ghcr.io/koenkk/zigbee2mqtt
-      tag: 1.22.0
+      tag: "1.22.0"
     env:
       TZ: America/New_York
       ZIGBEE2MQTT_DATA: /data
@@ -35,6 +35,8 @@ spec:
         server: "mqtt://emqx-headless.home.svc.cluster.local"
         user: "${MQTT_USER}"
         password: "${MQTT_USER_PW}"
+      serial:
+        port: "tcp://espressif.scr1.rabbito.tech:6638"
       advanced:
         log_output:
           - console
