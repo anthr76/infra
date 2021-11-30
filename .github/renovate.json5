@@ -46,7 +46,17 @@
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
       "registryUrlTemplate": "{{#if registryUrl}}{{{registryUrl}}}{{else}}{{/if}}"
-    }
+    },
+    // regexManager to read and process kube-prometheus-stack and velero CRD's
+    {
+      "fileMatch": [
+        "gitops/base/monitoring/kube-prometheus-stack/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    },
   ],
   "packageRules": [
     // setup datasources
