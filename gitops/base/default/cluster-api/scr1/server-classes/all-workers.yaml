@@ -16,7 +16,7 @@ spec:
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: true
-        feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
+        feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
     - op: replace
       path: /persist
       value: false
