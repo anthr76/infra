@@ -40,6 +40,7 @@ spec:
       advanced:
         log_output:
           - console
+        pan_id: 23841
         network_key:
           [
             0x1e,
