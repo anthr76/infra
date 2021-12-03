@@ -3,7 +3,7 @@ ansible_user: anthonyjrabbito
 zfs_install_update: false
 zfs_enable_nfs: true
 zfs_manage_filesystem_permissions: true
-zfs_enable_samba: true
+zfs_enable_samba: false
 zfs_enable_performance_tuning: true
 zfs_create_pools: true
 zfs_create_filesystems: true
@@ -70,19 +70,11 @@ zfs_filesystems:
     mountpoint: "/tank/system_share"
   - name: Rabbito-Scratch
     pool: tank
+    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24,rw=@192.168.6.0/24,rw=@192.168.9.0/24"
     state: present
     mountpoint: "/tank/Rabbito-Scratch"
     owner: nobody
     group: nogroup
-    sharesmb: true
-    smb_options:
-      comment: "Share scratch space"
-      browseable: "yes"
-      create_directory_mask: "0755"
-      create_mask: "0777"
-      read_only: "no"
-      share_name: Rabbito
-      writable: "yes"
 zfs_enable_monitoring: true
 zfs_monitoring_capacity_threshold: 80
 zfs_monitoring_scrub_max_age: 8
