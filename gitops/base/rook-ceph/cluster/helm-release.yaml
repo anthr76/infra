@@ -26,6 +26,8 @@ spec:
       dashboard:
         enabled: true
         urlPrefix: /
+      disruptionManagement:
+        pgHealthCheckTimeout: 5
     ingress:
       dashboard:
         annotations:
