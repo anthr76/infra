@@ -48,7 +48,7 @@ spec:
             name: luckperms-config
     minecraftProxy:
       type: VELOCITY
-      velocityVersion: "3.0.1"
+      velocityVersion: "3.1.0"
       serviceType: LoadBalancer
       externalTrafficPolicy: Local
       loadBalancerIP: 10.45.0.4
