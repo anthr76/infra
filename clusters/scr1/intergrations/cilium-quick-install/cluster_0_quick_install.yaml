@@ -504,7 +504,7 @@ spec:
               value: "cluster-0.scr1.rabbito.tech"
             - name: KUBERNETES_SERVICE_PORT
               value: "6443"
-          image: "quay.io/cilium/cilium:v1.10.5@sha256:0612218e28288db360c63677c09fafa2d17edda4f13867bcabf87056046b33bb"
+          image: "quay.io/cilium/cilium:v1.11.0@sha256:ea677508010800214b0b5497055f38ed3bff57963fa2399bcb1c69cf9476453a"
           imagePullPolicy: IfNotPresent
           lifecycle:
             postStart:
@@ -567,7 +567,7 @@ spec:
             # same directory where we install cilium cni plugin so that exec permissions
             # are available.
             - 'cp /usr/bin/cilium-mount /hostbin/cilium-mount && nsenter --cgroup=/hostproc/1/ns/cgroup --mount=/hostproc/1/ns/mnt "${BIN_PATH}/cilium-mount" $CGROUP_ROOT; rm /hostbin/cilium-mount'
-          image: "quay.io/cilium/cilium:v1.10.5@sha256:0612218e28288db360c63677c09fafa2d17edda4f13867bcabf87056046b33bb"
+          image: "quay.io/cilium/cilium:v1.11.0@sha256:ea677508010800214b0b5497055f38ed3bff57963fa2399bcb1c69cf9476453a"
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /hostproc
@@ -595,7 +595,7 @@ spec:
               value: "cluster-0.scr1.rabbito.tech"
             - name: KUBERNETES_SERVICE_PORT
               value: "6443"
-          image: "quay.io/cilium/cilium:v1.10.5@sha256:0612218e28288db360c63677c09fafa2d17edda4f13867bcabf87056046b33bb"
+          image: "quay.io/cilium/cilium:v1.11.0@sha256:ea677508010800214b0b5497055f38ed3bff57963fa2399bcb1c69cf9476453a"
           imagePullPolicy: IfNotPresent
           name: clean-cilium-state
           securityContext:
@@ -755,7 +755,7 @@ spec:
               value: "cluster-0.scr1.rabbito.tech"
             - name: KUBERNETES_SERVICE_PORT
               value: "6443"
-          image: "quay.io/cilium/operator-generic:v1.10.5@sha256:2d2f730f219d489ff0702923bf24c0002cd93eb4b47ba344375566202f56d972"
+          image: "quay.io/cilium/operator-generic:v1.11.0@sha256:b522279577d0d5f1ad7cadaacb7321d1b172d8ae8c8bc816e503c897b420cfe3"
           imagePullPolicy: IfNotPresent
           name: cilium-operator
           livenessProbe:
