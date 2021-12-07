@@ -24,7 +24,7 @@ spec:
     localRedirectPolicy: true
     kubeProxyReplacement: "strict"
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-    nativeRoutingCIDR: ${CLUSTER_POD_CIDR}
+    ipv4NativeRoutingCIDR: "${CLUSTER_POD_CIDR}"
     k8sServiceHost: "${CONTROL_PLANE_ENDPOINT}"
     k8sServicePort: 6443
     loadBalancer:
