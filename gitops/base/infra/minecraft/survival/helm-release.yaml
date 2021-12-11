@@ -38,7 +38,7 @@ spec:
       #REMOVE_OLD_MODS_INCLUDE: "*.jar"
       SPIGET_RESOURCES: "83557,28140,14573,60623,34315,2124"
       CFG_LP_SERVER: "global"
-      MODS: "https://github.com/EssentialsX/Essentials/releases/download/2.16-pre4/EssentialsX-2.16-pre4.1.jar,https://github.com/EssentialsX/Essentials/releases/download/2.16-pre4/EssentialsXAntiBuild-2.16-pre4.1.jar,https://github.com/EssentialsX/Essentials/releases/download/2.16-pre4/EssentialsXChat-2.16-pre4.1.jar,https://github.com/EssentialsX/Essentials/releases/download/2.16-pre4/EssentialsXGeoIP-2.16-pre4.1.jar,https://github.com/EssentialsX/Essentials/releases/download/2.16-pre4/EssentialsXProtect-2.16-pre4.1.jar,https://github.com/EssentialsX/Essentials/releases/download/2.16-pre4/EssentialsXSpawn-2.16-pre4.1.jar"
+      MODS: "https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsX-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXChat-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXGeoIP-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXProtect-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXSpawn-2.18.2.0.jar"
     envFrom:
       - secretRef:
           name: minecraft
