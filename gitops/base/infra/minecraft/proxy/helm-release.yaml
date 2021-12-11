@@ -48,14 +48,14 @@ spec:
             name: luckperms-config
     minecraftProxy:
       type: VELOCITY
-      velocityVersion: "3.1.0"
+      velocityVersion: "3.1.1"
       serviceType: LoadBalancer
       externalTrafficPolicy: Local
       loadBalancerIP: 10.45.0.4
       configFilePath: /config/velocity.toml
     plugins:
-      - https://ci.lucko.me/job/LuckPerms/1386/artifact/velocity/build/libs/LuckPerms-Velocity-5.3.87.jar
-      - https://github.com/SkinsRestorer/SkinsRestorerX/releases/download/14.1.6/SkinsRestorer.jar
+      - https://ci.lucko.me/job/LuckPerms/1388/artifact/velocity/build/libs/LuckPerms-Velocity-5.3.89.jar
+      - https://github.com/SkinsRestorer/SkinsRestorerX/releases/download/14.1.10/SkinsRestorer.jar
   postRenderers:
     - kustomize:
         patchesStrategicMerge:
