@@ -36,10 +36,10 @@ zfs_filesystems:
     mountpoint: "/tank/media"
   - name: frigate
     pool: tank
-    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24"
+    sharenfs: "no_subtree_check,all_squash,anonuid=1000,anongid=1000,rw=@192.168.4.0/24,rw=@192.168.8.0/24"
     state: present
-    owner: root
-    group: root
+    owner: 1000
+    group: 1000
     mountpoint: "/tank/frigate"
   - name: persistentVolumeClaims
     pool: tank
