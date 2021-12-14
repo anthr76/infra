@@ -59,6 +59,10 @@ spec:
                 class: ["0200"]
                 vendor: ["8086"]
                 device: ["10fb"]
+          - name: "coral-tpu"
+            matchOn:
+            - usbId:
+                vendor: ["1a6e", "18d1"]
           - name: "vega11-gpu"
             matchOn:
             - pciId:
