@@ -82,6 +82,39 @@ spec:
             min_area: 2500
             max_area: 100000
             threshold: 0.7
+      # Specify camera's
+      cameras:
+        # --
+        frigate_porch:
+          ffmpeg:
+            inputs:
+              - path: rtsp://192.168.1.2:7447/818ALvS1HQ744KND
+                roles:
+                  - detect
+              - path: rtsp://192.168.1.2:7447/OLL9WgMx3FNx7Yfy
+                roles:
+                  - rtmp
+                  - record
+          rtmp:
+            enabled: True
+          detect:
+            width: 960
+            height: 720
+            fps: 10
+          record:
+            enabled: True
+            retain_days: 7
+            events:
+              retain:
+                default: 7
+          snapshots:
+            enabled: True
+            timestamp: False
+            retain:
+              default: 7
+          objects:
+            track:
+              - person
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate-config"
     affinity:
