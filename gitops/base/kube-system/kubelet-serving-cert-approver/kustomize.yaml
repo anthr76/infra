@@ -8,7 +8,7 @@ spec:
   interval: 9m0s
   ref:
     # renovate: datasource=github-releases depName=alex1989hu/kubelet-serving-cert-approver
-    tag: v0.3.0
+    tag: v0.4.0
   url: https://github.com/alex1989hu/kubelet-serving-cert-approver
   ignore: |
     # exclude all
