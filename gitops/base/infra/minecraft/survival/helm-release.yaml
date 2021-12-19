@@ -47,7 +47,7 @@ spec:
       version: "1.17.1"
       jvmOpts: "-XX:MaxRAMPercentage=75"
       type: "PAPER"
-      difficulty: "normal"
+      difficulty: "hard"
       viewDistance: 20
       gameMode: survival
       pvp: true
