@@ -17,6 +17,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    nodeSelector:
+      kubernetes.io/arch: amd64
     replicaCount: 3
     # https://github.com/emqx/emqx/pull/5778
     # envFromSecret: "emqx"
