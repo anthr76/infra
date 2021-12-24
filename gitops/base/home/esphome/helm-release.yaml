@@ -18,7 +18,7 @@ spec:
       interval: 5m
   values:
     initContainers:
-      update-volume-permission:
+      add-font:
         image: busybox
         command: ["sh", "-c", "test -f /config/Helvetica.ttf || wget -O /config/Helvetica.ttf https://github.com/PersuasiveGameCompetition/nurse-full-source/raw/master/Assets/Fonts/Helve
 tica/Helvetica/Helvetica.ttf"]
