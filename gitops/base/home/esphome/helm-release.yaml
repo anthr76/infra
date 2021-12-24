@@ -19,7 +19,7 @@ spec:
   values:
     initContainers:
       add-font:
-        image: busybox
+        image: alpine:3.15.0
         command: ["sh", "-c", "test -f /config/Helvetica.ttf || wget -O /config/Helvetica.ttf https://github.com/PersuasiveGameCompetition/nurse-full-source/raw/master/Assets/Fonts/Helve
 tica/Helvetica/Helvetica.ttf"]
         volumeMounts:
