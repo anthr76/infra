@@ -17,6 +17,14 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    initContainers:
+      update-volume-permission:
+        image: busybox
+        command: ["sh", "-c", "test -f /config/Helvetica.ttf || wget -O /config/Helvetica.ttf https://github.com/PersuasiveGameCompetition/nurse-full-source/raw/master/Assets/Fonts/Helve
+tica/Helvetica/Helvetica.ttf"]
+        volumeMounts:
+          - name: config
+            mountPath: /config
     image:
       repository: ghcr.io/esphome/esphome
       tag: 2021.12.1
