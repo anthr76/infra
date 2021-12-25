@@ -88,15 +88,21 @@ spec:
         frigate_porch:
           ffmpeg:
             inputs:
-              - path: rtsp://6l04132pag43f1e:554/1/stream1
+              - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=0
+                roles:
+                  - record
+              - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=1
+                roles:
+                  - rtmp
+              - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=2
                 roles:
                   - detect
           rtmp:
             enabled: True
           detect:
-            width: 960
+            width: 1280
             height: 720
-            fps: 10
+            fps: 5
           record:
             enabled: True
             retain_days: 7
