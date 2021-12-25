@@ -88,13 +88,9 @@ spec:
         frigate_porch:
           ffmpeg:
             inputs:
-              - path: rtsp://192.168.1.2:7447/818ALvS1HQ744KND
+              - path: rtsp://6l04132pag43f1e:554/1/stream1
                 roles:
                   - detect
-              - path: rtsp://192.168.1.2:7447/OLL9WgMx3FNx7Yfy
-                roles:
-                  - rtmp
-                  - record
           rtmp:
             enabled: True
           detect:
