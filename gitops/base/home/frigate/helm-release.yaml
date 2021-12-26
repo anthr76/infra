@@ -21,7 +21,7 @@ spec:
       namespace: home
   values:
     image:
-      repository: ghcr.io/k8s-at-home/frigate
+      repository: docker.io/blakeblackshear/frigate
       tag: v0.9.4-amd64
     ingress:
       main:
