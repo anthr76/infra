@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: docker.io/blakeblackshear/frigate
-      tag: v0.9.4-amd64
+      tag: 0.9.4-amd64
     ingress:
       main:
         enabled: true
