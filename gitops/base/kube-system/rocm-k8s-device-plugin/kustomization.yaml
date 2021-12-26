@@ -18,7 +18,7 @@ patchesJson6902:
   - target:
       version: v1
       kind: DaemonSet
-      name: amd-gpu-labeller
+      name: amdgpu-labeller
     patch: |-
       - op: add
         path: /spec/template/spec/nodeSelector
