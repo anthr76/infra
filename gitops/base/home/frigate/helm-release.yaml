@@ -39,6 +39,11 @@ spec:
           - secretName: frigate-tls
             hosts:
               - "frigate.${INT_DOMAIN}"
+    service:
+      main:
+        ports:
+          rtmp:
+            enabled: true
     securityContext:
       privileged: true
     persistence:
