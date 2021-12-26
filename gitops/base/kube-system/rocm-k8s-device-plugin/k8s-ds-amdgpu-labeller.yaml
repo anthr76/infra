@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: amd-gpu-labeller
+  name: amdgpu-labeller
   namespace: kube-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: amd-gpu-labeller
+  name: amdgpu-labeller
 rules:
   - apiGroups: [""]
     resources: ["nodes"]
@@ -17,39 +17,39 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: amd-gpu-labeller
+  name: amdgpu-labeller
   namespace: kube-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: amd-gpu-labeller
+  name: amdgpu-labeller
 subjects:
   - kind: ServiceAccount
-    name: amd-gpu-labeller
+    name: amdgpu-labeller
     namespace: kube-system
 ---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: amd-gpu-labeller
+  name: amdgpu-labeller
   namespace: kube-system
 spec:
   selector:
     matchLabels:
-      name: amd-gpu-labeller
+      name: amdgpu-labeller
   template:
     metadata:
       labels:
-        name: amd-gpu-labeller
+        name: amdgpu-labeller
     spec:
       priorityClassName: system-node-critical
-      serviceAccountName: amd-gpu-labeller
+      serviceAccountName: amdgpu-labeller
       tolerations:
         - key: CriticalAddonsOnly
           operator: Exists
       containers:
         - image: docker.io/rocm/k8s-device-plugin:labeller-1.18.0
-          name: amd-gpu-labeller
+          name: amdgpu-labeller
           imagePullPolicy: Always
           workingDir: /root
           command: ["./k8s-node-labeller"]
