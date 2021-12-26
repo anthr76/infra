@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: amdgpu-device-plugin
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: amdgpu-deviceplugin
+  template:
+    metadata:
+      annotations:
+      labels:
+        name: amdgpu-deviceplugin
+    spec:
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+      containers:
+        - image: docker.io/rocm/k8s-device-plugin:1.18.0
+          name: amdgpu-dp-cntr
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: dp
+              mountPath: /var/lib/kubelet/device-plugins
+            - name: sys
+              mountPath: /sys
+      volumes:
+        - name: dp
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
+        - name: sys
+          hostPath:
+            path: /sys
