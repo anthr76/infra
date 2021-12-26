@@ -68,4 +68,4 @@ spec:
             - pciId:
                 class: ["0300"]
                 vendor: ["1002"]
-                device: ["0300"]
+                device: ["15dd"]
