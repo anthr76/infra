@@ -88,7 +88,7 @@ spec:
       # Specify camera's
       cameras:
         # --
-        frigate_porch:
+        frigate_front_porch:
           ffmpeg:
             inputs:
               - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=0
@@ -98,6 +98,39 @@ spec:
                 roles:
                   - rtmp
               - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=2
+                roles:
+                  - detect
+          rtmp:
+            enabled: True
+          detect:
+            width: 1280
+            height: 720
+            fps: 5
+          record:
+            enabled: True
+            retain_days: 7
+            events:
+              retain:
+                default: 7
+          snapshots:
+            enabled: True
+            timestamp: False
+            retain:
+              default: 7
+          objects:
+            track:
+              - person
+        # --
+        frigate_back_porch:
+          ffmpeg:
+            inputs:
+              - path: rtsp://frigate:frigate!@back-porch-camera:554/cam/realmonitor?channel=1&subtype=0
+                roles:
+                  - record
+              - path: rtsp://frigate:frigate!@back-porch-camera:554/cam/realmonitor?channel=1&subtype=1
+                roles:
+                  - rtmp
+              - path: rtsp://frigate:frigate!@back-porch-camera:554/cam/realmonitor?channel=1&subtype=2
                 roles:
                   - detect
           rtmp:
