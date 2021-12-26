@@ -154,6 +154,37 @@ spec:
           objects:
             track:
               - person
+        # --
+        frigate_back_yard:
+          ffmpeg:
+            inputs:
+              - path: rtsp://frigate:frigate!@back-yard-camera:554/cam/realmonitor?channel=1&subtype=0
+                roles:
+                  - record
+                  - rtmp
+              - path: rtsp://frigate:frigate!@back-yard-camera:554/cam/realmonitor?channel=1&subtype=1
+                roles:
+                  - detect
+          rtmp:
+            enabled: True
+          detect:
+            width: 704
+            height: 480
+            fps: 10
+          record:
+            enabled: True
+            retain_days: 7
+            events:
+              retain:
+                default: 7
+          snapshots:
+            enabled: True
+            timestamp: False
+            retain:
+              default: 7
+          objects:
+            track:
+              - person
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate-config"
     affinity:
