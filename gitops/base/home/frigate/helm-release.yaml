@@ -75,9 +75,6 @@ spec:
         topic_prefix: frigate
         user: ${MQTT_USER}
         password: ${MQTT_USER_PW}
-      # Global ffmpeg configuration
-      ffmpeg:
-        input_args: -avoid_negative_ts make_zero -fflags nobuffer -flags low_delay -strict experimental -fflags +genpts+discardcorrupt -rw_timeout 5000000 -use_wallclock_as_timestamps 1 -f live_flv
       database:
         path: /data/frigate.db
       detectors:
