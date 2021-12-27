@@ -185,6 +185,7 @@ spec:
           objects:
             track:
               - person
+              - car
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate-config"
     affinity:
