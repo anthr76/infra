@@ -1,5 +1,5 @@
 ---
-apiVersion: cluster.x-k8s.io/v1alpha3
+apiVersion: cluster.x-k8s.io/v1alpha4
 kind: Cluster
 metadata:
   name: scr1-cluster-0
@@ -14,16 +14,16 @@ spec:
       cidrBlocks:
         - 10.96.0.0/12
         - 2001:559:1104:fdb::/112
-  controlPlaneRef:
-    apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
-    kind: TalosControlPlane
-    name: scr1-cluster-0-cp
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
     kind: MetalCluster
     name: scr1-cluster-0
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+    kind: TalosControlPlane
+    name: scr1-cluster-0-cp
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
 kind: MetalCluster
 metadata:
   name: scr1-cluster-0
