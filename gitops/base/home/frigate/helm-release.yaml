@@ -154,6 +154,9 @@ spec:
           objects:
             track:
               - person
+              - dot
+              - cat
+              - mouse
         # --
         frigate_back_yard:
           ffmpeg:
