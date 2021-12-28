@@ -18,10 +18,6 @@ spec:
         fs.inotify.max_user_instances: "8192"
         vm.max_map_count: "524288"
         net.ipv6.conf.eth2.accept_ra: "2"
-    - op: add
-      value:
-        modules:
-          - name: amdgpu
   bmc:
     endpoint: worker-3-bmc.scr1.rabbito.tech
     userFrom:
