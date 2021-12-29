@@ -20,7 +20,12 @@ spec:
     initContainers:
       add-font:
         image: alpine:3.15.0
-        command: ["sh", "-c", "test -f /config/Helvetica.ttf || wget -O /config/Helvetica.ttf https://github.com/PersuasiveGameCompetition/nurse-full-source/raw/master/Assets/Fonts/Helvetica/Helvetica/Helvetica.ttf"]
+        command:
+          [
+            "sh",
+            "-c",
+            "test -f /config/Helvetica.ttf || wget -O /config/Helvetica.ttf https://github.com/PersuasiveGameCompetition/nurse-full-source/raw/master/Assets/Fonts/Helvetica/Helvetica/Helvetica.ttf",
+          ]
         volumeMounts:
           - name: config
             mountPath: /config

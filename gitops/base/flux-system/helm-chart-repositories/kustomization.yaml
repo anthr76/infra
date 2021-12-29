@@ -24,3 +24,4 @@ resources:
   - traefik-charts.yaml
   - vmware-charts.yaml
   - weaveworks-kured-charts.yaml
+  - stakater-charts.yaml
