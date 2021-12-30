@@ -39,14 +39,14 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-          - host: "lidarr.kutara.io"
+          - host: "lidarr.${INT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: lidarr-tls
             hosts:
-              - "lidarr.kutara.io"
+              - "lidarr.${INT_DOMAIN}"
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
