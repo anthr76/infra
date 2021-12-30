@@ -80,7 +80,7 @@ spec:
     init:
       image:
         repository: docker.io/library/busybox
-        tag: 1.34.1
+        tag: 1.35.0
         pullPolicy: IfNotPresent
     nodeSelector:
       kubernetes.io/arch: amd64
