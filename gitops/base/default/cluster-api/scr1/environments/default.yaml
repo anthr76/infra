@@ -6,7 +6,7 @@ metadata:
   namespace: default
 spec:
   kernel:
-    url: "https://github.com/talos-systems/talos/releases/download/v0.14.0/vmlinuz-amd64"
+    url: "https://kutara.nyc3.digitaloceanspaces.com/vmlinuz-amd64"
     args:
       - console=tty0
       - console=ttyS1,115200n8
