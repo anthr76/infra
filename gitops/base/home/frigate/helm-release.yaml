@@ -123,16 +123,15 @@ spec:
           objects:
             track:
               - person
+              - cat
+              - dog
+              - bird
+              - mouse
           zones:
             street:
               coordinates: 65,0,619,0,605,96,73,102
             font_yard:
               coordinates: 704,480,704,125,0,139,0,480
-              objects:
-                - person
-                - cat
-                - dog
-                - bird
           motion:
             mask:
               - 683,42,678,15,420,17,425,39
