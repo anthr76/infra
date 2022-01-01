@@ -36,7 +36,7 @@ spec:
         existingClaim: mosquitto-config-v1
       mqtt-conf:
         enabled: true
-        type: configmap
+        type: configMap
         mountPath: /mosquitto/configinc
         name: mqtt-conf
       mosquitto-pwd:
