@@ -32,7 +32,7 @@ spec:
       permit_join: false
       mqtt:
         base_topic: zigbee2mqtt
-        server: "mqtt://emqx-headless.home.svc.cluster.local"
+        server: "mqtt://mosquitto.home.svc.cluster.local"
         user: "${MQTT_USER}"
         password: "${MQTT_USER_PW}"
       serial:
