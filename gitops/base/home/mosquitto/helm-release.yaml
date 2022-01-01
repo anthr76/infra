@@ -42,5 +42,5 @@ spec:
       mosquitto-pwd:
         enabled: true
         type: secret
-        mountPath: /mosquitto/configinc
+        mountPath: /mosquitto/configinc/auth
         name: mosquitto-pwd
