@@ -18,7 +18,7 @@ data:
   NAS_1_ADDRESS: "nas-1.scr1.rabbito.tech"
   INT_DOMAIN: "scr1.rabbito.tech"
   GENERIC_CLUSTER_INGRESS: "cluster-0.scr1.rabbito.tech"
-  SVC_EMQX_ADDR: 10.45.0.1
+  SVC_MQTT_ADDR: 10.45.0.1
   SVC_PLEX_ADDR: 10.45.0.2
   SVC_SYSLOG_ADDR: 10.45.0.5
   SVC_QBITTORRENT_ADDR: 10.45.0.3
