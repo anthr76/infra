@@ -24,7 +24,7 @@ spec:
       main:
         type: LoadBalancer
         externalIPs:
-          - "${SVC_MOSQUITTO_ADDR}"
+          - "${SVC_MQTT_ADDR}"
         externalTrafficPolicy: Local
     auth:
       enabled: true
