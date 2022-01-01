@@ -34,7 +34,7 @@ spec:
       data:
         enabled: true
         existingClaim: mosquitto-config-v1
-      mqtt-conf:
+      configinc:
         enabled: true
         type: configMap
         mountPath: /mosquitto/configinc
