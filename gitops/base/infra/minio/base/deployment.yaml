@@ -38,7 +38,7 @@ spec:
               value: "off"
             - name: TZ
               value: America/New_York
-            - name: MINIO_SERVER_URL
+            - name: MINIO_BROWSER_REDIRECT_URL
               value: https://minio.${INT_DOMAIN}
           envFrom:
             - secretRef:
