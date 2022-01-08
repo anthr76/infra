@@ -23,7 +23,7 @@ spec:
                   number: 9001
             path: /
             pathType: Prefix
-    - host: s3.${INT_DOMAIN}
+    - host: s3.kutara.io
       http:
         paths:
           - backend:
@@ -36,5 +36,5 @@ spec:
   tls:
     - hosts:
         - minio.${INT_DOMAIN}
-        - s3.${INT_DOMAIN}
+        - s3.kutara.io
       secretName: minio-tls
