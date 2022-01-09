@@ -56,5 +56,4 @@ spec:
           - name: "${OSD_HOSTNAME_3}"
             devices:
               - name: "nvme0n1"
-    cephFileSystems: []
     cephObjectStores: []
