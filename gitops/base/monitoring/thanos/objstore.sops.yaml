@@ -1,7 +1,7 @@
 type: s3
 config:
     bucket: thanos
-    endpoint: s3.scr1.rabbito.tech
+    endpoint: s3.kutara.io
     access_key: ENC[AES256_GCM,data:yAu073BviNnQIZwJI14W2dQLPQ==,iv:vYRvkqj/Xu4l4OUMJop3xgPiUS1PH9Vuns38t8sVS38=,tag:5+38+54y0ezEVhcsOLXRdw==,type:str]
     secret_key: ENC[AES256_GCM,data:PaDGEkZYng5a03CAWuaIZKK+Z/D65PefOfE7fEsrNHCAl5bpo+hn1Q==,iv:NTKNDpMSv3PT/zHCNtF4DrVztSTt75wkrA32ovGaCbk=,tag:D/RvmT8rgWDiwmIc5fu8tw==,type:str]
     insecure: true
@@ -20,8 +20,8 @@ sops:
             WE5vMTJwSWdZcHZ2aEg3YzJqSml3VU0KchxvqK0mjWMBr+YD7EjzFgk/XSaGIyqH
             0ftLp1GUJFioVydvmJaFAJxzZcYKCXgLXvfAwwbjlM/aGFjjuTHAhw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2021-10-16T05:15:22Z"
-    mac: ENC[AES256_GCM,data:Qy/i+NoQh8In8dQFd2UlCUDOjObjBH+w0yhH9NO+Dt2gLa9Q2JUFG/OHtWAHviIzABxTHrW8D+YvUYJyBAAtv1oiVY5mR2S7dK6WBVTcAnfZ0+W/QpyiW7XsvTq3w4Ofmf4FcZO7KY5vzP+ksqrn8Z2jimj/ui8xdn1qhJ/Wabo=,iv:FDeApkyHA3CEreOkmjpSMgOqvmGU/ZpgGnGlZQx6ILU=,tag:gG5epbiZbmc11WTNGdLk8g==,type:str]
+    lastmodified: "2022-01-10T00:54:36Z"
+    mac: ENC[AES256_GCM,data:lfQermSG8yhgb+NhZUEnBKfjowt2hzL6hbxzX1CczMJV0vzN7/TM+dwrWc58LJawceESH6HLWoX9ZK55BJRWAE10UIemdwkrJFKHV8E1ajwBe6TgF0FysR3WEnZaDw0MMgV5pnuVRAenqx17KrvvmA69QlW1W9wAnQgNDiJqHog=,iv:oHh28CUsKbGCirJc5cRmN2VJUizGYsRTwNYmPW3Im0Q=,tag:uzERlNzLm0YrQmkrIMMsug==,type:str]
     pgp: []
     encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.7.1
