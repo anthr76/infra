@@ -1,0 +1,29 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ostree-fetch-github
+  namespace: infra
+spec:
+  schedule: "0 4 * * 6"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: fedora
+              image: ghcr.io/anthr76/kutara-ostree:v1.0.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - github-fetch
+              volumeMounts:
+                - mountPath: /data
+                  name: data
+              envFrom:
+                - secretRef:
+                    name: ostree
+          restartPolicy: OnFailure
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: ostree-repo
