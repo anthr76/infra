@@ -24,11 +24,11 @@ spec:
       containers:
         - name: caddy
           args:
-            - caddy
-            - file-server
-            - browse
-            - root
-            - /data
+            - "caddy"
+            - "file-server"
+            - "-browse"
+            - "-root"
+            - "/data"
           image: "docker.io/library/caddy:2.4.6"
           imagePullPolicy: IfNotPresent
           livenessProbe:
