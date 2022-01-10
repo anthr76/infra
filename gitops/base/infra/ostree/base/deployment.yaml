@@ -21,6 +21,10 @@ spec:
         app.kubernetes.io/instance: ostree
         app.kubernetes.io/name: ostree
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
         - name: caddy
           args:
