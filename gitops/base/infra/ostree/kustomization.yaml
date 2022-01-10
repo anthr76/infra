@@ -7,4 +7,4 @@ resources:
   - secret.sops.yaml
 images:
   - name: ghcr.io/anthr76/kutara-ostree:v1.0.0
-    newTag: "v1.0.0"
+    newTag: "v1.0.1"
