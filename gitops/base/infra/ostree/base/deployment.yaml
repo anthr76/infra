@@ -32,9 +32,12 @@ spec:
           image: "docker.io/library/caddy:2.4.6"
           imagePullPolicy: IfNotPresent
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+            failureThreshold: 30
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 80
+            timeoutSeconds: 1
           ports:
             - containerPort: 80
               name: http
