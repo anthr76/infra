@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: ostree
+    app.kubernetes.io/name: ostree
+  name: ostree-repo
+  namespace: infra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: ostree
+      app.kubernetes.io/name: ostree
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: ostree
+        app.kubernetes.io/name: ostree
+    spec:
+      containers:
+        - name: caddy
+          args:
+            - caddy
+            - file-server
+            - browse
+            - root
+            - /data
+          image: "docker.io/library/caddy:2.4.6"
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 80
+            timeoutSeconds: 1
+          resources:
+            limits:
+              memory: 750Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          startupProbe:
+            failureThreshold: 30
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 80
+            timeoutSeconds: 1
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: ostree-repo
