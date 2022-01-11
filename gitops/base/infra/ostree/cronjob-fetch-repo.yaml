@@ -12,7 +12,7 @@ spec:
         spec:
           containers:
             - name: github-to-ostree
-              image: ghcr.io/anthr76/kutara-ostree:v1.0.2
+              image: ghcr.io/anthr76/kutara-ostree:v1.0.3
               imagePullPolicy: IfNotPresent
               command:
                 - github-fetch
