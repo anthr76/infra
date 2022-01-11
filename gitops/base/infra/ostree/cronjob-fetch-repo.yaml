@@ -11,7 +11,7 @@ spec:
       template:
         spec:
           containers:
-            - name: fedora
+            - name: github-to-ostree
               image: ghcr.io/anthr76/kutara-ostree:v1.0.1
               imagePullPolicy: IfNotPresent
               command:
