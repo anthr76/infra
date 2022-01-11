@@ -31,6 +31,8 @@ spec:
             - "caddy"
             - "file-server"
             - "-browse"
+            - "-listen"
+            - "0.0.0.0:8080"
             - "-root"
             - "/data"
           image: "docker.io/library/caddy:2.4.6"
@@ -40,7 +42,7 @@ spec:
             periodSeconds: 5
             successThreshold: 1
             tcpSocket:
-              port: 80
+              port: 8080
             timeoutSeconds: 1
           ports:
             - containerPort: 80
@@ -51,7 +53,7 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             tcpSocket:
-              port: 80
+              port: 8080
             timeoutSeconds: 1
           resources:
             limits:
@@ -64,7 +66,7 @@ spec:
             periodSeconds: 5
             successThreshold: 1
             tcpSocket:
-              port: 80
+              port: 8080
             timeoutSeconds: 1
           volumeMounts:
             - mountPath: /data
