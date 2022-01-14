@@ -14,7 +14,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: node-feature-discovery-charts
-        namespace: flux-systm
+        namespace: flux-system
   values:
     worker:
       annotations:
