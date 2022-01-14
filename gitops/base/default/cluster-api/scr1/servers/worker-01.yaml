@@ -2,7 +2,7 @@
 apiVersion: metal.sidero.dev/v1alpha1
 kind: Server
 metadata:
-  name: d057a478-09c5-430f-9759-d05099defa93
+  name: 00000000-0000-0000-0000-d05099defa93
   namespace: default
 spec:
   accepted: true
