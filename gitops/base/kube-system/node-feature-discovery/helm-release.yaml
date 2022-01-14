@@ -9,18 +9,16 @@ spec:
   chart:
     spec:
       # renovate: registryUrl=https://kubernetes-sigs.github.io/node-feature-discovery/charts
-      chart: /deployment/helm/node-feature-discovery/
-      # version: 0.9.0
+      chart: node-feature-discovery
+      version: 0.10.0
       sourceRef:
-        kind: GitRepository
-        name: node-feature-discovery
-        namespace: flux-system
+        kind: HelmRepository
+        name: node-feature-discovery-charts
+        namespace: flux-systm
   values:
-    image:
-      # https://github.com/kubernetes-sigs/node-feature-discovery/issues/426
-      repository: docker.io/raspbernetes/node-feature-discovery
-      tag: v0.9.0
     worker:
+      annotations:
+        configmap.reloader.stakater.com/reload: node-feature-discovery-worker-conf
       config: |-
         core:
           sources:
