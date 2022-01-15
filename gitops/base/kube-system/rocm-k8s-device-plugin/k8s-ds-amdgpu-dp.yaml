@@ -20,6 +20,9 @@ spec:
       containers:
         - image: docker.io/rocm/k8s-device-plugin:1.18.0
           name: amdgpu-dp-cntr
+          workingDir: /root
+          command: ["./k8s-device-plugin"]
+          args: ["-logtostderr=true", "-stderrthreshold=INFO", "-v=5"]
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
