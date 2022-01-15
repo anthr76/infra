@@ -232,3 +232,4 @@ spec:
         cpu: 500m
       limits:
         memory: 3000Mi
+        amd.com/gpu: 0
