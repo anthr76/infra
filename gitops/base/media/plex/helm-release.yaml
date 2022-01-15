@@ -78,6 +78,7 @@ spec:
         memory: 1000Mi
       limits:
         memory: 16000Mi
+        amd.com/gpu: 0
     addons:
       promtail:
         enabled: true
