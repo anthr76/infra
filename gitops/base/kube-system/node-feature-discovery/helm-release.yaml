@@ -16,10 +16,6 @@ spec:
         name: node-feature-discovery-charts
         namespace: flux-system
   values:
-    image:
-      # https://github.com/kubernetes-sigs/node-feature-discovery/issues/426
-      repository: docker.io/raspbernetes/node-feature-discovery
-      tag: v0.9.0
     worker:
       annotations:
         configmap.reloader.stakater.com/reload: node-feature-discovery-worker-conf
