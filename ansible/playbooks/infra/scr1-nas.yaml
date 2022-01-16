@@ -141,6 +141,21 @@
           REGISTRY_PROXY_REMOTEURL: "https://registry-1.docker.io"
         volume:
           - "/tank/system/user/docker_cache:/var/lib/registry:z"
+        generate_systemd:
+          path: "/home/{{ ansible_user }}/.config/systemd/user"
+          restart_policy: always
+          time: 120
+          names: true
+          container_prefix: ansible
+      become: false
+
+    - name: enable podman systemd containers
+      ansible.builtin.systemd:
+        name: ansible-registry-docker.io
+        enabled: true
+        scope: user
+      environment:
+        XDG_RUNTIME_DIR: "/run/user/{{ ansible_user_uid }}"
       become: false
 
     - name: warn if reboot required
