@@ -29,17 +29,6 @@
         - "deb http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-updates universe"
         - "deb http://security.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-security universe"
 
-    - name: upgrade all system packages
-      ansible.builtin.apt:
-        upgrade: full
-        update_cache: true
-        cache_valid_time: 3600
-        autoclean: true
-        autoremove: true
-      register: apt_upgrade
-      retries: 5
-      until: apt_upgrade is success
-
     - name: install common packages
       ansible.builtin.apt:
         name: "{{ apt_install_packages }}"
