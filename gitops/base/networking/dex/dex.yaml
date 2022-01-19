@@ -8,7 +8,6 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://wiremind.github.com/wiremind-helm-charts
       chart: dex
       version: 2.15.3
       sourceRef:
