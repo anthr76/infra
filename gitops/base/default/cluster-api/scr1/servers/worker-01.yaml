@@ -19,10 +19,11 @@ spec:
         vm.max_map_count: "524288"
         net.ipv6.conf.eth2.accept_ra: "2"
     - op: add
-      path: /machine/kernel/modules
+      path: /machine/kernel
       value:
-        - name: drm
-        - name: amdgpu
+        modules:
+          - name: drm
+          - name: amdgpu
   bmc:
     endpoint: worker-1-bmc.scr1.rabbito.tech
     userFrom:
