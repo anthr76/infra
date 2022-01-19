@@ -18,12 +18,12 @@ spec:
         fs.inotify.max_user_instances: "8192"
         vm.max_map_count: "524288"
         net.ipv6.conf.eth2.accept_ra: "2"
-    - op: add
-      path: /machine/kernel
-      value:
-        modules:
-          - name: drm
-          - name: amdgpu
+#    - op: add
+#      path: /machine/kernel
+#      value:
+#        modules:
+#          - name: drm
+#          - name: amdgpu
   bmc:
     endpoint: worker-1-bmc.scr1.rabbito.tech
     userFrom:
