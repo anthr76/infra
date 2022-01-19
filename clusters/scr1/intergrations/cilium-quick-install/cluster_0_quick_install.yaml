@@ -755,7 +755,7 @@ spec:
               value: "cluster-0.scr1.rabbito.tech"
             - name: KUBERNETES_SERVICE_PORT
               value: "6443"
-          image: "quay.io/cilium/operator-generic:v1.11.0@sha256:b522279577d0d5f1ad7cadaacb7321d1b172d8ae8c8bc816e503c897b420cfe3"
+          image: "quay.io/cilium/operator-generic:v1.11.1@sha256:977240a4783c7be821e215ead515da3093a10f4a7baea9f803511a2c2b44a235"
           imagePullPolicy: IfNotPresent
           name: cilium-operator
           livenessProbe:
