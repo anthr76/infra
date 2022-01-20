@@ -24,5 +24,6 @@ spec:
       - slab_nomerge=
       - talos.config=http://sidero-01.scr1.rabbito.tech:8081/configdata?uuid=
       - talos.platform=metal
+      - pci=rom,realloc
   initrd:
     url: "https://s3.kutara.io/test/initramfs-amd64.xz"
