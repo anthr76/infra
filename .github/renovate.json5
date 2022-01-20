@@ -23,6 +23,11 @@
       "gitops/.+\\.yaml$"
     ]
   },
+  {
+  "flux": {
+      "fileMatch": ["gitops/.+\\.yaml$"]
+  },
+},
   "regexManagers": [
     // regexManager to read and process HelmRelease files
     {
