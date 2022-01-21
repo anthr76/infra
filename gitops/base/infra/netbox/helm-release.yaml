@@ -56,6 +56,12 @@ spec:
       enabled: true
       auth:
         password: ${TEMP_SECRET}
+      master:
+        nodeSelector:
+          kubernetes.io/arch: amd64
+      replica:
+        nodeSelector:
+          kubernetes.io/arch: amd64
     persistence:
       enabled: false
     reportsPersistence:
@@ -96,14 +102,3 @@ spec:
       - name: ssh-keys
         secret:
           secretName: napalm-ssh
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - target:
-              version: v1
-              kind: StatefulSet
-              labelSelector: "app.kubernetes.io/instance: netbox"
-            patch:
-              - op: add
-                path: /spect/template/spec/nodeSelector
-                value: "kubernetes.io/arch: amd64"
