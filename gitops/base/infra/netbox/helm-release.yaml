@@ -56,12 +56,15 @@ spec:
       enabled: true
       auth:
         password: ${TEMP_SECRET}
-      master:
-        nodeSelector:
-          kubernetes.io/arch: amd64
-      replica:
-        nodeSelector:
-          kubernetes.io/arch: amd64
+      image:
+        repository: library/redis
+        tag: "6.2.6"
+#      master:
+#        nodeSelector:
+#          kubernetes.io/arch: amd64
+#      replica:
+#        nodeSelector:
+#          kubernetes.io/arch: amd64
     persistence:
       enabled: false
     reportsPersistence:
