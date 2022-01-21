@@ -48,9 +48,6 @@ spec:
             memory: 128Mi
           limits:
             memory: 512Mi
-          initialDelaySeconds: 30
-          periodSeconds: 60
-          failureThreshold: 1
         networkPolicy:
           enabled: true
           egress:
