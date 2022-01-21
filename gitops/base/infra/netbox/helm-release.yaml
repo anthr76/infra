@@ -54,6 +54,9 @@ spec:
       existingSecretKey: "db_password"
     redis:
       enabled: true
+      auth:
+        existingSecret: "netbox"
+        existingSecretPasswordKey: "redis-password"
       tasksRedis:
         existingSecretName: "netbox"
         nodeSelector:
