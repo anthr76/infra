@@ -94,9 +94,9 @@ spec:
               spec:
                 externalTrafficPolicy: Local
                 ipFamilyPolicy: RequireDualStack
+                loadBalancerIP: 10.45.0.0
               annotations:
                 external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
-              loadBalancerIP: 10.45.0.0
             affinity:
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
