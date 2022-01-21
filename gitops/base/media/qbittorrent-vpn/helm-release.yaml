@@ -28,6 +28,7 @@ spec:
     image:
       repository: ghcr.io/k8s-at-home/qbittorrent
       tag: v4.3.9
+    hostname: qbittorent-vpn
     env:
       TZ: "America/New_York"
       WAIT_FOR_VPN: "true"
@@ -62,9 +63,10 @@ spec:
       prometheusRule:
         enabled: true
     podSecurityContext:
-      supplementalGroups:
-        - 1000
-        - 568
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       config:
         enabled: true
@@ -103,32 +105,3 @@ spec:
     addons:
       netshoot:
         enabled: true
-      vpn:
-        enabled: true
-        type: wireguard
-        wireguard:
-          image:
-            repository: ghcr.io/k8s-at-home/wireguard
-            tag: v1.0.20210914
-            pullPolicy: IfNotPresent
-        securityContext:
-          privileged: true
-        env:
-          TZ: "America/New_York"
-          IPTABLES_BACKEND: nft
-          KILLSWITCH: "true"
-          KILLSWITCH_EXCLUDEDNETWORKS_IPV4: "${CLUSTER_POD_CIDR};${CLUSTER_SERVICE_CIDR}"
-        configFileSecret: qbittorrent-vpnconfig
-        scripts:
-          up: |-
-            #!/bin/bash
-            echo "connected" > /shared/vpnstatus
-          down: |-
-            #!/bin/bash
-            echo "disconnected" > /shared/vpnstatus
-        resources:
-          requests:
-            cpu: "0.001"
-            memory: 64Mi
-          limits:
-            memory: 128Mi
