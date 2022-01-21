@@ -16,8 +16,3 @@ data:
         addresses:
           - 10.45.0.0/16
           - 2001:559:87dd:a00::/56
-      - name: ingress-production
-        protocol: bgp
-        addresses:
-          - 2001:559::/32
-          - 10.45.0.0/32

@@ -96,7 +96,7 @@ spec:
                 ipFamilyPolicy: RequireDualStack
               annotations:
                 external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
-                metallb.universe.tf/address-pool: ingress-production
+              loadBalancerIP: 10.45.0.0
             affinity:
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
