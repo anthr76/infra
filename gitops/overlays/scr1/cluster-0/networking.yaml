@@ -92,11 +92,11 @@ spec:
               enabled: true
               type: LoadBalancer
               spec:
-                loadBalancerIP: "10.45.0.0"
                 externalTrafficPolicy: Local
                 ipFamilyPolicy: RequireDualStack
               annotations:
                 external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
+                metallb.universe.tf/address-pool: ingress-production
             affinity:
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
