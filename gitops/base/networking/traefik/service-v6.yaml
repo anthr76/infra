@@ -17,7 +17,7 @@ spec:
   ipFamilies:
     - IPv6
   ipFamilyPolicy: SingleStack
-  # loadBalancerIP: 10.45.0.0
+  loadBalancerIP: "2001:559::"
   ports:
     - name: web
       port: 80
