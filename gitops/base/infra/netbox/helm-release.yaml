@@ -54,8 +54,8 @@ spec:
       existingSecretKey: "db_password"
     redis:
       enabled: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
+      auth:
+        password: ${TEMP_SECRET}
     persistence:
       enabled: false
     reportsPersistence:
@@ -100,23 +100,10 @@ spec:
     - kustomize:
         patchesJson6902:
           - target:
-              version: v1beta1
-              kind: Ingress
-              name: netbox
+              version: v1
+              kind: StatefulSet
+              labelSelector: "app.kubernetes.io/instance: netbox"
             patch:
-              - op: replace
-                path: /apiVersion
-                value: networking.k8s.io/v1
-              - op: remove
-                path: /spec/rules/0/http/paths/0/backend/servicePort
-              - op: remove
-                path: /spec/rules/0/http/paths/0/backend/serviceName
               - op: add
-                path: /spec/rules/0/http/paths/0/backend/service
-                value:
-                  name: netbox
-                  port:
-                    name: http
-              - op: add
-                path: /spec/rules/0/http/paths/0/pathType
-                value: Prefix
+                path: /spect/template/spec/nodeSelector
+                value: "kubernetes.io/arch: amd64"
