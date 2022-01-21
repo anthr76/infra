@@ -11,8 +11,8 @@ data:
         peer-asn: 64512
         my-asn: 64512
     address-pools:
-      - name: default
+      - name: ingress-production
         protocol: bgp
         addresses:
-          - 10.45.0.0/16
-          - 2001:559:87dd:a00::/56
+          - 2001:559::/32
+          - 10.45.0.0/32
