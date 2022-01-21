@@ -54,17 +54,8 @@ spec:
       existingSecretKey: "db_password"
     redis:
       enabled: true
-      auth:
-        existingSecret: "netbox"
-        existingSecretPasswordKey: "redis-password"
-      tasksRedis:
-        existingSecretName: "netbox"
-        nodeSelector:
-          kubernetes.io/arch: amd64
-      cachingRedis:
-        existingSecretName: "netbox"
-        nodeSelector:
-          kubernetes.io/arch: amd64
+      nodeSelector:
+        kubernetes.io/arch: amd64
     persistence:
       enabled: false
     reportsPersistence:
