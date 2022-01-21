@@ -37,7 +37,6 @@ spec:
       mode: "kubernetes"
     ipv6:
       enabled: true
-    enableIPv6Masquerade: false
     operator:
       rollOutPods: true
     containerRuntime:
