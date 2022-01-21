@@ -54,10 +54,12 @@ spec:
       existingSecretKey: "db_password"
     redis:
       enabled: true
-      master:
+      tasksRedis:
+        existingSecretName: "netbox"
         nodeSelector:
           kubernetes.io/arch: amd64
-      replica:
+      cachingRedis:
+        existingSecretName: "netbox"
         nodeSelector:
           kubernetes.io/arch: amd64
     persistence:
