@@ -27,7 +27,7 @@ spec:
   interval: 10m0s
   path: ./clusters/scr1/cluster-0/gotk
   prune: true
-  wait: true
+  wait: false
   sourceRef:
     kind: GitRepository
     name: flux-system
