@@ -20,6 +20,7 @@ spec:
     image:
       repository: ghcr.io/k8s-at-home/pod-gateway
       tag: v1.4.0
+    DNS: 172.16.1.1
     addons:
       netshoot:
         enabled: true
@@ -31,11 +32,15 @@ spec:
             repository: ghcr.io/k8s-at-home/wireguard
             tag: v1.0.20210914
         securityContext:
-          privileged: true
+          runAsUser: 568
+          runAsGroup: 568
+          capabilities:
+            drop:
+              - "SYS_MODULE"
         env:
           TZ: "America/New_York"
           IPTABLES_BACKEND: nft
-          KILLSWITCH: "true"
+          KILLSWITCH: "false"
         configFileSecret: vpn-gateway-vpnconfig
         resources:
           requests:
@@ -43,12 +48,6 @@ spec:
             memory: 128Mi
           limits:
             memory: 512Mi
-        livenessProbe:
-          exec:
-            command:
-              - sh
-              - -c
-              - if [ $(curl -s https://ipinfo.io/country) = '${VPN_COUNTRY}' ]; then exit 0; else exit $?; fi
           initialDelaySeconds: 30
           periodSeconds: 60
           failureThreshold: 1
@@ -59,24 +58,22 @@ spec:
                 - ipBlock:
                     cidr: 0.0.0.0/0
               ports:
-                # VPN traffic
                 - port: ${VPN_GATEWAY_VPN_PORT}
                   protocol: UDP
             - to:
-                - ipBlock:
-                    cidr: ${CLUSTER_POD_CIDR}
-                - ipBlock:
-                    cidr: ${CLUSTER_SERVICE_CIDR}
+                - namespaceSelector: {}
     routed_namespaces:
       - media
     settings:
       VPN_INTERFACE: wg0
+      VXLAN_ID: 43
+      VXLAN_IP_NETWORK: 172.16.1
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "${VPN_GATEWAY_VPN_PORT}"
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "${CLUSTER_POD_CIDR} ${CLUSTER_SERVICE_CIDR} ${NATIVE_CIDR}"
-      VPN_LOCAL_CIDRS: "${CLUSTER_POD_CIDR} ${CLUSTER_SERVICE_CIDR} ${NATIVE_CIDR}"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "${CLUSTER_POD_CIDR} ${CLUSTER_SERVICE_CIDR} ${NATIVE_CIDR} 172.16.0.0/12"
+      VPN_LOCAL_CIDRS: "${CLUSTER_POD_CIDR} ${CLUSTER_SERVICE_CIDR} ${NATIVE_CIDR} 172.16.0.0/12"
     publicPorts:
-      - hostname: qbittorrent
+      - hostname: qbittorrent-vpn
         IP: 10
         ports:
           - type: tcp
