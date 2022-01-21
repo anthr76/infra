@@ -31,7 +31,6 @@ spec:
     hostname: qbittorent-vpn
     env:
       TZ: "America/New_York"
-      WAIT_FOR_VPN: "true"
       UMASK: "022"
     settings:
       automaticPortSetup: false
