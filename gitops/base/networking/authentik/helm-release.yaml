@@ -36,14 +36,8 @@ spec:
       tls:
         - hosts: [auth.kutara.io]
           secretName: auth-kutara-io-tls
-    envValueFrom:
-      AUTHENTIK_POSTGRESQL__PASSWORD:
-        secretKeyRef:
-          key: postgresPassword
-          name: authentik
-      AUTHENTIK_SECRET_KEY:
-        secretKeyRef:
-          key: secretKey
+    envFrom:
+      - secretRef:
           name: authentik
     authentik:
       log_level: debug

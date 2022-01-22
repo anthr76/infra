@@ -15,9 +15,9 @@ spec:
       valueFrom:
         secretKeyRef:
           name: authentik
-          key: postgresPassword
+          key: AUTHENTIK_POSTGRESQL__PASSWORD
     - name: POSTGRES_REPLICATION_PASSWORD
       valueFrom:
         secretKeyRef:
           name: authentik
-          key: postgresPassword
+          key: AUTHENTIK_POSTGRESQL__PASSWORD
