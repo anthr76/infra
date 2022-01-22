@@ -22,6 +22,8 @@ spec:
     monitoring:
       enabled: true
     cephClusterSpec:
+      cephVersion:
+        image: quay.io/ceph/ceph:v16.2.7
       dashboard:
         enabled: true
         urlPrefix: /
