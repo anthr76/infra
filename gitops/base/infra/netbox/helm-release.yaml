@@ -25,6 +25,17 @@ spec:
       email: hello@anthonyrabbito.com
     admins:
       - ["Anthony Rabbito", "hello@anthonyrabbito.com"]
+    logging:
+      disable_existing_loggers: false
+      handlers:
+        console:
+          class: logging.StreamHandler
+      loggers:
+        netbox_auth_*:
+          handlers:
+            - console
+          level: DEBUG
+      version: 1
     remoteAuth:
       enabled: true
       header: x-authentik-username
