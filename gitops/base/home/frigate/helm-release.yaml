@@ -29,15 +29,16 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          traefik.ingress.kubernetes.io/router.middlewares: networking-ak-outpost-kutara@kubernetescrd
         hosts:
-          - host: "frigate.${INT_DOMAIN}"
+          - host: "frigate.scr1.kutara.io"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: frigate-tls
             hosts:
-              - "frigate.${INT_DOMAIN}"
+              - "frigate.scr1.kutara.io"
     service:
       main:
         ports:
