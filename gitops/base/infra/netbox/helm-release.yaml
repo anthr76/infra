@@ -29,6 +29,7 @@ spec:
       enabled: true
       header: x-authentik-username
       groupHeader: x-authentik-groups
+      groupSyncEnabled: true
       superuserGroups:
         - admin
       staffGroups:
