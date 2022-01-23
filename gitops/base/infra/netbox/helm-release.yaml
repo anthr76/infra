@@ -31,7 +31,7 @@ spec:
         console:
           class: logging.StreamHandler
       loggers:
-        netbox_auth_*:
+        netbox.authentication.*:
           handlers:
             - console
           level: DEBUG
