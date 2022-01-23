@@ -27,8 +27,8 @@ spec:
       - ["Anthony Rabbito", "hello@anthonyrabbito.com"]
     remoteAuth:
       enabled: true
-      header: X-authentik-email
-      groupHeader: X-authentik-groups
+      header: x-authentik-email
+      groupHeader: x-authentik-groups
       superuserGroups:
         - admin
       staffGroups:
