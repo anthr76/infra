@@ -37,7 +37,7 @@ spec:
     #   - netbox_ddns
     # - napalm-vyos
     # - napalm_ros
-    loginRequired: true
+    loginRequired: false
     storageBackend: storages.backends.s3boto3.S3Boto3Storage
     storageConfig:
       AWS_ACCESS_KEY_ID: "${SECRET_MINIO_ACCESS_KEY}"
