@@ -25,11 +25,19 @@ spec:
       email: hello@anthonyrabbito.com
     admins:
       - ["Anthony Rabbito", "hello@anthonyrabbito.com"]
+    remoteAuth:
+      enabled: true
+      header: X-authentik-email
+      groupHeader: X-authentik-groups
+      superuserGroups:
+        - admin
+      staffGroups:
+        - family
     # plugins:
     #   - netbox_ddns
     # - napalm-vyos
     # - napalm_ros
-    loginRequired: false
+    loginRequired: true
     storageBackend: storages.backends.s3boto3.S3Boto3Storage
     storageConfig:
       AWS_ACCESS_KEY_ID: "${SECRET_MINIO_ACCESS_KEY}"
@@ -55,16 +63,13 @@ spec:
     redis:
       enabled: true
       auth:
+        # This is temp because the chart is broken.
+        # Really it can be plain text because.. redis auth is always a pain.
+        # But the next chart release should fix this.
         password: ${TEMP_SECRET}
       image:
         repository: library/redis
         tag: "6.2.6"
-#      master:
-#        nodeSelector:
-#          kubernetes.io/arch: amd64
-#      replica:
-#        nodeSelector:
-#          kubernetes.io/arch: amd64
     persistence:
       enabled: false
     reportsPersistence:
@@ -74,14 +79,15 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: networking-ak-outpost-kutara@kubernetescrd
       hosts:
-        - host: netbox.scr1.rabbito.tech
+        - host: netbox.kutara.io
           paths:
             - /
       tls:
-        - secretName: netbox-int-tls
+        - secretName: netbox-tls
           hosts:
-            - netbox.scr1.rabbito.tech
+            - netbox.kutara.io
     init:
       image:
         repository: docker.io/library/busybox
