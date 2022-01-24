@@ -20,6 +20,19 @@ spec:
       enabled: false
     server:
       enabled: true
+      ingress:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          cert-manager.io/cluster-issuer: letsencrypt-production
+        ingressClassName: "traefik"
+        hosts:
+          - host: "vault.${INT_DOMAIN}"
+            paths: ["/"]
+        tls:
+          - secretName: vault-int-tls
+            hosts:
+              - "vault.${INT_DOMAIN}"
       ha:
         enabled: true
         replicas: 3
