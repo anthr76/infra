@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vault
+  namespace: infra
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: vault
+      version: 0.19.0
+      sourceRef:
+        kind: HelmRepository
+        name: hashicorp-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    injector:
+      enabled: false
+    server:
+      enabled: true
+      ha:
+        enabled: true
+        replicas: 3
+        raft:
+          enabled: true
+          config: |
+            ui = true
+            listener "tcp" {
+              tls_disable = 1
+              address = "[::]:8200"
+              cluster_address = "[::]:8201"
+            }
+            storage "raft" {
+              path = "/vault/data"
+            }
+            service_registration "kubernetes" {}
