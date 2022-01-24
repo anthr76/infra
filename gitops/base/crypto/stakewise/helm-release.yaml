@@ -36,7 +36,13 @@ spec:
     vaultAddr: "vault.infra.svc.cluster.local"
     geth:
       network: goerli
-      replicas: 2
+      replicas: 3
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+        prometheusRule:
+          enabled: false
     prysm:
       network: prater
       replicas: 1
@@ -47,12 +53,24 @@ spec:
         - "--fallback-web3provider=${CRYPTO_INFURA_ETH1_ENDPOINT_TEST}"
         - "--p2p-max-peers=100"
         - "--enable-peer-scorer"
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+        prometheusRule:
+          enabled: false
     lighthouse:
       network: prater
       replicas: 3
       eth1Endpoints:
         - "http://stakewise-operator-geth:8545"
         - "${CRYPTO_INFURA_ETH1_ENDPOINT_TEST}"
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+        prometheusRule:
+          enabled: false
     metrics:
       enabled: true
       serviceMonitor:
