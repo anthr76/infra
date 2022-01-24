@@ -40,6 +40,6 @@ spec:
     geth:
       network: goerli
     prysm:
-      network: goerli
+      network: prater
     lighthouse:
-      network: goerli
+      network: prater
