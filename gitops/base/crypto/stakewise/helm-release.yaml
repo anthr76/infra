@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    type: lighthouse
+    type: prysm
     enabled: false
     initImageBusybox:
       repository: "docker.io/library/busybox"
@@ -47,3 +47,4 @@ spec:
       network: prater
       eth1Endpoints:
         - "http://stakewise-operator-geth:8545"
+        - "${CRYPTO_INFURA_ETH1_ENDPOINT_TEST}"
