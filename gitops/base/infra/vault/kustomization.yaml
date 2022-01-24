@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - secret.sops.yaml
+  - certificate.yaml
+  - certificate-authority.yaml
 namespace: infra
 secretGenerator:
   - name: kms-creds
