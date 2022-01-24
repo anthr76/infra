@@ -28,9 +28,6 @@ spec:
       kubernetes.io/arch: amd64
     network: prater
     graffiti: "kutara"
-    serviceMonitor:
-      enabled: true
-      namespace: "crypto"
     prometheusRule:
       enabled: true
       namespace: "crypto"
