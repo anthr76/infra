@@ -63,6 +63,7 @@ spec:
           secretKey: VAULT_GCPCKMS_SEAL_KEY_RING
       extraEnvironmentVars:
         GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/kms-creds/credentials.json
+        VAULT_SEAL_TYPE: gcpckms
       ha:
         enabled: true
         replicas: 3
