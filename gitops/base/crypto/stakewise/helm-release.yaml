@@ -77,3 +77,15 @@ spec:
         enabled: true
       prometheusRule:
         enabled: false
+  postRenderers:
+    - kustomize:
+        patchesJson6902:
+          - target:
+              version: v1
+              kind: ConfigMap
+              name: .*-dashboard
+            patch:
+              - op: add
+                path: /metadata/annotations
+                value:
+                  grafana_folder: crypto
