@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: netbox
+      chart: operator
       version: 1.0.8
       sourceRef:
         kind: HelmRepository
-        name: stackwise-charts
+        name: stakewise-charts
         namespace: flux-system
       interval: 5m
   values:
