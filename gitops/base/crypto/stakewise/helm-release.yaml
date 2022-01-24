@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    type: prysm
+    type: lighthouse
     enabled: false
     initImageBusybox:
       repository: "docker.io/library/busybox"
@@ -42,6 +42,7 @@ spec:
       replicas: 2
     prysm:
       network: prater
+      replicas: 1
       eth1Endpoint: "http://stakewise-operator-geth.crypto.svc.cluster.local:8545"
       extraFlags:
         - "--accept-terms-of-use"
@@ -51,6 +52,13 @@ spec:
         - "--enable-peer-scorer"
     lighthouse:
       network: prater
+      replicas: 3
       eth1Endpoints:
         - "http://stakewise-operator-geth:8545"
         - "${CRYPTO_INFURA_ETH1_ENDPOINT_TEST}"
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
