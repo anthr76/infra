@@ -36,7 +36,7 @@ spec:
     vaultAddr: "vault.infra.svc.cluster.local"
     geth:
       network: goerli
-      replicas: 3
+      replicas: 2
       metrics:
         enabled: true
         serviceMonitor:
