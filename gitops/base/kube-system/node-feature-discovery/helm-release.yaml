@@ -15,8 +15,6 @@ spec:
         name: node-feature-discovery-charts
         namespace: flux-system
   values:
-    image:
-      repository: ghcr.io/danmanners/node-feature-discovery
     worker:
       annotations:
         configmap.reloader.stakater.com/reload: node-feature-discovery-worker-conf
