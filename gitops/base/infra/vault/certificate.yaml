@@ -1,0 +1,16 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: injector-certificate
+spec:
+  secretName: injector-tls
+  duration: 24h
+  renewBefore: 144m
+  dnsNames:
+    - vault-agent-injector-svc
+    - vault-agent-injector-svc.infra
+    - vault-agent-injector-svc.infra.svc
+  issuerRef:
+    name: injector-ca-issuer
+  commonName: Agent Inject Cert

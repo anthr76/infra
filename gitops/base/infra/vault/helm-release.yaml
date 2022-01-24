@@ -17,7 +17,15 @@ spec:
       interval: 5m
   values:
     injector:
-      enabled: false
+      enabled: true
+      replicas: 2
+      leaderElector:
+        enabled: false
+      certs:
+        secretName: injector-tls
+      metrics:
+        enabled: true
+      webhookAnnotations: "cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/injector-certificate"
     server:
       enabled: true
       ingress:
@@ -59,5 +67,11 @@ spec:
       - envName: GOOGLE_PROJECT
         secretName: vault
         secretKey: GOOGLE_PROJECT
+      - envName: VAULT_GCPCKMS_SEAL_CRYPTO_KEY
+        secretName: vault
+        secretKey: VAULT_GCPCKMS_SEAL_CRYPTO_KEY
+      - envName: VAULT_GCPCKMS_SEAL_KEY_RING
+        secretName: vault
+        secretKey: VAULT_GCPCKMS_SEAL_KEY_RING
     extraEnvironmentVars:
       GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/kms-creds/credentials.json
