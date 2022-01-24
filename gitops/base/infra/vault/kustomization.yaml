@@ -6,6 +6,8 @@ resources:
   - secret.sops.yaml
   - certificate.yaml
   - certificate-authority.yaml
+generatorOptions:
+  disableNameSuffixHash: true
 namespace: infra
 secretGenerator:
   - name: kms-creds
