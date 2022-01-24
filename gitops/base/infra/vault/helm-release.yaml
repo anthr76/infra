@@ -41,6 +41,28 @@ spec:
           - secretName: vault-int-tls
             hosts:
               - "vault.${INT_DOMAIN}"
+      volumes:
+        - name: "kms-creds"
+          secret:
+            secretName: "kms-creds"
+      volumeMounts:
+        - mountPath: /vault/userconfig/kms-creds/
+          name: "kms-creds"
+      extraSecretEnvironmentVars:
+        - envName: GOOGLE_REGION
+          secretName: vault
+          secretKey: GOOGLE_REGION
+        - envName: GOOGLE_PROJECT
+          secretName: vault
+          secretKey: GOOGLE_PROJECT
+        - envName: VAULT_GCPCKMS_SEAL_CRYPTO_KEY
+          secretName: vault
+          secretKey: VAULT_GCPCKMS_SEAL_CRYPTO_KEY
+        - envName: VAULT_GCPCKMS_SEAL_KEY_RING
+          secretName: vault
+          secretKey: VAULT_GCPCKMS_SEAL_KEY_RING
+      extraEnvironmentVars:
+        GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/kms-creds/credentials.json
       ha:
         enabled: true
         replicas: 3
@@ -57,21 +79,3 @@ spec:
               path = "/vault/data"
             }
             service_registration "kubernetes" {}
-    extraVolumes:
-      - type: 'secret'
-        name: 'kms-creds'
-    extraSecretEnvironmentVars:
-      - envName: GOOGLE_REGION
-        secretName: vault
-        secretKey: GOOGLE_REGION
-      - envName: GOOGLE_PROJECT
-        secretName: vault
-        secretKey: GOOGLE_PROJECT
-      - envName: VAULT_GCPCKMS_SEAL_CRYPTO_KEY
-        secretName: vault
-        secretKey: VAULT_GCPCKMS_SEAL_CRYPTO_KEY
-      - envName: VAULT_GCPCKMS_SEAL_KEY_RING
-        secretName: vault
-        secretKey: VAULT_GCPCKMS_SEAL_KEY_RING
-    extraEnvironmentVars:
-      GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/kms-creds/credentials.json
