@@ -16,6 +16,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    global:
+      tlsDisable: false
     injector:
       enabled: true
       replicas: 2
@@ -72,7 +74,6 @@ spec:
           config: |
             ui = true
             listener "tcp" {
-              tls_disable = 1
               address = "[::]:8200"
               cluster_address = "[::]:8201"
             }
