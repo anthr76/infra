@@ -25,3 +25,5 @@ resources:
   - vmware-charts.yaml
   - weaveworks-kured-charts.yaml
   - stakater-charts.yaml
+  - stakewise-charts.yaml
+  - hashicorp-charts.yaml
