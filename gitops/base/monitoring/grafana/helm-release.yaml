@@ -148,6 +148,7 @@ spec:
       dashboards:
         enabled: true
         searchNamespace: ALL
+        folderAnnotation: grafana-folder
         multicluster: true
       datasources:
         enabled: true
