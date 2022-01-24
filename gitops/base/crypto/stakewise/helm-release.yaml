@@ -39,7 +39,11 @@ spec:
     vaultAddr: "vault.infra.svc.cluster.local"
     geth:
       network: goerli
+      replicas: 2
     prysm:
       network: prater
+      eth1Endpoint: "http://stakewise-operator-geth:8545"
     lighthouse:
       network: prater
+      eth1Endpoints:
+        - "http://stakewise-operator-geth:8545"
