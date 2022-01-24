@@ -49,3 +49,15 @@ spec:
               path = "/vault/data"
             }
             service_registration "kubernetes" {}
+    extraVolumes:
+      - type: 'secret'
+        name: 'kms-creds'
+    extraSecretEnvironmentVars:
+      - envName: GOOGLE_REGION
+        secretName: vault
+        secretKey: GOOGLE_REGION
+      - envName: GOOGLE_PROJECT
+        secretName: vault
+        secretKey: GOOGLE_PROJECT
+    extraEnvironmentVars:
+      GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/kms-creds/credentials.json
