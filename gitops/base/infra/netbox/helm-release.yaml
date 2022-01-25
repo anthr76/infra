@@ -37,10 +37,11 @@ spec:
           level: DEBUG
       version: 1
     remoteAuth:
-      enabled: true
+      enabled: True
       header: x-authentik-username
       groupHeader: x-authentik-groups
-      groupSyncEnabled: true
+      groupSyncEnabled: True
+      autoCreateUser: True
       superuserGroups:
         - admin
       staffGroups:
