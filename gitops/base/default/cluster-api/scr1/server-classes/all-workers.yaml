@@ -11,12 +11,12 @@ spec:
       value: /dev/sda
     - op: replace
       path: /machine/kubelet/image
-      value: ghcr.io/talos-systems/kubelet:v1.22.4
+      value: ghcr.io/talos-systems/kubelet:v1.23.2
     - op: add
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: true
-        feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
+        feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
     - op: replace
       path: /persist
       value: false
