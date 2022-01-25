@@ -45,7 +45,6 @@ spec:
         useAllNodes: false
         useAllDevices: false
         config:
-          metadataDevice:
           osdsPerDevice: "1"
         nodes:
           - name: "${OSD_HOSTNAME_1}"
