@@ -16,8 +16,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    global:
-      tlsDisable: false
     injector:
       enabled: true
       replicas: 2
