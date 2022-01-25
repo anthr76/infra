@@ -8,16 +8,16 @@ spec:
   configPatches:
     - op: replace
       path: /cluster/apiServer/image
-      value: k8s.gcr.io/kube-apiserver:v1.22.4
+      value: k8s.gcr.io/kube-apiserver:v1.23.2
     - op: replace
       path: /cluster/controllerManager/image
-      value: k8s.gcr.io/kube-controller-manager:v1.22.4
+      value: k8s.gcr.io/kube-controller-manager:v1.23.2
     - op: replace
       path: /cluster/scheduler/image
-      value: k8s.gcr.io/kube-scheduler:v1.22.4
+      value: k8s.gcr.io/kube-scheduler:v1.23.2
     - op: replace
       path: /machine/kubelet/image
-      value: ghcr.io/talos-systems/kubelet:v1.22.4
+      value: ghcr.io/talos-systems/kubelet:v1.23.2
     - op: replace
       path: /cluster/proxy/disabled
       value: true
@@ -35,7 +35,7 @@ spec:
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: true
-        feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
+        feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
     - op: add
       path: /machine/time
       value:
