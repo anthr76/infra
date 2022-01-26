@@ -6,9 +6,9 @@ resources:
   - master-01.yaml
   - master-02.yaml
   - master-03.yaml
-  - pi-master-01.yaml
-  - pi-master-02.yaml
-  - pi-master-03.yaml
+  - worker-06.yaml
+  - worker-08.yaml
+  - worker-09.yaml
   - worker-01.yaml
   - worker-02.yaml
   - worker-03.yaml
