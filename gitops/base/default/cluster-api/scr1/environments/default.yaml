@@ -6,7 +6,7 @@ metadata:
   namespace: default
 spec:
   kernel:
-    url: "https://s3.kutara.io/test/vmlinuz-amd64"
+    url: "https://github.com/talos-systems/talos/releases/download/v0.14.1/vmlinuz-amd64"
     args:
       - console=tty1
       - console=ttyS1,115200n8
@@ -26,4 +26,4 @@ spec:
       - talos.platform=metal
       - pci=rom,realloc
   initrd:
-    url: "https://s3.kutara.io/test/initramfs-amd64.xz"
+    url: "https://github.com/talos-systems/talos/releases/download/v0.14.1/vmlinuz-amd64"
