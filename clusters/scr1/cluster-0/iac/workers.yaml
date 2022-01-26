@@ -22,7 +22,7 @@ spec:
     matchLabels: null
   strategy:
     rollingUpdate:
-      MaxUnavailable: 1
+      maxUnavailable: 1
   template:
     spec:
       bootstrap:
