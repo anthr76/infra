@@ -15,6 +15,10 @@ spec:
       path: /machine/network/hostname
       value: worker-06.scr1.rabbito.tech
     - op: add
+      path: /machine/install/extraKernelArgs
+      value:
+        - sysctl.kernel.kexec_load_disabled=1 
+    - op: add
       path: /machine/network/interfaces
       value:
         - interface: eth0
