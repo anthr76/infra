@@ -8,6 +8,9 @@ spec:
   accepted: true
   hostname: worker-08.scr1.rabbito.tech
   pxeBootAlways: true
+  environmentRef:
+    namespace: default
+    name: default-arm64
   configPatches:
     - op: add
       path: /machine/network/hostname

@@ -7,6 +7,9 @@ metadata:
 spec:
   accepted: true
   hostname: worker-06.scr1.rabbito.tech
+  environmentRef:
+    namespace: default
+    name: default-arm64
   configPatches:
     - op: add
       path: /machine/network/hostname
