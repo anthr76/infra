@@ -4,7 +4,7 @@ kind: VolumeSnapshotClass
 metadata:
   name: csi-rbdplugin-snapclass
   labels:
-    velero.io/csi-volumesnapshot-class: "true"
+    velero.io/csi-volumesnapshot-class: "false"
 driver: rook-ceph.rbd.csi.ceph.com
 parameters:
   clusterID: rook-ceph
