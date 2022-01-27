@@ -52,9 +52,10 @@ prometheus:
         key: objstore.yml
     additionalScrapeConfigs:
       - job_name: "node-exporter"
+        honor_timestamps: true
         static_configs:
           - targets:
-              - 10.20.99.1:9100
+              - fw-1.${INT_DOMAIN}:9100
       - job_name: "vyos-coredns"
         static_configs:
           - targets:
