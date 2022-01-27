@@ -12,5 +12,4 @@ spec:
     excludedNamespaces:
       - "crypto"
     snapshotVolumes: true
-      - default
     ttl: "120h"
