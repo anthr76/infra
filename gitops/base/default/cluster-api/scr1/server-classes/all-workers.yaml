@@ -6,6 +6,10 @@ metadata:
   namespace: default
 spec:
   configPatches:
+    - op: add
+      path: /machine/install/extraKernelArgs
+      value:
+        - initcall_blacklist=aoe_init
     - op: replace
       path: /machine/install/disk
       value: /dev/sda
