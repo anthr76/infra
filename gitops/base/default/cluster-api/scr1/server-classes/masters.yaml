@@ -6,6 +6,10 @@ metadata:
   namespace: default
 spec:
   configPatches:
+    - op: add
+      path: /machine/install/extraKernelArgs
+      value:
+        - initcall_blacklist=aoe_init
     - op: replace
       path: /cluster/apiServer/image
       value: k8s.gcr.io/kube-apiserver:v1.23.2
