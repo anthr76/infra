@@ -21,9 +21,10 @@ spec:
       value:
         rotate-server-certificates: true
         feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
-        kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
         system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
+        kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
         eviction-hard: memory.available<500Mi,nodefs.available<10%
+        eviction-soft: memory.available<900Mi,nodefs.available<15%
     - op: replace
       path: /persist
       value: false
