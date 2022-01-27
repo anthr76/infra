@@ -17,12 +17,6 @@ spec:
       interval: 5m
   values:
     initContainers:
-      - name: velero-plugin-for-aws
-        image: docker.io/velero/velero-plugin-for-aws:v1.3.0
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - mountPath: /target
-            name: plugins
       - name: velero-plugin-for-csi
         image: docker.io/velero/velero-plugin-for-csi:v0.2.0
         imagePullPolicy: IfNotPresent
@@ -30,7 +24,6 @@ spec:
           - mountPath: /target
             name: plugins
     configuration:
-      provider: velero.io/aws
       features: EnableCSI
     credentials:
       existingSecret: s3-credentials
@@ -40,22 +33,13 @@ spec:
         enabled: true
     backupsEnabled: false
     snapshotsEnabled: false
-    deployRestic: true
+    deployRestic: false
     schedule:
       disabled: true
-    nodeSelector:
-      kubernetes.io/arch: amd64
     kubectl:
       image:
         repository: ghcr.io/k8s-at-home/kubectl
         tag: v1.23.3
-    restic:
-      resources:
-        requests:
-          memory: 200Mi
-          cpu: 15m
-        limits:
-          memory: 3000Mi
     resources:
       requests:
         memory: 300Mi

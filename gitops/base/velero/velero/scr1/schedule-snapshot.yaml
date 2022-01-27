@@ -9,13 +9,8 @@ spec:
   template:
     includedNamespaces:
       - "*"
-    includedResources:
-      - "pv"
-      - "pvc"
-      - "volumesnapshot"
-      - "volumesnapshotcontent"
+    excludedNamespaces:
+      - "crypto"
     snapshotVolumes: true
-    storageLocation: default
-    volumeSnapshotLocations:
       - default
     ttl: "120h"

@@ -98,6 +98,7 @@ apt_remove_packages:
   - ufw
 apt_install_packages:
   - podman
+  - targetcli-fb
   - cockpit
   - cockpit-podman
   - cockpit-machines
