@@ -17,7 +17,7 @@ metadata:
   namespace: default
 spec:
   clusterName: scr1-cluster-0
-  replicas: 8
+  replicas: 9
   selector:
     matchLabels: null
   strategy:
