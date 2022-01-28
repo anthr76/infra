@@ -26,7 +26,7 @@ spec:
         image: k8s.gcr.io/sig-storage/csi-resizer:v1.3.0
       externalSnapshotter:
         enabled: true
-        image: k8s.gcr.io/sig-storage/csi-snapshotter:v4.2.1
+        image: k8s.gcr.io/sig-storage/csi-snapshotter:v5.0.1
       driver:
         enabled: true
         image: democraticcsi/democratic-csi:latest
