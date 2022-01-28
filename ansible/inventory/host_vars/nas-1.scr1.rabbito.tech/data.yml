@@ -4,7 +4,7 @@ zfs_install_update: false
 zfs_enable_nfs: true
 zfs_manage_filesystem_permissions: true
 zfs_enable_samba: false
-zfs_enable_performance_tuning: true
+zfs_enable_performance_tuning: false # Not idempotent
 zfs_create_pools: true
 zfs_create_filesystems: true
 zfs_pools:
@@ -43,11 +43,23 @@ zfs_filesystems:
     mountpoint: "/tank/frigate"
   - name: persistentVolumeClaims
     pool: tank
-    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24"
+    sharenfs: "no_subtree_check,all_squash,anonuid=1002,anongid=1000,rw=@192.168.8.0/24"
     state: present
-    owner: root
-    group: root
+    owner: utils
+    group: anthonyjrabbito
     mountpoint: "/tank/persistentVolumeClaims"
+  - name: persistentVolumeClaims-p
+    pool: tank
+    state: present
+    owner: utils
+    group: anthonyjrabbito
+    mountpoint: "/tank/persistentVolumeClaims/p"
+  - name: persistentVolumeClaims-s
+    pool: tank
+    state: present
+    owner: utils
+    group: anthonyjrabbito
+    mountpoint: "/tank/persistentVolumeClaims/s"
   - name: minio
     pool: tank
     sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24,rw=@192.168.8.0/24,ro=192.168.9.0/24"
