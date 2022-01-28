@@ -65,5 +65,3 @@ spec:
           snapshotter-secret:
     driver:
       existingConfigSecret: democratic-csi
-      config:
-        driver: zfs-generic-nfs
