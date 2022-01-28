@@ -60,6 +60,7 @@ spec:
           controller-expand-secret:
     volumeSnapshotClasses:
       - name: zfs-nfs
+        deletionPolicy: Delete
         parameters:
         secrets:
           snapshotter-secret:
