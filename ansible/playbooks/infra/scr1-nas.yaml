@@ -3,7 +3,6 @@
   become: true
   gather_facts: true
   roles:
-    - role: "mrlesmithjr.zfs"
     - role: "rootless"
   tasks:
     - name: Add user to sudoers
@@ -16,6 +15,15 @@
       ansible.builtin.user:
         name: dominicrabbito
         comment: Dominic Rabbito
+
+    - name: create utils user
+      ansible.builtin.user:
+        name: utils
+        generate_ssh_key: yes
+        ssh_key_type: ed25519
+        ssh_key_file: .ssh/id_ed25519
+        uid: 1002
+        groups: sudo, anthonyjrabbito
 
     - name: gather installed packages
       ansible.builtin.package_facts:
@@ -157,6 +165,10 @@
       environment:
         XDG_RUNTIME_DIR: "/run/user/{{ ansible_user_uid }}"
       become: false
+
+    - name: zfs
+      ansible.builtin.include_role:
+        role: "mrlesmithjr.zfs"
 
     - name: warn if reboot required
       debug:

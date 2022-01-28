@@ -68,3 +68,17 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: rook-ceph-democratic-csi
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: "./gitops/base/rook-ceph/democratic-csi"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
