@@ -20,7 +20,7 @@ spec:
     controller:
       externalProvisioner:
         enabled: true
-        image: k8s.gcr.io/sig-storage/csi-provisioner:v3.0.0
+        image: k8s.gcr.io/sig-storage/csi-provisioner:v3.1.0
       externalResizer:
         enabled: true
         image: k8s.gcr.io/sig-storage/csi-resizer:v1.4.0
