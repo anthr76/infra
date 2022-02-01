@@ -57,7 +57,7 @@ spec:
       AWS_ACCESS_KEY_ID: "${SECRET_MINIO_ACCESS_KEY}"
       AWS_SECRET_ACCESS_KEY: "${SECRET_MINIO_SECRET_KEY}"
       AWS_STORAGE_BUCKET_NAME: "netbox"
-      AWS_S3_ENDPOINT_URL: "http://minio.infra.svc.cluster.local:9000"
+      AWS_S3_ENDPOINT_URL: "https://s3.kutara.io"
     metricsEnabled: true
     napalm:
       username: "auto"
