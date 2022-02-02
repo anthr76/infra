@@ -21,7 +21,7 @@ spec:
   values:
     image:
       repository: goauthentik.io/server
-      tag: 2022.1.4
+      tag: 2021.12.4
     ingress:
       enabled: true
       ingressClassName: "traefik"
