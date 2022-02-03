@@ -41,6 +41,6 @@ spec:
                 memory: 20
                 pods: 20
               targetThresholds:
-                cpu: 40
-                memory: 40
-                pods: 40
+                cpu: 50
+                memory: 50
+                pods: 50
