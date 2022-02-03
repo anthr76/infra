@@ -13,7 +13,7 @@ resources:
   - infracloudio-charts.yaml
   - jetstack-charts.yaml
   - k8s-at-home-chart.yaml
-  - kubernetes-sigs-charts.yaml
+  - descheduler-charts.yaml
   - kubernetes-stable-charts.yaml
   - metrics-server-charts.yaml
   - minecraft-server-charts.yaml

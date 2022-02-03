@@ -8,32 +8,39 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: descheduler-helm-chart
-      version: 0.19.1
+      chart: descheduler
+      version: descheduler
       sourceRef:
         kind: HelmRepository
-        name: kubernetes-sigs-charts
+        name: descheduler-charts
         namespace: flux-system
       interval: 10m
   values:
     image:
-      repository: raspbernetes/descheduler
-      tag: "v0.21.0"
+      repository: "k8s.gcr.io/descheduler/descheduler"
+      tag: "v0.22.1"
     deschedulerPolicy:
       strategies:
         RemoveDuplicates:
-          enabled: false
+          enabled: true
+        RemovePodsViolatingNodeTaints:
+          enabled: true
+        RemovePodsViolatingNodeAffinity:
+          enabled: true
+          params:
+            nodeAffinityType:
+              - requiredDuringSchedulingIgnoredDuringExecution
         RemovePodsViolatingInterPodAntiAffinity:
-          enabled: false
+          enabled: true
         LowNodeUtilization:
           enabled: true
           params:
             nodeResourceUtilizationThresholds:
               thresholds:
+                cpu: 20
+                memory: 20
+                pods: 20
+              targetThresholds:
                 cpu: 40
                 memory: 40
-                pods: 15
-              targetThresholds:
-                cpu: 60
-                memory: 60
-                pods: 35
+                pods: 40
