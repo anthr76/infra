@@ -5,7 +5,7 @@ metadata:
   name: ostree-fetch-github
   namespace: infra
 spec:
-  schedule: "0 4 * * 6"
+  schedule: "0 2 * * *"
   jobTemplate:
     spec:
       template:
