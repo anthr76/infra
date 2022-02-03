@@ -38,7 +38,7 @@ spec:
         localtimeHostPath: null
       driverRegistrar:
         enabled: true
-        image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.4.0
+        image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.5.0
     csiDriver:
       name: "org.${CLUSTER_NAME}-democratic-csi.nfs"
     storageClasses:
