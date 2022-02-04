@@ -19,7 +19,7 @@ spec:
     image:
       repository: ghcr.io/anthr76/netbox-docker-kutara
       pullPolicy: IfNotPresent
-      tag: "v3.1.6"
+      tag: "v3.1.7"
     superuser:
       name: admin
       email: hello@anthonyrabbito.com
