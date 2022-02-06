@@ -1,0 +1,64 @@
+---
+
+- name: Install filesystem tools
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    update_cache: true
+  loop:
+    - hdparm
+    - nfs-common
+    - nfs-kernel-server
+    - nvme-cli
+    - open-iscsi
+    - smartmontools
+    - msmtp
+    - mailutils
+    - msmtp-mta
+    - s-nail
+  when: ansible_os_family == "Debian"
+
+- name: Check if msmtp log exists
+  ansible.builtin.stat:
+    path: "/var/log/msmtp"
+  register: msmtp_status
+
+- name: Create msmtp log file
+  ansible.builtin.file:
+    dest: /var/log/msmtp
+    state: touch
+    owner: msmtp
+    group: msmtp
+    mode: 0660
+  when:
+    - not msmtp_status.stat.exists
+
+- name: configure smartd
+  ansible.builtin.copy:
+    dest: /etc/smartd.conf
+    mode: 0644
+    content: |
+      DEVICESCAN -a -o on -S on -n standby,q -s (S/../.././02|L/../../6/03) -W 4,35,40
+  notify: Restart smartd
+
+- name: configure mailrc
+  ansible.builtin.copy:
+    dest: /etc/mail.rc
+    mode: 0644
+    content: |
+      set mta=/usr/bin/msmtp
+
+- name: configure msmtrpc
+  ansible.builtin.template:
+    src: etc/msmtprc.j2
+    dest: /etc/msmtprc
+    owner: msmtp
+    group: msmtp
+    mode: '0600'
+
+- name: configure aliases
+  ansible.builtin.template:
+    src: etc/aliases.j2
+    dest: /etc/aliases
+    owner: root
+    group: root
+    mode: '0600'
