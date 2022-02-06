@@ -22,6 +22,13 @@
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
 
+    - name: setup vector directory
+      ansible.builtin.file:
+        path: /tank/system/user/vector
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
     - name: run docker pull-through cache
       containers.podman.podman_container:
         name: registry-docker.io
@@ -102,6 +109,34 @@
           container_prefix: ansible
       become: false
 
+    - name: ensure vector config
+      ansible.builtin.template:
+        src: vector.yaml.j2
+        dest: /home/{{ ansible_user }}/.config/vector.yaml
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0600'
+
+    - name: run vector
+      containers.podman.podman_container:
+        name: vector
+        image: "docker.io/timberio/vector:0.19.1-debian"
+        state: started
+        privileged: true
+        network: host
+        volume:
+          - "/home/{{ ansible_user }}/.config/vector.yaml:/etc/vector/vector.yaml"
+          - "/var/log:/var/log:ro"
+          - "/tank/system/user/vector:/vector-data-dir"
+        command: "--config=/etc/vector/vector.yaml"
+        generate_systemd:
+          path: "/home/{{ ansible_user }}/.config/systemd/user"
+          restart_policy: always
+          time: 120
+          names: true
+          container_prefix: ansible
+      become: false
+
     - name: enable podman-systemd | registry
       ansible.builtin.systemd:
         name: ansible-registry-docker.io
@@ -124,6 +159,15 @@
     - name: enable podman-systemd | node-exporter
       ansible.builtin.systemd:
         name: ansible-node-exporter
+        enabled: true
+        scope: user
+      environment:
+        XDG_RUNTIME_DIR: "/run/user/{{ ansible_user_uid }}"
+      become: false
+
+    - name: enable podman-systemd | vector
+      ansible.builtin.systemd:
+        name: ansible-vector
         enabled: true
         scope: user
       environment:
