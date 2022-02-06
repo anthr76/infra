@@ -7,6 +7,21 @@
     - role: "anthr76.common"
     - role: "anthr76.storage"
   tasks:
+    # .d isn't supported on this version of podman
+    - name: setup containers.d directory
+      ansible.builtin.file:
+        path: /home/{{ ansible_user }}/.config/containers/containers.conf.d
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: setup logfile for podman
+      ansible.builtin.copy:
+        dest: /home/{{ ansible_user }}/.config/containers/containers.conf
+        mode: 0644
+        content: |
+          [containers]
+          log_driver = "journald"
 
     - name: setup podman user directory
       ansible.builtin.file:
