@@ -157,9 +157,89 @@
           container_prefix: ansible
       become: false
 
-    - name: enable podman systemd containers
+    - name: run docker pull-through cache
+      containers.podman.podman_container:
+        name: registry-docker.io
+        image: "docker.io/library/registry:2.7.1"
+        state: started
+        ports:
+          - "5000:5000"
+        env:
+          REGISTRY_PROXY_REMOTEURL: "https://registry-1.docker.io"
+        volume:
+          - "/tank/system/user/docker_cache:/var/lib/registry:z"
+        generate_systemd:
+          path: "/home/{{ ansible_user }}/.config/systemd/user"
+          restart_policy: always
+          time: 120
+          names: true
+          container_prefix: ansible
+      become: false
+
+    # https://github.com/google/cadvisor/pull/3021
+    - name: ensure cadvisor
+      containers.podman.podman_container:
+        name: cadvisor
+        image: "gcr.io/google-containers/cadvisor:v0.36.0"
+        state: absent
+        privileged: true
+        network: host
+        volume:
+          - "/:/rootfs:ro"
+          - "/var/run:/var/run:ro"
+          - "/sys:/sys:ro"
+          - "/dev/disk:/dev/disk/:ro"
+        command: "-port=8005"
+        generate_systemd:
+          path: "/home/{{ ansible_user }}/.config/systemd/user"
+          restart_policy: always
+          time: 120
+          names: true
+          container_prefix: ansible
+      become: false
+
+    - name: run node-exporter
+      containers.podman.podman_container:
+        name: node-exporter
+        image: "quay.io/prometheus/node-exporter:v1.3.1"
+        state: started
+        privileged: true
+        network: host
+        volume:
+          - "/:/rootfs:ro,rslave"
+          - "/sys:/host/sys:ro"
+          - "/proc:/host/proc:ro"
+        command: "--path.procfs=/host/proc --path.rootfs=/rootfs --path.sysfs=/host/sys"
+        generate_systemd:
+          path: "/home/{{ ansible_user }}/.config/systemd/user"
+          restart_policy: always
+          time: 120
+          names: true
+          container_prefix: ansible
+      become: false
+
+    - name: enable podman-systemd | registry
       ansible.builtin.systemd:
         name: ansible-registry-docker.io
+        enabled: true
+        scope: user
+      environment:
+        XDG_RUNTIME_DIR: "/run/user/{{ ansible_user_uid }}"
+      become: false
+
+    - name: ensure podman-systemd | cadvisor
+      ansible.builtin.systemd:
+        name: ansible-cadvisor
+        enabled: false
+        state: stopped
+        scope: user
+      environment:
+        XDG_RUNTIME_DIR: "/run/user/{{ ansible_user_uid }}"
+      become: false
+
+    - name: enable podman-systemd | node-exporter
+      ansible.builtin.systemd:
+        name: ansible-node-exporter
         enabled: true
         scope: user
       environment:
