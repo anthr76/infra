@@ -6,4 +6,4 @@ resources:
   # - internal_middlewares.yaml
   # - traefik-podmonitor.yaml
   - helm-release.yaml
-  #- service-v6.yaml
+  - service-v6.yaml
