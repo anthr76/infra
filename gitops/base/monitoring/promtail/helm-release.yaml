@@ -52,5 +52,12 @@ spec:
         service:
           type: LoadBalancer
           loadBalancerIP: ${SVC_SYSLOG_ADDR}
+      syslog-udp:
+        name: syslog-udp
+        containerPort: 1514
+        protocol: UDP
+        service:
+          type: LoadBalancer
+          loadBalancerIP: ${SVC_SYSLOG_ADDR}
     serviceMonitor:
       enabled: true
