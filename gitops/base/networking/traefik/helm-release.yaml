@@ -73,6 +73,15 @@ spec:
         tls:
           enabled: true
           options: "default"
+      websecureudp:
+        tls:
+          enabled: true
+          options: "default"
+        port: 8443
+        expose: true
+        exposedPorts: 443
+        http3: true
+        protocol: UDP
       metrics:
         port: 8082
         expose: false
