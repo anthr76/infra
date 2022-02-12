@@ -13,6 +13,7 @@ data:
     address-pools:
       - name: default
         protocol: bgp
+        avoid-buggy-ips: true
         addresses:
           - 10.45.0.0/16
           - 2001:559:87dd:a00::/56
