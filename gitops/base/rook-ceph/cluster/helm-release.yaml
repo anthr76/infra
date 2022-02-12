@@ -17,6 +17,16 @@ spec:
   dependsOn:
     - name: rook-ceph
   values:
+    cephBlockPools:
+      - name: ceph-blockpool
+        storageClass:
+          mountOptions:
+            - discard
+    cephFileSystems:
+      - name: ceph-filesystem
+        storageClass:
+          mountOptions:
+            - discard
     toolbox:
       enabled: false
     monitoring:
