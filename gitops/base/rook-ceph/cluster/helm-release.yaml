@@ -32,6 +32,13 @@ spec:
           metadataPool:
             replicated:
               size: 3
+          dataPools:
+            - failureDomain: host
+              replicated:
+                size: 3
+          metadataServer:
+            activeCount: 1
+            activeStandby: true
         storageClass:
           mountOptions:
             - discard
