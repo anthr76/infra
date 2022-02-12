@@ -97,7 +97,6 @@ spec:
                 loadBalancerIP: 10.45.0.0
               annotations:
                 external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
-                metallb.universe.tf/allow-shared-ip: "traefik"
             affinity:
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
