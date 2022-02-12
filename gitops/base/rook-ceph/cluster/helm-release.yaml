@@ -19,11 +19,19 @@ spec:
   values:
     cephBlockPools:
       - name: ceph-blockpool
+        spec:
+          failureDomain: host
+          replicated:
+            size: 3
         storageClass:
           mountOptions:
             - discard
     cephFileSystems:
       - name: ceph-filesystem
+        spec:
+          metadataPool:
+            replicated:
+              size: 3
         storageClass:
           mountOptions:
             - discard
