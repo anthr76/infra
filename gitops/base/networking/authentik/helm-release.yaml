@@ -19,6 +19,9 @@ spec:
     - name: traefik
       namespace: networking
   values:
+    replicas: 3
+    worker:
+      replicas: 2
     image:
       repository: goauthentik.io/server
       tag: 2021.12.4
