@@ -5,10 +5,10 @@ metadata:
   name: grafana-postgres
   namespace: monitoring
 spec:
-  replicas: 1
+  replicas: 3
   image: docker.io/library/postgres:14.0
   database:
-    size: 5Gi
+    size: 10Gi
     storageClassName: ceph-block
   env:
     - name: POSTGRES_PASSWORD
