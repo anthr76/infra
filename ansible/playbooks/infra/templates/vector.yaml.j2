@@ -5,15 +5,11 @@ sources:
     type: journald
     journal_directory: /var/log/journal
 sinks:
-  loki_journal_sink:
-    type: loki
+  vector_sink:
+    type: vector
     inputs:
       - journal_logs
-    endpoint: https://loki.cluster-0.scr1.rabbito.tech
-    encoding:
-      codec: json
-    batch:
-      max_bytes: 400000
-    out_of_order_action: rewrite_timestamp
     labels:
       hostname: "{{ inventory_hostname }}"
+    address: "vector-aggregator.monitoring.scr1.rabbito.tech:6002"
+    version: "2"

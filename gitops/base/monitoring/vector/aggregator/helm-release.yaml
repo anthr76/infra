@@ -47,7 +47,7 @@ spec:
           type: loki
           inputs:
             - kubernetes_logs
-          endpoint: http://loki-headless:3100
+          endpoint: http://loki.monitoring.svc.cluster.local:3100
           encoding:
             codec: json
           batch:
@@ -74,7 +74,7 @@ spec:
           type: loki
           inputs:
             - router_logs
-          endpoint: http://loki-headless:3100
+          endpoint: http://loki.monitoring.svc.cluster.local:3100
           encoding:
             codec: json
           batch:
@@ -89,7 +89,7 @@ spec:
           type: loki
           inputs:
             - journal_logs
-          endpoint: http://loki-headless:3100
+          endpoint: http://loki.monitoring.svc.cluster.local:3100
           encoding:
             codec: json
           batch:
