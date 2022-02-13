@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: gemini
-  namespace: rook-ceph
+  namespace: gemini
 spec:
   releaseName: gemini
   interval: 5m
