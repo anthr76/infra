@@ -7,6 +7,7 @@ metadata:
 stringData:
     MQTT_USERNAME: ENC[AES256_GCM,data:/pzf/Q==,iv:eyQX6KtNtLk69s0UosRYgnmOI8MeFpQeBdqaz5qRU8Q=,tag:hecRMotHmMzRLdgK1AZNYg==,type:str]
     MQTT_PASSWORD: ENC[AES256_GCM,data:ayXjzXXCJV8AC2CV,iv:oGFM9+gH5mxsnCEQnI0+MhLjKHaadPzsJTmVZmDjqy0=,tag:Qf5g6t4fCIi9oeZzmsqYMg==,type:str]
+    DB_PASSWORD: ENC[AES256_GCM,data:w1qsWGtFy2Ak+A+ZMvA=,iv:65YWdioAMgOND8ZpFblyAGX3VQw0bsXef2N6JoT8XA4=,tag:rwl82FEIPHwARtQMmGTr0A==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -22,8 +23,8 @@ sops:
             eGo5amJsNTd5eHp1MDBqUzBoV05scnMKTzaH81w/R1QBsEhz9fu4vQ0oe+VQ8v0B
             UGZSNvyOnQqc3cxqbPUcdiQq8iYxJ1WmQNwNiHn01y/UIEP0NhJkNw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2021-10-17T17:09:13Z"
-    mac: ENC[AES256_GCM,data:z4Fz6qcKW9ILWHjev/tRchZ4vL+cULEsFHy1e1MruApNxPb0nie1DzX83DuSsV4827PYy8qtTfp9r2CgIVJNu5P2T462SmrEBUTaW/5ZzX0Y9AQmWf74lYoNT5NxWcYJ0eVTmFblAgF3L/EE5J6hIMsUuzmu5whcwJss0PEYBnM=,iv:7s8RK0uefRysbRQyACN6BDlxx6l/NsQXxLR5o4yRFto=,tag:pibfjnCEA+gcuiH0sYeoWA==,type:str]
+    lastmodified: "2022-02-13T07:21:42Z"
+    mac: ENC[AES256_GCM,data:Qfc/BS8AxAdUxk4BurQA8d1+ErfyGYOZaAFlr7uaiJeNZs2a2gmcdVcyWKvL8gBshhVrnbMBn1O188gKWNJH3WskqARsAwe5OzaTNC/wzgOmpqFwiRDtmnlrTeuhnY7D0mJe4Fp9fNESD1hjXrWHM0rfR0oveXN9SKf0YNQuJlA=,iv:kekAakKaacmkNGOqvaTFTt+ZrqMDFwvYk7n1nRkxRBU=,tag:xnseMJBqnHZBqNgoJifWwQ==,type:str]
     pgp: []
     encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.7.1
