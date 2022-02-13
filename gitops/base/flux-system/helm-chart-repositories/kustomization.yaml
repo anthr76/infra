@@ -29,3 +29,4 @@ resources:
   - stakater-charts.yaml
   - stakewise-charts.yaml
   - hashicorp-charts.yaml
+  - vector-charts.yaml
