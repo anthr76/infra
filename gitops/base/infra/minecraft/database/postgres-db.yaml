@@ -5,7 +5,7 @@ metadata:
   name: minecraft-postgres
   namespace: infra
 spec:
-  replicas: 1
+  replicas: 3
   image: docker.io/library/postgres:13.6
   database:
     size: 20Gi
