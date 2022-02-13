@@ -66,10 +66,10 @@ spec:
               {{`{{ kubernetes.pod_node_name }}`}}
             pod: >-
               {{`{{ kubernetes.pod_name }}`}}
-        loki_vyos:
+        loki_router:
           type: loki
           inputs:
-            - vyos_logs
+            - router_logs
           endpoint: http://loki.system-monitoring:3100
           encoding:
             codec: json
