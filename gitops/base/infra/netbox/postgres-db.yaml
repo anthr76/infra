@@ -5,10 +5,10 @@ metadata:
   name: netbox-postgres
   namespace: infra
 spec:
-  replicas: 1
-  image: docker.io/library/postgres:13.6
+  replicas: 3
+  image: docker.io/library/postgres:14.2
   database:
-    size: 10Gi
+    size: 15Gi
     storageClassName: ceph-block
   env:
     - name: POSTGRES_PASSWORD
