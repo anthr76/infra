@@ -8,6 +8,7 @@ resources:
   - bitnami-charts.yaml
   - cilium-charts.yaml
   - external-dns-charts.yaml
+  - fairwinds-charts.yaml
   - grafana-charts.yaml
   - democratic-charts.yaml
   - infracloudio-charts.yaml
