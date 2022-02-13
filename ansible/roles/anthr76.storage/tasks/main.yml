@@ -1,5 +1,4 @@
 ---
-
 - name: Install filesystem tools
   ansible.builtin.apt:
     name: "{{ item }}"
@@ -53,7 +52,7 @@
     dest: /etc/msmtprc
     owner: msmtp
     group: msmtp
-    mode: '0600'
+    mode: "0600"
 
 - name: configure aliases
   ansible.builtin.template:
@@ -61,4 +60,4 @@
     dest: /etc/aliases
     owner: root
     group: root
-    mode: '0600'
+    mode: "0600"
