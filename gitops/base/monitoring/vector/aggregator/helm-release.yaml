@@ -70,7 +70,7 @@ spec:
           type: loki
           inputs:
             - router_logs
-          endpoint: http://loki.system-monitoring:3100
+          endpoint: http://loki-headless:3100
           encoding:
             codec: json
           batch:
