@@ -38,6 +38,10 @@ spec:
           address: 0.0.0.0:6001
           type: vector
           version: "2"
+        journal_logs:
+          address: 0.0.0.0:6002
+          type: vector
+          version: "2"
       sinks:
         loki_kubernetes:
           type: loki
@@ -81,6 +85,21 @@ spec:
               {{`{{ host }}`}}
             syslog_identifier: >-
               {{`{{ SYSLOG_IDENTIFIER }}`}}
+        loki_journal:
+          type: loki
+          inputs:
+            - journal_logs
+          endpoint: http://loki-headless:3100
+          encoding:
+            codec: json
+          batch:
+            max_bytes: 2049000
+          out_of_order_action: rewrite_timestamp
+          remove_label_fields: true
+          remove_timestamp: true
+          labels:
+            hostname: >-
+              {{`{{ host }}`}}
   postRenderers:
     - kustomize:
         patchesJson6902:
