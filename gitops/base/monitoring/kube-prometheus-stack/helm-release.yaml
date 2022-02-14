@@ -68,6 +68,9 @@ spec:
           limits:
             cpu: 400m
             memory: 50Mi
+      thanosImage:
+        repository: quay.io/thanos/thanos
+        tag: main-2021-12-22-53ec210d
     grafana:
       enabled: false
       forceDeployDashboards: true

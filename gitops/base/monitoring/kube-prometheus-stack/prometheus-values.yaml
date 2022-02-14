@@ -46,8 +46,6 @@ prometheus:
             requests:
               storage: 10Gi
     thanos:
-      image: docker.io/raspbernetes/thanos:v0.22.0
-      version: v0.22.0
       objectStorageConfig:
         name: thanos-objstore-secret
         key: objstore.yml
