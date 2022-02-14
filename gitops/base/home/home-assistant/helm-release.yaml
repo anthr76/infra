@@ -48,7 +48,7 @@ spec:
         existingClaim: home-assistant-config-v1
     addons:
       codeserver:
-        enabled: true
+        enabled: false
         image:
           repository: ghcr.io/k8s-at-home/code-server
           tag: v4.0.1
