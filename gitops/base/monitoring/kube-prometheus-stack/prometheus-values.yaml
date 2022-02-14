@@ -23,7 +23,7 @@ prometheus:
     externalLabels:
       cluster: ${CLUSTER_NAME}
     replicaExternalLabelName: "replica"
-    replicas: 1
+    replicas: 3
     ruleSelector: {}
     ruleNamespaceSelector: {}
     ruleSelectorNilUsesHelmValues: false
