@@ -9,7 +9,5 @@ sinks:
     type: vector
     inputs:
       - journal_logs
-    labels:
-      hostname: "{{ inventory_hostname }}"
     address: "vector-aggregator.monitoring.scr1.rabbito.tech:6002"
     version: "2"
