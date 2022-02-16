@@ -99,6 +99,12 @@ spec:
             type: loki
             access: proxy
             url: http://loki:3100
+          - name: AlertManager
+            type: alertmanager
+            access: proxy
+            url: http://alertmanager-operated:9093
+            jsonData:
+              implementation: 'prometheus'
     dashboards:
       default:
         ceph-cluster:
