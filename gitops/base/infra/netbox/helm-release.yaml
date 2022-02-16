@@ -124,3 +124,15 @@ spec:
       - name: ssh-keys
         secret:
           secretName: napalm-ssh
+  postRenderers:
+    - kustomize:
+        patchesJson6902:
+          - target:
+              version: v1
+              kind: CronJob
+              name: netbox-housekeeping
+            patch:
+              - op: add
+                path: /spec/jobTemplate/spec/template/spec/nodeSelector
+                value:
+                  kubernetes.io/arch: amd64
