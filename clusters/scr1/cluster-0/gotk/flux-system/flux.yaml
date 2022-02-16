@@ -43,7 +43,7 @@ spec:
                   resources:
                     requests:
                       cpu: 400m
-                    lmits:
+                    limits:
                       cpu: "1.5"
       target:
         kind: Deployment
