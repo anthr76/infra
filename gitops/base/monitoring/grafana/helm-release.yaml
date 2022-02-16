@@ -57,6 +57,8 @@ spec:
         logs: /var/log/grafana
         plugins: /var/lib/grafana/plugins
         provisioning: /etc/grafana/provisioning
+      plugins:
+        enable_alpha: true
       analytics:
         check_for_updates: false
       database:
