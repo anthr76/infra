@@ -42,7 +42,9 @@ spec:
                 - name: manager
                   resources:
                     requests:
-                      cpu: 200m
+                      cpu: 400m
+                    lmits:
+                      cpu: "1.5"
       target:
         kind: Deployment
         labelSelector: control-plane=controller
