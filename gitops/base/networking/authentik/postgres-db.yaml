@@ -6,7 +6,7 @@ metadata:
   namespace: networking
 spec:
   replicas: 3
-  image: docker.io/library/postgres:13.6
+  image: docker.io/library/postgres:14.2
   database:
     size: 10Gi
     storageClassName: ceph-block
