@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - postgres-db.yaml
+  - backup-pvc.yaml
   - secret.sops.yaml

@@ -104,7 +104,7 @@ spec:
             access: proxy
             url: http://alertmanager-operated:9093
             jsonData:
-              implementation: 'prometheus'
+              implementation: "prometheus"
     dashboards:
       default:
         ceph-cluster:
