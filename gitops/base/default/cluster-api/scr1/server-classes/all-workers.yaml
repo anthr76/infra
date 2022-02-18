@@ -15,7 +15,7 @@ spec:
       value: /dev/sda
     - op: replace
       path: /machine/kubelet/image
-      value: ghcr.io/talos-systems/kubelet:v1.23.3
+      value: ghcr.io/talos-systems/kubelet:v1.23.4
     - op: add
       path: /machine/kubelet/extraArgs
       value:
