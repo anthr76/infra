@@ -13,9 +13,19 @@ spec:
     - op: replace
       path: /cluster/apiServer/image
       value: k8s.gcr.io/kube-apiserver:v1.23.3
+    - op: add
+      path: /cluster/apiServer/extraArgs
+      value:
+        feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
+        oidc-issuer-url: https://auth.kutara.io/application/o/kubernetes/
+        oidc-client-id: ${SECRET_KUBERNETES_AUTH_OIDC_ISSUER}
     - op: replace
       path: /cluster/controllerManager/image
       value: k8s.gcr.io/kube-controller-manager:v1.23.3
+    - op: add
+      path: /cluster/scheduler/extraArgs
+      value:
+        feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
     - op: replace
       path: /cluster/scheduler/image
       value: k8s.gcr.io/kube-scheduler:v1.23.3
@@ -39,7 +49,7 @@ spec:
       path: /machine/kubelet/extraArgs
       value:
         rotate-server-certificates: true
-        feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
+        feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
     - op: add
       path: /machine/time
       value:
