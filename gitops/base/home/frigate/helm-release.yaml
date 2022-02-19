@@ -19,6 +19,8 @@ spec:
     - name: mosquitto
       namespace: home
   values:
+    controller:
+      strategy: RollingUpdate
     image:
       repository: docker.io/blakeblackshear/frigate
       tag: 0.10.0-amd64
