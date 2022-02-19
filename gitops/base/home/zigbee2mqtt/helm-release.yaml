@@ -16,6 +16,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    controller:
+      strategy: RollingUpdate
     podAnnotations:
       backup.velero.io/backup-volumes: config
     image:
