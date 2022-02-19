@@ -31,16 +31,6 @@ spec:
         enabled: true
         image: democraticcsi/democratic-csi:latest
         imagePullPolicy: IfNotPresent
-        securityContext:
-          allowPrivilegeEscalation: true
-          capabilities:
-            add:
-              - SYS_ADMIN
-          fsGroup: 1002
-          fsGroupChangePolicy: OnRootMismatch
-          privileged: true
-          runAsGroup: 1002
-          runAsUser: 1002
     node:
       driver:
         enabled: true
