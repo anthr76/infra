@@ -56,8 +56,6 @@ spec:
           kvstore:
             store: inmemory
         enable_api: true
-    persistence:
-      enabled: false
     serviceMonitor:
       enabled: true
     alerting_groups:
