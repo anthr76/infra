@@ -5,6 +5,7 @@ resources:
   - secret.sops.yaml
   - postgres-db.yaml
   - helm-release.yaml
+  - backup-pvc.yaml
 namespace: infra
 generatorOptions:
   disableNameSuffixHash: true
