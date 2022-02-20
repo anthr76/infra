@@ -48,8 +48,8 @@ spec:
         enabled: true
       kubernetesGateway:
         enabled: false
-      http3:
-        enabled: true
+#      http3:
+#        enabled: true
     tlsOptions:
       default:
         minVersion: VersionTLS12
@@ -73,11 +73,11 @@ spec:
         tls:
           enabled: true
           options: "default"
-      websecure-udp:
-        port: 8443
-        expose: true
-        exposedPort: 443
-        protocol: UDP
+#      websecure-udp:
+#        port: 8443
+#        expose: true
+#        exposedPort: 443
+#        protocol: UDP
       metrics:
         port: 8082
         expose: false
