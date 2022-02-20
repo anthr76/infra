@@ -20,9 +20,9 @@ spec:
     existingConfigMap: "metallb-config"
     prometheus:
       podMonitor:
-        enabled: true
+        enabled: false
       prometheusRule:
-        enabled: true
+        enabled: false
     speaker:
       tolerations:
         - effect: "NoExecute"
