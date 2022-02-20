@@ -27,8 +27,9 @@ spec:
         memory: 512Mi
         cpu: 50m
     serviceAnnotations:
-      # external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
+      external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
       coredns.io/hostname: mc.kutara.io
+      metallb.universe.tf/loadBalancerIPs: "${SVC_MC_ADDR}"
     extraVolumes:
       - volumeMounts:
           - mountPath: /config/velocity.toml
@@ -51,7 +52,6 @@ spec:
       velocityVersion: "3.1.1"
       serviceType: LoadBalancer
       externalTrafficPolicy: Local
-      loadBalancerIP: 10.45.0.4
       configFilePath: /config/velocity.toml
     plugins:
       - https://ci.lucko.me/job/LuckPerms/1410/artifact/velocity/build/libs/LuckPerms-Velocity-5.4.2.jar
@@ -69,3 +69,12 @@ spec:
                   containers:
                     - name: minecraft-proxy-0
                       image: docker.io/itzg/bungeecord:latest@sha256:decc015505617c5e601f9f01c5af6af86aa8660b0d834ac258200802860712b0
+        patchesJson6902:
+          - target:
+              version: v1
+              kind: Service
+              name: minecraft-proxy-0
+            patch:
+              - op: add
+                path: /spec/ipFamilyPolicy
+                value: PreferDualStack

@@ -34,11 +34,9 @@ spec:
       bittorrent:
         enabled: true
         type: LoadBalancer
-        ipFamilyPolicy: PreferDualStack
-        ipFamilies:
-          - IPv4
-          - IPv6
-        loadBalancerIP: "${SVC_QBITTORRENT_ADDR}"
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${SVC_QBITTORRENT_ADDR}"
+        ipFamilyPolicy: RequireDualStack
         ports:
           bittorrent:
             enabled: true

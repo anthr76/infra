@@ -72,6 +72,6 @@ spec:
               hosts:
                 - "hubble.${INT_DOMAIN}"
     bgp:
-      enabled: true
+      enabled: false
       announce:
-        loadbalancerIP: true
+        loadbalancerIP: false

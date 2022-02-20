@@ -93,10 +93,11 @@ spec:
               type: LoadBalancer
               spec:
                 externalTrafficPolicy: Local
-                ipFamilyPolicy: RequireDualStack
-                loadBalancerIP: 10.45.0.80
+                ipFamilyPolicy: PreferDualStack
               annotations:
                 external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
+                metallb.universe.tf/allow-shared-ip: "traefik"
+                metallb.universe.tf/loadBalancerIPs: "${SVC_WEB_ADDR}"
             affinity:
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
