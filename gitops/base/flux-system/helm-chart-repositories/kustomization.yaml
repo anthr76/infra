@@ -17,6 +17,7 @@ resources:
   - kubernetes-stable-charts.yaml
   - metrics-server-charts.yaml
   - minecraft-server-charts.yaml
+  - metallb-charts.yaml
   - nfd-charts.yaml
   - openebs-charts.yaml
   - prometheus-community-charts.yaml
