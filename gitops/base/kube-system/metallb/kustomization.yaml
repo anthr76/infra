@@ -6,7 +6,7 @@ resources:
 namespace: kube-system
 generatorOptions:
   disableNameSuffixHash: true
-secretGenerator:
+configMapGenerator:
   - name: metallb-config
     files:
       - config.yaml=metallb-config.yaml
