@@ -9,4 +9,4 @@ generatorOptions:
 configMapGenerator:
   - name: metallb-config
     files:
-      - config.yaml=metallb-config.yaml
+      - config=metallb-config.yaml
