@@ -24,8 +24,8 @@ spec:
     service:
       main:
         type: LoadBalancer
-        externalIPs:
-          - "${SVC_MQTT_ADDR}"
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${SVC_MQTT_ADDR}"
         externalTrafficPolicy: Local
     auth:
       enabled: true
