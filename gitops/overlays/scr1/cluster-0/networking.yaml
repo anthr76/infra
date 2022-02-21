@@ -96,7 +96,7 @@ spec:
                 ipFamilyPolicy: SingleStack
               annotations:
                 external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
-                metallb.universe.tf/allow-shared-ip: "10.45.0.80"
+                metallb.universe.tf/allow-shared-ip: "traefik"
                 metallb.universe.tf/loadBalancerIPs: "10.45.0.80"
                 # metallb.universe.tf/loadBalancerIPs: "2001:559:87dd:a00::443, 10.45.0.80"
             affinity:
