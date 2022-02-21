@@ -93,7 +93,7 @@ spec:
               type: LoadBalancer
               spec:
                 externalTrafficPolicy: Local
-                ipFamilyPolicy: RequireDualStack
+                ipFamilyPolicy: PreferDualStack
               annotations:
                 external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
                 metallb.universe.tf/allow-shared-ip "10.45.0.80"
