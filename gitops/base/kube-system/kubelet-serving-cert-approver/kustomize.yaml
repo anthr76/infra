@@ -23,7 +23,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./deploy/ha
+  path: ./deploy/standalone
   prune: true
   wait: true
   targetNamespace: kube-system
