@@ -16,6 +16,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    nodeSelector: 
+      feature.node.kubernetes.io/custom-intel-10g: "true"
     image:
       repository: ghcr.io/miguelndecarvalho/speedtest-exporter
       tag: v3.4.1
