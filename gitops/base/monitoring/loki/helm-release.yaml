@@ -20,7 +20,6 @@ spec:
       enabled: true
       ingressClassName: "traefik"
       annotations:
-        kubernetes.io/ingress.class: "traefik"
         cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hosts:
@@ -32,30 +31,7 @@ spec:
           hosts:
             - "loki.${GENERIC_CLUSTER_INGRESS}"
     config:
-      storage_config:
-        aws:
-          bucketnames: loki
-          endpoint: minio.infra:9000
-          access_key_id: "${SECRET_MINIO_ACCESS_KEY}"
-          secret_access_key: "${SECRET_MINIO_SECRET_KEY}"
-          s3forcepathstyle: true
-          insecure: true
-        boltdb_shipper:
-          active_index_directory: /data/loki/index
-          cache_location: /data/loki/index_cache
-          resync_interval: 5s
-          shared_store: s3
-      ruler:
-        storage:
-          type: local
-          local:
-            directory: /rules
-        rule_path: /tmp/scratch
-        alertmanager_url: http://prom-alertmanager:9093
-        ring:
-          kvstore:
-            store: inmemory
-        enable_api: true
+      existingSecret: loki-config
     serviceMonitor:
       enabled: true
     alerting_groups:
