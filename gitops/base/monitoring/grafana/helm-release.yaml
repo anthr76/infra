@@ -126,16 +126,6 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/14127
-        metallb:
-          gnetId: 14127
-          revision: 1
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11462
-        traefik:
-          gnetId: 11462
-          revision: 1
-          datasource: Prometheus
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
           datasource: Prometheus
@@ -159,6 +149,12 @@ spec:
           datasource: Prometheus
         cert-manager:
           url: https://raw.githubusercontent.com/jr0dd/grafana-dashboards/main/cert-manager.json
+          datasource: Prometheus
+        metallb:
+          url: https://raw.githubusercontent.com/jr0dd/grafana-dashboards/main/metallb.json
+          datasource: Prometheus
+        traefik:
+          url: https://raw.githubusercontent.com/jr0dd/grafana-dashboards/main/metallb.json
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13665
         speedtest:
