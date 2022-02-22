@@ -5,5 +5,6 @@ resources:
   # - dashboard_ingressroute.yaml
   # - internal_middlewares.yaml
   # - traefik-podmonitor.yaml
+  - service-monitor.yaml
   - helm-release.yaml
   # - service-v6.yaml
