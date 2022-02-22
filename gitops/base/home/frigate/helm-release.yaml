@@ -71,152 +71,155 @@ spec:
         medium: Memory
         sizeLimit: 2Gi
         mountPath: /dev/shm
-    config: |
-      mqtt:
-        host: mosquitto
-        topic_prefix: frigate
-        user: ${MQTT_USER}
-        password: ${MQTT_USER_PW}
-      database:
-        path: /data/frigate.db
-      detectors:
-        coral:
-          type: edgetpu
-          device: usb
-      # Global objects configuration
-      objects:
-        track:
-          - person
-        filters:
-          person:
-            min_area: 2500
-            max_area: 100000
-            threshold: 0.7
-      # Specify camera's
-      cameras:
-        # --
-        frigate_front_porch:
-          ffmpeg:
-            inputs:
-              - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=0
-                roles:
-                  - record
-                  - rtmp
-              - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=1
-                roles:
-                  - detect
-          rtmp:
-            enabled: True
-          detect:
-            width: 704
-            height: 480
-            fps: 10
-          record:
-            enabled: True
-            retain_days: 7
-            events:
-              retain:
-                default: 7
-          snapshots:
-            enabled: True
-            timestamp: False
-            retain:
-              default: 7
-          objects:
-            track:
-              - person
-              - cat
-              - dog
-              - bird
-              - mouse
-          zones:
-            street:
-              coordinates: 65,0,619,0,605,96,73,102
-            font_yard:
-              coordinates: 704,480,704,125,0,139,0,480
-          motion:
-            mask:
-              - 683,42,678,15,420,17,425,39
-        # --
-        frigate_back_porch:
-          ffmpeg:
-            inputs:
-              - path: rtsp://frigate:frigate!@back-porch-camera:554/cam/realmonitor?channel=1&subtype=0
-                roles:
-                  - record
-                  - rtmp
-              - path: rtsp://frigate:frigate!@back-porch-camera:554/cam/realmonitor?channel=1&subtype=1
-                roles:
-                  - detect
-          rtmp:
-            enabled: True
-          detect:
-            width: 704
-            height: 480
-            fps: 10
-          record:
-            enabled: True
-            retain_days: 7
-            events:
-              retain:
-                default: 7
-          snapshots:
-            enabled: True
-            timestamp: False
-            retain:
-              default: 7
-          objects:
-            track:
-              - person
-              - dog
-              - cat
-              - bird
-              - mouse
-          motion:
-            mask:
-              - 683,42,678,15,420,17,425,39
-        # --
-        frigate_back_yard:
-          ffmpeg:
-            inputs:
-              - path: rtsp://frigate:frigate!@back-yard-camera:554/cam/realmonitor?channel=1&subtype=0
-                roles:
-                  - record
-                  - rtmp
-              - path: rtsp://frigate:frigate!@back-yard-camera:554/cam/realmonitor?channel=1&subtype=1
-                roles:
-                  - detect
-          rtmp:
-            enabled: True
-          detect:
-            width: 704
-            height: 480
-            fps: 10
-          record:
-            enabled: True
-            retain_days: 7
-            events:
-              retain:
-                default: 7
-          snapshots:
-            enabled: True
-            timestamp: False
-            retain:
-              default: 7
-          objects:
-            track:
-              - person
-              - car
-              - bird
-              - cat
-              - dog
-              - mouse
-          motion:
-            mask:
-              - 683,42,678,15,420,17,425,39
-          zones:
-            driveway:
-              coordinates: 295,91,211,480,0,480,0,290,46,257,199,92
+    configmap:
+      config:
+        data:
+          config.yml: |
+            mqtt:
+              host: mosquitto
+              topic_prefix: frigate
+              user: ${MQTT_USER}
+              password: ${MQTT_USER_PW}
+            database:
+              path: /data/frigate.db
+            detectors:
+              coral:
+                type: edgetpu
+                device: usb
+            # Global objects configuration
+            objects:
+              track:
+                - person
+              filters:
+                person:
+                  min_area: 2500
+                  max_area: 100000
+                  threshold: 0.7
+            # Specify camera's
+            cameras:
+              # --
+              frigate_front_porch:
+                ffmpeg:
+                  inputs:
+                    - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=0
+                      roles:
+                        - record
+                        - rtmp
+                    - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=1
+                      roles:
+                        - detect
+                rtmp:
+                  enabled: True
+                detect:
+                  width: 704
+                  height: 480
+                  fps: 10
+                record:
+                  enabled: True
+                  retain_days: 7
+                  events:
+                    retain:
+                      default: 7
+                snapshots:
+                  enabled: True
+                  timestamp: False
+                  retain:
+                    default: 7
+                objects:
+                  track:
+                    - person
+                    - cat
+                    - dog
+                    - bird
+                    - mouse
+                zones:
+                  street:
+                    coordinates: 65,0,619,0,605,96,73,102
+                  font_yard:
+                    coordinates: 704,480,704,125,0,139,0,480
+                motion:
+                  mask:
+                    - 683,42,678,15,420,17,425,39
+              # --
+              frigate_back_porch:
+                ffmpeg:
+                  inputs:
+                    - path: rtsp://frigate:frigate!@back-porch-camera:554/cam/realmonitor?channel=1&subtype=0
+                      roles:
+                        - record
+                        - rtmp
+                    - path: rtsp://frigate:frigate!@back-porch-camera:554/cam/realmonitor?channel=1&subtype=1
+                      roles:
+                        - detect
+                rtmp:
+                  enabled: True
+                detect:
+                  width: 704
+                  height: 480
+                  fps: 10
+                record:
+                  enabled: True
+                  retain_days: 7
+                  events:
+                    retain:
+                      default: 7
+                snapshots:
+                  enabled: True
+                  timestamp: False
+                  retain:
+                    default: 7
+                objects:
+                  track:
+                    - person
+                    - dog
+                    - cat
+                    - bird
+                    - mouse
+                motion:
+                  mask:
+                    - 683,42,678,15,420,17,425,39
+              # --
+              frigate_back_yard:
+                ffmpeg:
+                  inputs:
+                    - path: rtsp://frigate:frigate!@back-yard-camera:554/cam/realmonitor?channel=1&subtype=0
+                      roles:
+                        - record
+                        - rtmp
+                    - path: rtsp://frigate:frigate!@back-yard-camera:554/cam/realmonitor?channel=1&subtype=1
+                      roles:
+                        - detect
+                rtmp:
+                  enabled: True
+                detect:
+                  width: 704
+                  height: 480
+                  fps: 10
+                record:
+                  enabled: True
+                  retain_days: 7
+                  events:
+                    retain:
+                      default: 7
+                snapshots:
+                  enabled: True
+                  timestamp: False
+                  retain:
+                    default: 7
+                objects:
+                  track:
+                    - person
+                    - car
+                    - bird
+                    - cat
+                    - dog
+                    - mouse
+                motion:
+                  mask:
+                    - 683,42,678,15,420,17,425,39
+                zones:
+                  driveway:
+                    coordinates: 295,91,211,480,0,480,0,290,46,257,199,92
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate-config"
     affinity:
