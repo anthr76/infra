@@ -7,11 +7,13 @@ metadata:
   labels:
     app.kubernetes.io/name: traefik
 spec:
+  endpoints:
+    - path: /metrics
+      targetPort: metrics
   jobLabel: traefik
+  namespaceSelector:
+    matchNames:
+      - networking
   selector:
     matchLabels:
       app.kubernetes.io/name: traefik
-  endpoints:
-    - port: metrics
-      path: /metrics
-      honorLabels: true

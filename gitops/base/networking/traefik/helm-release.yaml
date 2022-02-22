@@ -59,9 +59,7 @@ spec:
       enabled: false
     globalArguments:
       - "--serverstransport.insecureskipverify=true"
-      - "--ping"
       - "--entrypoints.websecure.http.tls"
-      - "--api.dashboard=true"
       - "--metrics.prometheus=true"
       - "--metrics.prometheus.entryPoint=metrics"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
