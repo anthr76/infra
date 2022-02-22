@@ -19,16 +19,14 @@ spec:
   values:
     existingConfigMap: "metallb-config"
     prometheus:
+      serviceAccount: prom-operator
+      namespace: monitoring
       podMonitor:
-        enabled: false
+        enabled: true
       prometheusRule:
-        enabled: false
+        enabled: true
     speaker:
-      tolerations:
-        - effect: "NoExecute"
-          operator: "Exists"
-        - effect: "NoSchedule"
-          operator: "Exists"
+      tolerateMaster: true
       frr:
         enabled: true
         # lol -- https://github.com/FRRouting/frr/issues/10587

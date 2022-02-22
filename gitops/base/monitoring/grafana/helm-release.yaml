@@ -126,11 +126,11 @@ spec:
           gnetId: 7845
           revision: 4
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/13713
-        traefik-logs:
-          gnetId: 13713
-          revision: 2
-          datasource: Loki
+        # Ref: https://grafana.com/grafana/dashboards/14127
+        metallb:
+          gnetId: 14127
+          revision: 1
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/11462
         traefik:
           gnetId: 11462
