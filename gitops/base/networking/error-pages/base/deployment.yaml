@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: error-pages
+    app.kubernetes.io/name: error-pages
+  name: error-pages
+  namespace: networking
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: error-pages
+      app.kubernetes.io/name: error-pages
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: error-pages
+        app.kubernetes.io/name: error-pages
+    spec:
+      containers:
+        - name: error-pages
+          env:
+            - name: TEMPLATE_NAME
+              value: "ghost"
+          image: "ghcr.io/tarampampam/error-pages:2.6.0"
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
+          resources:
+            limits:
+              memory: 750Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          startupProbe:
+            failureThreshold: 30
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
