@@ -16,8 +16,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    controller:
-      strategy: RollingUpdate
     image:
       repository: ghcr.io/zwave-js/zwavejs2mqtt
       tag: 6.5.2
