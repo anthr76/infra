@@ -1,0 +1,16 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kutara-wildcard
+  namespace: networking
+spec:
+  secretTemplate:
+  secretName: "wc-kutara-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "kutara.io"
+  dnsNames:
+    - "kutara.io"
+    - "*.kutara.io"
