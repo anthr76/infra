@@ -13,4 +13,5 @@ spec:
   commonName: "kutara.io"
   dnsNames:
     - "kutara.io"
+    - "*.scr1.kutara.io"
     - "*.kutara.io"
