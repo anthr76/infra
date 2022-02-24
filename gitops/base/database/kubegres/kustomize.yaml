@@ -34,4 +34,4 @@ spec:
                       memory: 60Mi
       target:
         kind: Deployment
-        labelSelector: control-plane=controller
+        labelSelector: control-plane=controller-manager
