@@ -27,10 +27,10 @@ spec:
                 - name: manager
                   resources:
                     requests:
-                      cpu: 100m
+                      cpu: 400m
                       memory: 20Mi
                     limits:
-                      cpu: 400m
+                      cpu: 800m
                       memory: 60Mi
       target:
         kind: Deployment
