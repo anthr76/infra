@@ -6,6 +6,11 @@ metadata:
   namespace: kube-system
 spec:
   interval: 5m
+  timeout: 15m
+  upgrade:
+    remediation:
+      remediateLastFailure: true
+      strategy: rollback
   chart:
     spec:
       chart: cilium
