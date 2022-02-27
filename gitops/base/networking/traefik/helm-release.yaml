@@ -29,6 +29,8 @@ spec:
       maxReplicas: 6
     deployment:
       kind: Deployment
+      podAnnotations:
+        io.cilium.proxy-visibility: "<Egress/443/TCP/HTTPS>,<Egress/80/TCP/HTTP>"
     logs:
       general:
         format: json
