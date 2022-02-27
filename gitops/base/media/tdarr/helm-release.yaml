@@ -20,11 +20,11 @@ spec:
   values:
     resources:
       limits:
-        cpu: 2000m
-        memory: 1024Mi
-      requests:
         cpu: 500m
-        memory: 218Mi
+        memory: 512Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
     image:
       repository: docker.io/haveagitgat/tdarr
       tag: 2.00.13
@@ -34,12 +34,7 @@ spec:
       serverIP: 0.0.0.0
       ffmpegPath: /usr/bin/ffmpeg
     node:
-      enabled: true
-      id: node
-      image:
-        repository: haveagitgat/tdarr_node
-        tag: 2.00.13
-        pullPolicy: IfNotPresent
+      enabled: false
     persistence:
       data:
         enabled: true
