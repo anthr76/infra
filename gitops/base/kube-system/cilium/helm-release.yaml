@@ -21,6 +21,10 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
     cluster:
       name: "${CLUSTER_NAME}"
       id: "${CLUSTER_ID}"
@@ -44,21 +48,25 @@ spec:
       enabled: true
     operator:
       rollOutPods: true
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
     containerRuntime:
       integration: containerd
     hubble:
       enabled: true
-      serviceMonitor:
-        enabled: true
       metrics:
         enabled:
-          - dns:query;ignoreAAAA
+          - dns:query
           - drop
           - tcp
           - flow
           - port-distribution
           - icmp
           - http
+        serviceMonitor:
+          enabled: true
       relay:
         enabled: true
         rollOutPods: true
