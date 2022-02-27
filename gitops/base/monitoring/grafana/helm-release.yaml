@@ -16,6 +16,13 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
     replicas: 3
     envFromSecret: "grafana-secrets"
     env:
