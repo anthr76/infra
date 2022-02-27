@@ -23,13 +23,13 @@ spec:
     resources:
       limits:
         cpu: 800m
-        memory: 512Mi
+        memory: 712Mi
       requests:
-        cpu: 350m
+        cpu: 5000m
         memory: 128Mi
     image:
       repository: docker.io/haveagitgat/tdarr
-      tag: 2.00.12
+      tag: 2.00.14
       pullPolicy: IfNotPresent
     env:
       TZ: America/New_York
