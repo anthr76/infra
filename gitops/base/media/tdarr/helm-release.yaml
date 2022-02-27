@@ -74,3 +74,13 @@ spec:
           - hosts:
               - tdarr.${INT_DOMAIN}
             secretName: tdarr-tls
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+                - key: feature.node.kubernetes.io/custom-intel-10g
+                  operator: In
+                  values:
+                    - "true"
