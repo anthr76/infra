@@ -121,6 +121,21 @@ spec:
           gnetId: 5342
           revision: 5
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/15514
+        cilium-operator:
+          gnetId: 15514
+          revision: 1
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/15513
+        cilium-agent:
+          gnetId: 15513
+          revision: 1
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/15513
+        cilium-hubble:
+          gnetId: 15515
+          revision: 1
+          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/7845
         zfs:
           gnetId: 7845

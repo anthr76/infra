@@ -51,6 +51,8 @@ spec:
   path: "./gitops/base/kube-system/cilium"
   prune: true
   wait: true
+  dependsOn:
+    - name: monitoring-kps-crds
   sourceRef:
     kind: GitRepository
     name: flux-system
