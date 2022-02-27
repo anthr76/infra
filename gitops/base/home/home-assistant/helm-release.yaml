@@ -16,6 +16,15 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    probes:
+      liveness:
+        custom: true
+        spec:
+          httpGet:
+            path: /manifest.json
+            port: 8123
+          initialDelaySeconds: 3
+          periodSeconds: 3
     podAnnotations:
       backup.velero.io/backup-volumes: config
     image:
