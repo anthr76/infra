@@ -18,6 +18,13 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    resources:
+      limits:
+        cpu: 2000m
+        memory: 1024Mi
+      requests:
+        cpu: 500m
+        memory: 218Mi
     image:
       repository: docker.io/haveagitgat/tdarr
       tag: 2.00.13
