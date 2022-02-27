@@ -18,6 +18,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    termination:
+      gracePeriodSeconds: 120
     resources:
       limits:
         cpu: 500m
