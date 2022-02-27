@@ -5,7 +5,7 @@ metadata:
   name: minecraft-postgres
   namespace: infra
 spec:
-  replicas: 3
+  replicas: 1
   backup:
     schedule: "0 */1 * * *"
     pvcName: minecraft-db-backup
