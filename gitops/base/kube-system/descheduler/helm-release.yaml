@@ -34,11 +34,11 @@ spec:
           params:
             failedPods:
               reasons:
-              - OutOfcpu
-              - CreateContainerConfigError
+                - OutOfcpu
+                - CreateContainerConfigError
               includingInitContainers: true
               excludeOwnerKinds:
-              - Job
+                - Job
               minPodLifetimeSeconds: 3600
         RemoveDuplicates:
           enabled: true

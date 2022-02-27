@@ -3,15 +3,15 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/name: descheduler 
+    app.kubernetes.io/name: descheduler
   name: descheduler
   namespace: kube-system
 spec:
   ports:
-  - name: metrics
-    port: 10258
-    protocol: TCP
-    targetPort: 10258
+    - name: metrics
+      port: 10258
+      protocol: TCP
+      targetPort: 10258
   selector:
     app.kubernetes.io/name: descheduler
   sessionAffinity: None
@@ -26,22 +26,22 @@ metadata:
   namespace: kube-system
 spec:
   endpoints:
-  - honorLabels: true
-    interval: 30s
-    metricRelabelings:
-    - action: replace
-      sourceLabels:
-      - exported_namespace
-      targetLabel: pod_namespace
-    path: /metrics
-    port: metrics
-    scheme: https
-    tlsConfig:
-      insecureSkipVerify: true
+    - honorLabels: true
+      interval: 30s
+      metricRelabelings:
+        - action: replace
+          sourceLabels:
+            - exported_namespace
+          targetLabel: pod_namespace
+      path: /metrics
+      port: metrics
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
   jobLabel: app.kubernetes.io/name
   namespaceSelector:
     matchNames:
-    - kube-system
+      - kube-system
   selector:
     matchLabels:
       app.kubernetes.io/name: descheduler
