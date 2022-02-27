@@ -1,7 +1,7 @@
 type: s3
 config:
     bucket: thanos
-    endpoint: minio.svc.cluster.local:9000
+    endpoint: minio.infra.svc.cluster.local:9000
     access_key: ENC[AES256_GCM,data:yAu073BviNnQIZwJI14W2dQLPQ==,iv:vYRvkqj/Xu4l4OUMJop3xgPiUS1PH9Vuns38t8sVS38=,tag:5+38+54y0ezEVhcsOLXRdw==,type:str]
     secret_key: ENC[AES256_GCM,data:PaDGEkZYng5a03CAWuaIZKK+Z/D65PefOfE7fEsrNHCAl5bpo+hn1Q==,iv:NTKNDpMSv3PT/zHCNtF4DrVztSTt75wkrA32ovGaCbk=,tag:D/RvmT8rgWDiwmIc5fu8tw==,type:str]
     insecure: true
@@ -20,8 +20,8 @@ sops:
             WE5vMTJwSWdZcHZ2aEg3YzJqSml3VU0KchxvqK0mjWMBr+YD7EjzFgk/XSaGIyqH
             0ftLp1GUJFioVydvmJaFAJxzZcYKCXgLXvfAwwbjlM/aGFjjuTHAhw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-02-27T23:28:49Z"
-    mac: ENC[AES256_GCM,data:3YOb3s+FdfU78NyXmzANjU5DIcbCNKV6HhPcKeXRWK+109s5dfXmPUPq0tQ7JkHUA8P2HO8kai+4tYo+d4VAXmNgI4aOQPulXqRIJK41Bmx+Bp+wJTvcSkrRhzQwDuLcRwLuQmvgcwzENk6weVFW/uD1onOHZ7LBWFRy0TwUIYM=,iv:u9iIzUTmshHG305c4qqG8WP7l6q4UZQl4R6Nbb+Dgf8=,tag:dxA27r73jpPIyPxaglc28g==,type:str]
+    lastmodified: "2022-02-27T23:43:39Z"
+    mac: ENC[AES256_GCM,data:CYlRJrTC4EI2Db/10Ov6XbRkEGeyJ7TTgk2EdrkzB/wtp+XuKi06LkbXFINJ7qUNaBB9vSXRjPA5Ib1t5tQd33MPZzpU+RxjNiuCY57P8mV/MIALbUuExawLK/UoRQah+aUHuPG4jezHCLnUYqIIxqkcqlji8vuR3Atrc67Jxy0=,iv:EToBtksDrWOu6bN40oB7ZEOPpbFPCcJHjqxHZWePkok=,tag:euk8frK5Le6/OQoDz6dq+A==,type:str]
     pgp: []
     encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.7.1
