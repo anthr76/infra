@@ -33,7 +33,6 @@ spec:
       pullPolicy: IfNotPresent
     env:
       TZ: America/New_York
-      serverIP: 0.0.0.0
       ffmpegPath: /usr/bin/ffmpeg
     node:
       enabled: false
