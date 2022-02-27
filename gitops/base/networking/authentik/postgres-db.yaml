@@ -5,7 +5,7 @@ metadata:
   name: authentik-postgres
   namespace: networking
 spec:
-  replicas: 3
+  replicas: 1
   image: docker.io/library/postgres:13.6
   database:
     size: 10Gi
