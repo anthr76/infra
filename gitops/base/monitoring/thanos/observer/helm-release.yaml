@@ -17,9 +17,9 @@ spec:
         namespace: flux-system
   values:
     image:
-      registry: docker.io
-      repository: raspbernetes/thanos
-      tag: v0.23.1
+      registry: quay.io
+      repository: thanos/thanos
+      tag: main-2021-12-22-53ec210d
     existingObjstoreSecret: thanos-objstore-secret
     query:
       enabled: true
@@ -28,19 +28,47 @@ spec:
         - replica
       stores:
         - "prom-thanos-discovery.monitoring.svc.cluster.local:10901"
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 64Mi
     queryFrontend:
       enabled: false
     bucketweb:
       enabled: true
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 64Mi
     compactor:
       enabled: true
       persistence:
         enabled: false
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 64Mi
     storegateway:
       enabled: true
       persistence:
         enabled: true
         size: 20Gi
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 64Mi
     ruler:
       enabled: true
       dnsDiscovery:
@@ -56,6 +84,13 @@ spec:
             rules:
               - alert: "PrometheusDown"
                 expr: absent(up{prometheus="monitoring/prom-prometheus"})
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 64Mi
     metrics:
       enabled: true
       serviceMonitor:
