@@ -2,7 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - helm-release.yaml
+  - base
 namespace: infra
 configMapGenerator:
   - name: minecraft-proxy-velocity
@@ -14,5 +14,5 @@ secretGenerator:
       - config.yml=luckperms-config.sops.yml
 generatorOptions:
   disableNameSuffixHash: true
-commonLabels:
-  kustomize.toolkit.fluxcd.io/substitute: "disabled"
+#commonLabels:
+#kustomize.toolkit.fluxcd.io/substitute: "disabled"
