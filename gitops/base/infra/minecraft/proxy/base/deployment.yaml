@@ -23,7 +23,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: proxy-0
-          image: "ghcr.io/anthr76/minecraft/velocity:1.0.4"
+          image: "ghcr.io/anthr76/minecraft/velocity:1.0.5"
           imagePullPolicy: Always
           resources:
             requests:
