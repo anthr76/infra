@@ -15,5 +15,3 @@ secretGenerator:
       - config.yml=luckperms-config.sops.yml
 generatorOptions:
   disableNameSuffixHash: true
-commonLabels:
-  kustomize.toolkit.fluxcd.io/substitute: "disabled"
