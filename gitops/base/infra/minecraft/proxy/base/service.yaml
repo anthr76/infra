@@ -9,10 +9,11 @@ metadata:
   annotations:
     coredns.io/hostname: mc.kutara.io
     external-dns.alpha.kubernetes.io/hostname: mc.kutara.io
-    metallb.universe.tf/loadBalancerIPs: ${SVC_MC_ADDR}
+    metallb.universe.tf/loadBalancerIPs: "${SVC_MC_ADDR}"
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
+  ipFamilyPolicy: RequireDualStack
   ports:
     - name: proxy
       port: 25565
