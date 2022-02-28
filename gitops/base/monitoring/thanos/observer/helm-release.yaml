@@ -52,10 +52,10 @@ spec:
         enabled: false
       resources:
         limits:
-          cpu: 500m
+          cpu: 800m
           memory: 128Mi
         requests:
-          cpu: 250m
+          cpu: 350m
           memory: 64Mi
     storegateway:
       enabled: true
