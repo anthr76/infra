@@ -35,7 +35,7 @@ spec:
     node:
       driver:
         enabled: true
-        image: democraticcsi/democratic-csi:v1.5.2
+        image: democraticcsi/democratic-csi:v1.5.3
         localtimeHostPath: null
       driverRegistrar:
         enabled: true
