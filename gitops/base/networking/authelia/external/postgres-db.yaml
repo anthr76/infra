@@ -2,26 +2,22 @@
 apiVersion: kubegres.reactive-tech.io/v1
 kind: Kubegres
 metadata:
-  name: authentik-postgres
+  name: authelia-external-postgres
   namespace: networking
 spec:
   replicas: 1
-  image: docker.io/library/postgres:13.6
+  image: docker.io/library/postgres:14.0
   database:
     size: 10Gi
     storageClassName: ceph-block
-  backup:
-    schedule: "0 */1 * * *"
-    pvcName: authentik-db-backup
-    volumeMount: /var/lib/backup
   env:
     - name: POSTGRES_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: authentik
-          key: AUTHENTIK_POSTGRESQL__PASSWORD
+          name: authelia-external
+          key: STORAGE_PASSWORD
     - name: POSTGRES_REPLICATION_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: authentik
-          key: AUTHENTIK_POSTGRESQL__PASSWORD
+          name: authelia-external
+          key: STORAGE_PASSWORD

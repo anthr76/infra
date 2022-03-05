@@ -29,7 +29,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          traefik.ingress.kubernetes.io/router.middlewares: networking-ak-outpost-kutara@kubernetescrd
+          traefik.ingress.kubernetes.io/router.middlewares: networking-chain-authelia-external-auth@kubernetescrd
         hosts:
           - host: "frigate.scr1.kutara.io"
             paths:

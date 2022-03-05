@@ -1,0 +1,33 @@
+users:
+    arabbito:
+        displayname: Anthony Rabbito
+        password: ENC[AES256_GCM,data:W4hcaYPAVQ5qxhM+eH8razSqGQhNwWiHwNWgLUHoueJVnMJU7DefdRQrCNK0LK6xriizNxrj1CH8WQjBXLWAHDIhrZSNFzaL2m3KAyeQ8MALkedwwspIqxLcMkiAG3lzwg==,iv:qRegwJCsE9PvK+m1GrcDdGu4m57cIX9KmOQtnw5Nu1Y=,tag:ot+KrYSnNarqpgRDufreBQ==,type:str]
+        email: hello@anthonyrabbito.com
+        groups:
+            - admins
+    nicole:
+        displayname: Nicole Rabbito
+        password: ENC[AES256_GCM,data:7E02PYlzXdym7O69GKtntYDRh0V8pRbES0lA2wrOt9gkv/dBIVgZCg+KoVmylWh1/QkBxB9NUcWibreWlfUipV7ZjNPcWWKjFJHjrjtKShnpWL+TSmb+maW8XwIhUVyBmg==,iv:MG5kt8plxGG0rSgaCitGncUSt8iA1yQu40UN1sfxr1g=,tag:vQC57Ly5glVrvjN9A0NoRA==,type:str]
+        email: nicolmartinezm99@gmail.com
+        groups:
+            - family
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBLbVRXYVBaZzJ0VnlzS2F2
+            blVTa3FMNmpVN0R0RzBpdTZQVEt6L0R4d2drCjNxVWEralNvYXVGRStNN2xJM3VT
+            MGhxYi9VZFgrejdLcHEvSFpCOTVESW8KLS0tIGE3VUJ0dlRKRjNlUUNlalVQeWw2
+            VVkwNHJLNElFa2ptNjlEb2tyZFp2c3MKeLYpp/k8uxU+H9v9/q+AJHCpAFVHw7SI
+            B9myGyApDknZiKmNpQaYYFNRnF5nTK5Y9EidpCnApBKKvLZYDMTwCA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-03-05T20:48:40Z"
+    mac: ENC[AES256_GCM,data:0ILJwiepbVivFMiSpjrs0zXGO2BW66yk3HZucM9UMLy8B0tKtwvjYmC0YERp5AKxaVxAZUPB+GrmMlk32hauukpQDZyOlCOHe7muwr3EJNxDZ7uQYGUZ3gI358BrdotjeUH+8LV/46AjyLWiXahFpEV+fqE2IXKqxTHwKYkN5Bg=,iv:uYBrYvetNopdBspI0t8n7fKy1qG7qA6DyCkFK89wrTU=,tag:Ui1Cqc2nzb7VqnB2yYVAuw==,type:str]
+    pgp: []
+    encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
+    version: 3.7.1
