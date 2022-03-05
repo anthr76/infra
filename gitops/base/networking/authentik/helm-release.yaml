@@ -25,6 +25,21 @@ spec:
     image:
       repository: goauthentik.io/server
       tag: 2022.2.1
+    resources:
+      server:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 64Mi
+      worker:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 64Mi
     ingress:
       enabled: true
       ingressClassName: "traefik"
