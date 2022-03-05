@@ -6,6 +6,7 @@ metadata:
   namespace: home
 spec:
   interval: 5m
+  timeout: 15m
   chart:
     spec:
       chart: home-assistant
