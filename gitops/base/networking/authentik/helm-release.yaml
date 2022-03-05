@@ -25,7 +25,7 @@ spec:
       replicas: 1
     image:
       repository: goauthentik.io/server
-      tag: 2022.2.1
+      tag: 2022.1.5
     resources:
       server:
         limits:
