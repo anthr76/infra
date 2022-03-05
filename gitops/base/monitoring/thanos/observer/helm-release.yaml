@@ -30,10 +30,10 @@ spec:
         - "prom-thanos-discovery.monitoring.svc.cluster.local:10901"
       resources:
         limits:
-          cpu: 500m
+          cpu: 1500m
           memory: 128Mi
         requests:
-          cpu: 250m
+          cpu: 350m
           memory: 64Mi
     queryFrontend:
       enabled: false
@@ -64,7 +64,7 @@ spec:
         size: 20Gi
       resources:
         limits:
-          cpu: 20000m
+          cpu: 2000m
           memory: 128Mi
         requests:
           cpu: 450m
