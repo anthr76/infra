@@ -64,7 +64,7 @@ spec:
         size: 20Gi
       resources:
         limits:
-          cpu: 850m
+          cpu: 20000m
           memory: 128Mi
         requests:
           cpu: 450m
