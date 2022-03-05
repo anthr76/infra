@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 5.2.1
+      version: 5.2.2
       sourceRef:
         kind: HelmRepository
         name: authentik-charts
@@ -25,7 +25,7 @@ spec:
       replicas: 1
     image:
       repository: goauthentik.io/server
-      tag: 2021.12.4
+      tag: 2022.2.1
     resources:
       server:
         limits:
