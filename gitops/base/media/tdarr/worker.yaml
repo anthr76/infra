@@ -48,7 +48,7 @@ spec:
               value: "1000"
             - name: PGID
               value: "1000"
-          image: haveagitgat/tdarr_node:2.00.14
+          image: haveagitgat/tdarr_node:2.00.15
           imagePullPolicy: IfNotPresent
           name: node
           volumeMounts:
