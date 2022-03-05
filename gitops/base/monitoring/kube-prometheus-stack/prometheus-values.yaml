@@ -44,7 +44,7 @@ prometheus:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 10Gi
+              storage: 20Gi
     thanos:
       objectStorageConfig:
         name: thanos-objstore-secret
