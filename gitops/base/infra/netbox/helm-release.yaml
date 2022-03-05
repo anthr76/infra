@@ -38,8 +38,8 @@ spec:
       version: 1
     remoteAuth:
       enabled: True
-      header: HTTP_X_AUTHENTIK_EMAIL
-      groupHeader: HTTP_X_AUTHENTIK_GROUPS
+      header: Remote_Email
+      groupHeader: Remote_Groups
       defaultPermissions: None
       groupSyncEnabled: True
       autoCreateUser: True
@@ -92,7 +92,7 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: networking-ak-outpost-kutara@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: networking-chain-authelia-external-auth@kubernetescrd
       hosts:
         - host: netbox.kutara.io
           paths:
