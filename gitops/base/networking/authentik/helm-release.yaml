@@ -28,17 +28,17 @@ spec:
     resources:
       server:
         limits:
-          cpu: 2000m
+          cpu: 2500m
           memory: 128Mi
         requests:
           cpu: 550m
           memory: 64Mi
       worker:
         limits:
-          cpu: 500m
+          cpu: 2500m
           memory: 128Mi
         requests:
-          cpu: 250m
+          cpu: 550m
           memory: 64Mi
     ingress:
       enabled: true
