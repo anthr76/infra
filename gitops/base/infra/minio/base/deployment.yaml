@@ -43,7 +43,7 @@ spec:
           envFrom:
             - secretRef:
                 name: minio
-          image: "quay.io/minio/minio:RELEASE.2022-03-03T21-21-16Z"
+          image: "quay.io/minio/minio:RELEASE.2022-03-05T06-32-39Z"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
