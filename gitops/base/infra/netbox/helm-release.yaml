@@ -38,13 +38,13 @@ spec:
       version: 1
     remoteAuth:
       enabled: True
-      header: Remote_Email
-      groupHeader: Remote_Groups
+      header: Remote-Email
+      groupHeader: Remote-Groups
       defaultPermissions: None
       groupSyncEnabled: True
       autoCreateUser: True
       superuserGroups:
-        - admin
+        - admins
       staffGroups:
         - family
     # plugins:
