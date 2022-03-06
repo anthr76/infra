@@ -38,8 +38,8 @@ spec:
       version: 1
     remoteAuth:
       enabled: True
-      header: Remote-Email
-      groupHeader: Remote-Groups
+      header: REMOTE_EMAIL
+      groupHeader: REMOTE_GROUPS
       defaultPermissions: None
       groupSyncEnabled: True
       autoCreateUser: True
