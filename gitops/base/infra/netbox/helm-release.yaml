@@ -38,7 +38,7 @@ spec:
       version: 1
     remoteAuth:
       enabled: True
-      header: HTTP_REMOTE_EMAIL
+      header: HTTP_REMOTE_USER
       groupHeader: HTTP_REMOTE_GROUPS
       defaultPermissions: None
       groupSyncEnabled: True
