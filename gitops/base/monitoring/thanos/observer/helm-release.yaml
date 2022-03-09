@@ -19,7 +19,7 @@ spec:
     image:
       registry: quay.io
       repository: thanos/thanos
-      tag: main-2021-12-22-53ec210d
+      tag: v0.25.0
     existingObjstoreSecret: thanos-objstore-secret
     query:
       enabled: true
