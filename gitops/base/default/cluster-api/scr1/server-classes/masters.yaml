@@ -17,8 +17,11 @@ spec:
       path: /cluster/apiServer/extraArgs
       value:
         feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
-        oidc-issuer-url: https://auth.kutara.io/application/o/kubernetes/
+        oidc-issuer-url: https://kutara-dev.us.auth0.com
         oidc-client-id: ${SECRET_KUBERNETES_AUTH_OIDC_ISSUER}
+        oidc-username-claim: email
+        oidc-username-prefix: 'oidc:'
+        oidc-groups-prefix: 'oidc:'
     - op: replace
       path: /cluster/controllerManager/image
       value: k8s.gcr.io/kube-controller-manager:v1.23.4
