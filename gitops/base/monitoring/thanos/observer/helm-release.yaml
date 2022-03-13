@@ -26,8 +26,10 @@ spec:
       logFormat: json
       replicaLabels:
         - replica
-      stores:
-        - "prom-thanos-discovery.monitoring.svc.cluster.local:10901"
+      dnsDiscovery:
+        enabled: true
+        sidecarService: prom-thanos-discovery
+        sidecarsNamespace: monitoring
       resources:
         limits:
           cpu: 1500m
