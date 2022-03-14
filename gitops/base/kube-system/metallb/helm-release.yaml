@@ -32,4 +32,4 @@ spec:
         # lol -- https://github.com/FRRouting/frr/issues/10587
         image:
           repository: docker.io/frrouting/frr
-          tag: v8.1.0
+          tag: v8.2.2
