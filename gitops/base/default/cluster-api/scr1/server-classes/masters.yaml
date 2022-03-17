@@ -12,7 +12,7 @@ spec:
         - initcall_blacklist=aoe_init
     - op: replace
       path: /cluster/apiServer/image
-      value: k8s.gcr.io/kube-apiserver:v1.23.4
+      value: k8s.gcr.io/kube-apiserver:v1.23.5
     - op: add
       path: /cluster/apiServer/extraArgs
       value:
@@ -25,17 +25,17 @@ spec:
         oidc-groups-claim: 'https://kutara.io/groups'
     - op: replace
       path: /cluster/controllerManager/image
-      value: k8s.gcr.io/kube-controller-manager:v1.23.4
+      value: k8s.gcr.io/kube-controller-manager:v1.23.5
     - op: add
       path: /cluster/scheduler/extraArgs
       value:
         feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
     - op: replace
       path: /cluster/scheduler/image
-      value: k8s.gcr.io/kube-scheduler:v1.23.4
+      value: k8s.gcr.io/kube-scheduler:v1.23.5
     - op: replace
       path: /machine/kubelet/image
-      value: ghcr.io/talos-systems/kubelet:v1.23.4
+      value: ghcr.io/talos-systems/kubelet:v1.23.5
     - op: replace
       path: /cluster/proxy/disabled
       value: true
