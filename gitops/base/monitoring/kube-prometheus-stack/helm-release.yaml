@@ -71,7 +71,7 @@ spec:
             memory: 50Mi
       thanosImage:
         repository: quay.io/thanos/thanos
-        tag: v0.25.1
+        tag: v0.25.2
     grafana:
       enabled: false
       forceDeployDashboards: true
