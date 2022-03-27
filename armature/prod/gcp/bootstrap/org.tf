@@ -47,7 +47,8 @@ module "bootstrap" {
     "roles/resourcemanager.projectCreator",
     "roles/resourcemanager.folderAdmin",
     "roles/securitycenter.notificationConfigEditor",
-    "roles/resourcemanager.organizationViewer"
+    "roles/resourcemanager.organizationViewer",
+    "roles/iam.workloadIdentityPoolAdmin"
   ]
 }
 
