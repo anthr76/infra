@@ -20,7 +20,7 @@
 
 resource "google_folder" "bootstrap" {
   display_name = "kutara-prod"
-  parent = "organizations/${var.org_id}"
+  parent       = "organizations/${var.org_id}"
 }
 
 module "bootstrap" {
