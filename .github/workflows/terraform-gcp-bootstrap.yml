@@ -8,7 +8,7 @@ on:
       - ".github/workflows/**"
 env:
   TF_VAR_org_id: ${{ secrets.TF_VARS_GCP_ORG_ID }}
-  TF_VAR_billing_acount: ${{ secrets.TF_VARS_GCP_BILLING_ACOUNT }}
+  TF_VAR_billing_account: ${{ secrets.TF_VARS_GCP_BILLING_ACCOUNT }}
   TF_VAR_group_org_admins: ${{ secrets.TF_VARS_GCP_ORG_ADMINS }}
   TF_VAR_group_billing_admins: ${{ secrets.TF_VARS_GCP_BILLING_ADMINS }}
 
@@ -37,8 +37,8 @@ jobs:
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v0.6.0'
         with:
-          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-          service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+          workload_identity_provider: ${{ secrets.GCP_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
