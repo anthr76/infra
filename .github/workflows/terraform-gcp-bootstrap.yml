@@ -1,0 +1,56 @@
+---
+name: Terraform Plan
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "armature/prod/gcp/**"
+      - ".github/workflows/**"
+env:
+  TF_VAR_org_id: ${{ secrets.TF_VARS_GCP_ORG_ID }}
+  TF_VAR_billing_acount: ${{ secrets.TF_VARS_GCP_BILLING_ACOUNT }}
+  TF_VAR_group_org_admins: ${{ secrets.TF_VARS_GCP_ORG_ADMINS }}
+  TF_VAR_group_billing_admins: ${{ secrets.TF_VARS_GCP_BILLING_ADMINS }}
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  actions: write
+  checks: write
+  statuses: write
+
+jobs:
+  terraform-plan:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - env: 'gcp/bootstrap'
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0.6.0'
+        with:
+          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+        with:
+          terraform_version: 1.1.7
+          terraform_wrapper: false
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Terraform plan
+        uses: cds-snc/terraform-plan@v2
+        with:
+          comment-delete: true
+          comment-title: Plan for ${{ matrix.env }}
+          directory: ./armature/prod/${{ matrix.env }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
