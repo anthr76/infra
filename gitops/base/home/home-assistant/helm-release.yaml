@@ -30,7 +30,7 @@ spec:
       backup.velero.io/backup-volumes: config
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2022.3.7
+      tag: 2022.3.8
     env:
       TZ: "America/New_York"
     envFrom:
