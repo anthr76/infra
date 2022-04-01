@@ -20,7 +20,7 @@ spec:
       feature.node.kubernetes.io/custom-intel-10g: "true"
     image:
       repository: ghcr.io/miguelndecarvalho/speedtest-exporter
-      tag: v3.4.2
+      tag: v3.4.3
     metrics:
       enabled: true
       serviceMonitor:
