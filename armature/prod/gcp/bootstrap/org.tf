@@ -17,7 +17,21 @@
 /*************************************************
   Bootstrap GCP Organization.
 *************************************************/
-
+locals {
+  read_only_sa_roles = [
+    "roles/accesscontextmanager.policyReader",
+    "roles/billing.viewer",
+    "roles/compute.networkViewer",
+    "roles/iam.securityReviewer",
+    "roles/iam.serviceAccountViewer",
+    "roles/logging.viewer",
+    "roles/orgpolicy.policyViewer",
+    "roles/resourcemanager.organizationViewer",
+    "roles/resourcemanager.folderViewer",
+    "roles/securitycenter.adminViewer",
+    "roles/iam.workloadIdentityPoolViewer"
+  ]
+}
 resource "google_folder" "bootstrap" {
   display_name = "kutara-prod"
   parent       = "organizations/${var.org_id}"
@@ -57,18 +71,25 @@ module "sa_tf_seed_ro" {
   version    = "4.1.1"
   project_id = module.bootstrap.seed_project_id
   prefix     = ""
-  names      = ["tf-seed-viewier"]
+  names      = ["tf-seed-viewer"]
   project_roles = [
     "${module.bootstrap.seed_project_id}=>roles/viewer"
   ]
+}
+
+resource "google_organization_iam_member" "tf_sa_org_perms" {
+  for_each = toset(local.read_only_sa_roles)
+  org_id   = var.org_id
+  role     = each.value
+  member   = "serviceAccount:${module.sa_tf_seed_ro.email}"
 }
 
 module "gh_oidc" {
   source              = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
   version             = "3.0.0"
   project_id          = module.bootstrap.seed_project_id
-  pool_id             = "tf-seed-production-enviorment"
-  provider_id         = "tf-seed-production-enviorment"
+  pool_id             = "tf-seed-production-environment"
+  provider_id         = "tf-seed-production-environment"
   attribute_condition = "attribute.environment==\"production\""
   attribute_mapping = {
     "attribute.actor" : "assertion.actor",
