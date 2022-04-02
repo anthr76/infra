@@ -1,11 +1,16 @@
 ---
-name: GCP | Terraform Plan
+name: Terraform | Plan
 on:
   workflow_dispatch:
   pull_request:
     paths:
       - "armature/prod/gcp/**"
       - ".github/workflows/**"
+
+concurrency: 
+  group: tf
+  cancel-in-progress: false
+
 env:
   TF_VAR_org_id: ${{ secrets.TF_VARS_GCP_ORG_ID }}
   TF_VAR_billing_account: ${{ secrets.TF_VARS_GCP_BILLING_ACCOUNT }}
@@ -26,7 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - env: 'gcp/bootstrap'
+          - env: 'armature/prod/gcp/bootstrap'
 
     runs-on: ubuntu-latest
     #environment: production
@@ -48,10 +53,10 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform -chdir=${{ matrix.env }} init
 
       - name: Terraform Format
-        run: terraform fmt -check
+        run: terraform -chdir=${{ matrix.env }} fmt -check
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform -chdir=${{ matrix.env }} plan
