@@ -52,15 +52,48 @@ module "bootstrap" {
   ]
 }
 
+module "sa_tf_seed_ro" {
+  source     = "terraform-google-modules/service-accounts/google"
+  version    = "4.1.1"
+  project_id = module.bootstrap.seed_project_id
+  prefix     = ""
+  names      = ["tf-seed-viewier"]
+  project_roles = [
+    "${module.bootstrap.seed_project_id}=>roles/viewer"
+  ]
+}
+
 module "gh_oidc" {
   source      = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
   version     = "3.0.0"
   project_id  = module.bootstrap.seed_project_id
-  pool_id     = "tf-seed"
-  provider_id = "tf-seed"
+  pool_id     = "tf-seed-production-enviorment"
+  provider_id = "tf-seed-production-enviorment"
+  attribute_condition = "attribute.environment==\"production\""
+  attribute_mapping = {
+    "attribute.actor" : "assertion.actor",
+    "attribute.aud" : "assertion.aud",
+    "attribute.repository" : "assertion.repository",
+    "attribute.environment" : "assertion.environment",
+    "google.subject" : "assertion.sub"
+  }
   sa_mapping = {
     "tf-seed" = {
       sa_name   = "projects/${module.bootstrap.seed_project_id}/serviceAccounts/${module.bootstrap.terraform_sa_email}"
+      attribute = "attribute.repository/anthr76/infra"
+    }
+  }
+}
+
+module "gh_oidc_pr" {
+  source      = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
+  version     = "3.0.0"
+  project_id  = module.bootstrap.seed_project_id
+  pool_id     = "tf-seed-pr"
+  provider_id = "tf-seed-pr"
+  sa_mapping = {
+    "tf-seed" = {
+      sa_name   = "projects/${module.bootstrap.seed_project_id}/serviceAccounts/${module.sa_tf_seed_ro.email}"
       attribute = "attribute.repository/anthr76/infra"
     }
   }
