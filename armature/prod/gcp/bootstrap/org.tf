@@ -64,11 +64,11 @@ module "sa_tf_seed_ro" {
 }
 
 module "gh_oidc" {
-  source      = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
-  version     = "3.0.0"
-  project_id  = module.bootstrap.seed_project_id
-  pool_id     = "tf-seed-production-enviorment"
-  provider_id = "tf-seed-production-enviorment"
+  source              = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
+  version             = "3.0.0"
+  project_id          = module.bootstrap.seed_project_id
+  pool_id             = "tf-seed-production-enviorment"
+  provider_id         = "tf-seed-production-enviorment"
   attribute_condition = "attribute.environment==\"production\""
   attribute_mapping = {
     "attribute.actor" : "assertion.actor",
