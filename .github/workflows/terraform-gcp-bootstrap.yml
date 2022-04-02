@@ -24,7 +24,7 @@ permissions:
   statuses: write
 
 jobs:
-  terraform-plan:
+  terraform-apply:
     strategy:
       fail-fast: false
       matrix:
