@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "armature/prod/gcp/**"
+      - ".github/workflows/**"
 
 concurrency: 
   group: tf
