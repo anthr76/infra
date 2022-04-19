@@ -29,7 +29,7 @@ spec:
         memory: 128Mi
     image:
       repository: docker.io/haveagitgat/tdarr
-      tag: 2.00.16
+      tag: 2.00.18
       pullPolicy: IfNotPresent
     env:
       TZ: America/New_York
