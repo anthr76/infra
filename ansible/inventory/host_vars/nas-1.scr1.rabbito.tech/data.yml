@@ -7,6 +7,7 @@ zfs_enable_samba: false
 zfs_enable_performance_tuning: false # Not idempotent
 zfs_create_pools: true
 zfs_create_filesystems: true
+zfs_monitoring_capacity_threshold: 92
 zfs_pools:
   - name: "tank"
     action: "create"
