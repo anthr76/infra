@@ -89,7 +89,6 @@ zfs_filesystems:
     owner: nobody
     group: nogroup
 zfs_enable_monitoring: true
-zfs_monitoring_capacity_threshold: 80
 zfs_monitoring_scrub_max_age: 8
 zfs_pools_scrub_cron:
   minute: 0
