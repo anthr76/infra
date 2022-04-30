@@ -82,7 +82,7 @@ spec:
         password: ${TEMP_SECRET}
       image:
         repository: library/redis
-        tag: "6.2.6"
+        tag: "6.2.7"
     persistence:
       enabled: false
     reportsPersistence:
