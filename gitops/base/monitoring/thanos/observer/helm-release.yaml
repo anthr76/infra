@@ -72,9 +72,6 @@ spec:
       enabled: true
       replicaCount: 3
       podAntiAffinityPreset: hard
-      persistence:
-        enabled: true
-        size: 20Gi
       resources:
         limits:
           cpu: 2000m
