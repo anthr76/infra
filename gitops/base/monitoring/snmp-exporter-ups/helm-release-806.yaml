@@ -32,11 +32,10 @@ spec:
       enabled: true
       namespace: monitoring
       params:
-        - name:
+        - name: ups-806
           module:
             - apcups
-          target:
-            - ups-806.scr1.rabbito.tech
+          target: ups-806.scr1.rabbito.tech
       path: /snmp
       # interval: 60s
       scrapeTimeout: 10s
