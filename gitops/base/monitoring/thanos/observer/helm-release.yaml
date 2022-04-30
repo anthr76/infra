@@ -23,6 +23,7 @@ spec:
     existingObjstoreSecret: thanos-objstore-secret
     query:
       enabled: true
+      replicaCount: 3
       logFormat: json
       replicaLabels:
         - replica
@@ -41,6 +42,8 @@ spec:
       enabled: false
     bucketweb:
       enabled: true
+      replicaCount: 3
+      podAntiAffinityPreset: hard
       resources:
         limits:
           cpu: 500m
@@ -50,8 +53,14 @@ spec:
           memory: 64Mi
     compactor:
       enabled: true
+      retentionResolutionRaw: 14d
+      retentionResolution5m: 30d
+      retentionResolution1h: 180d
       persistence:
-        enabled: false
+        enabled: true
+        storageClass: "ceph-block"
+        # TODO(thanos): change compactor volume to 5Gi
+        size: 8Gi
       resources:
         limits:
           cpu: 2500m
@@ -61,6 +70,8 @@ spec:
           memory: 64Mi
     storegateway:
       enabled: true
+      replicaCount: 3
+      podAntiAffinityPreset: hard
       persistence:
         enabled: true
         size: 20Gi
@@ -71,6 +82,10 @@ spec:
         requests:
           cpu: 450m
           memory: 64Mi
+      persistence:
+        enabled: true
+        storageClass: "ceph-block"
+        size: 8Gi
     ruler:
       enabled: true
       dnsDiscovery:
