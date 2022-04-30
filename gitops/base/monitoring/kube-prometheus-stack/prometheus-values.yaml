@@ -33,7 +33,8 @@ prometheus:
     podMonitorSelector: {}
     podMonitorNamespaceSelector: {}
     podMonitorSelectorNilUsesHelmValues: false
-    retention: 2d
+    retention: 6h
+    retentionSize: "6GB"
     enableAdminAPI: true
     walCompression: true
     storageSpec:
