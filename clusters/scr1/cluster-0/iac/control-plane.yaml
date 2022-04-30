@@ -55,13 +55,13 @@ spec:
   controlPlaneConfig:
     controlplane:
       generateType: controlplane
-      talosVersion: v1.0.0-beta.1
+      talosVersion: v1.0.4
     init:
       generateType: init
-      talosVersion: v1.0.0-beta.1
+      talosVersion: v1.0.4
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
     kind: MetalMachineTemplate
     name: scr1-cluster-0-cp
   replicas: 3
-  version: v1.23.5
+  version: v1.23.6
