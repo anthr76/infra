@@ -35,8 +35,7 @@ spec:
         - name: 808-ups
           module:
             - apcups
-          target:
-            - ups-808.scr1.rabbito.tech
+          target: ups-808.scr1.rabbito.tech
       path: /snmp
       # interval: 60s
       scrapeTimeout: 10s
