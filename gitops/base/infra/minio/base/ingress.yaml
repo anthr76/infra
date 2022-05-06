@@ -3,7 +3,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
     cert-manager.io/cluster-issuer: letsencrypt-production
   labels:
     app.kubernetes.io/instance: minio
@@ -11,7 +10,7 @@ metadata:
   name: minio
   namespace: infra
 spec:
-  ingressClassName: traefik
+  ingressClassName: nginx
   rules:
     - host: minio.${INT_DOMAIN}
       http:

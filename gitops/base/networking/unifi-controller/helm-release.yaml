@@ -31,8 +31,6 @@ spec:
         enabled: true
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.priority: "10"
         path: /inform
         hosts:
           - unifi.kutara.io
@@ -44,7 +42,6 @@ spec:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
       hosts:
         - unifi.kutara.io
       tls:
