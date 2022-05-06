@@ -59,8 +59,7 @@ spec:
       persistence:
         enabled: true
         storageClass: "ceph-block"
-        # TODO(thanos): change compactor volume to 5Gi
-        size: 8Gi
+        size: 16Gi
       resources:
         limits:
           cpu: 2500m
