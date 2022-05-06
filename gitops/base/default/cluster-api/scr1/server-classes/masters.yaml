@@ -17,7 +17,7 @@ spec:
       path: /cluster/apiServer/extraArgs
       value:
         feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
-        oidc-client-id: 2i7yJpAgOxoMMPckg3di6Ko6qtNT3a4X
+        oidc-client-id: ${K8S_AUTH_CLIENT_ID}
         oidc-groups-prefix: 'oidc:'
         oidc-username-prefix: 'oidc:'
         oidc-username-claim: email
