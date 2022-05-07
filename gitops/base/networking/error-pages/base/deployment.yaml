@@ -26,7 +26,7 @@ spec:
           env:
             - name: TEMPLATE_NAME
               value: "ghost"
-          image: "ghcr.io/tarampampam/error-pages:2.13.0"
+          image: "ghcr.io/tarampampam/error-pages:2.15.0"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
