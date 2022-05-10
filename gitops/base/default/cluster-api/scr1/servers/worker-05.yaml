@@ -34,7 +34,7 @@ spec:
         fs.inotify.max_user_instances: "8192"
         vm.max_map_count: "524288"
         net.ipv6.conf.eth0.accept_ra: "2"
-        max_user_namespaces: "1500"
+        user.max_user_namespaces: "1500"
   cpu:
     manufacturer: Broadcom
     version: BCM2711 (ARM Cortex-A72)
