@@ -42,7 +42,7 @@ spec:
     - op: add
       path: /cluster/coreDNS
       value:
-        image: docker.io/coredns/coredns:1.9.1
+        image: docker.io/coredns/coredns:1.9.2
     - op: replace
       path: /machine/install/disk
       value: /dev/sda
