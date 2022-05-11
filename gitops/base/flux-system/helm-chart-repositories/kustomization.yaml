@@ -31,3 +31,5 @@ resources:
   - stakewise-charts.yaml
   - hashicorp-charts.yaml
   - vector-charts.yaml
+  - ingress-nginx-charts.yaml
+  - oauth2-proxy-charts.yaml
