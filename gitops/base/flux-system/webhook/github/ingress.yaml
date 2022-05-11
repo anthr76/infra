@@ -5,10 +5,9 @@ metadata:
   name: webhook-receiver
   namespace: flux-system
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
-  ingressClassName: "traefik"
+  ingressClassName: nginx
   rules:
     - host: "flux-receiver-${CLUSTER_NAME}.kutara.io"
       http:

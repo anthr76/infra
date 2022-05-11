@@ -1,15 +1,12 @@
 prometheus:
   thanosService:
     enabled: true
-    annotations:
-      traefik.ingress.kubernetes.io/service.serversscheme: h2c
   thanosServiceMonitor:
     enabled: true
   ingress:
     enabled: true
-    ingressClassName: traefik
+    ingressClassName: nginx
     annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
       cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
       - "prom.${GENERIC_CLUSTER_INGRESS}"

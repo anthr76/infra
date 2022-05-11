@@ -30,7 +30,7 @@ spec:
       backup.velero.io/backup-volumes: config
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2022.5.1
+      tag: 2022.5.3
     env:
       TZ: "America/New_York"
     envFrom:
@@ -39,9 +39,8 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: nginx
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
           - host: "hass.kutara.io"
@@ -74,9 +73,8 @@ spec:
           - "/config/.vscode"
         ingress:
           enabled: true
-          ingressClassName: "traefik"
+          ingressClassName: nginx
           annotations:
-            traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
             cert-manager.io/cluster-issuer: "letsencrypt-production"
           hosts:
             - host: "hass-config.${INT_DOMAIN}"
