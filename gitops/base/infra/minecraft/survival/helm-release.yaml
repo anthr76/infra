@@ -68,9 +68,8 @@ spec:
           ingress:
             enabled: true
             annotations:
-              kubernetes.io/ingress.class: "traefik"
+              kubernetes.io/ingress.class: "nginx"
               cert-manager.io/cluster-issuer: "letsencrypt-production"
-              traefik.ingress.kubernetes.io/router.entrypoints: "web, websecure"
             hosts:
               - name: mc-map.kutara.io
                 path: /
