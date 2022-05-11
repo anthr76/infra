@@ -44,79 +44,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-traefik
+  name: networking-nginx
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/base/networking/traefik"
-  prune: true
-  wait: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  patches:
-    - patch: |-
-        apiVersion: helm.toolkit.fluxcd.io/v2beta1
-        kind: HelmRelease
-        metadata:
-          name: traefik
-          namespace: networking
-        spec:
-          interval: 5m
-          chart:
-            spec:
-              chart: traefik
-              sourceRef:
-                kind: HelmRepository
-                name: traefik-charts
-                namespace: flux-system
-              interval: 5m
-          values:
-            additionalArguments:
-              - "--providers.kubernetesingress.ingressendpoint.hostname=${INGRESS_ENDPOINT_HOSTNAME}"
-            service:
-              enabled: true
-              type: LoadBalancer
-              spec:
-                externalTrafficPolicy: Local
-                ipFamilyPolicy: PreferDualStack
-              annotations:
-                external-dns.alpha.kubernetes.io/hostname: "${INGRESS_ENDPOINT_HOSTNAME}"
-                metallb.universe.tf/allow-shared-ip: "traefik"
-                metallb.universe.tf/loadBalancerIPs: "${SVC_WEB_ADDR}"
-            affinity:
-              nodeAffinity:
-                requiredDuringSchedulingIgnoredDuringExecution:
-                  nodeSelectorTerms:
-                  - matchExpressions:
-                    - key: feature.node.kubernetes.io/custom-intel-10g
-                      operator: In
-                      values:
-                      - "true"
-              podAntiAffinity:
-                preferredDuringSchedulingIgnoredDuringExecution:
-                - weight: 100
-                  podAffinityTerm:
-                    labelSelector:
-                      matchExpressions:
-                      - key: app.kubernetes.io/name
-                        operator: In
-                        values:
-                        - traefik
-                    topologyKey: "kubernetes.io/hostname"
-      target:
-        kind: HelmRelease
-        name: "traefik"
-        namespace: networking
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: networking-error-pages
-  namespace: flux-system
-spec:
-  interval: 5m
-  path: "./gitops/base/networking/error-pages"
+  path: "./gitops/base/networking/nginx"
   prune: true
   wait: true
   sourceRef:
@@ -126,11 +58,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: networking-authelia
+  name: networking-oauth2-proxy
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./gitops/base/networking/authelia"
+  path: "./gitops/base/networking/oauth2-proxy"
   prune: true
   wait: true
   sourceRef:

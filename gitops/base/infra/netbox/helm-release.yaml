@@ -91,8 +91,8 @@ spec:
       enabled: true
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: networking-chain-authelia-external-auth@kubernetescrd
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.kutara.io/oauth2/start
+        nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.networking.svc.cluster.local/oauth2/auth?allowed_groups=admins
       hosts:
         - host: netbox.kutara.io
           paths:

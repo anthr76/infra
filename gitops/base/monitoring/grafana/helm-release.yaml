@@ -175,9 +175,6 @@ spec:
         metallb:
           url: https://raw.githubusercontent.com/jr0dd/grafana-dashboards/main/metallb.json
           datasource: Prometheus
-        traefik:
-          url: https://raw.githubusercontent.com/jr0dd/grafana-dashboards/main/metallb.json
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/13665
         speedtest:
           gnetId: 13665
@@ -205,9 +202,8 @@ spec:
       enabled: true
     ingress:
       enabled: true
-      ingressClassName: "traefik"
+      ingressClassName: nginx
       annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
         cert-manager.io/cluster-issuer: letsencrypt-production
       hosts:
         - "grafana.kutara.io"
