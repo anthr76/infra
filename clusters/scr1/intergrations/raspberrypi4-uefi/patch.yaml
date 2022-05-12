@@ -1,0 +1,24 @@
+spec:
+  template:
+    spec:
+      volumes:
+        - name: tftp-folder
+          emptyDir: {}
+      initContainers:
+      - image: quay.io/kutara/raspberrypi4-uefi:latest
+        imagePullPolicy: Always
+        name: tftp-folder-setup
+        command:
+          - cp
+        args:
+          - -r
+          - /tftp
+          - /var/lib/sidero/
+        volumeMounts:
+          - mountPath: /var/lib/sidero/tftp
+            name: tftp-folder
+      containers:
+      - name: manager
+        volumeMounts:
+          - mountPath: /var/lib/sidero/tftp
+            name: tftp-folder
