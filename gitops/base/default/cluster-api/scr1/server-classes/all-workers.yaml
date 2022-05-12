@@ -21,25 +21,26 @@ spec:
       value:
         rotate-server-certificates: true
         feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
-        # system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
-        # kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
-        # eviction-hard: memory.available<500Mi,nodefs.available<10%
-        # eviction-soft: memory.available<900Mi,nodefs.available<15%
-        # eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
-    - op: add
-      path: /machine/kubelet/extraConfig
-      value:
-        evictionHard:
-          memory.available: "500Mi"
-          nodefs.available: "1Gi"
-          imagefs.available: "100Gi"
-        evictionMinimumReclaim:
-          memory.available: "0Mi"
-          nodefs.available: "500Mi"
-          imagefs.available: "2Gi"
-        kubeReserved:
-          cpu: 200m
-          memory: 300Mi
+        system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
+        kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
+        eviction-hard: memory.available<500Mi,nodefs.available<10%
+        eviction-soft: memory.available<900Mi,nodefs.available<15%
+        eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
+    # TODO: https://matrix.to/#/!AhUnkatMeayVVxZprp:matrix.org/$zoJUKFitSASzTiFlab5w1eeV-Pn5smR1SxtaHA-y8Z4?via=matrix.org&via=mozilla.org&via=nolife.se
+    # - op: add
+    #   path: /machine/kubelet/extraConfig
+    #   value:
+    #     evictionHard:
+    #       memory.available: "500Mi"
+    #       nodefs.available: "1Gi"
+    #       imagefs.available: "25Gi"
+    #     evictionMinimumReclaim:
+    #       memory.available: "0Mi"
+    #       nodefs.available: "500Mi"
+    #       imagefs.available: "2Gi"
+    #     kubeReserved:
+    #       cpu: 200m
+    #       memory: 300Mi
     - op: replace
       path: /persist
       value: false
