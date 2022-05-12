@@ -3,7 +3,7 @@ apiVersion: metal.sidero.dev/v1alpha1
 kind: Server
 metadata:
   name: 238eb1e5-aaad-5657-4f12-94c691af153d
-  namepsace: default
+  namespace: default
 spec:
   accepted: true
   pxeBootAlways: true
