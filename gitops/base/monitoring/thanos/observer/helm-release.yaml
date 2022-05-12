@@ -23,16 +23,19 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      registry: quay.io
-      repository: thanos/thanos
-      tag: v0.26.0
+# It seems like recent thanos versions broke using thano's image. Testing that..
+#    image:
+#      registry: quay.io
+#      repository: thanos/thanos
+#      tag: v0.26.0
     objstoreConfig:
       type: s3
       config:
         insecure: true
     query:
       enabled: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
       replicaCount: 3
       logFormat: json
       replicaLabels:
@@ -52,6 +55,8 @@ spec:
       enabled: false
     bucketweb:
       enabled: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
       replicaCount: 3
       podAntiAffinityPreset: hard
       resources:
@@ -63,6 +68,8 @@ spec:
           memory: 64Mi
     compactor:
       enabled: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
       retentionResolutionRaw: 14d
       retentionResolution5m: 30d
       retentionResolution1h: 180d
@@ -79,6 +86,8 @@ spec:
           memory: 64Mi
     storegateway:
       enabled: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
       replicaCount: 3
       podAntiAffinityPreset: hard
       resources:
@@ -94,6 +103,8 @@ spec:
         size: 8Gi
     ruler:
       enabled: true
+      nodeSelector:
+        kubernetes.io/arch: amd64
       podAntiAffinityPreset: hard
       replicaCount: 3
       dnsDiscovery:
