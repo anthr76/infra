@@ -7,6 +7,9 @@ metadata:
 spec:
   accepted: true
   pxeBootAlways: true
+  environmentRef:
+    namespace: default
+    name: default
   configPatches:
     - op: add
       path: /machine/network/hostname
