@@ -1,0 +1,48 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: Server
+metadata:
+  name: 00d03114-0000-0000-0000-dca632b1dd83
+  namespace: default
+spec:
+  accepted: true
+  hostname: worker-11.scr1.rabbito.tech
+  pxeBootAlways: true
+  environmentRef:
+    namespace: default
+    name: default-arm64
+  configPatches:
+    - op: add
+      path: /machine/network/hostname
+      value: worker-11.scr1.rabbito.tech
+    - op: add
+      path: /machine/network/interfaces
+      value:
+        - interface: eth0
+          dhcp: true
+          vlans:
+            - vlanId: 101
+              dhcp: false
+            - vlanId: 808
+              dhcp: false
+            - vlanId: 806
+              dhcp: false
+    - op: add
+      path: /machine/sysctls
+      value:
+        fs.inotify.max_user_watches: "1048576"
+        fs.inotify.max_user_instances: "8192"
+        vm.max_map_count: "524288"
+        net.ipv6.conf.eth0.accept_ra: "2"
+        user.max_user_namespaces: "1500"
+  cpu:
+    manufacturer: Broadcom
+    version: BCM2711 (ARM Cortex-A72)
+  system:
+    family: Raspberry Pi
+    manufacturer: Raspberry Pi Foundation
+    productName: Raspberry Pi 4 Model B
+    serialNumber: 0000DCA63203CF77
+    skuNumber: 0000000000C03111
+    version: C03111
+

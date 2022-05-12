@@ -22,7 +22,7 @@ spec:
   cpu:
     manufacturer: Intel(R) Corporation
     version: Intel(R) Core(TM) i7-8559U CPU @ 2.70GHz
-  hostname: 192.168.8.68
+  hostname: worker-10.scr1.rabbito.tech
   system:
     family: Intel NUC
     manufacturer: Intel(R) Client Systems
