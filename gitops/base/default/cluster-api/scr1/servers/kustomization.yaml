@@ -16,3 +16,4 @@ resources:
   - worker-05.yaml
   - worker-07.yaml
   - worker-10.yaml
+  - worker-11.yaml
