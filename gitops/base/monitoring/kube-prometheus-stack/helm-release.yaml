@@ -25,6 +25,13 @@ spec:
       name: prometheus-values
     - kind: ConfigMap
       name: alertmanager-values
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
     fullnameOverride: prom
     kubeEtcd:
@@ -69,17 +76,12 @@ spec:
           limits:
             cpu: 400m
             memory: 50Mi
-      thanosImage:
-        repository: quay.io/thanos/thanos
-        tag: v0.26.0
     grafana:
       enabled: false
       forceDeployDashboards: true
       sidecar:
         dashboards:
           multicluster:
-            global:
-              enabled: true
             etcd:
               enabled: true
     prometheus-node-exporter:
