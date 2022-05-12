@@ -34,6 +34,9 @@ spec:
       dashboard:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
+          nginx.ingress.kubernetes.io/backend-protocol: HTTP
+          nginx.ingress.kubernetes.io/server-snippet: |
+            proxy_ssl_verify off;
         host:
           name: "rook.${GENERIC_CLUSTER_INGRESS}"
           path: "/"
