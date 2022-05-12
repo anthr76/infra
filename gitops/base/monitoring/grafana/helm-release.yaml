@@ -42,18 +42,17 @@ spec:
         root_url: "https://grafana.kutara.io"
         serve_from_sub_path: false
       auth:
-        signout_redirect_url: https://auth.kutara.io/application/o/grafana/end-session/
         oauth_auto_login: true
       auth.generic_oauth:
         enabled: true
         allow_sign_up: true
-        name: Authentik
+        name: Auth0
         scopes: openid profile email
-        auth_url: https://auth.kutara.io/application/o/authorize/
-        token_url: https://auth.kutara.io/application/o/token/
-        api_url: https://auth.kutara.io/application/o/userinfo/
+        auth_url: https://kutara-dev.us.auth0.com/authorize
+        token_url: https://kutara-dev.us.auth0.com/oauth/token
+        api_url: https://kutara-dev.us.auth0.com/userinfo
       auth.generic_oauth.group_mapping:
-        role_attribute_path: "contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
+        role_attribute_path: contains("https://kutara.io/groups"[*], 'admins') && 'Admin' || contains("https://kutara.io/groups"[*], 'editor') && 'Editor' || 'Viewer'"
         org_id: 1
       auth.anonymous:
         enabled: false
