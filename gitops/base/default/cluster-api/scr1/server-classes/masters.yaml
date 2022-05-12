@@ -10,6 +10,10 @@ spec:
       path: /machine/install/extraKernelArgs
       value:
         - initcall_blacklist=aoe_init
+    - op: add
+      path: /machine/install/extensions
+      value:
+        - image: ghcr.io/siderolabs/intel-ucode:20220510
     - op: replace
       path: /cluster/apiServer/image
       value: k8s.gcr.io/kube-apiserver:v1.23.6
