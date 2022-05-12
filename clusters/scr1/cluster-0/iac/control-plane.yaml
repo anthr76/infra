@@ -1,5 +1,5 @@
 ---
-apiVersion: cluster.x-k8s.io/v1alpha4
+apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
   name: scr1-cluster-0
@@ -42,7 +42,7 @@ spec:
   template:
     spec:
       serverClassRef:
-        apiVersion: metal.sidero.dev/v1alpha1
+        apiVersion: metal.sidero.dev/v1alpha2
         kind: ServerClass
         name: masters
 ---
@@ -64,4 +64,4 @@ spec:
     kind: MetalMachineTemplate
     name: scr1-cluster-0-cp
   replicas: 3
-  version: v1.23.6
+  version: v1.23.5
