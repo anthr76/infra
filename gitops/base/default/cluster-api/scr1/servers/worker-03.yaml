@@ -9,10 +9,6 @@ spec:
   hostname: worker-03.scr1.rabbito.tech
   configPatches:
     - op: add
-      path: /machine/install/extensions
-      value:
-        - image: ghcr.io/siderolabs/amd-ucode:20220411
-    - op: add
       path: /machine/network/hostname
       value: worker-03.scr1.rabbito.tech
     - op: add
