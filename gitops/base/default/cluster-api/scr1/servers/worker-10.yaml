@@ -1,0 +1,32 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: Server
+metadata:
+  name: 238eb1e5-aaad-5657-4f12-94c691af153d
+  namepsace: default
+spec:
+  accepted: true
+  pxeBootAlways: true
+  configPatches:
+    - op: add
+      path: /machine/network/hostname
+      value: worker-10.scr1.rabbito.tech
+    - op: add
+      path: /machine/sysctls
+      value:
+        fs.inotify.max_user_watches: "1048576"
+        fs.inotify.max_user_instances: "8192"
+        vm.max_map_count: "524288"
+        net.ipv6.conf.eth0.accept_ra: "2"
+        user.max_user_namespaces: "1500"
+  cpu:
+    manufacturer: Intel(R) Corporation
+    version: Intel(R) Core(TM) i7-8559U CPU @ 2.70GHz
+  hostname: 192.168.8.68
+  system:
+    family: Intel NUC
+    manufacturer: Intel(R) Client Systems
+    productName: NUC8i7BEH
+    serialNumber: G6BE91200PJH
+    skuNumber: BOXNUC8i7BEH
+    version: J72992-305
