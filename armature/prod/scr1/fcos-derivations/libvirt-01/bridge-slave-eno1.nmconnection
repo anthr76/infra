@@ -1,0 +1,15 @@
+[connection]
+id=bridge-slave-eno1
+uuid=6ee8eba7-2a21-4026-a43f-8ee960b764c6
+type=ethernet
+interface-name=eno1
+master=br0
+permissions=
+slave-type=bridge
+timestamp=1652028374
+
+[ethernet]
+mac-address-blacklist=
+mtu=1500
+
+[bridge-port]
