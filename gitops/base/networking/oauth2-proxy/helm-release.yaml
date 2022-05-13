@@ -16,6 +16,7 @@ spec:
         namespace: flux-system
       interval: 10m
   values:
+    replicaCount: 3
     image:
       repository: quay.io/oauth2-proxy/oauth2-proxy
       tag: v7.2.1
