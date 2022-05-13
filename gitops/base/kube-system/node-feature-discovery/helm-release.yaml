@@ -38,6 +38,11 @@ spec:
               - "vendor"
               - "device"
           custom:
+            - name: "intel-gpu"
+              matchOn:
+                - pciId:
+                    class: ["0300"]
+                    vendor: ["8086"]
             - name: "zwave"
               matchOn:
                 - usbId:
