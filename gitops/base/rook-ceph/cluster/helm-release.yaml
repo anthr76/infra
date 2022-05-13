@@ -28,15 +28,13 @@ spec:
       dashboard:
         enabled: true
         urlPrefix: /
+        ssl: false
       disruptionManagement:
         pgHealthCheckTimeout: 5
     ingress:
       dashboard:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-          nginx.ingress.kubernetes.io/backend-protocol: HTTP
-          nginx.ingress.kubernetes.io/server-snippet: |
-            proxy_ssl_verify off;
         host:
           name: "rook.${GENERIC_CLUSTER_INGRESS}"
           path: "/"
