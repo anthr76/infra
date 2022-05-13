@@ -24,8 +24,7 @@ spec:
       enabled: true
     cephClusterSpec:
       cephVersion:
-        # https://github.com/rook/rook/issues/10160
-        image: quay.io/ceph/ceph:v16.2.7
+        image: quay.io/ceph/ceph:v17.2.0
       dashboard:
         enabled: true
         urlPrefix: /
