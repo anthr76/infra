@@ -18,7 +18,7 @@ spec:
   values:
     nameOverride: "0"
     image: docker.io/itzg/minecraft-server
-    imageTag: "2021.26.0"
+    imageTag: "2022.6.0"
     resources:
       requests:
         memory: 4Gi
@@ -38,13 +38,13 @@ spec:
       #REMOVE_OLD_MODS_INCLUDE: "*.jar"
       SPIGET_RESOURCES: "83557,28140,14573,60623,34315,2124"
       CFG_LP_SERVER: "global"
-      MODS: "https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsX-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXChat-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXGeoIP-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXProtect-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXSpawn-2.18.2.0.jar"
+      MODS: "https://github.com/EssentialsX/Essentials/releases/download/2.19.4/EssentialsX-2.19.4.jar,https://github.com/EssentialsX/Essentials/releases/download/2.19.4/EssentialsXChat-2.19.4.jar,https://github.com/EssentialsX/Essentials/releases/download/2.19.4/EssentialsXGeoIP-2.19.4.jar,https://github.com/EssentialsX/Essentials/releases/download/2.19.4/EssentialsXProtect-2.19.4.jar,https://github.com/EssentialsX/Essentials/releases/download/2.19.4/EssentialsXSpawn-2.19.4.jar"
     envFrom:
       - secretRef:
           name: minecraft
     minecraftServer:
       eula: "TRUE"
-      version: "1.17.1"
+      version: "1.18.2"
       jvmOpts: "-XX:MaxRAMPercentage=75"
       type: "PAPER"
       difficulty: "hard"
