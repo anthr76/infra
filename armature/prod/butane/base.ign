@@ -1,0 +1,25 @@
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "groups": [
+          "wheel",
+          "sudo"
+        ],
+        "name": "anthonyjrabbito",
+        "sshAuthorizedKeys": [
+          "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBE0SaE3DjA8TkonMthpFvud67S1wJe+XhN0pueHccwF4iDWkAUHA0wLObGORucoO//aR5o7HZGiqPSUbjIS/GwY="
+        ]
+      },
+      {
+        "name": "root",
+        "sshAuthorizedKeys": [
+          "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBE0SaE3DjA8TkonMthpFvud67S1wJe+XhN0pueHccwF4iDWkAUHA0wLObGORucoO//aR5o7HZGiqPSUbjIS/GwY="
+        ]
+      }
+    ]
+  }
+}
