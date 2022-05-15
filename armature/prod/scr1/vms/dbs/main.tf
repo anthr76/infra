@@ -20,7 +20,7 @@ resource "libvirt_volume" "fcos" {
 
 data "ct_config" "db_01" {
   content      = file("db-01.yaml")
-  strict       = false
+  strict       = true
   pretty_print = true
 }
 
