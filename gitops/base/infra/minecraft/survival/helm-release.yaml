@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: minecraft
-      version: 3.8.0
+      version: 4.0.0
       sourceRef:
         kind: HelmRepository
         name: minecraft-server-charts
@@ -17,8 +17,9 @@ spec:
       interval: 5m
   values:
     nameOverride: "0"
-    image: docker.io/itzg/minecraft-server
-    imageTag: "2021.26.0"
+    image: 
+      repository: docker.io/itzg/minecraft-server
+      tag: 2022.6.0
     resources:
       requests:
         memory: 4Gi
@@ -27,7 +28,6 @@ spec:
         memory: 8Gi
         cpu: 3000m
     extraEnv:
-      OVERRIDE_SERVER_PROPERTIES: "TRUE"
       NETWORK_COMPRESSION_THRESHOLD: "-1"
       PATCH_DEFINITIONS: "/patches"
       COPY_CONFIG_DEST: "/data"
@@ -38,13 +38,14 @@ spec:
       #REMOVE_OLD_MODS_INCLUDE: "*.jar"
       SPIGET_RESOURCES: "83557,28140,14573,60623,34315,2124"
       CFG_LP_SERVER: "global"
-      MODS: "https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsX-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXChat-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXGeoIP-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXProtect-2.18.2.0.jar,https://github.com/EssentialsX/Essentials/releases/download/2.18.2/EssentialsXSpawn-2.18.2.0.jar"
+      MODS: "https://github.com/EssentialsX/Essentials/releases/download/2.19.4/EssentialsX-2.19.4.jar,https://github.com/EssentialsX/Essentials/releases/download/2.19.4/EssentialsXChat-2.19.4.jar,https://github.com/EssentialsX/Essentials/releases/download/2.19.4/EssentialsXGeoIP-2.19.4.jar,https://github.com/EssentialsX/Essentials/releases/download/2.19.4/EssentialsXProtect-2.19.4.jar,https://github.com/EssentialsX/Essentials/releases/download/2.19.4/EssentialsXSpawn-2.19.4.jar"
     envFrom:
       - secretRef:
           name: minecraft
     minecraftServer:
       eula: "TRUE"
-      version: "1.17.1"
+      overrideServerProperties: true
+      version: "1.18.2"
       jvmOpts: "-XX:MaxRAMPercentage=75"
       type: "PAPER"
       difficulty: "hard"
@@ -67,8 +68,8 @@ spec:
             port: 8100
           ingress:
             enabled: true
+            ingressClassName: nginx
             annotations:
-              kubernetes.io/ingress.class: "nginx"
               cert-manager.io/cluster-issuer: "letsencrypt-production"
             hosts:
               - name: mc-map.kutara.io
