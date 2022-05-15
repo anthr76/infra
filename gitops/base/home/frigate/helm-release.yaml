@@ -244,5 +244,5 @@ spec:
         gpu.intel.com/i915: "1"
       limits:
         memory: 2048Mi
-        cpu: 800m
+        cpu: 1000m
         gpu.intel.com/i915: "1"
