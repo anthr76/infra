@@ -16,6 +16,9 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    nodeSelector:
+      # Temp
+      kubernetes.io/arch: amd64
     nameOverride: "0"
     image: 
       repository: docker.io/itzg/minecraft-server
