@@ -67,7 +67,7 @@ spec:
         enabled: true
         type: emptyDir
         medium: Memory
-        sizeLimit: 2Gi
+        sizeLimit: 4Gi
         mountPath: /dev/shm
     configmap:
       config:
@@ -78,6 +78,20 @@ spec:
               topic_prefix: frigate
               user: ${MQTT_USER}
               password: ${MQTT_USER_PW}
+            rtmp:
+              enabled: true
+            ffmpeg:
+              hwaccel_args:
+                - -hwaccel
+                - vaapi
+                - -hwaccel_device
+                - /dev/dri/renderD128
+                - -hwaccel_output_format
+                - yuv420p
+              # Enable audio on recordings...
+              # might cause issues on recording playback
+              # output_args:
+              #   record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a aac
             database:
               path: /data/frigate.db
             detectors:
@@ -106,8 +120,6 @@ spec:
                     - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=1
                       roles:
                         - detect
-                rtmp:
-                  enabled: True
                 detect:
                   width: 704
                   height: 480
@@ -149,8 +161,6 @@ spec:
                     - path: rtsp://frigate:frigate!@back-porch-camera:554/cam/realmonitor?channel=1&subtype=1
                       roles:
                         - detect
-                rtmp:
-                  enabled: True
                 detect:
                   width: 704
                   height: 480
@@ -187,8 +197,6 @@ spec:
                     - path: rtsp://frigate:frigate!@back-yard-camera:554/cam/realmonitor?channel=1&subtype=1
                       roles:
                         - detect
-                rtmp:
-                  enabled: True
                 detect:
                   width: 704
                   height: 480
@@ -231,8 +239,10 @@ spec:
                     - "true"
     resources:
       requests:
-        memory: 100Mi
         cpu: 500m
+        memory: 1000Mi
+        gpu.intel.com/i915: "1"
       limits:
-        memory: 3000Mi
-        amd.com/gpu: 0
+        memory: 6000Mi
+        cpu: 800m
+        gpu.intel.com/i915: "1"
