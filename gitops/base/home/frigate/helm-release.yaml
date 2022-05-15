@@ -240,9 +240,9 @@ spec:
     resources:
       requests:
         cpu: 500m
-        memory: 1000Mi
+        memory: 800Mi
         gpu.intel.com/i915: "1"
       limits:
-        memory: 6000Mi
+        memory: 2048Mi
         cpu: 800m
         gpu.intel.com/i915: "1"
