@@ -28,7 +28,6 @@ spec:
         memory: 8Gi
         cpu: 3000m
     extraEnv:
-      OVERRIDE_SERVER_PROPERTIES: "TRUE"
       NETWORK_COMPRESSION_THRESHOLD: "-1"
       PATCH_DEFINITIONS: "/patches"
       COPY_CONFIG_DEST: "/data"
@@ -45,6 +44,7 @@ spec:
           name: minecraft
     minecraftServer:
       eula: "TRUE"
+      overrideServerProperties: true
       version: "1.18.2"
       jvmOpts: "-XX:MaxRAMPercentage=75"
       type: "PAPER"
