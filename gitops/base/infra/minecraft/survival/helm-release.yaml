@@ -68,8 +68,8 @@ spec:
             port: 8100
           ingress:
             enabled: true
+            ingressClassName: nginx
             annotations:
-              kubernetes.io/ingress.class: "nginx"
               cert-manager.io/cluster-issuer: "letsencrypt-production"
             hosts:
               - name: mc-map.kutara.io
