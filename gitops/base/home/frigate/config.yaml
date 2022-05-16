@@ -1,7 +1,7 @@
 mqtt:
   host: mosquitto
   topic_prefix: frigate
-  user: user
+  username: user
 rtmp:
   enabled: true
 ffmpeg:
