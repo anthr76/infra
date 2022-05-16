@@ -22,6 +22,12 @@ spec:
     image:
       repository: docker.io/blakeblackshear/frigate
       tag: 0.10.1-amd64
+    env:
+      FRIGATE_MQTT_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: frigate
+            key: mqtt-password
     ingress:
       main:
         enabled: true
@@ -49,16 +55,19 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: frigate-config-v1
+        existingClaim: frigate-config-v2
         mountPath: /data
       media:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: "${NAS_1_ADDRESS}"
-            path: /tank/frigate
+        existingClaim: frigate-media-v1
         mountPath: /media
+      config:
+        enabled: true
+        type: configMap
+        name: frigate
+        subPath: config.yaml
+        mountPath: /config/config.yml
+        readOnly: true
       usb:
         enabled: true
         type: hostPath
@@ -69,163 +78,6 @@ spec:
         medium: Memory
         sizeLimit: 4Gi
         mountPath: /dev/shm
-    configmap:
-      config:
-        data:
-          config.yml: |
-            mqtt:
-              host: mosquitto
-              topic_prefix: frigate
-              user: ${MQTT_USER}
-              password: ${MQTT_USER_PW}
-            rtmp:
-              enabled: true
-            ffmpeg:
-              hwaccel_args:
-                - -hwaccel
-                - vaapi
-                - -hwaccel_device
-                - /dev/dri/renderD128
-                - -hwaccel_output_format
-                - yuv420p
-              # Enable audio on recordings...
-              # might cause issues on recording playback
-              # output_args:
-              #   record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a aac
-            database:
-              path: /data/frigate.db
-            detectors:
-              coral:
-                type: edgetpu
-                device: usb
-            # Global objects configuration
-            objects:
-              track:
-                - person
-              filters:
-                person:
-                  min_area: 2500
-                  max_area: 100000
-                  threshold: 0.7
-            # Specify camera's
-            cameras:
-              # --
-              frigate_front_porch:
-                ffmpeg:
-                  inputs:
-                    - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=0
-                      roles:
-                        - record
-                        - rtmp
-                    - path: rtsp://frigate:frigate!@front-porch-camera:554/cam/realmonitor?channel=1&subtype=1
-                      roles:
-                        - detect
-                detect:
-                  width: 704
-                  height: 480
-                  fps: 10
-                record:
-                  enabled: True
-                  retain_days: 7
-                  events:
-                    retain:
-                      default: 7
-                snapshots:
-                  enabled: True
-                  timestamp: False
-                  retain:
-                    default: 7
-                objects:
-                  track:
-                    - person
-                    - cat
-                    - dog
-                    - bird
-                    - mouse
-                zones:
-                  street:
-                    coordinates: 65,0,619,0,605,96,73,102
-                  font_yard:
-                    coordinates: 704,480,704,125,0,139,0,480
-                motion:
-                  mask:
-                    - 683,42,678,15,420,17,425,39
-              # --
-              frigate_back_porch:
-                ffmpeg:
-                  inputs:
-                    - path: rtsp://frigate:frigate!@back-porch-camera:554/cam/realmonitor?channel=1&subtype=0
-                      roles:
-                        - record
-                        - rtmp
-                    - path: rtsp://frigate:frigate!@back-porch-camera:554/cam/realmonitor?channel=1&subtype=1
-                      roles:
-                        - detect
-                detect:
-                  width: 704
-                  height: 480
-                  fps: 10
-                record:
-                  enabled: True
-                  retain_days: 7
-                  events:
-                    retain:
-                      default: 7
-                snapshots:
-                  enabled: True
-                  timestamp: False
-                  retain:
-                    default: 7
-                objects:
-                  track:
-                    - person
-                    - dog
-                    - cat
-                    - bird
-                    - mouse
-                motion:
-                  mask:
-                    - 683,42,678,15,420,17,425,39
-              # --
-              frigate_back_yard:
-                ffmpeg:
-                  inputs:
-                    - path: rtsp://frigate:frigate!@back-yard-camera:554/cam/realmonitor?channel=1&subtype=0
-                      roles:
-                        - record
-                        - rtmp
-                    - path: rtsp://frigate:frigate!@back-yard-camera:554/cam/realmonitor?channel=1&subtype=1
-                      roles:
-                        - detect
-                detect:
-                  width: 704
-                  height: 480
-                  fps: 10
-                record:
-                  enabled: True
-                  retain_days: 7
-                  events:
-                    retain:
-                      default: 7
-                snapshots:
-                  enabled: True
-                  timestamp: False
-                  retain:
-                    default: 7
-                objects:
-                  track:
-                    - person
-                    - car
-                    - bird
-                    - cat
-                    - dog
-                    - mouse
-                motion:
-                  mask:
-                    - 683,42,678,15,420,17,425,39
-                zones:
-                  driveway:
-                    coordinates: 295,91,211,480,0,480,0,290,46,257,199,92
     podAnnotations:
       configmap.reloader.stakater.com/reload: "frigate-config"
     affinity:
@@ -244,5 +96,5 @@ spec:
         gpu.intel.com/i915: "1"
       limits:
         memory: 4096Mi
-        cpu: 1000m
+        cpu: 2500m
         gpu.intel.com/i915: "1"

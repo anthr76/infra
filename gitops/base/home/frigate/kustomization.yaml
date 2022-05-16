@@ -1,0 +1,17 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - config-pvc.yaml
+  - media-pvc.yaml
+  - helm-release.yaml
+  - secret.yaml
+namespace: home
+configMapGenerator:
+  - name: frigate
+    files:
+      - config.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
