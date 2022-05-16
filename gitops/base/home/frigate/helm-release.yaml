@@ -82,7 +82,7 @@ spec:
         sizeLimit: 4Gi
         mountPath: /dev/shm
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "frigate-config"
+      configmap.reloader.stakater.com/reload: "frigate"
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
