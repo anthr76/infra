@@ -52,6 +52,9 @@ spec:
             enabled: true
     securityContext:
       privileged: true
+    configmap:
+      config:
+        enabled: false
     persistence:
       data:
         enabled: true
