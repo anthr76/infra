@@ -2,7 +2,7 @@ mqtt:
   host: mosquitto
   topic_prefix: frigate
   user: user
-  password: filledbyenv
+  password: ${FRIGATE_MQTT_PASSWORD}
 rtmp:
   enabled: true
 ffmpeg:
