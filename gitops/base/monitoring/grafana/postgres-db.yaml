@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
 spec:
   replicas: 1
-  image: docker.io/library/postgres:14.2
+  image: docker.io/library/postgres:14.3
   backup:
     schedule: "0 */1 * * *"
     pvcName: grafana-db-backup

@@ -10,7 +10,7 @@ spec:
     schedule: "0 */1 * * *"
     pvcName: minecraft-db-backup
     volumeMount: /var/lib/backup
-  image: docker.io/library/postgres:13.6
+  image: docker.io/library/postgres:14.3
   database:
     size: 20Gi
     storageClassName: ceph-block
