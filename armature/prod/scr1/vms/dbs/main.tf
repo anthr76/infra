@@ -18,6 +18,14 @@ resource "libvirt_volume" "fcos" {
   pool   = "default"
 }
 
+resource "libvirt_volume" "persist" {
+  name   = "db-01-var"
+  format = "qcow2"
+  size   = "50442450944"
+  pool   = "fast-data"
+}
+
+
 data "ct_config" "db_01" {
   content      = file("db-01.yaml")
   strict       = true
@@ -43,6 +51,9 @@ resource "libvirt_domain" "scr1_db" {
   }
   disk {
     volume_id = libvirt_volume.fcos.id
+  }
+  disk {
+    volume_id = libvirt_volume.persist.id
   }
   network_interface {
     network_name = "vmnet"
