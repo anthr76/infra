@@ -25,9 +25,19 @@ resource "libvirt_volume" "persist" {
   pool   = "fast-data"
 }
 
+resource "random_password" "postgres" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
 
 data "ct_config" "db_01" {
-  content      = file("db-01.yaml")
+  content      = templatefile(
+    "db-01.yaml",
+    {
+      postgres_password = random_password.postgres.result
+    }
+  )
   strict       = true
   pretty_print = true
 }
