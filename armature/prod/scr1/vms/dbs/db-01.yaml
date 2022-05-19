@@ -6,6 +6,19 @@ ignition:
     merge:
       - source: https://raw.githubusercontent.com/anthr76/infra/main/armature/prod/butane/base.ign
 storage:
+  disks:
+    - device: /dev/vdb
+      wipe_table: false
+      partitions:
+        - number: 1
+          label: var
+  filesystems:
+    - path: /var
+      device: /dev/disk/by-partlabel/var
+      format: btrfs
+      wipe_filesystem: false
+      label: var
+      with_mount_unit: true
   files:
     - path: /etc/hostname
       mode: 0644
