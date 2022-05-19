@@ -6,7 +6,7 @@ metadata:
   namespace: infra
 spec:
   replicas: 1
-  image: docker.io/library/postgres:13.6
+  image: docker.io/library/postgres:13.7
   backup:
     schedule: "0 */1 * * *"
     pvcName: netbox-db-backup
