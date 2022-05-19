@@ -13,15 +13,55 @@ storage:
         - number: 1
           label: var
   filesystems:
-    - path: /var
+    - path: /var/srv
       device: /dev/disk/by-partlabel/var
       format: btrfs
       wipe_filesystem: false
       label: var
       with_mount_unit: true
+  directories:
+    - path: /var/srv/postgres-13
   files:
     - path: /etc/hostname
       mode: 0644
       overwrite: true
       contents:
         inline: db-01
+    - path: /etc/environment-secrets
+      contents:
+        inline: |
+          POSTGRES_PASSWORD=${postgres_password}
+systemd:
+  units:
+    - name: container-postgresql.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=postgres 13.
+        Wants=network.target
+        After=network-online.target
+        [Service]
+        Environment=PODMAN_SYSTEMD_UNIT=%n
+        EnvironmentFile=/etc/environment-secrets
+        Restart=on-failure
+        TimeoutStopSec=70
+        ExecStartPre=/bin/rm -f %t/container-postgresql.pid %t/container-postgresql.ctr-id
+        ExecStart=/bin/podman run \
+            --conmon-pidfile %t/container-postgresql.pid \
+            --cidfile %t/container-postgresql.ctr-id \
+            --cgroups=no-conmon -d --replace \
+            --rm \
+            --read-only \
+            --name=postgres \
+            -e POSTGRES_USER=db-01 \
+            -e POSTGRES_INITDB_ARGS="--encoding='UTF8' --lc-collate='C' --lc-ctype='C'" \
+            -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
+            -v /var/srv/postgres-13:/var/lib/postgresql/data:z \
+            docker.io/library/postgres:13.7 \
+            -c listen_addresses='*'
+        ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-postgresql.ctr-id -t 10
+        ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-postgresql.ctr-id
+        PIDFile=%t/container-postgresql.pid
+        Type=forking
+        [Install]
+        WantedBy=multi-user.target
