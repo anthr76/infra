@@ -6,10 +6,6 @@ metadata:
   namespace: infra
 spec:
   replicas: 1
-  backup:
-    schedule: "0 */1 * * *"
-    pvcName: minecraft-db-backup
-    volumeMount: /var/lib/backup
   image: docker.io/library/postgres:13.7
   database:
     size: 20Gi

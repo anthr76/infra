@@ -7,10 +7,6 @@ metadata:
 spec:
   replicas: 1
   image: docker.io/library/postgres:13.7
-  backup:
-    schedule: "0 */1 * * *"
-    pvcName: netbox-db-backup
-    volumeMount: /var/lib/backup
   database:
     size: 15Gi
     storageClassName: ceph-block
