@@ -23,7 +23,7 @@ spec:
       tag: "1.34"
     initImage:
       repository: "europe-west4-docker.pkg.dev/stakewiselabs/public/validator-init"
-      tag: "v1.0.2"
+      tag: "v2.0.1"
     nodeSelector:
       kubernetes.io/arch: amd64
     network: prater
