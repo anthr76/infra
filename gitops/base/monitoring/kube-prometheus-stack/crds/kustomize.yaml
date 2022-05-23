@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 30m
   ref:
-    tag: kube-prometheus-stack-35.2.0
+    tag: kube-prometheus-stack-35.3.1
   url: https://github.com/prometheus-community/helm-charts.git
   ignore: |
     # exclude all
