@@ -47,7 +47,7 @@
     - name: run docker pull-through cache
       containers.podman.podman_container:
         name: registry-docker.io
-        image: "docker.io/library/registry:2.7.1"
+        image: "docker.io/library/registry:2.8.1"
         state: started
         ports:
           - "5000:5000"
@@ -66,7 +66,7 @@
     - name: run docker pull-through cache
       containers.podman.podman_container:
         name: registry-docker.io
-        image: "docker.io/library/registry:2.7.1"
+        image: "docker.io/library/registry:2.8.1"
         state: started
         ports:
           - "5000:5000"
