@@ -10,15 +10,6 @@
     name: dominicrabbito
     comment: Dominic Rabbito
 
-- name: create utils user
-  ansible.builtin.user:
-    name: utils
-    generate_ssh_key: yes
-    ssh_key_type: ed25519
-    ssh_key_file: .ssh/id_ed25519
-    uid: 1002
-    groups: sudo, anthonyjrabbito
-
 - name: gather installed packages
   ansible.builtin.package_facts:
     manager: auto
