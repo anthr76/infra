@@ -2,7 +2,7 @@
 collections:
   - name: kubernetes.core
   - name: ansible.posix
-    version: "1.3.0"
+    version: "1.4.0"
   - name: community.general
   - name: community.sops
   - name: vyos.vyos
