@@ -1,0 +1,99 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-namespace
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-home-dns
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system/home-dns"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-metrics-server
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system/metrics-server"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-cilium
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system/cilium"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-node-feature-discovery
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system/node-feature-discovery"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-kubelet-serving-cert-approver-deploy
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system/kubelet-serving-cert-approver"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-amdgpu-deviceplugin
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system/rocm-k8s-device-plugin"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-reloader
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system/reloader"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-descheduler
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system/descheduler"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-metallb
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system/metallb"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kube-system-intel-gpu-plugin
+  namespace: flux-system
+spec:
+  path: "./k8s/base/kube-system/intel-gpu-plugin"
+  prune: true

@@ -1,0 +1,99 @@
+cluster:
+    aescbcEncryptionSecret: ""
+    ca:
+        crt: ENC[AES256_GCM,data:mczqLEczhWW/2fKLIa+Wn1RhxjG/XviHNL23sh9m7qGMn3t8QfQKAsX7h1APXrtfZq4bqNg1hjIr397GXUUybJ32s+6hyHxj36Hpd8k23mOHQ1OdzDKqJAOMoOSNvEuq0frEALuxP9ZKxjBwATM22kwJ2eDZUouzJRaATN7beVHoZOVortqMVV7HjJUziwwMwom0aMQbyCQF2oO3et9WKBWajzVPlEu0gVTRTlMwlq6NM7R4F8ZmyF0Q4Ax2rtk1M0vlBA5QH07Zp9OFSvqKpOpB0pDdu6C12Im2pXXfsDhMB76JEHHvVnIK6k1rtZhpRsM1M/8lQxXJfCsJL+/KuHA9U/oPh6k5Xt4TLI0zooVGtfXn+QvQDO26tOxXaskdgBAQYgZO3K4wEalfs1kJk5HVQuPKap4Lp7fSyYtp9OsxfJrELxBRvTDyAtY2xlF4Umz1jSOs5H7j4AIRROQJ98N8S/5A0YGIXvZcVMwGaxWLoCbsCDSC0NU9ZWNM9ZBouMDpevSrRfX7uwViwM+ED2MIRvf6QxYxTDJURPSAiUmCt53DeFEdjaJZGMHqwddWWL1yLkPU6m2pjI/wdtDGKNjejliokj09f6YYua+jemuxhcQqs+PYSKaKQn/VmhI2cqxIoZXI7TE5JSnAnedYUJ2GSMr00jWilxhuVkhEidnJk7YRZyV46w4ecHGvxwQdbaolpklQFCf+1OkIfxA9cTgfDzlwKy3ag0LbDKg0s9+xxR7oOyfv8RHMLzAqLLfwvgCJQHlOfOPIEVRTWsRXSm+P+NCIpREF/RcUHaN+CO0Xvo4VCWaG9YPSYBkQjkyLfbHz0DiVS5bYHM6aizY08+6vZNH+BBQTUCMiISSljtDy+9oW/tDvmNYTIVYfDi2SRICvyy2nCbIyTJGSCx4V6ZB11fgFDWZNThmCqrHRNguoNDJlNowibubO8BQ1dw7nEihhjhEIW3ZfHMTVdTK2mWGOGeFJ6UXWgLec1/ooO5yv4FsAk1WbzPHmOBvxNw6JZUqdAksjV8XuYM0rLI/e+H7OYW5AMHHgTQUeNA==,iv:ItDS62rYjZ+ix2H+wBxBz8u7ouRcjRd5ho6pl7MyvR8=,tag:JmErfcsXBJaPmtS3EICHwQ==,type:str]
+        key: ""
+    controlPlane:
+        endpoint: https://cluster-0.scr1.rabbito.tech:6443
+    discovery:
+        enabled: true
+        registries:
+            kubernetes: {}
+            service: {}
+    id: ENC[AES256_GCM,data:2Yq53u2i2MMdejsIaciqozZqeMCtlAn7ffEpe9OGOOzb5WbSzpyP5sXmykw=,iv:IvVMcBxcKbsRlZLLCX47uVjqYJPX5UgyLo+N/QtUgeI=,tag:1d1pP2pLoMRQrhVUJ+wA1A==,type:str]
+    network:
+        dnsDomain: cluster.local
+        podSubnets:
+            - 10.244.0.0/16
+            - fddf:f7bc:9670::/48
+        serviceSubnets:
+            - 10.96.0.0/12
+            - 2001:559:1104:fdb::/112
+    secret: ENC[AES256_GCM,data:kzcY+LmBnADY8JqHG1quLZvMlZR2CGXtLiaXxBp5l3u9xz6Let1NvU0JqbI=,iv:EiJOYvQU5ffK468XuZGP3rTdfS6iVgaMrpsoSmabGzI=,tag:edYGmPv7rmSJjmvOlOvLRQ==,type:str]
+    token: ENC[AES256_GCM,data:PRzG0sdQRDX4WN/OD8v8cxJbTe3gbVw=,iv:3wZGD+Jge0E6x81sNrmwChBNXsLLtSlYlUlGlNecY08=,tag:nvuB+z0BCBxrIGZlIDy1vw==,type:str]
+debug: false
+machine:
+    ca:
+        crt: ENC[AES256_GCM,data:WqNcZUw8r3Ks1M+rvkekb+es7ov4ssVD3iY90D68WPJgR7rNFoJrQ2fJf0ZUD3gJg4Qb6iZaARxbSfqRScqV+XqgGlf5EpPS8iwQjISiViThBgsD9EdtJE/9MjA1ciI/Rk5BzT7l1GJNEU2vFmXpnu7dwRR0dekRs1L0b2/Bvy/apeapdxQHJgSwYuIH9AYp4hyJq9LgORPaP27/EpoIOiAJcyKUlrAXgSFxeYyUGCmmupOcOdJMa2uA+QpPT4/OPCw7IAKXuPFuvLFy2kXE8EHT+9Ouj9mX/AJ3PIFYJhE3DF93JyiTMJ2AdFOemGgrf7NA/trlSsjCsHA1zcZg7KkMvkYdSI7EGlWu0HCQCeDsGBSJyhDwJVvn75S+qlEAGODcami2lcmAK0nIiF9eo+GwYlKpvNWcgIHnC/wmz5wBt5u4n8ZI9IsngyRlbUEhK++D2II9JAhPn2h7zzjRzvmYfwI0QqmVFEpwEPV7ce41gJ1mYQzC1DNYueQxICqLT3GnjIw6St7mzZBnERfALXoV7PdPbb/Kg164vKgfTRYh1ybBOVBHg6nL0cwINyDwfevxZGpb5WE49U1NSi4DFUt7rAVl3BMJsn6Avyy3cch7lvXxguQ9QKQFKhEBaBOarRnXP+OJK3lMm8pwhhT1ukYYVPnRPjCAd9F1YXyJ+pbqu1RJYgkzU5aczfWeubLuVwl5AeUiDryyKDL1tKWL4ai7z9ic0iYwSWKbRJtm1m8KJszje/kHlqS6JZ1CJ1zMZKLxznXX4B0oQ5IH6V7y5VseLFG1iJsWU1qvzSR2W6EKUMVQqHwJzCIkA53Nx6wP+2DmBahg8tDnHl+jp3gTdbfBAFHT8KttSPjuEvmuSDo0uMyW,iv:71l24ndjtMMA66VC0K5nwolN4yZLDANu7fK7hqHhNUE=,tag:jEXTH+wWe3O8US7wCB1znQ==,type:str]
+        key: ""
+    certSANs: []
+    features:
+        rbac: true
+    install:
+        bootloader: true
+        disk: /dev/sda
+        extraKernelArgs:
+            - initcall_blacklist=aoe_init
+        wipe: false
+    kubelet:
+        extraArgs:
+            eviction-hard: memory.available<500Mi,nodefs.available<10%
+            eviction-soft: memory.available<900Mi,nodefs.available<15%
+            eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
+            feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
+            kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
+            node-labels: metal.sidero.dev/uuid=00c03111-0000-0000-0000-dca63203cf77
+            rotate-server-certificates: "true"
+            system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
+        image: ghcr.io/talos-systems/kubelet:v1.23.6
+    network:
+        hostname: worker-07.scr1.rabbito.tech
+        interfaces:
+            - dhcp: true
+              interface: eth0
+              vlans:
+                - dhcp: false
+                  vlanId: ENC[AES256_GCM,data:pQIR,iv:HVuJOLwoYiYFyX5KJowTyS940axI77cETt9FZxfOSLA=,tag:moRZPWWt1L7fYrFwm25Ivg==,type:int]
+                - dhcp: false
+                  vlanId: ENC[AES256_GCM,data:uxfx,iv:BHr3828A+qKLHq7TeFy9pR0qRvozISenSfrF1l6ObEg=,tag:Vh1te8oIzIofQb2fTy6hgQ==,type:int]
+                - dhcp: false
+                  vlanId: ENC[AES256_GCM,data:nW91,iv:pnXP0gF9o319TFGEUnAtAsdAImcxuFJYBgJwcsfitmA=,tag:TdGSzfqm/GLaxwB2kjqoLQ==,type:int]
+    registries:
+        mirrors:
+            docker.io:
+                endpoints:
+                    - http://nas-1.scr1.rabbito.tech:5000
+    sysctls:
+        fs.inotify.max_user_instances: "8192"
+        fs.inotify.max_user_watches: "1048576"
+        net.ipv6.conf.eth0.accept_ra: "2"
+        user.max_user_namespaces: "1500"
+        vm.max_map_count: "524288"
+    time:
+        disabled: false
+        servers:
+            - time.cloudflare.com
+    token: ENC[AES256_GCM,data:lzAoqTX3oeUP1AWbCRijWjhKh/M06SQ=,iv:xnZmQZSzAANCQKDeGekwLp19rpYfNzuPKaz6UeDoaXs=,tag:OoWKS8RImPOZkplaOQ5b4w==,type:str]
+    type: worker
+persist: true
+version: v1alpha1
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBtOVZHcS83blRwbUdGSDBO
+            eHFwaEgzVFNibkFKUS9QVUhVc3ZFZm5VOVYwCkROUWFnTWJ0cm9aVXc2dGR3WXB5
+            ekNOL1FNYXFqNlBEQjA2eG9mMlhBd1EKLS0tIFp3QlZmL0xvdjRHZEwxZ1V3NGNk
+            akdzdzVFSm53Y1BEU0N4R2M2anBONkEK3O6CkCOU6QPxDGZ+PLgXXsxmXGOnYGZi
+            dBnjbQO9vq7ekvd7sVuIUmb+C8ctoDYc0Svi0Pk3Pp/QA6k5mfai1A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-05-27T00:26:08Z"
+    mac: ENC[AES256_GCM,data:JeJddVQ5RGwVDXF4otXcyKGsxDoyImVzuYe+uaDJ01pWTuRuqgUduB+lFmFz1V6oaJMWOvSyUAY2FB7ipSccCxlBi5n+z7fA0j0fvonNgw8iayHGF2WwCXjuA97qrmQYOSMS8e+q9QOU8AeKkOfroPXpanLyDoaX7X2CUToMv0U=,iv:FbtR8aK6D53ActJ18KzC33cciI2Nx2JeacCwn11AGb8=,tag:0e4xA6ErQlHt86xHdy6E0w==,type:str]
+    pgp: []
+    encrypted_regex: ((?i)(pass|secret($|[^N])|key|id|oidc-client-id|crt|token|^data$|^stringData))
+    version: 3.7.2
