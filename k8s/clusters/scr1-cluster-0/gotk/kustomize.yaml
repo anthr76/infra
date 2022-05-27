@@ -55,6 +55,11 @@ spec:
           name: not-used
           namespace: not-used
         spec:
+          interval: 5m0s
+          wait: true
+          sourceRef:
+            kind: GitRepository
+            name: flux-system
           decryption:
             provider: sops
             secretRef:
@@ -74,3 +79,4 @@ spec:
         kind: Kustomization
         group: kustomize.toolkit.fluxcd.io
         version: v1beta2
+        labelSelector: "component.kutara.io/part-of=definitions"

@@ -4,6 +4,8 @@ kind: Kustomization
 metadata:
   name: monitoring-namespace
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring"
   prune: true
@@ -13,6 +15,8 @@ kind: Kustomization
 metadata:
   name: monitoring-kps-crds
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/kube-prometheus-stack/crds"
   prune: true
@@ -22,6 +26,8 @@ kind: Kustomization
 metadata:
   name: monitoring-kps
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/kube-prometheus-stack"
   prune: true
@@ -48,6 +54,8 @@ kind: Kustomization
 metadata:
   name: monitoring-prometheus-rules
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/kube-prometheus-stack/prometheus-rules"
   prune: true
@@ -59,6 +67,8 @@ kind: Kustomization
 metadata:
   name: monitoring-thanos
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/thanos"
   prune: true
@@ -68,6 +78,8 @@ kind: Kustomization
 metadata:
   name: monitoring-thanos-observer
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/thanos/observer"
   prune: true
@@ -80,6 +92,8 @@ kind: Kustomization
 metadata:
   name: monitoring-grafana
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/grafana"
   prune: true
@@ -91,6 +105,8 @@ kind: Kustomization
 metadata:
   name: monitoring-loki
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/loki"
   prune: true
@@ -100,6 +116,8 @@ kind: Kustomization
 metadata:
   name: monitoring-vector-agent
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/vector/agent"
   prune: true
@@ -109,6 +127,8 @@ kind: Kustomization
 metadata:
   name: monitoring-vector-aggregator
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/vector/aggregator"
   prune: true
@@ -118,6 +138,8 @@ kind: Kustomization
 metadata:
   name: monitoring-snmp-exporter-ups
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/snmp-exporter-ups"
   prune: true
@@ -127,6 +149,8 @@ kind: Kustomization
 metadata:
   name: monitoring-speedtest-exporter
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/speedtest-exporter"
   prune: true
