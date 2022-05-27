@@ -1,0 +1,132 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-namespace
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-kps-crds
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/kube-prometheus-stack/crds"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-kps
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/kube-prometheus-stack"
+  prune: true
+  patches:
+    - patch: |
+        - op: add
+          path: /spec/values/kubeEtcd/endpoints
+          value:
+            # master-01.scr1.rabbito.tech
+            - 192.168.8.40
+            # master-02.scr1.rabbito.tech
+            - 192.168.8.47
+            # master-03.scr1.rabbito.tech
+            - 192.168.8.51
+      target:
+        kind: HelmRelease
+        name: kube-prometheus-stack
+        namespace: monitoring
+  dependsOn:
+    - name: monitoring-kps-crds
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-prometheus-rules
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/kube-prometheus-stack/prometheus-rules"
+  prune: true
+  dependsOn:
+    - name: monitoring-kps
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-thanos
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/thanos"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-thanos-observer
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/thanos/observer"
+  prune: true
+  dependsOn:
+    - name: monitoring-thanos
+    - name: monitoring-kps
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-grafana
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/grafana"
+  prune: true
+  dependsOn:
+    - name: database-kubegres
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-loki
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/loki"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-vector-agent
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/vector/agent"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-vector-aggregator
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/vector/aggregator"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-snmp-exporter-ups
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/snmp-exporter-ups"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-speedtest-exporter
+  namespace: flux-system
+spec:
+  path: "./k8s/base/monitoring/speedtest-exporter"
+  prune: true

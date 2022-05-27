@@ -1,0 +1,92 @@
+cluster:
+    aescbcEncryptionSecret: ""
+    ca:
+        crt: ENC[AES256_GCM,data:Cwt5ZTpepL997LyP5ssQxbT/kGrCmVnVakf/Xg9ZYsaqvnLHAZQOVdfdYNATVItK+kz3E1+zJip042XJfw/tv4eJe/BJ6DnBIyUO2+hjZbQenYDOCw48oUcUwMdM5KnNIu9oMgYW18qrrMtl14cpZEKXBIoDFCD7QrhyRjiP76T2EBJ9nNc72tFzyww6VUHTDBlZtWMmCHGhX4HOB95XrQLdKmxTmMXmY9M7bbOIqXOdI6YvUioS1KzFsyZ2+9QLiFAjCZw4TLkCBcfwt8DEYDTZy0lP/1pDtGhlF30n8hux952jNAx3h3zLaFDlZeUVCBeEmCodljjBpH4os0RrgekiBEMGICDpXvwc1Yh7czdIN0fKc5xTiWq7OZpTBnIbGQ13m99LalKw5MFtsvYO+4OAThHGI6HgD8RVQwEdnfLea2ta2T/o7bjrBP8LXQRVy+wS3z+mBud6iP8AHL3B6SHse68rl74Et7UM0dlaGSg8DM8dPqJ7frDTTB1BLisPDLqDllYpx7eArJAbwIjjmlo2E0sSAYOHXU0sdVYUXq6qK/POrGFwvKYLQzwq53+EF7C3POc2mI39FnYU+Js/Utzl810oqqKvSAtX9sWQDeP2bh7hJzOuYPun+MhtOZPh+Dk7yVBt6HQk+ICYe/Sf5nm6hWTcBjE5gA8Z77zf4t/NrBnYN+upc5eiHk2OhSCVVeij/J40TpaE1GyguisYiRJ+ROIz0GDYBmiv7Bk5o6amNwSIAQ87xbo63HO+xvFBxvIBVUgWGkiApDZIXnfEuCethlqmgwObllFuhkm08ZdxVq6Ej8tXe0tvs4+opvUKELWd4CSKNh4qLYRhGj85QYkBXH04akDlpmtfiYiQK8+paDijQMBjsNL/zmQ20h/VR3hPZAZgUTSKjqPkS57DGTHJHX6SRVNS/04bXXMmH/WuUhtfsfY1RdRqLekj9uT9ymX5zl5BMWlZzG5galY740q86cUh3ouFRjQeruY2zR/hOdaVY6OZvMvRLZnd1lVj4AN83ONFOQ4fSm+4QR9XSqKEYF4YNFDzM/3deg==,iv:TWlBC4gc3v9aEG1iwKpYAgKw30rKMqEaRQnSWSp/8Co=,tag:2TC1SPB3yRLte3j0zGSKSA==,type:str]
+        key: ""
+    controlPlane:
+        endpoint: https://cluster-0.scr1.rabbito.tech:6443
+    discovery:
+        enabled: true
+        registries:
+            kubernetes: {}
+            service: {}
+    id: ENC[AES256_GCM,data:jSC6mmdAvClfEybAalUyTgDs6Z8U/2DammAlF4xpHXK9PE50xzRcMYVWqn8=,iv:Vz39qbBGsPa6ga47XBjE2i99WxttRC2pxoKOub3gwAY=,tag:mJnH4dykzUV21NYPPn8kKA==,type:str]
+    network:
+        dnsDomain: cluster.local
+        podSubnets:
+            - 10.244.0.0/16
+            - fddf:f7bc:9670::/48
+        serviceSubnets:
+            - 10.96.0.0/12
+            - 2001:559:1104:fdb::/112
+    secret: ENC[AES256_GCM,data:CuyyAb4W06m7yv7Y1CJdvQFEB92Dy5H+8L1tGnEm+rypCwzahdnEZfLHd8w=,iv:fuz06ttzMi9H+SA/NHbbuoInt3QJf2KPbM9Ak5/YDWY=,tag:RFRxrMtgAMq6XfuNY/9gdQ==,type:str]
+    token: ENC[AES256_GCM,data:r0BzAXh5mwJg/NQr/6nN91df2ia+F44=,iv:Zeq0smuAH1gG0kYzCOcrlL5PD1tzm0HpTysUfw+84Es=,tag:oV8Vx+fTEM5z/mInOnINIg==,type:str]
+debug: false
+machine:
+    ca:
+        crt: ENC[AES256_GCM,data:9itdxSnk7w2ucJxSE47R9uyBiAlK691LqSbh4Z6Ry9aGgzWy9Blou5p45XlQ47Ix/bFI6L6XX1Cqag9QWWP7gNJdCNcQ5KG42MxucCruEfOmCptjqN41IeeH4s1iBsRwfpXTXxzhRVtKRPqqKMsX+sgqlPINOhuaRDEayaubUgu3TEl8ePEYmEPXgdjn1JmQHxKnO9KivXIfy5PQJ9uUORbAV4EgEVrEEeAgEiNlhvUN/HmwNQFZ6nte7tYE7O41VEijkQPHe5ofW6xvu6mH8ZeaC2FXapb7YMkIqK2cJ/WMTTeNvY2qlZb3QW09twQy5q9SbWm5pxVMGEiF2n2SC8bIUd/2ZlPLx7Vw6EF6CojJgKzWv6EoXCsTAyWCXN8jlVdehNb6ExAEUicz8OBNb5sLL5BE8BNe47pUwHE+jp0bWU4y7o7xyvgjhm6mcImk6kSEWPl9mePLLZHoZ8m3DhgqahGj7u12hzaM3PD7KfBi7OXgsmy/ojO1Xa2Ujh4ClE66y2tcz3w3hPXuppjA+QshgEO90zfb4iCTOCCB+hL+wGB732FRw5GmysVbIiUKRGDtu6FWTFXYLlTKK4mGOUZ9rRI/I+YCgs7gl4d29pTQU73arOUgtzhtb1v2/Xvvk9LZetOEi0mhnenB+Zx5ZAQrE5NjUqR4zB1C2BrWPDOdpI75LLYSWp1XJCceHAABOstaYTZBfT+J1zzHB5laWu1m3JGFUP84sUhEeNEQutNGLE+Nt+Lkem20FLEK+xvRnSXEa5NKcyERKg+AiQZcciNo/csj1B2kiUmILaBqP3M+CeR/XtENxbgBuHIzzBGi5YaD7e16WfgpHm2aIwQDzQdpX9NcT9PHwImTvu89SJAS/40L,iv:LTcqN/n3xBs/Ap+zY7WwmSgQ1ZAOWOlAIXLrLzaqTF8=,tag:EKpBvMeplmxyYgb+Iw+onA==,type:str]
+        key: ""
+    certSANs: []
+    features:
+        rbac: true
+    install:
+        bootloader: true
+        disk: /dev/sda
+        extraKernelArgs:
+            - initcall_blacklist=aoe_init
+        wipe: true
+        extensions:
+            - image: ghcr.io/anthr76/amdgpu:20220411
+            - image: ghcr.io/siderolabs/amd-ucode:20220411
+    kubelet:
+        extraArgs:
+            eviction-hard: memory.available<500Mi,nodefs.available<10%
+            eviction-soft: memory.available<900Mi,nodefs.available<15%
+            eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
+            feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
+            kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
+            # node-labels: metal.sidero.dev/uuid=00000000-0000-0000-0000-d05099defa93
+            rotate-server-certificates: "true"
+            system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
+        image: ghcr.io/talos-systems/kubelet:v1.23.6
+    network:
+        hostname: worker-01.scr1.rabbito.tech
+    registries:
+        mirrors:
+            docker.io:
+                endpoints:
+                    - http://nas-1.scr1.rabbito.tech:5000
+    sysctls:
+        fs.inotify.max_user_instances: "8192"
+        fs.inotify.max_user_watches: "1048576"
+        net.ipv6.conf.eth2.accept_ra: "2"
+        user.max_user_namespaces: "1500"
+        vm.max_map_count: "524288"
+    time:
+        disabled: false
+        servers:
+            - time.cloudflare.com
+    token: ENC[AES256_GCM,data:WzTMsaTbrFzyxkfHk/c+nFGw+WhSPsc=,iv:KQB2QCcm0P25I5fEbZSFOtr/iYM0zCSAGBzr6vj7uOw=,tag:/xUov9qCYp5GuR/1CgnR9g==,type:str]
+    type: worker
+persist: true
+version: v1alpha1
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBjdDlqQ1FTTW5uOTllVVRH
+            MCtSc1Vycm5ueFFqRjh1YWY2TG9xRG5xUngwCmUzRkRlei82c2tZOHpOQ3hBcjF0
+            aHpBN1VVOVRIWWg2Nnl0SFRMVWczR2cKLS0tIGIxVVBpTFY0SWc0YTd5eDV5a0li
+            NFNlMU9UTkVJUFBXc0FrL2lHZ2ZyekUKH2G4+cgrDyh5FVYSKOdOI8D3b5ramr3C
+            7QhXo9MEWFtoVzon88v6qXabun53ABa+DmWiAlbnRcub2nBcnVbd5A==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-05-27T00:26:08Z"
+    mac: ENC[AES256_GCM,data:b6Th+ESzxRl70TeL2DSIu4K2E18X4HAKu+Mnc0//ufmqhtjlEJz+HG9s64nTDqxiepAvkQBUo0GPNTQdkzQJEMEAknmtbbLvgRFi/dS5l357l4bS3SNTysiWwhfaM3maizgv+YHyRQQxZZbFqUmSP5oSTUSDVVsOrJYsWk0o0Ik=,iv:ubYrmP4kvLDAVb0ezCK2sPyC6h4VQsdqpp5laAWdtp0=,tag:K8fC02tRT4pXhPm3CyxdHA==,type:str]
+    pgp: []
+    encrypted_regex: ((?i)(pass|secret($|[^N])|key|id|oidc-client-id|crt|token|^data$|^stringData))
+    version: 3.7.2
