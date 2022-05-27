@@ -12,26 +12,24 @@
   "commitMessageSuffix": "",
   // set up Renovate Managers
   "helmv3": {
-    "fileMatch": ["gitops/.+/Chart\\.yaml$"]
+    "fileMatch": ["k8s/.+/Chart\\.yaml$"]
   },
   "helm-values": {
-    "fileMatch": ["gitops/.+/helm-release\\.yaml$"]
+    "fileMatch": ["k8s/.+/helm-release\\.yaml$"]
   },
   "kubernetes": {
     "fileMatch": [
-      "clusters/.+\\.yaml$",
-      "gitops/.+\\.yaml$"
+      "k8s/.+\\.yaml$"
     ]
   },
   "flux": {
-      "fileMatch": ["gitops/.+\\.yaml$"]
+      "fileMatch": ["k8s/.+\\.yaml$"]
   },
   "regexManagers": [
     // Generic Flux Regex Manager
     {
       "fileMatch": [
-        "clusters/.+\\.yaml$",
-        "gitops/.+\\.yaml$"
+        "k8s/.+\\.yaml$"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( registryUrl=(?<registryUrl>.*?))?( versioning=(?<versioning>.*=?))?\n *tag: (?<currentValue>.*=?)"
@@ -42,7 +40,7 @@
     // regexManager to read and process kube-prometheus-stack and velero CRD's
     {
       "fileMatch": [
-        "gitops/base/monitoring/kube-prometheus-stack/.+\\.yaml$"
+        "k8s/base/monitoring/kube-prometheus-stack/.+\\.yaml$"
       ],
       "matchStrings": [
         "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n"
