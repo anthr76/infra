@@ -4,6 +4,8 @@ kind: Kustomization
 metadata:
   name: rook-ceph-namespace
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/rook-ceph"
   prune: true
@@ -13,6 +15,8 @@ kind: Kustomization
 metadata:
   name: rook-ceph-operator
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/rook-ceph/operator"
   prune: true
@@ -22,6 +26,8 @@ kind: Kustomization
 metadata:
   name: rook-ceph-cluster
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/rook-ceph/cluster"
   prune: true
@@ -31,6 +37,8 @@ kind: Kustomization
 metadata:
   name: rook-ceph-external-snapshotter
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/rook-ceph/snapshot-controller"
   prune: true
@@ -40,6 +48,8 @@ kind: Kustomization
 metadata:
   name: rook-ceph-snapshot-class
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/rook-ceph/snapshot-class"
   prune: true

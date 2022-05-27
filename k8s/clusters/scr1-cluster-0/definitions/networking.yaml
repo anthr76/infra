@@ -4,6 +4,8 @@ kind: Kustomization
 metadata:
   name: networking
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/networking"
   prune: true
@@ -13,6 +15,8 @@ kind: Kustomization
 metadata:
   name: networking-cert-manager
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/networking/cert-manager"
   prune: true
@@ -22,6 +26,8 @@ kind: Kustomization
 metadata:
   name: networking-external-dns
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/networking/external-dns"
   prune: true
@@ -31,6 +37,8 @@ kind: Kustomization
 metadata:
   name: networking-nginx
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/networking/nginx"
   prune: true
@@ -40,6 +48,8 @@ kind: Kustomization
 metadata:
   name: networking-oauth2-proxy
   namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/networking/oauth2-proxy"
   prune: true
