@@ -1,0 +1,45 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: rook-ceph-namespace
+  namespace: flux-system
+spec:
+  path: "./k8s/base/rook-ceph"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: rook-ceph-operator
+  namespace: flux-system
+spec:
+  path: "./k8s/base/rook-ceph/operator"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: rook-ceph-cluster
+  namespace: flux-system
+spec:
+  path: "./k8s/base/rook-ceph/cluster"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: rook-ceph-external-snapshotter
+  namespace: flux-system
+spec:
+  path: "./k8s/base/rook-ceph/snapshot-controller"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: rook-ceph-snapshot-class
+  namespace: flux-system
+spec:
+  path: "./k8s/base/rook-ceph/snapshot-class"
+  prune: true
