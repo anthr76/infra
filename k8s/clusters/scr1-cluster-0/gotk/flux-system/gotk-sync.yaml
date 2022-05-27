@@ -15,7 +15,6 @@ spec:
     # exclude all
     /*
     # include gitops dirs
-    !/clusters
     !/k8s
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
