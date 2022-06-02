@@ -24,6 +24,10 @@ spec:
     monitoring:
       enabled: true
     cephClusterSpec:
+      mon:
+        count: 9
+      network:
+        dualStack: true
       dashboard:
         enabled: true
         urlPrefix: /
