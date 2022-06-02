@@ -20,4 +20,4 @@ spec:
     image:
       pullPolicy: Always
       repository: quay.io/fairwinds/gemini
-      tag: "1.0"
+      tag: "1.0.0"

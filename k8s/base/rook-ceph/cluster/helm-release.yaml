@@ -32,6 +32,9 @@ spec:
         enabled: true
         urlPrefix: /
         ssl: false
+    cephBlockPoolsVolumeSnapshotClass:
+      enabled: true
+      isDefault: true
     ingress:
       dashboard:
         annotations:
