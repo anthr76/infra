@@ -25,7 +25,7 @@ spec:
       enabled: true
     cephClusterSpec:
       mon:
-        count: 9
+        count: 5
       network:
         dualStack: true
       dashboard:
