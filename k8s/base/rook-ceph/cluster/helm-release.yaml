@@ -20,17 +20,14 @@ spec:
   values:
     toolbox:
       enabled: false
+      image: quay.io/ceph/ceph:v16.2.9
     monitoring:
       enabled: true
     cephClusterSpec:
-      cephVersion:
-        image: quay.io/ceph/ceph:v17.2.0
       dashboard:
         enabled: true
         urlPrefix: /
         ssl: false
-      disruptionManagement:
-        pgHealthCheckTimeout: 5
     ingress:
       dashboard:
         annotations:
@@ -42,49 +39,3 @@ spec:
           - secretName: rook-tls
             hosts:
               - "rook.${GENERIC_CLUSTER_INGRESS}"
-      storage:
-        useAllNodes: false
-        useAllDevices: false
-        config:
-          osdsPerDevice: "1"
-        nodes:
-          - name: "${OSD_HOSTNAME_1}"
-            devices:
-              - name: "nvme0n1"
-          - name: "${OSD_HOSTNAME_2}"
-            devices:
-              - name: "nvme0n1"
-          - name: "${OSD_HOSTNAME_3}"
-            devices:
-              - name: "nvme0n1"
-    cephObjectStores:
-      - name: ceph-objectstore
-        spec:
-          metadataPool:
-            failureDomain: host
-            replicated:
-              size: 3
-          dataPool:
-            failureDomain: host
-            erasureCoded:
-              dataChunks: 2
-              codingChunks: 1
-          preservePoolsOnDelete: true
-          gateway:
-            port: 80
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 1Gi
-              limits:
-                memory: 2Gi
-            instances: 1
-          healthCheck:
-            bucket:
-              interval: 60s
-        storageClass:
-          enabled: true
-          name: ceph-bucket
-          reclaimPolicy: Delete
-          parameters:
-            region: us-east-1
