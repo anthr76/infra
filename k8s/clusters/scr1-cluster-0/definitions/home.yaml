@@ -9,69 +9,69 @@ metadata:
 spec:
   path: "./k8s/base/home"
   prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: home-esphome
-  namespace: flux-system
-  labels:
-    component.kutara.io/part-of: definitions
-spec:
-  path: "./k8s/base/home/esphome"
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: home-zwavejs2mqtt
-  namespace: flux-system
-  labels:
-    component.kutara.io/part-of: definitions
-spec:
-  path: "./k8s/base/home/zwavejs2mqtt"
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: home-mosquitto
-  namespace: flux-system
-  labels:
-    component.kutara.io/part-of: definitions
-spec:
-  path: "./k8s/base/home/mosquitto"
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: home-zigbee2mqtt
-  namespace: flux-system
-  labels:
-    component.kutara.io/part-of: definitions
-spec:
-  path: "./k8s/base/home/zigbee2mqtt"
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: home-home-assistant
-  namespace: flux-system
-  labels:
-    component.kutara.io/part-of: definitions
-spec:
-  path: "./k8s/base/home/home-assistant"
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: home-frigate
-  namespace: flux-system
-  labels:
-    component.kutara.io/part-of: definitions
-spec:
-  path: "./k8s/base/home/frigate"
-  prune: true
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: home-esphome
+#   namespace: flux-system
+#   labels:
+#     component.kutara.io/part-of: definitions
+# spec:
+#   path: "./k8s/base/home/esphome"
+#   prune: true
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: home-zwavejs2mqtt
+#   namespace: flux-system
+#   labels:
+#     component.kutara.io/part-of: definitions
+# spec:
+#   path: "./k8s/base/home/zwavejs2mqtt"
+#   prune: true
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: home-mosquitto
+#   namespace: flux-system
+#   labels:
+#     component.kutara.io/part-of: definitions
+# spec:
+#   path: "./k8s/base/home/mosquitto"
+#   prune: true
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: home-zigbee2mqtt
+#   namespace: flux-system
+#   labels:
+#     component.kutara.io/part-of: definitions
+# spec:
+#   path: "./k8s/base/home/zigbee2mqtt"
+#   prune: true
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: home-home-assistant
+#   namespace: flux-system
+#   labels:
+#     component.kutara.io/part-of: definitions
+# spec:
+#   path: "./k8s/base/home/home-assistant"
+#   prune: true
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: home-frigate
+#   namespace: flux-system
+#   labels:
+#     component.kutara.io/part-of: definitions
+# spec:
+#   path: "./k8s/base/home/frigate"
+#   prune: true
