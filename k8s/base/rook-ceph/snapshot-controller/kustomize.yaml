@@ -34,7 +34,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: rook-ceph-external-snapshotter-controller
+  name: external-snapshotter-controller
   namespace: flux-system
 spec:
   dependsOn:
