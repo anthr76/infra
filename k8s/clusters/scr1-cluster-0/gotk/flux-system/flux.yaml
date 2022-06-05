@@ -42,9 +42,11 @@ spec:
                 - name: manager
                   resources:
                     requests:
-                      cpu: 800m
+                      cpu: 500m
+                      memory: 128Mi
                     limits:
-                      cpu: "1.8"
+                      cpu: "2"
+                      memory: 2048Mi
       target:
         kind: Deployment
         labelSelector: control-plane=controller

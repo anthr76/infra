@@ -11,17 +11,3 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: ceph-block
-  volumeName: pvc-c4ea91c1-75fd-45a3-9689-f7bfdd604f9e
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: frigate-config-v2
-  namespace: home
-spec:
-  accessModes:
-    - ReadWriteOncePod
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: ceph-block

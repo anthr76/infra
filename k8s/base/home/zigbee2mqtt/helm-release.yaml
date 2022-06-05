@@ -19,8 +19,10 @@ spec:
     podAnnotations:
       backup.velero.io/backup-volumes: config
     image:
-      repository: ghcr.io/koenkk/zigbee2mqtt
-      tag: "1.25.1"
+      repository: docker.io/koenkk/zigbee2mqtt
+      # FIXME: https://github.com/Koenkk/zigbee2mqtt/issues/12697
+      # repository: ghcr.io/koenkk/zigbee2mqtt
+      tag: "1.25.2"
     env:
       TZ: America/New_York
       ZIGBEE2MQTT_DATA: /data

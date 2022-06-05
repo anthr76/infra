@@ -57,6 +57,7 @@ systemd:
             -e POSTGRES_INITDB_ARGS="--encoding='UTF8' --lc-collate='C' --lc-ctype='C'" \
             -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
             -v /var/srv/postgres-13:/var/lib/postgresql/data:z \
+            -p 5432:5432 \
             docker.io/library/postgres:13.7 \
             -c listen_addresses='*'
         ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-postgresql.ctr-id -t 10

@@ -29,34 +29,28 @@ spec:
         urlPrefix: /
         ssl: false
       placement:
-        cleanup:
+        all:
           tolerations:
-          - key: node-role.kubernetes.io
-            operator: NoSchedule
+            - effect: NoSchedule
+              key: node-role.kubernetes.io/master
         mgr:
-          tolerations:
-          - key: node-role.kubernetes.io
-            operator: NoSchedule
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
-                  - key: node-role.kubernetes.io
+                  - key: node-role.kubernetes.io/control-plane
                     operator: In
                     values:
-                    - control-plane
+                    - ""
         mon:
-          tolerations:
-          - key: node-role.kubernetes.io
-            operator: NoSchedule
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
-                  - key: node-role.kubernetes.io
+                  - key: node-role.kubernetes.io/control-plane
                     operator: In
                     values:
-                    - control-plane
+                    - ""
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       isDefault: true

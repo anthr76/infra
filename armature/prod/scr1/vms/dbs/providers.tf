@@ -19,9 +19,23 @@ terraform {
       source = "hashicorp/random"
       version = "3.2.0"
     }
+    postgresql = {
+      source = "cyrilgdn/postgresql"
+      version = "1.16.0"
+    }
   }
 }
 
 provider "libvirt" {
   uri = "qemu+ssh://root@libvirt-01.scr1.rabbito.tech/system?&no_verify=1"
+}
+
+provider "postgresql" {
+  host            = "db-01.scr1.rabbito.tech"
+  port            = 5432
+  database        = "postgres"
+  username        = "db-01"
+  password        = random_password.postgres.result
+  sslmode         = "disable"
+  connect_timeout = 90000000
 }
