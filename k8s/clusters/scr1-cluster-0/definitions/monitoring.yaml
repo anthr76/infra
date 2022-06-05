@@ -19,7 +19,7 @@ metadata:
     component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/kube-prometheus-stack/crds"
-  prune: true
+  prune: false
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 # kind: Kustomization
