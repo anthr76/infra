@@ -24,14 +24,39 @@ spec:
     monitoring:
       enabled: true
     cephClusterSpec:
-      mon:
-        count: 5
-      network:
-        dualStack: true
       dashboard:
         enabled: true
         urlPrefix: /
         ssl: false
+      placement:
+        cleanup:
+          tolerations:
+          - key: node-role.kubernetes.io
+            operator: NoSchedule
+        mgr:
+          tolerations:
+          - key: node-role.kubernetes.io
+            operator: NoSchedule
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                  - key: node-role.kubernetes.io
+                    operator: In
+                    values:
+                    - control-plane
+        mon:
+          tolerations:
+          - key: node-role.kubernetes.io
+            operator: NoSchedule
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                  - key: node-role.kubernetes.io
+                    operator: In
+                    values:
+                    - control-plane
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       isDefault: true
