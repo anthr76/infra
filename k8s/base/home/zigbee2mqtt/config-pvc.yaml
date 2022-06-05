@@ -11,4 +11,3 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: ceph-block
-  volumeName: pvc-787af786-2c6b-46ae-942e-d23034f6f9bc
