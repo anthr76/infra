@@ -11,4 +11,3 @@ spec:
     requests:
       storage: 100Mi
   storageClassName: ceph-block
-  volumeName: pvc-ab1f2c92-ac2d-443f-b786-88221c92ccd3
