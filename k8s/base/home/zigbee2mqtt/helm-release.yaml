@@ -41,26 +41,24 @@ spec:
       advanced:
         log_output:
           - console
-        pan_id: 23841
         network_key:
-          [
-            0x1e,
-            0x21,
-            0x15,
-            0x75,
-            0x6d,
-            0xb4,
-            0xc1,
-            0x00,
-            0xbf,
-            0x5a,
-            0x11,
-            0xae,
-            0xfe,
-            0x7d,
-            0x01,
-            0xca,
-          ]
+          - 84
+          - 96
+          - 188
+          - 165
+          - 226
+          - 169
+          - 67
+          - 66
+          - 33
+          - 71
+          - 106
+          - 159
+          - 53
+          - 180
+          - 30
+          - 128
+        pan_id: 21505
       frontend:
         port: 8080
       experimental:
