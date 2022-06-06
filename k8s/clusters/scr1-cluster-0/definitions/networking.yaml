@@ -29,7 +29,7 @@ metadata:
   labels:
     component.kutara.io/part-of: definitions
 spec:
-  path: "./k8s/base/networking/cert-manager"
+  path: "./k8s/base/networking/cert-manager/issuers"
   prune: true
   dependsOn:
     - name: networking-cert-manager
