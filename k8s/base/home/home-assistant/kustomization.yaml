@@ -5,7 +5,6 @@ resources:
   - helm-release.yaml
   - config-pvc.yaml
   - home-assistant.sops.yaml
-  - postgres-db.yaml
 namespace: home
 generatorOptions:
   disableNameSuffixHash: true
