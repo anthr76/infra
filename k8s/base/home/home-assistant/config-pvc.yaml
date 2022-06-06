@@ -6,7 +6,7 @@ metadata:
   namespace: home
 spec:
   accessModes:
-    - ReadWriteOncePod
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
