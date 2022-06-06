@@ -1,54 +1,8 @@
-cluster:
-    aescbcEncryptionSecret: ""
-    ca:
-        crt: ENC[AES256_GCM,data:TpFKS9s8my5bJUN1XywRgViWTWiSdLSWFWIx4ad04I7riDyli2FiZUenvRUlWJJ5i0D2VqpJO9mJvaSlSgw831JK6wlbbLYrXBpwqzMvbLFROZeeFNIJ43u+f+NsEQqY4Ie94ZzduP0A6qzpe2DV8hoWoV9l5QLR7hf1DQQCgsoOKJX2Wx7nJ5Yn5S3HNrbpVXMQHOvLwSYhEyjnjY7wkUNZ4oEyY2HgzHz9P0go7Y8MvNWcwo9LPAsaZNwVNh3cqXqzeGaozIiXr5qTWl28c4+KKJ/xOKSbedKmrAW9Mfm6Tx1qeAwMclqTOaFfJi7NbkjrY9DIc3PERGu3myvxR5j6boDmk0Lq/+upvzD3xtaKrMiu71Xddj1IkvO+4FL69TNq5EfuQgRflcQQSZ7I65tIwqevlftEIwG3IvWY44V3OaPdMwB37Mn55j7x6uU2kn1eMA/AT9aU8Wt9y12v00pqAU9oidYpnRHvZ7aiMPLnxQpSDDrpiwf0D++j8fQJsepOCPbnON+OfceybPFrd9x0AcBXMtjktMLhL1v2kz/B0TTUO8W7uXu6A7QfQcY9mn4o+wM3467KEH8Fkn8+2dJoyFeXn1SdZVcEc9zfck+me0N4eLepQTb/wgBwUUJ1iFQzJgYX5RGJj2jRIOxWLMSaTHXG/uVZwAAQ1rUvpA1ezmOJOw/AqapytuoxXp/bP8GGv4NhNgBaxE0yWQy3jKPbR9K/OaoHgjaU1nq62+/3DbgBmEN2zQ9HWZYIrf8fT5qxVRTDHYCXAKcDKfdto5yIqrCJ5QRpaworBNxrpvoMCr7x+2XdoRaFB3+r/ntzd7sseeCbHGaJRW6FN7DwjbFmvdc78YpUHiYORVuHiXUtlInTj2VV1tzU9DTBavoL5tfUQWIKJtTTkTQ8Qz0ao8+aEyMhw21kTGQaEu5+4EjKOgZOmBf+i3T9d7Sm2iaUvTJkM0j2O6V+VUDOkJnJnFd3cGBm4VIPUUz3IkxAjlBCHoJNxfA++VVqYR5gjUUw0/6Uq9pxfAroY7r9yl+iu2kAntQbjGYEcrnYeQ==,iv:ekLt/eEpu+aLhSrZhmj3a5TrvuA+n5pRLCKYANySys4=,tag:qs6W05HrQ8AuQo+mN1Jf5A==,type:str]
-        key: ""
-    controlPlane:
-        endpoint: https://cluster-0.scr1.rabbito.tech:6443
-    discovery:
-        enabled: true
-        registries:
-            kubernetes: {}
-            service: {}
-    id: ly7TGtlQHs5st_YhzeUqh66KHDFVzvemNX9m2ktI3wE=
-    network:
-        dnsDomain: cluster.local
-        podSubnets:
-            - 10.244.0.0/16
-            - fddf:f7bc:9670::/48
-        serviceSubnets:
-            - 10.96.0.0/12
-            - 2001:559:1104:fdb::/112
-    secret: ENC[AES256_GCM,data:mdS3xNdEJ+fgAH/av7/0lAixlnbZpyESPMcnz5eQhACWCZxw4xhsQZ3bDoE=,iv:iA4/cX7yOKYbapyOFJllCI1nJr+Iz+DGXMDXvaDi3HE=,tag:wu2f9Cw0AQ/leQHiezcC+g==,type:str]
-    token: ENC[AES256_GCM,data:6PkgLpdloRipwJVuzoTrZy35MnmJkEA=,iv:L/oUULOuOJJK1gdgPFghv7Wk1dorSTlQd/9YSbDfibw=,tag:yX4lCjkDN7KrUoI5vOZHLQ==,type:str]
+version: v1alpha1
 debug: false
+persist: true
 machine:
-    ca:
-        crt: ENC[AES256_GCM,data:vUJ1o5qjkixExg4hNjZ6Qrw5gXkzKvm8UPi8cRrQNUlweW3BIuNGQbzshtHbLZNBZgipPxQ6ALpNQgMz5YUTcN3xHya1BOch6uSVaPqn8G2UwgQCesxFFq6DRBJMf5mYrtMJ5mux7ZYW7yAj5te8L6WI1HuXKZe2/mJfoiVSH86S31ZLgXRzZslIFAns+QKgaMm5EZx3sUbRZQeRa/yTgCoFxt2NOADoJXddOhOeI+XnRysn6KVd3HBRlUr60mYOESJhJyI5Ijo9jf0nwR9zhMCqOmC8k0N+8olFfdPza/uWcTILMROW7tmYij7D258DUC+DSvQ5IWij17ASDxnQZct3BVNXaPnKrmkPytd5OSDhfQCCwg2/rHacjZVKT6blsUYJ7rk+l68LrMcZTQ6RIYZlXHukgRPNvluvfjIP6TD25LPf3HiZ01nr8iZvbj/S29vdH4VfELFFSQyBDjX3uT/2VM5G2K+0r8OyGieYMnbuhs2NQJ8y/DPfCQp6NSYDfEzGOHDJsmXp2SxNgFbKc+7F5lhZsfRmjG9I6zhYwaS+Zljx8mfE8o+ucOk1VXYb5rqVMYeUlrC3J3eoOE04D25osnGvuo/fvXAQ8DSxelu98fLVjLejbrn+DuLV4x2hmHPuV8oktJZSUaID5lZUAGiHk6XkzPT3p6oBav5cpBR4BbWb5aYe+Y2H3u4Uni1qrMCUFOMMEiEHLT8nRL8rzot4/h9S+vJTbdxdSyKhlas/OIxfK7XcLQLLnJUWnK/dcUDvBLI2lf4Hsb9jkLRjH+ovbaTrshTVQUnRi/MmBmL4sqakToIAawVcSnwi3R4vARN/kvedrPW4yTvEzYdYI2I8mypWkRxe/ZxUAVuYYjqYFyJt,iv:I3cBL7WXFy64GggZBjsdRsfPk6x7YWECvubsB2AqL1o=,tag:rKSOScVHobSmZT/jvQFs/w==,type:str]
-        key: ""
-    certSANs: []
-    features:
-        rbac: true
-    install:
-        bootloader: true
-        disk: /dev/sda
-        wipe: false
-    kubelet:
-        extraArgs:
-            eviction-hard: memory.available<500Mi,nodefs.available<10%
-            eviction-soft: memory.available<900Mi,nodefs.available<15%
-            eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
-            feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
-            kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
-            rotate-server-certificates: "true"
-            system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
-    network:
-        hostname: worker-10.scr1.rabbito.tech
-    registries:
-        mirrors:
-            docker.io:
-                endpoints:
-                    - http://nas-1.scr1.rabbito.tech:5000
+    type: worker
     sysctls:
         fs.inotify.max_user_instances: "8192"
         fs.inotify.max_user_watches: "1048576"
@@ -59,10 +13,54 @@ machine:
         disabled: false
         servers:
             - time.cloudflare.com
-    token: ENC[AES256_GCM,data:I4TRPSSYngNURnjTF4x2bXDgOG9DDMs=,iv:DyooeFdwAa+MNTBiROfs9z4F1FOe9ENuenoSt98aF8I=,tag:GogR8AAw9agZKx6a9G1pfw==,type:str]
-    type: worker
-persist: true
-version: v1alpha1
+    token: ENC[AES256_GCM,data:kTPyR3s0BLN0LqFuGNJpY9SbLSDt0KA=,iv:+XLPStJWCulr4/8qudhgdHtQJNO7bECusvEe70ZOGf8=,tag:1oygcmxhfGwYgLOaZ/pHsA==,type:str]
+    ca:
+        crt: ENC[AES256_GCM,data:V4kkubsxsywV3ZJwoWFb13IKUNxcHLhsgdhjEHsLNUVYYP+8ClMOV/WdQNjdtfXLz94rYf7udzEwo1oxjLGOj9ePB2sDt90nyDJLW5bdvMTs5SE+unOjtp0cqEW/2q34vdKTfj1u3B1D9i8DXDVLBR4mCouu2V6PIgxSMTj2wC8GXsRI8xijeDIgej/6rReGNSHUtqfKa4BVJr5tF8w2Bk1tpJJqFHGKyxXC1qMzd6W65FwpIug9pqTq4ZyWEikXlVs+zVUhi+87/wgr7VAFTC1IEGcqGOBocNzhoE9xioXwwcNw7ZLFXM0nX2Jlw4Aqh84czj/c4HZl19jq2Xtj2nQc1Ov0O1onWltXtXujKxKfB5dTbRFPueIgaWGSHo5hvCIsxbTGQJejEwoRwtRSG+8KAqFITNWOUXi7XFJPs1OJo0zdj7/jaWojkM6p4RYoUvG3ssnxbgRLdxBEoh+y99rjR55yme8bKY9Y93Spoy+RaK758IvIPKfqhA4vwprkAu1hwqve4aBM5NeUblfU1k0WjGko8WXqO7r/IKnX39hCdFwFYD8zYSS7SXGXa6Xk3mSkDaQxQT1z0tJGuhMqt17XjoIe+QrI3UTZuYqtXZDXTFUKULf+j40ptWe9fMCNsw1HhQQ21tM5QE3z3whKo8ES9ZvuhfJJddVyd/3N2jo0sRRuWCqvFiiHq9e/Iwqwd2NKMbpWoOSCKEuEwo0Tzt+PiulpIUY9wV/zaBnpQ6tcSOoO7eJ+NtCK86iM0l66HN3bF2jt3gTmVr+EwiC5wc+m4fU+q7o+A7krPjPW33oNHGr/+vqE6JqRA2NgpWnYWeV3UQjAdjDk1wOocojBZWt4oxMSKkMh1sMNIhGBJFaj2Hzp,iv:P1MOVaxuZoPRiWSgDZEVHLpZdkffYxdwWnpjVCVKyTc=,tag:5t6NNC6s6nrfbDDIUR66nA==,type:str]
+        key: ""
+    certSANs: []
+    kubelet:
+        image: ghcr.io/siderolabs/kubelet:v1.23.6
+        extraArgs:
+            eviction-hard: memory.available<500Mi,nodefs.available<10%
+            eviction-soft: memory.available<900Mi,nodefs.available<15%
+            eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
+            feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,EphemeralContainers=true
+            kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
+            rotate-server-certificates: "true"
+            system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
+    network:
+        hostname: worker-10.scr1.rabbito.tech
+    install:
+        disk: /dev/sda
+        image: ghcr.io/siderolabs/installer:v1.0.5
+        bootloader: true
+        wipe: false
+        extensions:
+            # - image: ghcr.io/anthr76/amdgpu:20220411
+            - image: ghcr.io/siderolabs/amd-ucode:20220411
+    registries:
+        mirrors:
+            docker.io:
+                endpoints:
+                    - http://nas-1.scr1.rabbito.tech:5000
+    features:
+        rbac: true
+cluster:
+    id: ENC[AES256_GCM,data:TvSHl4xZ87jwx2D93gmuhf5tO4QjRINPeZwEgnBD4wTEWLjqj6iNj7LH0Ck=,iv:iCfn6eArbEA/+tQKZMsS4hnK5yyMLUIwUa6pv0sva7U=,tag:WkKC1YqWr8JcJeXa6vAjpg==,type:str]
+    secret: ENC[AES256_GCM,data:lZvSjp87SJj2O8mA0hlbgT25g49h2zc1X+4ovZLaYm5Zur8NrenYFc2skvo=,iv:bLW84LJNYNY84JpXd6LOH5famywyyy5g7d6hdROCIEU=,tag:lDm2aBArZf3mw6aLBzGuyg==,type:str]
+    controlPlane:
+        endpoint: https://cluster-0.scr1.rabbito.tech:6443
+    network:
+        dnsDomain: cluster.local
+        podSubnets:
+            - 10.244.0.0/16
+        serviceSubnets:
+            - 10.96.0.0/12
+    token: ENC[AES256_GCM,data:tsnFwAUNXkC29b03zAhFCqFbFYurknQ=,iv:e39HGRpfyDFDZ+/EqJuwgGrYLKHwqXYzf0xKXPfJwYE=,tag:QRyttrBp4IYwjmcF2gjFgQ==,type:str]
+    aescbcEncryptionSecret: ""
+    ca:
+        crt: ENC[AES256_GCM,data:pWb2Hse1T0swmxeKFYlJirM+uamvRAKUujgL+ScA6/oVlFSPDttT3v8om6uYnPfyvFrdYSY6UNIYWkSfYl9B3RIM6zPos/37Z3OFCbvOygYzLqFqaVhnYSeRti5GTNnxE2ACfDN0kUFiMxX1Z2KLi09woeR1H23l6jXuYtQucTUAWDIV4AQzd+Q2N4YnIMwjYbVSu89rFC2sz/3VBB/97CF82ETJdFsSpLQQztg7sguc7G0xV/GUFpG05CIEj9+nsTGE75oGYps1x4E/3PsQ0zk1wU7OM1Tpe7KoH3c3ZIvtLsjd58SIfBj/SQT2qQvyU1ET6HAjxRG+QcZpOYPjylkmJLJfs/YWtl0gz6Rw6PxcL50ye1HEUWaMu6396ramIOz5sXknH56SRSVhtddF9S1scgLkKuHdBDe7wE8D/i7Zl3sCUeA8cLj0Da0VZFCNvY/qA74ZLl8+SwR6iMkC3eZqV8u9y5/TfFr940xxzq6/1WSLj/wV7tci8FRtr1N0Dm8Yv3Bq0A/48RKGjMB0W8Jh/j6sDoQDL5wIdH3BKsJ1EvQWZKiy9lvBWnng3yJBGwKL1YCOK64OB1AXiCswlX3wrMHQGlVdmXkD7BNtDanhCfTGBeJ98Qy+ytFtG0xpD160eFwAqJtGoQ9xrRJpTIakYomun8GvtmAKnhmPDErwiED26fjEv48h1Hbpjwh2Z6vEm+j7a7e5JiqaNoVYzpfpOZ8lnYXi7DVSFylG6huEWbdRFe7opPAwf5UWSJIwFDf106dfflYASi2S0ir/x0eyU+TF08M8cwgaUG0E2tjf3k7crQ1D/gzFKyCYg2fvIV2l6oCZR0YfC6dEAcCcWrhMeg/PrPSLht+FtYrlGTrvQekXQTtkB41AK5ktd3Q3z3YEEC23bXOJuiP5aknhpb8J+fovx2s6uIxwCcEyAZ51ARaZ7ly2Ah0tLaOFs+D7ybVgYW9IX4/CR/xsPa3Ag9dvq3NuzBO8TUVuoQosTJiUA0HTt5aqbJem5LmIOcUt4PlebBpMNbJAhB98kfDHlYwXvyNPGRghau/Uig==,iv:6CeAoMvnt96iHnBZdfGIJYvPxX2ZizwFpj3TiD3RwLc=,tag:pZ152Le6tYtE+Ffh8e3eVA==,type:str]
+        key: ""
 sops:
     kms: []
     gcp_kms: []
@@ -72,14 +70,14 @@ sops:
         - recipient: age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXekxoSjlaS3MzU09UZk5s
-            OHk4enlhSDhVRm5UQ2F3MEVNY0QvOTJvNWswCjZ5c3Yzc3JHRlM0ejgzSWxMdnZw
-            Ry9kQXFPM0VPd0FNMVpMMnFxVkh3Z1kKLS0tIGhnelNTamlwdXlWNmFtTS8vQVRU
-            UEhMczM4T2ExdWsweDhxMk9weEg1NmcK22TzqgvV7v3rXzRa5x0vb0UC5qSsTDqb
-            gBI8bMrfVVxd0EPIkvZP+XKS+Frn/LiK8L64T6Ts167wVXa8Y+UTjA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBvSHYwZFpaNkV6d1AzcUVv
+            ZDJzTThCMmdjRjgyMjdmdndXakd6bWVNMGdBCkNmLzgvLytDUVpMd2d3cGh2cFZk
+            NlZMbXIrRnpudUZ2Z2pxVEdCenVoRGcKLS0tIDk0VE8rN3FxSWFPMGc5K2J6RTJ0
+            eTd3WWFHbHMvZlpzV1FSVStzYkpVZjAK0ZJdqI3dExRvEASBpjeksbRcllnIXV92
+            Uo8+j4Uz9eou9b/s/SAhz4VwLYWFNcT8RMtlnrMjwowc1JCbKPi3kg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-06-06T18:28:37Z"
-    mac: ENC[AES256_GCM,data:6eH5nqgIyjNM+rjJnmECWHer2654IUP4qnnaYz6QvWwGyX93D/xlc1X3fQSR0zh9FFqe2/ItAGgSLshK0btrmL814StHnE688S0VJQY92d8vCcUeF7NdtilK8btbEt5lOrSxeVzJJ82VEBsR0YT1uwuvuXBFEGj7/7KqEfexiYI=,iv:elrOYKvyADM3HwpvqYw9h+zMqJ6eIhAqvPhxrluTHWE=,tag:9iCtYo/0dnnjLkmxtWz75g==,type:str]
+    lastmodified: "2022-06-06T23:52:02Z"
+    mac: ENC[AES256_GCM,data:NT3QzYhRg85U9jms+ngf1VvpoO/VxHBoXKh8/kzUI5tH9DnTKaeAiflqxd4RdUkIkGAhZiUOUomnvXebrQMDu3n+MiQpi3Zn4PDUKyRARvX6E9MtMzJ1VBafvmFkKR9fUPItxZX/UYGkse7HZY0KG0zSnuXt0e0Bax7uSRg7fFM=,iv:g9YAWDeEFKmq2ybee/BzlphklCbc/M+Q2P+gJVw3MIA=,tag:fvS58UMcsSN37SpIc4b7sQ==,type:str]
     pgp: []
-    encrypted_regex: ((?i)(pass|secret($|[^N])|key|oidc-client-id|crt|token|^data$|^stringData))
+    encrypted_regex: ((?i)(pass|secret($|[^N])|key|id|oidc-client-id|crt|token|^data$|^stringData))
     version: 3.7.3
