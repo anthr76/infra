@@ -19,7 +19,7 @@ spec:
   values:
     initContainers:
       get-hacs:
-        image: ghcr.io/home-assistant/home-assistant:2022.6.2
+        image: ghcr.io/home-assistant/home-assistant:2022.6.3
         command: ["wget", "-O", "-", "https://get.hacs.xyz", "|", "bash", "-"]
         volumeMounts:
           - name: config
@@ -37,7 +37,7 @@ spec:
       backup.velero.io/backup-volumes: config
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2022.6.2
+      tag: 2022.6.3
     env:
       TZ: "America/New_York"
     envFrom:
