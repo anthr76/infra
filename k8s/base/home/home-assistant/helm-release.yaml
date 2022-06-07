@@ -17,13 +17,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    initContainers:
-      get-hacs:
-        image: ghcr.io/home-assistant/home-assistant:2022.6.3
-        command: ["wget", "-O", "-", "https://get.hacs.xyz", "|", "bash", "-"]
-        volumeMounts:
-          - name: config
-            mountPath: /config
     probes:
       liveness:
         custom: true

@@ -4,6 +4,10 @@ creation_rules:
     encrypted_regex: '((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))'
     age: >-
       age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
+  - path_regex: k8s/clusters/scr1-cluster-0/iac/.*\.ya?ml
+    encrypted_regex: '((?i)(pass|secret($|[^N])|key|id|oidc-client-id|crt|token|^data$|^stringData))'
+    age: >-
+      age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
   - path_regex: armature/.*\.sops\.ya?ml
     unencrypted_regex: '^(Kind)$'
     age: >-
