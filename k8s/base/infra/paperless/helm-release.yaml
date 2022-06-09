@@ -52,19 +52,19 @@ spec:
         volumeSpec:
           nfs:
             server: ${NAS_1_ADDRESS}
-            path: "/tank/paperless/consume"
+            path: "/tank/Rabbito-Scratch/paperless/consume"
       export:
         enabled: true
         type: custom
         volumeSpec:
           nfs:
             server: ${NAS_1_ADDRESS}
-            path: "/tank/paperless/export"
-    podSecurityContext:
-      runAsUser: 65534
-      runAsGroup: 65534
-      fsGroup: 65534
-      fsGroupChangePolicy: "OnRootMismatch"
+            path: "/tank/Rabbito-Scratch/paperless/export"
+#    podSecurityContext:
+#      runAsUser: 65534
+#      runAsGroup: 65534
+#      fsGroup: 65534
+#      fsGroupChangePolicy: "OnRootMismatch"
     ingress:
       main:
         enabled: true
