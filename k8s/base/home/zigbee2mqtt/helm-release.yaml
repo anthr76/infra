@@ -33,6 +33,7 @@ spec:
       permit_join: false
       mqtt:
         base_topic: zigbee2mqtt
+        force_disable_retain: false
         server: "mqtt://mosquitto.home.svc.cluster.local"
         user: "${MQTT_USER}"
         password: "${MQTT_USER_PW}"
