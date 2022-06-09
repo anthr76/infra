@@ -36,6 +36,8 @@ spec:
       PAPERLESS_TIME_ZONE: America/New_York
       PAPERLESS_ENABLE_HTTP_REMOTE_USER: true
       PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTH_REQUEST_EMAIL
+      USERMAP_GID: 65534
+      USERMAP_UID: 65534
     envFrom:
       - secretRef:
           name: paperless
