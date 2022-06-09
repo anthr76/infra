@@ -7,6 +7,7 @@ metadata:
 spec:
   interval: 30m
   ref:
+    # renovate: registryUrl=https://prometheus-community.github.io/helm-charts chart=kube-prometheus-stack
     tag: kube-prometheus-stack-35.3.1
   url: https://github.com/prometheus-community/helm-charts.git
   ignore: |
