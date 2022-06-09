@@ -7,7 +7,6 @@ resource "postgresql_role" "k8s" {
 resource "postgresql_database" "paperless" {
   name              = "paperless"
   owner             = "k8s"
-  lc_collate        = "C"
   connection_limit  = -1
   allow_connections = true
   depends_on = [
