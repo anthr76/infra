@@ -29,6 +29,8 @@ spec:
     env:
       PAPERLESS_REDIS: redis://db-01.scr1.rabbito.tech:6379
       PAPERLESS_DBHOST: db-01.scr1.rabbito.tech
+      PAPERLESS_TASK_WORKERS: 1
+      PAPERLESS_WEBSERVER_WORKERS: 1
       PAPERLESS_DBUSER: k8s
       TZ: America/New_York
       PAPERLESS_TIME_ZONE: America/New_York
@@ -65,7 +67,7 @@ spec:
     resources:
       requests:
         cpu: 200m
-        memory: 256M
+        memory: 128M
       limits:
-        cpu: 1311m
-        memory: 1024M
+        cpu: 800m
+        memory: 600M
