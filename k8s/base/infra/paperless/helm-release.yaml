@@ -1,0 +1,71 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: paperless
+  namespace: infra
+spec:
+  chart:
+    spec:
+      chart: paperless
+      version: 8.8.3
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 0
+  upgrade:
+    remediation:
+      retries: 0
+  interval: 1m0s
+  values:
+    image:
+      repository: ghcr.io/paperless-ngx/paperless-ngx
+      tag: 1.7.1
+    env:
+      PAPERLESS_REDIS: redis://db-01.scr1.rabbito.tech:6379
+      PAPERLESS_DBHOST: db-01.scr1.rabbito.tech
+      PAPERLESS_DBUSER: k8s
+      TZ: America/New_York
+      PAPERLESS_TIME_ZONE: America/New_York
+      USERMAP_GID: 65543
+      PAPERLESS_ENABLE_HTTP_REMOTE_USER: true
+      PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTH_REQUEST_EMAIL
+    envFrom:
+      - secretRef:
+          name: paperless
+    persistence:
+      data:
+        enabled: true
+        existingClaim: paperless-data
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          nginx.ingress.kubernetes.io/auth-response-headers: Authorization, x-auth-request-email,
+            x-auth-request-groups
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.kutara.io/oauth2/start
+          nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.networking.svc.cluster.local/oauth2/auth?allowed_groups=family
+          hajimari.io/enable: "true"
+          hajimari.io/icon: file-outline
+        hosts:
+          - host: &host "paperless.kutara.io"
+            paths:
+              - path: /
+        tls:
+          - secretName: paperless-tls
+            hosts:
+              - *host
+    resources:
+      requests:
+        cpu: 200m
+        memory: 64M
+      limits:
+        cpu: 1311m
+        memory: 512M
