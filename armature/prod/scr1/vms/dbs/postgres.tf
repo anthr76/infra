@@ -1,8 +1,25 @@
-resource "postgresql_database" "my_db" {
-  name              = "my_db"
-  owner             = "my_role"
-  template          = "template0"
+resource "postgresql_role" "k8s" {
+  name     = "k8s"
+  login    = true
+  password = data.sops_file.tf_secrets.data["k8s_postgres_password"]
+}
+
+resource "postgresql_database" "paperless" {
+  name              = "paperless"
+  owner             = "k8s"
   lc_collate        = "C"
+  connection_limit  = -1
+  allow_connections = true
+  depends_on = [
+    libvirt_domain.scr1_db
+  ]
+}
+
+resource "postgresql_database" "homeassistant" {
+  name              = "hass"
+  owner             = "k8s"
+  lc_collate        = "C"
+  encoding          = "UTF8"
   connection_limit  = -1
   allow_connections = true
   depends_on = [

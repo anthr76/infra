@@ -20,7 +20,8 @@ storage:
       label: var
       with_mount_unit: true
   directories:
-    - path: /var/srv/postgres-13
+    - path: /var/srv/postgres-14
+    - path: /var/srv/redis
   files:
     - path: /etc/hostname
       mode: 0644
@@ -33,11 +34,39 @@ storage:
           POSTGRES_PASSWORD=${postgres_password}
 systemd:
   units:
+    - name: container-redis.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=redis.
+        Wants=network.target
+        After=network-online.target
+        [Service]
+        Environment=PODMAN_SYSTEMD_UNIT=%n
+        Restart=on-failure
+        TimeoutStopSec=70
+        ExecStartPre=/bin/rm -f %t/container-redis.pid %t/container-redis.ctr-id
+        ExecStart=/bin/podman run \
+            --conmon-pidfile %t/container-redis.pid \
+            --cidfile %t/container-redis.ctr-id \
+            --cgroups=no-conmon -d --replace \
+            --rm \
+            --read-only \
+            --name=redis \
+            -v /var/srv/redis:/data:z \
+            -p 6379:6379 \
+            docker.io/library/redis:7.0.1
+        ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-redis.ctr-id -t 10
+        ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-redis.ctr-id
+        PIDFile=%t/container-redis.pid
+        Type=forking
+        [Install]
+        WantedBy=multi-user.target
     - name: container-postgresql.service
       enabled: true
       contents: |
         [Unit]
-        Description=postgres 13.
+        Description=postgres 14.
         Wants=network.target
         After=network-online.target
         [Service]
@@ -55,10 +84,10 @@ systemd:
             --name=postgres \
             -e POSTGRES_USER=db-01 \
             -e POSTGRES_INITDB_ARGS="--encoding='UTF8' --lc-collate='C' --lc-ctype='C'" \
-            -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
-            -v /var/srv/postgres-13:/var/lib/postgresql/data:z \
+            -e POSTGRES_PASSWORD=$${POSTGRES_PASSWORD} \
+            -v /var/srv/postgres-14:/var/lib/postgresql/data:z \
             -p 5432:5432 \
-            docker.io/library/postgres:13.7 \
+            docker.io/library/postgres:14.3 \
             -c listen_addresses='*'
         ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-postgresql.ctr-id -t 10
         ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-postgresql.ctr-id

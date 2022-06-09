@@ -15,6 +15,10 @@ terraform {
       source  = "poseidon/ct"
       version = "0.10.0"
     }
+    sops = {
+      source  = "carlpett/sops"
+      version = "0.7.1"
+    }
     random = {
       source = "hashicorp/random"
       version = "3.3.0"
@@ -35,7 +39,7 @@ provider "postgresql" {
   port            = 5432
   database        = "postgres"
   username        = "db-01"
-  password        = random_password.postgres.result
+  password        = data.sops_file.tf_secrets.data["postgres_password"]
   sslmode         = "disable"
   connect_timeout = 90000000
 }
