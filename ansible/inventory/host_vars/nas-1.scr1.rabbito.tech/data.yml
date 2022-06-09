@@ -64,7 +64,7 @@ zfs_filesystems:
     mountpoint: "/tank/system_share"
   - name: Rabbito-Scratch
     pool: tank
-    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24,rw=@192.168.6.0/24,rw=@192.168.9.0/24"
+    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24,rw=@192.168.6.0/24,rw=@192.168.9.0/24,rw=@192.168.8.0/24"
     state: present
     mountpoint: "/tank/Rabbito-Scratch"
     owner: nobody

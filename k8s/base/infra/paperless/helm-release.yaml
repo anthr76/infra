@@ -48,14 +48,18 @@ spec:
         existingClaim: paperless-media-v1
       consume:
         enabled: true
+        type: custom
         volumeSpec:
           nfs:
-            path: "${NAS_1_ADDRESS}/paperless/consume"
+            server: ${NAS_1_ADDRESS}
+            path: "/tank/paperless/consume"
       export:
         enabled: true
+        type: custom
         volumeSpec:
           nfs:
-            path: "${NAS_1_ADDRESS}/paperless/export"
+            server: ${NAS_1_ADDRESS}
+            path: "/tank/paperless/export"
     podSecurityContext:
       runAsUser: 65534
       runAsGroup: 65534
