@@ -19,7 +19,7 @@ spec:
     replicaCount: 3
     image:
       repository: quay.io/oauth2-proxy/oauth2-proxy
-      tag: v7.3.0
+      tag: v7.2.1
     config:
       existingSecret: oauth2-proxy
       configFile: |-
@@ -33,7 +33,7 @@ spec:
       oidc-issuer-url: https://kutara-dev.us.auth0.com/
       pass-authorization-header: true
       pass-user-headers: true
-      code-challenge-method: S256
+    # code-challenge-method: S256
       prefer-email-to-user: true
       provider: oidc
       set-authorization-header: true
