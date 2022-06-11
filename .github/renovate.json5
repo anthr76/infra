@@ -30,18 +30,18 @@
   "commitMessageSuffix": "",
   // Set up Renovate Managers
   flux: {
-    fileMatch: ["kubernetes/.+\\.yaml$"],
+    fileMatch: ["k8s/.+\\.yaml$"],
   },
   "helm-values": {
-    fileMatch: ["kubernetes/.+\\.yaml$"],
+    fileMatch: ["k8s/.+\\.yaml$"],
   },
   kubernetes: {
-    fileMatch: ["kubernetes/.+\\.yaml$"],
+    fileMatch: ["k8s/.+\\.yaml$"],
   },
   regexManagers: [
     {
       description: "Process various dependencies",
-      fileMatch: ["kubernetes/.+\\.ya?ml$"],
+      fileMatch: ["k8s/.+\\.ya?ml$"],
       matchStrings: [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*=?))?\n .*: (?<currentValue>.*=?)",
       ],
@@ -49,7 +49,7 @@
     },
     {
       description: "Process CRD dependencies - Chart and Github Release are the same version",
-      fileMatch: ["kubernetes/.+\\.ya?ml$"],
+      fileMatch: ["k8s/.+\\.ya?ml$"],
       matchStrings: [
         "# renovate: registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
       ],
