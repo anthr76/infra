@@ -1,4 +1,21 @@
 {
+  // General RenovateBot configuration
+  extends: [
+    ":enableRenovate",
+    "config:base",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    "docker:enableMajor",
+    ":enablePreCommit",
+    "github>anthr76/infra//.github/renovate/allowedVersions.json5",
+    "github>anthr76/infra//.github/renovate/autoMerge.json5",
+    "github>anthr76/infra//.github/renovate/commitMessage.json5",
+    "github>anthr76/infra//.github/renovate/groups.json5",
+    "github>anthr76/infra//.github/renovate/labels.json5",
+    "github>anthr76/infra//.github/renovate/semanticCommits.json5",
+    "github>anthr76/infra//.github/renovate/updateSchedule.json5",
+  ],
   "enabled": true,
   "timezone": "America/New_York",
   "semanticCommits": "enabled",
@@ -7,151 +24,60 @@
   "commitBody": "Signed-off-by: Anthony Rabbito <hello@anthonyrabbito.com>",
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
+  "commitBodyTable": true,
   "commitMessageTopic": "{{depName}}",
   "commitMessageExtra": "to {{newVersion}}",
   "commitMessageSuffix": "",
-  // set up Renovate Managers
-  "helmv3": {
-    "fileMatch": ["k8s/.+/Chart\\.yaml$"]
+  // Set up Renovate Managers
+  flux: {
+    fileMatch: ["kubernetes/.+\\.yaml$"],
   },
   "helm-values": {
-    "fileMatch": ["k8s/.+/helm-release\\.yaml$"]
+    fileMatch: ["kubernetes/.+\\.yaml$"],
   },
-  "kubernetes": {
-    "fileMatch": [
-      "k8s/.+\\.yaml$"
-    ]
+  kubernetes: {
+    fileMatch: ["kubernetes/.+\\.yaml$"],
   },
-  "flux": {
-      "fileMatch": ["k8s/.+\\.yaml$"]
-  },
-  "regexManagers": [
-    // Generic Flux Regex Manager
+  regexManagers: [
     {
-      "fileMatch": [
-        "k8s/.+\\.yaml$"
+      description: "Process various dependencies",
+      fileMatch: ["kubernetes/.+\\.ya?ml$"],
+      matchStrings: [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*=?))?\n .*: (?<currentValue>.*=?)",
       ],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( registryUrl=(?<registryUrl>.*?))?( versioning=(?<versioning>.*=?))?\n *tag: (?<currentValue>.*=?)"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
-      "registryUrlTemplate": "{{#if registryUrl}}{{{registryUrl}}}{{else}}{{/if}}"
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
-    // regexManager to read and process kube-prometheus-stack and velero CRD's
     {
-      "fileMatch": [
-        "k8s/base/monitoring/kube-prometheus-stack/.+\\.yaml$"
+      description: "Process CRD dependencies - Chart and Github Release are the same version",
+      fileMatch: ["kubernetes/.+\\.ya?ml$"],
+      matchStrings: [
+        "# renovate: registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
       ],
-      "matchStrings": [
-        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n"
-      ],
-      "datasourceTemplate": "helm"
+      datasourceTemplate: "helm",
     },
   ],
-  "packageRules": [
-    // setup datasources
+  packageRules: [
+    // Setup datasources
     {
-      "matchDatasources": ["helm"],
-      "semanticCommitScope": "charts",
-      "separateMinorPatch": true,
-      "ignoreDeprecated": true
+      matchDatasources: ["docker"],
+      commitMessageExtra: "to {{newVersion}}",
+    },
+    // Custom version schemes
+    {
+      matchDatasources: ["docker"],
+      matchPackageNames: ["blakeblackshear/frigate"],
+      versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)$",
+    },
+    // Version strategies
+    {
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/k8s-at-home/plex"],
+      versioning: "loose",
     },
     {
-      "matchDatasources": ["docker"],
-      "enabled": true,
-      "matchUpdateTypes": ["major", "minor", "patch"]
+      matchDatasources: ["docker"],
+      matchPackageNames: ["tomsquest/docker-radicale"],
+      versioning: "pep440",
     },
-    {
-      "matchDatasources": ["docker"],
-      "semanticCommitScope": "images",
-      "separateMinorPatch": true
-    },
-    // add labels according to package and update types
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(images)!: ",
-      "labels": ["renovate/image", "dep/major"]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "feat",
-      "labels": ["renovate/image", "dep/minor"]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "fix",
-      "labels": ["renovate/image", "dep/patch"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(charts)!: ",
-      "labels": ["renovate/helm", "dep/major"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "feat",
-      "labels": ["renovate/helm", "dep/minor"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "fix",
-      "labels": ["renovate/helm", "dep/patch"]
-    },
-    // custom version schemes
-    {
-      "matchDatasources": ["docker"],
-      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)$",
-      "matchPackageNames": ["blakeblackshear/frigate"]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$",
-      "matchPackageNames": ["quay.io/minio/minio"]
-    },
-    // version strategies
-    {
-      "matchDatasources": ["docker"],
-      "versioning": "loose",
-      "matchPackageNames": [
-        "ghcr.io/k8s-at-home/plex",
-        "ghcr.io/k8s-at-home/qbittorrent"
-      ]
-    },
-    // enable auto-merge
-    {
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "automergeType": "branch",
-      "requiredStatusChecks": null,
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": [
-        "ghcr.io/k8s-at-home/jackett",
-        "ghcr.io/k8s-at-home/prowlarr-nightly"
-     ]
-    },
-    // group packages
-    {
-      "matchDatasources": ["helm", "docker"],
-      "matchPackagePatterns": ["^rook.ceph"],
-      "groupName": "rook-ceph-suite",
-      "additionalBranchPrefix": "",
-      "separateMinorPatch": true
-    },
-    {
-      "matchDatasources": ["github-releases", "docker"],
-      "matchPackagePatterns": [
-        "external-snapshotter",
-        "snapshot-controller"
-      ],
-      "groupName": "external-snapshotter-suite",
-      "additionalBranchPrefix": "",
-      "separateMinorPatch": true
-    }
-  ]
+  ],
 }
