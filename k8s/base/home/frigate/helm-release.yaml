@@ -37,7 +37,7 @@ spec:
           nginx.ingress.kubernetes.io/auth-response-headers: Authorization, x-auth-request-email,
             x-auth-request-groups
           nginx.ingress.kubernetes.io/auth-signin: https://auth.kutara.io/oauth2/start
-          nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.networking.svc.cluster.local/oauth2/auth?allowed_groups=family
+          nginx.ingress.kubernetes.io/auth-url: https://auth.kutara.io/oauth2/auth?allowed_groups=family
         hosts:
           - host: "frigate.scr1.kutara.io"
             paths:
