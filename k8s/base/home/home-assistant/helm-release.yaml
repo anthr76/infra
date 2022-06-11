@@ -55,6 +55,13 @@ spec:
       config:
         enabled: true
         existingClaim: home-assistant-config-v1
+      backup:
+        enabled: true
+        type: nfs
+        server: "${NAS_1_ADDRESS}"
+        path: /tank/backups/home-assistant
+        mountPath: /config/backups
+        readOnly: false
     addons:
       codeserver:
         enabled: false
