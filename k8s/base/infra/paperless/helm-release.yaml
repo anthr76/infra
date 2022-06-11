@@ -31,6 +31,8 @@ spec:
       PAPERLESS_DBHOST: db-01.scr1.rabbito.tech
       PAPERLESS_TASK_WORKERS: 1
       PAPERLESS_WEBSERVER_WORKERS: 1
+      PAPERLESS_THREADS_PER_WORKER: 1
+      PAPERLESS_WORKER_TIMEOUT: 20000
       PAPERLESS_DBUSER: k8s
       TZ: America/New_York
       PAPERLESS_TIME_ZONE: America/New_York
@@ -93,5 +95,5 @@ spec:
         cpu: 200m
         memory: 128M
       limits:
-        cpu: 800m
-        memory: 600M
+        cpu: 1000m
+        memory: 800M
