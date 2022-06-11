@@ -52,6 +52,7 @@ zfs_filesystems:
   - name: backups
     pool: tank
     state: present
+    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.8.0/24"
     owner: root
     group: root
     mountpoint: "/tank/backups"
@@ -63,7 +64,7 @@ zfs_filesystems:
     mountpoint: "/tank/system"
   - name: system_share
     pool: tank
-    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.8.0/24"
+    sharenfs: "no_subtree_check,all_squash,anonuid=65534,anongid=65534,rw=@192.168.4.0/24,rw=@10.20.99.0/24,rw=@192.168.8.0/24,rw=@192.168.9.0/24"
     state: present
     owner: nobody
     group: nogroup
