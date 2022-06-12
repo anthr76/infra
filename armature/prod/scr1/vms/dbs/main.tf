@@ -1,5 +1,5 @@
 locals {
-  coreos_version = "35.20220424.3.0"
+  coreos_version = "36.20220522.3.0"
   hostname       = "db-01"
 }
 
@@ -62,10 +62,4 @@ resource "libvirt_domain" "scr1_db" {
   network_interface {
     network_name = "vmnet"
   }
-}
-
-output "connections" {
-  value = [
-    libvirt_domain.scr1_db.*.network_interface.0.addresses
-  ]
 }
