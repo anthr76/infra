@@ -7,12 +7,6 @@ metadata:
 spec:
   interval: 5m
   timeout: 10m
-  upgrade:
-    remediation:
-      retries: -1
-  install:
-    remediation:
-      retries: -1
   chart:
     spec:
       chart: rook-ceph
@@ -22,8 +16,12 @@ spec:
         name: rook-ceph-charts
         namespace: flux-system
   install:
+    remediation:
+      retries: -1
     crds: CreateReplace
   upgrade:
+    remediation:
+      retries: -1
     crds: CreateReplace
   values:
     crds:
