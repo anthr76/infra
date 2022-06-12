@@ -7,6 +7,13 @@ metadata:
 spec:
   interval: 5m
   chart:
+  upgrade:
+    remediation:
+      retries: -1
+      force: true
+  install:
+    remediation:
+      retries: -1
     spec:
       chart: mosquitto
       version: 4.3.2
