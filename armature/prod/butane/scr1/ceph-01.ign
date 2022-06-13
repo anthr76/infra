@@ -1,0 +1,23 @@
+{
+  "ignition": {
+    "config": {
+      "merge": [
+        {
+          "source": "https://raw.githubusercontent.com/anthr76/infra/main/armature/prod/butane/base.ign"
+        }
+      ]
+    },
+    "version": "3.3.0"
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/hostname",
+        "contents": {
+          "source": "data:,ceph-01"
+        },
+        "mode": 420
+      }
+    ]
+  }
+}
