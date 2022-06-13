@@ -1,0 +1,13 @@
+---
+variant: fcos
+version: 1.4.0
+ignition:
+  config:
+    merge:
+      - source: https://raw.githubusercontent.com/anthr76/infra/main/armature/prod/butane/base.ign
+storage:
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: ceph-01
