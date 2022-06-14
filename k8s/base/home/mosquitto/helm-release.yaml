@@ -8,9 +8,9 @@ spec:
   interval: 5m
   chart:
   upgrade:
+    force: true
     remediation:
       retries: -1
-      force: true
   install:
     remediation:
       retries: -1
