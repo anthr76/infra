@@ -6,6 +6,13 @@ metadata:
   namespace: home
 spec:
   interval: 5m
+  upgrade:
+    force: true
+    remediation:
+      retries: -1
+  install:
+    remediation:
+      retries: -1
   chart:
     spec:
       chart: frigate
@@ -38,6 +45,8 @@ spec:
             x-auth-request-groups
           nginx.ingress.kubernetes.io/auth-signin: https://auth.kutara.io/oauth2/start
           nginx.ingress.kubernetes.io/auth-url: https://auth.kutara.io/oauth2/auth?allowed_groups=family
+          hajimari.io/enable: "true"
+          hajimari.io/icon: cctv
         hosts:
           - host: "frigate.scr1.kutara.io"
             paths:
@@ -60,11 +69,11 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: frigate-config-v2
+        existingClaim: frigate-config-v1
         mountPath: /data
       media:
         enabled: true
-        existingClaim: frigate-media-v1
+        existingClaim: frigate--nfs
         mountPath: /media
       config:
         enabled: true

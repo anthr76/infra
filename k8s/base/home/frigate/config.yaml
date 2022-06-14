@@ -44,9 +44,7 @@ record:
     retain:
       default: 5
       mode: active_objects
-# Specify camera's
 cameras:
-  # --
   frigate_front_porch:
     ffmpeg:
       inputs:
@@ -69,7 +67,6 @@ cameras:
     motion:
       mask:
         - 792,66,1226,72,1223,21,800,24
-  # --
   frigate_back_porch:
     ffmpeg:
       inputs:

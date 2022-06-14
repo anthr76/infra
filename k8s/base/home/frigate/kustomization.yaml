@@ -6,6 +6,7 @@ resources:
   - media-pvc.yaml
   - helm-release.yaml
   - secret.yaml
+  - nas-pvc.yaml
 namespace: home
 configMapGenerator:
   - name: frigate
