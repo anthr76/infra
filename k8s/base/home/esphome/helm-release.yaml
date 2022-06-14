@@ -6,10 +6,10 @@ metadata:
   namespace: home
 spec:
   interval: 5m
+  force: true
   upgrade:
     remediation:
       retries: -1
-      force: true
   install:
     remediation:
       retries: -1
