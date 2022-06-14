@@ -6,6 +6,10 @@ mqtt:
 rtmp:
   enabled: true
 ffmpeg:
+  global_args:
+    - -hide_banner
+    - -loglevel
+    - warning
   hwaccel_args:
     - -hwaccel
     - vaapi
