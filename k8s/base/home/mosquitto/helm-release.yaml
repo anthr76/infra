@@ -6,7 +6,6 @@ metadata:
   namespace: home
 spec:
   interval: 5m
-  chart:
   upgrade:
     force: true
     remediation:
@@ -14,6 +13,7 @@ spec:
   install:
     remediation:
       retries: -1
+  chart:
     spec:
       chart: mosquitto
       version: 4.3.2
