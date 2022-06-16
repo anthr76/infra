@@ -66,7 +66,7 @@ cluster:
     serviceAccount:
         key: ENC[AES256_GCM,data:COZ6mgPN47DZUnBA6aDPPHZKX5WPs4E6GEueH1WGPnEDpOYyxY7dR+w3zApXhNQ7Sh/AY/cXLRIkP7PHWVR7Mk/uCUwzj497TQHhnce0OxnuLz+nvpzoMP850AuP/D5yaCzbu8vfXZdv2vbaKYGxbMeKX0CKEft+gRmsVlPeeaGurnMuugupQFkJH9N3xc/HrgG/Yz5LQ76LFBhENXvY3u/yU3qu9BcTGGZTR6ehj805rImd3uPkQhAUVU1HO2GbMqXJLbBtck2FKY1ERIm2iK9SW94ktpNTEWFBDVOC3fQmnLY+deOBqsf+wlgyA6OCSRNAUNatymmUMNHsFX1pWbNZVahg5mU3OzI9mXVhdBhQ5GUpQATxF7uhgXKSBDWOWiBcCkIVuABGXWALLoqF4A==,iv:1mjU5ASkIJzZfPaV1Wu5E1Bms4lq4iVbTJFy1IAnJTQ=,tag:ooUFw6kFYgyI9UxGFXvciQ==,type:str]
     apiServer:
-        image: k8s.gcr.io/kube-apiserver:v1.23.6
+        image: k8s.gcr.io/kube-apiserver:v1.24.2
         certSANs:
             - cluster-0.scr1.rabbito.tech
         disablePodSecurityPolicy: true
