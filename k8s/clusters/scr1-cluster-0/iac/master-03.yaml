@@ -79,7 +79,7 @@ cluster:
             oidc-username-claim: ENC[AES256_GCM,data:geQgB0w=,iv:gAEqOV95BHKMjh4Mpc/ZNOYe7sSKku0dJ2fDPMX8L5Q=,tag:ASnvW8JJDRxgP1O3zJUYdQ==,type:str]
             oidc-username-prefix: ENC[AES256_GCM,data:A5JAbFc=,iv:Ic0keI0sslG9w7n3FywVjqLg+7j2uagGhUm6wkuM6bU=,tag:cv0Y8oY2jFF5ndmvmrHYLQ==,type:str]
     controllerManager:
-        image: k8s.gcr.io/kube-controller-manager:v1.23.6
+        image: k8s.gcr.io/kube-controller-manager:v1.24.2
         extraArgs:
             bind-address: 0.0.0.0
             node-cidr-mask-size-ipv4: ENC[AES256_GCM,data:EPw=,iv:0bxkKpkEyWwNi49WUEIgXfVUvfi3j/UUsdxlGd/D3/s=,tag:/se2K5il0fte6caTmUMQwg==,type:int]
