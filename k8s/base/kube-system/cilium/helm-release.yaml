@@ -7,9 +7,13 @@ metadata:
 spec:
   interval: 5m
   timeout: 15m
+  install:
+    remediation:
+      retries: -1
   upgrade:
     remediation:
       remediateLastFailure: true
+      retries: 50
       strategy: rollback
   chart:
     spec:
