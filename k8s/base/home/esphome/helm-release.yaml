@@ -37,7 +37,7 @@ spec:
             mountPath: /config
     image:
       repository: ghcr.io/esphome/esphome
-      tag: 2022.5.1
+      tag: 2022.6.0
     env:
       TZ: "America/New_York"
       ESPHOME_DASHBOARD_USE_PING: true
