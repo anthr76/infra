@@ -1,0 +1,46 @@
+{
+  "ignition": {
+    "config": {
+      "merge": [
+        {
+          "source": "https://raw.githubusercontent.com/anthr76/infra/main/armature/prod/butane/base.ign"
+        }
+      ]
+    },
+    "version": "3.3.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "root",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8Y8DoJOGLdeuxz2e4f9DNy2IUL8uB+11Q/lteKrDnmMFDEDP5yVeo4ZmUuMkG23/xUTBzfkPHzvCmWUd5w6DKnPLsP23aopkTY0Nd4zBgsm9rbB8zKkjevXN9T4owrRuZpk+L1qCpFWdzA4yRHeC+k3JROrTPH6hdHcgjMBbU+g0tui0FJHJoYDw52VaoHuIclp5/JB9/qiZzlnqsjhpaK78r9oF+LgvQIIAjjOanQ/XokJKjcAzS5W30JfiBjxYgtoYAQm7lsuiBeyteplqTZNnsTqqWAYhVUftzfRlpi8+F66RQWD0v4L+O5LcvtP7giQWvuuhZiTcFx652qcvGPpSGikDQwR6o/sutBwn76vNdD2JBTAwb7iaJ5nJDev12iWOT42E2mcQ4d9cW3KdUBGQoyQyxGDfoY9iRas2pOcK4cbKhhMMHY0gSjbiVvSAXV7qf2w/re4vomj0U11/niVft4VLricDPfcSpOqCuafQuOlk9Ybgs5lomAGy5vG0= ceph-da1cac6a-ebd1-11ec-b64d-80615f039923"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/hostname",
+        "contents": {
+          "source": "data:,ceph-03"
+        },
+        "mode": 420
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "enabled": false,
+        "name": "docker.service"
+      },
+      {
+        "contents": "[Unit]\nDescription=rpm-ostree layering.\nWants=network-online.target\nAfter=network-online.target\nBefore=zincati.service\nConditionPathExists=!/var/lib/%N.stamp\n[Service]\nType=oneshot\nRemainAfterExit=yes\nExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive cephadm\nExecStart=/bin/touch /var/lib/%N.stamp\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "rpm-ostree-layer.service"
+      }
+    ]
+  }
+}

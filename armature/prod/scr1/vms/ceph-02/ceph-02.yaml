@@ -1,0 +1,58 @@
+---
+variant: fcos
+version: 1.4.0
+ignition:
+  config:
+    merge:
+      - source: https://raw.githubusercontent.com/anthr76/infra/main/armature/prod/butane/base.ign
+passwd:
+  users:
+    - name: root
+      ssh_authorized_keys:
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8Y8DoJOGLdeuxz2e4f9DNy2IUL8uB+11Q/lteKrDnmMFDEDP5yVeo4ZmUuMkG23/xUTBzfkPHzvCmWUd5w6DKnPLsP23aopkTY0Nd4zBgsm9rbB8zKkjevXN9T4owrRuZpk+L1qCpFWdzA4yRHeC+k3JROrTPH6hdHcgjMBbU+g0tui0FJHJoYDw52VaoHuIclp5/JB9/qiZzlnqsjhpaK78r9oF+LgvQIIAjjOanQ/XokJKjcAzS5W30JfiBjxYgtoYAQm7lsuiBeyteplqTZNnsTqqWAYhVUftzfRlpi8+F66RQWD0v4L+O5LcvtP7giQWvuuhZiTcFx652qcvGPpSGikDQwR6o/sutBwn76vNdD2JBTAwb7iaJ5nJDev12iWOT42E2mcQ4d9cW3KdUBGQoyQyxGDfoY9iRas2pOcK4cbKhhMMHY0gSjbiVvSAXV7qf2w/re4vomj0U11/niVft4VLricDPfcSpOqCuafQuOlk9Ybgs5lomAGy5vG0= ceph-da1cac6a-ebd1-11ec-b64d-80615f039923
+storage:
+  disks:
+    - device: /dev/vdb
+      wipe_table: false
+      partitions:
+        - number: 1
+          label: var-lib-ceph
+  filesystems:
+    - path: /var/lib/ceph
+      device: /dev/disk/by-partlabel/var-lib-ceph
+      format: btrfs
+      wipe_filesystem: false
+      label: var
+      with_mount_unit: true
+  directories:
+    - path: /var/lib/ceph
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: ceph-02
+systemd:
+  units:
+    - name: docker.service
+      enabled: false
+    - name: rpm-ostree-layer.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=rpm-ostree layering.
+        Wants=network-online.target
+        After=network-online.target
+        Before=zincati.service
+        ConditionPathExists=!/var/lib/%N.stamp
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        # `--allow-inactive` ensures that rpm-ostree does not return an error
+        # if the package is already installed. This is useful if the package is
+        # added to the root image in a future Fedora CoreOS release as it will
+        # prevent the service from failing.
+        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive cephadm
+        ExecStart=/bin/touch /var/lib/%N.stamp
+        [Install]
+        WantedBy=multi-user.target
