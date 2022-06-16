@@ -87,7 +87,7 @@ cluster:
     proxy:
         disabled: true
     scheduler:
-        image: k8s.gcr.io/kube-scheduler:v1.23.6
+        image: k8s.gcr.io/kube-scheduler:v1.24.2
     etcd:
         ca:
             crt: ENC[AES256_GCM,data:/1cMOhQ/dZ9QeLL/kj8MS3OKeFjzgT09cMSK6JkFQyVy7MZPABoNaTWrMrIfkKqpN2xV0OUm+9DElavf7L8H371kAs1WhVMRt0FjUGQ1bv7nqysSeDyj/8Mz1msKEMY4tEhKWkbp/acCz9wAmws4rquE6Z91jlKhn27gRw6mcmYahDMeqO45l6+MyjYt4e6OCpq30c3Rd2Ueym/wzV26fDL1kC7VO0dOQ+1hgOP1uAtwojbleQkxO5N0FizyA9s7v5PQYzNNnEXr4vT/CuDF3P2iwxAYnmvG/W9VY2nvsixdSpGr7/fWCpxJPzVV2Qg7jh2z9hzvbeVCB1OaIPUDpjIdrb2XDIaDmdSm5A7BzaMJC0zilTp7oQxYNuCbge0ZSrqUHUmv/Ykchz+x2oKpvEUSeK5QbbtYA7pS8n2YoKYYp+Mw/hBKmFOR6irTFkFU4AuMri7qkwTtny5oOcPoWRuG+dhwiVga3K86qu208hRo4/ZC4H84CjpJV05SEyermygj8/g4Ya02WLcoejFvtQ6pzmrbxYfXRZdpSFRkuAwlSFWvUimw1M856QXRWWVU5L8PvPD+nFSYAOdduEdrJb4pgNQahenOXSnF3WzZO9ujUa+yUqAP3I8Ku/WyWmhIstOz3c6KXYDGXAQ+/wJwZ7mUXUcAL8xVKKr8bJ8WuZoIihK9+pktOWj2gVtUEu642RCc2YO/jWEmU07tgxRj80q6LMeT0R0PqyHNHNWEPU1jaN4BLoT1WCZguPM9fstEpjOPV8RdKZDTCGZ63wZ1z1nHW6nK+AAiLpo2vVMhjnIiXx2qne8ZgAVrG9XXezulQQOotordpkm8C1LNOuRkRQk4EnDpCK9SrpZOuqQbiJkgxByoH/3j436k3c5BtM39SQtMVNbvxhULE5c5TWVdcNKgyQPs1ALcNMvK2oErujDU9sYSNu0EzoqQHRQ5A9ACiS9DxEhTaLe2n/4xGaUvgCN3rg/DLg0VQVNsCdHRLOwmpBpn6GiyB241cloIVRpSp/7bcg==,iv:a0fFk2cgErGQs5e0UcuNtrejC/rjfy44xXIYavoPWnU=,tag:987w5geypPZL8/klicjkiQ==,type:str]
