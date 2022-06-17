@@ -10,7 +10,7 @@ machine:
     certSANs:
         - cluster-0.scr1.rabbito.tech
     kubelet:
-        image: ghcr.io/siderolabs/kubelet:v1.23.6
+        image: ghcr.io/siderolabs/kubelet:v1.24.2
         extraArgs:
             feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
     network:

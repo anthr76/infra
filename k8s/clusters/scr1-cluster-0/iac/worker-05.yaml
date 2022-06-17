@@ -19,7 +19,7 @@ machine:
         key: ""
     certSANs: []
     kubelet:
-        image: ghcr.io/siderolabs/kubelet:v1.23.6
+        image: ghcr.io/siderolabs/kubelet:v1.24.2
         extraArgs:
             eviction-hard: memory.available<500Mi,nodefs.available<10%
             eviction-soft: memory.available<900Mi,nodefs.available<15%
