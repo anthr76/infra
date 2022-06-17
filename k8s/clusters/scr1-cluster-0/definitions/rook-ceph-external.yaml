@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: rook-ceph-external-namespace
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/rook-ceph"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: rook-ceph-external-external-cluster
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/rook-ceph-external/external-cluster"
+  prune: true
