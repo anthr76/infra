@@ -23,6 +23,7 @@ spec:
         namespace: flux-system
   dependsOn:
     - name: rook-ceph
+      namespace: rook-ceph
   values:
     toolbox:
       enabled: false
