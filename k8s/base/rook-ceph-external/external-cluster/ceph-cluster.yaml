@@ -1,0 +1,31 @@
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph-external
+  namespace: rook-ceph-external
+spec:
+  cephVersion: {}
+  cleanupPolicy:
+    sanitizeDisks: {}
+  crashCollector:
+    disable: true
+  dashboard: {}
+  dataDirHostPath: /var/lib/rook-ceph-external
+  disruptionManagement: {}
+  external:
+    enable: true
+  healthCheck:
+    daemonHealth:
+      mon:
+        disabled: false
+        interval: 45s
+      osd: {}
+      status: {}
+  logCollector: {}
+  mgr: {}
+  mon: {}
+  monitoring: {}
+  network: {}
+  security:
+    kms: {}
+  storage: {}

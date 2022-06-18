@@ -52,18 +52,10 @@ spec:
         existingClaim: paperless-media-v1
       consume:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${NAS_1_ADDRESS}
-            path: "/tank/Rabbito-Scratch/paperless/consume"
+        existingClaim: paperless-consume-v1
       export:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: ${NAS_1_ADDRESS}
-            path: "/tank/Rabbito-Scratch/paperless/export"
+        exisitingClaim: paperless-export-v1
 #    podSecurityContext:
 #      runAsUser: 65534
 #      runAsGroup: 65534
