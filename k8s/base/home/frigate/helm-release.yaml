@@ -74,7 +74,7 @@ spec:
         mountPath: /data
       media:
         enabled: true
-        existingClaim: frigate-nfs
+        existingClaim: frigate-media-v1
         mountPath: /media
       config:
         enabled: true
