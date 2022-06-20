@@ -10,7 +10,8 @@ resource "postgresql_database" "paperless" {
   connection_limit  = -1
   allow_connections = true
   depends_on = [
-    libvirt_domain.scr1_db
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
   ]
 }
 
@@ -22,7 +23,8 @@ resource "postgresql_database" "homeassistant" {
   connection_limit  = -1
   allow_connections = true
   depends_on = [
-    libvirt_domain.scr1_db
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
   ]
 }
 
@@ -34,7 +36,8 @@ resource "postgresql_database" "radarr_main" {
   connection_limit  = -1
   allow_connections = true
   depends_on = [
-    libvirt_domain.scr1_db
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
   ]
 }
 
@@ -46,7 +49,8 @@ resource "postgresql_database" "radarr_log" {
   connection_limit  = -1
   allow_connections = true
   depends_on = [
-    libvirt_domain.scr1_db
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
   ]
 }
 
@@ -58,7 +62,8 @@ resource "postgresql_database" "radarr_uhd_main" {
   connection_limit  = -1
   allow_connections = true
   depends_on = [
-    libvirt_domain.scr1_db
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
   ]
 }
 
@@ -70,30 +75,33 @@ resource "postgresql_database" "radarr_uhd_log" {
   connection_limit  = -1
   allow_connections = true
   depends_on = [
-    libvirt_domain.scr1_db
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
   ]
 }
 
 resource "postgresql_database" "prowlarr_main" {
-  name              = "prowlarr_main"
+  name              = "prowlarr-main"
   owner             = "k8s"
   lc_collate        = "C"
   encoding          = "UTF8"
   connection_limit  = -1
   allow_connections = true
   depends_on = [
-    libvirt_domain.scr1_db
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
   ]
 }
 
 resource "postgresql_database" "prowlarr_log" {
-  name              = "prowlarr_log"
+  name              = "prowlarr-log"
   owner             = "k8s"
   lc_collate        = "C"
   encoding          = "UTF8"
   connection_limit  = -1
   allow_connections = true
   depends_on = [
-    libvirt_domain.scr1_db
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
   ]
 }

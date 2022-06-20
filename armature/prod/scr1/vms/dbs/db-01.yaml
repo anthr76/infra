@@ -11,13 +11,13 @@ storage:
       wipe_table: false
       partitions:
         - number: 1
-          label: var
+          label: var-srv
   filesystems:
     - path: /var/srv
-      device: /dev/disk/by-partlabel/var
+      device: /dev/disk/by-partlabel/var-srv
       format: btrfs
       wipe_filesystem: false
-      label: var
+      label: var-srv
       with_mount_unit: true
   directories:
     - path: /var/srv/postgres-14

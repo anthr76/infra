@@ -11,22 +11,22 @@ resource "random_uuid" "volume" {
 }
 
 resource "libvirt_volume" "fcos" {
-  name   = "fcos-base-${random_uuid.volume.id}"
-  format = "qcow2"
-  size   = "20442450944"
+  name             = "fcos-base-${random_uuid.volume.id}"
+  format           = "qcow2"
+  size             = "20442450944"
   base_volume_name = "fedora-coreos-${local.coreos_version}-qemu.x86_64.qcow2"
-  pool   = "default"
+  pool             = "default"
 }
 
 resource "libvirt_volume" "persist" {
-  name   = "db-01-var"
+  name   = "db-01-var-srv"
   format = "qcow2"
-  size   = "50442450944"
+  size   = "90442450944"
   pool   = "fast-data"
 }
 
 data "ct_config" "db_01" {
-  content      = templatefile(
+  content = templatefile(
     "db-01.yaml",
     {
       postgres_password = data.sops_file.tf_secrets.data["postgres_password"]
@@ -42,13 +42,13 @@ resource "libvirt_ignition" "core_os_config" {
 }
 
 resource "libvirt_domain" "scr1_db" {
-  name        = "scr1-db"
-  description = "Database VM for supports K8s."
-  vcpu        = "1"
-  memory      = "8024"
-  qemu_agent  = true
+  name            = "scr1-db"
+  description     = "Database VM for supports K8s."
+  vcpu            = "1"
+  memory          = "8024"
+  qemu_agent      = true
   coreos_ignition = libvirt_ignition.core_os_config.id
-  autostart = true
+  autostart       = true
   console {
     type        = "pty"
     target_port = "0"
@@ -61,5 +61,6 @@ resource "libvirt_domain" "scr1_db" {
   }
   network_interface {
     network_name = "vmnet"
+    mac          = "52:54:00:2e:7d:01"
   }
 }
