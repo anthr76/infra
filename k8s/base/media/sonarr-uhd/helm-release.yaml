@@ -30,9 +30,10 @@ spec:
       tag: v4.0.0.2158@sha256:e890d18323fc6da3c71839e608f4325fe89ccce2d683b8e6c92a70da7c97103c
     env:
       TZ: "America/New_York"
-      RADARR__LOG_LEVEL: info
-      RADARR__BRANCH: nightly
-      RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.${INT_DOMAIN}"
+      SONARR__LOG_LEVEL: info
+      SONARR__BRANCH: nightly
+      SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.${INT_DOMAIN}"
+      SONARR__AUTHENTICATION_METHOD: External
     envFrom:
       - secretRef:
           name: sonarr
