@@ -24,6 +24,15 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    initContainers:
+      update-volume-permission:
+        image: busybox
+        command: ["sh", "-c", "chown -R 1000:1000 /config"]
+        volumeMounts:
+          - name: config
+            mountPath: /config
+        securityContext:
+          runAsUser: 0
     podAnnotations:
       backup.velero.io/backup-volumes: config
     image:
@@ -31,11 +40,6 @@ spec:
       tag: v0.4.0.1816
     env:
       TZ: "America/New_York"
-      POSTGRES_USER: k8s
-      POSTGRES_DB: prowlarr-main
-    envFrom:
-      - secretRef:
-          name: prowlarr
     ingress:
       main:
         enabled: true
@@ -51,6 +55,8 @@ spec:
           - secretName: prowlarr-tls
             hosts:
               - "prowlarr.${INT_DOMAIN}"
+    podSecurityContext:
+      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       config:
         enabled: true
