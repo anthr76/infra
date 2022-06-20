@@ -5,6 +5,13 @@ metadata:
   name: radarr
   namespace: media
 spec:
+  upgrade:
+    force: true
+    remediation:
+      retries: -1
+  install:
+    remediation:
+      retries: -1
   interval: 5m
   chart:
     spec:
@@ -28,10 +35,16 @@ spec:
         securityContext:
           runAsUser: 0
     image:
-      repository: ghcr.io/k8s-at-home/radarr
+      repository: ghcr.io/k8s-at-home/radarr-develop
       tag: v4.1.0.6175
     env:
       TZ: "America/New_York"
+      # Not yet implemented
+      POSTGRES_USER: k8s
+      POSTGRES_DB: radarr-main
+    envFrom:
+      - secretRef:
+          name: radarr
     ingress:
       main:
         enabled: true
@@ -71,13 +84,10 @@ spec:
       config:
         enabled: true
         existingClaim: radarr-config-v1
+        mountPath: /config
       media:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: "${NAS_1_ADDRESS}"
-            path: /tank/media
+        existingClaim: media
         mountPath: /media
     resources:
       requests:

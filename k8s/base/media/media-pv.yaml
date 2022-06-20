@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: media
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 40T
+  csi:
+    controllerExpandSecretRef:
+      name: rook-csi-cephfs-provisioner
+      namespace: rook-ceph-external
+    driver: rook-ceph.cephfs.csi.ceph.com
+    nodeStageSecretRef:
+      name: rook-csi-cephfs-node
+      namespace: rook-ceph-external
+    volumeAttributes:
+      staticVolume: "true"
+      clusterID: rook-ceph-external
+      fsName: ceph-filesystem
+      pool: cephfs.ceph-filesystem.data
+      rootPath: /media
+    volumeHandle: media
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: cephfs-external
+  volumeMode: Filesystem

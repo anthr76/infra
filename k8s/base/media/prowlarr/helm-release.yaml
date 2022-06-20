@@ -24,6 +24,11 @@ spec:
       tag: v0.4.0.1816
     env:
       TZ: "America/New_York"
+      POSTGRES_USER: k8s
+      POSTGRES_DB: prowlarr-main
+    envFrom:
+      - secretRef:
+          name: prowlarr
     ingress:
       main:
         enabled: true
