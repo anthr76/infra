@@ -46,7 +46,7 @@ spec:
       PROWLARR__POSTGRES_USER: k8s
       PROWLARR__POSTGRES_HOST: db-01.scr1.rabbito.tech
       PROWLARR__POSTGRES_PORT: 5432
-      PROWLARR__POSTGRES_MAIN_DB: prowlarr
+      PROWLARR__POSTGRES_MAIN_DB: prowlarr-main
       PROWLARR__POSTGRES_MAIN_LOG: prowlarr-log
     envFrom:
       - secretRef:
