@@ -40,8 +40,6 @@ spec:
               env:
                 - name: TZ
                   value: "${TIMEZONE}"
-                - name: RECYCLARR_APP_DATA
-                  value: /config
               command:
                 - /app/recyclarr
               args:
@@ -59,8 +57,6 @@ spec:
               env:
                 - name: TZ
                   value: America/New_York
-                - name: RECYCLARR_APP_DATA
-                  value: /config
               command:
                 - /app/recyclarr
               args:
