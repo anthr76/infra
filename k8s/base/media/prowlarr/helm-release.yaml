@@ -37,9 +37,19 @@ spec:
       backup.velero.io/backup-volumes: config
     image:
       repository: ghcr.io/k8s-at-home/prowlarr-nightly
-      tag: v0.4.0.1816
+      tag: v0.4.0.1816@sha256:56088085aba9d128ab55ae92733c9cbcb3af80d20627b6a2e7c15c40d518ee9f
     env:
       TZ: "America/New_York"
+      PROWLARR__LOG_LEVEL: info
+      PROWLARR__BRANCH: nightly
+      PROWLARR__APPLICATION_URL: "https://{{ .Release.Name }}.${INT_DOMAIN}"
+      PROWLARR__POSTGRES_USER: k8s
+      PROWLARR__POSTGRES_HOST: db-01.scr1.rabbito.tech
+      PROWLARR__POSTGRES_MAIN_DB: prowlarr
+      PROWLARR__POSTGRES_MAIN_LOG: prowlarr-log
+    envFrom:
+      - secretRef:
+          name: prowlarr
     ingress:
       main:
         enabled: true
