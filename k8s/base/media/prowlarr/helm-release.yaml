@@ -5,6 +5,13 @@ metadata:
   name: prowlarr
   namespace: media
 spec:
+  upgrade:
+    force: true
+    remediation:
+      retries: -1
+  install:
+    remediation:
+      retries: -1
   interval: 5m
   timeout: 15m
   chart:
