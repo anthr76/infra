@@ -17,22 +17,6 @@ spec:
         spec:
           automountServiceAccountToken: false
           restartPolicy: OnFailure
-          initContainers:
-            - name: render-configs
-              image: ghcr.io/k8s-at-home/recyclarr:v2.2.1@sha256:ee7983520417a3ea31d1532002fd034d672ab33522fb17cf752a159a099f3295
-              envFrom:
-                - secretRef:
-                    name: *app
-              command:
-                - "/bin/bash"
-                - -c
-              args:
-                - "envsubst < /config/recyclarr.yaml > /shared/recyclarr.yaml"
-              volumeMounts:
-                - name: config
-                  mountPath: /config
-                - name: shared
-                  mountPath: /shared
           containers:
             - name: sonarrs
               image: ghcr.io/k8s-at-home/recyclarr:v2.2.1@sha256:ee7983520417a3ea31d1532002fd034d672ab33522fb17cf752a159a099f3295
@@ -48,10 +32,8 @@ spec:
                 - --config
                 - /config/recyclarr.yaml
               volumeMounts:
-                - name: shared
-                  mountPath: /config/recyclarr.yaml
-                  subPath: recyclarr.yaml
-                  readOnly: true
+                - name: config
+                  mountPath: /config
             - name: radarrs
               image: ghcr.io/k8s-at-home/recyclarr:v2.2.1@sha256:ee7983520417a3ea31d1532002fd034d672ab33522fb17cf752a159a099f3295
               env:
@@ -66,13 +48,9 @@ spec:
                 - --config
                 - /config/recyclarr.yaml
               volumeMounts:
-                - name: shared
-                  mountPath: /config/recyclarr.yaml
-                  subPath: recyclarr.yaml
-                  readOnly: true
+                - name: config
+                  mountPath: /config/
           volumes:
             - name: config
-              configMap:
-                name: *app
-            - name: shared
-              emptyDir: {}
+              secret:
+                secretName: *app
