@@ -25,7 +25,7 @@ spec:
                     name: *app
               command:
                 - "/bin/bash"
-                - -x
+                - -c
               args:
                 - "envsubst < /config/recyclarr.yaml > /shared/recyclarr.yaml"
               volumeMounts:
@@ -43,6 +43,8 @@ spec:
                 - /app/recyclarr
               args:
                 - sonarr
+                - --app-data
+                - /tmp/recyclarr                
                 - --config
                 - /config/recyclarr.yaml
               volumeMounts:
@@ -59,6 +61,8 @@ spec:
                 - /app/recyclarr
               args:
                 - radarr
+                - --app-data
+                - /tmp/recyclarr                  
                 - --config
                 - /config/recyclarr.yaml
               volumeMounts:
