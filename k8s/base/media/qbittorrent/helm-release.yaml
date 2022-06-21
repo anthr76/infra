@@ -81,11 +81,7 @@ spec:
         existingClaim: qbittorrent-config-v1
       media:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: "${NAS_1_ADDRESS}"
-            path: /tank/media
+        exisingClaim: media
         mountPath: /media
     resources:
       requests:

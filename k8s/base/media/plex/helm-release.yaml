@@ -56,13 +56,8 @@ spec:
         existingClaim: plex-config-v1
       media:
         enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: "${NAS_1_ADDRESS}"
-            path: /tank/media
+        existingClaim: media
         mountPath: /media
-        readOnly: true
       transcode:
         enabled: true
         type: emptyDir
