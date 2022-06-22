@@ -41,10 +41,13 @@ spec:
         ingressClassName: nginx
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          nginx.ingress.kubernetes.io/app-root: /web
+          # TODO: This is as is breaks clients figure out a way for it to not.
+          # nginx.ingress.kubernetes.io/app-root: /web
           hajimari.io/enable: "true"
           hajimari.io/icon: "plex"
           hajimari.io/appName: "plex"
+          hajimari.io/url: "https://plex.kutara.io/web/"
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -52,9 +55,15 @@ spec:
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Sec-WebSocket-Extensions $http_sec_websocket_extensions;
             proxy_set_header Sec-WebSocket-Key $http_sec_websocket_key;
-            proxy_set_header Sec-WebSocket-Version $http_sec_websocket_version;
-            proxy_redirect off;
-            proxy_buffering off;
+            send_timeout 100m;
+            gzip on;
+            gzip_vary on;
+            gzip_min_length 1000;
+            gzip_proxied any;
+            gzip_types text/plain text/css text/xml application/xml text/javascript application/x-javascript image/svg+xml;
+            gzip_disable "MSIE [1-6]\.";
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "Upgrade";
         hosts:
           - host: "plex.kutara.io"
             paths:
