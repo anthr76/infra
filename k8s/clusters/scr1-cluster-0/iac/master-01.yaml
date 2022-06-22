@@ -17,7 +17,7 @@ machine:
         hostname: master-01.scr1.rabbito.tech
     install:
         disk: /dev/sda
-        image: ghcr.io/siderolabs/installer:v1.0.5
+        image: ghcr.io/siderolabs/installer:v1.1.0
         bootloader: true
         wipe: true
         legacyBIOSSupport: true
