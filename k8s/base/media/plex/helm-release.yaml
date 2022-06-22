@@ -41,6 +41,7 @@ spec:
         ingressClassName: nginx
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/app-root: /web
           hajimari.io/enable: "true"
           hajimari.io/icon: "plex"
           hajimari.io/appName: "plex"
@@ -67,12 +68,13 @@ spec:
         medium: Memory
     resources:
       requests:
-        cpu: 49m
-        memory: 4282M
+        cpu: 128m
+        memory: 2048M
         gpu.intel.com/i915: 1
       limits:
+        cpu: 2000m
         gpu.intel.com/i915: 1
-        memory: 7982M
+        memory: 4096M
     podAnnotations:
       backup.velero.io/backup-volumes: config
     affinity:
