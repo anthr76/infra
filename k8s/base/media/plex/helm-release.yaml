@@ -45,6 +45,16 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "plex"
           hajimari.io/appName: "plex"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Sec-WebSocket-Extensions $http_sec_websocket_extensions;
+            proxy_set_header Sec-WebSocket-Key $http_sec_websocket_key;
+            proxy_set_header Sec-WebSocket-Version $http_sec_websocket_version;
+            proxy_redirect off;
+            proxy_buffering off;
         hosts:
           - host: "plex.kutara.io"
             paths:
