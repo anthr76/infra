@@ -39,7 +39,7 @@ resource "google_folder" "bootstrap" {
 
 module "bootstrap" {
   source  = "terraform-google-modules/bootstrap/google"
-  version = "5.1.0"
+  version = "6.0.0"
 
   org_id                  = var.org_id
   billing_account         = var.billing_account
