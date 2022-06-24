@@ -42,6 +42,8 @@ spec:
         ingressClassName: nginx
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          # TODO: https://github.com/kubernetes/ingress-nginx/issues/8401#issuecomment-1159590536
+          nginx.ingress.kubernetes.io/custom-http-errors: 401,403,404,500,501,502,503
           nginx.ingress.kubernetes.io/auth-response-headers: Authorization, x-auth-request-email,
             x-auth-request-groups
           nginx.ingress.kubernetes.io/auth-signin: https://auth.kutara.io/oauth2/start
