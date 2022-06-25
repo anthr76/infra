@@ -35,6 +35,9 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
+    service:
+      main:
+        ipFamilyPolicy: PreferDualStack
     ingress:
       main:
         enabled: true

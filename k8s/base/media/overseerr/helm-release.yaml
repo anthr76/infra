@@ -24,6 +24,9 @@ spec:
     env:
       TZ: "America/New_York"
       LOG_LEVEL: "info"
+    service:
+      main:
+        ipFamilyPolicy: PreferDualStack
     ingress:
       main:
         enabled: true
