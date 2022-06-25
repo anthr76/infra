@@ -26,8 +26,8 @@ spec:
         securityContext:
           runAsUser: 0
     image:
-      repository: ghcr.io/k8s-at-home/plex
-      tag: v1.27.1.5916-6b0e31a64
+      repository: ghcr.io/onedr0p/plex
+      tag: v1.27.1.5916-6b0e31a64@sha256:251399ca35051937a72eed9a4b7616ad501e259c634f290711484ae1045a4ef7
     env:
       TZ: "America/New_York"
     podSecurityContext:

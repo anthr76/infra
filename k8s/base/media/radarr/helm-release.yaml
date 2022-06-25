@@ -35,8 +35,8 @@ spec:
         securityContext:
           runAsUser: 0
     image:
-      repository: ghcr.io/k8s-at-home/radarr-nightly
-      tag: v4.2.0.6380@sha256:89b1427d2b663477385a59722af738c6ffbbc696f494c64299af4734fe5f5be7
+      repository: ghcr.io/onedr0p/radarr-nightly
+      tag: v4.2.0.6380@sha256:0ca1808c1ffc65e1cd53f7a3bb94b9a93fcaeddc9152ab659277d98b58ec87cf
     env:
       TZ: "America/New_York"
       RADARR__LOG_LEVEL: info

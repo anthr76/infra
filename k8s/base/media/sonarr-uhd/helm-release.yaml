@@ -26,8 +26,8 @@ spec:
         securityContext:
           runAsUser: 0
     image:
-      repository: ghcr.io/k8s-at-home/sonarr-nightly
-      tag: v4.0.0.2158@sha256:2d617985877fb66237c3625638dbf74af9ce7338ed0a41ad22cd6b7f32af5213
+      repository: ghcr.io/onedr0p/sonarr-develop
+      tag: v3.0.8.1538@sha256:2a11265d302f6d36a40fd7463d1c2ab81702bea48fbf0320ae5d207b5432b83b
     env:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info
