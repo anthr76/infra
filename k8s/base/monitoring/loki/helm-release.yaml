@@ -64,7 +64,7 @@ spec:
         ruler:
           enable_api: true
           enable_alertmanager_v2: true
-          alertmanager_url: http://kube-prometheus-stack-alertmanager:9093
+          alertmanager_url: http://alertmanager-operated:9093
           storage:
             type: local
             local:
@@ -99,7 +99,7 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         hosts:
-          - host: &host "loki.${SECRET_PUBLIC_DOMAIN}"
+          - host: &host "loki.${INT_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
