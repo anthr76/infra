@@ -27,7 +27,7 @@ spec:
           runAsUser: 0
     image:
       repository: ghcr.io/k8s-at-home/sonarr-nightly
-      tag: v4.0.0.2161@sha256:d29c3a6278323f3ef577b6654487c6dbc190d37050ae6f7ed5cc87039530f401
+      tag: v4.0.0.2162@sha256:c28c9dd3149511111d4e0d2291323f242cda51b321ebd27570ee52f3f9ce83b4
     env:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info
