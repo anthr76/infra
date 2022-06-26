@@ -42,6 +42,8 @@ spec:
         sidecarsNamespace: monitoring
       ingress:
         enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
         hostname: &host "thanos-query.${INT_DOMAIN}"
         ingressClassName: "nginx"
         tls: true
@@ -56,6 +58,8 @@ spec:
       podAntiAffinityPreset: hard
       ingress:
         enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
         hostname: &host "thanos-bucketweb.${INT_DOMAIN}"
         ingressClassName: "nginx"
         tls: true
@@ -88,6 +92,8 @@ spec:
       podAntiAffinityPreset: hard
       ingress:
         enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
         hostname: &host "thanos-storegateway.${INT_DOMAIN}"
         ingressClassName: "nginx"
         tls: true
@@ -117,6 +123,8 @@ spec:
                 expr: absent(up{job="kube-prometheus-stack-prometheus"})
       ingress:
         enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
         hostname: &host "thanos-ruler.${INT_DOMAIN}"
         ingressClassName: "nginx"
         tls: true
