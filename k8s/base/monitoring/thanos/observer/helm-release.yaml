@@ -5,16 +5,16 @@ metadata:
   name: thanos
   namespace: monitoring
 spec:
-  interval: 12h
-  maxHistory: 2
+  interval: 15m
   chart:
     spec:
       chart: thanos
-      version: 10.5.2
+      version: 10.5.3
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
         namespace: flux-system
+      interval: 15m
   install:
     createNamespace: true
     remediation:
@@ -23,115 +23,110 @@ spec:
     remediation:
       retries: 5
   values:
-# It seems like recent thanos versions broke using thano's image. Testing that..
-#    image:
-#      registry: quay.io
-#      repository: thanos/thanos
-#      tag: v0.26.0
+    image:
+      registry: quay.io
+      repository: thanos/thanos
+      tag: 0.26.0
     objstoreConfig:
       type: s3
       config:
         insecure: true
     query:
       enabled: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
       replicaCount: 3
-      logFormat: json
+      podAntiAffinityPreset: hard
       replicaLabels:
-        - replica
+        - __replica__
       dnsDiscovery:
-        enabled: true
-        sidecarService: prom-thanos-discovery
+        sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitoring
-      resources:
-        limits:
-          cpu: 1500m
-          memory: 128Mi
-        requests:
-          cpu: 350m
-          memory: 64Mi
+      ingress:
+        enabled: true
+        hostname: &host "thanos-query.${INT_DOMAIN}"
+        ingressClassName: "nginx"
+        tls: true
+        extraTls:
+          - hosts:
+              - *host
     queryFrontend:
       enabled: false
     bucketweb:
       enabled: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
       replicaCount: 3
       podAntiAffinityPreset: hard
-      resources:
-        limits:
-          cpu: 500m
-          memory: 128Mi
-        requests:
-          cpu: 250m
-          memory: 64Mi
+      ingress:
+        enabled: true
+        hostname: &host "thanos-bucketweb.${INT_DOMAIN}"
+        ingressClassName: "nginx"
+        tls: true
+        extraTls:
+          - hosts:
+              - *host
     compactor:
       enabled: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
+      extraFlags:
+        - "--compact.concurrency"
+        - "4"
       retentionResolutionRaw: 14d
-      retentionResolution5m: 30d
-      retentionResolution1h: 180d
+      retentionResolution5m: 14d
+      retentionResolution1h: 14d
+      ingress:
+        enabled: true
+        hostname: &host "thanos-compactor.${INT_DOMAIN}"
+        ingressClassName: "nginx"
+        tls: true
+        extraTls:
+          - hosts:
+              - *host
       persistence:
         enabled: true
         storageClass: "ceph-block"
-        size: 16Gi
-      resources:
-        limits:
-          cpu: 2500m
-          memory: 128Mi
-        requests:
-          cpu: 850m
-          memory: 64Mi
+        size: 20Gi
     storegateway:
       enabled: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
       replicaCount: 3
       podAntiAffinityPreset: hard
-      resources:
-        limits:
-          cpu: 2000m
-          memory: 128Mi
-        requests:
-          cpu: 450m
-          memory: 64Mi
+      ingress:
+        enabled: true
+        hostname: &host "thanos-storegateway.${INT_DOMAIN}"
+        ingressClassName: "nginx"
+        tls: true
+        extraTls:
+          - hosts:
+              - *host
       persistence:
         enabled: true
         storageClass: "ceph-block"
-        size: 8Gi
+        size: 20Gi
     ruler:
       enabled: true
-      nodeSelector:
-        kubernetes.io/arch: amd64
-      podAntiAffinityPreset: hard
       replicaCount: 3
+      podAntiAffinityPreset: hard
       dnsDiscovery:
         enabled: true
       alertmanagers:
-        - http://alertmanager-operated.monitoring.svc.cluster.local:9093
-      clusterName: ${CLUSTER_NAME}
+        - http://alertmanager-operated.monitoring:9093
+      clusterName: home-ops
       extraFlags:
         - "--web.prefix-header=X-Forwarded-Prefix"
       config: |-
         groups:
-          - name: "metamonitoring"
+          - name: "PrometheusWatcher"
             rules:
               - alert: "PrometheusDown"
-                expr: absent(up{prometheus="monitoring/prom-prometheus"})
-      resources:
-        limits:
-          cpu: 500m
-          memory: 128Mi
-        requests:
-          cpu: 250m
-          memory: 64Mi
+                expr: absent(up{job="kube-prometheus-stack-prometheus"})
+      ingress:
+        enabled: true
+        hostname: &host "thanos-ruler.${INT_DOMAIN}"
+        ingressClassName: "nginx"
+        tls: true
+        extraTls:
+          - hosts:
+              - *host
       persistence:
         enabled: true
         storageClass: "ceph-block"
-        # TODO(thanos): change ruler volume to 250Mi
-        size: 8Gi
+        size: 20Gi
     metrics:
       enabled: true
       serviceMonitor:
@@ -139,21 +134,21 @@ spec:
   valuesFrom:
     - targetPath: objstoreConfig.config.bucket
       kind: ConfigMap
-      name: thanos-ceph-bucket
+      name: thanos-ceph-bucket-v1
       valuesKey: BUCKET_NAME
     - targetPath: objstoreConfig.config.endpoint
       kind: ConfigMap
-      name: thanos-ceph-bucket
+      name: thanos-ceph-bucket-v1
       valuesKey: BUCKET_HOST
     - targetPath: objstoreConfig.config.region
       kind: ConfigMap
-      name: thanos-ceph-bucket
+      name: thanos-ceph-bucket-v1
       valuesKey: BUCKET_REGION
     - targetPath: objstoreConfig.config.access_key
       kind: Secret
-      name: thanos-ceph-bucket
+      name: thanos-ceph-bucket-v1
       valuesKey: AWS_ACCESS_KEY_ID
     - targetPath: objstoreConfig.config.secret_key
       kind: Secret
-      name: thanos-ceph-bucket
+      name: thanos-ceph-bucket-v1
       valuesKey: AWS_SECRET_ACCESS_KEY
