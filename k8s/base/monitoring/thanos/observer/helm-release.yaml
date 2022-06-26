@@ -112,7 +112,7 @@ spec:
         enabled: true
       alertmanagers:
         - http://alertmanager-operated.monitoring:9093
-      clusterName: home-ops
+      clusterName: scr1-cluster-0
       extraFlags:
         - "--web.prefix-header=X-Forwarded-Prefix"
       config: |-
