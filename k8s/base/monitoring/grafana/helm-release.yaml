@@ -143,43 +143,6 @@ spec:
           gnetId: 15515
           revision: 1
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/7845
-        zfs:
-          gnetId: 7845
-          revision: 4
-          datasource: Prometheus
-        flux-cluster:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
-          datasource: Prometheus
-        flux-control-plane:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
-          datasource: Prometheus
-        lidarr:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/lidarr.json
-          datasource: Prometheus
-        radarr:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/radarr.json
-          datasource: Prometheus
-        sonarr:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/sonarr.json
-          datasource: Prometheus
-        qbittorrent:
-          url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
-          datasource: Prometheus
-        apc-smart-ups:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/apc-smart-ups-1500-snmp.json
-          datasource: Prometheus
-        cert-manager:
-          url: https://raw.githubusercontent.com/jr0dd/grafana-dashboards/main/cert-manager.json
-          datasource: Prometheus
-        metallb:
-          url: https://raw.githubusercontent.com/jr0dd/grafana-dashboards/main/metallb.json
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/13665
-        speedtest:
-          gnetId: 13665
-          revision: 1
-          datasource: Prometheus
     sidecar:
       dashboards:
         enabled: true
