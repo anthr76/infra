@@ -105,7 +105,7 @@ spec:
           type: loki
           inputs:
             - journal_logs
-          endpoint: http://loki-gateway.monitoring:3100
+          endpoint: http://loki-gateway.monitoring:80
           encoding:
             codec: json
           batch:
