@@ -16,3 +16,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
