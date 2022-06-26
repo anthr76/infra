@@ -61,7 +61,9 @@ prometheus:
         static_configs:
           - targets:
               - fw-1.${INT_DOMAIN}:9100
-              - nas-1.${INT_DOMAIN}:9100
+              - ceph-01.${INT_DOMAIN}:9100
+              - ceph-02.${INT_DOMAIN}:9100
+              - ceph-03.${INT_DOMAIN}:9100
       - job_name: "vyos-coredns"
         static_configs:
           - targets:
