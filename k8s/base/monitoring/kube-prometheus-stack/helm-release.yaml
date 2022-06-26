@@ -32,13 +32,6 @@ spec:
       name: prometheus-values
     - kind: ConfigMap
       name: alertmanager-values
-  install:
-    createNamespace: true
-    remediation:
-      retries: 5
-  upgrade:
-    remediation:
-      retries: 5
   values:
     fullnameOverride: prom
     kubeEtcd:
