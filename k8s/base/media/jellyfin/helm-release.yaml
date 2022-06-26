@@ -45,6 +45,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/icon: "movie-open-play"
+          hajimari.io/url: "https://jellyfin.kutara.io/sso/OID/p/auth0"
         hosts:
         - host: "jellyfin.kutara.io"
           paths:
