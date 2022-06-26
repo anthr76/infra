@@ -17,9 +17,9 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/anthr76/netbox-docker-kutara
+      repository: quay.io/tgenannt/netbox
       pullPolicy: IfNotPresent
-      tag: "v3.2.3"
+      tag: "v3.2.5"
     superuser:
       name: admin
       email: hello@anthonyrabbito.com
@@ -66,23 +66,19 @@ spec:
     existingSecret: "netbox"
     postgresql:
       enabled: false
+    redis:
+      enabled: false
+    tasksRedis:
+      host: db-01.scr1.rabbito.tech
+    cachingRedis:
+      host: db-01.scr1.rabbito.tech
     externalDatabase:
-      host: netbox-postgres
+      host: db-01.scr1.rabbito.tech
       port: 5432
-      database: postgres
-      username: postgres
+      database: netbox
+      username: k8s
       existingSecretName: "netbox"
       existingSecretKey: "db_password"
-    redis:
-      enabled: true
-      auth:
-        # This is temp because the chart is broken.
-        # Really it can be plain text because.. redis auth is always a pain.
-        # But the next chart release should fix this.
-        password: ${TEMP_SECRET}
-      image:
-        repository: library/redis
-        tag: "7.0.0"
     persistence:
       enabled: false
     reportsPersistence:
@@ -108,8 +104,6 @@ spec:
         repository: docker.io/library/busybox
         tag: 1.35.0
         pullPolicy: IfNotPresent
-    nodeSelector:
-      kubernetes.io/arch: amd64
     updateStrategy:
       type: RollingUpdate
     worker:
@@ -126,15 +120,3 @@ spec:
       - name: ssh-keys
         secret:
           secretName: napalm-ssh
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - target:
-              version: v1
-              kind: CronJob
-              name: netbox-housekeeping
-            patch:
-              - op: add
-                path: /spec/jobTemplate/spec/template/spec/nodeSelector
-                value:
-                  kubernetes.io/arch: amd64
