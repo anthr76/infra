@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: unpackerr
+  namespace: media
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: unpackerr
+      version: 5.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+  values:
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    image:
+      repository: docker.io/golift/unpackerr
+      tag: 0.10.0
+    env:
+      TZ: America/New_York
+      UN_SONARR_0_URL: http://sonarr:8989
+      UN_SONARR_0_PATHS_0: /media/downloads/qbittorrent/complete/sonarr
+      UN_SONARR_1_URL: http://sonarr-uhd:8989
+      UN_SONARR_1_PATHS_0: /media/downloads/qbittorrent/complete/sonarr-uhd
+      UN_RADARR_0_URL: http://radarr:7878
+      UN_RADARR_0_PATHS_0: /media/downloads/qbittorrent/complete/radarr
+      UN_RADARR_1_URL: http://radarr-uhd:7878
+      UN_RADARR_1_PATHS_0: /media/downloads/qbittorrent/complete/radarr-uhd
+    envFrom:
+      - secretRef:
+          name: unpackerr
+    persistence:
+      config:
+        enabled: false
+      media:
+        enabled: true
+        existingClaim: media
+        mountPath: /media
+    podAnnotations:
+      secret.reloader.stakater.com/reload: unpackerr
+    resources:
+      requests:
+        cpu: 10m
+        memory: 250Mi
+      limits:
+        memory: 1000Mi
