@@ -27,54 +27,70 @@ spec:
       type: LoadBalancer
     customConfig:
       data_dir: /vector-data-dir
-      api:
-        enabled: false
       sources:
         kubernetes_logs:
           address: 0.0.0.0:6000
           type: vector
           version: "2"
-        router_logs:
+        vyos_logs:
           address: 0.0.0.0:6001
           type: vector
           version: "2"
         journal_logs:
-          address: 0.0.0.0:6002
           type: vector
+          address: 0.0.0.0:6002
           version: "2"
+        vector_metrics:
+          type: internal_metrics
+        talos_kernel_logs:
+          address: 0.0.0.0:6050
+          type: socket
+          mode: udp
+          max_length: 102400
+          decoding:
+            codec: json
+          host_key: __host
+        talos_service_logs:
+          address: 0.0.0.0:6051
+          type: socket
+          mode: udp
+          max_length: 102400
+          decoding:
+            codec: json
+          host_key: __host
       sinks:
         loki_kubernetes:
           type: loki
           inputs:
             - kubernetes_logs
-          endpoint: http://loki.monitoring.svc.cluster.local:3100
+          endpoint: http://loki-gateway.monitoring:80
           encoding:
             codec: json
           batch:
-            max_bytes: 2049000
+            max_bytes: 400000
           out_of_order_action: rewrite_timestamp
           remove_label_fields: true
           remove_timestamp: true
           labels:
-            app: >-
-              {{`{{ kubernetes.pod_labels.app\.kubernetes\.io/name }}`}}
-            container: >-
-              {{`{{ kubernetes.container_name }}`}}
-            filename: >-
-              {{`{{ kubernetes.file }}`}}
-            instance: >-
-              {{`{{ kubernetes.pod_labels.app\.kubernetes\.io/instance }}`}}
-            namespace: >-
-              {{`{{ kubernetes.pod_namespace }}`}}
-            node: >-
-              {{`{{ kubernetes.pod_node_name }}`}}
-            pod: >-
-              {{`{{ kubernetes.pod_name }}`}}
-        loki_router:
+            k8s_app: >-
+              {{`{{ "kubernetes.pod_labels.app\.kubernetes\.io/name" }}`}}
+            k8s_container: >-
+              {{`{{ "kubernetes.container_name" }}`}}
+            k8s_filename: >-
+              {{`{{ "kubernetes.file" }}`}}
+            k8s_instance: >-
+              {{`{{ "kubernetes.pod_labels.app\.kubernetes\.io/instance" }}`}}
+            k8s_namespace: >-
+              {{`{{ "kubernetes.pod_namespace" }}`}}
+            k8s_node: >-
+              {{`{{ "kubernetes.pod_node_name" }}`}}
+            k8s_pod: >-
+              {{`{{ "kubernetes.pod_name" }}`}}
+        loki_vyos:
           type: loki
           inputs:
-            - router_logs
-          endpoint: http://loki.monitoring.svc.cluster.local:3100
+            - vyos_logs
+          endpoint: http://loki-gateway.monitoring:80
           encoding:
             codec: json
           batch:
@@ -89,17 +105,51 @@ spec:
           type: loki
           inputs:
             - journal_logs
-          endpoint: http://loki.monitoring.svc.cluster.local:3100
+          endpoint: http://loki-gateway.monitoring:3100
           encoding:
             codec: json
           batch:
             max_bytes: 2049000
-          out_of_order_action: rewrite_timestamp
+          out_of_order_action: accept
           remove_label_fields: true
           remove_timestamp: true
           labels:
             hostname: >-
               {{`{{ host }}`}}
+        talos_kernel:
+          type: loki
+          inputs:
+            - talos_kernel_logs_xform
+          endpoint: http://loki-gateway.monitoring:80
+          encoding:
+            codec: json
+            except_fields:
+              - __host
+          batch:
+            max_bytes: 1048576
+          out_of_order_action: rewrite_timestamp
+          labels:
+            hostname: >-
+              {{`{{ __host }}`}}
+            service: >-
+              {{`{{ facility }}`}}
+        talos_service:
+          type: loki
+          inputs:
+            - talos_service_logs_xform
+          endpoint: http://loki-gateway.monitoring:80
+          encoding:
+            codec: json
+            except_fields:
+              - __host
+          batch:
+            max_bytes: 400000
+          out_of_order_action: rewrite_timestamp
+          labels:
+            hostname: >-
+              {{`{{ __host }}`}}
+            service: >-
+              {{`{{ "talos-service" }}`}}
   postRenderers:
     - kustomize:
         patchesJson6902:
@@ -108,5 +158,9 @@ spec:
               name: vector-aggregator
             patch:
               - op: add
-                path: /spec/loadBalancerIP
-                value: ${SVC_SYSLOG_ADDR}
+                path: /metadata/annotations
+                value: 
+                  metallb.universe.tf/loadBalancerIPs: ${SVC_SYSLOG_ADDR}
+              - op: replace
+                path: /spec/externalTrafficPolicy
+                value: Local

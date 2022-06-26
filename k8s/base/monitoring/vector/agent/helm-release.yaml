@@ -17,6 +17,11 @@ spec:
       interval: 5m
   install:
     createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   dependsOn:
     - name: vector-aggregator
       namespace: monitoring
@@ -27,28 +32,43 @@ spec:
     role: Agent
     customConfig:
       data_dir: /vector-data-dir
-      api:
-        enabled: false
-      # Sources
       sources:
         kubernetes_logs:
           type: kubernetes_logs
+        talos_kernel_logs:
+          type: socket
+          mode: udp
+          address: 127.0.0.1:12000
+        talos_service_logs:
+          type: socket
+          mode: udp
+          address: 127.0.0.1:12001
       # Sinks
       sinks:
-        loki_kubernetes_sink:
+        kubernetes_sink:
           type: vector
           inputs:
             - kubernetes_logs
-          address: vector-aggregator:6000
+          address: "vector-aggregator.monitoring:6000"
           version: "2"
+        talos_kernel_sink:
+          type: vector
+          inputs:
+            - talos_kernel_logs
+          address: "vector-aggregator.monitoring:6050"
+          version: "2"
+        talos_service_sink:
+          type: vector
+          inputs:
+            - talos_service_logs
+          address: "vector-aggregator.monitoring:6051"
+          version: "2"
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: vector-agent
     service:
       enabled: false
     podMonitor:
       enabled: true
-    securityContext:
-      privileged: true
     tolerations:
-      - effect: NoSchedule
-        operator: Exists
-      - effect: NoExecute
-        operator: Exists
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
