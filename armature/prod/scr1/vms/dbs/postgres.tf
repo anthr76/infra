@@ -105,3 +105,29 @@ resource "postgresql_database" "prowlarr_log" {
     postgresql_role.k8s
   ]
 }
+
+resource "postgresql_database" "grafana" {
+  name              = "grafana"
+  owner             = "k8s"
+  lc_collate        = "C"
+  encoding          = "UTF8"
+  connection_limit  = -1
+  allow_connections = true
+  depends_on = [
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
+  ]
+}
+
+resource "postgresql_database" "netbox" {
+  name              = "netbox"
+  owner             = "k8s"
+  lc_collate        = "C"
+  encoding          = "UTF8"
+  connection_limit  = -1
+  allow_connections = true
+  depends_on = [
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
+  ]
+}

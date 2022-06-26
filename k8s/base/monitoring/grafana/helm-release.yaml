@@ -51,6 +51,7 @@ spec:
         auth_url: https://kutara-dev.us.auth0.com/authorize
         token_url: https://kutara-dev.us.auth0.com/oauth/token
         api_url: https://kutara-dev.us.auth0.com/userinfo
+        use_pkce: true
       auth.generic_oauth.group_mapping:
         role_attribute_path: contains("https://kutara.io/groups"[*], 'admins') && 'Admin' || contains("https://kutara.io/groups"[*], 'editor') && 'Editor' || 'Viewer'"
         org_id: 1
@@ -69,9 +70,9 @@ spec:
         check_for_updates: false
       database:
         type: postgres
-        user: postgres
-        host: grafana-postgres
-        name: postgres
+        user: k8s
+        host: db-01.scr1.rabbito.tech
+        name: grafana
       log:
         mode: console
       grafana_net:

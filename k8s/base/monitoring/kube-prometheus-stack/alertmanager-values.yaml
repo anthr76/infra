@@ -50,6 +50,8 @@ alertmanager:
         hosts:
           - "alert-manager.${GENERIC_CLUSTER_INGRESS}"
   alertmanagerSpec:
+    replicas: 3
+    podAntiAffinity: hard
     externalUrl: "https://alert-manager.${GENERIC_CLUSTER_INGRESS}/"
     storage:
       volumeClaimTemplate:
