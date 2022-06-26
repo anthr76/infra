@@ -29,7 +29,9 @@ prometheus:
           - "prom.${GENERIC_CLUSTER_INGRESS}"
   prometheusSpec:
     replicas: 3
-    replicaExternalLabelName: "replica"
+    replicaExternalLabelName: "__replica__"
+    externalLabels:
+      cluster: scr1-cluster-0
     podAntiAffinity: hard
     retentionSize: "6GB"
     ruleSelectorNilUsesHelmValues: false
