@@ -119,7 +119,7 @@ spec:
         talos_kernel:
           type: loki
           inputs:
-            - talos_kernel_logs_xform
+            - talos_kernel_logs
           endpoint: http://loki-gateway.monitoring:80
           encoding:
             codec: json
@@ -136,7 +136,7 @@ spec:
         talos_service:
           type: loki
           inputs:
-            - talos_service_logs_xform
+            - talos_service_logs
           endpoint: http://loki-gateway.monitoring:80
           encoding:
             codec: json
