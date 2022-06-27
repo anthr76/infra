@@ -22,7 +22,7 @@ spec:
     nameOverride: "0"
     image: 
       repository: docker.io/itzg/minecraft-server
-      tag: 2022.6.0
+      tag: 2022.9.0
     resources:
       requests:
         memory: 4Gi
