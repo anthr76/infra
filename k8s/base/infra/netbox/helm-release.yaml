@@ -42,6 +42,7 @@ spec:
       groupHeader: HTTP_X_AUTH_REQUEST_GROUPS
       defaultPermissions: None
       groupSyncEnabled: True
+      groupSeparator: ','
       autoCreateUser: True
       superuserGroups:
         - admins
