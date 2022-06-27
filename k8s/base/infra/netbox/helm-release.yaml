@@ -38,8 +38,8 @@ spec:
       version: 1
     remoteAuth:
       enabled: True
-      header: HTTP_REMOTE_USER
-      groupHeader: HTTP_REMOTE_GROUPS
+      header: HTTP_AUTH_REQUEST_EMAIL
+      groupHeader: HTTP_AUTH_REQUEST_GROUPS
       defaultPermissions: None
       groupSyncEnabled: True
       autoCreateUser: True
@@ -91,6 +91,8 @@ spec:
         nginx.ingress.kubernetes.io/custom-http-errors: 401,403,404,500,501,502,503
         nginx.ingress.kubernetes.io/auth-signin: https://auth.kutara.io/oauth2/start
         nginx.ingress.kubernetes.io/auth-url: http://auth.kutara.io/oauth2/auth?allowed_groups=admins,family
+        hajimari.io/icon: ip-network-outline
+        hajimari.io/enable: "true"
       hosts:
         - host: netbox.kutara.io
           paths:
