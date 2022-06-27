@@ -122,7 +122,8 @@ resource "postgresql_database" "grafana" {
 resource "postgresql_database" "netbox" {
   name              = "netbox"
   owner             = "k8s"
-  lc_collate        = "C"
+  lc_collate        = "en_US.utf8"
+  lc_ctype          = "en_US.utf8"
   encoding          = "UTF8"
   connection_limit  = -1
   allow_connections = true

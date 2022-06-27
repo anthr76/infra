@@ -38,8 +38,8 @@ spec:
       version: 1
     remoteAuth:
       enabled: True
-      header: HTTP_AUTH_REQUEST_EMAIL
-      groupHeader: HTTP_AUTH_REQUEST_GROUPS
+      header: HTTP_X_AUTH_REQUEST_EMAIL
+      groupHeader: HTTP_X_AUTH_REQUEST_GROUPS
       defaultPermissions: None
       groupSyncEnabled: True
       autoCreateUser: True
