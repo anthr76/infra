@@ -29,7 +29,9 @@ data "ct_config" "db_01" {
   content = templatefile(
     "db-01.yaml",
     {
-      postgres_password = data.sops_file.tf_secrets.data["postgres_password"]
+      postgres_password = data.sops_file.tf_secrets.data["postgres_password"],
+      postgres_exporter_password = data.sops_file.tf_secrets.data["postgres_exporter_password"]
+
     }
   )
   strict       = true

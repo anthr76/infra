@@ -21,5 +21,33 @@
         ]
       }
     ]
+  },
+  "storage": {
+    "directories": [
+      {
+        "path": "/etc/vector"
+      },
+      {
+        "path": "/var/lib/vector"
+      }
+    ],
+    "files": [
+      {
+        "path": "/etc/vector/vector.yaml",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/1SOQW6FMAxE9zmFlX3Cp4suchlkkih1S2PkGCRuXxFA6l/Os/VmnHMmoeKUSAIMe47K4k7iEolpvEnMLRiAb96k4jItXHoG0GPN4eGpo+cpkXTTcTpRhoXLcN9Mo/rTDVfZdOb/wgt3QHXd9G4DcG8bOsSUJLcWwN7LsRTJBZXF/3IlZaFafIsyesF5JmWvOX6Fz9drtF2xZ2nENYD9sOYvAAD//02+0R8PAQAA"
+        }
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nDescription=vector agent log shipper.\nWants=network.target\nAfter=network-online.target\n[Service]\nEnvironment=PODMAN_SYSTEMD_UNIT=%n\nRestart=on-failure\nTimeoutStopSec=70\nExecStartPre=/bin/rm -f %t/container-vector-agent.pid %t/container-vector-agent.ctr-id\nExecStart=/bin/podman run \\\n    --conmon-pidfile %t/container-vector-agent.pid \\\n    --cidfile %t/container-vector-agent.ctr-id \\\n    --cgroups=no-conmon -d --replace \\\n    --rm \\\n    --read-only \\\n    --name=vector-agent \\\n    --net host \\\n    --security-opt label=disable \\\n    -v /etc/vector/vector.yaml:/etc/vector/vector.yaml:ro,Z \\\n    -v /var/lib/vector:/vector-data-dir:Z \\\n    -v /var/log:/var/log:ro \\\n    docker.io/timberio/vector:0.22.2-debian\nExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-vector-agent.ctr-id -t 10\nExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-vector-agent.ctr-id\nPIDFile=%t/container-vector-agent.pid\nType=forking\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "container-vector-agent.service"
+      }
+    ]
   }
 }

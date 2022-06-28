@@ -32,15 +32,31 @@ storage:
       contents:
         inline: |
           POSTGRES_PASSWORD=${postgres_password}
+          POSTGRES_EXPORTER_PASSWORD=${postgres_exporter_password}
 systemd:
   units:
+    - name: pod-database.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Creates a podman pod to run the database services.
+        After=network-online.target
+        Wants=network-online.target
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=sh -c 'podman pod exists database || podman pod create -n database -p 6379:6379 -p 5432:5432 -p 9187:9187 -p 9121:9121'
+        ExecStop=sh -c 'podman pod exists database && podman pod rm --force database'
+        [Install]
+        WantedBy=multi-user.target
     - name: container-redis.service
       enabled: true
       contents: |
         [Unit]
         Description=redis.
         Wants=network.target
-        After=network-online.target
+        After=network-online.target pod-database.service
+        Requires=pod-database.service
         [Service]
         Environment=PODMAN_SYSTEMD_UNIT=%n
         Restart=on-failure
@@ -52,9 +68,9 @@ systemd:
             --cgroups=no-conmon -d --replace \
             --rm \
             --read-only \
+            --pod=database \
             --name=redis \
             -v /var/srv/redis:/data:z \
-            -p 6379:6379 \
             docker.io/library/redis:7.0.1
         ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-redis.ctr-id -t 10
         ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-redis.ctr-id
@@ -68,7 +84,8 @@ systemd:
         [Unit]
         Description=postgres 14.
         Wants=network.target
-        After=network-online.target
+        After=network-online.target pod-database.service
+        Requires=pod-database.service
         [Service]
         Environment=PODMAN_SYSTEMD_UNIT=%n
         EnvironmentFile=/etc/environment-secrets
@@ -81,17 +98,76 @@ systemd:
             --cgroups=no-conmon -d --replace \
             --rm \
             --read-only \
+            --pod=database \
             --name=postgres \
             -e POSTGRES_USER=db-01 \
             -e POSTGRES_INITDB_ARGS="--encoding='UTF8' --lc-collate='C' --lc-ctype='C'" \
             -e POSTGRES_PASSWORD=$${POSTGRES_PASSWORD} \
             -v /var/srv/postgres-14:/var/lib/postgresql/data:z \
-            -p 5432:5432 \
             docker.io/library/postgres:14.3 \
             -c listen_addresses='*'
         ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-postgresql.ctr-id -t 10
         ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-postgresql.ctr-id
         PIDFile=%t/container-postgresql.pid
+        Type=forking
+        [Install]
+        WantedBy=multi-user.target
+    - name: container-postgresql-exporter.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=postgres exporter.
+        Wants=network.target
+        After=network-online.target pod-database.service container-postgresql.service
+        Requires=pod-database.service container-postgresql.service
+        [Service]
+        Environment=PODMAN_SYSTEMD_UNIT=%n
+        EnvironmentFile=/etc/environment-secrets
+        Restart=on-failure
+        TimeoutStopSec=70
+        ExecStartPre=/bin/rm -f %t/container-postgresql-exporter.pid %t/container-postgresql-exporter.ctr-id
+        ExecStart=/bin/podman run \
+            --conmon-pidfile %t/container-postgresql-exporter.pid \
+            --cidfile %t/container-postgresql-exporter.ctr-id \
+            --cgroups=no-conmon -d --replace \
+            --rm \
+            --read-only \
+            --pod=database \
+            --name=postgres-exporter \
+            -e DATA_SOURCE_NAME="postgresql://postgres_exporter:$${POSTGRES_EXPORTER_PASSWORD}@localhost:5432/postgres_exporter?sslmode=disable" \
+            -e PG_EXPORTER_AUTO_DISCOVER_DATABASES=true \
+            quay.io/prometheuscommunity/postgres-exporter:v0.10.1
+        ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-postgresql-exporter.ctr-id -t 10
+        ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-postgresql-exporter.ctr-id
+        PIDFile=%t/container-postgresql-exporter.pid
+        Type=forking
+        [Install]
+        WantedBy=multi-user.target
+    - name: container-redis-exporter.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=redis exporter.
+        Wants=network.target
+        After=network-online.target pod-database.service container-redis.service
+        Requires=pod-database.service container-redis.service
+        [Service]
+        Environment=PODMAN_SYSTEMD_UNIT=%n
+        Restart=on-failure
+        TimeoutStopSec=70
+        ExecStartPre=/bin/rm -f %t/container-redis-exporter.pid %t/container-redis-exporter.ctr-id
+        ExecStart=/bin/podman run \
+            --conmon-pidfile %t/container-redis-exporter.pid \
+            --cidfile %t/container-redis-exporter.ctr-id \
+            --cgroups=no-conmon -d --replace \
+            --rm \
+            --read-only \
+            --pod=database \
+            --name=redis-exporter \
+        quay.io/oliver006/redis_exporter:v1.43.0
+        ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-redis-exporter.ctr-id -t 10
+        ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-redis-exporter.ctr-id
+        PIDFile=%t/container-redis-exporter.pid
         Type=forking
         [Install]
         WantedBy=multi-user.target

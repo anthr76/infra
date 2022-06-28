@@ -64,6 +64,7 @@ prometheus:
               - ceph-01.${INT_DOMAIN}:9100
               - ceph-02.${INT_DOMAIN}:9100
               - ceph-03.${INT_DOMAIN}:9100
+              - libvirt-01.scr1.rabbito.tech:9100
       - job_name: "vyos-coredns"
         static_configs:
           - targets:
@@ -81,3 +82,11 @@ prometheus:
         static_configs:
           - targets:
               - "fw-1.scr1.rabbito.tech:9273"
+      - job_name: "redis"
+        static_configs:
+          - targets:
+              - "db-01.scr1.rabbito.tech:9121"
+      - job_name: "postgres"
+        static_configs:
+          - targets:
+              - "db-01.scr1.rabbito.tech:9187"

@@ -12,3 +12,57 @@ passwd:
     - name: root
       ssh_authorized_keys:
         - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBE0SaE3DjA8TkonMthpFvud67S1wJe+XhN0pueHccwF4iDWkAUHA0wLObGORucoO//aR5o7HZGiqPSUbjIS/GwY=
+storage:
+  directories:
+    - path: /etc/vector
+    - path: /var/lib/vector
+  files:
+    - path: /etc/vector/vector.yaml
+      contents:
+        inline: |
+          ---
+          data_dir: /vector-data-dir
+          sources:
+            journal_logs:
+              type: journald
+              journal_directory: /var/log/journal
+          sinks:
+            vector_sink:
+              type: vector
+              inputs:
+                - journal_logs
+              address: "vector-aggregator.monitoring.scr1.rabbito.tech:6001"
+              version: "2"
+systemd:
+  units:
+    - name: container-vector-agent.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=vector agent log shipper.
+        Wants=network.target
+        After=network-online.target
+        [Service]
+        Environment=PODMAN_SYSTEMD_UNIT=%n
+        Restart=on-failure
+        TimeoutStopSec=70
+        ExecStartPre=/bin/rm -f %t/container-vector-agent.pid %t/container-vector-agent.ctr-id
+        ExecStart=/bin/podman run \
+            --conmon-pidfile %t/container-vector-agent.pid \
+            --cidfile %t/container-vector-agent.ctr-id \
+            --cgroups=no-conmon -d --replace \
+            --rm \
+            --read-only \
+            --name=vector-agent \
+            --net host \
+            --security-opt label=disable \
+            -v /etc/vector/vector.yaml:/etc/vector/vector.yaml:ro,Z \
+            -v /var/lib/vector:/vector-data-dir:Z \
+            -v /var/log:/var/log:ro \
+            docker.io/timberio/vector:0.22.2-debian
+        ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-vector-agent.ctr-id -t 10
+        ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-vector-agent.ctr-id
+        PIDFile=%t/container-vector-agent.pid
+        Type=forking
+        [Install]
+        WantedBy=multi-user.target

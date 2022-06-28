@@ -143,6 +143,21 @@ spec:
           gnetId: 15515
           revision: 1
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/1860
+        node-exporter-full:
+          gnetId: 1860
+          revision: 1
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/763
+        redis-exporter:
+          gnetId: 763
+          revision: 1
+          datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/9628
+        postgresql-exporter:
+          gnetId: 9628
+          revision: 1
+          datasource: Prometheus
     sidecar:
       dashboards:
         enabled: true
