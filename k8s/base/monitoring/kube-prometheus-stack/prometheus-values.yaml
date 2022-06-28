@@ -76,3 +76,8 @@ prometheus:
               - "ceph-01.scr1.rabbito.tech:9283"
               - "ceph-02.scr1.rabbito.tech:9283"
               - "ceph-03.scr1.rabbito.tech:9283"
+      - job_name: "vyos"
+        metrics_path: /metrics
+        static_configs:
+          - targets:
+              - "fw-1.scr1.rabbito.tech:9273"
