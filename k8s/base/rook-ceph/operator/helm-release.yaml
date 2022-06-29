@@ -28,6 +28,10 @@ spec:
       enabled: true
     monitoring:
       enabled: true
+    csi:
+      enableOMAPGenerator: true
+      volumeReplication:
+        enabled: true
     resources:
       requests:
         cpu: 350m

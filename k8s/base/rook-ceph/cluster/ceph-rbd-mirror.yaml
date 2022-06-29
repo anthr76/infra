@@ -1,0 +1,24 @@
+---
+apiVersion: ceph.rook.io/v1
+kind: CephRBDMirror
+metadata:
+  name: cephadm-mirror
+  namespace: rook-ceph
+spec:
+  count: 1
+  placement:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: feature.node.kubernetes.io/custom-intel-10g
+            operator: In
+            values:
+            - "true"
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+    requests:
+      cpu: "500m"
+      memory: "1Gi"

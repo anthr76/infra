@@ -1,0 +1,31 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: volume-replication-operator
+  namespace: flux-system
+spec:
+  interval: 9m0s
+  ref:
+    # renovate: datasource=github-releases depName=csi-addons/volume-replication-operator
+    tag: v0.3.0
+  url: https://github.com/csi-addons/volume-replication-operator.git
+  ignore: |
+    # exclude all
+    /*
+    # include gitops dirs
+    !/config
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: volume-replication-operator-crd
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./config/crd/bases
+  prune: false
+  wait: false
+  sourceRef:
+    kind: GitRepository
+    name: volume-replication-operator

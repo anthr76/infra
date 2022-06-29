@@ -1,0 +1,13 @@
+---
+apiVersion: replication.storage.openshift.io/v1alpha1
+kind: VolumeReplication
+metadata:
+  name: zigbee2mqtt
+  namespace: home
+spec:
+  volumeReplicationClass: ceph-block
+  replicationState: primary
+  dataSource:
+    apiGroup: ""
+    kind: PersistentVolumeClaim
+    name: zigbee2mqtt-config-v1
