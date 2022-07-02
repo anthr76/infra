@@ -20,3 +20,5 @@ metadata:
 spec:
   path: "./k8s/base/rook-ceph-external/external-cluster"
   prune: true
+  dependsOn:
+    - name: rook-ceph-snapshot-controller-crds

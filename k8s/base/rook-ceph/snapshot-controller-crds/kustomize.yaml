@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
   name: external-snapshotter
-  namespace: flux-system
+  namespace: rook-ceph
 spec:
   interval: 9m0s
   ref:
@@ -14,36 +14,18 @@ spec:
     # exclude all
     /*
     # include gitops dirs
-    !/deploy
     !/client/config/crd
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: rook-ceph-external-snapshotter-crd
-  namespace: flux-system
+  namespace: rook-ceph
 spec:
   interval: 10m0s
   path: ./client/config/crd
   prune: true
   wait: true
-  sourceRef:
-    kind: GitRepository
-    name: external-snapshotter
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: external-snapshotter-controller
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: rook-ceph-external-snapshotter-crd
-  interval: 10m0s
-  path: ./deploy/kubernetes/snapshot-controller
-  prune: true
-  wait: true
-  targetNamespace: rook-ceph
   sourceRef:
     kind: GitRepository
     name: external-snapshotter

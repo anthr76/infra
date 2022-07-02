@@ -31,6 +31,8 @@ metadata:
 spec:
   path: "./k8s/base/rook-ceph/cluster"
   prune: true
+  dependsOn:
+    - name: rook-ceph-snapshot-controller-crds
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -59,12 +61,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: rook-ceph-external-snapshotter
+  name: rook-ceph-snapshot-controller-crds
   namespace: flux-system
   labels:
     component.kutara.io/part-of: definitions
 spec:
-  path: "./k8s/base/rook-ceph/snapshot-controller"
+  path: "./k8s/base/rook-ceph/snapshot-controller-crds"
   prune: true
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
