@@ -2,7 +2,7 @@
 apiVersion: replication.storage.openshift.io/v1alpha1
 kind: VolumeReplication
 metadata:
-  name: zigbee2mqtt-config-v1
+  name: esphome-config-v1
   namespace: home
 spec:
   volumeReplicationClass: ceph-block
@@ -10,6 +10,6 @@ spec:
   dataSource:
     apiGroup: ""
     kind: PersistentVolumeClaim
-    # pvc-dccc9864-362b-44a7-8f47-4828a6224e4f
-    # csi-vol-37c218bb-f9be-11ec-a230-2605856f78a8
-    name: zigbee2mqtt-config-v1
+    # pvc-9441d78f-bb4b-4fa9-bcb0-17c027ef1fe4
+    # csi-vol-2ba59707-f9be-11ec-a230-2605856f78a8
+    name: esphome-config-v1

@@ -2,14 +2,14 @@
 apiVersion: replication.storage.openshift.io/v1alpha1
 kind: VolumeReplication
 metadata:
-  name: zigbee2mqtt-config-v1
-  namespace: home
+  name: sonarr-uhd-config-v1
+  namespace: media
 spec:
   volumeReplicationClass: ceph-block
   replicationState: primary
   dataSource:
     apiGroup: ""
     kind: PersistentVolumeClaim
-    # pvc-dccc9864-362b-44a7-8f47-4828a6224e4f
-    # csi-vol-37c218bb-f9be-11ec-a230-2605856f78a8
-    name: zigbee2mqtt-config-v1
+    # pvc-c7699dd1-3b82-4306-9634-3bc3f0974d16
+    # csi-vol-76ef136c-f9bf-11ec-a230-2605856f78a8
+    name: sonarr-uhd-config-v1

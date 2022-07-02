@@ -2,14 +2,14 @@
 apiVersion: replication.storage.openshift.io/v1alpha1
 kind: VolumeReplication
 metadata:
-  name: zigbee2mqtt-config-v1
-  namespace: home
+  name: plex-config-v1
+  namespace: media
 spec:
   volumeReplicationClass: ceph-block
   replicationState: primary
   dataSource:
     apiGroup: ""
     kind: PersistentVolumeClaim
-    # pvc-dccc9864-362b-44a7-8f47-4828a6224e4f
-    # csi-vol-37c218bb-f9be-11ec-a230-2605856f78a8
-    name: zigbee2mqtt-config-v1
+    # pvc-57b57f68-aaaa-43b9-86da-3b67044bb3d4
+    # csi-vol-613b9ade-f9bf-11ec-a230-2605856f78a8
+    name: plex-config-v1

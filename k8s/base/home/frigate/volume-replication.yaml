@@ -2,7 +2,7 @@
 apiVersion: replication.storage.openshift.io/v1alpha1
 kind: VolumeReplication
 metadata:
-  name: zigbee2mqtt-config-v1
+  name: frigate-config-v1
   namespace: home
 spec:
   volumeReplicationClass: ceph-block
@@ -10,6 +10,6 @@ spec:
   dataSource:
     apiGroup: ""
     kind: PersistentVolumeClaim
-    # pvc-dccc9864-362b-44a7-8f47-4828a6224e4f
-    # csi-vol-37c218bb-f9be-11ec-a230-2605856f78a8
-    name: zigbee2mqtt-config-v1
+    # pvc-9ee9de24-d870-46f1-8114-bfedad75b5a2
+    # csi-vol-2f57054d-f9be-11ec-a230-2605856f78a8
+    name: frigate-config-v1

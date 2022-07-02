@@ -2,14 +2,14 @@
 apiVersion: replication.storage.openshift.io/v1alpha1
 kind: VolumeReplication
 metadata:
-  name: zigbee2mqtt-config-v1
-  namespace: home
+  name: radarr-config-v1
+  namespace: media
 spec:
   volumeReplicationClass: ceph-block
   replicationState: primary
   dataSource:
     apiGroup: ""
     kind: PersistentVolumeClaim
-    # pvc-dccc9864-362b-44a7-8f47-4828a6224e4f
-    # csi-vol-37c218bb-f9be-11ec-a230-2605856f78a8
-    name: zigbee2mqtt-config-v1
+    # pvc-3d6f7ddf-85f0-4d43-836b-b047cfe6f194
+    # csi-vol-68b20fe8-f9bf-11ec-a230-2605856f78a8
+    name: radarr-config-v1

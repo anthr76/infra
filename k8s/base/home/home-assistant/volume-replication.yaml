@@ -2,7 +2,7 @@
 apiVersion: replication.storage.openshift.io/v1alpha1
 kind: VolumeReplication
 metadata:
-  name: home-assistant
+  name: home-assistant-config-v1
   namespace: home
 spec:
   volumeReplicationClass: ceph-block
@@ -10,4 +10,6 @@ spec:
   dataSource:
     apiGroup: ""
     kind: PersistentVolumeClaim
+    # pvc-f4e05b3e-6eea-4ae1-b814-359ea772bba6
+    # csi-vol-3172afe1-f9be-11ec-a230-2605856f78a8
     name: home-assistant-config-v1
