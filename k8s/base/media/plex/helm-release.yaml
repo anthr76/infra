@@ -84,6 +84,10 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
+      backup:
+        enabled: true
+        existingClaim: plex-backup-v1
+        mountPath: /config/Backups
       transcode:
         enabled: true
         type: emptyDir
