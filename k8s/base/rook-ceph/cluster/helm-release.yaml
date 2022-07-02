@@ -24,6 +24,8 @@ spec:
   dependsOn:
     - name: rook-ceph
   values:
+    network:
+      provider: host
     toolbox:
       enabled: false
       image: quay.io/ceph/ceph:v17.2.1
