@@ -93,6 +93,10 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
+      backup:
+        enabled: true
+        existingClaim: radarr-backup-v1
+        mountPath: /config/Backups
     resources:
       requests:
         memory: 450Mi

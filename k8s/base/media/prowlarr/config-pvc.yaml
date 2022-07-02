@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonarr-backup-v1
+  name: prowlarr-backup-v1
   namespace: media
 spec:
   accessModes:
