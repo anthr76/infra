@@ -15,7 +15,22 @@ spec:
         name: metrics-server-charts
         namespace: flux-system
       interval: 5m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
-    tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
+    args:
+      # TODO: Get \"https://192.168.8.51:10250/metrics/resource\": x509: cannot validate certificate for 192.168.8.51 because it doesn't contain any IP SANs" node="master-03"
+      # master nodes aren't in the SAN? Need to dig into this.
+      - --kubelet-insecure-tls
+      - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      - --kubelet-use-node-status-port
+      - --metric-resolution=15s
+    metrics:
+      enabled: true
+    serviceMonitor:
+      enabled: true
