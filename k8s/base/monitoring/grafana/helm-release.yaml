@@ -18,12 +18,25 @@ spec:
   values:
     resources:
       limits:
-        cpu: 500m
+        cpu: 400m
         memory: 512Mi
       requests:
-        cpu: 200m
+        cpu: 100m
         memory: 128Mi
-    replicas: 3
+    replicas: 1
+    autoscaling:
+      enabled: false
+      minReplicas: 1
+      maxReplicas: 5
+      metrics:
+      - type: Resource
+        resource:
+          name: cpu
+          targetAverageUtilization: 60
+      - type: Resource
+        resource:
+          name: memory
+          targetAverageUtilization: 60
     envFromSecret: "grafana-secrets"
     env:
       GF_EXPLORE_ENABLED: true
@@ -141,16 +154,6 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/15513
         cilium-hubble:
           gnetId: 15515
-          revision: 1
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/1860
-        node-exporter-full:
-          gnetId: 1860
-          revision: 1
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/763
-        redis-exporter:
-          gnetId: 763
           revision: 1
           datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/9628
