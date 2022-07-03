@@ -24,14 +24,14 @@ spec:
   dependsOn:
     - name: rook-ceph
   values:
-    network:
-      provider: host
     toolbox:
       enabled: false
       image: quay.io/ceph/ceph:v17.2.1
     monitoring:
       enabled: true
     cephClusterSpec:
+      network:
+        provider: host
       dashboard:
         enabled: true
         urlPrefix: /
