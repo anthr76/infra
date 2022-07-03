@@ -16,6 +16,11 @@ spec:
         namespace: flux-system
   values:
     worker:
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Equal"
+          value: ""
+          effect: "NoSchedule"
       annotations:
         configmap.reloader.stakater.com/reload: node-feature-discovery-worker-conf
       config:

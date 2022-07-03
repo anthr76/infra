@@ -17,7 +17,58 @@ spec:
       interval: 5m
   values:
     controller:
-      replicaCount: 3
+      replicaCount: 2
+      tolerations:
+        - effect: NoSchedule
+          key: "node-role.kubernetes.io/master"
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: feature.node.kubernetes.io/custom-intel-10g
+                operator: In
+                values:
+                - "true"
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - ingress-nginx
+                - key: app.kubernetes.io/instance
+                  operator: In
+                  values:
+                  - ingress-nginx
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                  - controller
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+        maxReplicas: 8
+        targetCPUUtilizationPercentage: 50
+        targetMemoryUtilizationPercentage: 50
+        behavior:
+          scaleDown:
+           stabilizationWindowSeconds: 300
+           policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 180
+          scaleUp:
+            stabilizationWindowSeconds: 300
+            policies:
+            - type: Pods
+              value: 2
+              periodSeconds: 60
       service:
         enabled: true
         type: LoadBalancer
@@ -68,6 +119,9 @@ spec:
           memory: 312M
     defaultBackend:
       enabled: true
+      autoscaling:
+        enabled: true
+        maxReplicas: 3
       image:
         repository: ghcr.io/tarampampam/error-pages
         tag: 2.16.0
@@ -81,4 +135,5 @@ spec:
           cpu: 15m
           memory: 64M
         limits:
-          memory: 64M
+          cpu: 128m
+          memory: 128M
