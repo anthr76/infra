@@ -52,8 +52,8 @@ spec:
             weight: 100
       autoscaling:
         enabled: true
-        minReplicas: 2
-        maxReplicas: 8
+        minReplicas: 3
+        maxReplicas: 6
         targetCPUUtilizationPercentage: 50
         targetMemoryUtilizationPercentage: 50
         behavior:

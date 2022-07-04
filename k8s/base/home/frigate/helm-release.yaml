@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: docker.io/blakeblackshear/frigate
-      tag: 0.10.1-amd64
+      tag: 0.11.0-beta5
     env:
       TZ: America/New_York
       FRIGATE_MQTT_PASSWORD:

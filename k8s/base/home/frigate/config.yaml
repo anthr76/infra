@@ -64,10 +64,10 @@ cameras:
       height: 720
       fps: 10
     zones:
-      street:
-        coordinates: 0,0,1280,0,1280,142,0,135,0,122
       font_yard:
-        coordinates: 1280,720,1280,97,0,132,0,720
+        coordinates: 1280,720,1280,158,0,194,0,720
+      street:
+        coordinates: 0,0,1280,0,1280,153,0,174,0,122
     motion:
       mask:
         - 792,66,1226,72,1223,21,800,24
