@@ -64,7 +64,7 @@ cameras:
       height: 720
       fps: 10
     zones:
-      font_yard:
+      front_yard:
         coordinates: 1280,720,1280,158,0,194,0,720
       street:
         coordinates: 0,0,1280,0,1280,153,0,174,0,122
