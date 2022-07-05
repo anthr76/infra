@@ -134,20 +134,6 @@ spec:
               implementation: "prometheus"
     dashboards:
       default:
-        ceph-cluster:
-          gnetId: 2842
-          revision: 14
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/5336
-        ceph-osd:
-          gnetId: 5336
-          revision: 5
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/5342
-        ceph-pools:
-          gnetId: 5342
-          revision: 5
-          datasource: Prometheus
         # Ref: https://grafana.com/grafana/dashboards/15514
         cilium-operator:
           gnetId: 15514
