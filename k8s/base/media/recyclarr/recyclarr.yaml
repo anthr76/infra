@@ -8,7 +8,7 @@
 # https://github.com/rcdailey/trash-updater/wiki/Configuration-Reference
 sonarr:
     - base_url: http://sonarr:8989
-      api_key: ENC[AES256_GCM,data:Z1FCyavFGlRKzsxbXYwokRXXYy2YX0Joo2OsjyzaKNA=,iv:kZus0TF4qipJm6JraVdZ+1uKfS0xvnHBogKtzg/+vbc=,tag:WLAS/5aZysarToUNL0lkDQ==,type:str]
+      api_key: ENC[AES256_GCM,data:u5Mwu9nYfwDIU7HT3YwJQRJX616nM3mmRQvJ7h9mKK4=,iv:DrGZsaqBP8hEQuIJzyJWXzH84OU+69ZYYHG6ar9XRNY=,tag:HRXTHqrLetckUZT7WMLBjQ==,type:str]
       quality_definition: hybrid
       release_profiles:
         - trash_ids:
@@ -18,8 +18,16 @@ sonarr:
             - 1B018E0C53EC825085DD911102E2CA36
             # P2P Groups + Repack/Proper
             - 71899E6C303A07AF0E4746EFF9873532
+        - trash_ids:
+            # Anime - First release profile
+            - d428eda85af1df8904b4bbe4fc2f537c
+            # Anime - Second release profile
+            - 6cd9e10bb5bb4c63d2d7cd3279924c7b
+          strict_negative_scores: true
+          tags:
+            - anime
     - base_url: http://sonarr-uhd:8989
-      api_key: ENC[AES256_GCM,data:W8j7c5Ka293Z0ukniEbl0D7oCUy8KXsLIWhSDEorkk4=,iv:ioQDt5DcsF1C7fvF+dFBuHXQEJaDqLE+cZyemePUGmA=,tag:r17Bmy1K0w4onF2xrz8Ihg==,type:str]
+      api_key: ENC[AES256_GCM,data:7sGhA0woKCITpMwqkwhHhRv7pXcWox2Gz5O/mho3sD4=,iv:0BlUa4oGRD4RoZW+SzDxFF3GKXw4/AAKRWv3vpArdWE=,tag:aQJPrYE7gR0zRGcWZ9PYKA==,type:str]
       quality_definition: hybrid
       release_profiles:
         - trash_ids:
@@ -31,7 +39,7 @@ sonarr:
             - 71899E6C303A07AF0E4746EFF9873532
 radarr:
     - base_url: http://radarr:7878
-      api_key: ENC[AES256_GCM,data:jkBBlXusHpeN4w/l8P6gWO3evaDDYLGy3Vdc7nrzvSY=,iv:3lOwcoZIEgHO9MqEIs5uqoGHEYPlODMF3N4ZziV9dBw=,tag:en+4wzcEoJGKYOlDkmHDcA==,type:str]
+      api_key: ENC[AES256_GCM,data:vQrv+ZQbEIjR/FjpSzNtvz9yJb4hmMkwsVdhAML9U2A=,iv:uAkv0kU4NJIOAySXe+m7wFuLtO4I1o1g8muOq14u1sw=,tag:9UGAh+u3m7wbEVnKjW+Cqg==,type:str]
       delete_old_custom_formats: true
       quality_definition:
         type: movie
@@ -172,7 +180,7 @@ radarr:
             - name: SD
               score: 0
     - base_url: http://radarr-uhd:7878
-      api_key: ENC[AES256_GCM,data:x5WuPvxQZ7H8XklOjZqHjDQILRbObsmZWMNLKp96iAY=,iv:TV1w5FSriVSswe+lTBGbRxL9qdKgOZF0wd5pL/m15eY=,tag:a3CRZo72DnNdJWTvFEkhaw==,type:str]
+      api_key: ENC[AES256_GCM,data:NBUH+r2wsxVC/IVyHjqJCypagON6ceZmmEWBukFhkzM=,iv:xxZR0L0/sLVLcXlKl8aHcb4YIAMGxdZRcHAm8Yd6SzA=,tag:LroU2Xuu67XW8dEAJphj1g==,type:str]
       delete_old_custom_formats: true
       quality_definition:
         type: movie
@@ -305,14 +313,14 @@ sops:
         - recipient: age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBZamRwYXlqWkJjWXFhWWVJ
-            Sk9rd2tWbHRQMEdSYTM5bkJsQmVkdDNtNWhZCkFSUHlTZUZRUjY2bU9LRnF0aHI3
-            WUJDOGd5c1NLTWUyUGdXc0VkaHBaK3cKLS0tIEs5OGxRZlpFaWNLSW41MlpvaWFE
-            QmFZdXZmbUt2RzhyMEhxVmxYcmExZ3cKgkUkoeE0D4nYnI44o2u3MtG5DSRXuFWA
-            Gj/yfK3zgpMj9EzDJG+R0WhAPnyNsGcEBumjPwu1BFg2PXIjsHWKvQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMcTVuc2pma1B1TUpmem1U
+            S3VYMFl3VTkrc0lIbVpmaGlpUXlsU3QvaTNNCmhocmgzT2hIeVRZclB4QVZCVjFP
+            Q3pWd3lYdlpZd1RrL29kaUN3YlRwbUUKLS0tIGJES1k3d1F0eitRVXV4RmFERS9C
+            bXA2bENydDVtakZpeTMzMEZZVnlCUFkKKnA2JF7e+kCrfvsrgWQU/tgA5Qcg63Bu
+            Qwlxbs466xXXrx+yrp0xTLwevObzAbKp30vdvg9BYRgr6mctTr/Grw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-06-21T04:04:54Z"
-    mac: ENC[AES256_GCM,data:aJWZnDSbBknFqP2ehQjCMuGhR1HDugEeL1ZCrGKCC2XcXqXXHaoDaoyHSjfFHUB+YHP4ntbAwT21SCFKLGGytBmREEzHrMpUZpXcdiUfq3yhuEkurC1nX/WGo6rcxLJ9qs0iyKMbt9qI+1Q8UeQfbf0+sGoQicuhsa/0szxBD9E=,iv:/8HxkzqTNZvXL4f28xrWWtXS/jTIWfl+jTwlA5lmfNw=,tag:mQFZlfOxvmiOEQ/kuYuyMg==,type:str]
+    lastmodified: "2022-07-05T12:50:55Z"
+    mac: ENC[AES256_GCM,data:MBPZK11QETQF1Ut3RIH83cdQVfwF611hwsOHJQcAKbwL0sVFwlI2o4P6BgQ5Y1SwoDNOUCjV0ti7wU6twiWuX4fls0ETBXNMwhNB6Fb4gHvUL52XI1FqJc98qCYmu7wdgWbhJb488X0xM2UZWc9PVvcOJn9JJ1jisy09y9ffXLw=,iv:Dnp6L/I+PC5DGQvq8dD5bLRSKn5F5ZisNIaQZxg6uy4=,tag:CXk6/JlogbC8uvvUKhLTOQ==,type:str]
     pgp: []
-    encrypted_regex: ((?i)(pass|secret($|[^N])|key|^data$|^stringData))
+    encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.7.3
