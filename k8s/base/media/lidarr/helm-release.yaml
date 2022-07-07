@@ -26,10 +26,16 @@ spec:
         securityContext:
           runAsUser: 0
     image:
-      repository: ghcr.io/k8s-at-home/lidarr-nightly
-      tag: v1.1.0.2618
+      repository: ghcr.io/onedr0p/lidarr
+      tag: 1.0.2.2592@sha256:592351b9287fc96a5b4eaba3ebf93b3f99cfab4b1be8779a63cb6f08fa7bfb8b
     env:
       TZ: "America/New_York"
+      LIDARR__INSTANCE_NAME: Lidarr
+      LIDARR__BRANCH: master
+      LIDARR__LOG_LEVEL: info
+    envFrom:
+      - secretRef:
+          name: lidarr
     ingress:
       main:
         enabled: true
@@ -37,14 +43,14 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: "lidarr.${INT_DOMAIN}"
+          - host: "lidarr.scr1.rabbito.tech"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: lidarr-tls
             hosts:
-              - "lidarr.${INT_DOMAIN}"
+              - "lidarr.scr1.rabbito.tech"
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
@@ -58,9 +64,14 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
+      backup:
+        enabled: true
+        existingClaim: lidarr-backup-v1
+        mountPath: /config/Backups
     resources:
       requests:
-        memory: 250Mi
-        cpu: 500m
+        memory: 128Mi
+        cpu: 128m
       limits:
-        memory: 1500Mi
+        memory: 1024Mi
+        cou: 500m
