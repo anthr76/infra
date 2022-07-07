@@ -35,6 +35,9 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 44
+        - 109
     service:
       main:
         ipFamilyPolicy: PreferDualStack
@@ -91,7 +94,6 @@ spec:
       transcode:
         enabled: true
         type: emptyDir
-        medium: Memory
     resources:
       requests:
         cpu: 128m
