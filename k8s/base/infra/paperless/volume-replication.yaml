@@ -1,0 +1,30 @@
+---
+apiVersion: replication.storage.openshift.io/v1alpha1
+kind: VolumeReplication
+metadata:
+  name: paperless-data-v1
+  namespace: home
+spec:
+  volumeReplicationClass: ceph-block
+  replicationState: primary
+  dataSource:
+    apiGroup: ""
+    kind: PersistentVolumeClaim
+    # pvc-1c349a56-7165-450e-9574-69f1cb216e59
+    # csi-vol-20400693-f9c1-11ec-a230-2605856f78a8
+    name: paperless-data-v1
+---
+apiVersion: replication.storage.openshift.io/v1alpha1
+kind: VolumeReplication
+metadata:
+  name: paperless-media-v1
+  namespace: home
+spec:
+  volumeReplicationClass: ceph-block
+  replicationState: primary
+  dataSource:
+    apiGroup: ""
+    kind: PersistentVolumeClaim
+    # pvc-4b11261d-0f5f-47bb-87b4-402083fbf70e
+    # csi-vol-20445df9-f9c1-11ec-a230-2605856f78a8
+    name: paperless-media-v1
