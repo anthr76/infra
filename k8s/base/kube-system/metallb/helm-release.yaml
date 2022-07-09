@@ -6,9 +6,16 @@ metadata:
   namespace: kube-system
 spec:
   interval: 5m
+  timeout: 15m
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      remediateLastFailure: true
+      retries: 50
+      strategy: rollback
   chart:
-    spec:
-      # renovate: registryUrl=https://metallb.github.io/metallb
       chart: metallb
       version: 0.13.3
       sourceRef:
@@ -17,7 +24,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    existingConfigMap: "metallb-config"
     prometheus:
       serviceAccount: prom-operator
       namespace: monitoring
