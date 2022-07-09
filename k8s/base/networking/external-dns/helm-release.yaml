@@ -7,6 +7,7 @@ metadata:
   labels:
     component.kutara.io/part-of: standard-helm-release
 spec:
+  interval: 5m
   chart:
     spec:
       chart: external-dns
