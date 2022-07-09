@@ -35,7 +35,7 @@ spec:
             - "0.0.0.0:8080"
             - "-root"
             - "/data"
-          image: "docker.io/library/caddy:2.4.6"
+          image: "docker.io/library/caddy:2.5.1"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 30
