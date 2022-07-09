@@ -15,6 +15,7 @@ spec:
       remediateLastFailure: true
       retries: 50
       strategy: rollback
+  chart:
     spec:
       chart: metallb
       version: 0.13.3
