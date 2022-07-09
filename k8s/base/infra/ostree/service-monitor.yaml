@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ostree
+  namespace: infra
+  labels:
+    app.kubernetes.io/instance: ostree
+    app.kubernetes.io/name: ostree
+spec:
+  endpoints:
+  - interval: 1m
+    path: /metrics
+    port: api
+    scrapeTimeout: 10s
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: ostree
+      app.kubernetes.io/name: ostree

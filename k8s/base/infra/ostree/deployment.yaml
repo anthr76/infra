@@ -48,6 +48,9 @@ spec:
             - containerPort: 8080
               name: http
               protocol: TCP
+            - containerPort: 2019
+              name: api
+              protocol: TCP
           readinessProbe:
             failureThreshold: 3
             periodSeconds: 10
