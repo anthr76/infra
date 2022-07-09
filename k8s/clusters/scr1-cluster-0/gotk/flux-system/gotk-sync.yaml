@@ -131,5 +131,5 @@ spec:
       target:
         kind: HelmRelease
         group: helm.toolkit.fluxcd.io
-        version: v1beta1
+        version: v2beta1
         labelSelector: "component.kutara.io/part-of=standard-helm-release"
