@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  labels:
+    app.kubernetes.io/instance: ostree
+    app.kubernetes.io/name: ostree
+  name: ostree
+  namespace: infra
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: ostree.kutara.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: ostree
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - ostree.kutara.io
+      secretName: ostree-tls
