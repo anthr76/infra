@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddy
+  namespace: infra
+data:
+  Caddyfile: |
+    {
+      http_port    8080
+      auto_https   off
+      admin        0.0.0.0:2019
+
+    }
+    :8080 {
+      file_server * browse {
+        root          /data
+        pass_thru
+      }
+    }
+

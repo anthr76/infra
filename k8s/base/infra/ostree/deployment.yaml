@@ -27,14 +27,13 @@ spec:
         fsGroup: 1000
       containers:
         - name: caddy
+          command:
+            - caddy
           args:
-            - "caddy"
-            - "file-server"
-            - "-browse"
-            - "-listen"
-            - "0.0.0.0:8080"
-            - "-root"
-            - "/data"
+            - "run"
+            - "-watch"
+            - "-config"
+            - "/etc/caddy/Caddyfile"
           image: "docker.io/library/caddy:2.5.1"
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -74,7 +73,16 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: data
+            - mountPath: /etc/caddy
+              name: caddy-config
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: ostree-repo
+        - name: caddy-config
+          configMap:
+            name: caddy
+            items:
+              - key: Caddyfile
+                path: Caddyfile
+                mode: 0644
