@@ -9,13 +9,13 @@ spec:
   timeout: 15m
   install:
     remediation:
-      retries: -1
+      retries: 5
   upgrade:
     remediation:
       remediateLastFailure: true
       retries: 50
       strategy: rollback
-  chart:
+    spec:
       chart: metallb
       version: 0.13.3
       sourceRef:
