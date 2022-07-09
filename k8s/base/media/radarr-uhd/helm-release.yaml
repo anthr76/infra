@@ -5,14 +5,15 @@ metadata:
   name: radarr-uhd
   namespace: media
 spec:
-  upgrade:
-    force: true
-    remediation:
-      retries: -1
-  install:
-    remediation:
-      retries: -1
   interval: 5m
+  timeout: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   chart:
     spec:
       chart: radarr

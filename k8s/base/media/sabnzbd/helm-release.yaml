@@ -6,6 +6,14 @@ metadata:
   namespace: media
 spec:
   interval: 5m
+  timeout: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   chart:
     spec:
       chart: sabnzbd
