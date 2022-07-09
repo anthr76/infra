@@ -112,3 +112,24 @@ spec:
         group: kustomize.toolkit.fluxcd.io
         version: v1beta2
         labelSelector: "component.kutara.io/part-of=definitions"
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2beta1
+        kind: HelmRelease
+        metadata:
+          name: not-used
+          namespace: not-used
+        spec:
+          interval: 5m
+          timeout: 15m
+          install:
+            createNamespace: true
+            remediation:
+              retries: 5
+          upgrade:
+            remediation:
+              retries: 5
+      target:
+        kind: HelmRelease
+        group: helm.toolkit.fluxcd.io
+        version: v1beta1
+        labelSelector: "component.kutara.io/part-of=standard-helm-release"

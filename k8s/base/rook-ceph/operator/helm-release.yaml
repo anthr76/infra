@@ -4,9 +4,9 @@ kind: HelmRelease
 metadata:
   name: rook-ceph
   namespace: rook-ceph
+  labels:
+    component.kutara.io/part-of: standard-helm-release
 spec:
-  interval: 5m
-  timeout: 10m
   chart:
     spec:
       chart: rook-ceph
@@ -16,12 +16,8 @@ spec:
         name: rook-ceph-charts
         namespace: flux-system
   install:
-    remediation:
-      retries: -1
     crds: CreateReplace
   upgrade:
-    remediation:
-      retries: -1
     crds: CreateReplace
   values:
     crds:
