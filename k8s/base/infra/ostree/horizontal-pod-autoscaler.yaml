@@ -23,7 +23,7 @@ spec:
         value: 2
       selectPolicy: Max
       stabilizationWindowSeconds: 300
-  maxReplicas: 4
+  maxReplicas: 8
   metrics:
   - resource:
       name: memory
