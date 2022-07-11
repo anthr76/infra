@@ -13,9 +13,6 @@ spec:
     - name: http
       port: 8080
       targetPort: http
-    - name: api
-      port: 2019
-      targetPort: api
   selector:
     app.kubernetes.io/instance: ostree
     app.kubernetes.io/name: ostree

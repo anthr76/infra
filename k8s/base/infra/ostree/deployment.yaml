@@ -21,6 +21,7 @@ spec:
         app.kubernetes.io/instance: ostree
         app.kubernetes.io/name: ostree
     spec:
+      terminationGracePeriodSeconds: 250
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -36,15 +37,17 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-        - name: caddy
-          command:
-            - caddy
-          args:
-            - "run"
-            - "-watch"
-            - "-config"
-            - "/etc/caddy/Caddyfile"
-          image: "docker.io/library/caddy:2.5.1"
+        - name: sws
+          env:
+            - name: SERVER_PORT
+              value: "8080"
+            - name: SERVER_GRACE_PERIOD
+              value: "255"
+            - name: SERVER_DIRECTORY_LISTING
+              value: "true"
+            - name: SERVER_LOG_LEVEL
+              value: info
+          image: "docker.io/joseluisq/static-web-server:2.10.0"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 30
@@ -56,9 +59,6 @@ spec:
           ports:
             - containerPort: 8080
               name: http
-              protocol: TCP
-            - containerPort: 2019
-              name: api
               protocol: TCP
           readinessProbe:
             failureThreshold: 3
@@ -82,18 +82,9 @@ spec:
               port: 8080
             timeoutSeconds: 1
           volumeMounts:
-            - mountPath: /data
+            - mountPath: /public
               name: data
-            - mountPath: /etc/caddy
-              name: caddy-config
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: ostree-repo
-        - name: caddy-config
-          configMap:
-            name: caddy
-            items:
-              - key: Caddyfile
-                path: Caddyfile
-                mode: 0644
