@@ -32,6 +32,21 @@ spec:
                 values:
                 - "true"
             weight: 1
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - ostree
+                - key: app.kubernetes.io/instance
+                  operator: In
+                  values:
+                  - ostree
+              topologyKey: kubernetes.io/hostname
+            weight: 100
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
