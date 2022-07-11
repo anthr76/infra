@@ -85,7 +85,7 @@ spec:
               memory: 256Mi
               cpu: 300m
             requests:
-              cpu: 100m
+              cpu: 64m
               memory: 64Mi
           startupProbe:
             failureThreshold: 30
