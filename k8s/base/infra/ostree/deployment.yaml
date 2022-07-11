@@ -21,6 +21,16 @@ spec:
         app.kubernetes.io/instance: ostree
         app.kubernetes.io/name: ostree
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+              - key: feature.node.kubernetes.io/custom-intel-10g
+                operator: In
+                values:
+                - "true"
+            weight: 1
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
@@ -59,10 +69,11 @@ spec:
             timeoutSeconds: 1
           resources:
             limits:
-              memory: 750Mi
+              memory: 256Mi
+              cpu: 300m
             requests:
               cpu: 100m
-              memory: 100Mi
+              memory: 64Mi
           startupProbe:
             failureThreshold: 30
             periodSeconds: 5
