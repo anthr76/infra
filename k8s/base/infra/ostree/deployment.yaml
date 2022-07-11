@@ -60,8 +60,6 @@ spec:
               value: "255"
             - name: SERVER_DIRECTORY_LISTING
               value: "true"
-            - name: SERVER_LOG_LEVEL
-              value: info
           image: "docker.io/joseluisq/static-web-server:2.10.0"
           imagePullPolicy: IfNotPresent
           livenessProbe:
