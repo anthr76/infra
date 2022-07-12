@@ -26,10 +26,17 @@ spec:
           - /bin/bash
           - -c
           - |-
-            set -x
-            ostree init --mode=bare --repo=./repo
-            ostree container unencapsulate ostree-unverified-image:docker://registry.gitlab.com/anthr76/sway-ostree-config:latest --repo=./repo --write-ref fedora/rawhide/x86_64/sway
-            ostree pull-local --repo=/data ./repo
+            REMOTE="$(skopeo inspect docker://registry.gitlab.com/anthr76/sway-ostree-config:latest | jq '.Labels."ostree.commit"' | sed 's/"//g')"
+            LOCAL="$(ostree log --repo /data fedora/rawhide/x86_64/sway | head -n 1 | grep commit | sed 's/commit //g' )"
+            echo remote: $REMOTE
+            echo local: $LOCAL
+            if [ "$LOCAL" = "$REMOTE" ]; then
+              echo "rawhide sway refs up-to-date"
+            else
+              ostree init --mode=bare --repo=./repo
+              ostree container unencapsulate ostree-unverified-image:docker://registry.gitlab.com/anthr76/sway-ostree-config:latest --repo=./repo --write-ref fedora/rawhide/x86_64/sway
+              ostree pull-local --repo=/data ./repo
+            fi
         image: ghcr.io/anthr76/kutara-ostree:latest
         imagePullPolicy: IfNotPresent
         name: update-ostree
