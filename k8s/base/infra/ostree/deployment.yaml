@@ -21,6 +21,24 @@ spec:
         app.kubernetes.io/instance: ostree
         app.kubernetes.io/name: ostree
     spec:
+      initContainers:
+      - command:
+          - /bin/bash
+          - -c
+          - |-
+            set -x
+            ostree init --mode=bare --repo=./repo
+            ostree container unencapsulate ostree-unverified-image:docker://registry.gitlab.com/anthr76/sway-ostree-config:latest --repo=./repo --write-ref fedora/rawhide/x86_64/sway
+            ostree pull-local --repo=/data ./repo
+        image: ghcr.io/anthr76/kutara-ostree:latest
+        imagePullPolicy: IfNotPresent
+        name: update-ostree
+        securityContext:
+          runAsUser: 0
+          privileged: true
+        volumeMounts:
+        - mountPath: /data
+          name: data
       terminationGracePeriodSeconds: 250
       affinity:
         nodeAffinity:
