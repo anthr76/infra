@@ -32,9 +32,9 @@ spec:
               volumeMounts:
                 - mountPath: /data
                   name: data
-          securityContext:
-            runAsUser: 0
-            privileged: true
+              securityContext:
+                runAsUser: 0
+                privileged: true
           restartPolicy: OnFailure
           volumes:
             - name: data
