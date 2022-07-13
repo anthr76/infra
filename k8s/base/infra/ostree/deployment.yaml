@@ -46,7 +46,7 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: data
-      terminationGracePeriodSeconds: 250
+      terminationGracePeriodSeconds: 59
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -82,9 +82,9 @@ spec:
             - name: SERVER_PORT
               value: "8080"
             - name: SERVER_GRACE_PERIOD
-              value: "255"
+              value: "60"
             - name: SERVER_DIRECTORY_LISTING
-              value: "true"
+              value: "false"
           image: "docker.io/joseluisq/static-web-server:2.10.0"
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -110,8 +110,8 @@ spec:
               memory: 512Mi
               cpu: 1000m
             requests:
-              cpu: 64m
-              memory: 64Mi
+              cpu: 256m
+              memory: 128Mi
           startupProbe:
             failureThreshold: 30
             periodSeconds: 5
