@@ -77,15 +77,8 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-        - name: sws
-          env:
-            - name: SERVER_PORT
-              value: "8080"
-            - name: SERVER_GRACE_PERIOD
-              value: "60"
-            - name: SERVER_DIRECTORY_LISTING
-              value: "false"
-          image: "docker.io/joseluisq/static-web-server:2.10.0"
+        - name: nginx
+          image: "docker.io/nginxinc/nginx-unprivileged:alpinee@sha256:fd3ae9756f463323cffbdc7a4acc01f2322d535f50bab15b5eb3b14b2323a35b"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 30
@@ -120,7 +113,8 @@ spec:
               port: 8080
             timeoutSeconds: 1
           volumeMounts:
-            - mountPath: /public
+            - mountPath: /usr/share/nginx/html
+              readOnly: true
               name: data
       volumes:
         - name: data
