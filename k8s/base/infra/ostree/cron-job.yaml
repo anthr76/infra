@@ -32,13 +32,9 @@ spec:
               volumeMounts:
                 - mountPath: /data
                   name: data
-              envFrom:
-                - secretRef:
-                    name: ostree
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
+            runAsUser: 0
+            privileged: true
           restartPolicy: OnFailure
           volumes:
             - name: data
