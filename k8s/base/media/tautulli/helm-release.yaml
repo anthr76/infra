@@ -61,7 +61,7 @@ spec:
       backup:
         enabled: true
         existingClaim: tautulli-backup-v1
-        mountPath: /config/Backups
+        mountPath: /config/backups
     resources:
       requests:
         cpu: 128m
