@@ -39,7 +39,31 @@ spec:
             fi
         image: ghcr.io/anthr76/kutara-ostree:latest
         imagePullPolicy: IfNotPresent
-        name: update-ostree
+        name: update-ostree-rawhide
+        securityContext:
+          runAsUser: 0
+          privileged: true
+        volumeMounts:
+        - mountPath: /data
+          name: data
+      - command:
+          - /bin/bash
+          - -c
+          - |-
+            REMOTE="$(skopeo inspect docker://registry.gitlab.com/fedora/sigs/sway/ostree-config:36 | jq '.Labels."ostree.commit"' | sed 's/"//g')"
+            LOCAL="$(ostree log --repo /data fedora/36/x86_64/sway | head -n 1 | grep commit | sed 's/commit //g' )"
+            echo remote: $REMOTE
+            echo local: $LOCAL
+            if [ "$LOCAL" = "$REMOTE" ]; then
+              echo "f36 sway refs up-to-date"
+            else
+              ostree init --mode=bare --repo=./repo
+              ostree container unencapsulate ostree-unverified-image:docker://registry.gitlab.com/fedora/sigs/sway/ostree-config:f36 --repo=./repo --write-ref fedora/36/x86_64/sway
+              ostree pull-local --repo=/data ./repo
+            fi
+        image: ghcr.io/anthr76/kutara-ostree:latest
+        imagePullPolicy: IfNotPresent
+        name: update-ostree-f36
         securityContext:
           runAsUser: 0
           privileged: true
