@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/service-upstream: "true"
   labels:
     app.kubernetes.io/instance: ostree
     app.kubernetes.io/name: ostree
