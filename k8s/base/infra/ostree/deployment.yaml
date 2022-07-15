@@ -5,6 +5,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: ostree
     app.kubernetes.io/name: ostree
+  annotations:
+    configmap.reloader.stakater.com/reload: "ostree-nginx-conf"
   name: ostree-repo
   namespace: infra
 spec:
@@ -70,7 +72,6 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: data
-      terminationGracePeriodSeconds: 59
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -80,7 +81,7 @@ spec:
                 operator: In
                 values:
                 - "true"
-            weight: 1
+            weight: 50
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - podAffinityTerm:
@@ -122,6 +123,10 @@ spec:
             tcpSocket:
               port: 8080
             timeoutSeconds: 1
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
           resources:
             limits:
               memory: 512Mi
@@ -140,7 +145,13 @@ spec:
             - mountPath: /usr/share/nginx/html
               readOnly: true
               name: data
+            - mountPath: /etc/nginx/conf.d
+              readOnly: true
+              name: nginx-conf
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: ostree-repo
+        - name: nginx-conf
+          configMap:
+            name: ostree-nginx-conf
