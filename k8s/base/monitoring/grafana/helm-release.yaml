@@ -130,28 +130,28 @@ spec:
             url: http://alertmanager-operated:9093
             jsonData:
               implementation: "prometheus"
-    dashboards:
-      default:
-        # Ref: https://grafana.com/grafana/dashboards/15514
-        cilium-operator:
-          gnetId: 15514
-          revision: 1
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/15513
-        cilium-agent:
-          gnetId: 15513
-          revision: 1
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/15513
-        cilium-hubble:
-          gnetId: 15515
-          revision: 1
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/9628
-        postgresql-exporter:
-          gnetId: 9628
-          revision: 1
-          datasource: Prometheus
+#    dashboards:
+#      default:
+#        # Ref: https://grafana.com/grafana/dashboards/15514
+#        cilium-operator:
+#          gnetId: 15514
+#          revision: 1
+#          datasource: Prometheus
+#        # Ref: https://grafana.com/grafana/dashboards/15513
+#        cilium-agent:
+#          gnetId: 15513
+#          revision: 1
+#          datasource: Prometheus
+#        # Ref: https://grafana.com/grafana/dashboards/15513
+#        cilium-hubble:
+#          gnetId: 15515
+#          revision: 1
+#          datasource: Prometheus
+#        # Ref: https://grafana.com/grafana/dashboards/9628
+#        postgresql-exporter:
+#          gnetId: 9628
+#          datasource: Prometheus
+#          revision: 1
     sidecar:
       dashboards:
         enabled: true
