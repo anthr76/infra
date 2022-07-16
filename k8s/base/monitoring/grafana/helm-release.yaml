@@ -72,6 +72,7 @@ spec:
         org_id: 1
       auth.anonymous:
         enabled: true
+        org_name: Kutara
         org_id: 1
         org_role: Viewer
       paths:
