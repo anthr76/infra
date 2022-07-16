@@ -71,7 +71,7 @@ spec:
         role_attribute_path: contains("https://kutara.io/groups"[*], 'admins') && 'Admin' || contains("https://kutara.io/groups"[*], 'editor') && 'Editor' || 'Viewer'"
         org_id: 1
       auth.anonymous:
-        enabled: false
+        enabled: true
         org_id: 1
         org_role: Viewer
       paths:
@@ -98,7 +98,7 @@ spec:
         providers:
           - name: "default"
             orgId: 1
-            folder: ""
+            folder: "managed"
             type: file
             disableDeletion: false
             editable: true

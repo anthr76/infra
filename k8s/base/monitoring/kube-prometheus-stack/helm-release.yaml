@@ -72,12 +72,12 @@ spec:
             memory: 50Mi
     grafana:
       enabled: false
-      forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
+#      forceDeployDashboards: false
+#      sidecar:
+#        dashboards:
+#          multicluster:
+#            etcd:
+#              enabled: false
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
