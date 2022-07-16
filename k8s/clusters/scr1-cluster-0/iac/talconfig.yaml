@@ -1,0 +1,215 @@
+---
+clusterName: scr1-cluster-0
+
+talosVersion: v1.1.1
+kubernetesVersion: 1.24.2
+endpoint: "https://cluster-0.scr1.rabbito.tech:6443"
+
+cniConfig:
+  name: custom
+  urls:
+    - https://raw.githubusercontent.com/anthr76/infra/main/k8s/clusters/scr1-cluster-0/iac/cni/cluster_0_quick_install.yaml
+
+nodes:
+  - hostname: master-01.scr1.rabbito.tech
+    controlPlane: true
+    installDisk: /dev/sda
+    ipAddress: 192.168.8.40
+  - hostname: master-02.scr1.rabbito.tech
+    controlPlane: true
+    ipAddress: 192.168.8.47
+    installDisk: /dev/sda
+  - hostname: master-03.scr1.rabbito.tech
+    controlPlane: true
+    ipAddress: 192.168.8.51
+    installDisk: /dev/sda
+  - hostname: worker-01.scr1.rabbito.tech
+    ipAddress: 192.168.8.60
+    inlinePatch:
+      machine:
+        sysctls:
+          net.ipv6.conf.eth2.accept_ra: "2"
+    installDisk: /dev/sda
+  - hostname: worker-02.scr1.rabbito.tech
+    ipAddress: 192.168.8.62
+    inlinePatch:
+      machine:
+        sysctls:
+          net.ipv6.conf.eth2.accept_ra: "2"
+    installDisk: /dev/sda
+  - hostname: worker-03.scr1.rabbito.tech
+    ipAddress: 192.168.8.61
+    inlinePatch:
+      machine:
+        sysctls:
+          net.ipv6.conf.eth2.accept_ra: "2"
+    installDisk: /dev/sda
+  - hostname: worker-04.scr1.rabbito.tech
+    ipAddress: 192.168.8.13
+    installDisk: /dev/sda
+  - hostname: worker-05.scr1.rabbito.tech
+    ipAddress: 192.168.8.14
+    installDisk: /dev/sda
+  - hostname: worker-06.scr1.rabbito.tech
+    ipAddress: 192.168.8.10
+    installDisk: /dev/sda
+  - hostname: worker-07.scr1.rabbito.tech
+    ipAddress: 192.168.8.15
+    installDisk: /dev/sda
+  - hostname: worker-08.scr1.rabbito.tech
+    ipAddress: 192.168.8.11
+    installDisk: /dev/sda
+  - hostname: worker-09.scr1.rabbito.tech
+    ipAddress: 192.168.8.12
+    installDisk: /dev/sda
+  - hostname: worker-10.scr1.rabbito.tech
+    ipAddress: 192.168.8.68
+    installDisk: /dev/sda
+  - hostname: worker-11.scr1.rabbito.tech
+    ipAddress: 192.168.8.70
+    installDisk: /dev/sda
+  - hostname: worker-12.scr1.rabbito.tech
+    ipAddress: 192.168.8.9
+    installDisk: /dev/sda
+
+controlPlane:
+  inlinePatch:
+    cluster:
+      aescbcEncryptionSecret: ${aescbcEncryptionKey}
+      id: ${clusterId}
+      aggregatorCA:
+        crt: ${k8sAggregatorCert}
+        key: ${k8sAggregatorCertKey}
+      apiServer:
+        admissionControl: []
+        certSANs:
+          - cluster-0.scr1.rabbito.tech
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
+          oidc-client-id: ${oidcClientId}
+          oidc-groups-claim: https://kutara.io/groups
+          oidc-groups-prefix: 'oidc:'
+          oidc-issuer-url: https://kutara-dev.us.auth0.com/
+          oidc-username-claim: email
+          oidc-username-prefix: 'oidc:'
+      ca:
+        crt: ${clusterCert}
+        key: ${clusterCertKey}
+      controllerManager:
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
+          bind-address: 0.0.0.0
+          node-cidr-mask-size-ipv4: 24
+          node-cidr-mask-size-ipv6: 64
+      discovery:
+        registries:
+          service:
+            disabled: true
+      network:
+        podSubnets:
+          - 10.244.0.0/16
+          - fddf:f7bc:9670::/48
+        serviceSubnets:
+          - 10.96.0.0/12
+          - 2001:559:1104:fdb::/112
+      etcd:
+        ca:
+          crt: ${etcdCert}
+          key: ${etcdCertKey}
+      extraManifests:
+        - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.5.1/deploy/ha-install.yaml
+      proxy:
+        disabled: true
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
+      scheduler:
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
+      secret: ${clusterSecret}
+      serviceAccount:
+        key: ${k8sServiceAccountKey}
+      token: ${clusterToken}
+
+    machine:
+      ca:
+        crt: ${machineCert}
+        key: ${machineCertKey}
+      certSANs:
+        - cluster-0.scr1.rabbito.tech
+      kubelet:
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
+          rotate-server-certificates: "true"
+          eviction-hard: memory.available<500Mi,nodefs.available<10%
+          eviction-soft: memory.available<900Mi,nodefs.available<15%
+          eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
+          kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
+          system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
+      install:
+        extraKernelArgs:
+          - "talos.logging.kernel=udp://10.45.0.5:6050/"
+      logging:
+        destinations:
+          - endpoint: "udp://10.45.0.5:6051/"
+            format: json_lines
+      time:
+        disabled: false
+        servers:
+          - time.cloudflare.com
+      token: ${machineToken}
+      sysctls:
+        fs.inotify.max_user_instances: "8192"
+        fs.inotify.max_user_watches: "1048576"
+        net.ipv6.conf.eth2.accept_ra: "2"
+        user.max_user_namespaces: "1500"
+        vm.max_map_count: "524288"
+
+
+worker:
+  inlinePatch:
+    cluster:
+      aescbcEncryptionSecret: ${aescbcEncryptionKey}
+      id: ${clusterId}
+      ca:
+        crt: ${clusterCert}
+        key: ${clusterCertKey}
+      secret: ${clusterSecret}
+      token: ${clusterToken}
+      discovery:
+        registries:
+          service:
+            disabled: true
+
+    machine:
+      ca:
+        crt: ${machineCert}
+        key: ${machineCertKey}
+      certSANs:
+        - cluster-0.scr1.rabbito.tech
+      install:
+        extraKernelArgs:
+          - "talos.logging.kernel=udp://10.45.0.5:6050/"
+      logging:
+        destinations:
+          - endpoint: "udp://10.45.0.5:6051/"
+            format: json_lines
+      sysctls:
+        fs.inotify.max_user_instances: "8192"
+        fs.inotify.max_user_watches: "1048576"
+        net.ipv6.conf.eth0.accept_ra: "2"
+        user.max_user_namespaces: "1500"
+        vm.max_map_count: "524288"
+      time:
+        disabled: false
+        servers:
+          - time.cloudflare.com
+      token: ${machineToken}
+      kubelet:
+        extraArgs:
+          rotate-server-certificates: "true"
+          feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
+          eviction-hard: memory.available<500Mi,nodefs.available<10%
+          eviction-soft: memory.available<900Mi,nodefs.available<15%
+          eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
+          kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
+          system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
