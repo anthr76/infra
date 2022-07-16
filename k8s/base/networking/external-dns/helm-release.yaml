@@ -19,7 +19,9 @@ spec:
       interval: 5m
   values:
     interval: 5m
-    logLevel: debug
+    # logLevel: debug
+    serviceMonitor:
+      enabled: true
     provider: cloudflare
     env:
       - name: CF_API_EMAIL
