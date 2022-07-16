@@ -19,6 +19,9 @@ spec:
       interval: 5m
   values:
     controller:
+      pod:
+        annotations:
+          io.cilium.proxy-visibility: "<Egress/80/TCP/HTTP>,<Ingress/80/TCP/HTTP>,<Egress/443/TCP/HTTPS>,<Ingress/443/TCP/HTTPS>"
       replicaCount: 2
       tolerations:
         - effect: NoSchedule
