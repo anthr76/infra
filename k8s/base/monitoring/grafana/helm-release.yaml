@@ -70,6 +70,8 @@ spec:
       auth.generic_oauth.group_mapping:
         role_attribute_path: contains("https://kutara.io/groups"[*], 'admins') && 'Admin' || contains("https://kutara.io/groups"[*], 'editor') && 'Editor' || 'Viewer'"
         org_id: 1
+      auth.basic:
+        enabled: false
       auth.anonymous:
         enabled: true
         org_name: Kutara
