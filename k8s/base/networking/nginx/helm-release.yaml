@@ -96,6 +96,22 @@ spec:
         enable-brotli: "true"
         ssl-protocols: "TLSv1.3 TLSv1.2"
         use-forwarded-headers: "true"
+        service-upstream: "true"
+        limit-req-status-code: "429"
+        limit-conn-status-code: "429"
+        # Testing
+        client-body-timeout: "12"
+        client-header-timeout: "12"
+        gzip-min-length: "10240"
+        http2-max-concurrent-streams: "60000"
+        keep-alive-requests: "1000000" 
+        max-worker-connections: "0"
+        max-worker-open-files: "65536"
+        proxy-read-timeout: "10"
+        proxy-send-timeout: "10"
+        upstream-keepalive-connections: "500"
+        upstream-keepalive-requests: "10000"
+        upstream-keepalive-timeout: "60"
       metrics:
         enabled: true
         serviceMonitor:
