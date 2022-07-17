@@ -48,7 +48,7 @@ spec:
         - key: CriticalAddonsOnly
           operator: Exists
       containers:
-        - image: docker.io/rocm/k8s-device-plugin:labeller-1.18.0
+        - image: docker.io/rocm/k8s-device-plugin:labeller-1.18.0@sha256:9238135c0ddeb7224ee31e2c0b12cfcaa51960befde1d3788b56652e93f940a7
           name: amdgpu-labeller
           imagePullPolicy: Always
           workingDir: /root
