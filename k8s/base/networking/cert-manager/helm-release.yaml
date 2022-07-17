@@ -27,6 +27,13 @@ spec:
         enabled: true
     webhook:
       enabled: true
+      resources:
+        requests:
+          cpu: 15m
+          memory: 105M
+        limits:
+          cpu: 42m
+          memory: 105M
     extraArgs:
       - --dns01-recursive-nameservers=1.1.1.1:53,1.0.0.1:53
       - --dns01-recursive-nameservers-only
@@ -37,14 +44,6 @@ spec:
       limits:
         cpu: 90m
         memory: 597M
-    webhook:
-      resources:
-        requests:
-          cpu: 15m
-          memory: 105M
-        limits:
-          cpu: 42m
-          memory: 105M
     cainjector:
       resources:
         requests:
