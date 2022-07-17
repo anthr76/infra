@@ -19,17 +19,17 @@ spec:
       interval: 5m
   values:
     controller:
-      pod:
-        annotations:
-          io.cilium.proxy-visibility: "<Egress/80/TCP/HTTP>,<Ingress/80/TCP/HTTP>,<Egress/443/TCP/HTTPS>,<Ingress/443/TCP/HTTPS>"
       replicaCount: 2
-      tolerations:
-        - effect: NoSchedule
-          key: "node-role.kubernetes.io/master"
+       # Scheduling on masters (as usual) is giving unexpected errors. 
+       # Since these are 10G and have a light workload for the hardware make this a TODO
+       # No time to dig into it now.
+#      tolerations:
+#        - effect: NoSchedule
+#          key: "node-role.kubernetes.io/master"
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
+          - weight: 100
             preference:
               matchExpressions:
               - key: feature.node.kubernetes.io/custom-intel-10g
@@ -125,7 +125,7 @@ spec:
         prometheusRule:
           enabled: false
       topologySpreadConstraints:
-        - maxSkew: 1
+        - maxSkew: 3
           topologyKey: kubernetes.io/hostname
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
