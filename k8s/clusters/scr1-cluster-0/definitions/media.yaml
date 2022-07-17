@@ -164,3 +164,14 @@ metadata:
 spec:
   path: "./k8s/base/media/tautulli"
   prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-tvheadend
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/tvheadend"
+  prune: true
