@@ -135,10 +135,10 @@ spec:
       resources:
         requests:
           cpu: 2281m
-          memory: 324M
+          memory: 524M
         limits:
           cpu: 2281m
-          memory: 324M
+          memory: 524M
     defaultBackend:
       enabled: true
       autoscaling:
