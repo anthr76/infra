@@ -134,10 +134,11 @@ spec:
               app.kubernetes.io/component: controller
       resources:
         requests:
-          cpu: 23m
-          memory: 249M
+          cpu: 2406m
+          memory: 324M
         limits:
-          memory: 312M
+          cpu: 2406m
+          memory: 324M
     defaultBackend:
       enabled: true
       autoscaling:
@@ -154,7 +155,7 @@ spec:
       resources:
         requests:
           cpu: 15m
-          memory: 64M
+          memory: 105M
         limits:
-          cpu: 128m
-          memory: 128M
+          cpu: 20m
+          memory: 105M

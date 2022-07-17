@@ -18,6 +18,13 @@ spec:
         namespace: flux-system
       interval: 10m
   values:
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
+      limits:
+        cpu: 20m
+        memory: 105M
     replicaCount: 3
     image:
       repository: quay.io/oauth2-proxy/oauth2-proxy
