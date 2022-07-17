@@ -7,7 +7,6 @@
     "github>bjw-s/home-ops//.github/renovate/autoMerge.json5",
     "github>anthr76/infra//.github/renovate/autoMerge.json5",
     "github>bjw-s/home-ops//.github/renovate/groups.json5",
-    "github>bjw-s/home-ops//.github/renovate/labels.json5",
     "github>bjw-s/home-ops//.github/renovate/updateSchedule.json5",
   ],
   "enabled": true,
