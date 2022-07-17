@@ -59,8 +59,8 @@ spec:
         enabled: true
         minReplicas: 3
         maxReplicas: 6
-        targetCPUUtilizationPercentage: 50
-        targetMemoryUtilizationPercentage: 50
+        targetCPUUtilizationPercentage: 80
+        targetMemoryUtilizationPercentage: 80
         behavior:
           scaleDown:
            stabilizationWindowSeconds: 300
@@ -134,10 +134,10 @@ spec:
               app.kubernetes.io/component: controller
       resources:
         requests:
-          cpu: 2406m
+          cpu: 2281m
           memory: 324M
         limits:
-          cpu: 2406m
+          cpu: 2281m
           memory: 324M
     defaultBackend:
       enabled: true
