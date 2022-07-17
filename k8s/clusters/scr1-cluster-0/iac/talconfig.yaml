@@ -101,6 +101,10 @@ controlPlane:
           bind-address: 0.0.0.0
           node-cidr-mask-size-ipv4: 24
           node-cidr-mask-size-ipv6: 64
+      scheduler:
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
+          bind-address: 0.0.0.0
       discovery:
         registries:
           service:
@@ -122,10 +126,6 @@ controlPlane:
         disabled: true
         extraArgs:
           feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
-      scheduler:
-        extraArgs:
-          feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
-          bind-address: 0.0.0.0
       secret: ${clusterSecret}
       serviceAccount:
         key: ${k8sServiceAccountKey}
