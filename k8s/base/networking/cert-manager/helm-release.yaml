@@ -30,3 +30,26 @@ spec:
     extraArgs:
       - --dns01-recursive-nameservers=1.1.1.1:53,1.0.0.1:53
       - --dns01-recursive-nameservers-only
+    resources:
+      requests:
+        cpu: 15m
+        memory: 226M
+      limits:
+        cpu: 90m
+        memory: 597M
+    webhook:
+      resources:
+        requests:
+          cpu: 15m
+          memory: 105M
+        limits:
+          cpu: 42m
+          memory: 105M
+    cainjector:
+      resources:
+        requests:
+          cpu: 15m
+          memory: 272M
+        limits:
+          cpu: 64m
+          memory: 597M
