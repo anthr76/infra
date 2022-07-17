@@ -18,7 +18,7 @@ spec:
         - key: CriticalAddonsOnly
           operator: Exists
       containers:
-        - image: docker.io/rocm/k8s-device-plugin:1.18.0
+        - image: docker.io/rocm/k8s-device-plugin:1.18.0@sha256:4b2830e2c6e1d182a8e9cbf950f46d263896ba9050366a59665cd921902b6864
           name: amdgpu-dp-cntr-health
           workingDir: /root
           command: ["./k8s-device-plugin"]
