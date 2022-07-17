@@ -58,6 +58,47 @@ spec:
           decoding:
             codec: json
           host_key: __host
+      transforms:
+        talos_kernel_logs_xform:
+          type: remap
+          inputs:
+            - talos_kernel_logs
+          source: |-
+            .__host, .err = replace(.__host, "192.168.8.40", "master-01")
+            .__host = replace(.__host, "192.168.8.47", "master-02")
+            .__host = replace(.__host, "192.168.8.51", "master-03")
+            .__host = replace(.__host, "192.168.8.60", "worker-01")
+            .__host = replace(.__host, "192.168.8.60", "worker-02")
+            .__host = replace(.__host, "192.168.8.61", "worker-03)
+            .__host = replace(.__host, "192.168.8.13", "worker-04)
+            .__host = replace(.__host, "192.168.8.14", "worker-05)
+            .__host = replace(.__host, "192.168.8.10", "worker-06)
+            .__host = replace(.__host, "192.168.8.15", "worker-07)
+            .__host = replace(.__host, "192.168.8.11", "worker-08)
+            .__host = replace(.__host, "192.168.8.12", "worker-09)
+            .__host = replace(.__host, "192.168.8.68", "worker-10)
+            .__host = replace(.__host, "192.168.8.70", "worker-11)
+            .__host = replace(.__host, "192.168.8.9", "worker-12)
+        talos_service_logs_xform:
+          type: remap
+          inputs:
+            - talos_service_logs
+          source: |-
+            .__host, .err = replace(.__host, "192.168.8.40", "master-01")
+            .__host = replace(.__host, "192.168.8.47", "master-02")
+            .__host = replace(.__host, "192.168.8.51", "master-03")
+            .__host = replace(.__host, "192.168.8.60", "worker-01")
+            .__host = replace(.__host, "192.168.8.60", "worker-02")
+            .__host = replace(.__host, "192.168.8.61", "worker-03)
+            .__host = replace(.__host, "192.168.8.13", "worker-04)
+            .__host = replace(.__host, "192.168.8.14", "worker-05)
+            .__host = replace(.__host, "192.168.8.10", "worker-06)
+            .__host = replace(.__host, "192.168.8.15", "worker-07)
+            .__host = replace(.__host, "192.168.8.11", "worker-08)
+            .__host = replace(.__host, "192.168.8.12", "worker-09)
+            .__host = replace(.__host, "192.168.8.68", "worker-10)
+            .__host = replace(.__host, "192.168.8.70", "worker-11)
+            .__host = replace(.__host, "192.168.8.9", "worker-12)
       sinks:
         loki_kubernetes:
           type: loki
@@ -119,7 +160,7 @@ spec:
         talos_kernel:
           type: loki
           inputs:
-            - talos_kernel_logs
+            - talos_kernel_logs_xform
           endpoint: http://loki-gateway.monitoring:80
           encoding:
             codec: json
@@ -136,7 +177,7 @@ spec:
         talos_service:
           type: loki
           inputs:
-            - talos_service_logs
+            - talos_service_logs_xform
           endpoint: http://loki-gateway.monitoring:80
           encoding:
             codec: json
