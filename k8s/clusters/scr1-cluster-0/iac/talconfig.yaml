@@ -2,7 +2,7 @@
 clusterName: scr1-cluster-0
 
 talosVersion: v1.1.1
-kubernetesVersion: 1.24.2
+kubernetesVersion: 1.24.3
 endpoint: "https://cluster-0.scr1.rabbito.tech:6443"
 
 cniConfig:
