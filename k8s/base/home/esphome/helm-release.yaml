@@ -20,7 +20,7 @@ spec:
   values:
     initContainers:
       add-font:
-        image: alpine:3.16.0@sha256:686d8c9dfa6f3ccfc8230bc3178d23f84eeaf7e457f36f271ab1acc53015037c
+        image: alpine:3.16.1@sha256:608bad1f53c27a5a6d965ba3f401a8f9685d1a8539633ad4bb9d687631e05c7d
         command:
           [
             "sh",
