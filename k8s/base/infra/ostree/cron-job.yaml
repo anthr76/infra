@@ -5,6 +5,7 @@ metadata:
   name: ostree-fetch-rawhide
   namespace: infra
 spec:
+  successfulJobsHistoryLimit: 3
   schedule: "0 17 * * *"
   jobTemplate:
     spec:
@@ -47,6 +48,7 @@ metadata:
   name: ostree-fetch-f36
   namespace: infra
 spec:
+  successfulJobsHistoryLimit: 3
   schedule: "0 17 * * *"
   jobTemplate:
     spec:

@@ -102,6 +102,43 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
+        - name: nginx-exporter
+          image: docker.io/nginx/nginx-prometheus-exporter:0.10.0
+          args:
+            - "-nginx.scrape-uri=http://localhost:8090/basic_status"
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 9113
+            timeoutSeconds: 1
+          ports:
+            - containerPort: 9113
+              name: metrics
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 9113
+            timeoutSeconds: 1
+          resources:
+            limits:
+              memory: 200Mi
+              cpu: 128m
+            requests:
+              cpu: 64m
+              memory: 64Mi
+          startupProbe:
+            failureThreshold: 30
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 9113
+            timeoutSeconds: 1
         - name: nginx
           image: "docker.io/nginxinc/nginx-unprivileged:alpinee@sha256:fd3ae9756f463323cffbdc7a4acc01f2322d535f50bab15b5eb3b14b2323a35b"
           imagePullPolicy: IfNotPresent
@@ -115,6 +152,9 @@ spec:
           ports:
             - containerPort: 8080
               name: http
+              protocol: TCP
+            - containerPort: 8090
+              name: metrics
               protocol: TCP
           readinessProbe:
             failureThreshold: 3

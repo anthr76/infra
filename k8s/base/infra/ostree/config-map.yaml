@@ -21,3 +21,11 @@ data:
             root   /usr/share/nginx/html;
         }
     }
+  02-metrics.conf: |
+    server {
+        listen       8090;
+        server_name  metrics;
+        location = /basic_status {
+            stub_status;
+        }
+    }
