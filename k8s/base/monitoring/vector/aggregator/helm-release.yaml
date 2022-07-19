@@ -59,6 +59,13 @@ spec:
             codec: json
           host_key: __host
       transforms:
+        kubernetes_logs_remap:
+          type: remap
+          inputs:
+            - kubernetes_logs
+          source: |
+            # Standardize 'app' index
+            .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
         talos_kernel_logs_xform:
           type: remap
           inputs:
@@ -104,29 +111,21 @@ spec:
           type: loki
           inputs:
             - kubernetes_logs
-          endpoint: http://loki-gateway.monitoring:80
+          endpoint: http://loki-gateway:80
           encoding:
             codec: json
           batch:
-            max_bytes: 400000
-          out_of_order_action: rewrite_timestamp
+            max_bytes: 2049000
+          out_of_order_action: accept
           remove_label_fields: true
           remove_timestamp: true
           labels:
-            k8s_app: >-
-              {{`{{ "kubernetes.pod_labels.app\.kubernetes\.io/name" }}`}}
-            k8s_container: >-
-              {{`{{ "kubernetes.container_name" }}`}}
-            k8s_filename: >-
-              {{`{{ "kubernetes.file" }}`}}
-            k8s_instance: >-
-              {{`{{ "kubernetes.pod_labels.app\.kubernetes\.io/instance" }}`}}
-            k8s_namespace: >-
-              {{`{{ "kubernetes.pod_namespace" }}`}}
-            k8s_node: >-
-              {{`{{ "kubernetes.pod_node_name" }}`}}
-            k8s_pod: >-
-              {{`{{ "kubernetes.pod_name" }}`}}
+            app: >-
+              {{`{{ custom_app_name }}`}}
+            namespace: >-
+              {{`{{ kubernetes.pod_namespace }}`}}
+            node: >-
+              {{`{{ kubernetes.pod_node_name }}`}}
         loki_vyos:
           type: loki
           inputs:
