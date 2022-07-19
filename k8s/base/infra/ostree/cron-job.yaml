@@ -4,6 +4,9 @@ kind: CronJob
 metadata:
   name: ostree-fetch-rawhide
   namespace: infra
+  labels:
+    app.kubernetes.io/instance: ostree-fetch-rawhide
+    app.kubernetes.io/name: ostree-fetch-rawhide
 spec:
   successfulJobsHistoryLimit: 3
   schedule: "0 17 * * *"
@@ -47,6 +50,9 @@ kind: CronJob
 metadata:
   name: ostree-fetch-f36
   namespace: infra
+  labels:
+    app.kubernetes.io/instance: ostree-fetch-f36
+    app.kubernetes.io/name: ostree-fetch-f36
 spec:
   successfulJobsHistoryLimit: 3
   schedule: "0 17 * * *"
