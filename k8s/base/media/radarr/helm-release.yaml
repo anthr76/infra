@@ -31,7 +31,7 @@ spec:
           runAsUser: 0
     image:
       repository: ghcr.io/onedr0p/radarr-nightly
-      tag: 4.2.0.6430@sha256:142810b722f9b0d77ac71cf1cdff1e38781be85b5d5af938c229c69a3eb5115f
+      tag: 4.2.0.6434@sha256:8234918b269552dbbcf490ef979d3bd71382f394922ecea6f1e85f359b29f2ab
     env:
       TZ: "America/New_York"
       RADARR__LOG_LEVEL: info
