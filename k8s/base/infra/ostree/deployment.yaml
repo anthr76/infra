@@ -103,7 +103,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: nginx-exporter
-          image: docker.io/nginx/nginx-prometheus-exporter:0.10.0
+          image: docker.io/nginx/nginx-prometheus-exporter:0.10.0@sha256:1c6eba17d7768401ba1ed056101fc56ec3e3b5c82e508fdd8968fbcd96ec9574
           args:
             - "-nginx.scrape-uri=http://localhost:8090/basic_status"
           imagePullPolicy: IfNotPresent
