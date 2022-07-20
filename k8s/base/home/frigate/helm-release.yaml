@@ -21,6 +21,7 @@ spec:
     - name: mosquitto
       namespace: home
   values:
+    priorityClassName: system-node-critical
     image:
       repository: docker.io/blakeblackshear/frigate
       tag: 0.11.0-beta7
