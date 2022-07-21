@@ -28,6 +28,13 @@ prometheus:
         hosts:
           - "prom.${GENERIC_CLUSTER_INGRESS}"
   prometheusSpec:
+    resources:
+      requests:
+        cpu: 579m
+        memory: 800Mi
+      limits:
+        cpu: 2000m
+        memory: 4G
     replicas: 3
     replicaExternalLabelName: "__replica__"
     externalLabels:

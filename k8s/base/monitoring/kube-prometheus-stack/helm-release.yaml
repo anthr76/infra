@@ -62,6 +62,13 @@ spec:
       rules:
         time: false
     prometheusOperator:
+      resources:
+        requests:
+          cpu: 15m
+          memory: 143M
+        limits:
+          cpu: 90m
+          memory: 1192M
       prometheusConfigReloader:
         resources:
           requests:
@@ -78,6 +85,14 @@ spec:
 #          multicluster:
 #            etcd:
 #              enabled: false
+    nodeExporter:
+      resources:
+        requests:
+          cpu: 15m
+          memory: 105M
+        limits:
+          cpu: 176m
+          memory: 279M
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
@@ -98,3 +113,10 @@ spec:
               targetLabel: instance
     kubeStateMetrics:
       enabled: true
+      resources:
+        requests:
+          cpu: 15m
+          memory: 105M
+        limits:
+          cpu: 90m
+          memory: 407M

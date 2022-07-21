@@ -50,6 +50,13 @@ alertmanager:
         hosts:
           - "alert-manager.${GENERIC_CLUSTER_INGRESS}"
   alertmanagerSpec:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 53M
+      limits:
+        cpu: 178m
+        memory: 385M
     replicas: 3
     podAntiAffinity: hard
     externalUrl: "https://alert-manager.${GENERIC_CLUSTER_INGRESS}/"
