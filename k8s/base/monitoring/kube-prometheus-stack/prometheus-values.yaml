@@ -30,11 +30,11 @@ prometheus:
   prometheusSpec:
     resources:
       requests:
-        cpu: 579m
-        memory: 800Mi
+        cpu: 800m
+        memory: 17G
       limits:
         cpu: 2000m
-        memory: 10G
+        memory: 17G
     replicas: 3
     replicaExternalLabelName: "__replica__"
     externalLabels:

@@ -141,11 +141,6 @@ controlPlane:
         extraArgs:
           feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
           rotate-server-certificates: "true"
-          eviction-hard: memory.available<500Mi,nodefs.available<10%
-          eviction-soft: memory.available<900Mi,nodefs.available<15%
-          eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
-          kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
-          system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
       install:
         extraKernelArgs:
           - "talos.logging.kernel=udp://10.45.0.5:6050/"
@@ -209,8 +204,3 @@ worker:
         extraArgs:
           rotate-server-certificates: "true"
           feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
-          eviction-hard: memory.available<500Mi,nodefs.available<10%
-          eviction-soft: memory.available<900Mi,nodefs.available<15%
-          eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
-          kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
-          system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
