@@ -85,7 +85,7 @@ spec:
 #          multicluster:
 #            etcd:
 #              enabled: false
-    nodeExporter:
+    prometheus-node-exporter:
       resources:
         requests:
           cpu: 15m
@@ -93,7 +93,6 @@ spec:
         limits:
           cpu: 176m
           memory: 279M
-    prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
         monitor:
