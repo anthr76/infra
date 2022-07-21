@@ -45,6 +45,11 @@ prometheus:
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
     enableAdminAPI: true
+    enableFeatures:
+      - memory-snapshot-on-shutdown
+      - auto-gomaxprocs
+      - new-service-discovery-manager
+      - exemplar-storage
     storageSpec:
       volumeClaimTemplate:
         spec:
