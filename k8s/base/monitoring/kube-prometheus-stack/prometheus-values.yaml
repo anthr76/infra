@@ -34,7 +34,7 @@ prometheus:
         memory: 17G
       limits:
         cpu: 2000m
-        memory: 17G
+        memory: 25G
     replicas: 3
     replicaExternalLabelName: "__replica__"
     externalLabels:
@@ -44,6 +44,8 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
+    retentionSize: "6GB"
+    retention: 2d
     enableAdminAPI: true
     enableFeatures:
       - memory-snapshot-on-shutdown
