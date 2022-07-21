@@ -40,14 +40,11 @@ prometheus:
     externalLabels:
       cluster: scr1-cluster-0
     podAntiAffinity: hard
-    retentionSize: "6GB"
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
-    retention: 2d
     enableAdminAPI: true
-    walCompression: true
     storageSpec:
       volumeClaimTemplate:
         spec:
