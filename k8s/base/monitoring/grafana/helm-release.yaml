@@ -101,12 +101,12 @@ spec:
         providers:
           - name: "default"
             orgId: 1
-            folder: "managed"
+            folder: ""
             type: file
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/managed
+              path: /var/lib/grafana/dashboards/default
     datasources:
       datasources.yaml:
         apiVersion: 1
