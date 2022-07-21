@@ -34,7 +34,7 @@ prometheus:
         memory: 800Mi
       limits:
         cpu: 2000m
-        memory: 4G
+        memory: 10G
     replicas: 3
     replicaExternalLabelName: "__replica__"
     externalLabels:
