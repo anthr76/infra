@@ -34,6 +34,15 @@ spec:
         enabled: true
         port: 2381
         targetPort: 2381
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        cAdvisorMetricRelabelings: []
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
     kubeControllerManager:
       enabled: true
       service:
