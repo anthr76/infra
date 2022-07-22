@@ -23,10 +23,10 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      registry: quay.io
-      repository: thanos/thanos
-      tag: v0.27.0
+#    image:
+#      registry: quay.io
+#      repository: thanos/thanos
+#      tag: v0.27.0
     objstoreConfig:
       type: s3
       config:
@@ -111,7 +111,7 @@ spec:
       dnsDiscovery:
         enabled: true
       alertmanagers:
-        - http://alertmanager-operated.monitoring:9093
+        - http://prom-alertmanager.monitoring:9093
       clusterName: scr1-cluster-0
       extraFlags:
         - "--web.prefix-header=X-Forwarded-Prefix"

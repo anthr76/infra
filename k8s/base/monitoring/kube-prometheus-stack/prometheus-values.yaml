@@ -48,11 +48,6 @@ prometheus:
     retention: 2d
     walCompression: true
     enableAdminAPI: true
-    enableFeatures:
-      - memory-snapshot-on-shutdown
-      - auto-gomaxprocs
-      - new-service-discovery-manager
-      - exemplar-storage
     storageSpec:
       volumeClaimTemplate:
         spec:
@@ -63,7 +58,7 @@ prometheus:
     thanos:
       image: quay.io/thanos/thanos:v0.27.0
       # renovate: datasource=docker depName=quay.io/thanos/thanos
-      version: "v0.26.0"
+      version: "v0.27.0"
       objectStorageConfig:
         name: thanos-objstore-secret
         key: objstore.yml
