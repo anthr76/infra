@@ -46,6 +46,7 @@ prometheus:
     probeSelectorNilUsesHelmValues: false
     retentionSize: "6GB"
     retention: 2d
+    walCompression: true
     enableAdminAPI: true
     enableFeatures:
       - memory-snapshot-on-shutdown
