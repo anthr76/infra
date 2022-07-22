@@ -23,17 +23,15 @@ spec:
     remediation:
       retries: 5
   values:
-#    image:
-#      registry: quay.io
-#      repository: thanos/thanos
-#      tag: v0.27.0
+    image:
+      registry: quay.io
+      repository: thanos/thanos
+      tag: v0.27.0
     objstoreConfig:
       type: s3
       config:
         insecure: true
     query:
-      nodeSelector:
-        kubernetes.io/arch: amd64
       enabled: true
       replicaCount: 3
       podAntiAffinityPreset: hard
@@ -55,8 +53,6 @@ spec:
     queryFrontend:
       enabled: false
     bucketweb:
-      nodeSelector:
-        kubernetes.io/arch: amd64
       enabled: true
       replicaCount: 3
       podAntiAffinityPreset: hard
@@ -71,8 +67,6 @@ spec:
           - hosts:
               - *host
     compactor:
-      nodeSelector:
-        kubernetes.io/arch: amd64
       enabled: true
       extraFlags:
         - "--compact.concurrency"
@@ -93,8 +87,6 @@ spec:
         storageClass: "ceph-block"
         size: 20Gi
     storegateway:
-      nodeSelector:
-        kubernetes.io/arch: amd64
       enabled: true
       replicaCount: 3
       podAntiAffinityPreset: hard
@@ -113,8 +105,6 @@ spec:
         storageClass: "ceph-block"
         size: 20Gi
     ruler:
-      nodeSelector:
-        kubernetes.io/arch: amd64
       enabled: true
       replicaCount: 3
       podAntiAffinityPreset: hard
