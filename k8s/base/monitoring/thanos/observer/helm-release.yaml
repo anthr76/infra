@@ -32,6 +32,8 @@ spec:
       config:
         insecure: true
     query:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       enabled: true
       replicaCount: 3
       podAntiAffinityPreset: hard
@@ -53,6 +55,8 @@ spec:
     queryFrontend:
       enabled: false
     bucketweb:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       enabled: true
       replicaCount: 3
       podAntiAffinityPreset: hard
@@ -67,6 +71,8 @@ spec:
           - hosts:
               - *host
     compactor:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       enabled: true
       extraFlags:
         - "--compact.concurrency"
@@ -87,6 +93,8 @@ spec:
         storageClass: "ceph-block"
         size: 20Gi
     storegateway:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       enabled: true
       replicaCount: 3
       podAntiAffinityPreset: hard
@@ -105,6 +113,8 @@ spec:
         storageClass: "ceph-block"
         size: 20Gi
     ruler:
+      nodeSelector:
+        kubernetes.io/arch: amd64
       enabled: true
       replicaCount: 3
       podAntiAffinityPreset: hard
