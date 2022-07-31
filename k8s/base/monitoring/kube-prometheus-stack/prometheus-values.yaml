@@ -81,6 +81,8 @@ prometheus:
           - targets:
               - 10.5.0.7:9153
               - 10.5.0.8:9153
+              - 10.6.0.7:9153
+              - 10.6.0.8:9153
       - job_name: "cephadm-cluster"
         metrics_path: /metrics
         scrape_interval: 1m
@@ -97,6 +99,7 @@ prometheus:
         static_configs:
           - targets:
               - "fw-1.scr1.rabbito.tech:9273"
+              - "fw-1.nwk2.rabbito.tech:9273"
       - job_name: "redis"
         scrape_interval: 1m
         scrape_timeout: 10s
