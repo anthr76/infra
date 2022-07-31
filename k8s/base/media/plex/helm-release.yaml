@@ -44,6 +44,45 @@ spec:
     service:
       main:
         ipFamilyPolicy: PreferDualStack
+      tcp-discover:
+        enabled: true
+        externalTrafficPolicy: Local
+        ports:
+          dnla-tcp:
+            enabled: true
+            port: 32469
+            protocol: TCP
+            targetPort: 32469
+            nodePort: 32469
+        type: NodePort
+      udp-discover:
+        enabled: true
+        externalTrafficPolicy: Local
+        type: NodePort
+        ports:
+          dnla-udp:
+            enabled: true
+            port: 1900
+            protocol: UDP
+            targetPort: 1900
+          gdm-1:
+            enabled: true
+            port: 32410
+            protocol: UDP
+            targetPort: 32410
+            nodePort: 32410
+          gdm-2:
+            enabled: true
+            port: 32412
+            protocol: UDP
+            targetPort: 32412
+            nodePort: 32412
+          gdm-3:
+            enabled: true
+            port: 32413
+            protocol: UDP
+            targetPort: 32413
+            nodePort: 32413
     ingress:
       main:
         enabled: true

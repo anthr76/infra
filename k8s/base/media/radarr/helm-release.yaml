@@ -40,7 +40,7 @@ spec:
       RADARR__POSTGRES_USER: k8s
       RADARR__POSTGRES_HOST: db-01.scr1.rabbito.tech
       RADARR__POSTGRES_MAIN_DB: radarr-main
-      RADARR__POSTGRES_MAIN_LOG: radarr-log
+      RADARR__POSTGRES_LOG_DB: radarr-log
     envFrom:
       - secretRef:
           name: radarr
