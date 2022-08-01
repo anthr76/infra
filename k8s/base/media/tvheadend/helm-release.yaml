@@ -39,6 +39,8 @@ spec:
         ports:
           http:
             port: 9981
+          htsp:
+            port: 9982
     ingress:
       main:
         enabled: true
