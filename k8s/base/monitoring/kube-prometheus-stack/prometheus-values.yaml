@@ -74,6 +74,7 @@ prometheus:
               - ceph-02.${INT_DOMAIN}:9100
               - ceph-03.${INT_DOMAIN}:9100
               - libvirt-01.scr1.rabbito.tech:9100
+              - "fw-1.nwk2.rabbito.tech:9273"
       - job_name: "vyos-coredns"
         scrape_interval: 1m
         scrape_timeout: 10s
@@ -119,3 +120,10 @@ prometheus:
         static_configs:
           - targets:
               - "10.5.0.2:8404"
+      - job_name: "wireguard"
+        metrics_path: /metrics
+        scrape_interval: 1m
+        scrape_timeout: 10s
+        static_configs:
+          - targets:
+              - "fw-1.scr1.rabbito.tech:9586"
