@@ -152,3 +152,14 @@ metadata:
 spec:
   path: "./k8s/base/monitoring/goldilocks"
   prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-shelly-mqtt2prometheus
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/monitoring/shelly-mqtt2prometheus"
+  prune: true

@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: frigate
-      version: 8.2.0
+      version: 8.2.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -24,7 +24,7 @@ spec:
     priorityClassName: system-node-critical
     image:
       repository: docker.io/blakeblackshear/frigate
-      tag: 0.11.0-beta7
+      tag: 0.11.0-rc1
     env:
       TZ: America/New_York
       FRIGATE_MQTT_PASSWORD:
