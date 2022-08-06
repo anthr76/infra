@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: shelly-mqtt2prometheus
+    app.kubernetes.io/name: shelly-mqtt2prometheus
+  name: shelly-mqtt2prometheus
+  namespace: monitoring
+spec:
+  endpoints:
+  - interval: 3m
+    path: /metrics
+    port: metrics
+    scrapeTimeout: 1m
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: shelly-mqtt2prometheus
+      app.kubernetes.io/name: shelly-mqtt2prometheus
