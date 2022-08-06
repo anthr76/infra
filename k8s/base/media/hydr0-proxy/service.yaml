@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: hydr0-proxy
+    app.kubernetes.io/name: hydr0-proxy
+  name: hydr0-proxy
+  namespace: media
+spec:
+  ipFamilyPolicy: PreferDualStack
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+  selector:
+    app.kubernetes.io/instance: hydr0-proxy
+    app.kubernetes.io/name: hydr0-proxy

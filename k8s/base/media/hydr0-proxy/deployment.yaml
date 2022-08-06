@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: hydr0-proxy
+    app.kubernetes.io/name: hydr0-proxy
+  annotations:
+    configmap.reloader.stakater.com/reload: "hydr0-proxy-nginx-conf"
+  name: hydr0-proxy
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: hydr0-proxy
+      app.kubernetes.io/name: hydr0-proxy
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: hydr0-proxy
+        app.kubernetes.io/name: hydr0-proxy
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: nginx
+          image: "docker.io/nginxinc/nginx-unprivileged:alpinee@sha256:fd3ae9756f463323cffbdc7a4acc01f2322d535f50bab15b5eb3b14b2323a35b"
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            - containerPort: 8090
+              name: metrics
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
+          resources:
+            limits:
+              memory: 128Mi
+              cpu: 200m
+            requests:
+              cpu: 56m
+              memory: 56Mi
+          startupProbe:
+            failureThreshold: 30
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d
+              readOnly: true
+              name: nginx-conf
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: hydr0-proxy-nginx-conf
