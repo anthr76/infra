@@ -17,7 +17,7 @@ data:
         }
         location /iptvlistapi/ {
             resolver 8.8.8.8 valid=30s;
-            set $iptvlistdomain live.hydr0.io;
+            set $iptvlistdomain live.hydramedia.world;
             rewrite ^\/iptvlistapi\/(.*) /$1 break;
             proxy_pass https://$iptvlistdomain;
             add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
