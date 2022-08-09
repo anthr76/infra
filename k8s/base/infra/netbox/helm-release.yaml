@@ -21,7 +21,7 @@ spec:
     image:
       repository: quay.io/tgenannt/netbox
       pullPolicy: IfNotPresent
-      tag: "v3.2.7"
+      tag: "v3.2.8"
     superuser:
       name: admin
       email: hello@anthonyrabbito.com
