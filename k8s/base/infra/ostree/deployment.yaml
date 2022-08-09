@@ -39,7 +39,7 @@ spec:
               ostree container unencapsulate ostree-unverified-image:docker://registry.gitlab.com/fedora/sigs/sway/ostree-config:rawhide --repo=./repo --write-ref fedora/rawhide/x86_64/sway
               ostree pull-local --repo=/data ./repo
             fi
-        image: ghcr.io/anthr76/kutara-ostree:latest@sha256:6a51acd1a99cd3f8a7a6e9299396ef1eeac9e9302605836fa6100208b111d397
+        image: ghcr.io/anthr76/kutara-ostree:latest@sha256:04d3429aaca5a67e81f8f7e26ed7aa43a3d092dda61d8513e3e6416a155b34b9
         imagePullPolicy: IfNotPresent
         name: update-ostree-rawhide
         securityContext:
@@ -63,7 +63,7 @@ spec:
               ostree container unencapsulate ostree-unverified-image:docker://registry.gitlab.com/fedora/sigs/sway/ostree-config:36 --repo=./repo --write-ref fedora/36/x86_64/sway
               ostree pull-local --repo=/data ./repo
             fi
-        image: ghcr.io/anthr76/kutara-ostree:latest@sha256:6a51acd1a99cd3f8a7a6e9299396ef1eeac9e9302605836fa6100208b111d397
+        image: ghcr.io/anthr76/kutara-ostree:latest@sha256:04d3429aaca5a67e81f8f7e26ed7aa43a3d092dda61d8513e3e6416a155b34b9
         imagePullPolicy: IfNotPresent
         name: update-ostree-f36
         securityContext:
