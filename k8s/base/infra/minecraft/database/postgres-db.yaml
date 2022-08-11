@@ -6,7 +6,7 @@ metadata:
   namespace: infra
 spec:
   replicas: 1
-  image: docker.io/library/postgres:13.7@sha256:65d34474a7d8a5aa00795bf8a3b94aa7cdd7e8f7914dbeed474676da7734f2b2
+  image: docker.io/library/postgres:13.7@sha256:03652c675ae177af98ddd50f9f4b4b2cf8ad38d0e116aa68fe670fbc2cf250fc
   database:
     size: 20Gi
     storageClassName: ceph-block

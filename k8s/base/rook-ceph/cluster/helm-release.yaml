@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: rook-ceph-cluster
-      version: v1.9.7
+      version: v1.9.9
       sourceRef:
         kind: HelmRepository
         name: rook-ceph-charts
@@ -21,7 +21,7 @@ spec:
   values:
     toolbox:
       enabled: false
-      image: quay.io/ceph/ceph:v17.2.1@sha256:d3f3e1b59a304a280a3a81641ca730982da141dad41e942631e4c5d88711a66b
+      image: quay.io/ceph/ceph:v17.2.3@sha256:43f6e905f3e34abe4adbc9042b9d6f6b625dee8fa8d93c2bae53fa9b61c3df1a
     monitoring:
       enabled: true
     cephClusterSpec:

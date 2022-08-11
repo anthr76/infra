@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: esphome
-      version: 8.3.2
+      version: 8.4.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -20,7 +20,7 @@ spec:
   values:
     initContainers:
       add-font:
-        image: alpine:3.16.1@sha256:7580ece7963bfa863801466c0a488f11c86f85d9988051a9f9c68cb27f6b7872
+        image: alpine:3.16.2@sha256:bc41182d7ef5ffc53a40b044e725193bc10142a1243f395ee852a8d9730fc2ad
         command:
           [
             "sh",
@@ -32,7 +32,7 @@ spec:
             mountPath: /config
     image:
       repository: ghcr.io/esphome/esphome
-      tag: 2022.6.2
+      tag: 2022.6.3
     env:
       TZ: "America/New_York"
       ESPHOME_DASHBOARD_USE_PING: true

@@ -31,21 +31,6 @@ metadata:
 spec:
   path: "./k8s/base/monitoring/kube-prometheus-stack"
   prune: true
-  patches:
-    - patch: |
-        - op: add
-          path: /spec/values/kubeEtcd/endpoints
-          value:
-            # master-01.scr1.rabbito.tech
-            - 192.168.8.40
-            # master-02.scr1.rabbito.tech
-            - 192.168.8.47
-            # master-03.scr1.rabbito.tech
-            - 192.168.8.51
-      target:
-        kind: HelmRelease
-        name: kube-prometheus-stack
-        namespace: monitoring
   dependsOn:
     - name: monitoring-kps-crds
 ---
@@ -151,4 +136,15 @@ metadata:
     component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/monitoring/goldilocks"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: monitoring-shelly-mqtt2prometheus
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/monitoring/shelly-mqtt2prometheus"
   prune: true

@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: jellyfin
-      version: 9.4.2
+      version: 9.5.3
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -19,7 +19,7 @@ spec:
   values:
     initContainers:
       update-volume-permission:
-        image: busybox@sha256:3614ca5eacf0a3a1bcc361c939202a974b4902b9334ff36eb29ffe9011aaad83
+        image: busybox@sha256:ef320ff10026a50cf5f0213d35537ce0041ac1d96e9b7800bafd8bc9eff6c693
         command: ["sh", "-c", "chown -R 1000:1000 /config"]
         volumeMounts:
           - name: config
@@ -33,7 +33,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/onedr0p/jellyfin
-      tag: 10.8.1@sha256:2394e5ee4b31872bed3c0e72dfb20e6b73029243fece8702e2cbd59b8480be1c
+      tag: 10.8.3@sha256:7c1ffa6112380d2ab03171bc56c60f53c56260e116543b34bea3d8cf7fcfe305
     env:
       TZ: "America/New_York"
     service:

@@ -11,18 +11,27 @@ spec:
   chart:
     spec:
       chart: kah-common-chart
-      version: 1.1.2
+      version: 1.2.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 15m
   values:
+    initContainers:
+      update-volume-permission:
+        image: busybox@sha256:ef320ff10026a50cf5f0213d35537ce0041ac1d96e9b7800bafd8bc9eff6c693
+        command: ["sh", "-c", "chown -R 1000:1000 /config"]
+        volumeMounts:
+          - name: config
+            mountPath: /config
+        securityContext:
+          runAsUser: 0
     global:
       nameOverride: *app
     image:
       repository: ghcr.io/onedr0p/tvheadend
-      tag: 4.3.9878@sha256:34941d37b047ee01e6d92cbd8ec0e06e8d5d20f4e3a9479bde281693edb5f9b8
+      tag: 4.3.9878@sha256:e90d25b8ed857e38234d5b83289c4be00ef77caebede5c302c584ba8ee6ef998
     env:
       TZ: "America/New_York"
     service:
@@ -30,12 +39,21 @@ spec:
         ports:
           http:
             port: 9981
+          htsp:
+            port: 9982
     ingress:
       main:
         enabled: true
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            send_timeout 100m;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "Upgrade";
         hosts:
           - host: &host "{{ .Release.Name }}.scr1.rabbito.tech"
             paths:
@@ -46,9 +64,9 @@ spec:
             hosts:
               - *host
     podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
       supplementalGroups:
         - 44
@@ -57,12 +75,20 @@ spec:
       config:
         enabled: true
         existingClaim: tvheadend-config-v1
+      recordings:
+        enabled: true
+        existingClaim: media
+        mountPath: /recordings
+      timeshift:
+        enabled: true
+        type: emptyDir
+        mountPath: /timeshift
     resources:
       requests:
         # gpu.intel.com/i915: 1
-        cpu: 10m
-        memory: 250Mi
+        cpu: 2000m
+        memory: 1996Mi
       limits:
         # gpu.intel.com/i915: 1
-        cpu: 500m
-        memory: 500Mi
+        cpu: 4000m
+        memory: 4096M

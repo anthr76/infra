@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: plex
-      version: 6.3.4
+      version: 6.4.3
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -21,7 +21,7 @@ spec:
     priorityClassName: system-node-critical
     initContainers:
       update-volume-permission:
-        image: busybox@sha256:3614ca5eacf0a3a1bcc361c939202a974b4902b9334ff36eb29ffe9011aaad83
+        image: busybox@sha256:ef320ff10026a50cf5f0213d35537ce0041ac1d96e9b7800bafd8bc9eff6c693
         command: ["sh", "-c", "chown -R 1000:1000 /config"]
         volumeMounts:
           - name: config
@@ -30,7 +30,7 @@ spec:
           runAsUser: 0
     image:
       repository: ghcr.io/k8s-at-home/plex
-      tag: v1.27.2.5929-a806c5905@sha256:df1768fa98033e6b09fb604e7050f7c80a13ed499d40a1d8f487ad3e8968197e
+      tag: v1.28.0.5999-97678ded3@sha256:ef756c7d784bd9e10da43a3da395e26cc283674dcb5d991cef9104572b37646e
     env:
       TZ: "America/New_York"
     podSecurityContext:
@@ -44,6 +44,45 @@ spec:
     service:
       main:
         ipFamilyPolicy: PreferDualStack
+      tcp-discover:
+        enabled: true
+        externalTrafficPolicy: Local
+        ports:
+          dnla-tcp:
+            enabled: true
+            port: 32469
+            protocol: TCP
+            targetPort: 32469
+            nodePort: 32469
+        type: NodePort
+      udp-discover:
+        enabled: true
+        externalTrafficPolicy: Local
+        type: NodePort
+        ports:
+          dnla-udp:
+            enabled: true
+            port: 1900
+            protocol: UDP
+            targetPort: 1900
+          gdm-1:
+            enabled: true
+            port: 32410
+            protocol: UDP
+            targetPort: 32410
+            nodePort: 32410
+          gdm-2:
+            enabled: true
+            port: 32412
+            protocol: UDP
+            targetPort: 32412
+            nodePort: 32412
+          gdm-3:
+            enabled: true
+            port: 32413
+            protocol: UDP
+            targetPort: 32413
+            nodePort: 32413
     ingress:
       main:
         enabled: true

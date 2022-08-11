@@ -12,7 +12,7 @@ spec:
   chart:
     spec:
       chart: vector
-      version: 0.14.0
+      version: 0.15.0
       sourceRef:
         kind: HelmRepository
         name: vector-charts
@@ -95,7 +95,7 @@ spec:
             .__host = replace(.__host, "192.168.8.47", "master-02")
             .__host = replace(.__host, "192.168.8.51", "master-03")
             .__host = replace(.__host, "192.168.8.60", "worker-01")
-            .__host = replace(.__host, "192.168.8.60", "worker-02")
+            .__host = replace(.__host, "192.168.8.62", "worker-02")
             .__host = replace(.__host, "192.168.8.61", "worker-03")
             .__host = replace(.__host, "192.168.8.13", "worker-04")
             .__host = replace(.__host, "192.168.8.14", "worker-05")

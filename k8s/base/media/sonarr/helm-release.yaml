@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: sonarr
-      version: 16.2.3
+      version: 16.3.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -22,7 +22,7 @@ spec:
       backup.velero.io/backup-volumes: config
     initContainers:
       update-volume-permission:
-        image: busybox@sha256:3614ca5eacf0a3a1bcc361c939202a974b4902b9334ff36eb29ffe9011aaad83
+        image: busybox@sha256:ef320ff10026a50cf5f0213d35537ce0041ac1d96e9b7800bafd8bc9eff6c693
         command: ["sh", "-c", "chown -R 1000:1000 /config"]
         volumeMounts:
           - name: config
@@ -31,7 +31,7 @@ spec:
           runAsUser: 0
     image:
       repository: ghcr.io/k8s-at-home/sonarr-nightly
-      tag: v4.0.0.2167@sha256:65f53636d020fb8f14321ac25ad525ae0dd86dc1ce1a0e7cd4a5e0325406f5d0
+      tag: v4.0.0.2167@sha256:4d773caf5f260eb6f5f8ca4f2bfa6b956bd4186f8c2c11aa64ecceacd02985ac
     env:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info

@@ -34,7 +34,7 @@ prometheus:
         memory: 17G
       limits:
         cpu: 2000m
-        memory: 17G
+        memory: 25G
     replicas: 3
     replicaExternalLabelName: "__replica__"
     externalLabels:
@@ -44,6 +44,9 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
+    retentionSize: "6GB"
+    retention: 2d
+    walCompression: true
     enableAdminAPI: true
     storageSpec:
       volumeClaimTemplate:
@@ -55,13 +58,15 @@ prometheus:
     thanos:
       image: quay.io/thanos/thanos:v0.27.0
       # renovate: datasource=docker depName=quay.io/thanos/thanos
-      version: "v0.26.0"
+      version: "v0.27.0"
       objectStorageConfig:
         name: thanos-objstore-secret
         key: objstore.yml
     additionalScrapeConfigs:
       - job_name: "node-exporter"
         honor_timestamps: true
+        scrape_interval: 1m
+        scrape_timeout: 10s
         static_configs:
           - targets:
               - fw-1.${INT_DOMAIN}:9100
@@ -69,13 +74,20 @@ prometheus:
               - ceph-02.${INT_DOMAIN}:9100
               - ceph-03.${INT_DOMAIN}:9100
               - libvirt-01.scr1.rabbito.tech:9100
+              - "fw-1.nwk2.rabbito.tech:9100"
       - job_name: "vyos-coredns"
+        scrape_interval: 1m
+        scrape_timeout: 10s
         static_configs:
           - targets:
               - 10.5.0.7:9153
               - 10.5.0.8:9153
+              - 10.6.0.7:9153
+              - 10.6.0.8:9153
       - job_name: "cephadm-cluster"
         metrics_path: /metrics
+        scrape_interval: 1m
+        scrape_timeout: 10s
         static_configs:
           - targets:
               - "ceph-01.scr1.rabbito.tech:9283"
@@ -83,14 +95,28 @@ prometheus:
               - "ceph-03.scr1.rabbito.tech:9283"
       - job_name: "vyos"
         metrics_path: /metrics
+        scrape_interval: 1m
+        scrape_timeout: 10s
         static_configs:
           - targets:
               - "fw-1.scr1.rabbito.tech:9273"
+              - "fw-1.nwk2.rabbito.tech:9273"
       - job_name: "redis"
+        scrape_interval: 1m
+        scrape_timeout: 10s
         static_configs:
           - targets:
               - "db-01.scr1.rabbito.tech:9121"
       - job_name: "postgres"
+        scrape_interval: 1m
+        scrape_timeout: 10s
         static_configs:
           - targets:
               - "db-01.scr1.rabbito.tech:9187"
+      - job_name: "haproxy"
+        metrics_path: /metrics
+        scrape_interval: 1m
+        scrape_timeout: 10s
+        static_configs:
+          - targets:
+              - "10.5.0.2:8404"

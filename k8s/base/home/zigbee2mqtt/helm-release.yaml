@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: zigbee2mqtt
-      version: 9.3.2
+      version: 9.4.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -24,7 +24,7 @@ spec:
       repository: docker.io/koenkk/zigbee2mqtt
       # FIXME: https://github.com/Koenkk/zigbee2mqtt/issues/12697
       # repository: ghcr.io/koenkk/zigbee2mqtt
-      tag: "1.26.0"
+      tag: "1.27.0"
     env:
       TZ: America/New_York
       ZIGBEE2MQTT_DATA: /data

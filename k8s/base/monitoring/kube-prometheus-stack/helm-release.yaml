@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 37.3.0
+      version: 39.2.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community-charts
@@ -30,32 +30,10 @@ spec:
     fullnameOverride: prom
     kubeEtcd:
       enabled: true
-      service:
-        enabled: true
-        port: 2381
-        targetPort: 2381
     kubeControllerManager:
       enabled: true
-      service:
-        enabled: true
-        port: 10257
-        targetPort: 10257
-        selector:
-          k8s-app: kube-controller-manager
-      serviceMonitor:
-        https: true
-        insecureSkipVerify: true
     kubeScheduler:
       enabled: true
-      service:
-        enabled: true
-        port: 10259
-        targetPort: 10259
-        selector:
-          k8s-app: kube-scheduler
-      serviceMonitor:
-        https: true
-        insecureSkipVerify: true
     kubeProxy:
       enabled: false
     defaultRules:
@@ -64,10 +42,10 @@ spec:
     prometheusOperator:
       resources:
         requests:
-          cpu: 15m
+          cpu: 50m
           memory: 143M
         limits:
-          cpu: 90m
+          cpu: 150m
           memory: 1192M
       prometheusConfigReloader:
         resources:
@@ -88,10 +66,10 @@ spec:
     prometheus-node-exporter:
       resources:
         requests:
-          cpu: 15m
+          cpu: 200m
           memory: 105M
         limits:
-          cpu: 176m
+          cpu: 400m
           memory: 279M
       fullnameOverride: node-exporter
       prometheus:

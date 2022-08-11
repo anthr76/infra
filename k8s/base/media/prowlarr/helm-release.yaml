@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: prowlarr
-      version: 4.4.2
+      version: 4.5.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -20,7 +20,7 @@ spec:
   values:
     initContainers:
       update-volume-permission:
-        image: busybox@sha256:3614ca5eacf0a3a1bcc361c939202a974b4902b9334ff36eb29ffe9011aaad83
+        image: busybox@sha256:ef320ff10026a50cf5f0213d35537ce0041ac1d96e9b7800bafd8bc9eff6c693
         command: ["sh", "-c", "chown -R 1000:1000 /config"]
         volumeMounts:
           - name: config
@@ -31,7 +31,7 @@ spec:
       backup.velero.io/backup-volumes: config
     image:
       repository: ghcr.io/onedr0p/prowlarr-nightly
-      tag: 0.4.3.1905@sha256:6ab6eeda688638c62fe8a08cae069762517f8b1c83342d92beff004f90ebe0a6        
+      tag: 0.4.4.1939@sha256:21029f2612ac363a3bce992f9bb51fa79504f8d1ab035eee1fee44c44257ce34        
     env:
       TZ: "America/New_York"
       PROWLARR__LOG_LEVEL: info
@@ -40,7 +40,7 @@ spec:
       PROWLARR__POSTGRES_USER: k8s
       PROWLARR__POSTGRES_HOST: db-01.scr1.rabbito.tech
       PROWLARR__POSTGRES_MAIN_DB: prowlarr-main
-      PROWLARR__POSTGRES_MAIN_LOG: prowlarr-log
+      PROWLARR__POSTGRES_LOG_DB: prowlarr-log
     envFrom:
       - secretRef:
           name: prowlarr

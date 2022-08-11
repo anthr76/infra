@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: radarr
-      version: 16.2.3
+      version: 16.3.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -20,7 +20,7 @@ spec:
   values:
     initContainers:
       update-volume-permission:
-        image: busybox@sha256:3614ca5eacf0a3a1bcc361c939202a974b4902b9334ff36eb29ffe9011aaad83
+        image: busybox@sha256:ef320ff10026a50cf5f0213d35537ce0041ac1d96e9b7800bafd8bc9eff6c693
         command: ["sh", "-c", "chown -R 1000:1000 /config"]
         volumeMounts:
           - name: config
@@ -29,7 +29,7 @@ spec:
           runAsUser: 0
     image:
       repository: ghcr.io/onedr0p/radarr-nightly
-      tag: 4.2.0.6438@sha256:50649eebc7f622602ac84cd28eb2eff9f1e1b13de1cfd23284b932fa68b4aa84
+      tag: 4.2.1.6468@sha256:8e9b582b1bb0e20dd19b1a34dba9cdfa5fced881ad977e64a0893e30dfb45262
     env:
       TZ: "America/New_York"
       RADARR__LOG_LEVEL: info
@@ -38,7 +38,7 @@ spec:
       RADARR__POSTGRES_USER: k8s
       RADARR__POSTGRES_HOST: db-01.scr1.rabbito.tech
       RADARR__POSTGRES_MAIN_DB: radarr-uhd-main
-      RADARR__POSTGRES_MAIN_LOG: radarr-uhd-log
+      RADARR__POSTGRES_LOG_DB: radarr-uhd-log
     envFrom:
       - secretRef:
           name: radarr-uhd

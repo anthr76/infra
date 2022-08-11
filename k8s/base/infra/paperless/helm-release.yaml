@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: paperless
-      version: 9.0.0
+      version: 9.1.3
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 1.7.1
+      tag: 1.8.0
     env:
       PAPERLESS_REDIS: redis://db-01.scr1.rabbito.tech:6379
       PAPERLESS_DBHOST: db-01.scr1.rabbito.tech

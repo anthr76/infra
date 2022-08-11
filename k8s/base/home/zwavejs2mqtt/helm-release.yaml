@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: zwavejs2mqtt
-      version: 5.3.2
+      version: 5.4.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: ghcr.io/zwave-js/zwavejs2mqtt
-      tag: 6.13.0
+      tag: 6.15.2
     env:
       TZ: "America/New_York"
     securityContext:
