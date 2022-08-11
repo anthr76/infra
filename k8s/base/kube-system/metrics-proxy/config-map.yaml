@@ -14,14 +14,14 @@ data:
       default-server maxconn 10
 
     frontend kube-controller-manager
-      bind ${NODE_IP}:10252
+      bind ${NODE_IP}:10257
       http-request deny if !{ path /metrics }
       default_backend kube-controller-manager
     backend kube-controller-manager
       server kube-controller-manager 127.0.0.1:10257 ssl verify none
 
     frontend kube-scheduler
-      bind ${NODE_IP}:10251
+      bind ${NODE_IP}:10259
       http-request deny if !{ path /metrics }
       default_backend kube-scheduler
     backend kube-scheduler
@@ -35,8 +35,8 @@ data:
       server kube-proxy 127.0.0.1:10249
 
     frontend kube-etcd
-      bind ${NODE_IP}:2381
+      bind ${NODE_IP}:2379
       http-request deny if !{ path /metrics }
       default_backend kube-etcd
     backend kube-etcd
-      server kube-etcd 127.0.0.1:2381
+      server kube-etcd 127.0.0.1:2379
