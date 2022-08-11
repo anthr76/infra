@@ -97,11 +97,13 @@ controlPlane:
         key: ${clusterCertKey}
       controllerManager:
         extraArgs:
+          bind-address: 0.0.0.0
           feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
           node-cidr-mask-size-ipv4: 24
           node-cidr-mask-size-ipv6: 64
       scheduler:
         extraArgs:
+          bind-address: 0.0.0.0
           feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
       discovery:
         registries:
