@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metrics-proxy
+  namespace: kube-system
+data:
+  haproxy.cfg: |
+    defaults
+      mode http
+      timeout connect 5000ms
+      timeout client 5000ms
+      timeout server 5000ms
+      default-server maxconn 10
+
+    frontend kube-controller-manager
+      bind ${NODE_IP}:10252
+      http-request deny if !{ path /metrics }
+      default_backend kube-controller-manager
+    backend kube-controller-manager
+      server kube-controller-manager 127.0.0.1:10257 ssl verify none
+
+    frontend kube-scheduler
+      bind ${NODE_IP}:10251
+      http-request deny if !{ path /metrics }
+      default_backend kube-scheduler
+    backend kube-scheduler
+      server kube-scheduler 127.0.0.1:10259 ssl verify none
+
+    frontend kube-proxy
+      bind ${NODE_IP}:10249
+      http-request deny if !{ path /metrics }
+      default_backend kube-proxy
+    backend kube-proxy
+      server kube-proxy 127.0.0.1:10249
+
+    frontend kube-etcd
+      bind ${NODE_IP}:2381
+      http-request deny if !{ path /metrics }
+      default_backend kube-etcd
+    backend kube-etcd
+      server kube-etcd 127.0.0.1:2381

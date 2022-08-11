@@ -98,13 +98,11 @@ controlPlane:
       controllerManager:
         extraArgs:
           feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
-          bind-address: 0.0.0.0
           node-cidr-mask-size-ipv4: 24
           node-cidr-mask-size-ipv6: 64
       scheduler:
         extraArgs:
           feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
-          bind-address: 0.0.0.0
       discovery:
         registries:
           service:
