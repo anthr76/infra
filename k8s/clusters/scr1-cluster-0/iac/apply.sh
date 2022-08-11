@@ -2,7 +2,7 @@
 
 #TODO: maybe make this better in a lot of ways.
 # or not..
-
+talhelper genconfig
 for i in {1..3}
 do
    echo -n "master-0"$i" "
