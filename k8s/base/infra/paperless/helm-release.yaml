@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: paperless
-      version: 9.1.1
+      version: 9.1.3
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
