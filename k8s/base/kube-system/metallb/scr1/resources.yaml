@@ -30,4 +30,4 @@ metadata:
   namespace: kube-system
 spec:
   ipAddressPools:
-  - default
+  - bgp-pool
