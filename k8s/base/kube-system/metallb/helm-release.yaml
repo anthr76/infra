@@ -11,14 +11,13 @@ spec:
   chart:
     spec:
       chart: metallb
-      version: 0.12.1
+      version: 0.13.4
       sourceRef:
         kind: HelmRepository
         name: metallb-charts
         namespace: flux-system
       interval: 5m
   values:
-    existingConfigMap: "metallb-config"
     prometheus:
       serviceAccount: kube-prometheus-stack-prometheus
       namespace: monitoring
@@ -35,11 +34,3 @@ spec:
           tag: v8.3.0
     crds:
       enabled: true
-#  postRenderers:
-#    - kustomize:
-#        patchesStrategicMerge:
-#          - $patch: delete
-#            apiVersion: admissionregistration.k8s.io/v1
-#            kind: ValidatingWebhookConfiguration
-#            metadata:
-#              name: validating-webhook-configuration
