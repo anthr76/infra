@@ -34,3 +34,29 @@ spec:
           tag: v8.3.0
     crds:
       enabled: true
+  # https://github.com/cilium/cilium/issues/20436
+  # https://github.com/metallb/metallb/issues/1512
+  postRenderers:
+    - kustomize:
+        patchesJson6902:
+          - target:
+              version: v1
+              kind: DaemonSet
+              name: metallb-speaker
+            patch:
+              - op: add
+                path: /spec/template/spec/initContainers/3
+                value:
+                  name: routes
+                  command:
+                  - /bin/sh
+                  - -c
+                  - |-
+                    ip r add local 10.45.0.0/16 dev lo table local proto 66 scope host || true
+                    ip -6 r add local 2001:559:87dd:a00::/56 dev lo table local proto 67 scope host || true
+                  image: alpine
+                  imagePullPolicy: IfNotPresent
+                  securityContext:
+                    capabilities:
+                        add:
+                         - NET_ADMIN
