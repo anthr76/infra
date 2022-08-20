@@ -9,7 +9,7 @@ collections:
   - name: containers.podman
     version: "1.9.4"
   - name: community.routeros
-    version: "2.1.0"
+    version: "2.2.1"
 roles:
   - src: git@github.com:anthr76/routeros-configure.git
     scm: git
