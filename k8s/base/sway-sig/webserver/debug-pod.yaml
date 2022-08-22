@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+  namespace: sway-sig
+spec:
+  containers:
+    - name: task-pv-container
+      image: alpine
+      command:
+        - sh
+        - -c
+      args:
+        - sleep 1d
+      volumeMounts:
+        - mountPath: "/data"
+          name: task-pv-storage
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: sway-nginx

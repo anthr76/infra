@@ -1,0 +1,46 @@
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: gitlab-fedora-kickstart
+  namespace: sway-sig
+spec:
+  serviceAccountName: tekton-triggers
+  triggers:
+    - name: gitlab-pipeline-events-trigger
+      interceptors:
+        - name: "verify-gitlab-payload"
+          ref:
+            name: "gitlab"
+            kind: ClusterInterceptor
+          params:
+            - name: secretRef
+              value:
+                secretName: "gitlab-webhook"
+                secretKey: "secretToken"
+            - name: eventTypes
+              value:
+                - "Pipeline Hook"
+        - name: "CEL filter: only when pipelines are sucessful on sway branch"
+          ref:
+            name: "cel"
+          params:
+          - name: "success"
+            value: "body.object_attributes.status == 'success'"
+          - name: "no-mr"
+            value: "body.object_attributes.source != 'merge_request_event'"
+      template:
+        spec:
+          resourcetemplates:
+            - apiVersion: tekton.dev/v1beta1
+              kind: PipelineRun
+              metadata:
+                generateName: kickstart-iso-to-prod
+                namespace: sway-sig
+              spec:
+                pipelineRef:
+                  name: kickstart-to-prod
+                workspaces:
+                  - name: prod
+                    persistentVolumeClaim:
+                      claimName: sway-nginx

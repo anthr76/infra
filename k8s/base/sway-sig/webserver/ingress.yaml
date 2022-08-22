@@ -1,0 +1,38 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/service-upstream: "true"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "240"
+    nginx.ingress.kubernetes.io/upstream-hash-by: "$remote_addr"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/limit-connections: "10"
+    nginx.ingress.kubernetes.io/limit-rps: "2000"
+    nginx.ingress.kubernetes.io/limit-rpm: "9000"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+    nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+  labels:
+    app.kubernetes.io/instance: sway-sig
+    app.kubernetes.io/name: sway-sig
+  name: sway-sig
+  namespace: sway-sig
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: sway-sig.kutara.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: sway-sig-nginx
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - sway-sig.kutara.io
+      secretName: sway-sig-tls

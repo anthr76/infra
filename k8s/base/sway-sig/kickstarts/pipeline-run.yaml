@@ -1,0 +1,13 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: kickstart
+  namespace: sway-sig
+spec:
+  pipelineRef:
+    name: kickstart-to-prod
+  workspaces:
+    - name: prod
+      persistentVolumeClaim:
+        claimName: sway-nginx

@@ -1,0 +1,9 @@
+---
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: sway-sig-v1
+  namespace: sway-sig
+spec:
+  bucketName: sway-sig
+  storageClassName: ceph-bucket

@@ -1,0 +1,17 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: kickstart-to-prod
+  namespace: sway-sig
+spec:
+  description: promotes gitlab built ISOs to prod webserver.
+  workspaces:
+  - name: prod
+  tasks:
+  - name: kickstart-s3-to-prod
+    taskRef:
+      name: kickstart-s3-to-prod
+    workspaces:
+    - name: target
+      workspace: prod

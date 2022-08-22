@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: 51200m
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+  name: rook-ceph-rgw-ceph-objectstore
+  namespace: rook-ceph
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: s3.kutara.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: rook-ceph-rgw-ceph-objectstore
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - s3.kutara.io
+    secretName: s3-tls
