@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: sonarrs
-              image: ghcr.io/k8s-at-home/recyclarr:v2.3.0@sha256:d0e2903f2f4816bea75ea5d1c70e175e85fba45bb2051de1be03c2ae751cfb8c
+              image: ghcr.io/k8s-at-home/recyclarr:v2.4.1@sha256:35b3fc7f9e6c32fcced150be67b6b1ccef34033534dfe8335c40cbdb9b036f1f
               env:
                 - name: TZ
                   value: America/New_York
@@ -35,7 +35,7 @@ spec:
                 - name: config
                   mountPath: /config
             - name: radarrs
-              image: ghcr.io/k8s-at-home/recyclarr:v2.3.0@sha256:d0e2903f2f4816bea75ea5d1c70e175e85fba45bb2051de1be03c2ae751cfb8c
+              image: ghcr.io/k8s-at-home/recyclarr:v2.4.1@sha256:35b3fc7f9e6c32fcced150be67b6b1ccef34033534dfe8335c40cbdb9b036f1f
               env:
                 - name: TZ
                   value: "America/New_York"
