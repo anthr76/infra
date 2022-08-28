@@ -5,6 +5,11 @@ metadata:
   name: kickstart
   namespace: sway-sig
 spec:
+  params:
+    - name: REPO_PATH_ONLY
+      value: fedora/sigs/sway/fedora-kickstarts
+    - name: SOURCE_REVISION
+      value: "dfa558a107c1ab4a9f18cce3e03408afde9abe91"
   pipelineRef:
     name: kickstart-to-prod
   workspaces:

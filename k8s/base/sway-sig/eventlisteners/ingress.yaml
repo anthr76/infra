@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
   name: event-listeners
   namespace: sway-sig
 spec:

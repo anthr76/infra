@@ -20,7 +20,7 @@ roleRef:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: triggers-example-eventlistener-clusterbinding
+  name: triggers-sway-eventlistener-clusterbinding
 subjects:
   - kind: ServiceAccount
     name: tekton-triggers

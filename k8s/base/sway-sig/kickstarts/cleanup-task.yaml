@@ -1,0 +1,18 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: cleanup-prod-iso-store
+  namespace: sway-sig
+spec:
+  workspaces:
+    - name: target
+  steps:
+    - name: cleanup
+      image: docker.io/library/busybox:latest
+      args:
+        - find
+        - $(workspaces.target.path)/iso/
+        - -type f
+        - -mtime +7
+        - -delete

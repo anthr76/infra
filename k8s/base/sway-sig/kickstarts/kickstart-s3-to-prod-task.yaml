@@ -13,7 +13,7 @@ spec:
   workspaces:
     - name: target
   steps:
-    - name: move-s3-to-scratch
+    - name: move-s3-to-prod
       image: docker.io/peakcom/s5cmd:latest
       args:
         - --endpoint-url

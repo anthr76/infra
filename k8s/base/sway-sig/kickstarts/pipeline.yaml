@@ -5,13 +5,107 @@ metadata:
   name: kickstart-to-prod
   namespace: sway-sig
 spec:
+  params:
+    - name: GITLAB_HOST
+      description: The GitLab instance to report the status to
+      default: "gitlab.com"
+    - name: REPO_PATH_ONLY
+      type: string
+      description: GitLab group & repo name only (e.g. jonashackt/microservice-api-spring-boot)
+    - name: TEKTON_DASHBOARD_HOST
+      description: The Tekton Dashboard URL for the status reports in GitLab
+      default: "https://tekton.kutara.io/dashboard/"
+    - name: SOURCE_REVISION
+      description: The branch, tag or SHA to checkout.
+      default: ""
   description: promotes gitlab built ISOs to prod webserver.
   workspaces:
   - name: prod
   tasks:
+  - name: report-pipeline-start-to-gitlab
+    taskRef:
+      name: gitlab-set-status
+    params:
+      - name: "STATE"
+        value: "running"
+      - name: "GITLAB_HOST_URL"
+        value: "$(params.GITLAB_HOST)"
+      - name: "REPO_FULL_NAME"
+        value: "$(params.REPO_PATH_ONLY)"
+      - name: "GITLAB_TOKEN_SECRET_NAME"
+        value: "gitlab-api"
+      - name: "GITLAB_TOKEN_SECRET_KEY"
+        value: "pat"
+      - name: "TARGET_URL"
+        value: "$(params.TEKTON_DASHBOARD_HOST)/#/namespaces/sway-sig/pipelineruns/$(context.pipelineRun.name)"
+      - name: "CONTEXT"
+        value: "tekton-pipeline"
+      - name: "DESCRIPTION"
+        value: "Promoting ISOs in Tekton"
+      - name: "SHA"
+        value: "$(params.SOURCE_REVISION)"
   - name: kickstart-s3-to-prod
     taskRef:
       name: kickstart-s3-to-prod
     workspaces:
     - name: target
       workspace: prod
+  - name: cleanup-prod-iso-store
+    taskRef:
+      name: cleanup-prod-iso-store
+    workspaces:
+    - name: target
+      workspace: prod
+  finally:
+    - name: report-pipeline-failed-to-gitlab
+      when:
+        - input: $(tasks.status)
+          operator: in
+          values: [ "Failed", "None" ]
+      taskRef:
+        name: "gitlab-set-status"
+      params:
+        - name: "STATE"
+          value: "failed"
+        - name: "GITLAB_HOST_URL"
+          value: "$(params.GITLAB_HOST)"
+        - name: "REPO_FULL_NAME"
+          value: "$(params.REPO_PATH_ONLY)"
+        - name: "GITLAB_TOKEN_SECRET_NAME"
+          value: "gitlab-api"
+        - name: "GITLAB_TOKEN_SECRET_KEY"
+          value: "pat"
+        - name: "TARGET_URL"
+          value: "$(params.TEKTON_DASHBOARD_HOST)/#/namespaces/sway-sig/pipelineruns/$(context.pipelineRun.name)"
+        - name: "CONTEXT"
+          value: "tekton-pipeline"
+        - name: "DESCRIPTION"
+          value: "An error occurred promoting ISOs in Tekton"
+        - name: "SHA"
+          value: "$(params.SOURCE_REVISION)"
+    - name: report-pipeline-success-to-gitlab
+      when:
+        - input: $(tasks.status)
+          operator: in
+          values: [ "Succeeded", "Completed" ]
+      taskRef:
+        name: "gitlab-set-status"
+      params:
+        - name: "STATE"
+          value: "success"
+        - name: "GITLAB_HOST_URL"
+          value: "$(params.GITLAB_HOST)"
+        - name: "REPO_FULL_NAME"
+          value: "$(params.REPO_PATH_ONLY)"
+        - name: "GITLAB_TOKEN_SECRET_NAME"
+          value: "gitlab-api"
+        - name: "GITLAB_TOKEN_SECRET_KEY"
+          value: "pat"
+        - name: "TARGET_URL"
+          value: "$(params.TEKTON_DASHBOARD_HOST)/#/namespaces/sway-sig/pipelineruns/$(context.pipelineRun.name)"
+        - name: "CONTEXT"
+          value: "tekton-pipeline"
+        - name: "DESCRIPTION"
+          value: "ISOs have been pushed to https://sway-sig.kutara.io/iso/"
+        - name: "SHA"
+          value: "$(params.SOURCE_REVISION)"
