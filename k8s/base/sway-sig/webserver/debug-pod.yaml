@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - name: task-pv-container
-      image: alpine
+      image: alpine@sha256:bc41182d7ef5ffc53a40b044e725193bc10142a1243f395ee852a8d9730fc2ad
       command:
         - sh
         - -c
