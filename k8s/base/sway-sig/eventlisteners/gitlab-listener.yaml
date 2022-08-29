@@ -38,7 +38,7 @@ spec:
             name: "cel"
           params:
           - name: "filter"
-            value: "body.object_attributes.stages in ['build']"
+            value: "body.object_attributes.stages == ['build']"
       bindings:
         - name: gitrevision
           value: $(body.object_attributes.sha)
