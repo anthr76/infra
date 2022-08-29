@@ -10,9 +10,11 @@ spec:
   steps:
     - name: cleanup
       image: docker.io/library/busybox:latest
+      command: [find]
       args:
-        - find
         - $(workspaces.target.path)/iso/
-        - -type f
-        - -mtime +7
+        - -type 
+        - f
+        - -mtime 
+        - "+7"
         - -delete

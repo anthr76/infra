@@ -33,6 +33,12 @@ spec:
           params:
           - name: "filter"
             value: "body.object_attributes.status == 'success'"
+        - name: "CEL filter: only approved stages, don't loop"
+          ref:
+            name: "cel"
+          params:
+          - name: "filter"
+            value: "body.object_attributes.stages in ['build']"
       bindings:
         - name: gitrevision
           value: $(body.object_attributes.sha)
