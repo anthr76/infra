@@ -14,7 +14,7 @@ spec:
     - name: target
   steps:
     - name: move-s3-to-prod
-      image: docker.io/peakcom/s5cmd:latest
+      image: docker.io/peakcom/s5cmd:latest@sha256:cd00d2908f021c0ef8188d2b115d3bbf706dcdabaed2aef8b8e213ec09373bc2
       args:
         - --endpoint-url
         - http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc.cluster.local 
