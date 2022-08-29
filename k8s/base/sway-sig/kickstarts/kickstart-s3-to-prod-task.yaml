@@ -1,0 +1,34 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: kickstart-s3-to-prod
+  namespace: sway-sig
+spec:
+  params:
+    - name: s3-credentials
+      type: string
+      description: name of the s3 secret credentials
+      default: sway-sig-v1
+  workspaces:
+    - name: target
+  steps:
+    - name: move-s3-to-prod
+      image: docker.io/peakcom/s5cmd:latest
+      args:
+        - --endpoint-url
+        - http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc.cluster.local 
+        - mv 
+        - s3://sway-sig/iso/* 
+        - $(workspaces.target.path)/iso/
+      env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: $(params.s3-credentials)
+              key: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: $(params.s3-credentials)
+              key: AWS_SECRET_ACCESS_KEY

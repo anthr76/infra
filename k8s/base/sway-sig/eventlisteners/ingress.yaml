@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: event-listeners
+  namespace: sway-sig
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: ci.sway-sig.kutara.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: el-gitlab-fedora-kickstart
+            port:
+              number: 8080
+        path: /kickstart(/|$)(.*)
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - ci.sway-sig.kutara.io
+    secretName: ci-sway-sig-tls

@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sway-nginx
+  namespace: sway-sig
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 150Gi
+  storageClassName: ceph-filesystem

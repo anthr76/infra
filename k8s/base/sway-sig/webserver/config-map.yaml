@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sway-sig-nginx-conf
+  namespace: sway-sig
+data:
+  01-kutara.conf: |
+    server {
+        listen       8080;
+        server_name  sway-sig;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        autoindex on;
+        autoindex_exact_size off;
+        autoindex_localtime on;
+        # fancyindex on;
+        # fancyindex_exact_size off;
+        sendfile           on;
+        tcp_nopush         on;
+        tcp_nodelay        on;
+        location / {
+            root   /usr/share/nginx/html;
+            index  index.html index.htm;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
+        }
+    }
+  02-metrics.conf: |
+    server {
+        listen       8090;
+        server_name  metrics;
+        location = /basic_status {
+            stub_status;
+        }
+    }

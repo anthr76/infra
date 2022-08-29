@@ -1,0 +1,44 @@
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/instance: sway-sig-nginx
+    app.kubernetes.io/name: sway-sig
+  name: sway-sig
+  namespace: sway-sig
+spec:
+  behavior:
+    scaleDown:
+      policies:
+      - periodSeconds: 180
+        type: Pods
+        value: 1
+      selectPolicy: Max
+      stabilizationWindowSeconds: 300
+    scaleUp:
+      policies:
+      - periodSeconds: 60
+        type: Pods
+        value: 2
+      selectPolicy: Max
+      stabilizationWindowSeconds: 300
+  maxReplicas: 8
+  metrics:
+  - resource:
+      name: memory
+      target:
+        averageUtilization: 50
+        type: Utilization
+    type: Resource
+  - resource:
+      name: cpu
+      target:
+        averageUtilization: 50
+        type: Utilization
+    type: Resource
+  minReplicas: 2
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: sway-sig-nginx

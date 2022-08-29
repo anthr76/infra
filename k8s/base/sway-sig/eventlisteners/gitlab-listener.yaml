@@ -1,0 +1,70 @@
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: gitlab-fedora-kickstart
+  namespace: sway-sig
+spec:
+  serviceAccountName: tekton-triggers
+  triggers:
+    - name: gitlab-pipeline-events-trigger
+      interceptors:
+        - name: "verify-gitlab-payload"
+          ref:
+            name: "gitlab"
+            kind: ClusterInterceptor
+          params:
+            - name: secretRef
+              value:
+                secretName: "gitlab-api"
+                secretKey: "webhookToken"
+            - name: eventTypes
+              value:
+                - "Pipeline Hook"
+        - name: "CEL filter: do not run on MRs"
+          ref:
+            name: "cel"
+          params:
+          - name: "filter"
+            value: "body.object_attributes.source != 'merge_request_event'"
+        - name: "CEL filter: only when pipelines are sucessful on sway branch"
+          ref:
+            name: "cel"
+          params:
+          - name: "filter"
+            value: "body.object_attributes.status == 'success'"
+        - name: "CEL filter: only approved stages, don't loop"
+          ref:
+            name: "cel"
+          params:
+          - name: "filter"
+            value: "body.object_attributes.stages in ['build']"
+      bindings:
+        - name: gitrevision
+          value: $(body.object_attributes.sha)
+        - name: gitrepository_pathonly
+          value: $(body.project.path_with_namespace)
+      template:
+        spec:
+          params:
+            - name: gitrepository_pathonly
+            - name: gitrevision
+          resourcetemplates:
+            - apiVersion: tekton.dev/v1beta1
+              kind: PipelineRun
+              metadata:
+                generateName: kickstart-iso-to-prod-
+                namespace: sway-sig
+              spec:
+                pipelineRef:
+                  name: kickstart-to-prod
+                workspaces:
+                  - name: prod
+                    persistentVolumeClaim:
+                      claimName: sway-nginx
+                params:
+                  - name: REPO_PATH_ONLY
+                    value: "$(tt.params.gitrepository_pathonly)"
+                  - name: SOURCE_REVISION
+                    value: "$(tt.params.gitrevision)"
+
