@@ -21,12 +21,9 @@ spec:
     controller:
       priorityClassName: system-cluster-critical
       replicaCount: 2
-       # Scheduling on masters (as usual) is giving unexpected errors. 
-       # Since these are 10G and have a light workload for the hardware make this a TODO
-       # No time to dig into it now.
-#      tolerations:
-#        - effect: NoSchedule
-#          key: "node-role.kubernetes.io/master"
+      tolerations:
+        - effect: NoSchedule
+          key: "node-role.kubernetes.io/master"
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -37,25 +34,6 @@ spec:
                 operator: In
                 values:
                 - "true"
-        # podAntiAffinity:
-        #   preferredDuringSchedulingIgnoredDuringExecution:
-        #   - podAffinityTerm:
-        #       labelSelector:
-        #         matchExpressions:
-        #         - key: app.kubernetes.io/name
-        #           operator: In
-        #           values:
-        #           - ingress-nginx
-        #         - key: app.kubernetes.io/instance
-        #           operator: In
-        #           values:
-        #           - ingress-nginx
-        #         - key: app.kubernetes.io/component
-        #           operator: In
-        #           values:
-        #           - controller
-        #       topologyKey: kubernetes.io/hostname
-        #     weight: 20
       autoscaling:
         enabled: true
         minReplicas: 3
@@ -152,7 +130,7 @@ spec:
         - name: TEMPLATE_NAME
           value: lost-in-space
         - name: SHOW_DETAILS
-          value: "true"
+          value: "false"
       resources:
         requests:
           cpu: 15m
