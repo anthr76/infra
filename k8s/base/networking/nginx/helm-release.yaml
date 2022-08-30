@@ -21,9 +21,9 @@ spec:
     controller:
       priorityClassName: system-cluster-critical
       replicaCount: 2
-      tolerations:
-        - effect: NoSchedule
-          key: "node-role.kubernetes.io/master"
+      # tolerations:
+      #   - effect: NoSchedule
+      #     key: "node-role.kubernetes.io/master"
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
