@@ -16,7 +16,7 @@ spec:
         spec:
           containers:
             - name: ostree-fetch
-              image: ghcr.io/anthr76/kutara-ostree:latest@sha256:247d2587ea824c930b957aaf5f895fa48b9a61301d400aa5fc96857c54e89808
+              image: ghcr.io/anthr76/kutara-ostree:latest@sha256:b873ff652ceccf28c3ee02118e5de83411cfc17933a9190f816e04fb700eac99
               imagePullPolicy: IfNotPresent
               command:
                 - /bin/bash
@@ -62,7 +62,7 @@ spec:
         spec:
           containers:
             - name: ostree-fetch
-              image: ghcr.io/anthr76/kutara-ostree:latest@sha256:247d2587ea824c930b957aaf5f895fa48b9a61301d400aa5fc96857c54e89808
+              image: ghcr.io/anthr76/kutara-ostree:latest@sha256:b873ff652ceccf28c3ee02118e5de83411cfc17933a9190f816e04fb700eac99
               imagePullPolicy: IfNotPresent
               command:
                 - /bin/bash
