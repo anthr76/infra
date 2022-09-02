@@ -20,7 +20,7 @@ spec:
   values:
     initContainers:
       update-volume-permission:
-        image: busybox@sha256:8b3482738ce9dc9aa053c06da2967de4dd5b5c5d6ace80c2ec5d3922397afd82
+        image: busybox@sha256:b94dff621dc65c1a3627e2e03cd81ad2659b213c244434dec768ddaaf150ef59
         command: ["sh", "-c", "chown -R 1000:1000 /config"]
         volumeMounts:
           - name: config
