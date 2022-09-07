@@ -20,6 +20,13 @@ spec:
               number: 8080
         path: /kickstart(/|$)(.*)
         pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: el-gitlab-fedora-ostree
+            port:
+              number: 8080
+        path: /ostree(/|$)(.*)
+        pathType: ImplementationSpecific
   tls:
   - hosts:
     - ci.sway-sig.kutara.io

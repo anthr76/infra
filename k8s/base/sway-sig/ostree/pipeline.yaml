@@ -2,7 +2,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: kickstart-to-prod
+  name: ostree-to-prod
   namespace: sway-sig
 spec:
   params:
@@ -20,9 +20,10 @@ spec:
       default: ""
     - name: FEDORA_VERSION_BRANCH
       description: The version of fedora to promote.
-  description: promotes gitlab built ISOs to prod webserver.
+  description: promotes ostree containers to production repo.
   workspaces:
   - name: prod
+  - name: scratch-repo
   tasks:
   - name: report-pipeline-start-to-gitlab
     taskRef:
@@ -43,57 +44,57 @@ spec:
       - name: "CONTEXT"
         value: "tekton-pipeline"
       - name: "DESCRIPTION"
-        value: "Promoting ISOs in Tekton"
+        value: "Promoting ostree builds in Tekton"
       - name: "SHA"
         value: "$(params.SOURCE_REVISION)"
-  - name: kickstart-s3-to-prod-rawhide
+  - name: ostree-promote-rawhide
     taskRef:
-      name: kickstart-s3-to-prod
+      name: ostree-promote
     when:
       - input: $(params.FEDORA_VERSION_BRANCH)
         operator: in
         values:
-          - main-sway
+          - rawhide-sway-spin
     params:
       - name: "FEDORA_VERSION"
         value: "rawhide"
     workspaces:
-    - name: target
+    - name: prod
       workspace: prod
-  - name: kickstart-s3-to-prod-f37
+    - name: scratch-repo
+      workspace: scratch-repo
+  - name: ostree-promote-f37
     taskRef:
-      name: kickstart-s3-to-prod
+      name: ostree-promote
     when:
       - input: $(params.FEDORA_VERSION_BRANCH)
         operator: in
         values:
-          - f37-sway
+          - f37-sway-spin
     params:
       - name: "FEDORA_VERSION"
         value: "37"
     workspaces:
-    - name: target
+    - name: prod
       workspace: prod
-  - name: kickstart-s3-to-prod-f36
+    - name: scratch-repo
+      workspace: scratch-repo
+  - name: ostree-promote-f36
     taskRef:
-      name: kickstart-s3-to-prod
+      name: ostree-promote
     when:
       - input: $(params.FEDORA_VERSION_BRANCH)
         operator: in
         values:
-          - f36-sway
+          - f36-sway-spin
     params:
       - name: "FEDORA_VERSION"
         value: "36"
     workspaces:
-    - name: target
+    - name: prod
       workspace: prod
-  - name: cleanup-prod-iso-store
-    taskRef:
-      name: cleanup-prod-iso-store
-    workspaces:
-    - name: target
-      workspace: prod
+    - name: scratch-repo
+      workspace: scratch-repo
   finally:
     - name: report-pipeline-failed-to-gitlab
       when:
@@ -118,7 +119,7 @@ spec:
         - name: "CONTEXT"
           value: "tekton-pipeline"
         - name: "DESCRIPTION"
-          value: "An error occurred promoting ISOs in Tekton"
+          value: "An error occurred promoting ostree in Tekton"
         - name: "SHA"
           value: "$(params.SOURCE_REVISION)"
     - name: report-pipeline-success-to-gitlab
@@ -144,6 +145,6 @@ spec:
         - name: "CONTEXT"
           value: "tekton-pipeline"
         - name: "DESCRIPTION"
-          value: "ISOs have been pushed to https://sway-sig.kutara.io/iso/"
+          value: "ostree repos have been pushed to https://sway-sig.kutara.io/ostree/"
         - name: "SHA"
           value: "$(params.SOURCE_REVISION)"

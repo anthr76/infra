@@ -15,4 +15,5 @@ spec:
   workspaces:
     - name: prod
       persistentVolumeClaim:
-        claimName: sway-nginx
+        claimName: sway-nginx-v2
+        subPath: nginx

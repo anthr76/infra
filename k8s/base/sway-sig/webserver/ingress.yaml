@@ -32,6 +32,20 @@ spec:
                   number: 8080
             path: /
             pathType: Prefix
+          - backend:
+              service:
+                name: sway-sig-nginx
+                port:
+                  number: 8080
+            path: /ostree
+            pathType: Prefix
+          - backend:
+              service:
+                name: sway-sig-nginx
+                port:
+                  number: 8080
+            path: /iso
+            pathType: Prefix
   tls:
     - hosts:
         - sway-sig.kutara.io

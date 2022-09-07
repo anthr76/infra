@@ -1,0 +1,70 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: ostree-promote
+  namespace: sway-sig
+spec:
+  results:
+    - name: dev-commit-rev
+      description: The current dev ostree commit being promoted.
+  params:
+    - name: FEDORA_VERSION
+      type: string
+      description: The version of fedora.
+  workspaces:
+    - name: prod
+    - name: scratch-repo
+  steps:
+    - name: init
+      image: ghcr.io/anthr76/kutara-ostree:latest
+      command: ["ostree"]
+      args:
+        - init
+        - --mode=bare-user
+        - --repo=$(workspaces.scratch-repo.path)
+    - name: ignore-min-free-space-percent
+      image: ghcr.io/anthr76/kutara-ostree:latest
+      command: ["echo"]
+      args:
+        - "min-free-space-percent=0"
+        - ">>"
+        - $(workspaces.scratch-repo.path)/config
+    - name: unencapsulate
+      image: ghcr.io/anthr76/kutara-ostree:latest
+      command: ["ostree"]
+      args:
+        - container
+        - unencapsulate
+        - --quiet
+        - ostree-unverified-image:docker://registry.gitlab.com/fedora/sigs/sway/ostree-config:$(params.FEDORA_VERSION)
+        - --repo=$(workspaces.scratch-repo.path)
+        - --write-ref
+        - fedora/$(params.FEDORA_VERSION)/x86_64/sericea
+    - name: promote
+      image: ghcr.io/anthr76/kutara-ostree:latest
+      command: ["ostree"]
+      args:
+        - pull-local
+        - --repo=$(workspaces.prod.path)/ostree 
+        - $(workspaces.scratch-repo.path)
+    - name: commit
+      image: ghcr.io/anthr76/kutara-ostree:latest
+      script: |
+        #!/usr/bin/env bash
+        ostree commit --repo=$(workspaces.prod.path)/ostree --branch=fedora/$(params.FEDORA_VERSION)/x86_64/sway --tree=ref=$(ostree --repo=$(workspaces.scratch-repo.path) rev-parse fedora/$(params.FEDORA_VERSION)/x86_64/sway)
+    - name: static-delta
+      image: ghcr.io/anthr76/kutara-ostree:latest
+      command: ["ostree"]
+      args:
+        - --repo=$(workspaces.prod.path)/ostree/
+        - static-delta
+        - generate
+        - fedora/$(params.FEDORA_VERSION)/x86_64/sericea
+    - name: update-summary
+      image: ghcr.io/anthr76/kutara-ostree:latest
+      command: ["ostree"]
+      args:
+        - summary
+        - -u
+        - --repo=$(workspaces.prod.path)/ostree/

@@ -10,17 +10,20 @@ spec:
       type: string
       description: name of the s3 secret credentials
       default: sway-sig-v1
+    - name: FEDORA_VERSION
+      type: string
+      description: The version of fedora.
   workspaces:
     - name: target
   steps:
-    - name: move-s3-to-prod
+    - name: move-s3-to-tmp
       image: docker.io/peakcom/s5cmd:latest@sha256:cd00d2908f021c0ef8188d2b115d3bbf706dcdabaed2aef8b8e213ec09373bc2
       args:
         - --endpoint-url
         - http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc.cluster.local 
         - mv 
-        - s3://sway-sig/iso/* 
-        - $(workspaces.target.path)/iso/
+        - s3://sway-sig/iso/Fedora-Sway-Live-$(params.FEDORA_VERSION)*
+        - $(workspaces.target.path)/iso/tmp/
       env:
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
@@ -32,3 +35,8 @@ spec:
             secretKeyRef:
               name: $(params.s3-credentials)
               key: AWS_SECRET_ACCESS_KEY
+    - name: move-tmp-to-prod
+      image: bash
+      script: |
+        #!/usr/bin/env bash
+        mv $(workspaces.target.path)/iso/tmp/Fedora-Sway-Live-$(params.FEDORA_VERSION)* $(workspaces.target.path)/iso 

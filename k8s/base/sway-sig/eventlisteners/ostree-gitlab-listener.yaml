@@ -2,7 +2,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: gitlab-fedora-kickstart
+  name: gitlab-fedora-ostree
   namespace: sway-sig
 spec:
   serviceAccountName: tekton-triggers
@@ -27,7 +27,7 @@ spec:
           params:
           - name: "filter"
             value: "body.object_attributes.source != 'merge_request_event'"
-        - name: "CEL filter: only when pipelines are sucessful on sway branch"
+        - name: "CEL filter: only when pipelines are sucessful"
           ref:
             name: "cel"
           params:
@@ -56,16 +56,20 @@ spec:
             - apiVersion: tekton.dev/v1beta1
               kind: PipelineRun
               metadata:
-                generateName: kickstart-iso-to-prod-
+                generateName: ostree-to-prod-
                 namespace: sway-sig
               spec:
                 pipelineRef:
-                  name: kickstart-to-prod
+                  name: ostree-to-prod
                 workspaces:
                   - name: prod
                     persistentVolumeClaim:
                       claimName: sway-nginx-v2
                     subPath: nginx
+                  - name: scratch-repo
+                    persistentVolumeClaim:
+                      claimName: sway-nginx-v2
+                    subPath: scratch-repo
                 params:
                   - name: REPO_PATH_ONLY
                     value: "$(tt.params.gitrepository_pathonly)"

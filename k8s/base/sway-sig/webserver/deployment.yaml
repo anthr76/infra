@@ -96,13 +96,14 @@ spec:
             - mountPath: /usr/share/nginx/html
               readOnly: true
               name: data
+              subPath: nginx
             - mountPath: /etc/nginx/conf.d
               readOnly: true
               name: nginx-conf
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: sway-nginx
+            claimName: sway-nginx-v2
         - name: nginx-conf
           configMap:
             name: sway-sig-nginx-conf
