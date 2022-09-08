@@ -50,6 +50,7 @@ spec:
   - name: ostree-promote-rawhide
     taskRef:
       name: ostree-promote
+    timeout: "2h1m30s"
     when:
       - input: $(params.FEDORA_VERSION_BRANCH)
         operator: in
