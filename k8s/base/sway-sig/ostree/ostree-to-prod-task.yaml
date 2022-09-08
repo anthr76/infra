@@ -41,6 +41,13 @@ spec:
         - --repo=$(workspaces.scratch-repo.path)
         - --write-ref
         - fedora/$(params.FEDORA_VERSION)/x86_64/sericea
+    - name: update-staging-summary
+      image: ghcr.io/anthr76/kutara-ostree:latest
+      command: ["ostree"]
+      args:
+        - summary
+        - -u
+        - --repo=$(workspaces.scratch-repo.path)
     - name: promote
       image: ghcr.io/anthr76/kutara-ostree:latest
       command: ["ostree"]
