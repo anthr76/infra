@@ -52,7 +52,7 @@ spec:
       image: ghcr.io/anthr76/kutara-ostree:latest
       script: |
         #!/usr/bin/env bash
-        ostree commit --repo=$(workspaces.prod.path)/ostree --branch=fedora/$(params.FEDORA_VERSION)/x86_64/sway --tree=ref=$(ostree --repo=$(workspaces.scratch-repo.path) rev-parse fedora/$(params.FEDORA_VERSION)/x86_64/sway)
+        ostree commit --repo=$(workspaces.prod.path)/ostree --branch=fedora/$(params.FEDORA_VERSION)/x86_64/sericea --tree=ref=$(ostree --repo=$(workspaces.scratch-repo.path) rev-parse fedora/$(params.FEDORA_VERSION)/x86_64/sericea)
     - name: static-delta
       image: ghcr.io/anthr76/kutara-ostree:latest
       command: ["ostree"]
