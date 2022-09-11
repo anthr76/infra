@@ -1,0 +1,77 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: audiobookshelf
+  namespace: media
+spec:
+  releaseName: audiobookshelf
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 0.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/advplyr/audiobookshelf
+      tag: 2.1.5
+    env:
+      TZ: "America/New_York"
+    initContainers:
+      update-volume-permission-config:
+        image: busybox@sha256:20142e89dab967c01765b0aea3be4cec3a5957cc330f061e5503ef6168ae6613
+        command: ["sh", "-c", "chown -R 1000:1000 /config"]
+        volumeMounts:
+          - name: config
+            mountPath: /config
+        securityContext:
+          runAsUser: 0
+      update-volume-permission:
+        image: busybox@sha256:20142e89dab967c01765b0aea3be4cec3a5957cc330f061e5503ef6168ae6613
+        command: ["sh", "-c", "chown -R 1000:1000 /metadata"]
+        volumeMounts:
+          - name: metadata
+            mountPath: /metadata
+        securityContext:
+          runAsUser: 0
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          nginx.ingress.kubernetes.io/proxy-body-size: "2G"
+          nginx.ingress.kubernetes.io/proxy-buffering: "off"
+          nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+        hosts:
+          - host: &host "ab.scr1.rabbito.tech"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: tls-audiobookshelf
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
+        existingClaim: audiobookshelf-config-v1
+      metadata:
+        enabled: true
+        mountPath: /metadata
+        existingClaim: audiobookshelf-metadata-v1
+      media:
+        enabled: true
+        existingClaim: media
+        mountPath: /media
