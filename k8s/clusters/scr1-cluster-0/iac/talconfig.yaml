@@ -1,8 +1,8 @@
 ---
 clusterName: scr1-cluster-0
 
-talosVersion: v1.1.1
-kubernetesVersion: 1.24.3
+talosVersion: v1.2.1
+kubernetesVersion: 1.24.4
 endpoint: "https://cluster-0.scr1.rabbito.tech:6443"
 
 cniConfig:
@@ -204,3 +204,8 @@ worker:
         extraArgs:
           rotate-server-certificates: "true"
           feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
+          eviction-hard: memory.available<500Mi,nodefs.available<10%
+          eviction-soft: memory.available<900Mi,nodefs.available<15%
+          eviction-soft-grace-period: memory.available=2m30s,nodefs.available=4m
+          system-reserved: cpu=200m,memory=300Mi,ephemeral-storage=1Gi
+          kube-reserved: cpu=200m,memory=200Mi,ephemeral-storage=1Gi
