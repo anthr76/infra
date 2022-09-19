@@ -140,18 +140,30 @@ cameras:
     objects:
       track:
         - person
+    record:
+      events:
+        required_zones:
+          - backyard
+          - driveway_walkway
+          - driveway_entrance
     zones:
-      driveway:
-        coordinates: 0,720,0,337,360,137,551,133,364,720
+      driveway_entrance:
+        coordinates: 517,181,768,186,759,254,495,237
       alley:
-        coordinates: 33,129,76,69,584,73,628,137
-      pool:
-        coordinates: 1766,481,1696,102,1139,76,1093,295
-        objects: []
+        coordinates: 33,129,76,69,584,73,628,137REMOVE
       backyard:
-        coordinates: 1920,405,1103,351,1151,1080,1920,1080
+        coordinates: 1920,405,1103,351,1151,1080,1920,1080REMOVE
         objects:
           - person
           - cat
           - dog
+      driveway:
+        coordinates: 0,957,0,446,0,203,725,252,559,658,549,946REMOVE
+      pool:
+        coordinates: 1766,481,1696,102,1139,76,1093,295
+        objects: []
+      driveway_walkway:
+        coordinates: 564,1080,544,842,0,781,0,1080
+        objects:
+          - person
 
