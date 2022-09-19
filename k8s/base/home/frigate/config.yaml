@@ -1,6 +1,6 @@
 ---
 # k port-forward -n home svc/frigate 5000:5000
-# yaml-language-server: $schema=http://localhost:5000/api/config/schema
+## yaml-language-server: $schema=http://localhost:5000/api/config/schema
 mqtt:
   host: mosquitto
   topic_prefix: frigate
@@ -32,6 +32,8 @@ detectors:
 objects:
   track:
     - person
+    - cat
+    - dog
   filters:
     person:
       threshold: 0.90
