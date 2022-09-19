@@ -6,9 +6,9 @@ resource "postgresql_role" "k8s" {
 
 
 resource "postgresql_role" "postgres_exporter" {
-  name            = "postgres_exporter"
-  login           = true
-  password        = data.sops_file.tf_secrets.data["postgres_exporter_password"]
+  name     = "postgres_exporter"
+  login    = true
+  password = data.sops_file.tf_secrets.data["postgres_exporter_password"]
 }
 
 resource "postgresql_grant_role" "postgres_exporter" {
@@ -24,7 +24,7 @@ resource "postgresql_database" "my_db" {
   lc_collate        = "C"
   connection_limit  = -1
   allow_connections = true
-  depends_on = [postgresql_role.postgres_exporter]
+  depends_on        = [postgresql_role.postgres_exporter]
 }
 
 resource "postgresql_database" "paperless" {
@@ -146,7 +146,19 @@ resource "postgresql_database" "netbox" {
   name              = "netbox"
   owner             = "k8s"
   lc_collate        = "en_US.utf8"
-  lc_ctype          = "en_US.utf8"
+  encoding          = "UTF8"
+  connection_limit  = -1
+  allow_connections = true
+  depends_on = [
+    libvirt_domain.scr1_db,
+    postgresql_role.k8s
+  ]
+}
+
+resource "postgresql_database" "overseerr" {
+  name              = "overseerr"
+  owner             = "k8s"
+  lc_collate        = "en_US.utf8"
   encoding          = "UTF8"
   connection_limit  = -1
   allow_connections = true
