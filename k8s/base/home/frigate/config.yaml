@@ -34,11 +34,21 @@ objects:
     - person
     - cat
     - dog
+    - car
   filters:
     person:
       threshold: 0.90
+      min_score: 0.65
     car:
       threshold: 0.85
+      min_score: 0.65
+    # Be really confident
+    cat:
+      threshold: 0.90
+      min_score: 0.85
+    dog:
+      threshold: 0.90
+      min_score: 0.85
 snapshots:
   enabled: true
   timestamp: false
@@ -72,6 +82,8 @@ cameras:
     zones:
       front_yard:
         coordinates: 1280,720,1280,158,0,194,0,720
+        objects:
+          - person
       street:
         coordinates: 0,0,1280,0,1280,153,0,174,0,122
     motion:
@@ -99,8 +111,12 @@ cameras:
     zones:
       stairs:
         coordinates: 767,720,963,604,841,312,498,610
+        objects:
+          - person
       porch:
         coordinates: 0,0,53,474,349,720,835,332,881,247,899,0
+        objects:
+          - person
   # --
   frigate_back_yard:
     ffmpeg:
@@ -124,10 +140,18 @@ cameras:
     objects:
       track:
         - person
-        - car
     zones:
       driveway:
         coordinates: 0,720,0,337,360,137,551,133,364,720
       alley:
         coordinates: 33,129,76,69,584,73,628,137
+      pool:
+        coordinates: 1766,481,1696,102,1139,76,1093,295
+        objects: []
+      backyard:
+        coordinates: 1920,405,1103,351,1151,1080,1920,1080
+        objects:
+          - person
+          - cat
+          - dog
 
