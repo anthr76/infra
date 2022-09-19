@@ -150,15 +150,15 @@ cameras:
       driveway_entrance:
         coordinates: 517,181,768,186,759,254,495,237
       alley:
-        coordinates: 33,129,76,69,584,73,628,137REMOVE
+        coordinates: 33,129,76,69,584,73,628,137
       backyard:
-        coordinates: 1920,405,1103,351,1151,1080,1920,1080REMOVE
+        coordinates: 1920,405,1103,351,1151,1080,1920,1080
         objects:
           - person
           - cat
           - dog
       driveway:
-        coordinates: 0,957,0,446,0,203,725,252,559,658,549,946REMOVE
+        coordinates: 0,957,0,446,0,203,725,252,559,658,549,946
       pool:
         coordinates: 1766,481,1696,102,1139,76,1093,295
         objects: []
