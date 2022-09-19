@@ -42,17 +42,17 @@ spec:
 # spec:
 #   path: "./k8s/base/infra/minecraft/database"
 #   prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: infra-netbox
-  namespace: flux-system
-  labels:
-    component.kutara.io/part-of: definitions
-spec:
-  path: "./k8s/base/infra/netbox"
-  prune: true
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# kind: Kustomization
+# metadata:
+#   name: infra-netbox
+#   namespace: flux-system
+#   labels:
+#     component.kutara.io/part-of: definitions
+# spec:
+#   path: "./k8s/base/infra/netbox"
+#   prune: true
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 # kind: Kustomization
