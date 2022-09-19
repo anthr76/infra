@@ -1,3 +1,6 @@
+---
+# k port-forward -n home svc/frigate 5000:5000
+# yaml-language-server: $schema=http://localhost:5000/api/config/schema
 mqtt:
   host: mosquitto
   topic_prefix: frigate
@@ -19,6 +22,7 @@ ffmpeg:
     - yuv420p
   output_args:
     record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a aac
+    rtmp: -c:v copy -f flv -ar 44100 -c:a aac
 database:
   path: /data/frigate.db
 detectors:
@@ -30,9 +34,9 @@ objects:
     - person
   filters:
     person:
-      min_area: 2500
-      max_area: 100000
-      threshold: 0.7
+      threshold: 0.90
+    car:
+      threshold: 0.85
 snapshots:
   enabled: true
   timestamp: false
@@ -60,9 +64,9 @@ cameras:
           roles:
             - detect
     detect:
-      width: 1280
-      height: 720
-      fps: 10
+      width: 1920
+      height: 1080
+      fps: 5
     zones:
       front_yard:
         coordinates: 1280,720,1280,158,0,194,0,720
@@ -82,16 +86,19 @@ cameras:
           roles:
             - detect
     detect:
-      width: 1280
-      height: 720
-      fps: 10
+      width: 1920
+      height: 1080
+      fps: 5
     motion:
       mask:
-        - 545,314,470,308,488,62,553,59
-        - 528,412,526,463,484,470,480,406
-        - 1052,36,1010,234,1084,255,1139,61
-        - 1043,305,1041,347,1001,339,1006,291
-        - 1221,26,1213,59,801,61,802,29
+        - 581,332,465,317,495,0,578,0
+        - 986,0,864,617,951,655,1280,80
+        - 1221,26,1222,66,789,64,792,21
+    zones:
+      stairs:
+        coordinates: 767,720,963,604,841,312,498,610
+      porch:
+        coordinates: 0,0,53,474,349,720,835,332,881,247,899,0
   # --
   frigate_back_yard:
     ffmpeg:
@@ -104,14 +111,13 @@ cameras:
           roles:
             - detect
     detect:
-      width: 1280
-      height: 720
-      fps: 10
+      width: 1920
+      height: 1080
+      fps: 5
     motion:
       mask:
-        - 922,720,363,720,162,462,447,108,533,0,621,0,891,401
-        - 1226,28,1217,68,797,70,799,28
-        - 1185,185,1158,279,934,258,784,229,772,143
+        - 809,720,363,720,349,427,472,115,513,0,500,0,621,0,813,395REMOVE
+        - 1226,28,1217,68,797,70,799,28REMOVE
         - 0,0,401,0,403,50,0,160
     objects:
       track:
@@ -120,4 +126,6 @@ cameras:
     zones:
       driveway:
         coordinates: 0,720,0,337,360,137,551,133,364,720
+      alley:
+        coordinates: 33,129,76,69,584,73,628,137
 

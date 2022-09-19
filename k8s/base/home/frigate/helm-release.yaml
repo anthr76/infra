@@ -24,7 +24,7 @@ spec:
     priorityClassName: system-node-critical
     image:
       repository: docker.io/blakeblackshear/frigate
-      tag: 0.11.0-rc2
+      tag: 0.11.0-rc3
     env:
       TZ: America/New_York
       FRIGATE_MQTT_PASSWORD:
