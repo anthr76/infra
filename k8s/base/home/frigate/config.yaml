@@ -94,7 +94,7 @@ cameras:
     record:
       events:
         required_zones:
-          - front_yard_stairs
+          - front_yard
   frigate_back_porch:
     ffmpeg:
       inputs:
@@ -131,6 +131,7 @@ cameras:
       events:
         required_zones:
           - back_porch
+          - back_yard_walkway
   # --
   frigate_back_yard:
     ffmpeg:
