@@ -81,11 +81,13 @@ cameras:
       fps: 5
     zones:
       front_yard:
-        coordinates: 1280,720,1280,158,0,194,0,720
+        coordinates: 1359,739,1697,738,1630,249,0,251,0,751
         objects:
           - person
       street:
-        coordinates: 0,0,1280,0,1280,153,0,174,0,122
+        coordinates: 0,0,1920,0,1920,220,0,288,0,122
+      front_yard_stairs:
+        coordinates: 1920,1080,1920,706,0,712,0,1080
     motion:
       mask:
         - 1839,38,1832,88,1201,100,1197,37
