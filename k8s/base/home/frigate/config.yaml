@@ -37,18 +37,18 @@ objects:
     - car
   filters:
     person:
-      threshold: 0.90
-      min_score: 0.65
+      threshold: 0.85
+      min_score: 0.6
     car:
       threshold: 0.85
-      min_score: 0.65
+      min_score: 0.6
     # Be really confident
     cat:
-      threshold: 0.90
-      min_score: 0.85
+      threshold: 0.85
+      min_score: 0.6
     dog:
-      threshold: 0.90
-      min_score: 0.85
+      threshold: 0.85
+      min_score: 0.6
 snapshots:
   enabled: true
   timestamp: false
