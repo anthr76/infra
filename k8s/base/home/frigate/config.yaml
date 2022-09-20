@@ -111,7 +111,7 @@ cameras:
         - 986,0,864,617,951,655,1280,80
         - 1221,26,1222,66,789,64,792,21
     zones:
-      porch:
+      back_porch:
         coordinates: 0,0,43,691,518,1080,1074,660,1233,498,1256,464,1331,368,1142,0
         objects:
           - person
@@ -119,6 +119,17 @@ cameras:
         coordinates: 1190,1080,1398,724,1227,599,549,1080
         objects:
           - person
+      back_yard_walkway:
+        coordinates: 1405,981,1539,839,1669,578,1920,383,1920,584,1920,1080,1417,1080,1160,1080
+        objects:
+          - person
+    record:
+      events:
+        required_zones:
+          - back_porch
+          - stairs
+          - driveway_entrance
+          - back_yard_walkway
   # --
   frigate_back_yard:
     ffmpeg:
