@@ -91,6 +91,10 @@ cameras:
     motion:
       mask:
         - 1839,38,1832,88,1201,100,1197,37
+    record:
+      events:
+        required_zones:
+          - front_yard_stairs
   frigate_back_porch:
     ffmpeg:
       inputs:
@@ -127,9 +131,6 @@ cameras:
       events:
         required_zones:
           - back_porch
-          - stairs
-          - driveway_entrance
-          - back_yard_walkway
   # --
   frigate_back_yard:
     ffmpeg:
