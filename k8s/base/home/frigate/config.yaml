@@ -68,7 +68,7 @@ cameras:
       fps: 5
     zones:
       front_yard:
-        coordinates: 1359,739,1920,740,1920,231,0,251,0,751
+        coordinates: 1369,606,1920,604,1920,231,0,251,0,633
       front_yard_stairs:
         coordinates: 1920,1080,1920,706,0,712,0,1080
       street:
