@@ -22,33 +22,12 @@ ffmpeg:
     - yuv420p
   output_args:
     record: -f segment -segment_time 10 -segment_format mp4 -reset_timestamps 1 -strftime 1 -c:v copy -c:a aac
-    # rtmp: -c:v copy -f flv -ar 44100 -c:a aac
 database:
   path: /data/frigate.db
 detectors:
   coral:
     type: edgetpu
     device: usb
-objects:
-  track:
-    - person
-    - cat
-    - dog
-    - car
-  # filters:
-  #   person:
-  #     threshold: 0.85
-  #     min_score: 0.6
-  #   car:
-  #     threshold: 0.85
-  #     min_score: 0.6
-  #   # Be really confident
-  #   cat:
-  #     threshold: 0.85
-  #     min_score: 0.6
-  #   dog:
-  #     threshold: 0.85
-  #     min_score: 0.6
 snapshots:
   enabled: true
   timestamp: false
@@ -95,6 +74,9 @@ cameras:
       events:
         required_zones:
           - front_yard
+    snapshots:
+      required_zones:
+        - front_yard
   frigate_back_porch:
     ffmpeg:
       inputs:
@@ -121,8 +103,6 @@ cameras:
           - person
       stairs:
         coordinates: 1190,1080,1398,724,1227,599,549,1080
-        objects:
-          - person
       back_yard_walkway:
         coordinates: 1405,981,1539,839,1669,578,1920,383,1920,584,1920,1080,1417,1080,1160,1080
         objects:
@@ -132,6 +112,10 @@ cameras:
         required_zones:
           - back_porch
           - back_yard_walkway
+    snapshots:
+      required_zones:
+        - back_porch
+        - back_yard_walkway
   # --
   frigate_back_yard:
     ffmpeg:
@@ -153,6 +137,11 @@ cameras:
     objects:
       track:
         - person
+    snapshots:
+      required_zones:
+        - backyard
+        - driveway_walkway
+        - driveway_entrance
     record:
       events:
         required_zones:
@@ -177,6 +166,4 @@ cameras:
         objects: []
       driveway_walkway:
         coordinates: 564,1080,544,842,0,781,0,1080
-        objects:
-          - person
 
