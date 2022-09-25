@@ -133,6 +133,9 @@ cameras:
       mask:
         - 1198,96,1845,99,1843,38,1199,40
     objects:
+      filters:
+        car:
+          mask: 1062,407,1770,521
       track:
         - person
     snapshots:
@@ -149,6 +152,9 @@ cameras:
     zones:
       driveway_entrance:
         coordinates: 517,181,768,186,759,254,495,237
+        objects:
+          - person
+          - car
       alley:
         coordinates: 33,129,76,69,584,73,628,137
       backyard:
@@ -164,4 +170,6 @@ cameras:
         objects: []
       driveway_walkway:
         coordinates: 564,1080,544,842,0,781,0,1080
+        objects:
+          - person
 
