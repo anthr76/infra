@@ -6,9 +6,6 @@ metadata:
   namespace: home
 spec:
   storageClassName: ceph-block
-  dataSource:
-    name: frigate-config-v1
-    kind: PersistentVolumeClaim
   accessModes:
     - ReadWriteOnce
   resources:
