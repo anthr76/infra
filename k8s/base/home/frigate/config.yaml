@@ -114,6 +114,32 @@ cameras:
       required_zones:
         - back_porch
         - back_yard_walkway
+    objects: 
+      track:
+        - person
+        - car
+        - dog
+      filters:
+        person:
+          min_area: 4000
+          max_area: 600000
+          min_score: 0.68
+          threshold: 0.74
+        dog:
+          min_area: 4500
+          max_area: 80000
+          min_score: 0.60
+          threshold: 0.65
+        car:
+          min_area: 20000
+          max_area: 600000
+          min_score: 0.67
+          threshold: 0.73
+          mask:
+            - 225,190,80,322,338,264,524,146,438,58,258,118
+            - 1176,144,1208,220,1647,259,1499,66,1351,41,1230,31
+            - 2399,440,2592,524,2499,430,2440,335,2263,286
+
   # --
   frigate_back_yard:
     ffmpeg:
