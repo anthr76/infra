@@ -43,6 +43,14 @@ record:
     retain:
       default: 5
       mode: active_objects
+live:
+  height: 1080
+  quality: 5
+timestamp_style:
+  position: "tr"
+birdseye:
+  width: 1920
+  height: 1080
 cameras:
   frigate_front_porch:
     ffmpeg:
@@ -65,9 +73,6 @@ cameras:
         coordinates: 1920,1080,1920,706,0,712,0,1080
       street:
         coordinates: 0,0,1920,0,1920,220,0,288,0,122
-    motion:
-      mask:
-        - 1839,38,1832,88,1201,100,1197,37
     record:
       events:
         required_zones:
@@ -89,11 +94,6 @@ cameras:
       width: 1920
       height: 1080
       fps: 5
-    motion:
-      mask:
-        - 581,332,465,317,495,0,578,0
-        - 986,0,864,617,951,655,1280,80
-        - 1221,26,1222,66,789,64,792,21
     zones:
       back_porch:
         coordinates: 0,0,43,691,518,1080,1074,660,1233,498,1256,464,1331,368,1142,0
@@ -129,9 +129,6 @@ cameras:
       width: 1920
       height: 1080
       fps: 5
-    motion:
-      mask:
-        - 1198,96,1845,99,1843,38,1199,40
     objects:
       filters:
         car:
