@@ -10,7 +10,6 @@ rtmp:
   enabled: true
 ffmpeg:
   global_args:
-    - -hide_banner
     - -loglevel
     - warning
   hwaccel_args:
@@ -117,7 +116,6 @@ cameras:
     objects: 
       track:
         - person
-        - car
         - dog
       filters:
         person:
@@ -156,7 +154,7 @@ cameras:
     objects:
       filters:
         car:
-          mask: 1062,407,1770,521
+          mask: 1721,201,1786,462,1109,296,1123,114
       track:
         - person
         - car
@@ -173,7 +171,7 @@ cameras:
           - driveway_entrance
     zones:
       driveway_entrance:
-        coordinates: 546,134,800,141,737,275,509,237
+        coordinates: 517,181,768,186,759,254,495,237
         objects:
           - person
           - car
