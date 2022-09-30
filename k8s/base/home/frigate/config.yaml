@@ -125,6 +125,8 @@ cameras:
           max_area: 600000
           min_score: 0.68
           threshold: 0.74
+          mask:
+            - 1735,32,1418,23,1437,602,1624,612
         dog:
           min_area: 4500
           max_area: 80000
@@ -135,10 +137,6 @@ cameras:
           max_area: 600000
           min_score: 0.67
           threshold: 0.73
-          mask:
-            - 225,190,80,322,338,264,524,146,438,58,258,118
-            - 1176,144,1208,220,1647,259,1499,66,1351,41,1230,31
-            - 2399,440,2592,524,2499,430,2440,335,2263,286
 
   # --
   frigate_back_yard:
@@ -161,6 +159,7 @@ cameras:
           mask: 1062,407,1770,521
       track:
         - person
+        - car
     snapshots:
       required_zones:
         - backyard
@@ -174,7 +173,7 @@ cameras:
           - driveway_entrance
     zones:
       driveway_entrance:
-        coordinates: 517,181,768,186,759,254,495,237
+        coordinates: 546,134,800,141,737,275,509,237
         objects:
           - person
           - car
