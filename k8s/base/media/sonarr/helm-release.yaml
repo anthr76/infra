@@ -30,8 +30,8 @@ spec:
         securityContext:
           runAsUser: 0
     image:
-      repository: ghcr.io/onedr0p/sonarr-widowmaker
-      tag: 4.0.0.2178
+      repository: ghcr.io/onedr0p/sonarr-develop
+      tag: 3.0.9.1555@sha256:63e06362f8c14829086c908e6e92768bc22568b70095bc21124cdf21f235e785
     env:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info
