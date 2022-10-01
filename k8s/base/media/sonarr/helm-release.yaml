@@ -36,6 +36,7 @@ spec:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info
       SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.${INT_DOMAIN}"
+      SONARR__INSTANCE_NAME: Sonarr
     envFrom:
       - secretRef:
           name: sonarr
