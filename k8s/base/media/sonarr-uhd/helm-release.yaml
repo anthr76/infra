@@ -33,7 +33,6 @@ spec:
     env:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info
-      SONARR__BRANCH: nightly
       SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.${INT_DOMAIN}"
       SONARR__AUTHENTICATION_METHOD: External
     envFrom:
