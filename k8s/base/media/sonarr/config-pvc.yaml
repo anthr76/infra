@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonarr-config-v2
+  name: sonarr-config-v3
   namespace: media
 spec:
   accessModes:
@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonarr-backup-v2
+  name: sonarr-backup-v3
   namespace: media
 spec:
   accessModes:

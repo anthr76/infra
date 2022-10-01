@@ -78,14 +78,14 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sonarr-config-v2
+        existingClaim: sonarr-config-v3
       media:
         enabled: true
         existingClaim: media
         mountPath: /media
       backup:
         enabled: true
-        existingClaim: sonarr-backup-v2
+        existingClaim: sonarr-backup-v3
         mountPath: /config/Backups
     resources:
       requests:
