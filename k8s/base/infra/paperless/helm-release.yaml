@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 1.8.0
+      tag: 1.9.2
     env:
       PAPERLESS_REDIS: redis://db-01.scr1.rabbito.tech:6379
       PAPERLESS_DBHOST: db-01.scr1.rabbito.tech
