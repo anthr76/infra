@@ -54,7 +54,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: nginx
-          image: "docker.io/nginxinc/nginx-unprivileged:latest@sha256:e20ae7bfe92d316c713f28fe029d8dfe42420e9780d789c456cfced271848365"
+          image: "docker.io/nginxinc/nginx-unprivileged:latest@sha256:5754687abbb19a15925a99c93658bd84e4d1bcc0c0502f6376dfd5ad6423b0a8"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 30
