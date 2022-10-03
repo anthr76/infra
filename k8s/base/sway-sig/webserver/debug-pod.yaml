@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - name: task-pv-container
-      image: ghcr.io/anthr76/kutara-ostree:latest
+      image: ghcr.io/anthr76/kutara-ostree:latest@sha256:65ef4299177d4bef679d23f3519c9a04d6bd14faf3209c5783d0f833928000af
       command:
         - sh
         - -c
