@@ -3,11 +3,12 @@
   extends: [
     "github>bjw-s/renovate-config",
     "github>bjw-s/renovate-config:automerge-github-actions",
+    "github>anthr76/infra//.github/renovate/autoMerge.json5",
+    "github>bjw-s/renovate-config",
+    "github>bjw-s/renovate-config:automerge-github-actions",
     "github>bjw-s/home-ops//.github/renovate/allowedVersions.json5",
     "github>bjw-s/home-ops//.github/renovate/autoMerge.json5",
-    "github>anthr76/infra//.github/renovate/autoMerge.json5",
     "github>bjw-s/home-ops//.github/renovate/groups.json5",
-    "github>bjw-s/home-ops//.github/renovate/updateSchedule.json5",
   ],
   "enabled": true,
   "timezone": "America/New_York",
@@ -55,13 +56,6 @@
       matchDatasources: ["docker"],
       commitMessageExtra: "to {{newVersion}}",
     },
-    // Custom version schemes
-    {
-      matchDatasources: ["docker"],
-      matchPackageNames: ["blakeblackshear/frigate"],
-      versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)$",
-    },
-    // Version strategies
     {
       matchDatasources: ["docker"],
       matchPackageNames: ["ghcr.io/k8s-at-home/plex"],
@@ -71,6 +65,11 @@
       matchDatasources: ["docker"],
       matchPackageNames: ["tomsquest/docker-radicale"],
       versioning: "pep440",
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["blakeblackshear/frigate"],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)$"
     },
   ],
 }
