@@ -17,21 +17,21 @@ spec:
     - name: scratch-repo
   steps:
     - name: init
-      image: ghcr.io/anthr76/kutara-ostree:latest
+      image: ghcr.io/anthr76/kutara-ostree:latest@sha256:65ef4299177d4bef679d23f3519c9a04d6bd14faf3209c5783d0f833928000af
       command: ["ostree"]
       args:
         - init
         - --mode=bare-user
         - --repo=$(workspaces.scratch-repo.path)
     - name: ignore-min-free-space-percent
-      image: ghcr.io/anthr76/kutara-ostree:latest
+      image: ghcr.io/anthr76/kutara-ostree:latest@sha256:65ef4299177d4bef679d23f3519c9a04d6bd14faf3209c5783d0f833928000af
       command: ["echo"]
       args:
         - "min-free-space-percent=0"
         - ">>"
         - $(workspaces.scratch-repo.path)/config
     - name: unencapsulate
-      image: ghcr.io/anthr76/kutara-ostree:latest
+      image: ghcr.io/anthr76/kutara-ostree:latest@sha256:65ef4299177d4bef679d23f3519c9a04d6bd14faf3209c5783d0f833928000af
       command: ["ostree"]
       args:
         - container
@@ -42,26 +42,26 @@ spec:
         - --write-ref
         - fedora/$(params.FEDORA_VERSION)/x86_64/sericea
     - name: update-staging-summary
-      image: ghcr.io/anthr76/kutara-ostree:latest
+      image: ghcr.io/anthr76/kutara-ostree:latest@sha256:65ef4299177d4bef679d23f3519c9a04d6bd14faf3209c5783d0f833928000af
       command: ["ostree"]
       args:
         - summary
         - -u
         - --repo=$(workspaces.scratch-repo.path)
     - name: promote
-      image: ghcr.io/anthr76/kutara-ostree:latest
+      image: ghcr.io/anthr76/kutara-ostree:latest@sha256:65ef4299177d4bef679d23f3519c9a04d6bd14faf3209c5783d0f833928000af
       command: ["ostree"]
       args:
         - pull-local
         - --repo=$(workspaces.prod.path)/ostree 
         - $(workspaces.scratch-repo.path)
     - name: commit
-      image: ghcr.io/anthr76/kutara-ostree:latest
+      image: ghcr.io/anthr76/kutara-ostree:latest@sha256:65ef4299177d4bef679d23f3519c9a04d6bd14faf3209c5783d0f833928000af
       script: |
         #!/usr/bin/env bash
         ostree commit --repo=$(workspaces.prod.path)/ostree --branch=fedora/$(params.FEDORA_VERSION)/x86_64/sericea --tree=ref=$(ostree --repo=$(workspaces.scratch-repo.path) rev-parse fedora/$(params.FEDORA_VERSION)/x86_64/sericea)
     - name: static-delta
-      image: ghcr.io/anthr76/kutara-ostree:latest
+      image: ghcr.io/anthr76/kutara-ostree:latest@sha256:65ef4299177d4bef679d23f3519c9a04d6bd14faf3209c5783d0f833928000af
       command: ["ostree"]
       args:
         - --repo=$(workspaces.prod.path)/ostree/
@@ -69,7 +69,7 @@ spec:
         - generate
         - fedora/$(params.FEDORA_VERSION)/x86_64/sericea
     - name: update-summary
-      image: ghcr.io/anthr76/kutara-ostree:latest
+      image: ghcr.io/anthr76/kutara-ostree:latest@sha256:65ef4299177d4bef679d23f3519c9a04d6bd14faf3209c5783d0f833928000af
       command: ["ostree"]
       args:
         - summary
