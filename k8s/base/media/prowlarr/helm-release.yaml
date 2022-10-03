@@ -31,7 +31,7 @@ spec:
       backup.velero.io/backup-volumes: config
     image:
       repository: ghcr.io/onedr0p/prowlarr-nightly
-      tag: 0.4.5.1958@sha256:83e2658f75028d67bc90ec98bb11bf129c2822f0836635d50256b72a4b346249        
+      tag: 0.4.7.1995@sha256:3fcf89060364f2847b2770cceb5998dcdd6ca70ed81e70d666b85939e0a5cbc4
     env:
       TZ: "America/New_York"
       PROWLARR__LOG_LEVEL: info
