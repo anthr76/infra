@@ -1,4 +1,4 @@
-FROM quay.io/coreos-assembler/fcos:stable@sha256:de2dbf690f82077d1eae67da30e2a918908dcd457b518ae1de8671192309aba8
+FROM quay.io/coreos-assembler/fcos:stable@sha256:08b4835b5701e87699a98a6a6102a92c2c404abca8d6716425a3cf1c4f4e0e90
 
 COPY *.nmconnection /etc/NetworkManager/system-connections
 
