@@ -24,7 +24,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: docker.io/golift/unpackerr
-      tag: 0.10.0
+      tag: 0.10.1
     env:
       TZ: America/New_York
       UN_SONARR_0_URL: http://sonarr:8989
