@@ -24,7 +24,7 @@ spec:
       TZ: "America/New_York"
     initContainers:
       update-volume-permission-config:
-        image: busybox@sha256:377107086e424dbf4311335138290d45da8f4350b0124469c5ee46b002d2c3e4
+        image: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
         command: ["sh", "-c", "chown -R 1000:1000 /config"]
         volumeMounts:
           - name: config
@@ -32,7 +32,7 @@ spec:
         securityContext:
           runAsUser: 0
       update-volume-permission:
-        image: busybox@sha256:377107086e424dbf4311335138290d45da8f4350b0124469c5ee46b002d2c3e4
+        image: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
         command: ["sh", "-c", "chown -R 1000:1000 /metadata"]
         volumeMounts:
           - name: metadata
