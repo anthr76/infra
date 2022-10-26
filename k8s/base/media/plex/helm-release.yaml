@@ -21,7 +21,7 @@ spec:
     priorityClassName: system-node-critical
     initContainers:
       update-volume-permission:
-        image: busybox@sha256:3f7c4d1e0963db61bededc8b63458cc944dbf24473402793c1bf649c2df244bd
+        image: busybox@sha256:bfb25fddede4247c3b881fc896e5d0f2b2be0f14feebe3a2198859a5489f2ace
         command: ["sh", "-c", "chown -R 1000:1000 /config"]
         volumeMounts:
           - name: config
