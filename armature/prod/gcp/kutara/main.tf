@@ -2,7 +2,7 @@ terraform {
   backend "remote" {
     organization = "kutara"
     workspaces {
-      name = "gcp-seed"
+      name = "gcp-kutara"
     }
   }
   required_providers {
@@ -10,9 +10,17 @@ terraform {
       source  = "hashicorp/google"
       version = "4.41.0"
     }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "4.41.0"
+    }
   }
 }
 
 provider "google" {
-  region = "us-east4"
+  region = "us-central1"
+}
+
+provider "google-beta" {
+  region = "us-central1"
 }

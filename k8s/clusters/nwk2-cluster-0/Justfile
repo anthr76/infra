@@ -1,0 +1,11 @@
+# Generate butane to install to disk
+bootstrap:
+    #!/usr/bin/env sh
+    # node-1
+    podman-remote run --rm -it -v $PWD/iac/node-1:/etc/kubernetes/pki:z fedora \
+    dnf install kubernetes-kubeadm && \
+    kubeadm init phase certs all \
+    --apiserver-advertise-address 192.168.7.14 \
+    --control-plane-endpoint cluster-0.nwk2.rabbito.tech \
+    --apiserver-cert-extra-sans node-0.nwk2.rabbito.tech      
+
