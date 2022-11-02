@@ -33,7 +33,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/onedr0p/jellyfin
-      tag: 10.8.7@sha256:6c7098781b52d9e99cba923976b990fa3a39f0f80ce4f8aa593b6cbecaf0dd75
+      tag: 10.8.7@sha256:09d1822b3d925a92cd1d14d83fb77f185ffca632d193ba2200f76b6af107c3f4
     env:
       TZ: "America/New_York"
     service:
