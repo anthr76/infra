@@ -29,7 +29,7 @@ spec:
           runAsUser: 0
     image:
       repository: ghcr.io/onedr0p/lidarr
-      tag: 1.0.2.2592@sha256:1dcc609c4ba6494c7543824b987455d0febc714b62f8d331abee8210b8c24170
+      tag: 1.0.2.2592@sha256:05b782015bb8977306ca4b2b93474a478bc55ad103ab510b4219471a3424da23
     env:
       TZ: "America/New_York"
       LIDARR__INSTANCE_NAME: Lidarr
