@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "armature/prod/gcp/**"
+      - "armature/prod/tf-states/**"
+      - "armature/prod/b2/**"
       - ".github/workflows/**"
 
 concurrency: 
@@ -13,6 +15,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  # renovate: datasource=github-releases depName=hashicorp/terraform
+  TERRAFORM_VERSION: v1.3.3
   TF_VAR_org_id: ${{ secrets.TF_VARS_GCP_ORG_ID }}
   TF_VAR_billing_account: ${{ secrets.TF_VARS_GCP_BILLING_ACCOUNT }}
   TF_VAR_group_org_admins: ${{ secrets.TF_VARS_GCP_ORG_ADMINS }}
@@ -33,6 +37,9 @@ jobs:
       matrix:
         include:
           - env: 'armature/prod/gcp/bootstrap'
+          - env: 'armature/prod/gcp/kutara'
+          - env: 'armature/prod/tf-states'
+          - env: 'armature/prod/b2'
 
     runs-on: ubuntu-latest
     environment: production
@@ -50,7 +57,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2.0.3
         with:
-          terraform_version: 1.1.7
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform Init
@@ -60,8 +66,8 @@ jobs:
         run: terraform -chdir=${{ matrix.env }} fmt -check
 
       - name: Terraform Plan
-        run: terraform -chdir=${{ matrix.env }} plan
+        run: terraform -chdir=${{ matrix.env }} plan -out=infra.tfplan
 
       - name: Terraform Apply
-        run: terraform -chdir=${{ matrix.env }} apply -auto-approve
+        run: terraform -chdir=${{ matrix.env }} apply -auto-approve infra.tfplan
 
