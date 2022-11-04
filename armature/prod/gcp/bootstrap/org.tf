@@ -29,7 +29,8 @@ locals {
     "roles/resourcemanager.organizationViewer",
     "roles/resourcemanager.folderViewer",
     "roles/securitycenter.adminViewer",
-    "roles/iam.workloadIdentityPoolViewer"
+    "roles/iam.workloadIdentityPoolViewer",
+    "roles/secretmanager.viewer"
   ]
 }
 resource "google_folder" "bootstrap" {
@@ -62,7 +63,8 @@ module "bootstrap" {
     "roles/resourcemanager.folderAdmin",
     "roles/securitycenter.notificationConfigEditor",
     "roles/resourcemanager.organizationViewer",
-    "roles/iam.workloadIdentityPoolAdmin"
+    "roles/iam.workloadIdentityPoolAdmin",
+    "roles/secretmanager.admin"
   ]
 }
 

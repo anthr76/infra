@@ -62,9 +62,6 @@ jobs:
       - name: Terraform Init
         run: terraform -chdir=${{ matrix.env }} init
 
-      - name: Terraform Format
-        run: terraform -chdir=${{ matrix.env }} fmt -check
-
       - name: Terraform Plan
         run: terraform -chdir=${{ matrix.env }} plan -out=infra.tfplan
 
