@@ -30,6 +30,8 @@ locals {
     "roles/resourcemanager.folderViewer",
     "roles/securitycenter.adminViewer",
     "roles/iam.workloadIdentityPoolViewer",
+    "roles/secretmanager.secretAccessor",
+    "roles/secretmanager.secretVersionManager",
     "roles/secretmanager.viewer"
   ]
 }
