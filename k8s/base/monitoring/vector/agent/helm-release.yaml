@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: vector
-      version: 0.16.0
+      version: 0.16.3
       sourceRef:
         kind: HelmRepository
         name: vector-charts
@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: docker.io/timberio/vector
-      tag: 0.24.1-debian
+      tag: 0.25.0-debian
     role: Agent
     customConfig:
       data_dir: /vector-data-dir
