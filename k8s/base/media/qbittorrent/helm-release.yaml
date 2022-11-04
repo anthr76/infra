@@ -29,7 +29,7 @@ spec:
           runAsUser: 0
     image:
       repository: ghcr.io/onedr0p/qbittorrent
-      tag: v4.4.3.1@sha256:3194ca270e91bba5f703d91c25196665268230b038401837ca080cac71dab16a
+      tag: 4.4.5@sha256:849a1d69e539301e5f6f1e5366dd160b3508666f60d72a12df48ac8f4b149f96
     env:
       TZ: "America/New_York"
     service:
