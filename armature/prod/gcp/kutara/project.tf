@@ -15,6 +15,6 @@ module "kutara-proj-prod" {
   random_project_id = true
   org_id            = var.org_id
   billing_account   = var.billing_account
-  activate_apis     = ["compute.googleapis.com", "container.googleapis.com", "cloudbilling.googleapis.com"]
+  activate_apis     = ["compute.googleapis.com", "container.googleapis.com", "cloudbilling.googleapis.com", "secretmanager.googleapis.com"]
 }
 
