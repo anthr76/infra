@@ -38,3 +38,13 @@ spec:
   sourceRef:
     kind: Bucket
     name: tekton
+  patches:
+    # Broken manifests on release. https://github.com/tektoncd/triggers/issues/1479
+    - patch: |
+        - op: remove
+          path: /metadata/labels
+          value:
+            pod-security.kubernetes.io/enforce
+      target:
+        kind: Namespace
+        name: tekton-pipelines
