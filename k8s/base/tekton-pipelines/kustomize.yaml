@@ -1,0 +1,40 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: Bucket
+metadata:
+  name: tekton
+  namespace: flux-system
+spec:
+  provider: generic
+  interval: 5m0s
+  bucketName: tekton-releases
+  endpoint: storage.googleapis.com
+  timeout: 60s
+  ignore: |
+    **/openshift-release.yaml
+    **/release.notags.yaml
+    **/openshift-tekton-dashboard-release-readonly.yaml
+    **/openshift-tekton-dashboard-release.yaml
+    **/tekton-dashboard-release.yaml
+    **/installer-tekton-dashboard-release.yaml
+    /*
+    # renovate: datasource=github-releases depName=tekton/pipeline
+    !/pipeline/previous/v0.41.0/release.yaml
+    # renovate: datasource=github-releases depName=tekton/dashboard
+    !/dashboard/previous/v0.30.0/tekton-dashboard-release-readonly.yaml
+    # renovate: datasource=github-releases depName=tekton/triggers
+    !/triggers/previous/v0.21.0/release.yaml
+    !/triggers/previous/v0.21.0/interceptors.yaml
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: tekton-deployment
+  namespace: flux-system
+spec:
+  interval: 30m
+  prune: true
+  wait: false
+  sourceRef:
+    kind: Bucket
+    name: tekton
