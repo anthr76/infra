@@ -81,6 +81,7 @@ spec:
         service-upstream: "true"
         limit-req-status-code: "429"
         limit-conn-status-code: "429"
+        enable-ocsp: "true"
         # Testing
         client-body-timeout: "12"
         client-header-timeout: "12"
