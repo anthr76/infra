@@ -1,4 +1,4 @@
-FROM quay.io/coreos/butane@sha256:1d5d661f23df28833db296244023e8b32d9490442e4149327ba9846abe64329f as butane
+FROM quay.io/coreos/butane@sha256:26299edd10ae149e432a25226b6e8195f47e96f21b4c7ce6effe8a8aa856664b as butane
 
 ADD config.bu.yaml /config.bu.yaml
 
