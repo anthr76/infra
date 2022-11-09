@@ -17,10 +17,19 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: kyverno-controller
+  name: kyverno-controller-deploy
   namespace: flux-system
 spec:
   interval: 720m0s
+  targetNamespace: flux-system
+  patches:
+    - patch: |
+        - op: add
+          path: /spec/replicas
+          value: 3
+      target:
+        kind: Deployment
+        labelSelector: "app.kubernetes.io/name=kyverno"
   sourceRef:
     kind: OCIRepository
     name: kyverno-controller
