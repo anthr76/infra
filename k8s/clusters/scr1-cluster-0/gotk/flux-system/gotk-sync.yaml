@@ -20,6 +20,20 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
+  name: flux-deploy
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./k8s/clusters/scr1-cluster-0/gotk/flux-system
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
   name: rbac
   namespace: flux-system
 spec:
