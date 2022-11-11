@@ -73,7 +73,7 @@ spec:
         - "4"
       retentionResolutionRaw: 7d
       retentionResolution5m: 7d
-      retentionResolution1h: 7d
+      retentionResolution1h: 14d
       ingress:
         enabled: true
         hostname: &host "thanos-compactor.${INT_DOMAIN}"
