@@ -21,7 +21,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 720m0s
-  targetNamespace: flux-system
   patches:
     - patch: |
         - op: add
