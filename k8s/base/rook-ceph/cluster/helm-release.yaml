@@ -60,12 +60,6 @@ spec:
     cephBlockPools:
       - name: ceph-blockpool
         spec:
-          mirroring:
-            enabled: true
-            mode: image
-            peers:
-              secretNames:
-                - scr1-cephadm-0-mirror-bootstrap
           failureDomain: host
           deviceClass: ssd
           replicated:
