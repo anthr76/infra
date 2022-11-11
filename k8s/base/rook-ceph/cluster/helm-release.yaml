@@ -156,23 +156,6 @@ spec:
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
-    cephObjectStores:
-      - name: ceph-objectstore
-        spec:
-          gateway:
-            instances: 2
-            placement:
-             nodeAffinity:
-               requiredDuringSchedulingIgnoredDuringExecution:
-                 nodeSelectorTerms:
-                 - matchExpressions:
-                   - key: node-role.kubernetes.io/control-plane
-                     operator: In
-                     values:
-                     - ""
-             tolerations:
-             - key: node-role.kubernetes.io/control-plane
-               operator: Exists
     ingress:
       dashboard:
         ingressClassName: "nginx"
