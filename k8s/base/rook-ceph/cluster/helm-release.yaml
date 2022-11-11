@@ -96,8 +96,8 @@ spec:
           deviceClass: hdd
         storageClass:
           enabled: true
-          name: ceph-block
-          isDefault: true
+          name: slow-ceph-block
+          isDefault: false
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           mountOptions: []
