@@ -101,7 +101,7 @@ spec:
           name: not-used
           namespace: not-used
         spec:
-          interval: 5m0s
+          interval: 25m0s
           wait: true
           sourceRef:
             kind: GitRepository

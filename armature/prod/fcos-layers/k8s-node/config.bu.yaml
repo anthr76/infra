@@ -11,7 +11,7 @@ systemd:
         Documentation=https://github.com/etcd-io/etcd
         Wants=network-online.target
         After=network-online.target
-        ConditionPathExists=!/opt/bootstrap/bootsrap.done
+        ConditionPathExists=!/opt/bootstrap/node.controller
         [Service]
         Environment=ETCD_IMAGE=quay.io/coreos/etcd:v3.5.5
         Type=exec
@@ -319,9 +319,3 @@ storage:
           ETCD_PEER_CERT_FILE=/etc/ssl/certs/etcd/peer.crt
           ETCD_PEER_KEY_FILE=/etc/ssl/certs/etcd/peer.key
           ETCD_PEER_CLIENT_CERT_AUTH=true
-    - path: /etc/etcd/etcd-inital-cluster.env
-      mode: 0644
-      contents:
-        inline: |
-          # Values should be pre-filled here from somewhere..
-          ETCD_INITIAL_CLUSTER=foo
