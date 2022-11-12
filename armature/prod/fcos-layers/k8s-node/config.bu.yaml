@@ -11,7 +11,7 @@ systemd:
         Documentation=https://github.com/etcd-io/etcd
         Wants=network-online.target
         After=network-online.target
-        ConditionPathExists=!/opt/bootstrap/node.controller
+        ConditionPathExists=/opt/bootstrap/node.controller
         [Service]
         Environment=ETCD_IMAGE=quay.io/coreos/etcd:v3.5.5
         Type=exec
@@ -37,28 +37,32 @@ systemd:
         WantedBy=multi-user.target
     - name: containerd.service
       enabled: false
-    - name: cri-o.service
+    - name: crio.service
       enabled: true
     - name: docker.service
-      mask: false
+      mask: true
     - name: wait-for-dns.service
       enabled: true
       contents: |
         [Unit]
         Description=Wait for DNS entries
-        Before=kubelet.service
+        Before=kubelet-controller.service
+        Before=kubelet-worker.service
         [Service]
         Type=oneshot
         RemainAfterExit=true
         ExecStart=/bin/sh -c 'while ! /usr/bin/grep '^[^#[:space:]]' /etc/resolv.conf > /dev/null; do sleep 1; done'
         [Install]
-        RequiredBy=kubelet.service
+        RequiredBy=kubelet-controller.service
+        RequiredBy=kubelet-worker.service
         RequiredBy=etcd-member.service
     - name: kubelet-controller.service
+      enabled: true
       contents: |
         [Unit]
         Description=Kubelet Controller (System Container)
         Wants=rpc-statd.service
+        ConditionPathExists=/opt/bootstrap/node.controller
         [Service]
         Environment=KUBELET_IMAGE=quay.io/poseidon/kubelet:v1.24.4
         ExecStartPre=/bin/mkdir -p /etc/cni/net.d
@@ -103,11 +107,12 @@ systemd:
         [Install]
         WantedBy=multi-user.target
     - name: kubelet-worker.service
+      enabled: true
       contents: |
         [Unit]
         Description=Kubelet Worker (System Container)
         Wants=rpc-statd.service
-        ConditionPathExists=!/opt/bootstrap/bootsrap.done
+        ConditionPathExists=/opt/bootstrap/node.worker
         [Service]
         Environment=KUBELET_IMAGE=quay.io/poseidon/kubelet:v1.24.4
         ExecStartPre=/bin/mkdir -p /etc/cni/net.d
@@ -164,6 +169,7 @@ systemd:
         [Unit]
         Description=Kubernetes control plane
         ConditionPathExists=!/opt/bootstrap/bootstrap.done
+        ConditionPathExists=!/opt/bootstrap/node.worker
         [Service]
         Type=oneshot
         RemainAfterExit=true
@@ -203,8 +209,8 @@ storage:
             mode: Webhook
           cgroupDriver: systemd
           clusterDNS:
-            - ${cluster_dns_service_ip}
-          clusterDomain: ${cluster_domain_suffix}
+            - 10.96.0.10
+          clusterDomain: cluster.local
           healthzPort: 0
           rotateCertificates: true
           shutdownGracePeriod: 45s
@@ -230,8 +236,8 @@ storage:
             mode: Webhook
           cgroupDriver: systemd
           clusterDNS:
-            - ${cluster_dns_service_ip}
-          clusterDomain: ${cluster_domain_suffix}
+            - 10.96.0.10
+          clusterDomain: cluster.local
           healthzPort: 0
           rotateCertificates: true
           staticPodPath: /etc/kubernetes/manifests

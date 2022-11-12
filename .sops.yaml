@@ -16,3 +16,7 @@ creation_rules:
     unencrypted_regex: '^(Kind)$'
     age: >-
       age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
+  - path_regex: armature/prod/scr1/fcos/.*\.sops\.ya?ml
+    encrypted_regex: '((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))'
+    age: >-
+      age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x

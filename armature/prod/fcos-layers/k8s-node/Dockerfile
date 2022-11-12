@@ -18,3 +18,4 @@ RUN \
   rm -f config.ign && \
   ostree container commit
 
+LABEL org.opencontainers.image.source https://github.com/anthr76/infra
