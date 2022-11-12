@@ -156,6 +156,141 @@ spec:
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
+      - name: slow-ceph-filesystem
+        spec:
+          metadataPool:
+            replicated:
+              size: 1
+          dataPools:
+            - failureDomain: host
+              replicated:
+                size: 1
+              name: data0
+              deviceClass: hdd
+          metadataServer:
+            activeCount: 1
+            activeStandby: true
+            placement:
+             nodeAffinity:
+               requiredDuringSchedulingIgnoredDuringExecution:
+                 nodeSelectorTerms:
+                 - matchExpressions:
+                   - key: node-role.kubernetes.io/control-plane
+                     operator: In
+                     values:
+                     - ""
+             tolerations:
+             - key: node-role.kubernetes.io/control-plane
+               operator: Exists
+            resources:
+              limits:
+                cpu: "2000m"
+                memory: "4Gi"
+              requests:
+                cpu: "1000m"
+                memory: "4Gi"
+            priorityClassName: system-cluster-critical
+        storageClass:
+          enabled: true
+          isDefault: false
+          name: slow-ceph-filesystem
+          pool: slow-data0
+          reclaimPolicy: Delete
+          allowVolumeExpansion: true
+          mountOptions: []
+          parameters:
+            csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+            csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+            csi.storage.k8s.io/fstype: ext4
+    cephObjectStores:
+      - name: ceph-objectstore
+        spec:
+          metadataPool:
+            failureDomain: host
+            replicated:
+              size: 3
+          dataPool:
+            failureDomain: host
+            deviceClass: ssd
+            erasureCoded:
+              dataChunks: 2
+              codingChunks: 1
+          preservePoolsOnDelete: true
+          gateway:
+            port: 80
+            placement:
+             nodeAffinity:
+               requiredDuringSchedulingIgnoredDuringExecution:
+                 nodeSelectorTerms:
+                 - matchExpressions:
+                   - key: node-role.kubernetes.io/control-plane
+                     operator: In
+                     values:
+                     - ""
+             tolerations:
+             - key: node-role.kubernetes.io/control-plane
+               operator: Exists
+            resources:
+              limits:
+                cpu: "2000m"
+                memory: "2Gi"
+              requests:
+                cpu: "1000m"
+                memory: "1Gi"
+            instances: 1
+            priorityClassName: system-cluster-critical
+        storageClass:
+          enabled: true
+          name: ceph-bucket
+          reclaimPolicy: Delete
+          parameters:
+            region: us-east-1
+      - name: slow-ceph-objectstore
+        spec:
+          metadataPool:
+            failureDomain: host
+            replicated:
+              size: 1
+          dataPool:
+            failureDomain: host
+            deviceClass: hdd
+            erasureCoded:
+              dataChunks: 2
+              codingChunks: 1
+          preservePoolsOnDelete: true
+          gateway:
+            port: 80
+            placement:
+             nodeAffinity:
+               requiredDuringSchedulingIgnoredDuringExecution:
+                 nodeSelectorTerms:
+                 - matchExpressions:
+                   - key: node-role.kubernetes.io/control-plane
+                     operator: In
+                     values:
+                     - ""
+             tolerations:
+             - key: node-role.kubernetes.io/control-plane
+               operator: Exists
+            resources:
+              limits:
+                cpu: "2000m"
+                memory: "2Gi"
+              requests:
+                cpu: "1000m"
+                memory: "1Gi"
+            instances: 1
+            priorityClassName: system-cluster-critical
+        storageClass:
+          enabled: true
+          name: slow-ceph-bucket
+          reclaimPolicy: Delete
+          parameters:
+            region: us-east-1
     ingress:
       dashboard:
         ingressClassName: "nginx"
