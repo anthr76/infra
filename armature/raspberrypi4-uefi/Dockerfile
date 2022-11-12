@@ -1,4 +1,4 @@
-FROM docker.io/library/alpine:3.16.2@sha256:bc41182d7ef5ffc53a40b044e725193bc10142a1243f395ee852a8d9730fc2ad
+FROM docker.io/library/alpine:3.16.3@sha256:9cca3c81a88bc396f041e01cefb1e2b32038ef4a4c89bb08ad505c55b58fce0d
 
 COPY ./serials /serials
 
