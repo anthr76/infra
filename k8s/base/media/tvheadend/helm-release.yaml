@@ -31,7 +31,7 @@ spec:
       nameOverride: *app
     image:
       repository: ghcr.io/onedr0p/tvheadend
-      tag: 4.3.9900@sha256:63d4af7b14d7f2ac53dc6aacedb46b8704641e8c8830ed1bf36663f9597f6e3a
+      tag: 4.3.9900@sha256:e41e574466e687b8467d70e2c5a3fd56afd500412bd95e9e0a86075613cd46de
     env:
       TZ: "America/New_York"
     service:
