@@ -65,9 +65,6 @@ spec:
     addons:
       codeserver:
         enabled: false
-        image:
-          repository: ghcr.io/k8s-at-home/code-server
-          tag: v4.6.0
         git:
           deployKeySecret: code-server
         workingDir: "/config"
