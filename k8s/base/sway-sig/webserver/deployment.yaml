@@ -23,8 +23,6 @@ spec:
         app.kubernetes.io/instance: sway-sig
         app.kubernetes.io/name: sway-sig
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: worker-03
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
