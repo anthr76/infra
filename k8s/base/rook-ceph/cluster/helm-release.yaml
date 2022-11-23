@@ -67,8 +67,7 @@ spec:
             - effect: NoSchedule
               key: node-role.kubernetes.io/control-plane
     cephBlockPoolsVolumeSnapshotClass:
-      enabled: true
-      isDefault: true
+      enabled: false
     cephBlockPools:
       - name: fast-ceph-blockpool
         spec:
