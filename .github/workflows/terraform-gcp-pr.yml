@@ -15,7 +15,7 @@ concurrency:
 
 env:
   # renovate: datasource=github-releases depName=hashicorp/terraform
-  TERRAFORM_VERSION: v1.3.4
+  TERRAFORM_VERSION: v1.3.5
   TF_VAR_org_id: ${{ secrets.TF_VARS_GCP_ORG_ID }}
   TF_VAR_billing_account: ${{ secrets.TF_VARS_GCP_BILLING_ACCOUNT }}
   TF_VAR_group_org_admins: ${{ secrets.TF_VARS_GCP_ORG_ADMINS }}
