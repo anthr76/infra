@@ -1,6 +1,6 @@
 module "kutara-proj-testing" {
   source            = "terraform-google-modules/project-factory/google"
-  version           = "14.0.0"
+  version           = "14.1.0"
   name              = "kutara-testing"
   random_project_id = true
   org_id            = var.org_id
@@ -10,7 +10,7 @@ module "kutara-proj-testing" {
 
 module "kutara-proj-prod" {
   source            = "terraform-google-modules/project-factory/google"
-  version           = "14.0.0"
+  version           = "14.1.0"
   name              = "kutara-prod"
   random_project_id = true
   org_id            = var.org_id
