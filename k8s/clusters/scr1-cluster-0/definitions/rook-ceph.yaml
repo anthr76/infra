@@ -8,7 +8,7 @@ metadata:
     component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/rook-ceph"
-  prune: true
+  prune: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -19,7 +19,7 @@ metadata:
     component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/rook-ceph/operator"
-  prune: true
+  prune: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -30,17 +30,15 @@ metadata:
     component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/rook-ceph/cluster"
-  prune: true
-  dependsOn:
-    - name: rook-ceph-snapshot-controller-crds
+  prune: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: rook-ceph-snapshot-controller-crds
+  name: rook-ceph-addons
   namespace: flux-system
   labels:
     component.kutara.io/part-of: definitions
 spec:
-  path: "./k8s/base/rook-ceph/snapshot-controller-crds"
+  path: "./k8s/base/rook-ceph/addons"
   prune: true
