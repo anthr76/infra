@@ -1,4 +1,3 @@
-
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -17,22 +16,21 @@ spec:
         namespace: flux-system
   interval: 15m
   values:
-    initContainers:
-      update-volume-permission:
-        image: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
-        command: ["sh", "-c", "chown -R 1000:1000 /config"]
-        volumeMounts:
-          - name: config
-            mountPath: /config
-        securityContext:
-          runAsUser: 0
+    controller:
+      strategy: RollingUpdate
     image:
-      repository: ghcr.io/linuxserver/calibre-web
-      tag: version-0.6.19
+      repository: ghcr.io/bjw-s/calibre-web
+      tag: 0.6.19@sha256:e9588afe931d89ed2d84b9b03383013ac5139dcc9079d7170a6664b74ef985e6
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 65539
+    enableServiceLinks: false
     env:
-      DOCKER_MODS: ghcr.io/linuxserver/mods:universal-calibre
-      PGID: "65539"
-      PUID: "1000"
+      CACHE_DIR: /cache
     service:
       main:
         ports:
@@ -44,32 +42,33 @@ spec:
         ingressClassName: nginx
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/proxy-body-size: 15m
+          nginx.ingress.kubernetes.io/custom-http-errors: 401,403,404,500,501,502,503
+          nginx.ingress.kubernetes.io/auth-response-headers: Authorization, x-auth-request-email, x-auth-request-groups
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.kutara.io/oauth2/start
+          nginx.ingress.kubernetes.io/auth-url: https://auth.kutara.io/oauth2/auth?allowed_groups=family
+          hajimari.io/enable: "true"
+          hajimari.io/icon: book
         hosts:
-          - host: &host calibre-web.scr1.rabbito.tech
+          - host: &host calibre-web.kutara.io
             paths:
               - path: /
         tls:
           -  secretName: calibre-web-tls
              hosts:
               - *host
-      kobo:
-        enabled: true
-        ingressClassName: nginx
-        hosts:
-          - host: &host_kobo calibre-kobo.scr1.rabbito.tech
-            paths:
-              - path: /kobo/
-        tls:
-          - hosts:
-              - *host_kobo
     persistence:
       config:
         enabled: true
-        existingClaim: calibre-web-config-v1
+        existingClaim: calibre-web-config-v2
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media-v2
         mountPath: /media
+      cache:
+        enabled: true
+        type: emptyDir
+        mountPath: /cache
     resources:
       requests:
         cpu: 15m

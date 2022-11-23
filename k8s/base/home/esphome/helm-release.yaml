@@ -43,23 +43,21 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: "esphome.${INT_DOMAIN}"
+          - host: "esphome.scr1.rabbito.tech"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: esphome-tls
             hosts:
-              - "esphome.${INT_DOMAIN}"
+              - "esphome.scr1.rabbito.tech"
     persistence:
       config:
         enabled: true
-        existingClaim: esphome-config-v1
+        existingClaim: esphome-config-v2
     resources:
       requests:
         memory: 250Mi
         cpu: 500m
       limits:
         memory: 1000Mi
-    podAnnotations:
-      backup.velero.io/backup-volumes: config

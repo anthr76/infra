@@ -10,23 +10,14 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: kah-common-chart
-      version: 1.2.2
+      chart: app-template
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
       interval: 15m
   values:
-    initContainers:
-      update-volume-permission:
-        image: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
-        command: ["sh", "-c", "chown -R 1000:1000 /config"]
-        volumeMounts:
-          - name: config
-            mountPath: /config
-        securityContext:
-          runAsUser: 0
     global:
       nameOverride: *app
     image:
@@ -64,9 +55,9 @@ spec:
             hosts:
               - *host
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
       supplementalGroups:
         - 44
@@ -74,10 +65,10 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: tvheadend-config-v1
+        existingClaim: tvheadend-config-v2
       recordings:
         enabled: true
-        existingClaim: media
+        existingClaim: media-v2
         mountPath: /recordings
       timeshift:
         enabled: true

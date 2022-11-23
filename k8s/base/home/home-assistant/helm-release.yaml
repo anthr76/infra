@@ -18,6 +18,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    controller:
+      strategy: RollingUpdate
     probes:
       liveness:
         custom: true
@@ -57,10 +59,10 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: home-assistant-config-v1
+        existingClaim: home-assistant-config-v2
       backup:
         enabled: true
-        existingClaim: home-assistant-backup-v1
+        existingClaim: home-assistant-backup-v2
         mountPath: /config/backups
     addons:
       codeserver:
@@ -81,14 +83,14 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
           hosts:
-            - host: "hass-config.${INT_DOMAIN}"
+            - host: "hass-config.scr1.rabbito.tech"
               paths:
                 - path: /
                   pathType: Prefix
           tls:
             - secretName: hass-config-tls
               hosts:
-                - "hass-config.${INT_DOMAIN}"
+                - "hass-config.scr1.rabbito.tech"
         volumeMounts:
           - name: config
             mountPath: /config

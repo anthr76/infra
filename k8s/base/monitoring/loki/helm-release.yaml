@@ -105,7 +105,7 @@ spec:
       replicas: 3
       persistence:
         size: 10Gi
-        storageClass: ceph-block
+        storageClass: fast-ceph-block
     read:
       replicas: 3
       extraVolumeMounts:
@@ -125,7 +125,7 @@ spec:
           emptyDir: {}
       persistence:
         size: 10Gi
-        storageClass: ceph-block
+        storageClass: fast-ceph-block
     monitoring:
       selfMonitoring:
         enabled: false

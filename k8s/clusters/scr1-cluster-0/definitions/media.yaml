@@ -101,17 +101,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: media-radarr-uhd
-  namespace: flux-system
-  labels:
-    component.kutara.io/part-of: definitions
-spec:
-  path: "./k8s/base/media/radarr-uhd"
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
   name: media-recyclarr
   namespace: flux-system
   labels:
@@ -119,17 +108,6 @@ metadata:
     kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   path: "./k8s/base/media/recyclarr"
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: media-sonarr-uhd
-  namespace: flux-system
-  labels:
-    component.kutara.io/part-of: definitions
-spec:
-  path: "./k8s/base/media/sonarr-uhd"
   prune: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
@@ -185,4 +163,15 @@ metadata:
     component.kutara.io/part-of: definitions
 spec:
   path: "./k8s/base/media/hydr0-proxy"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-calibre-web
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/calibre-web"
   prune: true

@@ -10,55 +10,54 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: sonarr
-      version: 16.3.2
+      chart: app-template
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
       interval: 5m
   values:
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    initContainers:
-      update-volume-permission:
-        image: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
-        command: ["sh", "-c", "chown -R 1000:1000 /config"]
-        volumeMounts:
-          - name: config
-            mountPath: /config
-        securityContext:
-          runAsUser: 0
+    controller:
+      strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 3.0.9.1555@sha256:63e06362f8c14829086c908e6e92768bc22568b70095bc21124cdf21f235e785
+      tag: 4.0.0.165@sha256:310062acdb1a82b2964bfd47034684fe34ac947137660c9d17b316c8ff952cd6
     env:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info
-      SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.${INT_DOMAIN}"
+      SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.scr1.rabbito.tech"
       SONARR__INSTANCE_NAME: Sonarr
     envFrom:
       - secretRef:
           name: sonarr
+    service:
+      main:
+        ports:
+          http:
+            port: 8989
     ingress:
       main:
         enabled: true
         ingressClassName: nginx
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+          nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
         hosts:
-          - host: "sonarr.${INT_DOMAIN}"
+          - host: "sonarr.scr1.rabbito.tech"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: sonarr-tls
             hosts:
-              - "sonarr.${INT_DOMAIN}"
+              - "sonarr.scr1.rabbito.tech"
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
     metrics:
       enabled: true
@@ -78,18 +77,19 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sonarr-config-v3
+        existingClaim: sonarr-config-v4
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media-v2
         mountPath: /media
       backup:
         enabled: true
-        existingClaim: sonarr-backup-v3
+        existingClaim: sonarr-backup-v4
         mountPath: /config/Backups
     resources:
       requests:
         memory: 250Mi
-        cpu: 500m
+        cpu: 200m
       limits:
         memory: 1500Mi
+        cpu: 500m

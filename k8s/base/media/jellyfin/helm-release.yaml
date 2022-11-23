@@ -10,35 +10,29 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: jellyfin
-      version: 9.5.3
+      chart: app-template
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
   values:
-    initContainers:
-      update-volume-permission:
-        image: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
-        command: ["sh", "-c", "chown -R 1000:1000 /config"]
-        volumeMounts:
-          - name: config
-            mountPath: /config
-        securityContext:
-          runAsUser: 0
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/onedr0p/jellyfin
-      tag: 10.8.7@sha256:09d1822b3d925a92cd1d14d83fb77f185ffca632d193ba2200f76b6af107c3f4
+      tag: 10.8.7@sha256:e309605c9f9c1fd3810da6159185f2bea96a161341c81af9b4731e43be3d9bb1
     env:
       TZ: "America/New_York"
     service:
       main:
         ipFamilyPolicy: PreferDualStack
+        ports:
+          http:
+            port: 8096
     ingress:
       main:
         enabled: true
@@ -61,19 +55,20 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: jellyfin-config-v1
+        existingClaim: jellyfin-config-v2
       transcode:
         enabled: true
         type: emptyDir
-        medium: Memory
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media-v2
         readOnly: true
     resources:
       requests:
+        amd.com/gpu: 1
         cpu: 500m
         memory: 500Mi
       limits:
+        amd.com/gpu: 1
         memory: 4000Mi
-        cpu: 2000m
+        cpu: 1000m

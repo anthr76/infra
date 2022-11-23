@@ -1,2 +1,2 @@
 *.yml diff=dyff
-*.yml diff=dyff
+*.yaml diff=dyff

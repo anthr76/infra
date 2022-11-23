@@ -10,34 +10,29 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: qbittorrent
-      version: 13.5.2
+      chart: app-template
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
       interval: 5m
   values:
-    initContainers:
-      update-volume-permission:
-        image: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
-        command: ["sh", "-c", "chown -R 1000:1000 /config"]
-        volumeMounts:
-          - name: config
-            mountPath: /config
-        securityContext:
-          runAsUser: 0
     image:
       repository: ghcr.io/onedr0p/qbittorrent
       tag: 4.4.5@sha256:849a1d69e539301e5f6f1e5366dd160b3508666f60d72a12df48ac8f4b149f96
     env:
       TZ: "America/New_York"
     service:
+      main:
+        ports:
+          http:
+            port: 8080
       bittorrent:
         enabled: true
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "${SVC_QBITTORRENT_ADDR}"
+          metallb.universe.tf/loadBalancerIPs: "10.45.0.3, 2001:559:87dd:a00:dead:beef:0:500"
         ipFamilyPolicy: RequireDualStack
         ports:
           bittorrent:
@@ -53,14 +48,14 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: "qb.${INT_DOMAIN}"
+          - host: "qb.scr1.rabbito.tech"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: qbittorrent-tls
             hosts:
-              - "qb.${INT_DOMAIN}"
+              - "qb.scr1.rabbito.tech"
     metrics:
       enabled: true
       exporter:
@@ -73,17 +68,17 @@ spec:
       prometheusRule:
         enabled: true
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       config:
         enabled: true
-        existingClaim: qbittorrent-config-v1
+        existingClaim: qbittorrent-config-v2
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media-v2
         mountPath: /media
     resources:
       requests:
@@ -91,8 +86,6 @@ spec:
         cpu: 500m
       limits:
         memory: 6000Mi
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
     affinity:
       nodeAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:

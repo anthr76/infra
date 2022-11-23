@@ -1,45 +1,161 @@
-# A starter config to use with Trash Updater. Most values are set to "reasonable defaults".
-# Update the values below as needed for your instance. You will be required to update the
-# API Key and URL for each instance you want to use.
-#
-# Many optional settings have been omitted to keep this template simple.
-#
 # For more details on the configuration, see the Configuration Reference on the wiki here:
 # https://github.com/rcdailey/trash-updater/wiki/Configuration-Reference
+# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
 sonarr:
-    - base_url: http://sonarr:8989
-      api_key: ENC[AES256_GCM,data:u5Mwu9nYfwDIU7HT3YwJQRJX616nM3mmRQvJ7h9mKK4=,iv:DrGZsaqBP8hEQuIJzyJWXzH84OU+69ZYYHG6ar9XRNY=,tag:HRXTHqrLetckUZT7WMLBjQ==,type:str]
+    - base_url: http://sonarr.media.svc.cluster.local:8989
+      api_key: ENC[AES256_GCM,data:KXvKSGFFvjwtmOO+JhImR63HvSifNIWhnjGFx8diUbw=,iv:hl5cnzdveqe5HnFizpbw3vFVOHEkDRyJJhkd5O5HuTo=,tag:4W6zSb2EM2HJ0UO8uDlXFQ==,type:str]
       quality_definition: hybrid
-      release_profiles:
+      delete_old_custom_formats: true
+      custom_formats:
         - trash_ids:
-            # Low Quality Groups
-            - EBC725268D687D588A20CBC5F97E538B
-            # Release Sources (Streaming Service)
-            - 1B018E0C53EC825085DD911102E2CA36
-            # P2P Groups + Repack/Proper
-            - 71899E6C303A07AF0E4746EFF9873532
-        - trash_ids:
-            # Anime - First release profile
-            - d428eda85af1df8904b4bbe4fc2f537c
-            # Anime - Second release profile
-            - 6cd9e10bb5bb4c63d2d7cd3279924c7b
-          strict_negative_scores: true
-          tags:
-            - anime
-    - base_url: http://sonarr-uhd:8989
-      api_key: ENC[AES256_GCM,data:7sGhA0woKCITpMwqkwhHhRv7pXcWox2Gz5O/mho3sD4=,iv:0BlUa4oGRD4RoZW+SzDxFF3GKXw4/AAKRWv3vpArdWE=,tag:aQJPrYE7gR0zRGcWZ9PYKA==,type:str]
-      quality_definition: hybrid
-      release_profiles:
-        - trash_ids:
-            # Low Quality Groups
-            - EBC725268D687D588A20CBC5F97E538B
-            # Release Sources (Streaming Service)
-            - 1B018E0C53EC825085DD911102E2CA36
-            # P2P Groups + Repack/Proper
-            - 71899E6C303A07AF0E4746EFF9873532
+            # Anime
+            # Anime BD Tier 01 (Top SeaDex Muxers)
+            - 949c16fe0a8147f50ba82cc2df9411c9
+            # Anime BD Tier 02 (SeaDex Muxers)
+            - ed7f1e315e000aef424a58517fa48727
+            # Anime BD Tier 03 (SeaDex Muxers)
+            - 096e406c92baa713da4a72d88030b815
+            # Anime BD Tier 04 (SeaDex Muxers)
+            - 30feba9da3030c5ed1e0f7d610bcadc4
+            # Anime BD Tier 05 (Remuxes)
+            - 545a76b14ddc349b8b185a6344e28b04
+            # Anime BD Tier 06 (FanSubs)
+            - 25d2afecab632b1582eaf03b63055f72
+            # Anime BD Tier 07 (P2P/Scene)
+            - 0329044e3d9137b08502a9f84a7e58db
+            # Anime BD Tier 08 (Mini Encodes)
+            - c81bbfb47fed3d5a3ad027d077f889de
+            # Anime Web Tier 01 (Muxers)
+            - e0014372773c8f0e1bef8824f00c7dc4
+            # Anime Web Tier 02 (Top FanSubs)
+            - 19180499de5ef2b84b6ec59aae444696
+            # Anime Web Tier 03 (Official Subs)
+            - c27f2ae6a4e82373b0f1da094e2489ad
+            # Anime Web Tier 04 (Official Subs)
+            - 4fd5528a3a8024e6b49f9c67053ea5f3
+            # Anime Web Tier 05 (FanSubs)
+            - 29c2a13d091144f63307e4a8ce963a39
+            # Anime Web Tier 06 (FanSubs)
+            - dc262f88d74c651b12e9d90b39f6c753
+            # Anime Raws
+            - b4a1b3d705159cdca36d71e57ca86871
+            # Anime LQ Groups
+            - e3515e519f3b1360cbfc17651944354c
+            # Uncensored
+            - 026d5aadd1a6b4e550b134cb6c72b3ca
+            # v0
+            - d2d7b8a9d39413da5f44054080e028a3
+            # v1
+            - 273bd326df95955e1b6c26527d1df89b
+            # v2
+            - 228b8ee9aa0a609463efca874524a6b8
+            # v3
+            - 0e5833d3af2cc5fa96a0c29cd4477feb
+            # v4
+            - 4fc15eeb8f2f9a749f918217d4234ad8
+            # VRV
+            - 44a8ee6403071dd7b8a3a8dd3fe8cb20
+            # 10bit
+            - b2550eb333d27b75833e25b8c2557b38
+            # Anime Dual Audio
+            - 418f50b10f1907201b6cfdf881f467b7
+            # Streaming Services
+            # AMZN
+            - d660701077794679fd59e8bdf4ce3a29
+            # ATVP
+            - f67c9ca88f463a48346062e8ad07713f
+            # DCU
+            - 36b72f59f4ea20aad9316f475f2d9fbb
+            # DSNP
+            - 89358767a60cc28783cdc3d0be9388a4
+            # HBO
+            - 7a235133c87f7da4c8cccceca7e3c7a6
+            # HMAX
+            - a880d6abc21e7c16884f3ae393f84179
+            # HULU
+            - f6cce30f1733d5c8194222a7507909bb
+            # iT
+            - 0ac24a2a68a9700bcb7eeca8e5cd644c
+            # NF
+            - d34870697c9db575f17700212167be23
+            # PCOK
+            - 1656adc6d7bb2c8cca6acfb6592db421
+            # PMTP
+            - c67a75ae4a1715f2bb4d492755ba4195
+            # QIBI
+            - 3ac5d84fce98bab1b531393e9c82f467
+            # RED
+            - c30d2958827d1867c73318a5a2957eb1
+            # SHO
+            - ae58039e1319178e6be73caab5c42166
+            # Allowed Scene groups and tiered P2P groups
+            # WEB Scene (allowed Scene groups)
+            - d0c516558625b04b363fa6c5c2c7cfd4
+            # WEB Tier 01
+            - e6258996055b9fbab7e9cb2f75819294
+            # WEB Tier 02
+            - 58790d4e2fdcd9733aa7ae68ba2bb503
+            # WEB Tier 03
+            - d84935abd3f8556dcd51d4f27e22d0a6
+            # Repacks / Propers
+            # Repack/Proper
+            - ec8fa7296b64e8cd390a1600981f3923
+            # Repack v2
+            - eb3d5cc0a2be0db205fb823640db6a3c
+            # Repack v3
+            - 44e7c4de10ae50265753082e5dc76047
+            # HDR Metadata
+            # DV HDR10
+            - 7878c33f1963fefb3d6c8657d46c2f0a
+            # DV HLG
+            - 1f733af03141f068a540eec352589a89
+            # DV SDR
+            - 27954b0a80aab882522a88a4d9eae1cd
+            # DV
+            - 6d0d8de7b57e35518ac0308b0ddf404e
+            # HDR (undefined)
+            - bb019e1cd00f304f80971c965de064dc
+            # HDR
+            - 3e2c4e748b64a1a1118e0ea3f4cf6875
+            # HDR10
+            - 3497799d29a085e2ac2df9d468413c94
+            # HDR10+
+            - a3d82cbef5039f8d295478d28a887159
+            # HLG
+            - 17e889ce13117940092308f48b48b45b
+            # PQ
+            - 2a7e3be05d3861d6df7171ec74cad727
+            # Unwanted
+            # Bad Dual Groups
+            - 32b367365729d530ca1c124a0b180c64
+            # BR-DISK
+            - 85c61753df5da1fb2aab6f2a47426b09
+            # Dubs Only
+            - 9c14d194486c4014d422adc64092d794
+            # LQ
+            - 9c11cd3f07101cdba90a2d81cf0e56b4
+            # No-RlsGroup
+            - 82d40da2bc6923f41e14394075dd4b03
+            # Obfuscated
+            - e1a997ddb54e3ecbfe06341ad323c458
+            # Retags
+            - 06d66ab109d4d2eddb2794d21526d140
+            # x265 (HD)
+            - 47435ece6b99a0b477caf360e79ba0bb
+          quality_profiles:
+            - name: Any
+              reset_unmatched_scores: true
+            - name: HD - 720p/1080p
+              reset_unmatched_scores: true
+            - name: HD-1080p
+              reset_unmatched_scores: true
+            - name: HD-720p
+              reset_unmatched_scores: true
+            - name: SD
+              reset_unmatched_scores: true
 radarr:
-    - base_url: http://radarr:7878
-      api_key: ENC[AES256_GCM,data:vQrv+ZQbEIjR/FjpSzNtvz9yJb4hmMkwsVdhAML9U2A=,iv:uAkv0kU4NJIOAySXe+m7wFuLtO4I1o1g8muOq14u1sw=,tag:9UGAh+u3m7wbEVnKjW+Cqg==,type:str]
+    - base_url: http://radarr.media.svc.cluster.local:7878
+      api_key: ENC[AES256_GCM,data:H2Whe5zT8tbIfCORFSBbKkjM3RoJz2italPS3y5yB+8=,iv:rZ1qGZBH2P3c2IpI27mxKviBuJ+obqvzc/VLfyCkvPA=,tag:7iXHqwfzypGlqRey3WUc6w==,type:str]
       delete_old_custom_formats: true
       quality_definition:
         type: movie
@@ -49,8 +165,6 @@ radarr:
             # UHD FraMeSToR (set to 0, 1 or 3200)
             - ff5bc9e8ce91d46c997ca3ac6994d6f8
           quality_profiles:
-            - name: Any
-              score: 1
             - name: HD
               score: 1
             - name: SD
@@ -151,8 +265,6 @@ radarr:
             # x265 (720/1080p)
             - dc98083864ea246d05a42df0d05f81cc
           quality_profiles:
-            - name: Any
-              reset_unmatched_scores: true
             - name: HD
               reset_unmatched_scores: true
             - name: SD
@@ -161,8 +273,6 @@ radarr:
             # HQ
             - 1c7d7b04b15cc53ea61204bebbcc1ee2
           quality_profiles:
-            - name: Any
-              score: 0
             - name: HD
               score: 0
             - name: SD
@@ -173,136 +283,9 @@ radarr:
             # Optional: DV (WEBDL) without fallback to HDR, set to manual score 0 or -10000
             - 923b6abef9b17f937fab56cfcf89e1f1
           quality_profiles:
-            - name: Any
-              score: 0
             - name: HD
               score: 0
             - name: SD
-              score: 0
-    - base_url: http://radarr-uhd:7878
-      api_key: ENC[AES256_GCM,data:NBUH+r2wsxVC/IVyHjqJCypagON6ceZmmEWBukFhkzM=,iv:xxZR0L0/sLVLcXlKl8aHcb4YIAMGxdZRcHAm8Yd6SzA=,tag:LroU2Xuu67XW8dEAJphj1g==,type:str]
-      delete_old_custom_formats: true
-      quality_definition:
-        type: movie
-        preferred_ratio: 0.5
-      custom_formats:
-        - trash_ids:
-            # UHD FraMeSToR (set to 0, 1 or 3200)
-            - ff5bc9e8ce91d46c997ca3ac6994d6f8
-          quality_profiles:
-            - name: UHD
-              score: 1
-        - trash_ids:
-            # TrueHD Atmos
-            - 496f355514737f7d83bf7aa4d24f8169
-            # DTS X
-            - 2f22d89048b01681dde8afe203bf2e95
-            # ATMOS (undefined)
-            - 417804f7f2c4308c1f4c5d380d4c4475
-            # DD+ Atmos
-            - 1af239278386be2919e1bcee0bde047e
-            # TrueHD
-            - 3cafb66171b47f226146a0770576870f
-            # DTS-HD MA
-            - dcf3ec6938fa32445f590a4da84256cd
-            # FLAC
-            - a570d4a0e56a2874b64e5bfa55202a1b
-            # PCM
-            - e7c2fcae07cbada050a0af3357491d7b
-            # DTS-HD HRA
-            - 8e109e50e0a0b83a5098b056e13bf6db
-            # DD+
-            - 185f1dd7264c4562b9022d963ac37424
-            # DTS-ES
-            - f9f847ac70a0af62ea4a08280b859636
-            # DTS
-            - 1c1a4c5e823891c75bc50380a6866f73
-            # ACC
-            - 240770601cc226190c367ef59aba7463
-            # DD
-            - c2998bd0d90ed5621d8df281e839436e
-            # DV HDR10  HDR/DV Custom Formats
-            - e23edd2482476e595fb990b12e7c609c
-            # DV
-            - 58d6a88f13e2db7f5059c41047876f00
-            # DV HLG  HDR/DV Custom Formats
-            - 55d53828b9d81cbe20b02efd00aa0efd
-            # DV SDR  HDR/DV Custom Formats
-            - a3e19f8f627608af0211acd02bf89735
-            # HDR10Plus
-            - b974a6cd08c1066250f1f177d7aa1225
-            # HDR10
-            - dfb86d5941bc9075d6af23b09c2aeecd
-            # HDR
-            - e61e28db95d22bedcadf030b8f156d96
-            # HDR (Undefined)
-            - 2a4d9069cc1fe3242ff9bdaebed239bb
-            # PQ several HDR/DV Custom Formats
-            - 08d6d8834ad9ec87b1dc7ec8148e7a1f
-            # HLG
-            - 9364dd386c9b4a1100dde8264690add7
-            # Hybrid
-            - 0f12c086e289cf966fa5948eac571f44
-            # Remaster
-            - 570bc9ebecd92723d2d21500f4be314c
-            # 4K Remaster
-            - eca37840c13c6ef2dd0262b141a5482f
-            # Criterion Collection
-            - e0c07d59beb37348e975a930d5e50319
-            # Special Edition
-            - 957d0f44b592285f26449575e8b1167e
-            # IMAX
-            - eecf3a857724171f968a66cb5719e152
-            # IMAX Enhanced
-            - 9f6cbff8cfe4ebbc1bde14c7b7bec0de
-            # HQ-Remux
-            - 403f3f6266b90439cacc1e07cae4dc2d
-            # HQ-Webdl
-            - 26fa26253af4001701fedb56cec376dc
-            # UHD CtrlHD
-            - 66aaa8c2c03c0191a95f0d655b75ab10
-            # UHD LEGi0N
-            - 4da96773192a51cf96178212642ca3bb
-            # UHD HQMUX
-            - 96848626e1570c122aba8642fe2714a2
-            # UHD W4NK3R
-            - ffebc267e9c98d3d383f37b238550079
-            # UHD WEBDV
-            - ac49fdbf6a662d380556f40ff4856f29
-            # UHD DON
-            - afeb99e5db09290546f742503ce1cdb6
-            # Repack
-            - e7718d7a3ce595f289bfee26adc178f5
-            # BR-DISK -10000
-            - ed38b889b31be83fda192888e2286d83
-            # EVO (no WEBDL) -1000
-            - 90cedc1fea7ea5d11298bebd3d1d3223
-            # LQ -10000
-            - 90a6f9a284dff5103f6346090e6280c8
-            # 3D -10000
-            - b8cd450cbfa689c0259a01d9e29ba3d6
-            # Obfuscated
-            - 7357cf5161efbf8c4d5d0c30b4815ee2
-            # No-RlsGroup removed do avoid multiple downloads
-            - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5
-            # x265 (720/1080p)
-            - dc98083864ea246d05a42df0d05f81cc
-          quality_profiles:
-            - name: UHD
-              reset_unmatched_scores: true
-        - trash_ids:
-            # HQ
-            - 1c7d7b04b15cc53ea61204bebbcc1ee2
-          quality_profiles:
-            - name: UHD
-              score: 0
-        - trash_ids:
-            # Optional: Multi
-            - 4b900e171accbfb172729b63323ea8ca
-            # Optional: DV (WEBDL) without fallback to HDR, set to manual score 0 or -10000
-            - 923b6abef9b17f937fab56cfcf89e1f1
-          quality_profiles:
-            - name: UHD
               score: 0
 sops:
     kms: []
@@ -313,14 +296,14 @@ sops:
         - recipient: age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMcTVuc2pma1B1TUpmem1U
-            S3VYMFl3VTkrc0lIbVpmaGlpUXlsU3QvaTNNCmhocmgzT2hIeVRZclB4QVZCVjFP
-            Q3pWd3lYdlpZd1RrL29kaUN3YlRwbUUKLS0tIGJES1k3d1F0eitRVXV4RmFERS9C
-            bXA2bENydDVtakZpeTMzMEZZVnlCUFkKKnA2JF7e+kCrfvsrgWQU/tgA5Qcg63Bu
-            Qwlxbs466xXXrx+yrp0xTLwevObzAbKp30vdvg9BYRgr6mctTr/Grw==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA1L1pIR3BaQTllMlBiSzFY
+            T2U2dTcxOU5FM3Z4UmIyLzRjLzlyc2U2Nm4wClZRcFlLdU80Wk1JMFQwOWRPVGlK
+            RWRjMUJISXAxamdjUlRDVHVsdzlmcFEKLS0tIHJVWE5KejQ5TkxFNjgzMEl0Q29o
+            NXlwR1ArL2hTTHIyZHZLYWp0L1Bpbk0KcqDTNlDXuHg+zG74pnbbpiA6dc6ThvJM
+            JecOhgCL6YGnyepHDMd8nkwbpoz9MZD5nsYsRfaRv9RNOnLXZYlqzQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-07-05T12:50:55Z"
-    mac: ENC[AES256_GCM,data:MBPZK11QETQF1Ut3RIH83cdQVfwF611hwsOHJQcAKbwL0sVFwlI2o4P6BgQ5Y1SwoDNOUCjV0ti7wU6twiWuX4fls0ETBXNMwhNB6Fb4gHvUL52XI1FqJc98qCYmu7wdgWbhJb488X0xM2UZWc9PVvcOJn9JJ1jisy09y9ffXLw=,iv:Dnp6L/I+PC5DGQvq8dD5bLRSKn5F5ZisNIaQZxg6uy4=,tag:CXk6/JlogbC8uvvUKhLTOQ==,type:str]
+    lastmodified: "2022-11-23T16:20:20Z"
+    mac: ENC[AES256_GCM,data:R5hFfFeBeGfMDvCQhamb7YdAcVsZTQuajF+iFouKzsJJilSWF8fLPAwUegSFuDOpHatO1VmF1nOa5NA7oHExVam+n68YhhPmHvnJQNkOE/9I3pkB+yb0QRAyxSu2Ip1nksa5yXw/0L5uEOaSyyKLPSMjQQRIXsyzo1FRUJrxAlY=,iv:GnWPLBA82QnN0agn8cQgU6bvitcX1JHf5OSQtkBUgmg=,tag:3j2jg/XRX7cDfVN76YbjLQ==,type:str]
     pgp: []
     encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.7.3

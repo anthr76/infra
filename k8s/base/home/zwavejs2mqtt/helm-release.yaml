@@ -10,8 +10,8 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: zwavejs2mqtt
-      version: 5.4.2
+      chart: app-template
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -25,6 +25,32 @@ spec:
       TZ: "America/New_York"
     securityContext:
       privileged: true
+    service:
+      main:
+        ports:
+          http:
+            port: &port 8091
+          websocket:
+            enabled: true
+            port: 3000
+    serviceMonitor:
+      main:
+        enabled: true
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /health
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
     ingress:
       main:
         enabled: true
@@ -32,18 +58,18 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: "zwavejs2mqtt.${INT_DOMAIN}"
+          - host: "zwavejs2mqtt.scr1.rabbito.tech"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: zwavejs2mqtt-tls
             hosts:
-              - "zwavejs2mqtt.${INT_DOMAIN}"
+              - "zwavejs2mqtt.scr1.rabbito.tech"
     persistence:
       config:
         enabled: true
-        existingClaim: zwavejs2mqtt-config-v1
+        existingClaim: zwavejs2mqtt-config-v2
         mountPath: "/usr/src/app/store"
       usb:
         enabled: true
@@ -59,5 +85,10 @@ spec:
                   operator: In
                   values:
                     - "true"
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        cpu: 50m
+        memory: 400Mi

@@ -10,25 +10,28 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: overseerr
-      version: 5.4.2
+      chart: app-template
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
       interval: 5m
   values:
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
+    controller:
+      strategy: RollingUpdate
     image:
       repository: ghcr.io/sct/overseerr
-      tag: 1.30.1
+      tag: develop
     env:
       TZ: "America/New_York"
       LOG_LEVEL: "info"
     service:
       main:
         ipFamilyPolicy: PreferDualStack
+        ports:
+          http:
+            port: 5055
     ingress:
       main:
         enabled: true
@@ -49,5 +52,9 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: overseerr-config-v1
+        existingClaim: overseerr-config-v2
         mountPath: /app/config
+      cache:
+        enabled: true
+        type: emptyDir
+        mountPath: /app/.next/cache

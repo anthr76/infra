@@ -10,25 +10,16 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: radarr
-      version: 16.3.2
+      chart: app-template
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
       interval: 5m
   values:
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
-    initContainers:
-      update-volume-permission:
-        image: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
-        command: ["sh", "-c", "chown -R 1000:1000 /config"]
-        volumeMounts:
-          - name: config
-            mountPath: /config
-        securityContext:
-          runAsUser: 0
+    controller:
+      strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/radarr-nightly
       tag: 4.3.1.6741@sha256:8a49c4505f10e562508b045e1e6f7faa9dba50698b6382e7500a444966a815c7
@@ -36,7 +27,7 @@ spec:
       TZ: "America/New_York"
       RADARR__LOG_LEVEL: info
       RADARR__BRANCH: nightly
-      RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.${INT_DOMAIN}"
+      RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.scr1.rabbito.tech"
       RADARR__POSTGRES_USER: k8s
       RADARR__POSTGRES_HOST: db-01.scr1.rabbito.tech
       RADARR__POSTGRES_MAIN_DB: radarr-main
@@ -44,6 +35,11 @@ spec:
     envFrom:
       - secretRef:
           name: radarr
+    service:
+      main:
+        ports:
+          http:
+            port: 7878
     ingress:
       main:
         enabled: true
@@ -51,18 +47,18 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: "radarr.${INT_DOMAIN}"
+          - host: "radarr.scr1.rabbito.tech"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: radarr-tls
             hosts:
-              - "radarr.${INT_DOMAIN}"
+              - "radarr.scr1.rabbito.tech"
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
     metrics:
       enabled: true
@@ -82,15 +78,15 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: radarr-config-v1
+        existingClaim: radarr-config-v2
         mountPath: /config
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media-v2
         mountPath: /media
       backup:
         enabled: true
-        existingClaim: radarr-backup-v1
+        existingClaim: radarr-backup-v2
         mountPath: /config/Backups
     resources:
       requests:
