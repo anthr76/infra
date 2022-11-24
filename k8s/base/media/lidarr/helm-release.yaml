@@ -10,23 +10,16 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: lidarr
-      version: 14.2.2
+      chart: app-template
+      version: 1.1.3
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
       interval: 5m
   values:
-    initContainers:
-      update-volume-permission:
-        image: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
-        command: ["sh", "-c", "chown -R 1000:1000 /config"]
-        volumeMounts:
-          - name: config
-            mountPath: /config
-        securityContext:
-          runAsUser: 0
+    controller:
+      strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/lidarr
       tag: 1.0.2.2592@sha256:c42004e92d90871dca1c1b0f96d9c250f8442478d3836ba10b757badb1603728
@@ -38,6 +31,11 @@ spec:
     envFrom:
       - secretRef:
           name: lidarr
+    service:
+      main:
+        ports:
+          http:
+            port: 8686
     ingress:
       main:
         enabled: true
@@ -54,21 +52,21 @@ spec:
             hosts:
               - "lidarr.scr1.rabbito.tech"
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       config:
         enabled: true
-        existingClaim: lidarr-config-v1
+        existingClaim: lidarr-config-v2
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media-v2
         mountPath: /media
       backup:
         enabled: true
-        existingClaim: lidarr-backup-v1
+        existingClaim: lidarr-backup-v2
         mountPath: /config/Backups
     resources:
       requests:

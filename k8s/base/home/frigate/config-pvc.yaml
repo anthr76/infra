@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: frigate-config-v2
+  name: frigate-config-v3
   namespace: home
 spec:
-  storageClassName: ceph-block
+  storageClassName: fast-ceph-filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi

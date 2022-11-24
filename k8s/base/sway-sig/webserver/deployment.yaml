@@ -54,7 +54,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: nginx
-          image: "docker.io/nginxinc/nginx-unprivileged:latest@sha256:5172a0712b063369cb500bdb485037c12538856113c6c28dde13408e8cdc4d77"
+          image: "docker.io/nginxinc/nginx-unprivileged:latest@sha256:b2d5220bc7a89cc663e2d8ebd50a35538b7fb3a63dd4f7e961922e4d633024f2"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 30
@@ -103,7 +103,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: sway-nginx-v2
+            claimName: sway-nginx-v3
         - name: nginx-conf
           configMap:
             name: sway-sig-nginx-conf

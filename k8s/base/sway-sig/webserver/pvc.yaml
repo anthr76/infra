@@ -2,20 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sway-nginx
-  namespace: sway-sig
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 350Gi
-  storageClassName: ceph-filesystem
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: sway-nginx-v2
+  name: sway-nginx-v3
   namespace: sway-sig
 spec:
   accessModes:
@@ -23,4 +10,4 @@ spec:
   resources:
     requests:
       storage: 150Gi
-  storageClassName: ceph-filesystem
+  storageClassName: fast-ceph-filesystem

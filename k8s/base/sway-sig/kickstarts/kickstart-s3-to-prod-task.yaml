@@ -9,7 +9,7 @@ spec:
     - name: s3-credentials
       type: string
       description: name of the s3 secret credentials
-      default: sway-sig-v1
+      default: sway-sig-v2
     - name: FEDORA_VERSION
       type: string
       description: The version of fedora.
@@ -20,7 +20,7 @@ spec:
       image: docker.io/peakcom/s5cmd:latest@sha256:cd00d2908f021c0ef8188d2b115d3bbf706dcdabaed2aef8b8e213ec09373bc2
       args:
         - --endpoint-url
-        - http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc.cluster.local 
+        - http://rook-ceph-rgw-fast-ceph-objectstore.rook-ceph.svc.cluster.local 
         - mv 
         - s3://sway-sig/iso/Fedora-Sway-Live-$(params.FEDORA_VERSION)*
         - $(workspaces.target.path)/iso/tmp/

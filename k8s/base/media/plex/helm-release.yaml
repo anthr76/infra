@@ -10,33 +10,27 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: plex
-      version: 6.4.3
+      chart: app-template
+      version: 1.1.3
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
       interval: 5m
   values:
-    priorityClassName: system-node-critical
-    initContainers:
-      update-volume-permission:
-        image: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
-        command: ["sh", "-c", "chown -R 1000:1000 /config"]
-        volumeMounts:
-          - name: config
-            mountPath: /config
-        securityContext:
-          runAsUser: 0
+    controller:
+      strategy: RollingUpdate
     image:
-      repository: ghcr.io/k8s-at-home/plex
-      tag: v1.27.2.5929-a806c5905@sha256:df1768fa98033e6b09fb604e7050f7c80a13ed499d40a1d8f487ad3e8968197e
+      repository: ghcr.io/onedr0p/plex
+      tag: 1.29.2.6364-6d72b0cf6@sha256:90929ad73d68e00e4cb587ca16bd204d40a4fd32a3546c75b58639d3d7d6079f
+      # repository: ghcr.io/anthr76/plex
+      # tag: latest@sha256:b568ffde788886629e2262e117c4a1d103eedb2d5b0b721c38c3eab1ec819b5f
     env:
       TZ: "America/New_York"
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
       supplementalGroups:
         - 44
@@ -44,6 +38,9 @@ spec:
     service:
       main:
         ipFamilyPolicy: PreferDualStack
+        ports:
+          http:
+            port: 32400
       tcp-discover:
         enabled: true
         externalTrafficPolicy: Local
@@ -124,14 +121,14 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: plex-config-v1
+        existingClaim: plex-config-v2
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media-v2
         mountPath: /media
       backup:
         enabled: true
-        existingClaim: plex-backup-v1
+        existingClaim: plex-backup-v2
         mountPath: /config/Backups
       transcode:
         enabled: true
@@ -142,8 +139,6 @@ spec:
         memory: 2048M
         gpu.intel.com/i915: 1
       limits:
-        cpu: 2000m
         gpu.intel.com/i915: 1
+        cpu: 2000m
         memory: 4096M
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
