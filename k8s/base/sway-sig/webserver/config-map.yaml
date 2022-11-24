@@ -14,6 +14,10 @@ data:
         autoindex_localtime on;
         # fancyindex on;
         # fancyindex_exact_size off;
+        open_file_cache          max=10000 inactive=5m;
+        open_file_cache_valid    2m;
+        open_file_cache_min_uses 1;
+        open_file_cache_errors   on;
         sendfile           on;
         tcp_nopush         on;
         tcp_nodelay        on;

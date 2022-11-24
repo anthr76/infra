@@ -20,7 +20,7 @@ spec:
   values:
     initContainers:
       add-font:
-        image: alpine:3.16.3@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b
+        image: alpine:3.17.0@sha256:8914eb54f968791faf6a8638949e480fef81e697984fba772b3976835194c6d4
         command:
           [
             "sh",
@@ -43,23 +43,21 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: "esphome.${INT_DOMAIN}"
+          - host: "esphome.scr1.rabbito.tech"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: esphome-tls
             hosts:
-              - "esphome.${INT_DOMAIN}"
+              - "esphome.scr1.rabbito.tech"
     persistence:
       config:
         enabled: true
-        existingClaim: esphome-config-v1
+        existingClaim: esphome-config-v2
     resources:
       requests:
         memory: 250Mi
         cpu: 500m
       limits:
         memory: 1000Mi
-    podAnnotations:
-      backup.velero.io/backup-volumes: config

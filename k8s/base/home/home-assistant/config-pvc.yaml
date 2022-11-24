@@ -2,25 +2,25 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: home-assistant-config-v1
+  name: home-assistant-config-v2
   namespace: home
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-block
+  storageClassName: fast-ceph-filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: home-assistant-backup-v1
+  name: home-assistant-backup-v2
   namespace: home
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-rbd-external
+  storageClassName: slow-ceph-filesystem

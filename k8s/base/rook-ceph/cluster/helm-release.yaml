@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: rook-ceph-cluster
-      version: v1.10.5
+      version: v1.10.6
       sourceRef:
         kind: HelmRepository
         name: rook-ceph-charts
@@ -25,6 +25,16 @@ spec:
     monitoring:
       enabled: true
     cephClusterSpec:
+      # This is a terrible hack
+      # I need more resources.
+      resources:
+        osd:
+          limits:
+            cpu: "2000m"
+            memory: "4Gi"
+          requests:
+            cpu: "500m"
+            memory: "4Gi"
       network:
         provider: host
       dashboard:
@@ -32,10 +42,6 @@ spec:
         urlPrefix: /
         ssl: false
       placement:
-        all:
-          tolerations:
-            - effect: NoSchedule
-              key: node-role.kubernetes.io/control-plane
         mgr:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -45,6 +51,9 @@ spec:
                     operator: In
                     values:
                     - ""
+          tolerations:
+            - effect: NoSchedule
+              key: node-role.kubernetes.io/control-plane
         mon:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -54,20 +63,22 @@ spec:
                     operator: In
                     values:
                     - ""
+          tolerations:
+            - effect: NoSchedule
+              key: node-role.kubernetes.io/control-plane
     cephBlockPoolsVolumeSnapshotClass:
-      enabled: true
-      isDefault: true
+      enabled: false
     cephBlockPools:
-      - name: ceph-blockpool
+      - name: fast-ceph-blockpool
         spec:
           failureDomain: host
-          deviceClass: ssd
           replicated:
             size: 3
+          deviceClass: ssd
         storageClass:
           enabled: true
-          name: ceph-block
-          isDefault: true
+          name: fast-ceph-block
+          isDefault: false
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           mountOptions: []
@@ -83,10 +94,10 @@ spec:
             csi.storage.k8s.io/fstype: ext4
       - name: slow-ceph-blockpool
         spec:
-          failureDomain: host
+          failureDomain: osd
           replicated:
-            size: 1
-            requireSafeReplicaSize: false
+            size: 2
+            # requireSafeReplicaSize: false
           deviceClass: hdd
         storageClass:
           enabled: true
@@ -106,7 +117,7 @@ spec:
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
     cephFileSystems:
-      - name: ceph-filesystem
+      - name: fast-ceph-filesystem
         spec:
           metadataPool:
             replicated:
@@ -115,7 +126,7 @@ spec:
             - failureDomain: host
               replicated:
                 size: 3
-              name: data0
+              name: fast-data0
               deviceClass: ssd
           metadataServer:
             activeCount: 1
@@ -143,8 +154,8 @@ spec:
         storageClass:
           enabled: true
           isDefault: false
-          name: ceph-filesystem
-          pool: data0
+          name: fast-ceph-filesystem
+          pool: fast-data0
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           mountOptions: []
@@ -160,12 +171,12 @@ spec:
         spec:
           metadataPool:
             replicated:
-              size: 1
+              size: 2
           dataPools:
-            - failureDomain: host
+            - failureDomain: osd
               replicated:
-                size: 1
-              name: data0
+                size: 2
+              name: slow-data0
               deviceClass: hdd
           metadataServer:
             activeCount: 1
@@ -207,7 +218,7 @@ spec:
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
     cephObjectStores:
-      - name: ceph-objectstore
+      - name: fast-ceph-objectstore
         spec:
           metadataPool:
             failureDomain: host
@@ -227,13 +238,10 @@ spec:
                requiredDuringSchedulingIgnoredDuringExecution:
                  nodeSelectorTerms:
                  - matchExpressions:
-                   - key: node-role.kubernetes.io/control-plane
+                   - key: feature.node.kubernetes.io/custom-intel-10g
                      operator: In
                      values:
-                     - ""
-             tolerations:
-             - key: node-role.kubernetes.io/control-plane
-               operator: Exists
+                     - "true"
             resources:
               limits:
                 cpu: "2000m"
@@ -245,52 +253,49 @@ spec:
             priorityClassName: system-cluster-critical
         storageClass:
           enabled: true
-          name: ceph-bucket
+          name: fast-ceph-bucket
           reclaimPolicy: Delete
           parameters:
             region: us-east-1
-      - name: slow-ceph-objectstore
-        spec:
-          metadataPool:
-            failureDomain: host
-            replicated:
-              size: 1
-          dataPool:
-            failureDomain: host
-            deviceClass: hdd
-            erasureCoded:
-              dataChunks: 2
-              codingChunks: 1
-          preservePoolsOnDelete: true
-          gateway:
-            port: 80
-            placement:
-             nodeAffinity:
-               requiredDuringSchedulingIgnoredDuringExecution:
-                 nodeSelectorTerms:
-                 - matchExpressions:
-                   - key: node-role.kubernetes.io/control-plane
-                     operator: In
-                     values:
-                     - ""
-             tolerations:
-             - key: node-role.kubernetes.io/control-plane
-               operator: Exists
-            resources:
-              limits:
-                cpu: "2000m"
-                memory: "2Gi"
-              requests:
-                cpu: "1000m"
-                memory: "1Gi"
-            instances: 1
-            priorityClassName: system-cluster-critical
-        storageClass:
-          enabled: true
-          name: slow-ceph-bucket
-          reclaimPolicy: Delete
-          parameters:
-            region: us-east-1
+      # - name: slow-ceph-objectstore
+      #   spec:
+      #     metadataPool:
+      #       failureDomain: host
+      #       replicated:
+      #         size: 2
+      #     dataPool:
+      #       failureDomain: host
+      #       deviceClass: hdd
+      #       erasureCoded:
+      #         dataChunks: 2
+      #         codingChunks: 1
+      #     preservePoolsOnDelete: true
+      #     gateway:
+      #       port: 80
+      #       placement:
+      #        nodeAffinity:
+      #          requiredDuringSchedulingIgnoredDuringExecution:
+      #            nodeSelectorTerms:
+      #            - matchExpressions:
+      #              - key: feature.node.kubernetes.io/custom-intel-10g
+      #                operator: In
+      #                values:
+      #                - "true"
+      #       resources:
+      #         limits:
+      #           cpu: "2000m"
+      #           memory: "2Gi"
+      #         requests:
+      #           cpu: "1000m"
+      #           memory: "1Gi"
+      #       instances: 1
+      #       priorityClassName: system-cluster-critical
+      #   storageClass:
+      #     enabled: true
+      #     name: slow-ceph-bucket
+      #     reclaimPolicy: Delete
+      #     parameters:
+      #       region: us-east-1
     ingress:
       dashboard:
         ingressClassName: "nginx"

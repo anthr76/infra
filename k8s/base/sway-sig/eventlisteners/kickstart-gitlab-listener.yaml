@@ -64,7 +64,7 @@ spec:
                 workspaces:
                   - name: prod
                     persistentVolumeClaim:
-                      claimName: sway-nginx-v2
+                      claimName: sway-nginx-v3
                     subPath: nginx
                 params:
                   - name: REPO_PATH_ONLY

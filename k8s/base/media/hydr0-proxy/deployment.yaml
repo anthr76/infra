@@ -24,9 +24,9 @@ spec:
         app.kubernetes.io/name: hydr0-proxy
     spec:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
       containers:
         - name: nginx
           image: "docker.io/nginxinc/nginx-unprivileged:alpinee@sha256:fd3ae9756f463323cffbdc7a4acc01f2322d535f50bab15b5eb3b14b2323a35b"
