@@ -22,11 +22,17 @@ spec:
       runAsGroup: 568
       fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+      - 39
+      - 44
+      - 109
     image:
       repository: ghcr.io/onedr0p/jellyfin
       tag: 10.8.7@sha256:e309605c9f9c1fd3810da6159185f2bea96a161341c81af9b4731e43be3d9bb1
     env:
       TZ: "America/New_York"
+      DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+      JELLYFIN_CACHE_DIR: "/cache"
     service:
       main:
         ipFamilyPolicy: PreferDualStack
@@ -42,8 +48,6 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "movie-open-play"
           hajimari.io/url: "https://jellyfin.kutara.io/sso/OID/p/auth0"
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            add_header Content-Security-Policy "default-src https: data: blob: http://image.tmdb.org; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.gstatic.com/cv/js/sender/v1/cast_sender.js https://www.gstatic.com/eureka/clank/95/cast_sender.js https://www.gstatic.com/eureka/clank/96/cast_sender.js https://www.gstatic.com/eureka/clank/97/cast_sender.js https://www.youtube.com blob:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; frame-ancestors 'self'";
         hosts:
         - host: "jellyfin.kutara.io"
           paths:
@@ -57,6 +61,9 @@ spec:
         enabled: true
         existingClaim: jellyfin-config-v2
       transcode:
+        enabled: true
+        type: emptyDir
+      cache:
         enabled: true
         type: emptyDir
       media:
