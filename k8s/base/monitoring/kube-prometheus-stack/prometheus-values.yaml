@@ -51,7 +51,7 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: "ceph-block"
+          storageClassName: "fast-ceph-block"
           resources:
             requests:
               storage: 10Gi

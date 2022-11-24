@@ -18,8 +18,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
+    controller:
+      strategy: RollingUpdate
     image:
       repository: docker.io/koenkk/zigbee2mqtt
       # FIXME: https://github.com/Koenkk/zigbee2mqtt/issues/12697
@@ -75,16 +75,16 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: "zigbee2mqtt.${INT_DOMAIN}"
+          - host: "zigbee2mqtt.scr1.rabbito.tech"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: zigbee2mqtt-tls
             hosts:
-              - "zigbee2mqtt.${INT_DOMAIN}"
+              - "zigbee2mqtt.scr1.rabbito.tech"
     persistence:
       config:
         enabled: true
-        existingClaim: zigbee2mqtt-config-v1
+        existingClaim: zigbee2mqtt-config-v2
         mountPath: "/data"

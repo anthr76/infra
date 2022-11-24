@@ -11,7 +11,7 @@ systemd:
         Documentation=https://github.com/etcd-io/etcd
         Wants=network-online.target
         After=network-online.target
-        ConditionPathExists=/opt/bootstrap/node.controller
+        ConditionPathExists=/etc/kubernetes/bootstrap/node.controller
         [Service]
         Environment=ETCD_IMAGE=quay.io/coreos/etcd:v3.5.5
         Type=exec
@@ -57,12 +57,11 @@ systemd:
         RequiredBy=kubelet-worker.service
         RequiredBy=etcd-member.service
     - name: kubelet-controller.service
-      enabled: true
       contents: |
         [Unit]
         Description=Kubelet Controller (System Container)
         Wants=rpc-statd.service
-        ConditionPathExists=/opt/bootstrap/node.controller
+        ConditionPathExists=/etc/kubernetes/bootstrap/node.controller
         [Service]
         Environment=KUBELET_IMAGE=quay.io/poseidon/kubelet:v1.24.4
         ExecStartPre=/bin/mkdir -p /etc/cni/net.d
@@ -87,15 +86,14 @@ systemd:
           --volume /etc/selinux:/etc/selinux \
           --volume /sys/fs/selinux:/sys/fs/selinux \
           --volume /var/lib/calico:/var/lib/calico:ro \
-          --volume /var/lib/containerd:/var/lib/containerd \
+          --volume /var/lib/containers:/var/lib/containers \
           --volume /var/lib/kubelet:/var/lib/kubelet:rshared,z \
           --volume /var/log:/var/log \
-          --volume /var/run:/var/run:z \
           --volume /opt/cni/bin:/opt/cni/bin:z \
           ${KUBELET_IMAGE} \
           --bootstrap-kubeconfig=/etc/kubernetes/kubeconfig \
-          --config=/etc/kubernetes/kubelet-controller.yaml \
-          --container-runtime-endpoint=unix:///var/run/crio/crio.sock \
+          --config=/etc/kubernetes/kubelet.yaml \
+          --container-runtime-endpoint=unix:///run/crio/crio.sock \
           --hostname-override=%H \
           --kubeconfig=/var/lib/kubelet/kubeconfig \
           --node-labels=node.kubernetes.io/controller="true" \
@@ -107,12 +105,11 @@ systemd:
         [Install]
         WantedBy=multi-user.target
     - name: kubelet-worker.service
-      enabled: true
       contents: |
         [Unit]
         Description=Kubelet Worker (System Container)
         Wants=rpc-statd.service
-        ConditionPathExists=/opt/bootstrap/node.worker
+        ConditionPathExists=/etc/kubernetes/bootstrap/node.worker
         [Service]
         Environment=KUBELET_IMAGE=quay.io/poseidon/kubelet:v1.24.4
         ExecStartPre=/bin/mkdir -p /etc/cni/net.d
@@ -137,15 +134,14 @@ systemd:
           --volume /etc/selinux:/etc/selinux \
           --volume /sys/fs/selinux:/sys/fs/selinux \
           --volume /var/lib/calico:/var/lib/calico:ro \
-          --volume /var/lib/containerd:/var/lib/containerd \
+          --volume /var/lib/containers:/var/lib/containers \
           --volume /var/lib/kubelet:/var/lib/kubelet:rshared,z \
           --volume /var/log:/var/log \
-          --volume /var/run/:/var/run/:z \
           --volume /opt/cni/bin:/opt/cni/bin:z \
           ${KUBELET_IMAGE} \
           --bootstrap-kubeconfig=/etc/kubernetes/kubeconfig \
-          --config=/etc/kubernetes/kubelet-worker.yaml \
-          --container-runtime-endpoint=unix:///var/run/crio/crio.sock \
+          --config=/etc/kubernetes/kubelet.yaml \
+          --container-runtime-endpoint=unix:///run/crio/crio.sock \
           --hostname-override=%H \
           --kubeconfig=/var/lib/kubelet/kubeconfig \
           --node-labels=node.kubernetes.io/node
@@ -155,7 +151,16 @@ systemd:
         RestartSec=10
         [Install]
         WantedBy=multi-user.target
-    - name: kubelet.path
+    - name: kubelet-controller.path
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Watch for kubeconfig
+        [Path]
+        PathExists=/etc/kubernetes/kubeconfig
+        [Install]
+        WantedBy=multi-user.target
+    - name: kubelet-worker.path
       enabled: true
       contents: |
         [Unit]
@@ -168,8 +173,8 @@ systemd:
       contents: |
         [Unit]
         Description=Kubernetes control plane
-        ConditionPathExists=!/opt/bootstrap/bootstrap.done
-        ConditionPathExists=!/opt/bootstrap/node.worker
+        ConditionPathExists=!/etc/kubernetes/bootstrap.done
+        ConditionPathExists=!/etc/kubernetes/bootstrap/node.worker
         [Service]
         Type=oneshot
         RemainAfterExit=true
@@ -185,14 +190,44 @@ systemd:
             ${KUBELET_IMAGE}
         ExecStartPost=/bin/touch /opt/bootstrap/bootstrap.done
         ExecStartPost=-/usr/bin/podman stop bootstrap
+    - name: scuttle.service
+      contents: |
+        [Unit]
+        Description=Scuttle Kubelet before Shutdown
+        After=multi-user.target
+        [Service]
+        Type=simple
+        ExecStartPre=-/usr/bin/podman rm scuttle
+        ExecStart=/usr/bin/podman run \
+          --name scuttle \
+          --network host \
+          --log-driver=k8s-file \
+          --env KUBECONFIG=/var/lib/kubelet/kubeconfig \
+          -v /var/lib/kubelet:/var/lib/kubelet:ro,z \
+          --stop-timeout=60 \
+          quay.io/poseidon/scuttle:v0.1.0-9-g28e159f
+        ExecStop=/usr/bin/podman stop scuttle
+        TimeoutStopSec=180
+        SuccessExitStatus=143
+        [Install]
+        WantedBy=multi-user.target
+    - name: scuttle.path
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Watch for Kubelet kubeconfig
+        [Path]
+        PathExists=/var/lib/kubelet/kubeconfig
+        [Install]
+        WantedBy=multi-user.target
 storage:
   directories:
     - path: /var/lib/etcd
       mode: 0700
     - path: /etc/kubernetes
-    - path: /opt/bootstrap
+    - path: /etc/kubernetes/bootstrap
   files:
-    - path: /etc/kubernetes/kubelet-controller.yaml
+    - path: /etc/kubernetes/kubelet.yaml
       mode: 0644
       contents:
         inline: |
@@ -219,32 +254,7 @@ storage:
           readOnlyPort: 0
           resolvConf: /run/systemd/resolve/resolv.conf
           volumePluginDir: /var/lib/kubelet/volumeplugins
-    - path: /etc/kubernetes/kubelet-worker.yaml
-      mode: 0644
-      contents:
-        inline: |
-          apiVersion: kubelet.config.k8s.io/v1beta1
-          kind: KubeletConfiguration
-          authentication:
-            anonymous:
-              enabled: false
-            webhook:
-              enabled: true
-            x509:
-              clientCAFile: /etc/kubernetes/ca.crt
-          authorization:
-            mode: Webhook
-          cgroupDriver: systemd
-          clusterDNS:
-            - 10.96.0.10
-          clusterDomain: cluster.local
-          healthzPort: 0
-          rotateCertificates: true
-          staticPodPath: /etc/kubernetes/manifests
-          readOnlyPort: 0
-          resolvConf: /run/systemd/resolve/resolv.conf
-          volumePluginDir: /var/lib/kubelet/volumeplugins
-    - path: /opt/bootstrap/layout
+    - path: /etc/kubernetes/bootstrap/layout
       mode: 0544
       contents:
         inline: |
@@ -266,7 +276,7 @@ storage:
           mv manifests-networking/* /opt/bootstrap/assets/manifests/
           rm -rf assets auth static-manifests tls manifests-networking
           chcon -R -u system_u -t container_file_t /etc/kubernetes/pki
-    - path: /opt/bootstrap/apply
+    - path: /etc/kubernetes/bootstrap/apply
       mode: 0544
       contents:
         inline: |

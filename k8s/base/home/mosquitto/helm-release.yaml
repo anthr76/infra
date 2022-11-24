@@ -25,7 +25,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "${SVC_MQTT_ADDR}"
+          metallb.universe.tf/loadBalancerIPs: "10.45.0.1"
         externalTrafficPolicy: Local
     auth:
       enabled: true
@@ -34,7 +34,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: mosquitto-config-v1
+        existingClaim: mosquitto-config-v2
       configinc:
         enabled: true
         type: configMap

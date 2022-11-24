@@ -2,33 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: paperless-data-v1
-  namespace: infra
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
-  storageClassName: ceph-block
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: paperless-media-v1
-  namespace: infra
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
-  storageClassName: ceph-block
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: paperless-consume-v1
+  name: paperless-data-v2
   namespace: infra
 spec:
   accessModes:
@@ -36,12 +10,12 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: cephfs-external
+  storageClassName: fast-ceph-filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: paperless-export-v1
+  name: paperless-media-v2
   namespace: infra
 spec:
   accessModes:
@@ -49,4 +23,30 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: cephfs-external
+  storageClassName: slow-ceph-filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-consume-v2
+  namespace: infra
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: slow-ceph-filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-export-v2
+  namespace: infra
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: slow-ceph-filesystem

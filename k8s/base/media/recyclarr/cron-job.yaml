@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: &app recyclarr
+  name: recyclarr
   namespace: media
 spec:
   schedule: "0 3 * * *"
@@ -53,4 +53,4 @@ spec:
           volumes:
             - name: config
               secret:
-                secretName: *app
+                secretName: recyclarr

@@ -1,0 +1,20 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: slow-ceph-filesystem-nfs
+  namespace: rook-ceph
+provisioner: rook-ceph.nfs.csi.ceph.com
+parameters:
+  nfsCluster: nfs
+  server: rook-ceph-nfs-my-nfs-a
+  clusterID: rook-ceph
+  fsName: slow-ceph-filesystem
+  pool: slow-ceph-filesystem-slow-data0
+  csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+  csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+  csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+  csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+  csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+  csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+reclaimPolicy: Delete
+allowVolumeExpansion: true

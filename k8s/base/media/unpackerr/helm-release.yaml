@@ -10,40 +10,50 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: unpackerr
-      version: 5.4.2
+      chart: app-template
+      version: 1.1.3
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
   values:
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
     image:
-      repository: docker.io/golift/unpackerr
-      tag: 0.10.1
+      repository: ghcr.io/onedr0p/unpackerr
+      tag: 0.10.1@sha256:8026ade41a1ddf717ed0a879040cdfbe5e71937b909321a341dd17c2a08e4bff
     env:
       TZ: America/New_York
-      UN_SONARR_0_URL: http://sonarr:8989
+      UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local
       UN_SONARR_0_PATHS_0: /media/downloads/qbittorrent/complete/sonarr
-      UN_SONARR_1_URL: http://sonarr-uhd:8989
+      UN_SONARR_1_URL: http://sonarr-uhd.media.svc.cluster.local
       UN_SONARR_1_PATHS_0: /media/downloads/qbittorrent/complete/sonarr-uhd
-      UN_RADARR_0_URL: http://radarr:7878
+      UN_RADARR_0_URL: http://radarr.media.svc.cluster.local
       UN_RADARR_0_PATHS_0: /media/downloads/qbittorrent/complete/radarr
-      UN_RADARR_1_URL: http://radarr-uhd:7878
+      UN_RADARR_1_URL: http://radarr-uhd.media.svc.cluster.local
       UN_RADARR_1_PATHS_0: /media/downloads/qbittorrent/complete/radarr-uhd
     envFrom:
       - secretRef:
           name: unpackerr
+    service:
+      main:
+        enabled: false
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
     persistence:
       config:
         enabled: false
       media:
         enabled: true
-        existingClaim: media
+        existingClaim: media-v2
         mountPath: /media
     podAnnotations:
       secret.reloader.stakater.com/reload: unpackerr

@@ -31,7 +31,6 @@ spec:
       tag: 0.25.0-debian
     role: Agent
     customConfig:
-      data_dir: /vector-data-dir
       sources:
         kubernetes_logs:
           type: kubernetes_logs

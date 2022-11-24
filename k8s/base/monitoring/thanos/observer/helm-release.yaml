@@ -22,6 +22,9 @@ spec:
   upgrade:
     remediation:
       retries: 5
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: monitoring
   values:
     image:
       registry: quay.io
@@ -44,7 +47,7 @@ spec:
         enabled: true
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-        hostname: &host "thanos-query.${INT_DOMAIN}"
+        hostname: &host "thanos-query.scr1.rabbito.tech"
         ingressClassName: "nginx"
         tls: true
         extraTls:
@@ -60,7 +63,7 @@ spec:
         enabled: true
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-        hostname: &host "thanos-bucketweb.${INT_DOMAIN}"
+        hostname: &host "thanos-bucketweb.scr1.rabbito.tech"
         ingressClassName: "nginx"
         tls: true
         extraTls:
@@ -76,7 +79,7 @@ spec:
       retentionResolution1h: 14d
       ingress:
         enabled: true
-        hostname: &host "thanos-compactor.${INT_DOMAIN}"
+        hostname: &host "thanos-compactor.scr1.rabbito.tech"
         ingressClassName: "nginx"
         tls: true
         extraTls:
@@ -84,7 +87,7 @@ spec:
               - *host
       persistence:
         enabled: true
-        storageClass: "ceph-block"
+        storageClass: "fast-ceph-block"
         size: 20Gi
     storegateway:
       enabled: true
@@ -94,7 +97,7 @@ spec:
         enabled: true
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-        hostname: &host "thanos-storegateway.${INT_DOMAIN}"
+        hostname: &host "thanos-storegateway.scr1.rabbito.tech"
         ingressClassName: "nginx"
         tls: true
         extraTls:
@@ -102,7 +105,7 @@ spec:
               - *host
       persistence:
         enabled: true
-        storageClass: "ceph-block"
+        storageClass: "fast-ceph-block"
         size: 20Gi
     ruler:
       enabled: true
@@ -125,7 +128,7 @@ spec:
         enabled: true
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-        hostname: &host "thanos-ruler.${INT_DOMAIN}"
+        hostname: &host "thanos-ruler.scr1.rabbito.tech"
         ingressClassName: "nginx"
         tls: true
         extraTls:
@@ -133,7 +136,7 @@ spec:
               - *host
       persistence:
         enabled: true
-        storageClass: "ceph-block"
+        storageClass: "fast-ceph-block"
         size: 20Gi
     metrics:
       enabled: true
