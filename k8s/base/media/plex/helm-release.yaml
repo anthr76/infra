@@ -24,7 +24,7 @@ spec:
       repository: ghcr.io/onedr0p/plex
       tag: 1.29.2.6364-6d72b0cf6@sha256:90929ad73d68e00e4cb587ca16bd204d40a4fd32a3546c75b58639d3d7d6079f
       # repository: ghcr.io/anthr76/plex
-      # tag: latest@sha256:b568ffde788886629e2262e117c4a1d103eedb2d5b0b721c38c3eab1ec819b5f
+      # tag: latest@sha256:4bb1ffbc837e9b4d76c7805151f085c603b041f69f42c605a8c338a2c91093e9
     env:
       TZ: "America/New_York"
     podSecurityContext:
@@ -137,8 +137,10 @@ spec:
       requests:
         cpu: 128m
         memory: 2048M
+        # amd.com/gpu: "1"
         gpu.intel.com/i915: 1
       limits:
         gpu.intel.com/i915: 1
+        # amd.com/gpu: "1"
         cpu: 2000m
         memory: 4096M

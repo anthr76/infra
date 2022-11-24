@@ -6,6 +6,7 @@ metadata:
   namespace: rook-ceph
   annotations:
     metallb.universe.tf/loadBalancerIPs: 10.45.0.10
+    coredns.io/hostname: ceph-nfs
 spec:
   ports:
     - name: nfs
