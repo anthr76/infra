@@ -264,12 +264,12 @@ spec:
             replicated:
               size: 2
           dataPool:
-            failureDomain: host
+            failureDomain: osd
             deviceClass: hdd
             erasureCoded:
               dataChunks: 2
               codingChunks: 1
-          preservePoolsOnDelete: true
+          preservePoolsOnDelete: false
           gateway:
             port: 80
             placement:
