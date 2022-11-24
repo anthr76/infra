@@ -31,7 +31,6 @@ spec:
       tag: 10.8.7@sha256:e309605c9f9c1fd3810da6159185f2bea96a161341c81af9b4731e43be3d9bb1
     env:
       TZ: "America/New_York"
-      DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
       JELLYFIN_CACHE_DIR: "/cache"
     service:
       main:
