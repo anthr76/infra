@@ -257,45 +257,45 @@ spec:
           reclaimPolicy: Delete
           parameters:
             region: us-east-1
-      # - name: slow-ceph-objectstore
-      #   spec:
-      #     metadataPool:
-      #       failureDomain: host
-      #       replicated:
-      #         size: 2
-      #     dataPool:
-      #       failureDomain: host
-      #       deviceClass: hdd
-      #       erasureCoded:
-      #         dataChunks: 2
-      #         codingChunks: 1
-      #     preservePoolsOnDelete: true
-      #     gateway:
-      #       port: 80
-      #       placement:
-      #        nodeAffinity:
-      #          requiredDuringSchedulingIgnoredDuringExecution:
-      #            nodeSelectorTerms:
-      #            - matchExpressions:
-      #              - key: feature.node.kubernetes.io/custom-intel-10g
-      #                operator: In
-      #                values:
-      #                - "true"
-      #       resources:
-      #         limits:
-      #           cpu: "2000m"
-      #           memory: "2Gi"
-      #         requests:
-      #           cpu: "1000m"
-      #           memory: "1Gi"
-      #       instances: 1
-      #       priorityClassName: system-cluster-critical
-      #   storageClass:
-      #     enabled: true
-      #     name: slow-ceph-bucket
-      #     reclaimPolicy: Delete
-      #     parameters:
-      #       region: us-east-1
+      - name: slow-ceph-objectstore
+        spec:
+          metadataPool:
+            failureDomain: host
+            replicated:
+              size: 2
+          dataPool:
+            failureDomain: host
+            deviceClass: hdd
+            erasureCoded:
+              dataChunks: 2
+              codingChunks: 1
+          preservePoolsOnDelete: true
+          gateway:
+            port: 80
+            placement:
+             nodeAffinity:
+               requiredDuringSchedulingIgnoredDuringExecution:
+                 nodeSelectorTerms:
+                 - matchExpressions:
+                   - key: feature.node.kubernetes.io/custom-intel-10g
+                     operator: In
+                     values:
+                     - "true"
+            resources:
+              limits:
+                cpu: "2000m"
+                memory: "2Gi"
+              requests:
+                cpu: "1000m"
+                memory: "1Gi"
+            instances: 1
+            priorityClassName: system-cluster-critical
+        storageClass:
+          enabled: true
+          name: slow-ceph-bucket
+          reclaimPolicy: Delete
+          parameters:
+            region: us-east-1
     ingress:
       dashboard:
         ingressClassName: "nginx"
