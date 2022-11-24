@@ -9,7 +9,6 @@ spec:
   provider: generic
   url: oci://ghcr.io/kyverno/manifests/kyverno
   ref:
-    # renovate: datasource=github-releases depName=kyverno/kyverno
     tag: "v1.8.2"
   verify:
     provider: cosign
