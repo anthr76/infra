@@ -11,13 +11,35 @@ spec:
   chart:
     spec:
       chart: home-assistant
-      version: 13.4.2
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
       interval: 5m
   values:
+    init-db:
+      image: ghcr.io/onedr0p/postgres-initdb:14.5
+      env:
+        - name: POSTGRES_HOST
+          value: postgres-rw.database.svc.cluster.local
+        - name: POSTGRES_DB
+          value: "hass"
+        - name: POSTGRES_SUPER_PASS
+          valueFrom:
+            secretKeyRef:
+              name: postgres-superuser
+              key: password
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: home-assistant
+              key: postgres-user
+        - name: POSTGRES_PASS
+          valueFrom:
+            secretKeyRef:
+              name: home-assistant
+              key: postgres-password
     controller:
       strategy: RollingUpdate
     probes:
@@ -29,8 +51,6 @@ spec:
             port: 8123
           initialDelaySeconds: 3
           periodSeconds: 3
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
     image:
       repository: ghcr.io/home-assistant/home-assistant
       tag: 2022.11.4
@@ -39,6 +59,11 @@ spec:
     envFrom:
       - secretRef:
           name: home-assistant
+    service:
+      main:
+        ports:
+          http:
+            port: 8123
     ingress:
       main:
         enabled: true
@@ -64,39 +89,10 @@ spec:
         enabled: true
         existingClaim: home-assistant-backup-v2
         mountPath: /config/backups
-    addons:
-      codeserver:
-        enabled: false
-        git:
-          deployKeySecret: code-server
-        workingDir: "/config"
-        args:
-          - --auth
-          - "none"
-          - --user-data-dir
-          - "/config/.vscode"
-          - --extensions-dir
-          - "/config/.vscode"
-        ingress:
-          enabled: true
-          ingressClassName: nginx
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hosts:
-            - host: "hass-config.scr1.rabbito.tech"
-              paths:
-                - path: /
-                  pathType: Prefix
-          tls:
-            - secretName: hass-config-tls
-              hosts:
-                - "hass-config.scr1.rabbito.tech"
-        volumeMounts:
-          - name: config
-            mountPath: /config
     resources:
       requests:
         cpu: 100m
         memory: 100Mi
       limits:
         memory: 4000Mi
+        cpu: 1000m

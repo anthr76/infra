@@ -4,3 +4,4 @@ metadata:
   name: home
   labels:
     goldilocks.fairwinds.com/enabled: "true"
+    component.kutara.io/postgres-secrets: "true"
