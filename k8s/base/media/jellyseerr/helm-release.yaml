@@ -34,6 +34,9 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+          nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
         hosts:
           - host: "new.requests.kutara.io"
             paths:
