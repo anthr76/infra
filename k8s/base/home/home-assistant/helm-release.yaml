@@ -18,28 +18,29 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    init-db:
-      image: ghcr.io/onedr0p/postgres-initdb:14.5
-      env:
-        - name: POSTGRES_HOST
-          value: postgres-rw.database.svc.cluster.local
-        - name: POSTGRES_DB
-          value: "hass"
-        - name: POSTGRES_SUPER_PASS
-          valueFrom:
-            secretKeyRef:
-              name: postgres-superuser
-              key: password
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: home-assistant
-              key: postgres-user
-        - name: POSTGRES_PASS
-          valueFrom:
-            secretKeyRef:
-              name: home-assistant
-              key: postgres-password
+    initContainers:
+      init-db:
+        image: ghcr.io/onedr0p/postgres-initdb:14.5
+        env:
+          - name: POSTGRES_HOST
+            value: postgres-rw.database.svc.cluster.local
+          - name: POSTGRES_DB
+            value: "hass"
+          - name: POSTGRES_SUPER_PASS
+            valueFrom:
+              secretKeyRef:
+                name: postgres-superuser
+                key: password
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: home-assistant
+                key: postgres-user
+          - name: POSTGRES_PASS
+            valueFrom:
+              secretKeyRef:
+                name: home-assistant
+                key: postgres-password
     controller:
       strategy: RollingUpdate
     probes:
