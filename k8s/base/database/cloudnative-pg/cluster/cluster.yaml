@@ -1,0 +1,17 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  namespace: database
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.1
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 50Gi
+    storageClass: fast-ceph-block
+  superuserSecret:
+    name: postgres-superuser
+  monitoring:
+    enablePodMonitor: true

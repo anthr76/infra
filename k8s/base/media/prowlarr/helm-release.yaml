@@ -18,6 +18,29 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    initContainers:
+      init-db:
+        image: ghcr.io/onedr0p/postgres-initdb:14.5
+        env:
+          - name: POSTGRES_HOST
+            value: postgres-rw.database.svc.cluster.local
+          - name: POSTGRES_DB
+            value: "prowlarr-main prowlarr-log"
+          - name: POSTGRES_SUPER_PASS
+            valueFrom:
+              secretKeyRef:
+                name: postgres-superuser
+                key: password
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: prowlarr
+                key: PROWLARR__POSTGRES_USER
+          - name: POSTGRES_PASS
+            valueFrom:
+              secretKeyRef:
+                name: prowlarr
+                key: PROWLARR__POSTGRES_PASSWORD
     nodeSelector:
       #TODO: container is broken.
       kubernetes.io/arch: amd64
@@ -30,9 +53,8 @@ spec:
       TZ: "America/New_York"
       PROWLARR__LOG_LEVEL: info
       PROWLARR__BRANCH: nightly
-      PROWLARR__APPLICATION_URL: "https://{{ .Release.Name }}.${INT_DOMAIN}"
-      PROWLARR__POSTGRES_USER: k8s
-      PROWLARR__POSTGRES_HOST: db-01.scr1.rabbito.tech
+      PROWLARR__APPLICATION_URL: "https://{{ .Release.Name }}.scr1.rabbito.tech"
+      PROWLARR__POSTGRES_HOST: postgres-rw.database.svc.cluster.local
       PROWLARR__POSTGRES_MAIN_DB: prowlarr-main
       PROWLARR__POSTGRES_LOG_DB: prowlarr-log
     envFrom:
