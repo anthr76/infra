@@ -7,7 +7,7 @@ collections:
   - name: community.sops
   - name: vyos.vyos
   - name: containers.podman
-    version: "1.9.4"
+    version: "1.10.1"
   - name: community.routeros
     version: "2.2.1"
 roles:
