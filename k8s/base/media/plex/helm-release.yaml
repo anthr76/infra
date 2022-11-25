@@ -21,10 +21,8 @@ spec:
     controller:
       strategy: RollingUpdate
     image:
-      repository: ghcr.io/onedr0p/plex
-      tag: 1.29.2.6364-6d72b0cf6@sha256:20597062bbcfca07c95dce3b8d71c965b607136f1e59d9c99f4debb428d9d4bd
-      # repository: ghcr.io/anthr76/plex
-      # tag: latest@sha256:4bb1ffbc837e9b4d76c7805151f085c603b041f69f42c605a8c338a2c91093e9
+      repository: ghcr.io/onedr0p/plex-amd
+      tag: 1.29.2.6364-6d72b0cf6
     env:
       TZ: "America/New_York"
     podSecurityContext:
@@ -33,7 +31,9 @@ spec:
       fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
       supplementalGroups:
+        - 39
         - 44
+        - 105
         - 109
     service:
       main:
@@ -136,11 +136,9 @@ spec:
     resources:
       requests:
         cpu: 128m
-        memory: 2048M
-        # amd.com/gpu: "1"
-        gpu.intel.com/i915: 1
+        memory: 512M
+        amd.com/gpu: "1"
       limits:
-        gpu.intel.com/i915: 1
-        # amd.com/gpu: "1"
-        cpu: 2000m
-        memory: 4096M
+        amd.com/gpu: "1"
+        cpu: 1500m
+        memory: 2048M
