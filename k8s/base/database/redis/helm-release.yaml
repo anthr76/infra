@@ -19,19 +19,18 @@ spec:
   values:
     global:
       storageClass: fast-ceph-block
-    image:
-      registry: ghcr.io
-      repository: zcube/bitnami-compat/redis
-      tag: 7.0.5
+      imageRegistry: public.ecr.aws
     auth:
       enabled: false
       sentinel: false
+    master:
+      nodeSelector:
+        kuberenetes.io/arch: amd64
+    replica:
+      nodeSelector:
+        kuberenetes.io/arch: amd64
     sentinel:
       enabled: true
-      image:
-        registry: ghcr.io
-        repository: zcube/bitnami-compat/redis-sentinel
-        tag: 7.0.5
       masterSet: redis-master
       getMasterTimeout: 10
       startupProbe:
