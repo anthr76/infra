@@ -25,10 +25,10 @@ spec:
       sentinel: false
     master:
       nodeSelector:
-        kuberenetes.io/arch: amd64
+        kubernetes.io/arch: amd64
     replica:
       nodeSelector:
-        kuberenetes.io/arch: amd64
+        kubernetes.io/arch: amd64
     sentinel:
       enabled: true
       masterSet: redis-master
