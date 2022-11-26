@@ -104,13 +104,11 @@ spec:
                     - "true"
     resources:
       requests:
-        cpu: 800m
+        cpu: 300m
         memory: 800Mi
-        # gpu.intel.com/i915: "1"
         amd.com/gpu: 1
       limits:
-        memory: 4096Mi
-        cpu: 4000m
-        # gpu.intel.com/i915: "1"
+        memory: 1500Mi
+        cpu: 1000m
         amd.com/gpu: 1
 

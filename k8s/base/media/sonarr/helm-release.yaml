@@ -88,8 +88,8 @@ spec:
         mountPath: /config/Backups
     resources:
       requests:
-        memory: 250Mi
-        cpu: 200m
+        memory: 250i
+        cpu: 10m
       limits:
-        memory: 1500Mi
+        memory: 350Mi
         cpu: 500m

@@ -82,10 +82,11 @@ spec:
         mountPath: /media
     resources:
       requests:
-        memory: 250Mi
-        cpu: 500m
+        memory: 25Mi
+        cpu: 50m
       limits:
-        memory: 6000Mi
+        memory: 600Mi
+        cpu: 500m
     affinity:
       nodeAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
