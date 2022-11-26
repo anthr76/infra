@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - config-pvc.yaml
+  - pdb.yaml
 namespace: home
 generatorOptions:
   disableNameSuffixHash: true

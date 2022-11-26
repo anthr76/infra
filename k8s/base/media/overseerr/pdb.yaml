@@ -1,0 +1,11 @@
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: overseerr
+  namespace: media
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: overseerr

@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - media-pvc.yaml
+  - priority-class.yaml
