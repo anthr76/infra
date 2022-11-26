@@ -82,4 +82,4 @@ spec:
       limits:
         # gpu.intel.com/i915: 1
         cpu: 1000m
-        memory: 1096M
+        memory: 1096Mi

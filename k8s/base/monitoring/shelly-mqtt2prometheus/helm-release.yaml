@@ -50,11 +50,11 @@ spec:
           name: *app
     resources:
       requests:
-        cpu: 50m
-        memory: 200Mi
+        cpu: 10m
+        memory: 25Mi
       limits:
         cpu: 200m
-        memory: 596M
+        memory: 200Mi
     podAnnotations:
       configmap.reloader.stakater.com/reload: "shelly-mqtt2prometheus-config"
     configmap:

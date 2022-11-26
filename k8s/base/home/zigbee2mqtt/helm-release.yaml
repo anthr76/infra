@@ -21,10 +21,8 @@ spec:
     controller:
       strategy: RollingUpdate
     image:
-      repository: docker.io/koenkk/zigbee2mqtt
-      # FIXME: https://github.com/Koenkk/zigbee2mqtt/issues/12697
-      # repository: ghcr.io/koenkk/zigbee2mqtt
-      tag: "1.28.2"
+      repository: ghcr.io/koenkk/zigbee2mqtt
+      tag: 1.28.2
     env:
       TZ: America/New_York
       ZIGBEE2MQTT_DATA: /data

@@ -60,3 +60,10 @@ spec:
         enabled: true
         existingClaim: media-v2
         mountPath: /media
+    resources:
+      requests:
+        cpu: 20m
+        memory: 50Mi
+      limits:
+        cpu: 500m
+        memory: 800Mi

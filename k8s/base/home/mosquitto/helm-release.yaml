@@ -31,6 +31,13 @@ spec:
       enabled: true
     podAnnotations:
       secret.reloader.stakater.com/reload: mosquitto
+    resources:
+      requests:
+        memory: 30Mi
+        cpu: 10m
+      limits:
+        cpu: 200m
+        memory: 200Mi
     persistence:
       data:
         enabled: true

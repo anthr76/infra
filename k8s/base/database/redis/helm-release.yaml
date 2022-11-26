@@ -38,10 +38,10 @@ spec:
       resources:
         limits:
           cpu: 800m
-          memory: 800m
+          memory: 800Mi
         requests: 
           cpu: 20m
-          memory: 30m
+          memory: 30Mi
     metrics:
       enabled: true
       serviceMonitor:

@@ -136,9 +136,9 @@ spec:
     resources:
       requests:
         cpu: 128m
-        memory: 112M
+        memory: 112Mi
         amd.com/gpu: "1"
       limits:
         amd.com/gpu: "1"
         cpu: 800m
-        memory: 1048M
+        memory: 1048Mi

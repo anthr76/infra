@@ -98,5 +98,5 @@ spec:
         memory: 100Mi
         cpu: 10m
       limits:
-        memory: 100Mi
+        memory: 200Mi
         cpu: 30m
