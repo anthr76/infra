@@ -45,13 +45,11 @@ spec:
       strategy: RollingUpdate
     probes:
       liveness:
-        custom: true
-        spec:
-          httpGet:
-            path: /manifest.json
-            port: 8123
-          initialDelaySeconds: 3
-          periodSeconds: 3
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
     image:
       repository: ghcr.io/home-assistant/home-assistant
       tag: 2022.11.4
