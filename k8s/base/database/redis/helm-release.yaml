@@ -21,7 +21,8 @@ spec:
       storageClass: fast-ceph-block
     image:
       registry: ghcr.io
-      repository: ZCube/bitnami-compat/redis
+      repository: zcube/bitnami-compat/redis
+      tag: 7.0.5
     auth:
       enabled: false
       sentinel: false
@@ -29,7 +30,8 @@ spec:
       enabled: true
       image:
         registry: ghcr.io
-        repository: ZCube/bitnami-compat/redis-sentinel
+        repository: zcube/bitnami-compat/redis-sentinel
+        tag: 7.0.5
       masterSet: redis-master
       getMasterTimeout: 10
       startupProbe:
