@@ -57,8 +57,6 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-    containerRuntime:
-      integration: containerd
     hubble:
       enabled: true
       metrics:
