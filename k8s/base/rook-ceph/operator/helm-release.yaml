@@ -27,9 +27,8 @@ spec:
       enabled: true
     csi:
       enableOMAPGenerator: true
+    # enablePluginSelinuxHostMount: true
       nfs:
-        enabled: true
-      volumeReplication:
         enabled: true
     resources:
       requests:
@@ -38,3 +37,4 @@ spec:
       limits:
         cpu: 1000m
         memory: 356Mi
+  # hostpathRequiresPrivileged: true

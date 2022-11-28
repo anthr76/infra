@@ -10,29 +10,54 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: paperless
-      version: 9.1.3
+      chart: app-template
+      version: 1.1.3
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
   values:
+    initContainers:
+      init-db:
+        image: ghcr.io/onedr0p/postgres-initdb:14.6@sha256:0ceb9386a7da7f646fc2c971dcb34dfed3bf44ff0ee8e29c81a2a084a7b1b88c
+        env:
+          - name: POSTGRES_HOST
+            value: postgres-rw.database.svc.cluster.local
+          - name: POSTGRES_DB
+            value: "paperless"
+          - name: POSTGRES_SUPER_PASS
+            valueFrom:
+              secretKeyRef:
+                name: postgres-superuser
+                key: password
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: paperless
+                key: PAPERLESS_DBUSER
+          - name: POSTGRES_PASS
+            valueFrom:
+              secretKeyRef:
+                name: paperless
+                key: PAPERLESS_DBPASS
     image:
       repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 1.9.2
+      tag: 1.10.0
     env:
-      PAPERLESS_REDIS: redis://db-01.scr1.rabbito.tech:6379
-      PAPERLESS_DBHOST: db-01.scr1.rabbito.tech
+      PAPERLESS_REDIS: redis://redis-master.database.svc.cluster.local:6379
+      PAPERLESS_DBHOST: postgres-rw.database.svc.cluster.local
       PAPERLESS_TASK_WORKERS: 1
       PAPERLESS_WEBSERVER_WORKERS: 1
       PAPERLESS_THREADS_PER_WORKER: 1
       PAPERLESS_WORKER_TIMEOUT: 20000
       PAPERLESS_CONSUMER_RECURSIVE: true
       PAPERLESS_TIME_ZONE: America/New_York
-      PAPERLESS_DBUSER: k8s
       PAPERLESS_ENABLE_HTTP_REMOTE_USER: true
       PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTH_REQUEST_EMAIL
+      PAPERLESS_PORT: 8000
+      PAPERLESS_OCR_LANGUAGE: eng
+      COMPOSE_PROJECT_NAME: paperless
       USERMAP_GID: 65534
       USERMAP_UID: 65534
     envFrom:
@@ -41,21 +66,30 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: paperless-data-v1
+        existingClaim: paperless-data-v2
+        mountPath: /usr/src/paperless/data
       media:
         enabled: true
-        existingClaim: paperless-media-v1
+        existingClaim: paperless-media-v2
+        mountPath: /usr/src/paperless/media
       consume:
         enabled: true
-        existingClaim: paperless-consume-v1
+        existingClaim: paperless-consume-v2
+        mountPath: /usr/src/paperless/consume
       export:
         enabled: true
-        existingClaim: paperless-export-v1
+        existingClaim: paperless-export-v2
+        mountPath: /usr/src/paperless/export
 #    podSecurityContext:
 #      runAsUser: 65534
 #      runAsGroup: 65534
 #      fsGroup: 65534
 #      fsGroupChangePolicy: "OnRootMismatch"
+    service:
+      main:
+        ports:
+          http:
+            port: 8000
     ingress:
       main:
         enabled: true
