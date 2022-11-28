@@ -25,11 +25,85 @@ spec:
   dependsOn:
     - name: vector-aggregator
       namespace: monitoring
+  postRenderers:
+    - kustomize:
+        patchesStrategicMerge:
+          - kind: DaemonSet
+            apiVersion: apps/v1
+            metadata:
+              name: vector-agent
+            spec:
+              template:
+                spec:
+                  containers:
+                    - name: vector
+                      volumeMounts:
+                      - mountPath: /vector-data-dir
+                        name: data
+                      - mountPath: /etc/vector/
+                        name: config
+                        readOnly: true
+                      - mountPath: /var/log/
+                        name: var-log
+                        readOnly: true
+                      - mountPath: /var/lib/containers
+                        name: var-lib-containers
+                        readOnly: true
+                      - mountPath: /var/lib/kubelet
+                        name: var-lib-kubelet
+                        readOnly: true
+                      - mountPath: /var/lib/rook
+                        name: var-lib-rook
+                        readOnly: true
+                      - mountPath: /host/proc
+                        name: procfs
+                        readOnly: true
+                      - mountPath: /host/sys
+                        name: sysfs
+                        readOnly: true
+                  volumes:
+                  - name: config
+                    projected:
+                      defaultMode: 420
+                      sources:
+                      - configMap:
+                          name: vector-agent
+                  - hostPath:
+                      path: /var/lib/vector
+                      type: ""
+                    name: data
+                  - hostPath:
+                      path: /var/log/
+                      type: ""
+                    name: var-log
+                  - hostPath:
+                      path: /var/lib/containers
+                      type: ""
+                    name: var-lib-containers
+                  - hostPath:
+                      path: /var/lib/kubelet
+                      type: ""
+                    name: var-lib-kubelet
+                  - hostPath:
+                      path: /var/lib/rook
+                      type: ""
+                    name: var-lib-rook
+                  - hostPath:
+                      path: /proc
+                      type: ""
+                    name: procfs
+                  - hostPath:
+                      path: /sys
+                      type: ""
+                    name: sysfs
   values:
     image:
       repository: docker.io/timberio/vector
       tag: 0.25.0-debian
     role: Agent
+    persistence:
+      hostPath:
+        path: "/var/lib/vector"
     customConfig:
       sources:
         kubernetes_logs:
