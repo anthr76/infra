@@ -6,4 +6,4 @@ metadata:
   namespace: monitoring
 spec:
   bucketName: thanos-v1
-  storageClassName: slow-ceph-bucket
+  storageClassName: fast-ceph-bucket
