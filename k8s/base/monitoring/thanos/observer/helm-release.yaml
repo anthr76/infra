@@ -76,7 +76,7 @@ spec:
         - "4"
       retentionResolutionRaw: 7d
       retentionResolution5m: 7d
-      retentionResolution1h: 14d
+      retentionResolution1h: 7d
       ingress:
         enabled: true
         hostname: &host "thanos-compactor.scr1.rabbito.tech"
