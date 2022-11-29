@@ -5,7 +5,7 @@ ADD config.bu.yaml /config.bu.yaml
 RUN \
   butane --pretty --strict config.bu.yaml > /config.ign
 
-FROM quay.io/fedora/fedora-coreos:testing@sha256:86aafa567eebdbaa9cc2b4a43d3b5dccb5390b3a8bea1c38b5bbb9a09dfcec37
+FROM quay.io/fedora/fedora-coreos:testing@sha256:d83dff6f06f08baa2f036c209f083660ec8da1ec6822449bd1b6db5eab8067ab
 
 COPY --from=butane /config.ign config.ign
 
