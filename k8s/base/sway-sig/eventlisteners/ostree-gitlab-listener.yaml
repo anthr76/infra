@@ -59,8 +59,8 @@ spec:
                 generateName: ostree-to-prod-
                 namespace: sway-sig
               spec:
-                timeouts:
-                  tasks: "3h3m0s"
+                # timeouts:
+                #   tasks: "3h3m0s"
                 pipelineRef:
                   name: ostree-to-prod
                 workspaces:
