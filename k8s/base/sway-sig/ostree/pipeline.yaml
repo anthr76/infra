@@ -81,23 +81,6 @@ spec:
       workspace: prod
     - name: scratch-repo
       workspace: scratch-repo
-  - name: ostree-promote-f36
-    timeout: "4h1m30s"
-    taskRef:
-      name: ostree-promote
-    when:
-      - input: $(params.FEDORA_VERSION_BRANCH)
-        operator: in
-        values:
-          - f36-sway-spin
-    params:
-      - name: "FEDORA_VERSION"
-        value: "36"
-    workspaces:
-    - name: prod
-      workspace: prod
-    - name: scratch-repo
-      workspace: scratch-repo
   finally:
     - name: report-pipeline-failed-to-gitlab
       when:
