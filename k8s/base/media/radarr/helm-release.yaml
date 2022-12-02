@@ -43,6 +43,8 @@ spec:
                 key: RADARR__POSTGRES_PASSWORD
     controller:
       strategy: RollingUpdate
+      annotations:
+        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/onedr0p/radarr-nightly
       tag: 4.3.1.6794@sha256:a4ca1ef30d575d99c956007000515a63affbe39e31b0bf8cd512d93a34e8a649
@@ -80,6 +82,12 @@ spec:
           - secretName: radarr-tls
             hosts:
               - "radarr.scr1.rabbito.tech"
+    securityContext:
+      seLinuxOptions:
+        level: s0:c525,c600
+        role: "object_r"
+        user: "system_u"
+        type: "container_file_t"
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

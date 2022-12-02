@@ -18,6 +18,9 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    controller:
+      annotations:
+        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/onedr0p/qbittorrent
       tag: 4.4.5@sha256:6765f8a7709ad446fb761d3dde16f2a2706d118c21e2f191955ba07935e75e29
@@ -67,6 +70,12 @@ spec:
         scrapeTimeout: 10s
       prometheusRule:
         enabled: true
+    securityContext:
+      seLinuxOptions:
+        level: s0:c525,c600
+        role: "object_r"
+        user: "system_u"
+        type: "container_file_t"
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

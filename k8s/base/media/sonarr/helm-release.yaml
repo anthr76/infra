@@ -20,6 +20,8 @@ spec:
   values:
     controller:
       strategy: RollingUpdate
+      annotations:
+        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
       tag: 4.0.0.200@sha256:581267748cb394eaabdb386c332b7620e94b91074ae1c2c17aedfaea079db999
@@ -54,6 +56,12 @@ spec:
           - secretName: sonarr-tls
             hosts:
               - "sonarr.scr1.rabbito.tech"
+    securityContext:
+      seLinuxOptions:
+        level: s0:c525,c600
+        role: "object_r"
+        user: "system_u"
+        type: "container_file_t"
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
