@@ -58,11 +58,17 @@ spec:
               metadata:
                 generateName: ostree-to-prod-
                 namespace: sway-sig
+                annotations:
+                  io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
               spec:
                 timeouts:
                   tasks: "3h3m0s"
                   pipeline: "4h0m60s"
                   finally: "0h20m20s"
+                podTemplate:
+                  securityContext:
+                    seLinuxOptions:
+                      level: s0:c525,c600
                 pipelineRef:
                   name: ostree-to-prod
                 workspaces:

@@ -22,6 +22,8 @@ spec:
       labels:
         app.kubernetes.io/instance: sway-sig
         app.kubernetes.io/name: sway-sig
+      annotations:
+        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     spec:
       affinity:
         nodeAffinity:
@@ -52,6 +54,9 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+        seLinuxOptions:
+          level: s0:c525,c600
       containers:
         - name: nginx
           image: "docker.io/nginxinc/nginx-unprivileged:latest@sha256:04765458d3b21ca9c839793140352ab33d0097cbb1f4604a280e0bd06e138ae0"
