@@ -21,11 +21,19 @@ spec:
     priorityClassName: media-cluster-critical
     controller:
       strategy: RollingUpdate
+      annotations:
+        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/onedr0p/plex-amd
       tag: 1.29.2.6364-6d72b0cf6
     env:
       TZ: "America/New_York"
+    securityContext:
+      seLinuxOptions:
+        level: s0:c525,c600
+        role: "object_r"
+        user: "system_u"
+        type: "container_file_t"
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
