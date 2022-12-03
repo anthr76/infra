@@ -24,7 +24,7 @@ spec:
         io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.200@sha256:581267748cb394eaabdb386c332b7620e94b91074ae1c2c17aedfaea079db999
+      tag: 4.0.0.205@sha256:8f1e44ea0d2473a783b8b4a3216f1ee9bc955b0aba86b2ad2d7e94d21c36b94e
     env:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info
