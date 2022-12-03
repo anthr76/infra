@@ -72,7 +72,7 @@ spec:
         enabled: true
     securityContext:
       seLinuxOptions:
-        level: s0:c525,c600
+        level: s0
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
