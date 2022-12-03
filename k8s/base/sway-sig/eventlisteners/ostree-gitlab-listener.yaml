@@ -68,7 +68,7 @@ spec:
                 podTemplate:
                   securityContext:
                     seLinuxOptions:
-                      level: s0:c525,c600
+                      level: s0
                 pipelineRef:
                   name: ostree-to-prod
                 workspaces:

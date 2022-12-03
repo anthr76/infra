@@ -51,15 +51,16 @@ spec:
               topologyKey: kubernetes.io/hostname
             weight: 100
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
+        # runAsUser: 101
+        # runAsGroup: 101
+        # fsGroup: 101
+        seccompProfile:
+          type: RuntimeDefault
         seLinuxOptions:
-          level: s0:c525,c600
+          level: s0
       containers:
         - name: nginx
-          image: "docker.io/nginxinc/nginx-unprivileged:latest@sha256:04765458d3b21ca9c839793140352ab33d0097cbb1f4604a280e0bd06e138ae0"
+          image: "ghcr.io/nginxinc/nginx-unprivileged:1.23.2"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 30
@@ -99,7 +100,6 @@ spec:
             timeoutSeconds: 1
           volumeMounts:
             - mountPath: /usr/share/nginx/html
-              readOnly: true
               name: data
               subPath: nginx
             - mountPath: /etc/nginx/conf.d
@@ -109,6 +109,7 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: sway-nginx-v3
+            readOnly: true
         - name: nginx-conf
           configMap:
             name: sway-sig-nginx-conf
