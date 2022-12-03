@@ -20,6 +20,8 @@ spec:
   values:
     controller:
       strategy: RollingUpdate
+      annotations:
+        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/onedr0p/lidarr
       tag: 1.0.2.2592@sha256:1ce91061aeb75f3a6443f325e06872b9b3e88fcaee85abc950f0c67cdc14910e
@@ -51,6 +53,9 @@ spec:
           - secretName: lidarr-tls
             hosts:
               - "lidarr.scr1.rabbito.tech"
+    securityContext:
+      seLinuxOptions:
+        level: s0
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

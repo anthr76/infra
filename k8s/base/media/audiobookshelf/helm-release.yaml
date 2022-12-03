@@ -19,6 +19,8 @@ spec:
   values:
     controller:
       strategy: RollingUpdate
+      annotations:
+        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/advplyr/audiobookshelf
       tag: 2.2.5
@@ -47,6 +49,14 @@ spec:
           - hosts:
               - *host
             secretName: tls-audiobookshelf
+    securityContext:
+      seLinuxOptions:
+        level: s0
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       config:
         enabled: true

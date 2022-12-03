@@ -17,6 +17,13 @@ spec:
         name: bjw-s
         namespace: flux-system
   values:
+    controller:
+      strategy: RollingUpdate
+      annotations:
+        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
+    securityContext:
+      seLinuxOptions:
+        level: s0
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

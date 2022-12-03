@@ -20,6 +20,8 @@ spec:
   values:
     controller:
       strategy: RollingUpdate
+      annotations:
+        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/onedr0p/bazarr
       tag: 1.1.2
@@ -46,6 +48,9 @@ spec:
           - secretName: bazarr-tls
             hosts:
               - "bazarr.scr1.rabbito.tech"
+    securityContext:
+      seLinuxOptions:
+        level: s0
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
