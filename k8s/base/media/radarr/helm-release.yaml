@@ -47,7 +47,7 @@ spec:
         io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/onedr0p/radarr-nightly
-      tag: 4.3.1.6794@sha256:a4ca1ef30d575d99c956007000515a63affbe39e31b0bf8cd512d93a34e8a649
+      tag: 4.3.1.6794@sha256:3ad631a608246c254d8ebf76cd0a5ab0265fc418d99f8c1ec3dba0c87996a0e6
     env:
       TZ: "America/New_York"
       RADARR__LOG_LEVEL: info
