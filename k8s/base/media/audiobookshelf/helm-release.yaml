@@ -23,14 +23,17 @@ spec:
         io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/advplyr/audiobookshelf
-      tag: 2.2.5
+      tag: 2.2.8
     env:
       TZ: "America/New_York"
+      AUDIOBOOKSHELF_UID: 568
+      AUDIOBOOKSHELF_GID: 568
+      PORT: 8080
     service:
       main:
         ports:
           http:
-            port: 80
+            port: 8080
     ingress:
       main:
         enabled: true
@@ -70,6 +73,10 @@ spec:
         enabled: true
         existingClaim: media-v2
         mountPath: /media
+      cache:
+        enabled: true
+        type: emptyDir
+        mountPath: /.npm
     resources:
       requests:
         cpu: 20m
