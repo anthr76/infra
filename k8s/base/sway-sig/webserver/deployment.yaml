@@ -22,8 +22,6 @@ spec:
       labels:
         app.kubernetes.io/instance: sway-sig
         app.kubernetes.io/name: sway-sig
-      annotations:
-        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     spec:
       affinity:
         nodeAffinity:

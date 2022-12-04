@@ -58,8 +58,8 @@ spec:
               metadata:
                 generateName: ostree-to-prod-
                 namespace: sway-sig
-                annotations:
-                  io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
+                # annotations:
+                #   io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
               spec:
                 timeouts:
                   tasks: "3h3m0s"

@@ -5,6 +5,14 @@ metadata:
   name: task-pv-pod
   namespace: sway-sig
 spec:
+  securityContext:
+    # runAsUser: 101
+    # runAsGroup: 101
+    # fsGroup: 101
+    seccompProfile:
+      type: RuntimeDefault
+    seLinuxOptions:
+      level: s0
   containers:
     - name: task-pv-container
       image: ghcr.io/anthr76/kutara-ostree:latest
