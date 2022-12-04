@@ -59,6 +59,14 @@ spec:
                 generateName: kickstart-iso-to-prod-
                 namespace: sway-sig
               spec:
+                timeouts:
+                  tasks: "3h3m0s"
+                  pipeline: "4h0m60s"
+                  finally: "0h20m20s"
+                podTemplate:
+                  securityContext:
+                    seLinuxOptions:
+                      level: s0
                 pipelineRef:
                   name: kickstart-to-prod
                 workspaces:
