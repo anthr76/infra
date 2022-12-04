@@ -19,8 +19,6 @@ spec:
       interval: 15m
   values:
     controller:
-      annotations:
-        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     global:
       nameOverride: *app
     image:

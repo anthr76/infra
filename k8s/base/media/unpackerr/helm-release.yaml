@@ -19,8 +19,6 @@ spec:
   values:
     controller:
       strategy: RollingUpdate
-      annotations:
-        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     securityContext:
       seLinuxOptions:
         level: s0

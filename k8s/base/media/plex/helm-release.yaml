@@ -21,8 +21,6 @@ spec:
     priorityClassName: media-cluster-critical
     controller:
       strategy: RollingUpdate
-      annotations:
-        io.kubernetes.cri-o.TrySkipVolumeSELinuxLabel: "true"
     image:
       repository: ghcr.io/onedr0p/plex-amd
       tag: 1.29.2.6364-6d72b0cf6

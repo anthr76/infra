@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: sonarrs
-              image: ghcr.io/k8s-at-home/recyclarr:v2.6.1@sha256:9c8623f4253c40b0bd1716acd4f25f55435c499c6c72aad33e6adcee93befc65
+              image: ghcr.io/recyclarr/recyclarr:3.0.0
               env:
                 - name: TZ
                   value: America/New_York
@@ -28,7 +28,7 @@ spec:
               args:
                 - sonarr
                 - --app-data
-                - /tmp/recyclarr                
+                - /tmp/recyclarr
                 - --config
                 - /config/recyclarr.yaml
               volumeMounts:
@@ -44,7 +44,7 @@ spec:
               args:
                 - radarr
                 - --app-data
-                - /tmp/recyclarr                  
+                - /tmp/recyclarr
                 - --config
                 - /config/recyclarr.yaml
               volumeMounts:
