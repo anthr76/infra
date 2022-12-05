@@ -1,0 +1,78 @@
+variant: fcos
+version: 1.4.0
+systemd:
+    units:
+        - name: fcos-rebase.service
+          enabled: true
+          contents: |
+            [Unit]
+            Description=Rebase FCOS to Container Image
+            ConditionPathExists=!/var/lib/fcos-rebase.stamp
+            ConditionFirstBoot=true
+            Before=first-boot-complete.target
+            After=network-online.target
+            [Service]
+            Type=oneshot
+            RemainAfterExit=yes
+            ExecStart=rpm-ostree rebase --bypass-driver --experimental ostree-unverified-registry:ghcr.io/anthr76/fcos-k8s-node:rolling
+            ExecStart=/bin/touch /var/lib/fcos-rebase.stamp
+            ExecStartPost=systemctl reboot
+            Restart=on-failure
+            [Install]
+            WantedBy=multi-user.target
+        - name: wait-for-dns.service
+          enabled: true
+          contents: |
+            [Unit]
+            Description=Wait for DNS entries
+            Before=kubelet-controller.service
+            Before=kubelet-worker.service
+            Before=fcos-rebase.service
+            [Service]
+            Type=oneshot
+            RemainAfterExit=true
+            ExecStart=/bin/sh -c 'while ! /usr/bin/grep '^[^#[:space:]]' /etc/resolv.conf > /dev/null; do sleep 1; done'
+            [Install]
+            RequiredBy=kubelet-controller.service
+            RequiredBy=kubelet-worker.service
+            RequiredBy=etcd-member.service
+            RequiredBy=fcos-rebase.service
+storage:
+    directories:
+        - path: /etc/kubernetes
+        - path: /etc/kubernetes/bootstrap
+    files:
+        - path: ENC[AES256_GCM,data:rJ35x/QUIXO4ydPAkaS43fC6fdSnAKeQxOFNhvhGNWEaaz786w==,iv:7Ng7kG/n2xsjurNC1E3DDWquztB59bvNRga0/lEfDCw=,tag:QG55cedzyHIR6ojY1dkB+A==,type:str]
+        - path: ENC[AES256_GCM,data:TFfpRXfme2TYlUbVRwasVXFb9lTx,iv:i0rfE6Ie45Xk9NQNuQMw0BKDjCUtR4OiW5pxgx/+5mU=,tag:r3RSdIASW5V/tDChll5L4g==,type:str]
+          contents:
+            inline: ENC[AES256_GCM,data:7YRJ,iv:IhyqZo7p93l7W2MOczo4wUKiWG5n2eI35KgPwZ10rKc=,tag:oEUkDLKEh7ZoiO+zOI9Lmw==,type:str]
+        - path: ENC[AES256_GCM,data:0F0gl207ZOVlMOyn8ARMADvWn9YuH7I1wBA=,iv:OZFVOFp8htCQ/OWUeNdWCQjYT5Uceyol+q2Mycfn5PU=,tag:GKlixELOPIIOe/YyvHmFTA==,type:str]
+          contents:
+            inline: ENC[AES256_GCM,data:gx3hsh/Je4fFTCACywhWdWydAPbzqs73PiiZfgUXn6/8VL2+ev7aDHxTB23IJOTmVfz7qhG8U15RvwARmee+Lun4g/Pyp+34qCHCt02yKqPDYWqJo49GH6LHKNy7AstfSAivNzVPbF38DeSJWtnhTWBarUaR6xWiCwLiInwQgFQF7Zevpr4zFUmvmtgWo2jiAMEfx3Zy851S5/uGgF7UGctiI6jheMjORVVaX4cw8nsVjusaEFiNcWgk+dxb71MP0C0yprWrULVpAZrjoOxmprSdBwIEEHYWy/9K3ipvYSKYZadOqgsYAUWgnC7EelYxTaNmPUM/ZlxeP/F4WjgRir3JODS0o4asb4oPN1dwTkz9a1dYSYZx6XDqhKeutygjesB6QLqYYLa2g9xu24V733qIvBG1vHse/H+ojEqd0aFDgF9V/6PxIPtXUYzcoPXiliMW+XZ/i52uu60/WIENMZD2FeSq53OzUHZnbLb/OGqhrUX3nhoCheRNMSVnhCjESjFnSvUjpcVvhA3kJ6MAuBOTogHaux6PmCBn/g9ocTSsFwyWTe6fPtd621pXGvPHE++8H1t1r2Qu+GnONo17HOXaV0I26st61DXHgfJbHyJwUTsSItLimKBdBMuh/gbLA4NNTWAEqBer8cUUAVia71Izk7UUguBX+r2TJda3Uov6V/EUOGjTgUbEve5uLC2CTDuEhHyycT2xKaoxxPcfCv+Vx3gL4Ove8EGfpKiFsrd8+P5BAaWh1RUTByryTa9A32Nxd8T5kqel5433WaaX7Kuk2+jdd1SsIjsYsB7GGOOq0KBVYRkQ9AcPRRrfYfY2GSbNYmY6RJUboT54Tv6nd3EtEJuXPWy2hW3xsWsj6HcYCUDr1ZrywSkWE5Qtu90ZM0NoBAMBEye/ByvICHstybmvOKWwfhMtOH9zd3nd1KOO47NJgPUrldtxrU0VJgX5s5x3w+kWA1rysfbm5zgidtyQEe2c9nmFXLIBkPsjEe4jKWXcQkAMD1i882wq6lXcZt4JFw0T+2OIUJBfiPx3Vt4qqBQRHkoGRXfODE0KZ7f/FagvWQD+dtpc+D89m5gNh8IIf78FI/n2njDmM4AqYSJ9DZT9A0AFIkqz1icoPUI47HzEPWyOomAPOOe/P/Vq1OdNF2FwgasKKiy03BjxfByqLkK+//+2vXf5ZyMY8wJYiz+lIB3z1T3+hWTO4l0Q24m+NisHRA/QeG3Deg4xnmRR0q3hLP5JnshCe+79IKKcc+XSUFjumQzTUzDbRHmuqzC+o+7WCzTR5zPvHM45JAZt3BuBnCkve/X5DfOqUww3rHAwZ8jfE3NJ1BXRtKDLsZ1Y9aFnHtWhLut7gdHWY3jGBQ9ADuboJWdFLkvbwzo5ImdyVZt95KPbTh7guk9xBurbnrdwoaGHui4tRQ==,iv:r0AqgLl2iUUdIupRTbpJp9kCP3+ay5D7LWAiKidKbv8=,tag:RSHskIk7EiYFLQz7/WmJBQ==,type:str]
+passwd:
+    users:
+        - name: core
+          ssh_authorized_keys:
+            - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLhz2vRJ9Jaonksg5hQME2MWSQf8zriDMkPVuylZiF1eq+WTnqYMOiUABhJcG5sI45cfqmpeY3l/GarIV8tRd/Q=
+            - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBE0SaE3DjA8TkonMthpFvud67S1wJe+XhN0pueHccwF4iDWkAUHA0wLObGORucoO//aR5o7HZGiqPSUbjIS/GwY=
+            - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCZL5c1Nbk1mqAUlcuqrWtqIlF0PHPjO36RwsYCFnhVP9JTEHZvQT7+1q7Ki2RH3rmGLTIISZAi2Eb3dCbHHnvGZzrr5wFeMjDfoqV5hxvO/u9xWXTHXveZ3IHaP+NN0Bky9niIHYvjrfO9rN1OcQaRn97a6DLKtFN5DciuSd032vpgXtbVkRyFprKo9DKcMQd6QXvxKUYXRuLk7fybiixD5w4GTJH2IPxKG5ES0ponjfg8QCxWlPqdqtQjjO/aTExjdKZT+eRZO37Aw5bQUtDbUGGU2L2ZGBkkkZyfkeOuktU/jcBhDqjvraG7+fmSgZ9+knBxbcTABmPVjz4uqOP
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB1aWplR1F1VEFvc21TVGZF
+            Tk1hL00zUmwra01MNHR1bWx2YlE0UkZ6KzBZCnYxZVA3aEV0MGhKVUZ6RFVDb291
+            b0JxcTdEcjVoRnltRitUb3IvTHRXdTQKLS0tIGhkbGR6aHh0YmEvaWVwWXJXQ1Fi
+            TU5qN0NZVFo5dEI4b052U3RnbzhGUlEKhwmRsd2t3N2Mi8PMZuQQst95a6KHAu/9
+            0lAmGkOcx7zFqdEmh/m+VQ1uLrt4QPD1TVHWvy+YUWNM5D0X8UAMnA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-12-05T02:53:32Z"
+    mac: ENC[AES256_GCM,data:j5FOxpG/4ASv6FWKHzX1jEItzrNXK0HNQ96s4kyNbKUs7GiGtoExPfK0TvsRjTwuhbkBvoe3S3XcN+KzYDytEdEr7mFOuNUxlu0jZCc+IOQFmL+3mVHjTZZUQzjsbA7h9K7sqbW9sk/Unz64sIAstR707Rb3+OhFgDfCw3SkDNo=,iv:Mhfyyylr+SymyItCkuFjfDRvc9ShPNzidIKZT2ondro=,tag:oDkH26vWbsY2FkgPKmUNlw==,type:str]
+    pgp: []
+    encrypted_regex: ^(files|stringData)$
+    version: 3.7.3
