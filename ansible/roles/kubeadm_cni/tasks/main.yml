@@ -1,5 +1,0 @@
----
-- name: setup {{ cni_plugin }} container network interface (cni)
-  include_tasks: "{{ cni_plugin }}.yml"
-  when:
-    - kubernetes_role == 'master'

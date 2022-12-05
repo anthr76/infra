@@ -1,5 +1,0 @@
----
-# Set the hostname to inventory_hostname
-override_system_hostname: true
-
-rebootmgr_method: kured

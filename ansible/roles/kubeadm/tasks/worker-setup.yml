@@ -1,5 +1,0 @@
----
-- name: "join worker to Kubernetes master"
-  command:
-    cmd: "{{ kubernetes_join_command }}"
-    creates: /etc/kubernetes/kubelet.conf

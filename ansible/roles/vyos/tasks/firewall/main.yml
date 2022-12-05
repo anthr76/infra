@@ -1,4 +1,0 @@
----
-- include_tasks: outside-in.yml
-
-- include_tasks: outside-local.yml
