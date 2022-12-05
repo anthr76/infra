@@ -1,7 +1,7 @@
+_default:
+    @just --list
 
-build-push-k8s-node:
-  ./armature/prod/fcos-layers/k8s-node/build-push.sh
-
+# Reconcile all GitRepositories and Kustomizations on selected context
 flux-reconcile:
   #!/usr/bin/env bash
 
