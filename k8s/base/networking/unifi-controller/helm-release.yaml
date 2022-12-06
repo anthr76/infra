@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: jacobalberty/unifi
-      tag: v7.2.92
+      tag: v7.3.76
     persistence:
       enabled: true
       existingClaim: unifi-controller
