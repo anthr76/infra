@@ -283,7 +283,8 @@ spec:
               codingChunks: 1
           preservePoolsOnDelete: false
           gateway:
-            port: 8083
+            port: 80
+            hostNetwork: false
             placement:
              nodeAffinity:
                requiredDuringSchedulingIgnoredDuringExecution:
