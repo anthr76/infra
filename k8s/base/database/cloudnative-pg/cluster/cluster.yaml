@@ -5,6 +5,9 @@ metadata:
   name: postgres
   namespace: database
 spec:
+  affinity:
+    nodeSelector:
+      kubernetes.io/arch: amd64
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:15.1
   primaryUpdateStrategy: unsupervised
