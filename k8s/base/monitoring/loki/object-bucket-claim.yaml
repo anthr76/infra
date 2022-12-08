@@ -6,4 +6,4 @@ metadata:
   namespace: monitoring
 spec:
   bucketName: loki-chunks-v1
-  storageClassName: fast-ceph-bucket
+  storageClassName: slow-ceph-bucket
