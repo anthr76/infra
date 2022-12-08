@@ -16,3 +16,6 @@ spec:
         kind: HelmRepository
         name: cloudnative-pg
         namespace: flux-system
+  values:
+    nodeSelector:
+      kubernetes.io/arch: amd64
