@@ -28,14 +28,13 @@ burn-fcos-pi4:
     @echo foo
     #!/usr/bin/env bash
     set -euxo pipefail
-    maybe needed not sure yet!?
     # if [[ "$HOSTNAME" == "toolbox" ]]; then
     #   PODMAN="host-spawn podman"
     # fi
 
     podman run --pull=always --privileged --rm \
     -q \
-    -v /dev:/dev -v /run/udev:/run/udev -v .:/data -w /data \
+    -v /dev:/dev -v /run/udev:/run/udev \
     quay.io/coreos/coreos-installer:release \
     install {{ FCOS_INSTALL_DISK }} \
     -i $(sops -d {{ DEFAULT_INSTALL_BUTANE }} | podman run -q -i --rm --pull always quay.io/coreos/butane:release --strict)
