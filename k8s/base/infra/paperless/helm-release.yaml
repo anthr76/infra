@@ -47,10 +47,7 @@ spec:
     env:
       PAPERLESS_REDIS: redis://redis-master.database.svc.cluster.local:6379
       PAPERLESS_DBHOST: postgres-rw.database.svc.cluster.local
-      PAPERLESS_TASK_WORKERS: 1
-      PAPERLESS_WEBSERVER_WORKERS: 1
-      PAPERLESS_THREADS_PER_WORKER: 1
-      PAPERLESS_WORKER_TIMEOUT: 20000
+      PAPERLESS_TASK_WORKERS: 2
       PAPERLESS_CONSUMER_RECURSIVE: true
       PAPERLESS_TIME_ZONE: America/New_York
       PAPERLESS_ENABLE_HTTP_REMOTE_USER: true
@@ -116,8 +113,8 @@ spec:
               - *host
     resources:
       requests:
-        cpu: 20m
+        cpu: 200m
         memory: 128Mi
       limits:
-        cpu: 1000m
-        memory: 800Mi
+        cpu: 2500m
+        memory: 1500Mi
