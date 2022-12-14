@@ -8,6 +8,9 @@ metadata:
     component.kutara.io/part-of: standard-helm-release
 spec:
   interval: 15m
+  upgrade:
+    disableWait: true
+    force: true
   chart:
     spec:
       chart: redis
@@ -39,7 +42,7 @@ spec:
         limits:
           cpu: 800m
           memory: 800Mi
-        requests: 
+        requests:
           cpu: 20m
           memory: 30Mi
     metrics:
