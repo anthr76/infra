@@ -40,8 +40,8 @@ spec:
                 key: GF_DATABASE_PASSWORD
     resources:
       limits:
-        cpu: 400m
-        memory: 512Mi
+        cpu: 800m
+        memory: 850Mi
       requests:
         cpu: 100m
         memory: 128Mi

@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: galoymoney
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://raw.githubusercontent.com/GaloyMoney/charts/gh-pages
+  timeout: 3m

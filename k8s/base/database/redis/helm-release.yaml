@@ -22,7 +22,6 @@ spec:
   values:
     global:
       storageClass: fast-ceph-block
-      imageRegistry: public.ecr.aws
     auth:
       enabled: false
       sentinel: false
