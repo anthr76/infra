@@ -70,6 +70,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
+  retryInterval: 2m0s
+  timeout: 5m
   dependsOn:
     - name: cluster-config
   path: ./k8s/clusters/scr1-cluster-0/definitions
@@ -101,7 +103,9 @@ spec:
           name: not-used
           namespace: not-used
         spec:
-          interval: 25m0s
+          interval: 10m0s
+          retryInterval: 2m0s
+          timeout: 5m
           wait: true
           sourceRef:
             kind: GitRepository
@@ -119,7 +123,7 @@ spec:
                   namespace: not-used
                 spec:
                   interval: 10m
-                  timeout: 15m
+                  timeout: 5m
                   install:
                     createNamespace: true
                     remediation:
