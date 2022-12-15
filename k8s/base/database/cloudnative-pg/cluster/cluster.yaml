@@ -5,8 +5,6 @@ metadata:
   name: postgres
   namespace: database
 spec:
-  monitoring:
-    enablePodMonitor: true
   affinity:
     nodeSelector:
       kubernetes.io/arch: amd64
