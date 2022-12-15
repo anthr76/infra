@@ -1,19 +1,14 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: GitRepository
+kind: OCIRepository
 metadata:
-  name: flux
+  name: flux-manifests
   namespace: flux-system
 spec:
-  interval: 9m0s
+  interval: 10m
+  url: oci://ghcr.io/fluxcd/flux-manifests
   ref:
     tag: v0.37.0
-  url: https://github.com/fluxcd/flux2
-  ignore: |
-    # exclude all
-    /*
-    # include gitops dirs
-    !/manifests
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -22,12 +17,12 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./manifests/install
+  path: ./
   prune: true
   wait: true
   sourceRef:
-    kind: GitRepository
-    name: flux
+    kind: OCIRepository
+    name: flux-manifests
   images:
     - name: fluxcd/helm-controller
       newName: ghcr.io/fluxcd/helm-controller
@@ -41,24 +36,14 @@ spec:
       newName: ghcr.io/fluxcd/notification-controller
     - name: fluxcd/source-controller
       newName: ghcr.io/fluxcd/source-controller
-  # patches:
-  #   - patch: |-
-  #       apiVersion: apps/v1
-  #       kind: Deployment
-  #       metadata:
-  #         name: not-used
-  #       spec:
-  #         template:
-  #           spec:
-  #             containers:
-  #               - name: manager
-  #                 resources:
-  #                   requests:
-  #                     cpu: 500m
-  #                     memory: 128Mi
-  #                   limits:
-  #                     cpu: "2"
-  #                     memory: 2048Mi
-  #     target:
-  #       kind: Deployment
-  #       labelSelector: control-plane=controller
+  patches:
+    - patch: |
+        - op: add
+          path: /spec/template/spec/containers/0/args/-
+          value: --concurrent=20
+        - op: add
+          path: /spec/template/spec/containers/0/args/-
+          value: --requeue-dependency=5s
+      target:
+        kind: Deployment
+        name: "(kustomize-controller|helm-controller|source-controller)"
