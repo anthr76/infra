@@ -43,10 +43,11 @@ spec:
         protocol: TCP
   - toEndpoints:
     - matchLabels:
-        k8s:io.kubernetes.pod.namespace: default
+        k8s:io.kubernetes.pod.namespace: crypto
   - toEndpoints:
     - matchLabels:
         component: apiserver
+        k8s:io.kubernetes.pod.namespace: default
     toPorts:
     - ports:
       - port: '443'
