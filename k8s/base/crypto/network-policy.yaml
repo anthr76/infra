@@ -25,6 +25,7 @@ spec:
   egress:
   - toEntities:
     - world
+    - kube-apiserver
   - toEndpoints:
     - matchLabels:
         k8s:io.kubernetes.pod.namespace: kube-system
@@ -44,11 +45,3 @@ spec:
   - toEndpoints:
     - matchLabels:
         k8s:io.kubernetes.pod.namespace: crypto
-  - toEndpoints:
-    - matchLabels:
-        component: apiserver
-        k8s:io.kubernetes.pod.namespace: default
-    toPorts:
-    - ports:
-      - port: '443'
-        protocol: TCP
