@@ -24,6 +24,10 @@ spec:
     - matchLabels:
         k8s:io.kubernetes.pod.namespace: monitoring
         app.kubernetes.io/name: prometheus
+  - fromEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: networking
+        app.kubernetes.io/name: ingress-nginx
 
   egress:
   - toEndpoints:
