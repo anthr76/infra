@@ -7,7 +7,14 @@ metadata:
   labels:
     component.kutara.io/part-of: standard-helm-release
 spec:
-  interval: 30m
+  dependsOn:
+    - name: bitcoind
+  interval: 10m
+  upgrade:
+    disableWait: true
+    force: true
+    remediation:
+      remediateLastFailure: false
   chart:
     spec:
       chart: lnd
@@ -37,32 +44,9 @@ spec:
               secretKeyRef:
                 name: lnd-es
                 key: postgresql-password
-    lndGeneralConfig:
-      - restlisten=0.0.0.0:8080
-      - rpclisten=0.0.0.0:10009
-      - listen=0.0.0.0:9735
-      - prometheus.listen=0.0.0.0:9092
-      - bitcoin.active=true
-      - bitcoin.node=bitcoind
-      - bitcoind.rpcuser=rpcuser
-      - bitcoind.zmqpubrawblock=tcp://bitcoind:28332
-      - bitcoind.zmqpubrawtx=tcp://bitcoind:28333
-      - bitcoind.rpchost=bitcoind:8332
-      - tlsextradomain=lnd
-      - accept-keysend=1
-      - allow-circular-route=1
-      - stagger-initial-reconnect=1
-      - protocol.wumbo-channels=1
-      - maxchansize=500000000
-      - bitcoin.timelockdelta=60
-      - default-remote-max-htlcs=50
-      - debuglevel=info
-      - prometheus.enable=1
-      - gc-canceled-invoices-on-the-fly=true
-      - gc-canceled-invoices-on-startup=true
-      - tor.active=true
-      - tor.v3=true
-      - tor.skip-proxy-for-clearnet-targets=true
+    configMap:
+      customValues:
+        - bitcoind.rpchost=bitcoind:8332
     loop:
       persistence:
         storageClass: fast-ceph-block
