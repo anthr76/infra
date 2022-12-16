@@ -12,7 +12,6 @@ spec:
   interval: 10m
   upgrade:
     disableWait: true
-    force: true
     remediation:
       remediateLastFailure: false
   chart:
