@@ -41,3 +41,13 @@ spec:
     - ports:
       - port: '5432'
         protocol: TCP
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: default
+  - toEndpoints:
+    - matchLabels:
+        component: apiserver
+    toPorts:
+    - ports:
+      - port: '443'
+        protocol: TCP
