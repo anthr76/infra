@@ -14,7 +14,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: rtl.scr1.kutara.io
+  - host: rtl.scr1.rabbito.tech
     http:
       paths:
       - backend:
@@ -26,5 +26,5 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - rtl.scr1.kutara.io
+    - rtl.scr1.rabbito.tech
     secretName: rtl-tls
