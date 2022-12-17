@@ -4,9 +4,8 @@ kind: Ingress
 metadata:
   name: lnd
   annotations:
-    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
     cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/proxy-ssl-secret: lnd-internal-tls
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: nginx
   rules:
@@ -18,7 +17,7 @@ spec:
             name: lnd
             port:
               number: 8080
-        path: /rest
+        path: /
         pathType: Prefix
   tls:
   - hosts:
