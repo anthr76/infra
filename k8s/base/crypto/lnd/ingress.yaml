@@ -7,6 +7,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     internal-whitelist.kutara.io/enabled: "true"
+  namespace: crypto
 spec:
   ingressClassName: nginx
   rules:
