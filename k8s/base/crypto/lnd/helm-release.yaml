@@ -47,6 +47,7 @@ spec:
       customValues:
         - bitcoind.rpchost=bitcoind:8332
         - tlsextradomain=lnd.kutara.io
+        - tlsextradomain=77n5xifxcsdgmwya5d6nhid7twuanoszd727nko6jcepbltqorw2wfqd.onion
         - alias=Kutara
     loop:
       persistence:
