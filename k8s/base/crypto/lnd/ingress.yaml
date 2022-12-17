@@ -5,7 +5,7 @@ metadata:
   name: lnd
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/proxy-ssl-secret: lnd-internal-tls
 spec:
   ingressClassName: nginx
   rules:
@@ -17,7 +17,7 @@ spec:
             name: lnd
             port:
               number: 8080
-        path: /
+        path: /rest
         pathType: Prefix
   tls:
   - hosts:

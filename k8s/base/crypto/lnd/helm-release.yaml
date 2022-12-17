@@ -17,10 +17,10 @@ spec:
   chart:
     spec:
       chart: lnd
-      version: 0.3.10
+      version: 0.3.11
       sourceRef:
         kind: HelmRepository
-        name: galoymoney
+        name: galoy-anthr76
         namespace: flux-system
   values:
     initContainers:
@@ -43,9 +43,10 @@ spec:
               secretKeyRef:
                 name: lnd-es
                 key: postgresql-password
-    configMap:
+    configmap:
       customValues:
         - bitcoind.rpchost=bitcoind:8332
+        - tlsextradomain=lnd.kutara.io
     loop:
       persistence:
         storageClass: fast-ceph-block
