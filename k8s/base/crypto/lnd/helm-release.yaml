@@ -46,7 +46,7 @@ spec:
     configmap:
       customValues:
         - bitcoind.rpchost=bitcoind:8332
-        - tlsextradomain=lnd.kutara.io
+        - tlsextradomain=lnd.scr1.rabbito.tech
         - tlsextradomain=77n5xifxcsdgmwya5d6nhid7twuanoszd727nko6jcepbltqorw2wfqd.onion
         - alias=Kutara
     loop:
