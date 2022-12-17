@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   name: lnd
   annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
     cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/proxy-ssl-secret: lnd-internal-tls
 spec:

@@ -70,7 +70,6 @@ spec:
       extraArgs:
         publish-status-address: "${INGRESS_ENDPOINT_HOSTNAME}"
         default-ssl-certificate: "networking/wc-kutara-tls"
-        enable-ssl-passthrough: ""
       ingressClassResource:
         default: true
       config:
