@@ -5,8 +5,8 @@ metadata:
   name: lnd
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     internal-whitelist.kutara.io/enabled: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
   namespace: crypto
 spec:
   ingressClassName: nginx
