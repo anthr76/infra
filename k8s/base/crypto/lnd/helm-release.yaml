@@ -49,6 +49,7 @@ spec:
         - tlsextradomain=lnd.scr1.rabbito.tech
         - tlsextradomain=77n5xifxcsdgmwya5d6nhid7twuanoszd727nko6jcepbltqorw2wfqd.onion
         - alias=Kutara
+        - allow-circular-route=true
     loop:
       persistence:
         storageClass: fast-ceph-block
