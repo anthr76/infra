@@ -53,6 +53,10 @@ spec:
     loop:
       persistence:
         storageClass: fast-ceph-block
+    loopserver:
+      enabled: true
+      persistence:
+        storageClass: fast-ceph-block
     persistence:
       storageClass: fast-ceph-block
     postgresql:
