@@ -47,6 +47,7 @@ spec:
       customValues:
         - bitcoind.rpchost=bitcoind:8332
         - tlsextradomain=lnd2.scr1.rabbito.tech
+        - tlsextradomain=esbluzwc7wmbjdy3ekdesjp3c4cbobxif3tiukppsipuswsnsudj3pid.onion
         - alias="Kutara Pay"
         - allow-circular-route=true
     loop:
