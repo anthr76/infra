@@ -47,7 +47,7 @@ spec:
       ENABLE_PROMETHEUS: "true"
       JWT_ACCESS_EXPIRY: "172800"
       JWT_REFRESH_EXPIRY: "604800"
-      LND_ADDRESS: lnd:10009
+      LND_ADDRESS: lnd2:10009
       LND_MACAROON_FILE: /var/lnd/admin.macaroon
       LND_CERT_FILE: /var/lnd/tls.cert
     envFrom:
@@ -78,4 +78,4 @@ spec:
         enabled: true
         type: secret
         mountPath: /var/lnd
-        name: lnd-credentials
+        name: lnd2-credentials
