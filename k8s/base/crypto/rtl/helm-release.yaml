@@ -33,6 +33,10 @@ spec:
         secretName: lnd-credentials
         dark: true
         themeColor: YELLOW
+      - url: lnd2
+        secretName: lnd2-credentials
+        dark: true
+        themeColor: YELLOW
     resources:
       requests:
         memory: 50Mi
