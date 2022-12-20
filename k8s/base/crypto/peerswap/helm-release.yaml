@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JJGadgets/flux2-schemas/main/helmrelease-helm-v2beta1.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: peerswap
+  namespace: crypto
+spec:
+  releaseName: peerswap
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      interval: 5m
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        configmap.reloader.stakater.com/reload: "peerswap"
+    image:
+      repository: ghcr.io/anthr76/peerswap
+      tag: 0.2.97
+    args:
+      - --host=0.0.0.0:42069
+      - --resthost=0.0.0.0:42070
+      - --policyfile=/data/policy.conf
+      - --configfile=/var/peerswap/peerswap.conf
+      - --datadir=/data
+      - --lnd.host=lnd:10009
+      - --lnd.tlscertpath=/var/lnd/tls.cert
+      - --lnd.macaroonpath=/var/lnd/admin.macaroon
+    service:
+      main:
+        ports:
+          http:
+            port: 42070
+          grpc:
+            port: 42069
+    volumeClaimTemplates:
+      - name: state
+        mountPath: /data
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        storageClass: fast-ceph-block
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        mountPath: /var/peerswap
+        name: peerswap
+      credentials:
+        enabled: true
+        type: secret
+        mountPath: /var/lnd
+        name: lnd-credentials

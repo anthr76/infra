@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: peerswap
+  namespace: crypto
+data:
+  peerswap.conf: |
