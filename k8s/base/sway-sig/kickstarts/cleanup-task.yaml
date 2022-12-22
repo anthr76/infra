@@ -9,7 +9,7 @@ spec:
     - name: target
   steps:
     - name: cleanup
-      image: docker.io/library/busybox:latest@sha256:3b3128d9df6bbbcc92e2358e596c9fbd722a437a62bafbc51607970e9e3b8869
+      image: docker.io/library/busybox:latest@sha256:9f278d5f556b2a0be03b607abf8e5bb529f50f242505cf810887acb702b4f5f6
       command: [find]
       args:
         - $(workspaces.target.path)/iso/
