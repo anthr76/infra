@@ -15,7 +15,7 @@ spec:
       level: s0
   containers:
     - name: task-pv-container
-      image: ghcr.io/anthr76/kutara-ostree:latest
+      image: ghcr.io/anthr76/kutara-ostree:latest@sha256:26fd410a587ce97814d52f21a0b1188d6b5735c2d33b5e8f9f5910761258900b
       command:
         - sh
         - -c
