@@ -19,7 +19,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: sonarrs
-              image: ghcr.io/recyclarr/recyclarr:3.1.0@sha256:b7a386cecd8b6684c7d4049aafbd9de04b851e0699a8b0c839cff5fe84a37e4c
+              image: ghcr.io/recyclarr/recyclarr:4.0.2@sha256:d7d91ed39b0fc78ba04acc37e84b1a2fc4fe69bef7521aacdf156375f12b03b3
               env:
                 - name: TZ
                   value: America/New_York
