@@ -20,7 +20,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/bjw-s/calibre-web
-      tag: 0.6.19@sha256:d72a32a155fd8fedc162efcbc8810210f0b0af20370d2f2dd023ef254a2c0112
+      tag: 0.6.19@sha256:9776d70e71952606cd532ca38b0686710de0af2c93455c4d6b3deb0c6f8bd1ad
     securityContext:
       seLinuxOptions:
         level: s0
