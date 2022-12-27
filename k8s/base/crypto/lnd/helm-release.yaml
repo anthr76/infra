@@ -23,26 +23,6 @@ spec:
         name: galoymoney
         namespace: flux-system
   values:
-    initContainers:
-      init-db:
-        image: ghcr.io/onedr0p/postgres-initdb:14.6@sha256:0ceb9386a7da7f646fc2c971dcb34dfed3bf44ff0ee8e29c81a2a084a7b1b88c
-        env:
-          - name: POSTGRES_HOST
-            value: postgres-rw.database.svc.cluster.local
-          - name: POSTGRES_DB
-            value: lnd
-          - name: POSTGRES_SUPER_PASS
-            valueFrom:
-              secretKeyRef:
-                name: postgres-superuser
-                key: password
-          - name: POSTGRES_USER
-            value: lnd
-          - name: POSTGRES_PASS
-            valueFrom:
-              secretKeyRef:
-                name: lnd-es
-                key: postgresql-password
     configmap:
       customValues:
         - bitcoind.rpchost=bitcoind:8332
