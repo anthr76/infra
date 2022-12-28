@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: vector-aggregator
   namespace: monitoring
+  labels:
+    component.kutara.io/part-of: standard-helm-release
 spec:
   dependsOn:
     - name: loki
@@ -11,196 +13,61 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: vector
-      version: 0.16.3
+      chart: app-template
+      version: 1.2.0
       sourceRef:
         kind: HelmRepository
-        name: vector-charts
+        name: bjw-s
         namespace: flux-system
       interval: 5m
   values:
-    role: "Stateless-Aggregator"
-    podMonitor:
-      enabled: true
+    controller:
+      replicas: 3
+      strategy: RollingUpdate
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: docker.io/timberio/vector
+      tag: 0.26.0-debian
+    args: ["--config", "/etc/vector/vector.yaml"]
     service:
-      enabled: true
-      type: LoadBalancer
-    customConfig:
-      data_dir: /vector-data-dir
-      sources:
-        kubernetes_logs:
-          address: 0.0.0.0:6000
-          type: vector
-          version: "2"
-        vyos_logs:
-          address: 0.0.0.0:6001
-          type: vector
-          version: "2"
-        journal_logs:
-          type: vector
-          address: 0.0.0.0:6002
-          version: "2"
-        vector_metrics:
-          type: internal_metrics
-        talos_kernel_logs:
-          address: 0.0.0.0:6050
-          type: socket
-          mode: udp
-          max_length: 102400
-          decoding:
-            codec: json
-          host_key: __host
-        talos_service_logs:
-          address: 0.0.0.0:6051
-          type: socket
-          mode: udp
-          max_length: 102400
-          decoding:
-            codec: json
-          host_key: __host
-      transforms:
-        kubernetes_logs_remap:
-          type: remap
-          inputs:
-            - kubernetes_logs
-          source: |
-            # Standardize 'app' index
-            .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
-        talos_kernel_logs_xform:
-          type: remap
-          inputs:
-            - talos_kernel_logs
-          source: |-
-            .__host, .err = replace(.__host, "192.168.8.40", "master-01")
-            .__host = replace(.__host, "192.168.8.47", "master-02")
-            .__host = replace(.__host, "192.168.8.51", "master-03")
-            .__host = replace(.__host, "192.168.8.60", "worker-01")
-            .__host = replace(.__host, "192.168.8.62", "worker-02")
-            .__host = replace(.__host, "192.168.8.61", "worker-03")
-            .__host = replace(.__host, "192.168.8.13", "worker-04")
-            .__host = replace(.__host, "192.168.8.14", "worker-05")
-            .__host = replace(.__host, "192.168.8.10", "worker-06")
-            .__host = replace(.__host, "192.168.8.15", "worker-07")
-            .__host = replace(.__host, "192.168.8.11", "worker-08")
-            .__host = replace(.__host, "192.168.8.12", "worker-09")
-            .__host = replace(.__host, "192.168.8.68", "worker-10")
-            .__host = replace(.__host, "192.168.8.70", "worker-11")
-            .__host = replace(.__host, "192.168.8.9", "worker-12")
-        talos_service_logs_xform:
-          type: remap
-          inputs:
-            - talos_service_logs
-          source: |-
-            .__host, .err = replace(.__host, "192.168.8.40", "master-01")
-            .__host = replace(.__host, "192.168.8.47", "master-02")
-            .__host = replace(.__host, "192.168.8.51", "master-03")
-            .__host = replace(.__host, "192.168.8.60", "worker-01")
-            .__host = replace(.__host, "192.168.8.62", "worker-02")
-            .__host = replace(.__host, "192.168.8.61", "worker-03")
-            .__host = replace(.__host, "192.168.8.13", "worker-04")
-            .__host = replace(.__host, "192.168.8.14", "worker-05")
-            .__host = replace(.__host, "192.168.8.10", "worker-06")
-            .__host = replace(.__host, "192.168.8.15", "worker-07")
-            .__host = replace(.__host, "192.168.8.11", "worker-08")
-            .__host = replace(.__host, "192.168.8.12", "worker-09")
-            .__host = replace(.__host, "192.168.8.68", "worker-10")
-            .__host = replace(.__host, "192.168.8.70", "worker-11")
-            .__host = replace(.__host, "192.168.8.9", "worker-12")
-      sinks:
-        loki_kubernetes:
-          type: loki
-          inputs:
-            - kubernetes_logs_remap
-          endpoint: http://loki-gateway:80
-          encoding:
-            codec: json
-          batch:
-            max_bytes: 2049000
-          out_of_order_action: accept
-          remove_label_fields: true
-          remove_timestamp: true
-          labels:
-            app: >-
-              {{`{{ custom_app_name }}`}}
-            namespace: >-
-              {{`{{ kubernetes.pod_namespace }}`}}
-            node: >-
-              {{`{{ kubernetes.pod_node_name }}`}}
-        loki_vyos:
-          type: loki
-          inputs:
-            - vyos_logs
-          endpoint: http://loki-gateway:80
-          encoding:
-            codec: json
-          batch:
-            max_bytes: 400000
-          out_of_order_action: rewrite_timestamp
-          labels:
-            hostname: >-
-              {{`{{ host }}`}}
-            syslog_identifier: >-
-              {{`{{ SYSLOG_IDENTIFIER }}`}}
-        loki_journal:
-          type: loki
-          inputs:
-            - journal_logs
-          endpoint: http://loki-gateway:80
-          encoding:
-            codec: json
-          batch:
-            max_bytes: 2049000
-          out_of_order_action: accept
-          remove_label_fields: true
-          remove_timestamp: true
-          labels:
-            hostname: >-
-              {{`{{ host }}`}}
-        talos_kernel:
-          type: loki
-          inputs:
-            - talos_kernel_logs_xform
-          endpoint: http://loki-gateway:80
-          encoding:
-            codec: json
-            except_fields:
-              - __host
-          batch:
-            max_bytes: 1048576
-          out_of_order_action: rewrite_timestamp
-          labels:
-            hostname: >-
-              {{`{{ __host }}`}}
-            service: >-
-              {{`{{ facility }}`}}
-        talos_service:
-          type: loki
-          inputs:
-            - talos_service_logs_xform
-          endpoint: http://loki-gateway:80
-          encoding:
-            codec: json
-            except_fields:
-              - __host
-          batch:
-            max_bytes: 400000
-          out_of_order_action: rewrite_timestamp
-          labels:
-            hostname: >-
-              {{`{{ __host }}`}}
-            service: >-
-              {{`{{ "talos-service" }}`}}
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - target:
-              kind: Service
-              name: vector-aggregator
-            patch:
-              - op: add
-                path: /metadata/annotations
-                value: 
-                  metallb.universe.tf/loadBalancerIPs: ${SVC_SYSLOG_ADDR}
-              - op: replace
-                path: /spec/externalTrafficPolicy
-                value: Local
+      main:
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: 10.45.0.5
+          coredns.io/hostname: "vector.scr1.rabbito.tech"
+        externalTrafficPolicy: Local
+        ports:
+          http:
+            port: 8686
+          kubernetes-logs:
+            enabled: true
+            port: 6000
+          vyos-logs:
+            enabled: true
+            port: 6001
+          journald-logs:
+            enabled: true
+            port: 6002
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: vector-aggregator-configmap
+        subPath: vector.yaml
+        mountPath: /etc/vector/vector.yaml
+        readOnly: true
+      data:
+        enabled: true
+        type: emptyDir
+        mountPath: /vector-data-dir
+      geoip:
+        enabled: true
+        existingClaim: vector-geoipupdate-config
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: *app
