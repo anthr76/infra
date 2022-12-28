@@ -64,10 +64,3 @@ spec:
       geoip:
         enabled: true
         existingClaim: vector-geoipupdate-config
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
