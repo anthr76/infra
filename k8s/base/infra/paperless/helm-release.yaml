@@ -45,7 +45,7 @@ spec:
                 key: PAPERLESS_DBPASS
     image:
       repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 1.11.1
+      tag: 1.11.2
     env:
       PAPERLESS_REDIS: redis://redis-master.database.svc.cluster.local:6379
       PAPERLESS_DBHOST: postgres-rw.database.svc.cluster.local
