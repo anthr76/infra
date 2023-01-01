@@ -1,6 +1,7 @@
 PI4_UEFI_VERSION := "1.33"
-FCOS_INSTALL_DISK := "/dev/sdX"
+FCOS_INSTALL_DISK := "/dev/sdXXXX"
 DEFAULT_INSTALL_BUTANE := "armature/prod/scr1/fcos/k8s-node/worker-config.bu.sops.yaml"
+PODMAN := "podman"
 
 _default:
     @just --list
@@ -28,11 +29,8 @@ burn-fcos-pi4:
     @echo foo
     #!/usr/bin/env bash
     set -euxo pipefail
-    # if [[ "$HOSTNAME" == "toolbox" ]]; then
-    #   PODMAN="host-spawn podman"
-    # fi
-
-    podman run --pull=always --privileged --rm \
+    # Needs sudo but this is destructive so override $PODMAN
+    {{ PODMAN }} run --pull=always --privileged --rm \
     -q \
     -v /dev:/dev -v /run/udev:/run/udev \
     quay.io/coreos/coreos-installer:release \
