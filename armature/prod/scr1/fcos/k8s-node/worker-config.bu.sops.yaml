@@ -7,18 +7,32 @@ systemd:
           contents: |
             [Unit]
             Description=Rebase FCOS to Container Image
-            ConditionPathExists=!/var/lib/fcos-rebase.stamp
-            ConditionFirstBoot=true
-            Before=first-boot-complete.target
+            ConditionPathExists=!/var/lib/%N.stamp
+            Before=zincati.service
             After=network-online.target
             [Service]
             Type=oneshot
             RemainAfterExit=yes
             ExecStart=rpm-ostree rebase --bypass-driver --experimental ostree-unverified-registry:ghcr.io/anthr76/fcos-k8s-node:rolling
-            ExecStart=/bin/touch /var/lib/fcos-rebase.stamp
+            ExecStart=/bin/touch /var/lib/%N.stamp
             ExecStartPost=systemctl reboot
             Restart=on-failure
             [Install]
+            WantedBy=multi-user.target
+        - name: set-hostname.service
+          enabled: true
+          contents: |
+            [Unit]
+            Description=Set hostname from DHCP.
+            Before=fcos-rebase.service
+            ConditionPathExists=!/var/lib/%N.stamp
+            [Service]
+            Type=oneshot
+            RemainAfterExit=true
+            ExecStart=/bin/sh -c 'hostnamectl --json=pretty | jq -r .Hostname | cut -d '.' -f 1 > /etc/hostname
+            ExecStart=/bin/touch /var/lib/%N.stamp
+            [Install]
+            RequiredBy=fcos-rebase.service
             WantedBy=multi-user.target
         - name: wait-for-dns.service
           enabled: true
@@ -71,8 +85,8 @@ sops:
             TU5qN0NZVFo5dEI4b052U3RnbzhGUlEKhwmRsd2t3N2Mi8PMZuQQst95a6KHAu/9
             0lAmGkOcx7zFqdEmh/m+VQ1uLrt4QPD1TVHWvy+YUWNM5D0X8UAMnA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-12-05T02:53:32Z"
-    mac: ENC[AES256_GCM,data:j5FOxpG/4ASv6FWKHzX1jEItzrNXK0HNQ96s4kyNbKUs7GiGtoExPfK0TvsRjTwuhbkBvoe3S3XcN+KzYDytEdEr7mFOuNUxlu0jZCc+IOQFmL+3mVHjTZZUQzjsbA7h9K7sqbW9sk/Unz64sIAstR707Rb3+OhFgDfCw3SkDNo=,iv:Mhfyyylr+SymyItCkuFjfDRvc9ShPNzidIKZT2ondro=,tag:oDkH26vWbsY2FkgPKmUNlw==,type:str]
+    lastmodified: "2023-01-02T19:30:30Z"
+    mac: ENC[AES256_GCM,data:qqmIinZvLiOcXoiJG7UyLNRcHFrYTzB4t4xuHqnPwyI8bOs1HABrMQOhCgGQ7PRPJ8jvarymSc1lBnRPQu7F3iyPCPO9C6mr8kIQeX0eA8JjHBqdKHdp35iK+cTc2oSTTNzPaP4SNjeDq6TJ3ah8A2Ev5xHD4llNOuf14HCeZ30=,iv:lWciHg+DVcPMA6WcDk47Zf7yhslfAowCFPwNButSapk=,tag:3R8MsumiI2l8IYAemP+Y+g==,type:str]
     pgp: []
     encrypted_regex: ^(files|stringData)$
     version: 3.7.3

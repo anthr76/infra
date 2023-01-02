@@ -1,7 +1,7 @@
-PI4_UEFI_VERSION := "1.33"
 FCOS_INSTALL_DISK := "/dev/sdXXXX"
 DEFAULT_INSTALL_BUTANE := "armature/prod/scr1/fcos/k8s-node/worker-config.bu.sops.yaml"
 PODMAN := "podman"
+TMPDIR := `mktemp -d`
 
 _default:
     @just --list
@@ -24,15 +24,32 @@ flux-reconcile:
       kustomization/"$resource" reconcile.fluxcd.io/requestedAt="$(date +%s)"
     done
 
+_uboot:
+    {{ PODMAN }} run --privileged --rm \
+    --security-opt label=disable \
+    -q -it \
+    -e FCOSDISK={{FCOS_INSTALL_DISK}} \
+    -v /dev:/dev -v /run/udev:/run/udev -v $PWD/.just/uboot.sh:/uboot.sh \
+    registry.fedoraproject.org/fedora:37 \
+    /uboot.sh
+
 # Install FCOS for RPI4 to a disk with EFI.
 burn-fcos-pi4:
-    @echo foo
-    #!/usr/bin/env bash
-    set -euxo pipefail
+    # Transpile sops'd butane to ignition
+    sops -d {{ DEFAULT_INSTALL_BUTANE }} > {{TMPDIR}}/config.bu
+    podman run --rm \
+    --security-opt label=disable \
+    -w /work \
+    -v {{TMPDIR}}:/work quay.io/coreos/butane:release \
+    --pretty --strict /work/config.bu -o /work/config.ign
+    # Install FCOS to a disk.
     # Needs sudo but this is destructive so override $PODMAN
     {{ PODMAN }} run --pull=always --privileged --rm \
     -q \
-    -v /dev:/dev -v /run/udev:/run/udev \
+    -v /dev:/dev -v /run/udev:/run/udev -v {{TMPDIR}}/config.ign:{{TMPDIR}}/config.ign \
     quay.io/coreos/coreos-installer:release \
-    install {{ FCOS_INSTALL_DISK }} \
-    -i $(sops -d {{ DEFAULT_INSTALL_BUTANE }} | podman run -q -i --rm --pull always quay.io/coreos/butane:release --strict)
+    install \
+    --architecture=aarch64 \
+    -i {{TMPDIR}}/config.ign \
+    {{ FCOS_INSTALL_DISK }}
+    just PODMAN="{{PODMAN}}" FCOS_INSTALL_DISK={{FCOS_INSTALL_DISK}} TMPDIR={{TMPDIR}} _uboot
