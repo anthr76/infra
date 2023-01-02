@@ -24,15 +24,13 @@ systemd:
           contents: |
             [Unit]
             Description=Set hostname from DHCP.
-            Before=fcos-rebase.service
             ConditionPathExists=!/var/lib/%N.stamp
             [Service]
             Type=oneshot
             RemainAfterExit=true
-            ExecStart=/bin/sh -c 'hostnamectl --json=pretty | jq -r .Hostname | cut -d '.' -f 1 > /etc/hostname
+            ExecStart=/bin/sh -c 'hostnamectl --json=pretty | jq -r .Hostname | cut -d "." -f 1 > /etc/hostname'
             ExecStart=/bin/touch /var/lib/%N.stamp
             [Install]
-            RequiredBy=fcos-rebase.service
             WantedBy=multi-user.target
         - name: wait-for-dns.service
           enabled: true
@@ -85,8 +83,8 @@ sops:
             TU5qN0NZVFo5dEI4b052U3RnbzhGUlEKhwmRsd2t3N2Mi8PMZuQQst95a6KHAu/9
             0lAmGkOcx7zFqdEmh/m+VQ1uLrt4QPD1TVHWvy+YUWNM5D0X8UAMnA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-01-02T19:30:30Z"
-    mac: ENC[AES256_GCM,data:qqmIinZvLiOcXoiJG7UyLNRcHFrYTzB4t4xuHqnPwyI8bOs1HABrMQOhCgGQ7PRPJ8jvarymSc1lBnRPQu7F3iyPCPO9C6mr8kIQeX0eA8JjHBqdKHdp35iK+cTc2oSTTNzPaP4SNjeDq6TJ3ah8A2Ev5xHD4llNOuf14HCeZ30=,iv:lWciHg+DVcPMA6WcDk47Zf7yhslfAowCFPwNButSapk=,tag:3R8MsumiI2l8IYAemP+Y+g==,type:str]
+    lastmodified: "2023-01-02T19:41:48Z"
+    mac: ENC[AES256_GCM,data:NnZzXoEsZQVi+2xQvj5UaBl1oXtTmwpZRmLbvzHV0wt8K4gQ/wEwwldMYrhbh4VtTRtmMf8lygLQf7WUbo1hqc0+N02HPI7HlCd8iS7Lrtc+BJb6qjqWBtvkaZGudtSlGmFivl8lAonogt9C6Tk2Feo1l0w2hjTTFwf96xVgXm4=,iv:dd/QDgMoWUoBCGoB2tM3vlalnj/xvB2C6nuiuzymMHE=,tag:gJJuoSSWBL3VBiZW6PS39w==,type:str]
     pgp: []
     encrypted_regex: ^(files|stringData)$
     version: 3.7.3
