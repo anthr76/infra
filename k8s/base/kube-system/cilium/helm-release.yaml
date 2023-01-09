@@ -34,8 +34,9 @@ spec:
     securityContext:
       privileged: true
     localRedirectPolicy: true
-    kubeProxyReplacement: "strict"
-    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    # Issue TBD
+    # kubeProxyReplacement: "strict"
+    # kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     ipv4NativeRoutingCIDR: 10.244.0.0/16
     ipv6NativeRoutingCIDR: "fddf:f7bc:9670::/48"
     k8sServiceHost: cluster-0.scr1.rabbito.tech
