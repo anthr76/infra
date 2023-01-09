@@ -23,7 +23,7 @@ data:
         tcp_nopush         on;
         tcp_nodelay        on;
         location / {
-            root   /usr/share/nginx/html;
+            root   /var/www/html;
             index  index.html index.htm;
         }
         error_page   500 502 503 504  /50x.html;

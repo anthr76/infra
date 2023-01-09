@@ -97,7 +97,7 @@ spec:
               port: 8080
             timeoutSeconds: 1
           volumeMounts:
-            - mountPath: /usr/share/nginx/html
+            - mountPath: /var/www/html
               name: data
               subPath: nginx
             - mountPath: /etc/nginx/conf.d
