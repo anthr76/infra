@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: home-assistant-nwk3-backup-v2
+  name: home-assistant-nwk3-backup-v1
   namespace: home
 spec:
   accessModes:
