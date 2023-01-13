@@ -36,11 +36,11 @@ snapshots:
 record:
   enabled: true
   retain:
-    days: 2
-    mode: motion
+    days: 3
+    mode: all
   events:
     retain:
-      default: 5
+      default: 7
       mode: active_objects
 live:
   height: 1080
@@ -50,6 +50,14 @@ timestamp_style:
 birdseye:
   width: 1920
   height: 1080
+objects:
+  track:
+    - person
+  filters:
+    person:
+      min_area: 5000
+      max_area: 100000
+      threshold: 0.7
 cameras:
   frigate_front_porch:
     ffmpeg:
@@ -72,13 +80,6 @@ cameras:
         coordinates: 1920,1080,1920,706,0,712,0,1080
       street:
         coordinates: 0,0,1920,0,1920,220,0,288,0,122
-    record:
-      events:
-        required_zones:
-          - front_yard
-    snapshots:
-      required_zones:
-        - front_yard
   frigate_back_porch:
     ffmpeg:
       inputs:
@@ -96,46 +97,10 @@ cameras:
     zones:
       back_porch:
         coordinates: 0,0,43,691,518,1080,1074,660,1233,498,1256,464,1331,368,1142,0
-        objects:
-          - person
       stairs:
         coordinates: 1190,1080,1398,724,1227,599,549,1080
       back_yard_walkway:
         coordinates: 1405,981,1539,839,1669,578,1920,383,1920,584,1920,1080,1417,1080,1160,1080
-        objects:
-          - person
-    record:
-      events:
-        required_zones:
-          - back_porch
-          - back_yard_walkway
-    snapshots:
-      required_zones:
-        - back_porch
-        - back_yard_walkway
-    objects: 
-      track:
-        - person
-        - dog
-      filters:
-        person:
-          min_area: 4000
-          max_area: 600000
-          min_score: 0.68
-          threshold: 0.74
-          mask:
-            - 1837,22,1364,0,1168,581,1774,647
-        dog:
-          min_area: 4500
-          max_area: 80000
-          min_score: 0.60
-          threshold: 0.65
-        car:
-          min_area: 20000
-          max_area: 600000
-          min_score: 0.67
-          threshold: 0.73
-
   # --
   frigate_back_yard:
     ffmpeg:
@@ -151,45 +116,17 @@ cameras:
       width: 1920
       height: 1080
       fps: 5
-    objects:
-      filters:
-        car:
-          mask: 1721,201,1786,462,1109,296,1123,114
-      track:
-        - person
-        - car
-    snapshots:
-      required_zones:
-        - backyard
-        - driveway_walkway
-        - driveway_entrance
-    record:
-      events:
-        required_zones:
-          - backyard
-          - driveway_walkway
-          - driveway_entrance
     zones:
       driveway_entrance:
         coordinates: 517,181,768,186,759,254,495,237
-        objects:
-          - person
-          - car
       alley:
         coordinates: 33,129,76,69,584,73,628,137
       backyard:
         coordinates: 1920,405,1103,351,1151,1080,1920,1080
-        objects:
-          - person
-          - cat
-          - dog
       driveway:
         coordinates: 0,957,0,446,0,203,725,252,559,658,549,946
       pool:
         coordinates: 1766,481,1696,102,1139,76,1093,295
-        objects: []
       driveway_walkway:
         coordinates: 564,1080,544,842,0,781,0,1080
-        objects:
-          - person
 

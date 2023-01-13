@@ -10,62 +10,64 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: frigate
-      version: 8.2.2
+      chart: app-template
+      version: 1.2.0
+      interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
-      interval: 5m
   dependsOn:
     - name: mosquitto
       namespace: home
   values:
-    priorityClassName: home-cluster-critical
     image:
-      repository: docker.io/blakeblackshear/frigate
-      tag: 0.11.1
+      repository: ghcr.io/blakeblackshear/frigate
+      tag: 0.12.0-beta3
     env:
-      TZ: America/New_York
       LIBVA_DRIVER_NAME: radeonsi
       FRIGATE_MQTT_PASSWORD:
         valueFrom:
           secretKeyRef:
             name: frigate
             key: mqtt-password
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          # TODO: https://github.com/kubernetes/ingress-nginx/issues/8401#issuecomment-1159590536
-          nginx.ingress.kubernetes.io/custom-http-errors: 401,403,404,500,501,502,503
-          nginx.ingress.kubernetes.io/auth-response-headers: Authorization, x-auth-request-email,
-            x-auth-request-groups
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.kutara.io/oauth2/start
-          nginx.ingress.kubernetes.io/auth-url: https://auth.kutara.io/oauth2/auth?allowed_groups=family
-          hajimari.io/enable: "true"
-          hajimari.io/icon: cctv
-        hosts:
-          - host: "frigate.scr1.kutara.io"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: frigate-tls
-            hosts:
-              - "frigate.scr1.kutara.io"
     service:
       main:
         ports:
-          rtmp:
-            enabled: true
-    securityContext:
-      privileged: true
-    configmap:
-      config:
-        enabled: false
+          http:
+            port: &port 5000
+    probes:
+      liveness: &probe
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /api/version
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness:
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /api/version
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      startup:
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /api/version
+            port: *port
+          failureThreshold: 30
+          periodSeconds: 10
     persistence:
       data:
         enabled: true
@@ -92,8 +94,34 @@ spec:
         medium: Memory
         sizeLimit: 4Gi
         mountPath: /dev/shm
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          # TODO: https://github.com/kubernetes/ingress-nginx/issues/8401#issuecomment-1159590536
+          nginx.ingress.kubernetes.io/custom-http-errors: 401,403,404,500,501,502,503
+          nginx.ingress.kubernetes.io/auth-response-headers: Authorization, x-auth-request-email,
+            x-auth-request-groups
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.kutara.io/oauth2/start
+          nginx.ingress.kubernetes.io/auth-url: https://auth.kutara.io/oauth2/auth?allowed_groups=family
+          hajimari.io/enable: "true"
+          hajimari.io/icon: cctv
+        hosts:
+          - host: "frigate.scr1.kutara.io"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: frigate-tls
+            hosts:
+              - "frigate.scr1.kutara.io"
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "frigate"
+      configmap.reloader.stakater.com/reload: "frigate-config"
+      secret.reloader.stakater.com/reload: "frigate-secrets"
+    securityContext:
+      privileged: true
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -105,11 +133,10 @@ spec:
                     - "true"
     resources:
       requests:
+        amd.com/gpu: 1
         cpu: 1000m
         memory: 400Mi
-        amd.com/gpu: 1
       limits:
         memory: 1000Mi
         cpu: 1000m
         amd.com/gpu: 1
-
