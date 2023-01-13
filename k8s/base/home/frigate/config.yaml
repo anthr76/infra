@@ -42,9 +42,9 @@ record:
     retain:
       default: 7
       mode: active_objects
-live:
-  height: 1080
-  quality: 5
+# live:
+#   height: 1080
+#   quality: 5
 timestamp_style:
   position: "tr"
 birdseye:
