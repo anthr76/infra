@@ -23,76 +23,62 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
+    autoDirectNodeRoutes: false
+    bgp:
+      announce:
+        loadbalancerIP: false
+      enabled: false
     cluster:
+      id: 1
       name: scr1-cluster-0
-      id: "1"
-    rollOutCiliumPods: true
-    securityContext:
-      privileged: true
-    localRedirectPolicy: true
-    # Issue TBD
-    # kubeProxyReplacement: "strict"
-    # kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-    ipv4NativeRoutingCIDR: 10.244.0.0/16
-    ipv6NativeRoutingCIDR: "fddf:f7bc:9670::/48"
-    k8sServiceHost: cluster-0.scr1.rabbito.tech
-    k8sServicePort: 6443
-    pmtuDiscovery:
-      enabled: trye
-    loadBalancer:
-      algorithm: hybrid
-    bandwidthManager:
-      enabled: true
-      bbr: true
-    # https://github.com/cilium/cilium/issues/22782
-    # tunnel: "disabled"
     endpointRoutes:
       enabled: true
-    autoDirectNodeRoutes: true
-    ipam:
-      mode: "kubernetes"
-    ipv6:
-      enabled: true
-    operator:
-      rollOutPods: true
-      prometheus:
-        enabled: true
-        serviceMonitor:
-          enabled: true
     hubble:
       enabled: true
       metrics:
         enabled:
-          - dns:query
-          - drop
-          - tcp
-          - flow
-          - port-distribution
-          - icmp
-          - http
+        - dns:query
+        - drop
+        - tcp
+        - flow
+        - port-distribution
+        - icmp
+        - http
         serviceMonitor:
           enabled: true
       relay:
         enabled: true
-        rollOutPods: true
       ui:
         enabled: true
-        rollOutPods: true
         ingress:
-          enabled: true
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt-production
+          enabled: true
           hosts:
-            - "hubble.scr1.rabbito.tech"
+          - hubble.scr1.rabbito.tech
           tls:
-            - secretName: hubble-tls
-              hosts:
-                - "hubble.scr1.rabbito.tech"
-    bgp:
-      enabled: false
-      announce:
-        loadbalancerIP: false
+          - hosts:
+            - hubble.scr1.rabbito.tech
+            secretName: hubble-tls
+    ipam:
+      mode: kubernetes
+    ipv4NativeRoutingCIDR: 10.244.0.0/16
+    ipv6:
+      enabled: true
+    ipv6NativeRoutingCIDR: fddf:f7bc:9670::/48
+    k8sServiceHost: cluster-0.scr1.rabbito.tech
+    k8sServicePort: 6443
+    kubeProxyReplacement: disabled
+    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    localRedirectPolicy: true
+    operator:
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    securityContext:
+      privileged: true
