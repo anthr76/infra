@@ -23,7 +23,7 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    autoDirectNodeRoutes: false
+    autoDirectNodeRoutes: true
     bgp:
       announce:
         loadbalancerIP: false
