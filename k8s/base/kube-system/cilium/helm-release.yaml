@@ -82,3 +82,4 @@ spec:
         enabled: true
     securityContext:
       privileged: true
+    tunnel: disabled
