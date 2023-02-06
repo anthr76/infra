@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/http2-push-preload: "true"
     # nginx.ingress.kubernetes.io/service-upstream: "true"
     # nginx.ingress.kubernetes.io/proxy-read-timeout: "240"
     # nginx.ingress.kubernetes.io/upstream-hash-by: "$remote_addr"
@@ -14,6 +15,8 @@ metadata:
     # nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
     # nginx.ingress.kubernetes.io/proxy-body-size: "8m"
     # nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT"
   labels:
     app.kubernetes.io/instance: sway-sig
     app.kubernetes.io/name: sway-sig

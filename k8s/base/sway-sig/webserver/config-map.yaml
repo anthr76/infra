@@ -13,20 +13,15 @@ data:
         autoindex on;
         autoindex_exact_size off;
         autoindex_localtime on;
-        # fancyindex on;
-        # fancyindex_exact_size off;
-        open_file_cache          max=10000 inactive=5m;
-        open_file_cache_valid    2m;
-        open_file_cache_min_uses 1;
-        open_file_cache_errors   on;
-        sendfile           on;
-        tcp_nopush         on;
-        tcp_nodelay        on;
         location / {
             root   /var/www/html;
             index  index.html index.htm;
         }
         error_page   500 502 503 504  /50x.html;
+        open_file_cache           max=1000 inactive=5m;
+        open_file_cache_errors    on;
+        open_file_cache_min_uses  1;
+        open_file_cache_valid     2m;
         location = /50x.html {
             root   /usr/share/nginx/html;
         }
