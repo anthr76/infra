@@ -13,7 +13,7 @@ terraform {
     }
     google = {
       source  = "hashicorp/google"
-      version = "4.49.0"
+      version = "4.52.0"
     }
   }
 }
