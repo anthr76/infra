@@ -9,7 +9,7 @@ on:
       - "armature/prod/b2/**"
       - ".github/workflows/**"
 
-concurrency: 
+concurrency:
   group: tf-${{ github.head_ref }}
   cancel-in-progress: true
 
@@ -37,6 +37,7 @@ jobs:
         include:
           - env: 'armature/prod/gcp/bootstrap'
           - env: 'armature/prod/gcp/kutara'
+          - env: 'armature/prod/gcp/top22'
           - env: 'armature/prod/tf-states'
           - env: 'armature/prod/b2'
 

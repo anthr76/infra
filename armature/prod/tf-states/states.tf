@@ -12,6 +12,13 @@ resource "tfe_workspace" "gcp_kutara" {
   queue_all_runs = false
 }
 
+resource "tfe_workspace" "gcp_top22" {
+  name           = "gcp-top22"
+  organization   = tfe_organization.kutara.name
+  execution_mode = "local"
+  queue_all_runs = false
+}
+
 resource "tfe_workspace" "gcp_seed" {
   name           = "gcp-seed"
   organization   = tfe_organization.kutara.name
