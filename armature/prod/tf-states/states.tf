@@ -32,3 +32,17 @@ resource "tfe_workspace" "scr1_libvirt" {
   execution_mode = "local"
   queue_all_runs = false
 }
+
+resource "tfe_workspace" "top22_github" {
+  name           = "top-22-github"
+  organization   = tfe_organization.kutara.name
+  execution_mode = "local"
+  queue_all_runs = false
+}
+
+resource "tfe_workspace" "top22_cloudflare" {
+  name           = "top-22-cloudflare"
+  organization   = tfe_organization.kutara.name
+  execution_mode = "local"
+  queue_all_runs = false
+}
