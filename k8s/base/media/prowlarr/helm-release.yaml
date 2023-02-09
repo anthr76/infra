@@ -45,7 +45,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/prowlarr-nightly
-      tag: 1.2.0.2561
+      tag: 1.2.0.2565
     env:
       TZ: "America/New_York"
       PROWLARR__LOG_LEVEL: info
