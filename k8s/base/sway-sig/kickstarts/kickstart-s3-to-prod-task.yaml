@@ -36,7 +36,7 @@ spec:
               name: $(params.s3-credentials)
               key: AWS_SECRET_ACCESS_KEY
     - name: move-tmp-to-prod
-      image: bash@sha256:46aef8866a15877c36cf72736f1433e827c648d27dfcc9f1c1f187e8df762be9
+      image: bash@sha256:e21d62582ff9e6edf0303193c1c4baf3950bfa414067cdbde08b602257c9a111
       script: |
         #!/usr/bin/env bash
         mv $(workspaces.target.path)/iso/tmp/Fedora-Sway-Live-$(params.FEDORA_VERSION)* $(workspaces.target.path)/iso 
