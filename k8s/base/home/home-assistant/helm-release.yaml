@@ -21,7 +21,7 @@ spec:
     priorityClassName: home-cluster-critical
     initContainers:
       init-db:
-        image: ghcr.io/onedr0p/postgres-initdb:14.6@sha256:f2d6d7a172ce0c427bda01f4f68b8730b906fba96db3b34c2ec363d3693166c3
+        image: ghcr.io/onedr0p/postgres-initdb:14.7@sha256:63d3321053b2033bd5dff909959513939795f7ec7d66b473b457f933325c4c5a
         env:
           - name: POSTGRES_HOST
             value: postgres-rw.database.svc.cluster.local
