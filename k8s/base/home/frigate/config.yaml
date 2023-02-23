@@ -40,10 +40,6 @@ record:
     retain:
       default: 7
       mode: active_objects
-restream:
-  birdseye: false
-  jsmpeg:
-    height: 1080
 # live:
 #   height: 1080
 #   quality: 5
@@ -67,7 +63,6 @@ cameras:
         - path: rtsp://frigate:frigate!@front-porch-camera.scr1.rabbito.tech:554/cam/realmonitor?channel=1&subtype=0
           roles:
             - record
-            - restream
         - path: rtsp://frigate:frigate!@front-porch-camera.scr1.rabbito.tech:554/cam/realmonitor?channel=1&subtype=2
           roles:
             - detect
@@ -88,7 +83,6 @@ cameras:
         - path: rtsp://frigate:frigate!@back-porch-camera.scr1.rabbito.tech:554/cam/realmonitor?channel=1&subtype=0
           roles:
             - record
-            - restream
         - path: rtsp://frigate:frigate!@back-porch-camera.scr1.rabbito.tech:554/cam/realmonitor?channel=1&subtype=2
           roles:
             - detect
@@ -110,7 +104,6 @@ cameras:
         - path: rtsp://frigate:frigate!@back-yard-camera.scr1.rabbito.tech:554/cam/realmonitor?channel=1&subtype=0
           roles:
             - record
-            - restream
         - path: rtsp://frigate:frigate!@back-yard-camera.scr1.rabbito.tech:554/cam/realmonitor?channel=1&subtype=2
           roles:
             - detect
