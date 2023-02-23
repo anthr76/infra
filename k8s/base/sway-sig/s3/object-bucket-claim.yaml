@@ -6,4 +6,4 @@ metadata:
   namespace: sway-sig
 spec:
   bucketName: sway-sig
-  storageClassName: fast-ceph-bucket
+  storageClassName: slow-ceph-bucket

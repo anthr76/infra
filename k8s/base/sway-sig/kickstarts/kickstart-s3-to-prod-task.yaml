@@ -20,8 +20,8 @@ spec:
       image: docker.io/peakcom/s5cmd:latest@sha256:cd00d2908f021c0ef8188d2b115d3bbf706dcdabaed2aef8b8e213ec09373bc2
       args:
         - --endpoint-url
-        - http://rook-ceph-rgw-fast-ceph-objectstore.rook-ceph.svc.cluster.local 
-        - mv 
+        - http://rook-ceph-rgw-slow-ceph-objectstore.rook-ceph.svc.cluster.local
+        - mv
         - s3://sway-sig/iso/Fedora-Sway-Live-$(params.FEDORA_VERSION)*
         - $(workspaces.target.path)/iso/tmp/
       env:
@@ -39,4 +39,4 @@ spec:
       image: bash@sha256:ad93c5cceb1a38ba5b089b6cb839b939a341efe872fbd4eefa027fbe59e95d5d
       script: |
         #!/usr/bin/env bash
-        mv $(workspaces.target.path)/iso/tmp/Fedora-Sway-Live-$(params.FEDORA_VERSION)* $(workspaces.target.path)/iso 
+        mv $(workspaces.target.path)/iso/tmp/Fedora-Sway-Live-$(params.FEDORA_VERSION)* $(workspaces.target.path)/iso
