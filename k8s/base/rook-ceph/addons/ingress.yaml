@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-buffering: "off"
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-  name: rook-ceph-rgw-fast-ceph-objectstore
+  name: rook-ceph-rgw-slow-ceph-objectstore
   namespace: rook-ceph
 spec:
   ingressClassName: nginx
@@ -17,7 +17,7 @@ spec:
       paths:
       - backend:
           service:
-            name: rook-ceph-rgw-fast-ceph-objectstore
+            name: rook-ceph-rgw-slow-ceph-objectstore
             port:
               number: 80
         path: /
