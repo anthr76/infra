@@ -22,7 +22,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.386@sha256:5969616b5c6ee487ee72a9faa67c447c6e5702037c3d7a9102c0fdf9b01c3074
+      tag: 4.0.0.391@sha256:dbf5513327d9c9c0bb9af284e7cdc7e8db8325b1239505669a3141416c4c52e1
     env:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info
