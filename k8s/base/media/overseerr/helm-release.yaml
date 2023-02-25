@@ -19,8 +19,6 @@ spec:
       interval: 5m
   values:
     priorityClassName: media-cluster-critical
-    controller:
-      strategy: RollingUpdate
     image:
       repository: ghcr.io/sct/overseerr
       tag: 1.32.5
@@ -53,7 +51,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: overseerr-config-v2
+        existingClaim: overseerr-config-v4
         mountPath: /app/config
       cache:
         enabled: true
