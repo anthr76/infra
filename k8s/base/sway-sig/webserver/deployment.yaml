@@ -58,7 +58,7 @@ spec:
           level: s0
       containers:
         - name: nginx
-          image: "ghcr.io/nginxinc/nginx-unprivileged:1.23.3@sha256:9ef321c61935840d643e91a60a758c819eeccdfcf678a72ee146be7d3e946eaa"
+          image: "ghcr.io/nginxinc/nginx-unprivileged:1.23.3@sha256:68fb132d37d2db7706d6fa5fa7abaedfbfbe7d2859aa56e3bf79a67ba8514d11"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 30
