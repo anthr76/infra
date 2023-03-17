@@ -17,7 +17,7 @@ spec:
     - name: target
   steps:
     - name: move-s3-to-tmp
-      image: docker.io/peakcom/s5cmd:latest@sha256:d105a824a0cade260ea185d9231eb090947a95b5dbc71556914a65e76299b183
+      image: docker.io/peakcom/s5cmd:latest@sha256:05e98772fe01d924b144978b8eb91b365e8bf919038c517bc19fd2dffc8c4e12
       args:
         - --endpoint-url
         - http://rook-ceph-rgw-slow-ceph-objectstore.rook-ceph.svc.cluster.local
