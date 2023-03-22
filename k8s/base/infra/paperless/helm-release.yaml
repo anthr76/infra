@@ -57,7 +57,7 @@ spec:
       COMPOSE_PROJECT_NAME: paperless
       USERMAP_GID: 65534
       USERMAP_UID: 65534
-      PAPERLESS_URL: https://paperless.kutara.io
+      PAPERLESS_URL: https://paperless.scr1.rabbito.tech
     envFrom:
       - secretRef:
           name: paperless
