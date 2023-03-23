@@ -35,6 +35,16 @@
   },
   "regexManagers": [
     {
+      "description": "Process Tekton bucket dependencies",
+      "fileMatch": [
+        "kubernetes/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "#\\s?renovate: depName=(?<depName>.*?)\\s?.*/previous/(?<currentValue>[\\w\\d\\.\\-_]+)/"
+      ],
+      "datasourceTemplate": "github-releases"
+    },
+    {
       "description": ["Process CRD dependencies - Chart and Github Release are the same version"],
       "fileMatch": ["kubernetes/.+\\.ya?ml$"],
       "matchStrings": [
