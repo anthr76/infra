@@ -57,7 +57,7 @@ spec:
       COMPOSE_PROJECT_NAME: paperless
       USERMAP_GID: 65534
       USERMAP_UID: 65534
-      PAPERLESS_URL: https://paperless.scr1.rabbito.tech
+      PAPERLESS_URL: https://paperless.kutara.io
     envFrom:
       - secretRef:
           name: paperless
@@ -104,7 +104,7 @@ spec:
           hajimari.io/icon: file-outline
           nginx.ingress.kubernetes.io/proxy-body-size: 4G
         hosts:
-          - host: &host "paperless.scr1.rabbito.tech"
+          - host: &host "paperless.kutara.io"
             paths:
               - path: /
         tls:
