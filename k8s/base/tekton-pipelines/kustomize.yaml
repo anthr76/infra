@@ -11,19 +11,14 @@ spec:
   endpoint: storage.googleapis.com
   timeout: 60s
   ignore: |
-    **/openshift-release.yaml
-    **/release.notags.yaml
-    **/openshift-tekton-dashboard-release-readonly.yaml
-    **/openshift-tekton-dashboard-release.yaml
-    **/tekton-dashboard-release.yaml
-    **/installer-tekton-dashboard-release.yaml
     /*
-    # renovate: datasource=github-releases depName=tektoncd/pipeline
+    # renovate: depName=tektoncd/pipeline
     !/pipeline/previous/v0.45.0/release.yaml
-    # renovate: datasource=github-releases depName=tektoncd/dashboard
-    !/dashboard/previous/v0.33.0/release.yaml
-    # renovate: datasource=github-releases depName=tekton/triggers
+    # renovate: depName=tektoncd/dashboard
+    !/dashboard/previous/v0.33.0/release-full.yaml
+    # renovate: depName=tektoncd/triggers
     !/triggers/previous/v0.22.0/release.yaml
+    # renovate: depName=tektoncd/triggers
     !/triggers/previous/v0.22.1/interceptors.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
