@@ -23,7 +23,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/plex-amd
-      tag: 1.31.0.6654-02189b09f
+      tag: 1.31.3.6868-28fc46b27
     env:
       TZ: "America/New_York"
     securityContext:
