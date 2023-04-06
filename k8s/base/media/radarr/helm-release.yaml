@@ -20,7 +20,7 @@ spec:
   values:
     initContainers:
       init-db:
-        image: ghcr.io/onedr0p/postgres-initdb:14.7@sha256:4c6a27bc6de60ffaad7ce0f41931a2746a52c1c3b728d8135c0198eb69a93f97
+        image: ghcr.io/onedr0p/postgres-initdb:14.7@sha256:31b05c96c16cb54cd77c1138a8859e66b5031d8567d4854462b42f84075449a0
         env:
           - name: POSTGRES_HOST
             value: postgres-rw.database.svc.cluster.local
@@ -45,7 +45,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/radarr-nightly
-      tag: 4.4.3.7030@sha256:648a15852e3e4f353b0522c329fc884b3c8ceaaf525719d53f844437a370b24f
+      tag: 4.4.3.7030@sha256:6f9f1304a22ba6b1d4ed62f019512d64135bd5d75e5908f2ff9ed613141dc789
     env:
       TZ: "America/New_York"
       RADARR__LOG_LEVEL: info
