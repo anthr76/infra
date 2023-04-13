@@ -47,6 +47,8 @@ spec:
       repository: ghcr.io/paperless-ngx/paperless-ngx
       tag: 1.13.0
     env:
+      COMPOSE_PROJECT_NAME: paperless
+      PAPERLESS_TASK_WORKERS: 2
       PAPERLESS_REDIS: redis://redis-master.database.svc.cluster.local:6379
       PAPERLESS_DBHOST: postgres-rw.database.svc.cluster.local
       PAPERLESS_TIME_ZONE: America/New_York
@@ -54,7 +56,6 @@ spec:
       PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTH_REQUEST_EMAIL
       PAPERLESS_PORT: 8000
       PAPERLESS_OCR_LANGUAGE: eng
-      COMPOSE_PROJECT_NAME: paperless
       USERMAP_GID: 65534
       USERMAP_UID: 65534
       PAPERLESS_URL: https://paperless.kutara.io
@@ -117,4 +118,4 @@ spec:
         memory: 128Mi
       limits:
         cpu: 2500m
-        memory: 1500Mi
+        memory: 6500Mi
