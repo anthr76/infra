@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: metallb
-      version: 0.13.7
+      version: 0.13.9
       sourceRef:
         kind: HelmRepository
         name: metallb-charts
@@ -29,11 +29,8 @@ spec:
         enabled: true
     speaker:
       tolerateMaster: true
-      logLevel: debug
       frr:
         enabled: true
-        image:
-          repository: docker.io/frrouting/frr
     crds:
       enabled: true
   # https://github.com/cilium/cilium/issues/20436
