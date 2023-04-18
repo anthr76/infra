@@ -28,7 +28,7 @@ metadata:
   namespace: kube-system
 spec:
   addresses:
-  - 50.239.94.170/30
+  - 50.239.94.170/32
   - 2001:559:7bd::1eff/126
   avoidBuggyIPs: true
 ---
