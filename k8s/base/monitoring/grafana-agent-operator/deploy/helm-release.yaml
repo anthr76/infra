@@ -10,7 +10,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: agent-operator
+      chart: grafana-agent-operator
       version: 0.2.15
       sourceRef:
         kind: HelmRepository
