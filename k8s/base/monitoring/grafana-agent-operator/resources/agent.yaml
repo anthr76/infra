@@ -1,0 +1,27 @@
+---
+apiVersion: monitoring.grafana.com/v1alpha1
+kind: GrafanaAgent
+metadata:
+  name: grafana-agent
+  namespace: monitoring
+  labels:
+    app: grafana-agent
+spec:
+  image: docker.io/grafana/agent:v0.33.0
+  integrations:
+    selector:
+      matchLabels:
+          agent: grafana-agent-integrations
+  image: docker.io/grafana/agent:v0.33.0
+  logLevel: info
+  serviceAccountName: grafana-agent
+  metrics:
+    instanceSelector:
+      matchLabels:
+        agent: grafana-agent-metrics
+    externalLabels:
+      cluster: cloud
+  logs:
+    instanceSelector:
+      matchLabels:
+        agent: grafana-agent-logs
