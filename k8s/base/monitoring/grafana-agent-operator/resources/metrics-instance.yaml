@@ -292,7 +292,7 @@ spec:
         agent: grafana-agent
   metrics:
     externalLabels:
-      cluster: cloud
+      cluster: scr1-cluster-0
     instanceSelector:
       matchLabels:
         agent: grafana-agent
@@ -375,7 +375,7 @@ spec:
         key: username
         name: logs-secret
     externalLabels:
-      cluster: cloud
+      cluster: scr1-cluster-0
     url: https://logs-prod-017.grafana.net/loki/api/v1/push
   podLogsNamespaceSelector: {}
   podLogsSelector:
