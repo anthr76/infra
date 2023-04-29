@@ -22,6 +22,7 @@ metadata:
   name: agent-eventhandler
   namespace: monitoring
 spec:
+  storageClassName: fast-ceph-block
   accessModes:
   - ReadWriteOnce
   resources:
