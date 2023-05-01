@@ -282,7 +282,7 @@ metadata:
   name: grafana-agent
   namespace: monitoring
 spec:
-  image: grafana/agent:v0.33.0
+  image: grafana/agent:v0.33.1@sha256:ed5bfc0dfbd44ade9eb2507577b2394e29cf3883d30ac6c172e1853355b162fc
   integrations:
     selector:
       matchLabels:
