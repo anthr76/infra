@@ -2,24 +2,24 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/digitalocean/digitalocean" {
-  version     = "2.22.1"
-  constraints = "2.22.1"
+  version     = "2.28.1"
+  constraints = "2.28.1"
   hashes = [
-    "h1:/ldt7yA1gVDeXbxAYRG4ninRCnyggMKtDSVCtwnc/rw=",
-    "h1:1lar5/dEtrdK78g0578U+xuX+XXCm4ZZT85Mk7UhE68=",
-    "h1:1qQcCNZUzF1rRJKI207tq4+JAJRZvqKUgJWxRXCsFPg=",
-    "h1:7XtbrHaPLJGCcvhoqaCgPohevc69y1FcPnFYmAB25ps=",
-    "h1:HF0u3pmSX/KphzxhjQOk9Ui5nktMJbjgosh3/BQiXd8=",
-    "h1:IPhnD6YVcATaU4tkiSo63y4GdTOu4mfPbjKP9MZZrJ4=",
-    "h1:Kwh63iSE0rHSvkJAnCzivz/Z0XZZlBUEalqGAggyUvc=",
-    "h1:QGgEKRagx6OpCdIzIWlyOaeVLiqK8Gvioclcug2c1LU=",
-    "h1:SE5PxoutIYd9uu+9Pk2V6fMD1fTRqTVhXv+Mj0APkxE=",
-    "h1:VMuW3068BLIJ0vFQv4r6FdMfWpRXQVpJR+4pISGMxRs=",
-    "h1:YC0A4TQMwr8PRr6dpYQhbZqChOsWhcov28fEjuOaJho=",
-    "h1:gAAIuYeO4cgT18pmoXc5LfJOr8CarB49y50sAmVVuPA=",
-    "h1:lfvkPIx0UkCuwfGoNYphn0jjSmjhmb9UmbB/B7aNNXg=",
-    "h1:oHvL2PsTrGDj/DhxNkdq4hOBe6o4LqgnAtY0pPHG0+w=",
-    "h1:rvd+dePptSCdJSsKeknQFOAtTurTHmzNvUZY5ZX3OB8=",
-    "h1:xP2A36tfsjlUXvHko7ppy8jKuRrcZnEZPzRszEr6Ufc=",
+    "h1:01/5WNolFWSt/ZE0YLb+JWr4Zpdst4UA5ZIZYKl9Yts=",
+    "h1:4qJ8d8yjIf9866IrjUqUEePtjfBk2k4aby6oz4QSePs=",
+    "h1:BtXT/8oFRJKufrsgExsjmFrarVnDxMImfbefg3ZBShQ=",
+    "h1:FskzN+GiDTXVjJvLmdw8Hj6pIhLbN7T0speosrqwnac=",
+    "h1:SYehGwIm90Pbv9JCJ+9bMWdTrNCkUo5hhycsimB1OLA=",
+    "h1:WGr2grD8g+qyqNyQPJKCraGwPiEl/Sgk7QjnDauTkGc=",
+    "h1:aSxcSWa0wQQGLW2/XyivecmR/BL9fVtw42Bg2UngmT0=",
+    "h1:aX69+9V/jUTjKyvKU1ALdwsETPgNysRW0epewfKR02s=",
+    "h1:bjUNGmY2UV5xILbX/HY9/qOzxVzcHPqT89TTESLk4p4=",
+    "h1:bwf8OuXTm95+liFiEz1Jopi+eKyXX3CGEDVYoXWrQ8s=",
+    "h1:gL8vGZLJ8nbGAbT25Wq98cE+OlQE/cScKbIJ+cVhLi0=",
+    "h1:gwQEJc5ehBp3UsAQ8+euWvJeSoSJZc6tGdo2PKsucVE=",
+    "h1:htToNXQXbdW6JnyJhLzIOU0Ir7DaaL+ndL8GY6lBT/A=",
+    "h1:uA5JelRCf4jIvyn+X9FbO5MmAV67Jxw1GEFcPMB+iQw=",
+    "h1:vQLbGapH57do82BFLqI9XLyLIy/K/ucSVXOlbNFICkk=",
+    "h1:ziUR/YMhZksDWApo/+P0NnoROoLpzUbcSB+ph/mZqWI=",
   ]
 }
