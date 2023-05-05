@@ -45,7 +45,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/radarr-nightly
-      tag: 4.5.1.7200@sha256:0f1cec3179dfd5080ff4bb37e12581ddf196a056f49297e1102f5b18554c444d
+      tag: 4.5.1.7202@sha256:d01cf31f8e957fc8119945587f6d1ad4e4fd3fdbd860b5858b82928786179bc3
     env:
       TZ: "America/New_York"
       RADARR__LOG_LEVEL: info
