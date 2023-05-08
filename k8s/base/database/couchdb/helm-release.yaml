@@ -1,0 +1,58 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: couchdb-obsidian-livesync
+  namespace: database
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: couchdb
+      version: 4.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: couchdb-charts
+        namespace: flux-system
+      interval: 15m
+  values:
+    autoSetup:
+      enabled: true
+    couchdbConfig:
+      couchdb:
+        max_document_size: 50000000
+        uuid: 784bf5bd-6e2f-4ae8-8dd7-a61fc0423015
+      chttpd:
+        bind_address: any
+        require_valid_user: true
+        max_http_request_size: 4294967296
+      chttpd_auth:
+        require_valid_user: true
+        max_http_request_size: /e=_/_utils/session.html
+      httpd:
+        WWW-Authenticate: "Basic realm=\"couchdb\""
+        enable_cors: true
+      cors:
+        origins: "app://obsidian.md,capacitor://localhost,http://localhost"
+        credentials: true
+        headers: "accept, authorization, content-type, origin, referer"
+        methods: "GET, PUT, POST, HEAD, DELETE"
+        max_age: 3600
+    persistentVolume:
+      enabled: true
+      storageClass: fast-ceph-block
+    image:
+      repository: docker.io/library/couchdb
+      tag: 3.3.2
+    ingress:
+      enabled: true
+      className: nginx
+      hosts:
+        - obsidian-livesync.scr1.rabbito.tech
+      path: /
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+      tls:
+        - secretName: obsidian-int-livesync-tls
+          hosts:
+            - obsidian-livesync.scr1.rabbito.tech
