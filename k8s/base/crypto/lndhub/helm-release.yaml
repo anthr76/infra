@@ -42,7 +42,7 @@ spec:
                 key: postgresql-password
     image:
       repository: ghcr.io/getalby/lndhub.go
-      tag: 0.13.0
+      tag: 0.14.0
     env:
       ENABLE_PROMETHEUS: "true"
       JWT_ACCESS_EXPIRY: "172800"
