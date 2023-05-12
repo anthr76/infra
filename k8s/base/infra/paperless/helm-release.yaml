@@ -58,7 +58,7 @@ spec:
       PAPERLESS_OCR_LANGUAGE: eng
       USERMAP_GID: 65534
       USERMAP_UID: 65534
-      PAPERLESS_URL: https://paperless.kutara.io
+      PAPERLESS_URL: https://paperless.scr1.rabbito.tech
     envFrom:
       - secretRef:
           name: paperless
@@ -105,11 +105,11 @@ spec:
           hajimari.io/icon: file-outline
           nginx.ingress.kubernetes.io/proxy-body-size: 4G
         hosts:
-          - host: &host "paperless.kutara.io"
+          - host: &host "paperless.scr1.rabbito.tech"
             paths:
               - path: /
         tls:
-          - secretName: paperless-tls
+          - secretName: paperless-int-tls
             hosts:
               - *host
     resources:
