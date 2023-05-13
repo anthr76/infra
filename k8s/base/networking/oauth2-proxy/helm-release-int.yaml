@@ -76,7 +76,7 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         hosts:
-          - host: &host "auth.rabbito.tech"
+          - host: &host "auth.scr1.rabbito.tech"
             paths:
               - path: /oauth2
                 pathType: Prefix

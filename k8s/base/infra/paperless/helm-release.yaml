@@ -99,8 +99,8 @@ spec:
           nginx.ingress.kubernetes.io/custom-http-errors: 401,403,404,500,501,502,503
           nginx.ingress.kubernetes.io/auth-response-headers: Authorization, x-auth-request-email,
             x-auth-request-groups
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.rabbito.tech/oauth2/start
-          nginx.ingress.kubernetes.io/auth-url: https://auth.rabbito.tech/oauth2/auth?allowed_groups=family
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.scr1.rabbito.tech/oauth2/start
+          nginx.ingress.kubernetes.io/auth-url: https://auth.scr1.rabbito.tech/oauth2/auth?allowed_groups=family
           hajimari.io/enable: "true"
           hajimari.io/icon: file-outline
           nginx.ingress.kubernetes.io/proxy-body-size: 4G
