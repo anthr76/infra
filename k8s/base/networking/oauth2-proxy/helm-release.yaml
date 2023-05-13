@@ -7,17 +7,82 @@ metadata:
   labels:
     component.kutara.io/part-of: standard-helm-release
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
-      chart: oauth2-proxy
-      version: 6.2.1
+      chart: app-template
+      version: 1.5.0
+      interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: oauth2-proxy-charts
+        name: bjw-s
         namespace: flux-system
-      interval: 10m
   values:
+    controller:
+      replicas: 3
+      strategy: RollingUpdate
+    podAnnotations:
+      secret.reloader.stakater.com/reload: oauth2-proxy
+    image:
+      repository: quay.io/oauth2-proxy/oauth2-proxy
+      tag: v7.4.0
+    env:
+      OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
+      OAUTH2_PROXY_METRICS_ADDRESS: 0.0.0.0:44180
+      OAUTH2_CODE_CHALLENGE_METHOD: S256
+      OAUTH2_COOKIE_DOMAINS: kutara.io
+      OAUTH2_PROXY_COOKIE_SECRET:
+        valueFrom:
+          secretKeyRef:
+            name: oauth2-proxy
+            key: cookie-secret
+      OAUTH2_PROXY_COOKIE_SECURE: true
+      OAUTH2_PROXY_EMAIL_DOMAINS: "*"
+      OAUTH2_PROXY_SCOPE: "openid profile email"
+      OAUTH2_PROXY_PROVIDER: oidc
+      OAUTH2_PROXY_OIDC_ISSUER_URL: https://kutara-dev.us.auth0.com/
+      OAUTH2_PROXY_CLIENT_ID:
+        valueFrom:
+          secretKeyRef:
+            name: oauth2-proxy
+            key: client-id
+      OAUTH2_PROXY_CLIENT_SECRET:
+        valueFrom:
+          secretKeyRef:
+            name: oauth2-proxy
+            key: client-secret
+      OAUTH2_PROXY_OIDC_GROUPS_CLAIM: https://kutara/groups
+      OAUTH2_PROXY_SESSION_STORE_TYPE: redis
+      OAUTH2_PROXY_REDIS_CONNECTION_URL: redis://redis-master.database.svc.cluster.local:6379
+      OAUTH2_PROXY_REDIS_PASSWORD: ""
+      OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: true
+      OAUTH2_PROXY_PASS_ACCESS_TOKEN: true
+      OAUTH2_PROXY_PASS_USER_HEADERS: true
+      OAUTH2_PROXY_PREFER_EMAIL_TO_USER: true
+      OAUTH2_PROXY_SET_AUTHORIZATION-HEADER: true
+      OAUTH2_PROXY_SET_XAUTHREQUEST: true
+      OAUTH2_PROXY_REVERSE_PROXY: true
+      OAUTH2_PROXY_WHITELIST_DOMAINS: .kutara.io
+    service:
+      main:
+        ports:
+          http:
+            port: 4180
+          metrics:
+            port: 44180
+            enabled: true
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        hosts:
+          - host: &host "auth.kutara.io"
+            paths:
+              - path: /oauth2
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
     resources:
       requests:
         cpu: 15m
@@ -25,40 +90,3 @@ spec:
       limits:
         cpu: 20m
         memory: 105M
-    replicaCount: 3
-    image:
-      repository: quay.io/oauth2-proxy/oauth2-proxy
-      tag: v7.2.1
-    config:
-      existingSecret: oauth2-proxy
-      configFile: |-
-        email_domains = [ '*' ]
-        upstreams = [ "static://200" ]
-        silence_ping_logging = true
-    extraArgs:
-      cookie-domain: kutara.io
-      cookie-secure: true
-      oidc-groups-claim: https://kutara.io/groups
-      oidc-issuer-url: https://kutara-dev.us.auth0.com/
-      pass-authorization-header: true
-      pass-user-headers: true
-    # code-challenge-method: S256
-      prefer-email-to-user: true
-      provider: oidc
-      set-authorization-header: true
-      set-xauthrequest: true
-      skip-provider-button: null
-      whitelist-domain: .kutara.io
-      reverse-proxy: true
-    ingress:
-      enabled: true
-      className: nginx
-      path: /oauth2
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production
-      hosts:
-        - auth.kutara.io
-      tls:
-        - hosts:
-            - auth.kutara.io
-          secretName: oauth2-tls
