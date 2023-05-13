@@ -73,6 +73,8 @@ spec:
             enabled: true
     ingress:
       main:
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
         enabled: true
         ingressClassName: "nginx"
         hosts:
@@ -81,7 +83,8 @@ spec:
               - path: /oauth2
                 pathType: Prefix
         tls:
-          - hosts:
+          - secretName: oauth2-ext-tls
+            hosts:
               - *host
     resources:
       requests:

@@ -74,15 +74,18 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
         hosts:
-          - host: &host "auth.scr1.rabbito.tech"
-            paths:
-              - path: /oauth2
-                pathType: Prefix
+        - host: auth.scr1.rabbito.tech
+          paths:
+          - path: /oauth2
+            pathType: Prefix
+        ingressClassName: nginx
         tls:
-          - hosts:
-              - *host
+        - secretName: oauth2-int-tls
+          hosts:
+          - auth.scr1.rabbito.tech
     resources:
       requests:
         cpu: 15m
