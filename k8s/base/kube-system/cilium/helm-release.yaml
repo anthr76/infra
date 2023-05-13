@@ -45,7 +45,7 @@ spec:
         - icmp
         - http
         serviceMonitor:
-          enabled: true
+          enabled: false
       relay:
         enabled: true
       ui:
@@ -75,11 +75,11 @@ spec:
       prometheus:
         enabled: true
         serviceMonitor:
-          enabled: true
+          enabled: false
     prometheus:
       enabled: true
       serviceMonitor:
-        enabled: true
+        enabled: false
     securityContext:
       privileged: true
     tunnel: disabled
