@@ -130,7 +130,7 @@ spec:
         tag: 2.21.0
       extraEnvs:
         - name: TEMPLATE_NAME
-          value: lost-in-space
+          value: connection
         - name: SHOW_DETAILS
           value: "false"
       resources:
