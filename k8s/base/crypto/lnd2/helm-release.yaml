@@ -17,7 +17,7 @@ spec:
   chart:
     spec:
       chart: lnd
-      version: 0.4.9
+      version: 0.4.11
       sourceRef:
         kind: HelmRepository
         name: galoymoney
