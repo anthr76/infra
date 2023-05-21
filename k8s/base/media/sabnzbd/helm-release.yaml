@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/sabnzbd
-      tag: 3.7.2@sha256:cbc7bdb5c70c75dc07eb7c2f967dfb74c48c4cf2531c28e81cff8d72f76cfc8c
+      tag: 4.0.1@sha256:8c1f42be3ae0770ad80921780e22f0cdc09197483752ec13a808a35e60bb5496
     env:
       TZ: "America/New_York"
       HOST_WHITELIST_ENTRIES: >-
