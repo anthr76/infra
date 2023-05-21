@@ -72,7 +72,7 @@ module "bootstrap" {
 
 module "sa_tf_seed_ro" {
   source     = "terraform-google-modules/service-accounts/google"
-  version    = "4.2.0"
+  version    = "4.2.1"
   project_id = module.bootstrap.seed_project_id
   prefix     = ""
   names      = ["tf-seed-viewer"]
