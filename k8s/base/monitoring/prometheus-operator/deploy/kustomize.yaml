@@ -2,30 +2,30 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: kubelet-serving-cert-approver
-  namespace: flux-system
+  name: prometheus-operator-deploy
+  namespace: monitoring
 spec:
   interval: 10m0s
   ref:
-    tag: v0.6.10
-  url: https://github.com/alex1989hu/kubelet-serving-cert-approver
+    tag: v0.65.1
+  url: https://github.com/prometheus-operator/prometheus-operator.git
   ignore: |
     # exclude all
     /*
     # include gitops dirs
-    !/deploy
+    !bundle.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: kubelet-serving-cert-approver
-  namespace: flux-system
+  name: prometheus-operator-deploy
+  namespace: monitoring
 spec:
   interval: 10m0s
-  path: ./deploy/standalone
   prune: true
   wait: true
-  targetNamespace: kube-system
+  targetNamespace: monitoring
   sourceRef:
     kind: GitRepository
-    name: kubelet-serving-cert-approver
+    name: prometheus-operator-deploy
+

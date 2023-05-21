@@ -1,0 +1,28 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  replicaExternalLabelName: "__replica__"
+  externalLabels:
+    cluster: scr1-cluster-0
+  replicas: 2
+  retentionSize: "6GB"
+  retention: 2d
+  serviceMonitorSelector: {}
+  storageSpec:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: "fast-ceph-block"
+        resources:
+          requests:
+            storage: 10Gi
+  resources:
+    requests:
+      cpu: 850m
+      memory: 2800Mi
+    limits:
+      cpu: 2000m
+      memory: 4000Mi
