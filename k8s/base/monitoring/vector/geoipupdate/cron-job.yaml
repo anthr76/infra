@@ -19,7 +19,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: vector-geoipupdate
-              image: docker.io/maxmindinc/geoipupdate:v4.11@sha256:c08dab97aa1ea18a64df575d9380d459f87f8abbc54edb74d42cf73f69fe966e
+              image: docker.io/maxmindinc/geoipupdate:v5.1@sha256:21f3505e3ac624da5842b30c6c4e05df5ff340f4cb09d428185a9f27ad4fd5c2
               imagePullPolicy: IfNotPresent
               lifecycle:
                 preStop:
