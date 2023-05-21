@@ -58,13 +58,13 @@ provider "registry.terraform.io/dmacvicar/libvirt" {
 }
 
 provider "registry.terraform.io/poseidon/ct" {
-  version     = "0.11.0"
-  constraints = "0.11.0"
+  version     = "0.13.0"
+  constraints = "0.13.0"
   hashes = [
-    "h1:91Xdcfd+Z8jbDW6434iUGAXU7yq5Nx2G+tG25DKe/qk=",
-    "h1:CXw6rEXbGvO+1en8nviruLjuvKfDyJmphkwlEwcT9PQ=",
-    "h1:Xwk15V79x2Msl8ScY3duk/wfHWB0ZN60pHE734eGCOs=",
-    "h1:tHMDZhzgfaNOwCwskfsm/JjW3XLmPymmxgPjQOrhLtg=",
-    "h1:vsSet6gnO4AbOK4jRfiS1hmPvoyOzigtgMojDsqSW4E=",
+    "h1:/Mlfxihir18D8Y+O4CAtY4ia8E2zZi8o2Q0Q0ZBA7aE=",
+    "h1:cPC6FDr1mKDgzlyaQc4jUALErH0H6ugCM+5mlUnFM9o=",
+    "h1:jZusJZjbV+TZ2lxKaVopvRRrKDWAb2Sq1AUEtgI2xIE=",
+    "h1:sTtlmMjbYiIuaad/23wVrOCSlihKaurcf2668M3ZWio=",
+    "h1:ztsY6QOYlAx/Tz2tGsIP3vlruN1xcDPRZXBh65KkW8c=",
   ]
 }
