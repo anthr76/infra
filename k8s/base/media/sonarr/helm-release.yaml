@@ -84,9 +84,6 @@ spec:
         size: 10Gi
         storageClass: fast-ceph-block
     persistence:
-      config:
-        enabled: true
-        existingClaim: sonarr-config-v4
       media:
         enabled: true
         existingClaim: media-v2

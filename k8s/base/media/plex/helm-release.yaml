@@ -20,7 +20,7 @@ spec:
   values:
     priorityClassName: media-cluster-critical
     controller:
-      strategy: RollingUpdate
+      type: statefulset
     image:
       repository: ghcr.io/onedr0p/plex-amd
       tag: 1.31.3.6868-28fc46b27
@@ -122,10 +122,13 @@ spec:
           - secretName: plex-tls
             hosts:
               - "plex.kutara.io"
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 50Gi
+        storageClass: fast-ceph-block
     persistence:
-      config:
-        enabled: true
-        existingClaim: plex-config-v2
       media:
         enabled: true
         existingClaim: media-v2
