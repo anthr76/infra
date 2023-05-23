@@ -18,6 +18,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    controller:
+      type: statefulset
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
       tag: 4.0.0.517@sha256:d84370f20b4d1800ce847594824a49b80a3c03f0bad0856367704dd4cc76cfde
