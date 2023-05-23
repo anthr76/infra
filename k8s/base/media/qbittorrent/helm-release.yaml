@@ -19,6 +19,7 @@ spec:
       interval: 5m
   values:
     controller:
+      type: statefulset
     image:
       repository: ghcr.io/onedr0p/qbittorrent
       tag: 4.5.2@sha256:0efdd8d3ef3964d658d78ea7789efa285e9c01d1d436da2903cfde462a7fe67a
@@ -76,10 +77,13 @@ spec:
       runAsGroup: 568
       fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        storageClass: fast-ceph-block
     persistence:
-      config:
-        enabled: true
-        existingClaim: qbittorrent-config-v2
       media:
         enabled: true
         existingClaim: media-v2
