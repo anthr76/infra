@@ -23,7 +23,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/onedr0p/plex-amd
-      tag: 1.32.2.7100-248a2daf0
+      tag: 1.31.3.6868-28fc46b27
     env:
       TZ: "America/New_York"
     securityContext:
