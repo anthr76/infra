@@ -53,6 +53,11 @@ spec:
       ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
       ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
       ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://espressif.scr1.rabbito.tech:6638
+    service:
+      main:
+        ports:
+          http:
+            port: *port
     ingress:
       main:
         enabled: true
