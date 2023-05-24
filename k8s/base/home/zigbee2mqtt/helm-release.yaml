@@ -31,7 +31,7 @@ spec:
       main:
         ports:
           http:
-            port: *port
+            port: 8080
     ingress:
       main:
         enabled: true
