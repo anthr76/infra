@@ -20,7 +20,7 @@ spec:
   values:
     priorityClassName: home-cluster-critical
     controller:
-      strategy: RollingUpdate
+      type: statefulset
     image:
       repository: ghcr.io/koenkk/zigbee2mqtt
       tag: 1.30.4
@@ -82,8 +82,9 @@ spec:
           - secretName: zigbee2mqtt-tls
             hosts:
               - "zigbee2mqtt.scr1.rabbito.tech"
-    persistence:
-      config:
-        enabled: true
-        existingClaim: zigbee2mqtt-config-v2
-        mountPath: "/data"
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /data
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        storageClass: fast-ceph-block
