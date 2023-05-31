@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 10m0s
   ref:
-    tag: v0.65.1
+    tag: v0.65.2
   url: https://github.com/prometheus-operator/prometheus-operator.git
   ignore: |
     # exclude all
