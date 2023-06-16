@@ -29,7 +29,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     image:
       repository: ghcr.io/onedr0p/unpackerr
-      tag: 0.11.2@sha256:2e11ef1736feecafc092cf8428ed051513a5d1c09cde63af70b697c729f5affb
+      tag: 0.11.2@sha256:74d53999ade288a9980945d6f93028e177ef635f5aee02439b9d62fb7dcdbfd1
     env:
       TZ: America/New_York
       UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
