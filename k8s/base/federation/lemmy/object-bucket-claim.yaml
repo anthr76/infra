@@ -1,0 +1,9 @@
+---
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: pictrs-bucket-v1
+  namespace: federation
+spec:
+  bucketName: pictrs-v1
+  storageClassName: slow-ceph-bucket
