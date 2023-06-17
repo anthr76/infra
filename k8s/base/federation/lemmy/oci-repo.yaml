@@ -1,0 +1,11 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: lemmy-ks
+  namespace: federation
+spec:
+  interval: 5m
+  url: oci://ghcr.io/anthr76/lemmy-ks
+  ref:
+    tag: 0.1.2
