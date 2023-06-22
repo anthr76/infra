@@ -8,4 +8,4 @@ spec:
   interval: 5m
   url: oci://ghcr.io/anthr76/lemmy-ks
   ref:
-    tag: 5a7456c
+    tag: 448fe89
