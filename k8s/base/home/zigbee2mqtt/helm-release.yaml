@@ -23,7 +23,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/koenkk/zigbee2mqtt
-      tag: 1.31.0
+      tag: 1.31.0@sha256:86d5d4e178ec3003ac8a68adc7fbbf8ff76422da1e1290fe82f6ec468c198c15
     env:
       TZ: America/New_York
       ZIGBEE2MQTT_DATA: /data

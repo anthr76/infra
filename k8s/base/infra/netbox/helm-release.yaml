@@ -21,7 +21,7 @@ spec:
     image:
       repository: quay.io/tgenannt/netbox
       pullPolicy: IfNotPresent
-      tag: "v3.3.1"
+      tag: "v3.3.1@sha256:fd3305b63b14352b288d591cf0c711afba2b53c34b858c5d95da48cd2e3285f1"
     superuser:
       name: admin
       email: hello@anthonyrabbito.com
@@ -108,7 +108,7 @@ spec:
     init:
       image:
         repository: docker.io/library/busybox
-        tag: 1.36.1
+        tag: 1.36.1@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
         pullPolicy: IfNotPresent
     updateStrategy:
       type: RollingUpdate

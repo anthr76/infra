@@ -28,7 +28,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/timberio/vector
-      tag: 0.30.0-debian
+      tag: 0.30.0-debian@sha256:7e0709e6f8a82ccda3e84d744175a3386b50af54a3d7bcd9f236333fec721b2e
     args: ["--config", "/etc/vector/vector.yaml"]
     service:
       main:

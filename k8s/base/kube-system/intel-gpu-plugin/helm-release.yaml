@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: ghcr.io/k8s-at-home/intel-gpu-plugin
-      tag: v0.22.0
+      tag: v0.22.0@sha256:6248fab0130d120e6b6197c8e10ce85eecb6fbe05bc012fb0a93057d4b111755
       pullPolicy: IfNotPresent
     args:
       - -shared-dev-num

@@ -20,11 +20,11 @@ spec:
   values:
     image:
       repository: ghcr.io/k8snetworkplumbingwg/multus-cni
-      tag: v4.0.2
+      tag: v4.0.2@sha256:825aa0a2572184b1475736f95927c52823e00e3db9930f3d41ce0f6e4bacfc49
     cni:
       image:
         repository: ghcr.io/k8s-at-home/cni-plugins
-        tag: v1.1.1
+        tag: v1.1.1@sha256:edd92b50273c353b86b0ef1f5839940ea2b7e0a82e9c9600dd07a129aaeca7e1
       version: "0.3.1"
       paths:
         bin: /opt/cni/bin

@@ -53,7 +53,7 @@ spec:
         enabled: false
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2023.5.4
+      tag: 2023.5.4@sha256:2c631c99d7078072126e50050b57042ec5548b721f089a87e76dfb24c1071a83
     env:
       TZ: "America/New_York"
     envFrom:

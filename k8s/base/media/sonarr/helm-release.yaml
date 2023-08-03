@@ -72,7 +72,7 @@ spec:
       exporter:
         image:
           repository: ghcr.io/onedr0p/exportarr
-          tag: v1.5.1
+          tag: v1.5.1@sha256:7c3e15d9e745b32e6913c65f0c830cd0df70afd0ccab16aeef48d74755ebd724
         env:
           port: 9794
           additionalMetrics: true

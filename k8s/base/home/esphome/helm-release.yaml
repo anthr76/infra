@@ -32,7 +32,7 @@ spec:
             mountPath: /config
     image:
       repository: ghcr.io/esphome/esphome
-      tag: 2023.5.5
+      tag: 2023.5.5@sha256:4ec3e8cb9ef8110fb844253e9cb890252109a49b43d5e2e5efb6fb7f2bd90a91
     env:
       TZ: "America/New_York"
       ESPHOME_DASHBOARD_USE_PING: true

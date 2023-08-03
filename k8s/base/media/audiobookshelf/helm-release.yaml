@@ -22,7 +22,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/advplyr/audiobookshelf
-      tag: 2.2.22
+      tag: 2.2.22@sha256:085f8365fe5e556cb83920055495e55c968378564623334b640d5c28ffe1a67b
     env:
       TZ: "America/New_York"
       AUDIOBOOKSHELF_UID: 568

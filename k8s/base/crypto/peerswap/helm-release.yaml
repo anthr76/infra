@@ -24,7 +24,7 @@ spec:
         configmap.reloader.stakater.com/reload: "peerswap"
     image:
       repository: ghcr.io/anthr76/peerswap
-      tag: 0.2.97
+      tag: 0.2.97@sha256:5c0173f16d4dd4532055a2ed18b5c3308485bd36aadb19af3163a0c89764080f
     args:
       - --host=0.0.0.0:42069
       - --resthost=0.0.0.0:42070

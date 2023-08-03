@@ -9,7 +9,7 @@ spec:
   provider: generic
   url: oci://ghcr.io/kyverno/manifests/kyverno
   ref:
-    tag: "v1.10.0"
+    tag: "v1.10.0@sha256:1ba1aef95889488278330a618e170063e5d1a949b7b683e52c9fdd9fb9cd837a"
   verify:
     provider: cosign
 ---

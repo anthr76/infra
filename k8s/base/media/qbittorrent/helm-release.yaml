@@ -63,7 +63,7 @@ spec:
       exporter:
         image:
           repository: docker.io/esanchezm/prometheus-qbittorrent-exporter
-          tag: v1.2.0
+          tag: v1.2.0@sha256:acca6460bc9bf69d755b2b8205a22ce8c3df91d9020f3fbc4b1cd0aa9d9c1ef3
       serviceMonitor:
         interval: 1m
         scrapeTimeout: 10s

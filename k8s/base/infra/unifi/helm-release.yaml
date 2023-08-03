@@ -20,7 +20,7 @@ spec:
         add: ["NET_BIND_SERVICE"]
     image:
       repository: jacobalberty/unifi
-      tag: v7.3.83
+      tag: v7.3.83@sha256:b2c58b67e8a63d34dab649cd19316c56cf024fa5a76cb224a0fc258b239a14c8
     env:
       RUNAS_UID0: "false"
       BIND_PRIV: "false"
