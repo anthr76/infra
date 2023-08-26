@@ -20,3 +20,14 @@ metadata:
 spec:
   path: "./k8s/base/monitoring/mimir"
   prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: monitoring-mimir
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/monitoring/grafana"
+  prune: true

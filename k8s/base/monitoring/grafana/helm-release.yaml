@@ -46,19 +46,6 @@ spec:
         cpu: 100m
         memory: 128Mi
     replicas: 2
-    autoscaling:
-      enabled: true
-      minReplicas: 2
-      maxReplicas: 5
-      metrics:
-      - type: Resource
-        resource:
-          name: cpu
-          targetAverageUtilization: 60
-      - type: Resource
-        resource:
-          name: memory
-          targetAverageUtilization: 60
     envFromSecret: "grafana"
     admin:
       existingSecret: grafana
@@ -131,56 +118,40 @@ spec:
     datasources:
       datasources.yaml:
         apiVersion: 1
-        # list of datasources that should be deleted from the database
         deleteDatasources:
           - name: Loki
             orgId: 1
         datasources:
-          - name: Prometheus
+          - name: Mimir
             type: prometheus
             access: proxy
-            url: http://thanos-query:9090/
+            orgId: 1
+            url: http://mimir-nginx:80/prometheus
+            version: 1
+            editable: true
+            jsonData:
+              httpHeaderName1: "X-Scope-OrgID"
+              alertmanagerUid: "alertmanager"
             isDefault: true
+          - name: Mimir Alertmanager
+            uid: alertmanager
+            type: alertmanager
+            access: proxy
+            orgId: 1
+            url: http://mimir-nginx:80/alertmanager
+            version: 1
+            editable: true
+            jsonData:
+              httpHeaderName1: "X-Scope-OrgID"
+              implementation: "cortex"
           - name: Loki
             type: loki
             access: proxy
             url: http://loki-gateway:80
-          - name: AlertManager
-            type: alertmanager
-            access: proxy
-            url: http://alertmanager-operated:9093
-            jsonData:
-              implementation: "prometheus"
-#    dashboards:
-#      default:
-#        # Ref: https://grafana.com/grafana/dashboards/15514
-#        cilium-operator:
-#          gnetId: 15514
-#          revision: 1
-#          datasource: Prometheus
-#        # Ref: https://grafana.com/grafana/dashboards/15513
-#        cilium-agent:
-#          gnetId: 15513
-#          revision: 1
-#          datasource: Prometheus
-#        # Ref: https://grafana.com/grafana/dashboards/15513
-#        cilium-hubble:
-#          gnetId: 15515
-#          revision: 1
-#          datasource: Prometheus
-#        # Ref: https://grafana.com/grafana/dashboards/9628
-#        postgresql-exporter:
-#          gnetId: 9628
-#          datasource: Prometheus
-#          revision: 1
     sidecar:
       dashboards:
         enabled: true
         searchNamespace: ALL
-        # folderAnnotation: grafana_folder
-        # multicluster: false
-        # provider:
-        #   foldersFromFilesStructure: true
       datasources:
         enabled: true
         searchNamespace: ALL
