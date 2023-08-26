@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pvc-pod
+  namespace: media
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: config-qbittorrent-0
+  containers:
+    - name: task-pv-container
+      image: docker.io/library/debian
+      command: [ "/bin/bash", "-c", "--" ]
+      args: [ "while true; do sleep 180; done;" ]
+      volumeMounts:
+        - mountPath: "/data"
+          name: task-pv-storage
