@@ -25,6 +25,8 @@ spec:
       tag: 4.5.2@sha256:0efdd8d3ef3964d658d78ea7789efa285e9c01d1d436da2903cfde462a7fe67a
     env:
       TZ: "America/New_York"
+      QBT_Preferences__WebUI__AlternativeUIEnabled: "true"
+      QBT_Preferences__WebUI__RootFolder: /add-ons/VueTorrent
     service:
       main:
         ports:
@@ -88,6 +90,9 @@ spec:
         enabled: true
         existingClaim: media-v2
         mountPath: /media
+      add-ons:
+        enabled: true
+        type: emptyDir
     resources:
       requests:
         memory: 25Mi
@@ -105,3 +110,14 @@ spec:
                   operator: In
                   values:
                     - "true"
+    sidecars:
+      vuetorrent:
+        image: registry.k8s.io/git-sync/git-sync:v3.6.6
+        imagePullPolicy: IfNotPresent
+        args:
+          - --repo=https://github.com/WDaan/VueTorrent
+          - --branch=latest-release
+          - --wait=86400 # 1 day
+          - --root=/add-ons
+        volumeMounts:
+          - { name: add-ons, mountPath: /add-ons }
