@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: rook-ceph-namespace
@@ -10,7 +10,7 @@ spec:
   path: "./k8s/base/rook-ceph"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: rook-ceph-operator
@@ -21,7 +21,7 @@ spec:
   path: "./k8s/base/rook-ceph/operator"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: rook-ceph-cluster
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: rook-ceph-snapshot-controller-crds
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: rook-ceph-volume-replication-crds
@@ -45,7 +45,7 @@ spec:
   path: "./k8s/base/rook-ceph/volume-replication-crds"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: rook-ceph-volume-replication-class
@@ -58,7 +58,7 @@ spec:
   dependsOn:
     - name: rook-ceph-volume-replication-crds
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: rook-ceph-snapshot-controller-crds
@@ -69,7 +69,7 @@ spec:
   path: "./k8s/base/rook-ceph/snapshot-controller-crds"
   prune: true
 # ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
 #   name: rook-ceph-gemini

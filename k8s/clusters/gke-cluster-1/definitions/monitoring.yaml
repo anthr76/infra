@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-namespace
@@ -10,7 +10,7 @@ spec:
   path: "./k8s/base/monitoring"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-kps-crds
@@ -21,7 +21,7 @@ spec:
   path: "./k8s/base/monitoring/kube-prometheus-stack/crds"
   prune: false
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-kps
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: monitoring-kps-crds
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-prometheus-rules
@@ -47,7 +47,7 @@ spec:
   dependsOn:
     - name: monitoring-kps
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-thanos
@@ -58,7 +58,7 @@ spec:
   path: "./k8s/base/monitoring/thanos"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-thanos-observer
@@ -72,7 +72,7 @@ spec:
     - name: monitoring-thanos
     - name: monitoring-kps
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-grafana
@@ -83,7 +83,7 @@ spec:
   path: "./k8s/base/monitoring/grafana"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-loki
@@ -94,7 +94,7 @@ spec:
   path: "./k8s/base/monitoring/loki"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-vector-agent
@@ -105,7 +105,7 @@ spec:
   path: "./k8s/base/monitoring/vector/agent"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-vector-aggregator
@@ -116,7 +116,7 @@ spec:
   path: "./k8s/base/monitoring/vector/aggregator"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-snmp-exporter-ups
@@ -127,7 +127,7 @@ spec:
   path: "./k8s/base/monitoring/snmp-exporter-ups"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-goldilocks
@@ -138,7 +138,7 @@ spec:
   path: "./k8s/base/monitoring/goldilocks"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: monitoring-shelly-mqtt2prometheus

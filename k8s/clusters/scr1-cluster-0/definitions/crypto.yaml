@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: crypto
@@ -10,7 +10,7 @@ spec:
   path: "./k8s/base/crypto"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: crypto-bitcoind
@@ -21,7 +21,7 @@ spec:
   path: "./k8s/base/crypto/bitcoind"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: crypto-lnd
@@ -32,7 +32,7 @@ spec:
   path: "./k8s/base/crypto/lnd"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: crypto-lnd2
@@ -43,7 +43,7 @@ spec:
   path: "./k8s/base/crypto/lnd2"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: crypto-rtl
@@ -54,7 +54,7 @@ spec:
   path: "./k8s/base/crypto/rtl"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: crypto-lndhub
@@ -65,7 +65,7 @@ spec:
   path: "./k8s/base/crypto/lndhub"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: crypto-peerswap

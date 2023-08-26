@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: sway-sig
@@ -10,7 +10,7 @@ spec:
   path: "./k8s/base/sway-sig"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: sway-sig-webserver
@@ -23,7 +23,7 @@ spec:
   dependsOn:
     - name: sway-sig
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: sway-sig-s3
@@ -36,7 +36,7 @@ spec:
   dependsOn:
     - name: sway-sig
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: sway-sig-kickstarts
@@ -49,7 +49,7 @@ spec:
   dependsOn:
     - name: sway-sig
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: sway-sig-ostree
@@ -62,7 +62,7 @@ spec:
   dependsOn:
     - name: sway-sig
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: sway-sig-eventlisteners

@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-namespace
@@ -10,7 +10,7 @@ spec:
   path: "./k8s/base/media"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-prowlarr
@@ -21,7 +21,7 @@ spec:
   path: "./k8s/base/media/prowlarr"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-radarr
@@ -32,7 +32,7 @@ spec:
   path: "./k8s/base/media/radarr"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-sonarr
@@ -43,7 +43,7 @@ spec:
   path: "./k8s/base/media/sonarr"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-qbittorrent
@@ -54,7 +54,7 @@ spec:
   path: "./k8s/base/media/qbittorrent"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-sabnzbd
@@ -65,7 +65,7 @@ spec:
   path: "./k8s/base/media/sabnzbd"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-plex
@@ -76,7 +76,7 @@ spec:
   path: "./k8s/base/media/plex"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-overseerr
@@ -87,7 +87,7 @@ spec:
   path: "./k8s/base/media/overseerr"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-bazarr
@@ -98,7 +98,7 @@ spec:
   path: "./k8s/base/media/bazarr"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-recyclarr
@@ -110,7 +110,7 @@ spec:
   path: "./k8s/base/media/recyclarr"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-lidarr
@@ -121,7 +121,7 @@ spec:
   path: "./k8s/base/media/lidarr"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-unpackerr
@@ -132,7 +132,7 @@ spec:
   path: "./k8s/base/media/unpackerr"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-tautulli
@@ -143,7 +143,7 @@ spec:
   path: "./k8s/base/media/tautulli"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-tvheadend
@@ -154,7 +154,7 @@ spec:
   path: "./k8s/base/media/tvheadend"
   prune: true
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: media-calibre-web
