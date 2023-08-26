@@ -68,7 +68,8 @@ spec:
         root_url: "https://grafana.kutara.io"
         serve_from_sub_path: false
       auth:
-        oauth_auto_login: false
+        oauth_auto_login: true
+        oauth_allow_insecure_email_lookup: true
       auth.generic_oauth:
         enabled: true
         allow_sign_up: true
