@@ -79,7 +79,8 @@ spec:
         api_url: https://kutara-dev.us.auth0.com/userinfo
         use_pkce: true
       auth.generic_oauth.group_mapping:
-        role_attribute_path: contains("https://kutara/groups"[*], 'admins') && 'Admin' || contains("https://kutara/groups"[*], 'editor') && 'Viewer'
+        role_attribute_path: |
+          contains("https://kutara/groups"[*], 'admins') && 'Admin' || contains("https://kutara/groups"[*], 'grafana-viewer') && 'Viewer'
         org_id: 1
       auth.basic:
         enabled: false
