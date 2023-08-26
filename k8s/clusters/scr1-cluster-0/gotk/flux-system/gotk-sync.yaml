@@ -116,7 +116,7 @@ spec:
               name: sops-age
           patches:
             - patch: |-
-                apiVersion: helm.toolkit.fluxcd.io/v2beta1
+                apiVersion: helm.toolkit.fluxcd.io/v1
                 kind: HelmRelease
                 metadata:
                   name: not-used
@@ -150,5 +150,5 @@ spec:
       target:
         kind: Kustomization
         group: kustomize.toolkit.fluxcd.io
-        version: v1beta2
+        version: v1
         labelSelector: "component.kutara.io/part-of=definitions"
