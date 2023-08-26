@@ -82,14 +82,9 @@ spec:
         role_attribute_path: contains("https://kutara.io/groups"[*], 'admins') && 'Admin' || contains("https://kutara.io/groups"[*], 'editor') && 'Editor' || 'Viewer'
         org_id: 1
       auth.basic:
-        enabled: false
+        enabled: true
       auth.anonymous:
         enabled: false
-      paths:
-        data: /var/lib/grafana/data
-        logs: /var/log/grafana
-        plugins: /var/lib/grafana/plugins
-        provisioning: /etc/grafana/provisioning
       plugins:
         enable_alpha: true
       analytics:
@@ -103,18 +98,6 @@ spec:
         mode: console
       grafana_net:
         url: https://grafana.net
-    dashboardProviders:
-      dashboardproviders.yaml:
-        apiVersion: 1
-        providers:
-          - name: "default"
-            orgId: 1
-            folder: ""
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/default
     datasources:
       datasources.yaml:
         apiVersion: 1
