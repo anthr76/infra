@@ -82,7 +82,7 @@ spec:
         role_attribute_path: contains("https://kutara/groups"[*], 'admins') && 'Admin' || contains("https://kutara/groups"[*], 'editor') && 'Viewer'
         org_id: 1
       auth.basic:
-        enabled: true
+        enabled: false
       auth.anonymous:
         enabled: false
       plugins:
