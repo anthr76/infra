@@ -2,7 +2,7 @@
 clusterName: scr1-cluster-0
 
 talosVersion: v1.2.5
-kubernetesVersion: 1.24.7
+kubernetesVersion: 1.24.9
 endpoint: "https://cluster-0.scr1.rabbito.tech:6443"
 
 cniConfig:
@@ -87,7 +87,7 @@ controlPlane:
         extraArgs:
           feature-gates: MixedProtocolLBService=true,ReadWriteOncePod=true,StatefulSetAutoDeletePVC=true
           oidc-client-id: ${oidcClientId}
-          oidc-groups-claim: https://kutara.io/groups
+          oidc-groups-claim: https://kutara/groups
           oidc-groups-prefix: 'oidc:'
           oidc-issuer-url: https://kutara-dev.us.auth0.com/
           oidc-username-claim: email
