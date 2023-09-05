@@ -164,3 +164,14 @@ metadata:
 spec:
   path: "./k8s/base/media/calibre-web"
   prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-samba
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/samba"
+  prune: true

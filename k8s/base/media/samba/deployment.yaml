@@ -1,0 +1,99 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samba-media
+  namespace: media
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: samba-media
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/component: samba
+        app.kubernetes.io/name: samba-media
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: feature.node.kubernetes.io/custom-intel-10g
+                operator: In
+                values:
+                - "true"
+      containers:
+      - env:
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: USERNAME
+              name: samba
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: PASSWORD
+              name: samba
+        - name: TZ
+          value: UTC
+        - name: VETO
+          value: "no"
+        - name: USER
+          value: $(USERNAME);$(PASSWORD);567;$(USERNAME);567
+        - name: GLOBAL1
+          value: force user = anthony
+        - name: GLOBAL2
+          value: force group = anthony
+        - name: GLOBAL3
+          value: oplocks = no
+        - name: RECYCLE
+          value: disabled
+        - name: SHARE1
+          value: media;/share/samba/media;yes;no;no
+        image: registry.gitlab.com/coreweave/samba:4160d90a-4.18.4-r0-alpine-edge
+        imagePullPolicy: IfNotPresent
+        name: samba-media
+        securityContext:
+          seLinuxOptions:
+            level: s0
+        ports:
+        - containerPort: 139
+          name: netbios-ssn
+          protocol: TCP
+        - containerPort: 445
+          name: microsoft-ds
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: 128m
+            memory: 128Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /share/samba/media
+          name: media
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        fsGroup: 568
+      volumes:
+      - name: media
+        persistentVolumeClaim:
+          claimName: media-v2
+      - name: auth
+        secret:
+          defaultMode: 256
+          secretName: samba
