@@ -12,7 +12,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: evobot
   strategy:
-    type: Recreate
+    type: RollingUpdate
   template:
     metadata:
       creationTimestamp: null
@@ -29,8 +29,8 @@ spec:
         name: evobot
         resources:
           limits:
-            cpu: "500"
-            memory: 1Gi
+            cpu: "1000"
+            memory: 2Gi
           requests:
             cpu: 128m
             memory: 128Mi
