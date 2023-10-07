@@ -105,7 +105,7 @@ spec:
                   secretKeyRef:
                     key: postgres-password
                     name: lemmy
-              image: ghcr.io/onedr0p/postgres-init:14.9@sha256:ed6c993350e3c89ec9b08d2e9f00319b61381bd8c68c4f700f04e2e8d9d29b74
+              image: ghcr.io/onedr0p/postgres-init:14.9@sha256:fa87606b134a12154e828cf28a8da77d226f7232ae8080a00c90c0e6bc55977c
               imagePullPolicy: IfNotPresent
               name: init-db
       target:
