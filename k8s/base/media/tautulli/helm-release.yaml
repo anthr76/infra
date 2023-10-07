@@ -22,7 +22,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/tautulli
-      tag: 2.13.1@sha256:0a995c25a9c56b609c80dedfd9432c006b0d4835bd4fa2ba911ed112b50c5034
+      tag: 2.13.1@sha256:abf2ba5cd65661c6880ddc1db88d7956774d31a2f46915f111c2008cf71d0c78
     env:
       TZ: America/New_York
     service:
