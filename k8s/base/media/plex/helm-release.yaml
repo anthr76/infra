@@ -23,7 +23,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/onedr0p/plex-beta
-      tag: 1.32.7.7621-871adbd44@sha256:f9f77dc5e17cab9fae5ece663a64d026e3c75142b3b60bb4a52bf061957412be
+      tag: 1.32.7.7621-871adbd44@sha256:fa03e8bc6804f109571f04af887fa98df67ffbc5046e40302f8807e223b0d56e
     env:
       TZ: "America/New_York"
     securityContext:
