@@ -243,6 +243,7 @@ spec:
               failureDomain: osd
               parameters:
                 compression_mode: aggressive
+                target_size_bytes: 40T
           metadataServer:
             activeCount: 1
             activeStandby: true
