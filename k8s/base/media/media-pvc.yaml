@@ -9,5 +9,18 @@ spec:
     - ReadWriteMany
   resources:
     requests:
+      storage: 15T
+  storageClassName: slow-ceph-filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-v3
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
       storage: 10T
   storageClassName: slow-ceph-filesystem
