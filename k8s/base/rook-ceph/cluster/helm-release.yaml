@@ -100,6 +100,7 @@ spec:
           replicated:
             size: 3
             requireSafeReplicaSize: true
+          deviceClass: ssd
           parameters:
             compression_mode: none
         storageClass:
