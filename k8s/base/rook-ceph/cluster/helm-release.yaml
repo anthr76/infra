@@ -271,8 +271,7 @@ spec:
           enabled: true
           isDefault: false
           name: slow-ceph-filesystem-v2
-          dataPool: slow-data0-v2-ec
-          pool: slow-ceph-filesystem-v2
+          pool: slow-data0-v2-ec
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           mountOptions: []
