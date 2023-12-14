@@ -108,18 +108,6 @@ spec:
             compression_mode: none
         storageClass:
           enabled: false
-      - name: rgw-root
-        spec:
-          name: .rgw.root
-          failureDomain: host
-          replicated:
-            size: 3
-            requireSafeReplicaSize: true
-          deviceClass: ssd
-          parameters:
-            compression_mode: none
-        storageClass:
-          enabled: false
       - name: slow-ceph-blockpool
         spec:
           failureDomain: osd
