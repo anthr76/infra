@@ -105,7 +105,7 @@ spec:
             compression_mode: none
         storageClass:
           enabled: false
-      - name: builtin-rgw-root
+      - name: rgw-root
         spec:
           name: .rgw.root
           failureDomain: host
