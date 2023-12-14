@@ -244,61 +244,6 @@ spec:
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
-      - name: slow-ceph-filesystem-v2
-        spec:
-          metadataPool:
-            deviceClass: ssd
-            replicated:
-              size: 3
-          dataPools:
-            - name: slow-data0-v2-ec
-              erasureCoded:
-                dataChunks: 7
-                codingChunks: 1
-              deviceClass: hdd
-              failureDomain: osd
-              parameters:
-                compression_mode: aggressive
-                target_size_bytes: 40T
-          metadataServer:
-            activeCount: 1
-            activeStandby: true
-            placement:
-             nodeAffinity:
-               requiredDuringSchedulingIgnoredDuringExecution:
-                 nodeSelectorTerms:
-                 - matchExpressions:
-                   - key: node-role.kubernetes.io/control-plane
-                     operator: In
-                     values:
-                     - ""
-             tolerations:
-             - key: node-role.kubernetes.io/control-plane
-               operator: Exists
-            resources:
-              limits:
-                cpu: "2000m"
-                memory: "4Gi"
-              requests:
-                cpu: "1000m"
-                memory: "4Gi"
-            priorityClassName: system-cluster-critical
-        storageClass:
-          enabled: true
-          isDefault: false
-          name: slow-ceph-filesystem-v2
-          pool: slow-data0-v2-ec
-          reclaimPolicy: Delete
-          allowVolumeExpansion: true
-          mountOptions: []
-          parameters:
-            csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
-            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
-            csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-            csi.storage.k8s.io/fstype: ext4
     cephObjectStores:
       # Having two object stores breaks PG Autoscaler
       # For now just run one on spinning rust.
