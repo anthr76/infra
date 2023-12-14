@@ -133,6 +133,7 @@ spec:
       - name: fast-ceph-filesystem
         spec:
           metadataPool:
+            deviceClass: ssd
             replicated:
               size: 3
           dataPools:
@@ -183,6 +184,7 @@ spec:
       - name: slow-ceph-filesystem
         spec:
           metadataPool:
+            deviceClass: ssd
             replicated:
               size: 3
           dataPools:
@@ -233,6 +235,7 @@ spec:
       - name: slow-ceph-filesystem-v2
         spec:
           metadataPool:
+            deviceClass: ssd
             replicated:
               size: 3
           dataPools:
@@ -329,6 +332,7 @@ spec:
       - name: slow-ceph-objectstore
         spec:
           metadataPool:
+            deviceClass: ssd
             failureDomain: host
             replicated:
               size: 2
