@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: media-v3
+  name: media-v4
   namespace: media
 spec:
   accessModes:
@@ -23,4 +23,4 @@ spec:
   resources:
     requests:
       storage: 10T
-  storageClassName: slow-ceph-filesystem
+  storageClassName: slow-ceph-filesystem-v2
