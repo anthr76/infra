@@ -24,7 +24,7 @@ spec:
   values:
     toolbox:
       enabled: false
-      image: quay.io/ceph/ceph:v18.2.0@sha256:1793ff3af6ae74527c86e1a0b22401e9c42dc08d0ebb8379653be07db17d0007
+      image: quay.io/ceph/ceph:v18.2.1@sha256:aca35483144ab3548a7f670db9b79772e6fc51167246421c66c0bd56a6585468
     monitoring:
       enabled: true
     cephClusterSpec:
