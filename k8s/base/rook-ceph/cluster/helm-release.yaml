@@ -193,7 +193,7 @@ spec:
           dataPools:
             - failureDomain: osd
               replicated:
-                size: 6
+                size: 2
               name: slow-data0
               deviceClass: hdd
           metadataServer:
