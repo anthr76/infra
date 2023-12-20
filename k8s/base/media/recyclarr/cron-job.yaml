@@ -18,7 +18,7 @@ spec:
           automountServiceAccountToken: false
           restartPolicy: OnFailure
           containers:
-            - name: sonarrs
+            - name: recyclarr
               image: ghcr.io/recyclarr/recyclarr:6.0.2@sha256:02add40feae0569401b5020528e06419b47046723d0bb4bef1e82325e9eefdad
               env:
                 - name: TZ
@@ -28,3 +28,7 @@ spec:
               volumeMounts:
                 - name: config
                   mountPath: /config
+          volumes:
+            - name: config
+              secret:
+                secretName: recyclarr
