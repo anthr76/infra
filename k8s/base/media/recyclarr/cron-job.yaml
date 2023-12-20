@@ -23,12 +23,30 @@ spec:
               env:
                 - name: TZ
                   value: America/New_York
+                - name: COMPlus_EnableDiagnostics
+                  value: "0"
               args:
                 - sync
               volumeMounts:
                 - name: config
-                  mountPath: /config
+                  mountPath: /config/recyclarr.yml
+                  subPath: recyclarr.yml
+                - name: config-persist
+                  mountPath: /config/
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities: { drop: ["ALL"] }
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
           volumes:
             - name: config
               secret:
                 secretName: recyclarr
+            - name: config-persist
+              persistentVolumeClaim:
+                claimName: recyclarr-config-v1
