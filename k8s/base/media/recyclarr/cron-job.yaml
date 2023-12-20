@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/master/cronjob.json
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -29,10 +30,11 @@ spec:
                 - sync
               volumeMounts:
                 - name: config
-                  mountPath: /config/recyclarr.yml
-                  subPath: recyclarr.yml
+                  mountPath: /config/recyclarr.yaml
+                  readOnly: true
+                  subPath: recyclarr.yaml
                 - name: config-persist
-                  mountPath: /config/
+                  mountPath: /config
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
