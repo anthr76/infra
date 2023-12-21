@@ -146,8 +146,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/unifi
-      plugins:
-        enable_alpha: true
       analytics:
         check_for_updates: false
       database:
