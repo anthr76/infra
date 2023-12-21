@@ -103,10 +103,10 @@ spec:
           name: not-used
           namespace: not-used
         spec:
-          interval: 10m0s
-          retryInterval: 2m0s
+          interval: 30m
+          retryInterval: 1m
           timeout: 5m
-          wait: true
+          wait: false
           sourceRef:
             kind: GitRepository
             name: flux-system
@@ -122,19 +122,21 @@ spec:
                   name: not-used
                   namespace: not-used
                 spec:
-                  interval: 10m
-                  timeout: 5m
+                  interval: 30m
                   install:
                     createNamespace: true
                     remediation:
-                      retries: 5
+                      retries: 50
                   upgrade:
+                    cleanupOnFail: true
                     remediation:
-                      retries: 5
+                      retries: 50
+                  uninstall:
+                    keepHistory: false
               target:
                 kind: HelmRelease
                 group: helm.toolkit.fluxcd.io
-                version: v2beta1
+                version: v2beta2
                 labelSelector: "component.kutara.io/part-of=standard-helm-release"
           postBuild:
             substitute: {}
