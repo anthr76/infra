@@ -110,11 +110,10 @@ spec:
             type: prometheus
             access: proxy
             orgId: 1
-            url: http://mimir-nginx:80/prometheus
+            url: http://mimir-nginx.monitoring.svc.cluster.local:80/prometheus
             version: 1
             editable: true
             jsonData:
-              httpHeaderName1: "X-Scope-OrgID"
               alertmanagerUid: "alertmanager"
             isDefault: true
           - name: Mimir Alertmanager
