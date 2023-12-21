@@ -43,7 +43,7 @@ spec:
   path: "./k8s/base/kube-system/cilium"
   prune: true
   dependsOn:
-    - name: monitoring-kps-crds
+    - name: monitoring-kps
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -89,7 +89,7 @@ spec:
   path: "./k8s/base/kube-system/descheduler"
   prune: true
   dependsOn:
-    - name: monitoring-kps-crds
+    - name: monitoring-kps
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
