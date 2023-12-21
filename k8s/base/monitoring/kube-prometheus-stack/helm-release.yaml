@@ -34,9 +34,8 @@ spec:
     prometheus:
       prometheusSpec:
         retention: 24h
-        replicas: 1
-        # TODO: Configure deduplication in mimir.
-        # replicaExternalLabelName: __replica__
+        replicas: 2
+        replicaExternalLabelName: __replica__
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false

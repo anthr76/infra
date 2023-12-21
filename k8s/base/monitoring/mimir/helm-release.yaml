@@ -40,11 +40,16 @@ spec:
           backend: s3
           s3:
             insecure: true
-        limits:
-          max_label_names_per_series: 120
-          max_global_series_per_user: 12000000
-          ingestion_rate: 400000
-          ingestion_burst_size: 8000000
+        distributor:
+         ha_tracker:
+           enable_ha_tracker: true
+           kvstore:
+             store: etcd
+             etcd:
+               endpoints:
+                 - mimir-etcd.monitoring.svc.cluster.local:2379
+               username: root
+               password: ${MIMIR_ETCD_PASSWORD}
     nginx:
       ingress:
         enabled: true
@@ -65,6 +70,9 @@ spec:
         storageClass: local-hostpath
     distributor:
       replicas: 3
+      extraEnvFrom:
+        - secretRef:
+            name: mimir
     ingester:
       replicas: 3
       persistentVolume:
