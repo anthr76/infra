@@ -86,6 +86,66 @@ spec:
         enabled: false
       auth.anonymous:
         enabled: false
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: default
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+          - name: ceph
+            orgId: 1
+            folder: Ceph
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/ceph
+          - name: flux
+            orgId: 1
+            folder: Flux
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/flux
+          - name: kubernetes
+            orgId: 1
+            folder: Kubernetes
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/kubernetes
+          - name: nginx
+            orgId: 1
+            folder: Nginx
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/nginx
+          - name: thanos
+            orgId: 1
+            folder: Thanos
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/thanos
+          - name: unifi
+            orgId: 1
+            folder: Unifi
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/unifi
       plugins:
         enable_alpha: true
       analytics:
@@ -235,9 +295,16 @@ spec:
       dashboards:
         enabled: true
         searchNamespace: ALL
+        labelValue: ""
+        label: grafana_dashboard
+        folderAnnotation: grafana_folder
+        provider:
+          disableDelete: true
+          foldersFromFilesStructure: true
       datasources:
         enabled: true
         searchNamespace: ALL
+        labelValue: ""
     plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
