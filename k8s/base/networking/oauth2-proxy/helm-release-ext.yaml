@@ -51,7 +51,7 @@ spec:
           secretKeyRef:
             name: oauth2-proxy
             key: client-secret
-      OAUTH2_PROXY_OIDC_GROUPS_CLAIM: https://kutara/groups
+      OAUTH2_PROXY_OIDC_GROUPS_CLAIM: https://kutara.io/groups
       OAUTH2_PROXY_SESSION_STORE_TYPE: redis
       OAUTH2_PROXY_REDIS_CONNECTION_URL: redis://redis-master.database.svc.cluster.local:6379
       OAUTH2_PROXY_REDIS_PASSWORD: ""
