@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - helm-release.yaml
+  - external-secret.yaml
 configMapGenerator:
   - name: vector-aggregator-configmap
     files:
