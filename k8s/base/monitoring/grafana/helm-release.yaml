@@ -187,8 +187,11 @@ spec:
               implementation: "cortex"
           - name: Loki
             type: loki
+            uid: loki
             access: proxy
-            url: http://loki-gateway:80
+            url: http://loki-gateway.monitoring.svc.cluster.local
+            jsonData:
+              maxLines: 250
     dashboards:
       default:
         external-dns:

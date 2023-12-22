@@ -2,8 +2,8 @@
 apiVersion: objectbucket.io/v1alpha1
 kind: ObjectBucketClaim
 metadata:
-  name: loki-chunks-bucket-v1
+  name: loki-bucket-v2
   namespace: monitoring
 spec:
-  bucketName: loki-chunks-v1
+  bucketName: loki-v2
   storageClassName: slow-ceph-bucket
