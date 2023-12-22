@@ -63,7 +63,8 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - hosts:
+          - secretName: mimir-tls
+            hosts:
               - *host
     alertmanager:
       replicas: 3
