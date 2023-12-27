@@ -50,6 +50,11 @@ spec:
                  - mimir-etcd.monitoring.svc.cluster.local:2379
                username: root
                password: ${MIMIR_ETCD_PASSWORD}
+        limits:
+          max_label_names_per_series: 120
+          max_global_series_per_user: 12000000
+          ingestion_rate: 400000
+          ingestion_burst_size: 8000000
     nginx:
       ingress:
         enabled: true
