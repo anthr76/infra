@@ -46,7 +46,7 @@ spec:
               TZ: America/New_York
             envFrom:
               - secretRef:
-                  name: recyclarr-secret
+                  name: recyclarr
             args: ["sync"]
             securityContext:
               allowPrivilegeEscalation: false
