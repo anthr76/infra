@@ -5,7 +5,7 @@ resources:
   - helm-release.yaml
   - config-pvc.yaml
 namespace: media
-secretGenerator:
+configMapGenerator:
   - name: recyclarr
     files:
       - recyclarr.yml

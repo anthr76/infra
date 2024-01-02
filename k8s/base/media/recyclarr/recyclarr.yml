@@ -2,7 +2,7 @@
 sonarr:
     sonarr:
         base_url: http://sonarr.media.svc.cluster.local
-        api_key: ENC[AES256_GCM,data:CNIhwG9fgQt5neKnuWnrxRueui/jyG01Y/S80U+itHE=,iv:zcWO5cC8o9yw8d6+pNgtl5ZCqNcI2uVYzwXV+nY8ZRI=,tag:/R36GbNVgRPzmDuDxo9RIg==,type:str]
+        api_key: !env_var SONARR_API_KEY
         delete_old_custom_formats: true
         replace_existing_custom_formats: true
         quality_definition:
@@ -356,7 +356,7 @@ sonarr:
 radarr:
     radarr:
         base_url: http://radarr.media.svc.cluster.local
-        api_key: ENC[AES256_GCM,data:4p8egp0YkwBmnto5wJTV830NI9ncHX7DlqJHF5qhEKs=,iv:LNZiQnHzlQn7S1eBj9SfrCKE7WeFqJMRBnbjszO6mWA=,tag:rHU91nQfaX8VBUg2ruWzng==,type:str]
+        api_key: !env_var RADARR_API_KEY
         delete_old_custom_formats: true
         replace_existing_custom_formats: true
         quality_definition:
@@ -954,23 +954,3 @@ radarr:
                 - 279bda7434fd9075786de274e6c3c202
               quality_profiles:
                 - name: UHD Bluray + WEB
-sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age:
-        - recipient: age12t69fa3kqmnxdx4sca7ecv6lfu3wrfwm95zuuhujcfk3ukcn8dzsk40u6x
-          enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBLVjJYSWI5a0VxSjF3cmpj
-            SXVIM1VidXJiZEh1MDYzd1dEelgwSmhTNlI4CjdweWUrOVlKVGFmc01pYUdKMUsz
-            ZDByRnJNNkRuNzNIS2lSc3lEeCtXa28KLS0tIHJHcHYrVzhFZ2tlS0ZHQW1kN0Fw
-            YzVqdW1rcXZ2UGpSay9LVkQ4d2ROeFEKzwaWlRCTsnEnGd47N/jI8HcNEPZ8l1uy
-            dxVeD3RDWHiZq9AAnNOVlL/ZsKXFma/KDq0ZjTN450yRMuUiacEAuw==
-            -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-20T14:48:39Z"
-    mac: ENC[AES256_GCM,data:I+d1P5QO/Z/d0eiLDbhISqTtxTn7Qwofi0E/K/NtR2waUfErKSI/Habaipzf7TpDQ3qOJh8iwEUCuD0/RKDZgVoNrQxqfBxt+i92YlQ4mOqd8TXVFx4OzYLrkJF1Lal+NjhLxny22GPhK9cCKlyc6UFk4MxYjfV4ix/ZUk9kWis=,iv:WJ14W4S5qlxBKgSrOeaYkXRv0AwCr2EupcBiyPe2iH4=,tag:Z6Lu5E4Rdg5nP/0FjZv9fQ==,type:str]
-    pgp: []
-    encrypted_regex: ((?i)(pass|secret($|[^N])|key|token|^data$|^stringData))
-    version: 3.8.1
