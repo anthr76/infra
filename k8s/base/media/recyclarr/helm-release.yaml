@@ -47,7 +47,7 @@ spec:
             envFrom:
               - secretRef:
                   name: recyclarr
-            args: ["sync"]
+            args: ["sync" , "--config", "/cm/recyclarr.yaml"]
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -76,6 +76,6 @@ spec:
         type: configMap
         name: recyclarr
         globalMounts:
-          - path: /config/recyclarr.yml
+          - path: /cm/recyclarr.yml
             subPath: recyclarr.yml
             readOnly: true
