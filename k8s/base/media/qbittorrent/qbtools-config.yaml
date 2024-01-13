@@ -104,3 +104,7 @@ trackers:
     urls: ["uhdbits.org"]
     required_seed_ratio: 1.01
     required_seed_days: 0
+  - name: animetorrents
+    urls: ["animetorrents.me"]
+    required_seed_ratio: 1.01
+    required_seed_days: 0
