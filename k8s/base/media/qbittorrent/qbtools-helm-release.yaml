@@ -71,7 +71,7 @@ spec:
               - --exclude-category music.import
               - --include-tag unregistered
               # - --dry-run
-              - --server qbittorrent.default.svc.cluster.local
+              - --server qbittorrent.media.svc.cluster.local
               - --port 8080
             resources: *resources
           expired:
@@ -86,7 +86,7 @@ spec:
               - --include-tag expired # defined in config.yaml
               - --include-tag added:7d
               # -  "--dry-run",
-              - --server qbittorrent.default.svc.cluster.local
+              - --server qbittorrent.media.svc.cluster.local
               - --port 8080
             resources: *resources
         pod:
@@ -110,7 +110,7 @@ spec:
               - --exclude-pattern */manual/*
               - --exclude-pattern */music.import/*
               - # "--dry-run",
-              - --server qbittorrent.default.svc.cluster.local
+              - --server qbittorrent.media.svc.cluster.local
               - --port 8080
             resources: *resources
         pod:
@@ -124,7 +124,7 @@ spec:
             args:
               - reannounce
               - --process-seeding
-              - --server qbittorrent.default.svc.cluster.local
+              - --server qbittorrent.media.svc.cluster.local
               - --port 8080
             resources: *resources
         pod:
