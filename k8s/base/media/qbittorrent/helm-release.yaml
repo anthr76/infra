@@ -43,6 +43,8 @@ spec:
                     fieldPath: status.podIP
               QBT_BitTorrent__Session__InterfaceName: eth0
             securityContext:
+              seLinuxOptions:
+                level: s0
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
