@@ -18,88 +18,101 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    controller:
-      type: statefulset
-    image:
-      repository: ghcr.io/onedr0p/qbittorrent
-      tag: 4.6.2@sha256:fedb62126c82ae0c7192e9052633411294a27e9c233613c03b0a8d168d160040
-    env:
-      TZ: "America/New_York"
+    controllers:
+      main:
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              accessMode: ReadWriteOnce
+              size: 2Gi
+              storageClass: fast-ceph-block
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/qbittorrent
+              tag: 4.6.2@sha256:fedb62126c82ae0c7192e9052633411294a27e9c233613c03b0a8d168d160040
+            env:
+              TZ: America/New_York
+              QBITTORRENT__PORT: &port 8080
+              QBITTORRENT__BT_PORT: &bittorrentPort 50413
+              QBT_Preferences__WebUI__AlternativeUIEnabled: false
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 16Gi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
     service:
       main:
         ports:
           http:
-            port: 8080
+            port: *port
       bittorrent:
-        enabled: true
+        controller: main
         type: LoadBalancer
         annotations:
           metallb.universe.tf/loadBalancerIPs: "10.45.0.3, 2001:559:87dd:a00:dead:beef:0:500"
-        ipFamilyPolicy: RequireDualStack
         ports:
           bittorrent:
             enabled: true
-            port: 50413
+            port: *bittorrentPort
             protocol: TCP
-            targetPort: 50413
-        externalTrafficPolicy: Local
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: "qb.scr1.rabbito.tech"
+          - host: &host qb.scr1.rabbito.tech
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: qbittorrent-tls
             hosts:
-              - "qb.scr1.rabbito.tech"
-    metrics:
-      enabled: true
-      exporter:
-        image:
-          repository: docker.io/esanchezm/prometheus-qbittorrent-exporter
-          tag: v1.2.0
-      serviceMonitor:
-        interval: 1m
-        scrapeTimeout: 10s
-      prometheusRule:
-        enabled: true
-    securityContext:
-      seLinuxOptions:
-        level: s0
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 2Gi
-        storageClass: fast-ceph-block
+              - *host
     persistence:
+      # completed-script:
+      #   type: configMap
+      #   name: qbittorrent-scripts
+      #   defaultMode: 0775
+      #   globalMounts:
+      #     - path: /scripts/completed.sh
+      #       subPath: completed.sh
+      #       readOnly: true
       media:
         enabled: true
         existingClaim: media-v2
-        mountPath: /media
-    resources:
-      requests:
-        memory: 25Mi
-      limits:
-        memory: 10Gi
-    affinity:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-                - key: feature.node.kubernetes.io/custom-intel-10g
-                  operator: In
-                  values:
-                    - "true"
+        globalMounts:
+          - path: /media
