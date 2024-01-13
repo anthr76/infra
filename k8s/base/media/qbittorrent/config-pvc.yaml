@@ -11,3 +11,16 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: fast-ceph-block
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qbittorrent-v3
+  namespace: media
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: fast-ceph-filesystem
