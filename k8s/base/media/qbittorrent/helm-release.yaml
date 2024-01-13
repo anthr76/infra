@@ -93,15 +93,15 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: config-qbittorrent-0
-      # completed-script:
-      #   type: configMap
-      #   name: qbittorrent-scripts
-      #   defaultMode: 0775
-      #   globalMounts:
-      #     - path: /scripts/completed.sh
-      #       subPath: completed.sh
-      #       readOnly: true
+        existingClaim: qbittorrent-v3
+      completed-script:
+        type: configMap
+        name: qbittorrent-scripts
+        defaultMode: 0775
+        globalMounts:
+          - path: /scripts/completed.sh
+            subPath: completed.sh
+            readOnly: true
       media:
         enabled: true
         existingClaim: media-v2
