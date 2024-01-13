@@ -26,9 +26,6 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: qbittorrent
-      namespace: media
   values:
     controllers:
       main:
@@ -115,6 +112,8 @@ spec:
             runAsUser: 568
             runAsGroup: 568
             runAsNonRoot: true
+            seLinuxOptions:
+              level: s0
       orphaned:
         type: cronjob
         cronjob:
