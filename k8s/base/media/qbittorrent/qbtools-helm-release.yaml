@@ -49,15 +49,18 @@ spec:
             env: &env
               TZ: *timeZone
             args:
-              - "tagging"
-              - "--added-on"
-              - "--expired"
-              - "--last-activity"
-              - "--sites"
-              - "--unregistered"
-              - "--server qbittorrent.media.svc.cluster.local"
-              - "--port 8080"
-              - "--config /config/config.yaml"
+              - tagging
+              - --added-on
+              - --expired
+              - --last-activity
+              - --sites
+              - --unregistered
+              - --server
+              - qbittorrent.media.svc.cluster.local
+              - --port
+              - "8080"
+              - --config
+              - /config/config.yaml
             resources: &resources
               requests:
                 cpu: 25m
@@ -68,29 +71,43 @@ spec:
             image: *image
             env: *env
             args:
-              - "prune"
-              - "--exclude-category manual"
-              - "--exclude-category music.collection"
-              - "--exclude-category music.import"
-              - "--include-tag unregistered"
-              # "- --dry-run
-              - "--server qbittorrent.media.svc.cluster.local"
-              - "--port 8080"
+              - prune
+              - --exclude-category
+              - manual
+              - --exclude-category
+              - music.collection
+              - --exclude-category
+              - music.import
+              - --include-tag
+              - unregistered
+              # - --dry-run
+              - --server
+              - qbittorrent.media.svc.cluster.local
+              - --port
+              - "8080"
             resources: *resources
           expired:
             image: *image
             env: *env
             args:
-              - "prune"
-              - "--exclude-category manual"
-              - "--exclude-category music.collection"
-              - "--exclude-category music.import"
-              - "--exclude-category overlord"
-              - "--include-tag expired # defined in config.yaml"
-              - "--include-tag added:7d"
-              # "-  "--dry-run"
-              - "--server qbittorrent.media.svc.cluster.local"
-              - "--port 8080"
+              - prune
+              - --exclude-category
+              - manual
+              - --exclude-category
+              - music.collection
+              - --exclude-category
+              - music.import
+              - --exclude-category
+              - overlord
+              - --include-tag
+              - expired
+              - --include-tag
+              - added:7d
+              # -  "--dry-run
+              - --server
+              - qbittorrent.media.svc.cluster.local
+              - --port
+              - "8080"
             resources: *resources
         pod:
           restartPolicy: OnFailure
@@ -108,13 +125,18 @@ spec:
             image: *image
             env: *env
             args:
-              - "orphaned"
-              - "--exclude-pattern *_unpackerred*"
-              - "--exclude-pattern */manual/*"
-              - "--exclude-pattern */music.import/*"
-              - # "--dry-run"
-              - "--server qbittorrent.media.svc.cluster.local"
-              - "--port 8080"
+              - orphaned
+              - --exclude-pattern
+              - "*_unpackerred*"
+              - --exclude-pattern
+              - "*/manual/*"
+              - --exclude-pattern
+              - "*/music.import/*"
+              # -  "--dry-run
+              - --server
+              - qbittorrent.media.svc.cluster.local
+              - --port
+              - "8080"
             resources: *resources
         pod:
           restartPolicy: OnFailure
@@ -125,10 +147,12 @@ spec:
             image: *image
             env: *env
             args:
-              - "reannounce"
-              - "--process-seeding"
-              - "--server qbittorrent.media.svc.cluster.local"
-              - "--port 8080"
+              - reannounce
+              - --process-seeding
+              - --server
+              - qbittorrent.media.svc.cluster.local
+              - --port
+              - "8080"
             resources: *resources
         pod:
           securityContext: *securityContext
