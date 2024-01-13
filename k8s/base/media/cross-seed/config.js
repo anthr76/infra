@@ -3,16 +3,16 @@ module.exports = {
   delay: 20,
   qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080",
   torznab: [
-    `http://prowlarr.default.svc.cluster.local:9696/4/api?apikey=${process.env.PROWLARR_API_KEY}`, // at
-    `http://prowlarr.default.svc.cluster.local:9696/16/api?apikey=${process.env.PROWLARR_API_KEY}`, // ant
-    `http://prowlarr.default.svc.cluster.local:9696/2/api?apikey=${process.env.PROWLARR_API_KEY}`, // blu
-    `http://prowlarr.default.svc.cluster.local:9696/1/api?apikey=${process.env.PROWLARR_API_KEY}`, // btn
-    `http://prowlarr.default.svc.cluster.local:9696/12/api?apikey=${process.env.PROWLARR_API_KEY}`, // cz
-    `http://prowlarr.default.svc.cluster.local:9696/3/api?apikey=${process.env.PROWLARR_API_KEY}`, // hdt
-    `http://prowlarr.default.svc.cluster.local:9696/15/api?apikey=${process.env.PROWLARR_API_KEY}`, // ipt
-    `http://prowlarr.default.svc.cluster.local:9696/5/api?apikey=${process.env.PROWLARR_API_KEY}`, // ms
-    `http://prowlarr.default.svc.cluster.local:9696/14/api?apikey=${process.env.PROWLARR_API_KEY}`, // tl
-    `http://prowlarr.default.svc.cluster.local:9696/13/api?apikey=${process.env.PROWLARR_API_KEY}`, // ts
+    `http://prowlarr.media.svc.cluster.local:9696/4/api?apikey=${process.env.PROWLARR_API_KEY}`, // at
+    `http://prowlarr.media.svc.cluster.local:9696/16/api?apikey=${process.env.PROWLARR_API_KEY}`, // ant
+    `http://prowlarr.media.svc.cluster.local:9696/2/api?apikey=${process.env.PROWLARR_API_KEY}`, // blu
+    `http://prowlarr.media.svc.cluster.local:9696/1/api?apikey=${process.env.PROWLARR_API_KEY}`, // btn
+    `http://prowlarr.media.svc.cluster.local:9696/12/api?apikey=${process.env.PROWLARR_API_KEY}`, // cz
+    `http://prowlarr.media.svc.cluster.local:9696/3/api?apikey=${process.env.PROWLARR_API_KEY}`, // hdt
+    `http://prowlarr.media.svc.cluster.local:9696/15/api?apikey=${process.env.PROWLARR_API_KEY}`, // ipt
+    `http://prowlarr.media.svc.cluster.local:9696/5/api?apikey=${process.env.PROWLARR_API_KEY}`, // ms
+    `http://prowlarr.media.svc.cluster.local:9696/14/api?apikey=${process.env.PROWLARR_API_KEY}`, // tl
+    `http://prowlarr.media.svc.cluster.local:9696/13/api?apikey=${process.env.PROWLARR_API_KEY}`, // ts
   ],
   port: process.env.CROSSSEED_PORT || 80,
   apiAuth: false,
