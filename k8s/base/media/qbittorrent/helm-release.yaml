@@ -103,6 +103,9 @@ spec:
             hosts:
               - *host
     persistence:
+      config:
+        enabled: true
+        existingClaim: config-qbittorrent-0
       # completed-script:
       #   type: configMap
       #   name: qbittorrent-scripts
