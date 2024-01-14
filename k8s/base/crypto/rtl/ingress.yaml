@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    internal-whitelist.kutara.io/enabled: "true"
+    # internal-whitelist.kutara.io/enabled: "true"
   labels:
     app.kubernetes.io/instance: rtl
     app.kubernetes.io/name: rtl
