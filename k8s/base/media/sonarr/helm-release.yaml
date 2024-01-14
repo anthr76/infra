@@ -21,8 +21,8 @@ spec:
     controller:
       type: statefulset
     image:
-      repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.535@sha256:b3c11b23f489f758d1fd6775606cdb1b55e9b3e6d6bf4aa57c8f370f5e3f1490
+      repository: ghcr.io/onedr0p/sonarr
+      tag: 4.0.0.748@sha256:f1b1826ccbea3868ff6b30690417fdc1a0f3329ebad0909d0d11ddd856f9f4dd
     env:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info
