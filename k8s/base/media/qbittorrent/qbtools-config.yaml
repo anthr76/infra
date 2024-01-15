@@ -40,3 +40,7 @@ trackers:
     urls: ["animetorrents.me"]
     required_seed_ratio: 1.01
     required_seed_days: 7
+  - name: bakabt
+    urls: ["bakabt.me"]
+    required_seed_ratio: 1.01
+    required_seed_days: 14

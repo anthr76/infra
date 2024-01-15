@@ -13,6 +13,7 @@ module.exports = {
     `http://prowlarr.media.svc.cluster.local:9696/5/api?apikey=${process.env.PROWLARR_API_KEY}`, // ms
     `http://prowlarr.media.svc.cluster.local:9696/14/api?apikey=${process.env.PROWLARR_API_KEY}`, // tl
     `http://prowlarr.media.svc.cluster.local:9696/13/api?apikey=${process.env.PROWLARR_API_KEY}`, // ts
+    `http://prowlarr.media.svc.cluster.local:9696/49/api?apikey=${process.env.PROWLARR_API_KEY}`, // bt
   ],
   port: process.env.CROSSSEED_PORT || 80,
   apiAuth: false,
