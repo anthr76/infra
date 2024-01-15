@@ -6,8 +6,8 @@ trackers:
     required_seed_days: 0
   - name: blutopia
     urls: ["blutopia.cc", "blutopia.xyz"]
-    required_seed_ratio: 0
-    required_seed_days: 7.1
+    required_seed_ratio: 1.01
+    required_seed_days: 14.1
   - name: broadcasthenet
     urls: ["landof.tv"]
     required_seed_ratio: 1.01
