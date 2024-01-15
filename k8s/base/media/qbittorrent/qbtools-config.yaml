@@ -43,4 +43,4 @@ trackers:
   - name: bakabt
     urls: ["bakabt.me"]
     required_seed_ratio: 1.01
-    required_seed_days: 14
+    required_seed_days: 0
