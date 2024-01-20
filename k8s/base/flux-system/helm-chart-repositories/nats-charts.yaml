@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: nats-charts
+  namespace: flux-system
+spec:
+  interval: 2h
+  url: https://nats-io.github.io/k8s/helm/charts/
