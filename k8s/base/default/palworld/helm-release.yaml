@@ -18,7 +18,7 @@ spec:
     namespace: default
     server:
       image:
-        name: thijsvanloef/palworld-server-docker
+        name: docker.io/thijsvanloef/palworld-server-docker
         tag: v0.19.1
       service:
         annotations:
