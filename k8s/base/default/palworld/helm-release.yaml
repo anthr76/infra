@@ -28,8 +28,10 @@ spec:
         type: LoadBalancer
       resources:
         requests:
-          memory: 1Gi
+          memory: 2Gi
           cpu: 1000m
+        limits:
+          memory: 16Gi
       storage:
         external: true
         externalName: palworld-server
