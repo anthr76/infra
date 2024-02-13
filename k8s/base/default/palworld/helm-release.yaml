@@ -10,16 +10,17 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: charts/palworld
+      chart: palworld
+      version: 0.25.0
       sourceRef:
-        kind: GitRepository
-        name: palworld-docker
+        kind: HelmRepository
+        name: palworld-charts
+        namespace: default
   values:
-    namespace: default
     server:
       image:
-        name: docker.io/thijsvanloef/palworld-server-docker
-        tag: v0.21.0
+        repository: thijsvanloef/palworld-server-docker
+        tag: v0.25.0
       service:
         annotations:
           metallb.universe.tf/loadBalancerIPs: "10.45.0.4"
@@ -42,3 +43,5 @@ spec:
           password: "dbcpals"
         daily_reboot:
           enable: true
+        env:
+          PAL_EGG_DEFAULT_HATCHING_TIME: "6.000000"
