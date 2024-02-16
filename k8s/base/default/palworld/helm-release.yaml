@@ -19,8 +19,8 @@ spec:
   values:
     server:
       image:
-        repository: thijsvanloef/palworld-server-docker
-        tag: v0.25.0
+        repository: docker.io/thijsvanloef/palworld-server-docker
+        tag: v0.26.0
       service:
         annotations:
           metallb.universe.tf/loadBalancerIPs: "10.45.0.4"
