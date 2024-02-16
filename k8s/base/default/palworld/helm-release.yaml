@@ -45,3 +45,4 @@ spec:
           enable: true
         env:
           PAL_EGG_DEFAULT_HATCHING_TIME: "6.000000"
+          BASE_CAMP_WORKER_MAX_NUM: "20"
