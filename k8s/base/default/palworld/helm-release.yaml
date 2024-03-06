@@ -20,7 +20,7 @@ spec:
     server:
       image:
         repository: docker.io/thijsvanloef/palworld-server-docker
-        tag: v0.26.0
+        tag: v0.30.1
       service:
         annotations:
           metallb.universe.tf/loadBalancerIPs: "10.45.0.4"
@@ -34,8 +34,9 @@ spec:
         limits:
           memory: 16Gi
       storage:
-        external: true
-        externalName: palworld-server
+        main:
+          external: true
+          externalName: palworld-server
       config:
         server_description: "DBC NightShift Kutara Server"
         server_name: "Kutara"
