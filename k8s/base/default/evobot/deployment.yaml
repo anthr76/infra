@@ -24,7 +24,7 @@ spec:
       - envFrom:
         - secretRef:
             name: evobot
-        image: docker.io/eritislami/evobot:2.8.1
+        image: docker.io/eritislami/evobot:2.9.0
         imagePullPolicy: IfNotPresent
         name: evobot
         resources:
