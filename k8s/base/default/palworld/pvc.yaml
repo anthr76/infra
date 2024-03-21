@@ -10,5 +10,5 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 12Gi
+      storage: 30Gi
   storageClassName: fast-ceph-block
