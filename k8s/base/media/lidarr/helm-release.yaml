@@ -22,7 +22,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/lidarr
-      tag: 2.0.7.3849@sha256:baba272ee36cfb14103256a9b173a161c5a45ca2959c26dcd170f32cdc57c406
+      tag: 2.3.3.4204@sha256:6e097b835ea63ff43f6496668ba5c7ee6e5d3aff36a85c59e391cc7d8f43e05f
     env:
       TZ: "America/New_York"
       LIDARR__INSTANCE_NAME: Lidarr
