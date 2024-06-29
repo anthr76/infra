@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: ghcr.io/recyclarr/recyclarr
-              tag: 6.0.2@sha256:02add40feae0569401b5020528e06419b47046723d0bb4bef1e82325e9eefdad
+              tag: 7.0.0@sha256:88d7ef8feb313398a98aafbc2966959f1689191864247f8be15572d5c67641d5
             env:
               # https://github.com/Radarr/Radarr/issues/7030#issuecomment-1039689518
               # https://github.com/dotnet/runtime/issues/9336
