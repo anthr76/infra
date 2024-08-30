@@ -1,6 +1,6 @@
 module "top22-proj-prod" {
   source            = "terraform-google-modules/project-factory/google"
-  version           = "14.3.0"
+  version           = "16.0.1"
   name              = "top22-prod"
   random_project_id = true
   org_id            = var.org_id
