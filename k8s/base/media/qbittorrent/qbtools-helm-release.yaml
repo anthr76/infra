@@ -42,7 +42,7 @@ spec:
           tagging:
             image: &image
               repository: ghcr.io/buroa/qbtools
-              tag: v0.15.0@sha256:067a68a0c7b2f522b7527e7bb48cf18614d46c16fcbcd16561d1bbc7f7f983fd
+              tag: v0.19.2@sha256:98b84b4b0e1e5f4fcff3cd2e6b5c5fe2168d415bccd38169dc80b161139c955f
             env: &env
               TZ: *timeZone
             args:
