@@ -22,7 +22,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/onedr0p/sonarr
-      tag: 4.0.2.1183@sha256:42ba5af9b0ea20f4db4622991e0f1657be02c6e8747872c652fdac193c097b25
+      tag: 4.0.11.2680@sha256:77827c4d76457a68e5c42fb141c312f9d1f0cbe96e984868cf859714cc53aa02
     env:
       TZ: "America/New_York"
       SONARR__LOG_LEVEL: info
