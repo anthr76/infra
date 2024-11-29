@@ -108,7 +108,7 @@ spec:
     init:
       image:
         repository: docker.io/library/busybox
-        tag: 1.36.1
+        tag: 1.37.0
         pullPolicy: IfNotPresent
     updateStrategy:
       type: RollingUpdate
