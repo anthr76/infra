@@ -114,14 +114,3 @@ spec:
   prune: true
   dependsOn:
     - name: kube-system-metallb
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kube-system-intel-gpu-plugin
-  namespace: flux-system
-  labels:
-    component.kutara.io/part-of: definitions
-spec:
-  path: "./k8s/base/kube-system/intel-gpu-plugin"
-  prune: true
