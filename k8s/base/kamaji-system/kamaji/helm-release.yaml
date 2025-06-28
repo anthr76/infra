@@ -9,7 +9,6 @@ spec:
   chart:
     spec:
       chart: kamaji
-      version: edge-25.4.1
       sourceRef:
         kind: HelmRepository
         name: clastix-charts
