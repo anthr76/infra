@@ -12,6 +12,7 @@ spec:
       sourceRef:
         kind: GitRepository
         name: clastix
+        namespace: flux-system
   values:
     image:
       tag: edge-25.4.1
