@@ -1,10 +1,13 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: GitRepository
 metadata:
-  name: clastix-charts
+  name: clastix
   namespace: flux-system
 spec:
-  interval: 10m
-  url: https://clastix.github.io/charts
-  timeout: 3m
+  interval: 5m0s
+  url: https://github.com/clastix/kamaji
+  ref:
+    tag: edge-25.4.1
+  sparseCheckout:
+  - charts

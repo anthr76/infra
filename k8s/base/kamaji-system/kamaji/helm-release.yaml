@@ -8,11 +8,10 @@ spec:
   interval: 10m
   chart:
     spec:
-      chart: kamaji
+      chart: charts/kamaji
       sourceRef:
-        kind: HelmRepository
-        name: clastix-charts
-        namespace: flux-system
+        kind: GitRepository
+        name: clastix
   values:
     image:
       tag: edge-25.4.1
