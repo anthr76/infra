@@ -29,6 +29,7 @@
                 pkgs.kubectl
                 pkgs.just
                 pkgs.flux
+                pkgs.kns
               ];
             }
           );
