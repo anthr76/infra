@@ -30,6 +30,7 @@
                 pkgs.just
                 pkgs.flux
                 pkgs.kns
+                pkgs.sops
               ];
             }
           );
