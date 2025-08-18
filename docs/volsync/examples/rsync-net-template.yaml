@@ -1,0 +1,29 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: example-backup
+  namespace: volsync-system  # Change to your application namespace
+spec:
+  sourcePVC: example-data  # Change to your PVC name
+  trigger:
+    schedule: "0 2 * * *"  # Daily at 2 AM - adjust as needed
+  rsync:
+    sshKeys: rsync-net-ssh-keys
+    address: "your-account.rsync.net"  # Replace with your rsync.net server
+    path: "/data/backups/example-app"  # Replace with your desired path
+    port: 22
+    sshUser: "your-account"  # Replace with your rsync.net username
+    copyMethod: Snapshot  # Use Snapshot for consistency
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: example-restore
+  namespace: volsync-system  # Change to your application namespace
+spec:
+  rsync:
+    capacity: 10Gi  # Adjust size as needed
+    storageClassName: ceph-block  # Adjust to your StorageClass
+    accessModes: ["ReadWriteOnce"]
+    copyMethod: Snapshot
