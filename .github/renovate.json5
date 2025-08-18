@@ -1,7 +1,6 @@
 {
   // General RenovateBot configuration
   extends: [
-    "github>bjw-s/renovate-config"
     "github>bjw-s/renovate-config",
     "github>bjw-s/home-ops//.github/renovate/autoMerge.json5",
     "github>bjw-s/home-ops//.github/renovate/groups.json5",
