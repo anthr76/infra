@@ -47,6 +47,7 @@ jobs:
             test
             --all-namespaces
             --enable-helm
+            --sources "flux-system"
             --path /github/workspace/k8s/clusters/${{ matrix.cluster }}
             --verbose
 
