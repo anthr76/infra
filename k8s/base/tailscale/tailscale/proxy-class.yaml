@@ -1,0 +1,8 @@
+apiVersion: tailscale.com/v1alpha1
+kind: ProxyClass
+metadata:
+  name: accept-routes
+  namespace: tailscale
+spec:
+  tailscale:
+    acceptRoutes: true

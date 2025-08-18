@@ -1,0 +1,13 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: clastix
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  url: https://github.com/clastix/kamaji
+  ref:
+    tag: edge-25.3.2
+  sparseCheckout:
+  - charts

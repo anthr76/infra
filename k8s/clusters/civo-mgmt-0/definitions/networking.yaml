@@ -2,23 +2,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: rook-ceph-external-namespace
+  name: networking
   namespace: flux-system
   labels:
     component.kutara.io/part-of: definitions
 spec:
-  path: "./k8s/base/rook-ceph"
+  path: "./k8s/base/networking"
   prune: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: rook-ceph-external-external-cluster
+  name: networking-cert-manager
   namespace: flux-system
   labels:
     component.kutara.io/part-of: definitions
 spec:
-  path: "./k8s/base/rook-ceph-external/external-cluster"
+  path: "./k8s/base/networking/cert-manager"
   prune: true
-  dependsOn:
-    - name: rook-ceph-snapshot-controller-crds
