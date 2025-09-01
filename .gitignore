@@ -21,3 +21,12 @@ ansible/roles/anthr76.routeros-configure
 /clusters/scr1/intergrations/scr1-cluster-0.yaml
 ansible/roles/ansible-role-vyos
 .direnv/*
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml

@@ -1,0 +1,33 @@
+---
+# Example ReplicationSource for database backup
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: postgres-backup
+  namespace: database
+spec:
+  sourcePVC: postgresql-data
+  trigger:
+    schedule: "0 1 * * *"  # Daily at 1 AM
+  rsync:
+    sshKeys: rsync-net-ssh-keys
+    address: "zh1234.rsync.net"  # Replace with your rsync.net server
+    path: "/data/backups/postgresql"
+    port: 22
+    sshUser: "zh1234"  # Replace with your rsync.net username
+    copyMethod: Snapshot
+    volumeSnapshotClassName: csi-ceph-blockpool-vsc
+---
+# Example ReplicationDestination for database restore
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: postgres-restore
+  namespace: database
+spec:
+  rsync:
+    capacity: 20Gi
+    storageClassName: rook-ceph-block
+    accessModes: ["ReadWriteOnce"]
+    copyMethod: Snapshot
+    volumeSnapshotClassName: csi-ceph-blockpool-vsc

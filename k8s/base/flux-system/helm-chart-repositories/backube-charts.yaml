@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: bjw-s
+  name: backube-charts
   namespace: flux-system
 spec:
-  interval: 30m
-  url: https://bjw-s-labs.github.io/helm-charts
+  interval: 10m
+  url: https://backube.github.io/helm-charts/
   timeout: 3m
