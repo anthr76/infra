@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: external-dns
+  name: external-dns-internal-kutara
   namespace: networking
   labels:
     component.kutara.io/part-of: standard-helm-release
@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: external-dns
-      version: 1.13.0
+      version: 1.18.0
       sourceRef:
         kind: HelmRepository
         name: external-dns-charts
@@ -22,20 +22,21 @@ spec:
     # logLevel: debug
     serviceMonitor:
       enabled: true
-    provider: cloudflare
+    provider:
+      name: rfc2136
+    extraArgs:
+      - --rfc2136-host=10.20.99.1
+      - --rfc2136-port=53
+      - --rfc2136-zone=kutara.io
+      - --rfc2136-tsig-keyname=external-dns
+      - --rfc2136-tsig-secret-alg=hmac-sha256
+      - --rfc2136-tsig-axfr
     env:
-      - name: CF_API_EMAIL
+      - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET
         valueFrom:
           secretKeyRef:
             name: external-dns
-            key: cf-email
-      - name: CF_API_KEY
-        valueFrom:
-          secretKeyRef:
-            name: external-dns
-            key: cf-api-key
-    #extraArgs:
-    #- "--default-targets=50.223.56.162"
+            key: tsig
     policy: sync
     txtPrefix: "${CLUSTER_NAME}."
     domainFilters:
