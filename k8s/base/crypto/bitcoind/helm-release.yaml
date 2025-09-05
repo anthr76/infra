@@ -20,4 +20,4 @@ spec:
     replicaCount: 1
     persistence:
       storageClass: slow-ceph-block
-
+      size: 1T
