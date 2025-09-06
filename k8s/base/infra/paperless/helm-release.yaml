@@ -45,7 +45,7 @@ spec:
                 key: PAPERLESS_DBPASS
     image:
       repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 2.1.3@sha256:01c190595a547c2f39c99806348ba1d1091c218dc3741fb207598f767e2dea3f
+      tag: 2.18.3@sha256:6dbe57d8198fa117158ba9e867e2d45280b65e9c37ea54c1df7b34c4085a564c
     env:
       COMPOSE_PROJECT_NAME: paperless
       PAPERLESS_TASK_WORKERS: 2
