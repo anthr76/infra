@@ -19,6 +19,9 @@ spec:
         name: galoymoney
         namespace: flux-system
   values:
+    image:
+      repository: shahanafarooqui/rtl
+      tag: v0.15.5
     ingress:
       enabled: true
       annotations:
@@ -44,4 +47,3 @@ spec:
       limits:
         memory: 512Mi
         cpu: 500m
-
