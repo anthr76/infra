@@ -17,6 +17,7 @@
     age
     just
     cilium-cli
+    kns
   ];
 
   # https://devenv.sh/processes/
