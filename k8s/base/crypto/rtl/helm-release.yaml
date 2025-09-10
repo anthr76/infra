@@ -21,7 +21,7 @@ spec:
   values:
     image:
       repository: shahanafarooqui/rtl
-      tag: v0.15.5
+      tag: v0.15.6
     ingress:
       enabled: true
       annotations:
