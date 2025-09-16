@@ -70,14 +70,14 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "home-assistant"
         hosts:
-          - host: "hass-nwk3.kutara.io"
+          - host: "hass-nwk3.rabbito"
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: hass-nwk3-tls
+          - secretName: hass-nwk3-rab-tls
             hosts:
-              - "hass-nwk3.kutara.io"
+              - "hass-nwk3.rabbito.tech"
     persistence:
       config:
         enabled: true
