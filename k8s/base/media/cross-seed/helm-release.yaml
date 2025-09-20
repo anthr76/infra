@@ -35,7 +35,7 @@ spec:
           main:
             image:
               repository: ghcr.io/cross-seed/cross-seed
-              tag: 5.9.2@sha256:6abdca45f0ecfd8d23a3035beefa716a14b66f23c14854631fe369d1ad346f1e
+              tag: 6.13.3@sha256:81afafdd96a5dd2c8e485a03e9d61ec07ceb051c4c950071497c44f8ceb5169f
             env:
               TZ: America/New_York
               CROSSSEED_PORT: &port 3000
