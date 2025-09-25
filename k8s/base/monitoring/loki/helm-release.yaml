@@ -12,7 +12,7 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 5.41.4
+      version: 6.41.1
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
