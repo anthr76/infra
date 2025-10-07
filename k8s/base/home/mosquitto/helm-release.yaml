@@ -21,7 +21,7 @@ spec:
     priorityClassName: home-cluster-critical
     image:
       repository: docker.io/library/eclipse-mosquitto
-      tag: 2.0.17
+      tag: 2.0.22
     service:
       main:
         type: LoadBalancer
