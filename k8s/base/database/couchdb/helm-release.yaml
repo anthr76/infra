@@ -43,7 +43,7 @@ spec:
       storageClass: fast-ceph-block
     image:
       repository: docker.io/library/couchdb
-      tag: 3.3.2
+      tag: 3.5.1
     ingress:
       enabled: true
       className: nginx
