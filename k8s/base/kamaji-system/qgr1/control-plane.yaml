@@ -23,8 +23,8 @@ spec:
         labels:
           tenant.clastix.io: qgr1
         annotations:
-          tailscale.com/tailnet-fqdn: qgr1.mole-bowfin.ts.net
-          tailscale.com/proxy-group: accept-routes
+          tailscale.com/hostname: qgr1.mole-bowfin.ts.net
+          #tailscale.com/proxy-group: accept-routes
       serviceType: LoadBalancer
   kubernetes:
     version: v1.34.0
