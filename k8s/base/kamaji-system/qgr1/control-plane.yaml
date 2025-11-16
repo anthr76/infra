@@ -1,0 +1,50 @@
+apiVersion: kamaji.clastix.io/v1alpha1
+kind: TenantControlPlane
+metadata:
+  name: qgr1
+  namespace: kamaji-system
+  labels:
+    tenant.clastix.io: qgr1
+spec:
+  dataStore: default
+  controlPlane:
+    deployment:
+      replicas: 1
+      additionalMetadata:
+        labels:
+          tenant.clastix.io: qgr1
+      extraArgs:
+        apiServer: []
+        controllerManager: []
+        scheduler: []
+      resources: {}
+    service:
+      additionalMetadata:
+        labels:
+          tenant.clastix.io: qgr1
+        annotations:
+          tailscale.com/tailnet-fqdn: qgr1.mole-bowfin.ts.net
+          tailscale.com/proxy-group: accept-routes
+      serviceType: LoadBalancer
+  kubernetes:
+    version: v1.34.0
+    kubelet:
+      cgroupfs: systemd
+    admissionControllers:
+      - ResourceQuota
+      - LimitRanger
+  networkProfile:
+    loadBalancerClass: tailscale
+    port: 6443
+    certSANs:
+    - qgr1.cluster.local
+    serviceCidr: 10.96.0.0/16
+    podCidr: 10.36.0.0/16
+    dnsServiceIPs:
+    - 10.96.0.10
+  addons:
+    coreDNS: {}
+    kubeProxy: {}
+    konnectivity:
+      server:
+        port: 8132
