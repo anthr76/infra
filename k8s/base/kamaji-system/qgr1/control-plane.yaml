@@ -23,10 +23,10 @@ spec:
         labels:
           tenant.clastix.io: qgr1
         annotations:
-          tailscale.com/hostname: qgr1.mole-bowfin.ts.net
-          tailscale.com/expose: true
+          tailscale.com/hostname: qgr1-k8s
+          tailscale.com/expose: "true"
           tailscale.com/proxy-class: "default"
-          #tailscale.com/proxy-group: accept-routes
+          tailscale.com/tailnet-ip: "100.66.232.13"
       serviceType: ClusterIP
   kubernetes:
     version: v1.34.0
@@ -36,7 +36,7 @@ spec:
       - ResourceQuota
       - LimitRanger
   networkProfile:
-    #loadBalancerClass: tailscale
+    address: qgr1-k8s.mole-bowfin.ts.net
     port: 6443
     certSANs:
     - qgr1.cluster.local

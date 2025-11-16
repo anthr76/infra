@@ -18,6 +18,7 @@
     just
     cilium-cli
     kns
+    kubectl-view-secret
   ];
 
   # https://devenv.sh/processes/
