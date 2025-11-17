@@ -1,3 +1,0 @@
-kubeProxyReplacement: "strict"
-k8sServiceHost: cluster-0.scr1.rabbito.tech
-k8sServicePort: 6443
