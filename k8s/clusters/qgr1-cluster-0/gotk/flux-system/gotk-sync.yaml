@@ -24,7 +24,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./k8s/clusters/scr1-cluster-0/gotk/flux-system
+  path: ./k8s/clusters/qgr1-cluster-0/gotk/flux-system
   prune: true
   wait: true
   sourceRef:
@@ -52,7 +52,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./k8s/base/flux-system/cluster-config/overlays/scr1-cluster-0
+  path: ./k8s/base/flux-system/cluster-config/overlays/qgr1-cluster-0
   prune: true
   wait: true
   sourceRef:
@@ -74,7 +74,7 @@ spec:
   timeout: 5m
   dependsOn:
     - name: cluster-config
-  path: ./k8s/clusters/scr1-cluster-0/definitions
+  path: ./k8s/clusters/qgr1-cluster-0/definitions
   prune: true
   wait: false
   sourceRef:
