@@ -9,7 +9,7 @@ spec:
   dataStore: default
   controlPlane:
     deployment:
-      replicas: 1
+      replicas: 3
       additionalMetadata:
         labels:
           tenant.clastix.io: qgr1
@@ -17,7 +17,28 @@ spec:
         apiServer: []
         controllerManager: []
         scheduler: []
-      resources: {}
+      resources:
+        apiServer:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+        controllerManager:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+        scheduler:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
     service:
       additionalMetadata:
         labels:
@@ -26,7 +47,6 @@ spec:
           tailscale.com/hostname: qgr1-k8s
           tailscale.com/expose: "true"
           tailscale.com/proxy-class: "default"
-          tailscale.com/tailnet-ip: "100.66.232.13"
       serviceType: ClusterIP
   kubernetes:
     version: v1.34.0
@@ -36,17 +56,23 @@ spec:
       - ResourceQuota
       - LimitRanger
   networkProfile:
-    address: qgr1-k8s.mole-bowfin.ts.net
     port: 6443
     certSANs:
     - qgr1.cluster.local
+    - qgr1-k8s.mole-bowfin.ts.net
     serviceCidr: 10.96.0.0/16
     podCidr: 10.36.0.0/16
     dnsServiceIPs:
     - 10.96.0.10
   addons:
     coreDNS: {}
-    kubeProxy: {}
     konnectivity:
       server:
         port: 8132
+        resources:
+          requests:
+            cpu: 25m
+            memory: 32Mi
+          limits:
+            cpu: 100m
+            memory: 64Mi
