@@ -27,3 +27,6 @@ spec:
   values:
     bitwarden-sdk-server:
       enabled: true
+      tls:
+        enabled: true
+        secretName: bitwarden-sdk-server-tls
