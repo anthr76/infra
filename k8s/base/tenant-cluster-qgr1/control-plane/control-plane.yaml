@@ -2,7 +2,7 @@ apiVersion: kamaji.clastix.io/v1alpha1
 kind: TenantControlPlane
 metadata:
   name: qgr1
-  namespace: kamaji-system
+  namespace: tenant-cluster-qgr1
   labels:
     tenant.clastix.io: qgr1
 spec:
