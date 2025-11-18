@@ -76,13 +76,13 @@ spec:
           limits:
             cpu: 100m
             memory: 64Mi
-        agent:
-          extraArgs:
-            proxy-server-host: qgr1-k8s.mole-bowfin.ts.net
-          resources:
-            requests:
-              cpu: 25m
-              memory: 32Mi
-            limits:
-              cpu: 100m
-              memory: 64Mi
+      agent:
+        extraArgs:
+          proxy-server-host: qgr1-k8s.mole-bowfin.ts.net
+        resources:
+          requests:
+            cpu: 25m
+            memory: 32Mi
+          limits:
+            cpu: 100m
+            memory: 64Mi
