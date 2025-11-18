@@ -56,10 +56,12 @@ spec:
       - ResourceQuota
       - LimitRanger
   networkProfile:
+    #address: qgr1-k8s.mole-bowfin.ts.net
     port: 6443
     certSANs:
     - qgr1.cluster.local
     - qgr1-k8s.mole-bowfin.ts.net
+    - 100.94.68.123
     serviceCidr: 10.96.0.0/16
     podCidr: 10.36.0.0/16
     dnsServiceIPs:
@@ -78,4 +80,4 @@ spec:
             memory: 64Mi
       agent:
         extraArgs:
-          - --proxy-server-host=qgr1-k8s.mole-bowfin.ts.net
+          - --proxy-server-host=100.94.68.123
