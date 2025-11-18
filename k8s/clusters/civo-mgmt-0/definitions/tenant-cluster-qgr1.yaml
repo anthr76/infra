@@ -26,7 +26,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: tenant-cluster-qgr1-boostrao
+  name: tenant-cluster-qgr1-bootstrap
   namespace: flux-system
   labels:
     component.kutara.io/part-of: definitions
