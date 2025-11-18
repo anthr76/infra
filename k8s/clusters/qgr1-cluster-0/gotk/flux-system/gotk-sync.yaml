@@ -1,36 +1,4 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: GitRepository
-metadata:
-  name: flux-system
-  namespace: flux-system
-spec:
-  interval: 1m0s
-  ref:
-    branch: main
-  secretRef:
-    name: flux-system
-  url: ssh://git@github.com/anthr76/infra
-  ignore: |
-    # exclude all
-    /*
-    # include gitops dirs
-    !/k8s
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: flux-deploy
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  path: ./k8s/clusters/qgr1-cluster-0/gotk/flux-system
-  prune: true
-  wait: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -52,21 +20,17 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./k8s/base/flux-system/cluster-config/overlays/qgr1-cluster-0
+  path: ./k8s/base/flux-system/cluster-config/overlays/qgr-cluster-0
   prune: true
   wait: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: flux-system
+  name: cluster-definitions
   namespace: flux-system
 spec:
   interval: 10m0s
@@ -74,27 +38,19 @@ spec:
   timeout: 5m
   dependsOn:
     - name: cluster-config
-  path: ./k8s/clusters/qgr1-cluster-0/definitions
+  path: ./k8s/clusters/qgr-cluster-0/definitions
   prune: true
   wait: false
   sourceRef:
     kind: GitRepository
     name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   postBuild:
     substitute: {}
     substituteFrom:
       - kind: ConfigMap
         name: global-cluster-config
-      - kind: Secret
-        name: global-cluster-secrets
       - kind: ConfigMap
         name: cluster-config
-      - kind: Secret
-        name: cluster-secrets
   patches:
     - patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -110,10 +66,6 @@ spec:
           sourceRef:
             kind: GitRepository
             name: flux-system
-          decryption:
-            provider: sops
-            secretRef:
-              name: sops-age
           patches:
             - patch: |-
                 apiVersion: helm.toolkit.fluxcd.io/v1
@@ -136,19 +88,15 @@ spec:
               target:
                 kind: HelmRelease
                 group: helm.toolkit.fluxcd.io
-                version: v2beta2
+                version: v2
                 labelSelector: "component.kutara.io/part-of=standard-helm-release"
           postBuild:
             substitute: {}
             substituteFrom:
               - kind: ConfigMap
                 name: global-cluster-config
-              - kind: Secret
-                name: global-cluster-secrets
               - kind: ConfigMap
                 name: cluster-config
-              - kind: Secret
-                name: cluster-secrets
       target:
         kind: Kustomization
         group: kustomize.toolkit.fluxcd.io
