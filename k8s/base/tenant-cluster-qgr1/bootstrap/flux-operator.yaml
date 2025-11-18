@@ -40,7 +40,7 @@ spec:
     namespace: flux-system
   timeout: 5m
   wait: false
-  targetNamespace: tenant-cluster-qgr1-flux-operator
+  targetNamespace: tenant-cluster-qgr1
   patches:
     - patch: |-
         apiVersion: helm.toolkit.fluxcd.io/v2
