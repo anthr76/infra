@@ -2,13 +2,34 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: tenant-cluster-flux-operator
+  name: tenant-cluster-qgr1-flux-system
   namespace: tenant-cluster-qgr1
 spec:
   kubeConfig:
     secretRef:
       name: qgr1-admin-kubeconfig
       key: admin.conf
+  interval: 10m0s
+  path: ./k8s/base/flux-system
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  timeout: 5m
+  wait: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tenant-cluster-qgr1-flux-operator
+  namespace: tenant-cluster-qgr1
+spec:
+  # kubeConfig:
+  #   secretRef:
+  #     name: qgr1-admin-kubeconfig
+  #     key: admin.conf
   interval: 10m0s
   path: ./k8s/base/flux-system/flux-operator
   prune: true
