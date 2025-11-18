@@ -52,6 +52,10 @@ spec:
     version: v1.34.0
     kubelet:
       cgroupfs: systemd
+      preferredAddressTypes:
+        - InternalIP
+        - Hostname
+        - ExternalIP
     admissionControllers:
       - ResourceQuota
       - LimitRanger
