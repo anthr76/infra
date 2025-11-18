@@ -30,7 +30,7 @@ spec:
       enabled: false
     cluster:
       id: 1
-      name: scr1-cluster-0
+      name: qgr1-cluster-0
     endpointRoutes:
       enabled: true
     hubble:
@@ -48,38 +48,33 @@ spec:
           enabled: false
       relay:
         enabled: true
-      ui:
-        enabled: true
-        ingress:
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-production
-          enabled: true
-          hosts:
-          - hubble.scr1.rabbito.tech
-          tls:
-          - hosts:
-            - hubble.scr1.rabbito.tech
-            secretName: hubble-tls
+      # ui:
+      #   enabled: true
+      #   ingress:
+      #     annotations:
+      #       cert-manager.io/cluster-issuer: letsencrypt-production
+      #     enabled: true
+      #     hosts:
+      #     - hubble.scr1.rabbito.tech
+      #     tls:
+      #     - hosts:
+      #       - hubble.scr1.rabbito.tech
+      #       secretName: hubble-tls
     ipam:
       mode: kubernetes
-    ipv4NativeRoutingCIDR: 10.244.0.0/16
-    ipv6:
-      enabled: true
-    ipv6NativeRoutingCIDR: fddf:f7bc:9670::/48
-    k8sServiceHost: cluster-0.scr1.rabbito.tech
+    k8sServiceHost: qgr1-k8s.mole-bowfin.ts.net
     k8sServicePort: 6443
-    kubeProxyReplacement: disabled
+    kubeProxyReplacement: "true"
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     localRedirectPolicy: true
     operator:
       prometheus:
-        enabled: true
+        enabled: false
         serviceMonitor:
           enabled: false
     prometheus:
-      enabled: true
+      enabled: false
       serviceMonitor:
         enabled: false
-    securityContext:
-      privileged: true
-    tunnel: disabled
+    routingMode: native
+    ipv4NativeRoutingCIDR: 10.36.0.0/16
