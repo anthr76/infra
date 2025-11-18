@@ -60,7 +60,7 @@ spec:
       - ResourceQuota
       - LimitRanger
   networkProfile:
-    #address: qgr1-k8s.mole-bowfin.ts.net
+    address: 100.94.68.123
     port: 6443
     certSANs:
     - qgr1.cluster.local
