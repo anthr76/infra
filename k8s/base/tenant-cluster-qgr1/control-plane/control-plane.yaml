@@ -14,7 +14,8 @@ spec:
         labels:
           tenant.clastix.io: qgr1
       extraArgs:
-        apiServer: []
+        apiServer:
+          - --advertise-address=100.94.68.123
         controllerManager: []
         scheduler: []
       resources:
