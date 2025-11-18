@@ -40,6 +40,7 @@ spec:
     namespace: flux-system
   timeout: 5m
   wait: false
+  targetNamespace: tenant-cluster-qgr1-flux-operator
   patches:
     - patch: |-
         apiVersion: helm.toolkit.fluxcd.io/v2
@@ -48,6 +49,7 @@ spec:
           name: flux-operator
           namespace: flux-system
         spec:
+          targetNamespace: flux-system
           kubeConfig:
             secretRef:
               name: qgr1-admin-kubeconfig
