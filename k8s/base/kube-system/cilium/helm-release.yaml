@@ -24,6 +24,17 @@ spec:
       interval: 5m
   values:
     autoDirectNodeRoutes: true
+    bandwidthManager:
+      enabled: true
+      bbr: true
+    bpf:
+      datapathMode: netkit
+      masquerade: true
+      preallocateMaps: true
+      tproxy: true
+    bpfClockProbe: true
+    bgpControlPlane:
+      enabled: true
     bgp:
       announce:
         loadbalancerIP: false
@@ -34,32 +45,7 @@ spec:
     endpointRoutes:
       enabled: true
     hubble:
-      enabled: true
-      metrics:
-        enabled:
-        - dns:query
-        - drop
-        - tcp
-        - flow
-        - port-distribution
-        - icmp
-        - http
-        serviceMonitor:
-          enabled: false
-      relay:
-        enabled: true
-      # ui:
-      #   enabled: true
-      #   ingress:
-      #     annotations:
-      #       cert-manager.io/cluster-issuer: letsencrypt-production
-      #     enabled: true
-      #     hosts:
-      #     - hubble.scr1.rabbito.tech
-      #     tls:
-      #     - hosts:
-      #       - hubble.scr1.rabbito.tech
-      #       secretName: hubble-tls
+      enabled: false
     ipam:
       mode: kubernetes
     k8sServiceHost: qgr1-k8s.mole-bowfin.ts.net

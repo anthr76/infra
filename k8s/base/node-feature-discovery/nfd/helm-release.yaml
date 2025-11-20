@@ -11,20 +11,52 @@ spec:
   chart:
     spec:
       chart: node-feature-discovery
-      version: 0.13.3
+      version: 0.2.1
       sourceRef:
         kind: HelmRepository
         name: node-feature-discovery-charts
         namespace: flux-system
   values:
+    master:
+      replicaCount: 1
+      resources:
+        limits:
+          memory: 4Gi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Equal"
+          value: ""
+          effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: "node-role.kubernetes.io/control-plane"
+                    operator: In
+                    values: [""]
+
     worker:
+      resources:
+        limits:
+          memory: 512Mi
+        requests:
+          cpu: 5m
+          memory: 64Mi
+
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Equal"
           value: ""
           effect: "NoSchedule"
+
       annotations:
         configmap.reloader.stakater.com/reload: node-feature-discovery-worker-conf
+
       config:
         core:
           sources:
@@ -78,3 +110,14 @@ spec:
                     class: ["0300"]
                     vendor: ["1002"]
                     device: ["15dd"]
+
+    gc:
+      enable: true
+      interval: 1h
+      replicaCount: 1
+      resources:
+        limits:
+          memory: 1Gi
+        requests:
+          cpu: 10m
+          memory: 128Mi

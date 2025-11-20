@@ -26,8 +26,6 @@ spec:
       retries: 5
   values:
     args:
-      # TODO: Get \"https://192.168.8.51:10250/metrics/resource\": x509: cannot validate certificate for 192.168.8.51 because it doesn't contain any IP SANs" node="master-03"
-      # master nodes aren't in the SAN? Need to dig into this.
       - --kubelet-insecure-tls
       - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
       - --kubelet-use-node-status-port
