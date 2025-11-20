@@ -5,6 +5,7 @@ metadata:
   name: kubelet-csr-approver-charts
   namespace: flux-system
 spec:
+  type: oci
   interval: 15m
-  url: https://postfinance.github.io/kubelet-csr-approver
+  url: oci://ghcr.io/postfinance/charts
   timeout: 3m
