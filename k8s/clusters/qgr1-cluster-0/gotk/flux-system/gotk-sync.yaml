@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./k8s/base/flux-system/cluster-config/overlays/qgr-cluster-0
+  path: ./k8s/base/flux-system/cluster-config/overlays/qgr1-cluster-0
   prune: true
   wait: true
   sourceRef:
