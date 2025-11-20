@@ -38,7 +38,7 @@ spec:
   timeout: 5m
   dependsOn:
     - name: cluster-config
-  path: ./k8s/clusters/qgr-cluster-0/definitions
+  path: ./k8s/clusters/qgr1-cluster-0/definitions
   prune: true
   wait: false
   sourceRef:
