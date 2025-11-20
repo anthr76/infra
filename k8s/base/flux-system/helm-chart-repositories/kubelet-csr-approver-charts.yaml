@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kubelet-csr-approver-charts
+  namespace: flux-system
+spec:
+  interval: 15m
+  url: https://postfinance.github.io/kubelet-csr-approver
+  timeout: 3m
