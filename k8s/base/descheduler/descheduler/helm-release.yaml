@@ -78,13 +78,15 @@ spec:
                 podRestartThreshold: 100
                 includingInitContainers: true
           plugins:
-            deschedule:
+            balance:
               enabled:
                 - RemoveDuplicates
+                - RemovePodsViolatingTopologySpreadConstraint
+                - LowNodeUtilization
+            deschedule:
+              enabled:
                 - RemovePodsViolatingNodeTaints
                 - RemovePodsViolatingNodeAffinity
                 - RemovePodsViolatingInterPodAntiAffinity
-                - RemovePodsViolatingTopologySpreadConstraint
-                - LowNodeUtilization
                 - RemoveFailedPods
                 - RemovePodsHavingTooManyRestarts
