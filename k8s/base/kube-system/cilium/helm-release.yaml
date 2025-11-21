@@ -35,10 +35,6 @@ spec:
       securityContext:
         capabilities:
           keepCapNetBindService: true
-    securityContext:
-      capabilities:
-        ciliumAgent:
-        - NET_BIND_SERVICE
     bpf:
       datapathMode: netkit
       masquerade: true
