@@ -8,7 +8,7 @@ spec:
   interval: 12h
   url: https://github.com/kubernetes-sigs/gateway-api
   ref:
-    tag: v1.2.0
+    tag: v1.4.0
   ignore: |
     /*
     !/config/crd/experimental
@@ -24,5 +24,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: gateway-api
-  path: ./config/crd/standard
+  path: ./config/crd/experimental
   wait: true

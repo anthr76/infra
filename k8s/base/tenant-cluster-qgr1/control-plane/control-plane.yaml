@@ -21,25 +21,59 @@ spec:
       resources:
         apiServer:
           requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+        controllerManager:
+          requests:
             cpu: 100m
             memory: 256Mi
           limits:
             cpu: 1000m
-            memory: 512Mi
-        controllerManager:
+            memory: 1Gi
+        scheduler:
           requests:
-            cpu: 50m
+            cpu: 100m
             memory: 128Mi
           limits:
             cpu: 500m
-            memory: 256Mi
+            memory: 512Mi
+      env:
+        apiServer:
+          - name: GOMAXPROCS
+            valueFrom:
+              resourceFieldRef:
+                resource: limits.cpu
+                divisor: "1"
+          - name: GOMEMLIMIT
+            valueFrom:
+              resourceFieldRef:
+                resource: limits.memory
+                divisor: "1"
+        controllerManager:
+          - name: GOMAXPROCS
+            valueFrom:
+              resourceFieldRef:
+                resource: limits.cpu
+                divisor: "1"
+          - name: GOMEMLIMIT
+            valueFrom:
+              resourceFieldRef:
+                resource: limits.memory
+                divisor: "1"
         scheduler:
-          requests:
-            cpu: 50m
-            memory: 64Mi
-          limits:
-            cpu: 200m
-            memory: 128Mi
+          - name: GOMAXPROCS
+            valueFrom:
+              resourceFieldRef:
+                resource: limits.cpu
+                divisor: "1"
+          - name: GOMEMLIMIT
+            valueFrom:
+              resourceFieldRef:
+                resource: limits.memory
+                divisor: "1"
     service:
       additionalMetadata:
         labels:

@@ -1,25 +1,21 @@
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
-  name: webhook-receiver
-  namespace: flux-system
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-production
+  name: github-webhook
 spec:
-  ingressClassName: nginx
+  hostnames:
+    - flux-receiver-${CLUSTER_NAME}.kutara.io
+  parentRefs:
+    - name: envoy-external
+      namespace: network
   rules:
-    - host: "flux-receiver-${CLUSTER_NAME}.kutara.io"
-      http:
-        paths:
-          - path: /hook/
-            pathType: Prefix
-            backend:
-              service:
-                name: webhook-receiver
-                port:
-                  number: 80
-  tls:
-    - hosts:
-        - "flux-receiver-${CLUSTER_NAME}.kutara.io"
-      secretName: flux-receiver-${CLUSTER_NAME}-tls
+    - backendRefs:
+        - name: webhook-receiver
+          namespace: flux-system
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /hook/
