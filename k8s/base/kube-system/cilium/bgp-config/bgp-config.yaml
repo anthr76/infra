@@ -18,10 +18,13 @@ metadata:
     advertise: bgp
 spec:
   advertisements:
-    - advertisementType: Service
+    - advertisementType: "Service"
       service:
         addresses:
           - LoadBalancerIP
+      selector:
+        matchExpressions:
+         - { key: somekey, operator: NotIn, values: ['never-used-value'] }
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliumbgppeerconfig_v2.json
 apiVersion: cilium.io/v2
