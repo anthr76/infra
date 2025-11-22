@@ -27,14 +27,6 @@ spec:
     bandwidthManager:
       enabled: true
       bbr: true
-    socketLB:
-      hostNamespaceOnly: true
-    gatewayAPI:
-      enabled: true
-    envoy:
-      securityContext:
-        capabilities:
-          keepCapNetBindService: true
     bpf:
       datapathMode: netkit
       masquerade: true
@@ -43,34 +35,71 @@ spec:
     bpfClockProbe: true
     bgpControlPlane:
       enabled: true
-    bgp:
-      announce:
-        loadbalancerIP: false
-      enabled: false
     cluster:
       id: 1
       name: qgr1-cluster-0
+    dashboards:
+      enabled: false
+    enableIPv4BIGTCP: true
+    enableIPv4Masquerade: true
     endpointRoutes:
+      enabled: true
+    envoy:
+      enabled: true
+    gatewayAPI:
       enabled: true
     hubble:
       enabled: false
     ipam:
       mode: kubernetes
-    pmtuDiscovery:
-      enabled: true
+    ipv4NativeRoutingCIDR: 10.36.0.0/16
     k8sServiceHost: qgr1-k8s.mole-bowfin.ts.net
     k8sServicePort: 6443
-    kubeProxyReplacement: "true"
+    kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    l2announcements:
+      enabled: false
+    loadBalancer:
+      algorithm: maglev
+      mode: dsr
     localRedirectPolicy: true
     operator:
+      dashboards:
+        enabled: false
       prometheus:
         enabled: false
         serviceMonitor:
           enabled: false
+      replicas: 2
+      rollOutPods: true
+    pmtuDiscovery:
+      enabled: true
     prometheus:
       enabled: false
       serviceMonitor:
         enabled: false
+        trustCRDsExist: false
+    rollOutCiliumPods: true
     routingMode: native
-    ipv4NativeRoutingCIDR: 10.36.0.0/16
+    securityContext:
+      capabilities:
+        ciliumAgent:
+          - CHOWN
+          - KILL
+          - NET_ADMIN
+          - NET_RAW
+          - IPC_LOCK
+          - SYS_ADMIN
+          - SYS_RESOURCE
+          - PERFMON
+          - BPF
+          - DAC_OVERRIDE
+          - FOWNER
+          - SETGID
+          - SETUID
+        cleanCiliumState:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
+    socketLB:
+      enabled: true
