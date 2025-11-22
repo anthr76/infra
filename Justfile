@@ -89,7 +89,7 @@ _flux-hr-resume:
     kubectl get helmreleases --all-namespaces --no-headers | awk '{print $1, $2}' \
       | xargs --max-procs=4 -l bash -c \
         'kubectl -n $0 patch helmrelease/$1 --type merge --patch "{\"spec\":{\"suspend\":false}}"'
-    just flux-hr-sync
+    just _flux-hr-sync
 
 # Suspend Flux Kustomizations
 _flux-ks-suspend:
@@ -102,7 +102,7 @@ _flux-ks-resume:
     kubectl get kustomization --all-namespaces --no-headers | awk '{print $1, $2}' \
       | xargs --max-procs=4 -l bash -c \
         'kubectl -n $0 patch kustomization/$1 --type merge --patch "{\"spec\":{\"suspend\":false}}"'
-    just flux-ks-sync
+    just _flux-ks-sync
 
 # Suspend Flux GitRepo
 _flux-gr-suspend:
@@ -115,7 +115,7 @@ _flux-gr-resume:
     kubectl get gitrepo --all-namespaces --no-headers | awk '{print $1, $2}' \
       | xargs --max-procs=4 -l bash -c \
         'kubectl -n $0 patch gitrepo/$1 --type merge --patch "{\"spec\":{\"suspend\":false}}"'
-    just flux-gr-sync
+    just _flux-gr-sync
 
 # Do a flux-*-suspend of all resources tracked in Just
 flux-suspend:
