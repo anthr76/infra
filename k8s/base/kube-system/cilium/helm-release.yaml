@@ -40,6 +40,7 @@ spec:
       name: qgr1-cluster-0
     dashboards:
       enabled: false
+    devices: en+
     enableIPv4BIGTCP: true
     enableIPv4Masquerade: true
     endpointRoutes:
@@ -50,15 +51,11 @@ spec:
       enabled: true
     hubble:
       enabled: false
-    ipam:
-      mode: kubernetes
-    ipv4NativeRoutingCIDR: 10.36.0.0/16
+    #ipv4NativeRoutingCIDR: 10.36.0.0/16
     k8sServiceHost: qgr1-k8s.mole-bowfin.ts.net
     k8sServicePort: 6443
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-    l2announcements:
-      enabled: false
     loadBalancer:
       algorithm: maglev
       mode: dsr

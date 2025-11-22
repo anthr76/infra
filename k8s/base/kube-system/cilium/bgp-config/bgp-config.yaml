@@ -24,7 +24,7 @@ spec:
           - LoadBalancerIP
       selector:
         matchExpressions:
-         - { key: somekey, operator: NotIn, values: ['never-used-value'] }
+        - {key: somekey, operator: NotIn, values: ['never-used-value']}
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliumbgppeerconfig_v2.json
 apiVersion: cilium.io/v2
@@ -53,7 +53,7 @@ spec:
       localASN: 64512
       peers:
         - name: fw1-scr1
-          peerASN: 64512
+          peerASN: 64513
           peerAddress: 192.168.8.1
           peerConfigRef:
             name: l3-bgp-peer-config
