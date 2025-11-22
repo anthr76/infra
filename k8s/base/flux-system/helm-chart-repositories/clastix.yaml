@@ -8,6 +8,6 @@ spec:
   interval: 5m0s
   url: https://github.com/clastix/kamaji
   ref:
-    tag: edge-25.3.2
+    tag: edge-25.11.4
   sparseCheckout:
   - charts
