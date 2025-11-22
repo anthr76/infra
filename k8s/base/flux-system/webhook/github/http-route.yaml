@@ -9,7 +9,7 @@ spec:
   hostnames:
     - flux-receiver-scr1.kutara.io
   parentRefs:
-    - name: cilium
+    - name: cilium-external
       namespace: kube-system
   rules:
     - backendRefs:
