@@ -56,6 +56,8 @@ spec:
       enabled: false
     ipam:
       mode: kubernetes
+    pmtuDiscovery:
+      enabled: true
     k8sServiceHost: qgr1-k8s.mole-bowfin.ts.net
     k8sServicePort: 6443
     kubeProxyReplacement: "true"
