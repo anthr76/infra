@@ -42,6 +42,7 @@ metadata:
 spec:
   path: "./k8s/base/networking/trust-manager"
   prune: true
+
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
