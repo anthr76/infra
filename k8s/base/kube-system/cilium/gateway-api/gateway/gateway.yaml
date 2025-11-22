@@ -4,46 +4,86 @@ kind: Gateway
 metadata:
   name: cilium-internal
   namespace: kube-system
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
-  addresses:
-  - type: IPAddress
-    value: 10.45.0.43
   gatewayClassName: cilium
+  addresses:
+    - type: IPAddress
+      value: 10.45.0.43
   listeners:
     - name: http
       protocol: HTTP
       port: 80
+      hostname: "*.kutara.io"
       allowedRoutes:
         namespaces:
           from: All
     - name: https
       protocol: HTTPS
       port: 443
+      hostname: "*.kuatara.io"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: kutara-wildcard-tls
+            kind: Secret
       allowedRoutes:
         namespaces:
           from: All
-
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: cilium-external
   namespace: kube-system
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
-  addresses:
-  - type: IPAddress
-    value: 10.45.0.80
   gatewayClassName: cilium
+  addresses:
+    - type: IPAddress
+      value: 10.45.0.80
   listeners:
     - name: http
       protocol: HTTP
       port: 80
+      hostname: "*.qgr1.rabbito.tech"
       allowedRoutes:
         namespaces:
           from: All
     - name: https
       protocol: HTTPS
       port: 443
+      hostname: "*.qgr1.rabbito.tech"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: qgr1-rabbito-wildcard-tls
+            kind: Secret
       allowedRoutes:
         namespaces:
           from: All
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: https-redirect
+  namespace: kube-system
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: none
+spec:
+  parentRefs:
+    - name: cilium-external
+      namespace: network
+      sectionName: http
+    - name: cilium-internal
+      namespace: network
+      sectionName: http
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
