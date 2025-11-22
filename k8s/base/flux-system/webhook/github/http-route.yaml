@@ -9,8 +9,8 @@ spec:
   hostnames:
     - flux-receiver-scr1.kutara.io
   parentRefs:
-    - name: envoy-external
-      namespace: network
+    - name: cilium
+      namespace: kube-system
   rules:
     - backendRefs:
         - name: webhook-receiver
