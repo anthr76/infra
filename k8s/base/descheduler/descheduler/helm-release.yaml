@@ -69,10 +69,11 @@ spec:
                 reasons:
                   - OutOfcpu
                   - CreateContainerConfigError
+                  - CrashLoopBackOff
                 includingInitContainers: true
                 excludeOwnerKinds:
                   - Job
-                minPodLifetimeSeconds: 3600
+                minPodLifetimeSeconds: 600
             - name: RemovePodsHavingTooManyRestarts
               args:
                 podRestartThreshold: 100
