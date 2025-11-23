@@ -50,7 +50,7 @@ spec:
           tailscale.com/proxy-class: "default"
       serviceType: ClusterIP
   kubernetes:
-    version: v1.34.2
+    version: v1.34.0
     kubelet:
       cgroupfs: systemd
       preferredAddressTypes:
