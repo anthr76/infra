@@ -2,7 +2,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: cilium-internal
+  name: cilium-external
   namespace: kube-system
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
@@ -35,7 +35,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: cilium-external
+  name: cilium-internal
   namespace: kube-system
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
