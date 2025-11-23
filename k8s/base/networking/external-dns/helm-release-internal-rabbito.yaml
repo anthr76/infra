@@ -24,6 +24,7 @@ spec:
       enabled: true
     provider:
       name: rfc2136
+    triggerLoopOnEvent: true
     env:
       - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET
         valueFrom:
