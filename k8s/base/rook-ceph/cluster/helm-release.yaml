@@ -194,7 +194,7 @@ spec:
     route:
       dashboard:
         host:
-          name: "rook.cluster-0.qgr1.rabbito.tech"
+          name: "rook.qgr1.rabbito.tech"
           path: "/"
           pathType: PathPrefix
         parentRefs:
