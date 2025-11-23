@@ -14,7 +14,7 @@ spec:
   chart:
     spec:
       chart: rook-ceph-cluster
-      version: v1.14.8
+      version: v1.18.7
       sourceRef:
         kind: HelmRepository
         name: rook-ceph-charts
@@ -24,52 +24,13 @@ spec:
   values:
     toolbox:
       enabled: false
-      image: quay.io/ceph/ceph:v19.1.0@sha256:56d1542f98c99516890898f79f1ba6010922be479a1432d7f380203a73405517
     monitoring:
       enabled: true
     cephClusterSpec:
-      # This is a terrible hack
-      # I need more resources.
-      resources:
-        osd:
-          limits:
-            cpu: "2000m"
-            memory: "4Gi"
-          requests:
-            cpu: "500m"
-            memory: "4Gi"
-      network:
-        provider: host
       dashboard:
         enabled: true
         urlPrefix: /
         ssl: false
-      placement:
-        mgr:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchExpressions:
-                  - key: node-role.kubernetes.io/control-plane
-                    operator: In
-                    values:
-                    - ""
-          tolerations:
-            - effect: NoSchedule
-              key: node-role.kubernetes.io/control-plane
-        mon:
-          count: 3
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchExpressions:
-                  - key: node-role.kubernetes.io/control-plane
-                    operator: In
-                    values:
-                    - ""
-          tolerations:
-            - effect: NoSchedule
-              key: node-role.kubernetes.io/control-plane
     cephBlockPoolsVolumeSnapshotClass:
       enabled: false
     cephBlockPools:
@@ -236,47 +197,6 @@ spec:
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
     cephObjectStores:
-      # Having two object stores breaks PG Autoscaler
-      # For now just run one on spinning rust.
-      # - name: fast-ceph-objectstore
-      #   spec:
-      #     metadataPool:
-      #       failureDomain: host
-      #       replicated:
-      #         size: 3
-      #     dataPool:
-      #       failureDomain: host
-      #       deviceClass: ssd
-      #       erasureCoded:
-      #         dataChunks: 2
-      #         codingChunks: 1
-      #     preservePoolsOnDelete: true
-      #     gateway:
-      #       port: 80
-      #       placement:
-      #        nodeAffinity:
-      #          requiredDuringSchedulingIgnoredDuringExecution:
-      #            nodeSelectorTerms:
-      #            - matchExpressions:
-      #              - key: feature.node.kubernetes.io/custom-intel-10g
-      #                operator: In
-      #                values:
-      #                - "true"
-      #       resources:
-      #         limits:
-      #           cpu: "2000m"
-      #           memory: "2Gi"
-      #         requests:
-      #           cpu: "1000m"
-      #           memory: "1Gi"
-      #       instances: 1
-      #       priorityClassName: system-cluster-critical
-      #   storageClass:
-      #     enabled: true
-      #     name: fast-ceph-bucket
-      #     reclaimPolicy: Delete
-      #     parameters:
-      #       region: us-east-1
       - name: slow-ceph-objectstore
         spec:
           metadataPool:
@@ -294,15 +214,6 @@ spec:
           gateway:
             port: 80
             hostNetwork: false
-            placement:
-             nodeAffinity:
-               requiredDuringSchedulingIgnoredDuringExecution:
-                 nodeSelectorTerms:
-                 - matchExpressions:
-                   - key: feature.node.kubernetes.io/custom-intel-10g
-                     operator: In
-                     values:
-                     - "true"
             resources:
               limits:
                 cpu: "2000m"
@@ -318,15 +229,13 @@ spec:
           reclaimPolicy: Delete
           parameters:
             region: us-east-1
-    ingress:
+    route:
       dashboard:
-        ingressClassName: "nginx"
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
         host:
-          name: "rook.cluster-0.scr1.rabbito.tech"
+          name: "rook.cluster-0.qgr1.rabbito.tech"
           path: "/"
-        tls:
-          - secretName: rook-tls
-            hosts:
-              - "rook.cluster-0.scr1.rabbito.tech"
+          pathType: PathPrefix
+        parentRefs:
+          - name: cilium-internal
+            namespace: kube-system
+            sectionName: https
