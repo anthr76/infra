@@ -41,6 +41,9 @@ spec:
     txtPrefix: "${CLUSTER_NAME}."
     domainFilters:
       - "rabbito.tech"
+    sources:
+      - gateway-httproute
+      - service
     resources:
       requests:
         cpu: 15m

@@ -38,6 +38,9 @@ spec:
     txtPrefix: "${CLUSTER_NAME}."
     domainFilters:
       - "kutara.io"
+    sources:
+      - gateway-httproute
+      - service
     resources:
       requests:
         cpu: 15m
