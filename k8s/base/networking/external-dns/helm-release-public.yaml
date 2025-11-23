@@ -45,6 +45,7 @@ spec:
     extraArgs:
       - --gateway-name=cilium-external
       - --gateway-namespace=kube-system
+      - --cloudflare-proxied
     resources:
       requests:
         cpu: 15m
