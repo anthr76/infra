@@ -109,25 +109,6 @@ spec:
           metadataServer:
             activeCount: 1
             activeStandby: true
-            placement:
-             nodeAffinity:
-               requiredDuringSchedulingIgnoredDuringExecution:
-                 nodeSelectorTerms:
-                 - matchExpressions:
-                   - key: node-role.kubernetes.io/control-plane
-                     operator: In
-                     values:
-                     - ""
-             tolerations:
-             - key: node-role.kubernetes.io/control-plane
-               operator: Exists
-            resources:
-              limits:
-                cpu: "2000m"
-                memory: "4Gi"
-              requests:
-                cpu: "1000m"
-                memory: "4Gi"
             priorityClassName: system-cluster-critical
         storageClass:
           enabled: true
@@ -160,25 +141,6 @@ spec:
           metadataServer:
             activeCount: 1
             activeStandby: true
-            placement:
-             nodeAffinity:
-               requiredDuringSchedulingIgnoredDuringExecution:
-                 nodeSelectorTerms:
-                 - matchExpressions:
-                   - key: node-role.kubernetes.io/control-plane
-                     operator: In
-                     values:
-                     - ""
-             tolerations:
-             - key: node-role.kubernetes.io/control-plane
-               operator: Exists
-            resources:
-              limits:
-                cpu: "2000m"
-                memory: "4Gi"
-              requests:
-                cpu: "1000m"
-                memory: "4Gi"
             priorityClassName: system-cluster-critical
         storageClass:
           enabled: true
