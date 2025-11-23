@@ -52,8 +52,6 @@ spec:
     hubble:
       enabled: false
     ipv4NativeRoutingCIDR: 10.36.0.0/16
-    clusterPoolIPv4CIDR: 10.36.0.0/16
-    clusterPoolIPv4MaskSize: 24
     k8sServiceHost: qgr1-k8s.mole-bowfin.ts.net
     k8sServicePort: 6443
     kubeProxyReplacement: true
