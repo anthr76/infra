@@ -36,11 +36,15 @@ spec:
             key: cf-api-token
     policy: sync
     txtPrefix: "${CLUSTER_NAME}."
-    domainFilters:
-      - "kutara.io"
     sources:
       - gateway-httproute
+      - gateway-tlsroute
+      - gateway-tcproute
+      - gateway-udproute
       - service
+    extraArgs:
+      - --gateway-name=cilium-external
+      - --gateway-namespace=kube-system
     resources:
       requests:
         cpu: 15m

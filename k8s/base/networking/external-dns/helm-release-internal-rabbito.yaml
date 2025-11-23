@@ -24,13 +24,6 @@ spec:
       enabled: true
     provider:
       name: rfc2136
-    extraArgs:
-      - --rfc2136-host=10.20.99.1
-      - --rfc2136-port=53
-      - --rfc2136-zone=qgr1.rabbito.tech
-      - --rfc2136-tsig-keyname=dhcp-update-key
-      - --rfc2136-tsig-secret-alg=hmac-sha256
-      - --rfc2136-tsig-axfr
     env:
       - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET
         valueFrom:
@@ -39,11 +32,21 @@ spec:
             key: tsig
     policy: sync
     txtPrefix: "${CLUSTER_NAME}."
-    domainFilters:
-      - "rabbito.tech"
     sources:
       - gateway-httproute
+      - gateway-tlsroute
+      - gateway-tcproute
+      - gateway-udproute
       - service
+    extraArgs:
+      - --rfc2136-host=10.20.99.1
+      - --rfc2136-port=53
+      - --rfc2136-zone=qgr1.rabbito.tech
+      - --rfc2136-tsig-keyname=dhcp-update-key
+      - --rfc2136-tsig-secret-alg=hmac-sha256
+      - --rfc2136-tsig-axfr
+      - --gateway-name=cilium-external
+      - --gateway-namespace=kube-system
     resources:
       requests:
         cpu: 15m
