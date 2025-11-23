@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cert-manager.io/clusterissuer_v1.json
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -16,3 +17,7 @@ spec:
             apiKeySecretRef:
               name: cert-manager
               key: CF_API_KEY
+        selector:
+          dnsZones:
+            - rabbito.tech
+            - kutara.io
