@@ -39,6 +39,7 @@ metadata:
   namespace: kube-system
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    external-dns.alpha.kubernetes.io/target: fw1.qgr1.rabbito.tech
 spec:
   gatewayClassName: cilium
   addresses:
