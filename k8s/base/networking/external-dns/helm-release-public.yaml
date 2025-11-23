@@ -46,6 +46,7 @@ spec:
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --gateway-name=cilium-external
+      - --gateway-namespace=kube-system
       - --cloudflare-proxied
     resources:
       requests:
