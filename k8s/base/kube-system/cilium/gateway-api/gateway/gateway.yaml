@@ -22,7 +22,7 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.kuatara.io"
+      hostname: "*.kutara.io"
       tls:
         mode: Terminate
         certificateRefs:
