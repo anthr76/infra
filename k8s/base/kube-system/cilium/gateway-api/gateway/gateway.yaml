@@ -78,10 +78,10 @@ metadata:
 spec:
   parentRefs:
     - name: cilium-external
-      namespace: network
+      namespace: kube-system
       sectionName: http
     - name: cilium-internal
-      namespace: network
+      namespace: kube-system
       sectionName: http
   rules:
     - filters:
