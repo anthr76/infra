@@ -40,6 +40,9 @@ spec:
     sources:
       - crd
       - gateway-httproute
+      - gateway-tlsroute
+      - gateway-tcproute
+      - gateway-udproute
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
       - --cloudflare-proxied

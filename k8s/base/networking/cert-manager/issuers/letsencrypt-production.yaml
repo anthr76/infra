@@ -14,9 +14,9 @@ spec:
       - dns01:
           cloudflare:
             email: ted437@gmail.com
-            apiKeySecretRef:
+            apiTokenSecretRef:
               name: cert-manager
-              key: CF_API_KEY
+              key: CLOUDFLARE_DNS_TOKEN
         selector:
           dnsZones:
             - rabbito.tech
