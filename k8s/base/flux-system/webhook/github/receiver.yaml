@@ -12,15 +12,19 @@ spec:
   secretRef:
     name: github-webhook-token
   resources:
-    - apiVersion: source.toolkit.fluxcd.io/v1beta1
+    - apiVersion: source.toolkit.fluxcd.io/v1
       kind: GitRepository
       name: "flux-system"
       namespace: "flux-system"
-    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      name: "cluster-definitions"
+      namespace: "flux-system"
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
       name: "flux-system"
       namespace: "flux-system"
-    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
       name: "cluster-config"
       namespace: "flux-system"
