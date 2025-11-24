@@ -7,7 +7,6 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
     external-dns.alpha.kubernetes.io/target: qgr1-external-gateway.kutara.io
-
 spec:
   gatewayClassName: cilium
   addresses:

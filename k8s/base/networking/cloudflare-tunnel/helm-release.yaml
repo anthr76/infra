@@ -81,10 +81,7 @@ spec:
           config.yaml: |-
             ingress:
               - hostname: "*.kutara.io"
-                originRequest:
-                  http2Origin: true
-                  originServerName: qgr1-external-gateway.kutara.io
-                service: https://cilium-gateway-cilium-external.kube-system.svc.cluster.local:443
+                service: http://10.45.0.43:80
               - service: http_status:404
     persistence:
       config-file:
