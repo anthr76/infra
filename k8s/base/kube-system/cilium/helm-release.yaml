@@ -50,6 +50,8 @@ spec:
       enabled: true
     hubble:
       enabled: false
+    ipam:
+      mode: kubernetes
     ipv4NativeRoutingCIDR: 10.36.0.0/16
     clusterPoolIPv4MaskSize: 24
     k8sServiceHost: qgr1-k8s.mole-bowfin.ts.net
