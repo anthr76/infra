@@ -29,7 +29,7 @@ spec:
 
     maxExpirationSeconds: "31536000"  # 1 year (365 days)
     allowedDnsNames: 1
-    bypassDnsResolution: false
+    bypassDnsResolution: true
     bypassHostnameCheck: false
     ignoreNonSystemNode: false
 
