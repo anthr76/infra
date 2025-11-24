@@ -42,7 +42,6 @@ spec:
       enabled: false
     devices: en+
     enableIPv4BIGTCP: true
-    enableIPv4Masquerade: true
     endpointRoutes:
       enabled: true
     envoy:
@@ -52,12 +51,13 @@ spec:
     hubble:
       enabled: false
     ipv4NativeRoutingCIDR: 10.36.0.0/16
-    clusterPoolIPv4CIDR: 10.36.0.0/16
     clusterPoolIPv4MaskSize: 24
     k8sServiceHost: qgr1-k8s.mole-bowfin.ts.net
     k8sServicePort: 6443
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    l2announcements:
+      enabled: false
     loadBalancer:
       algorithm: maglev
       mode: dsr
@@ -102,3 +102,4 @@ spec:
           - SYS_RESOURCE
     socketLB:
       enabled: true
+      hostNamespaceOnly: true
