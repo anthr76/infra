@@ -90,7 +90,7 @@ resource "google_organization_iam_member" "tf_sa_org_perms" {
 
 module "gh_oidc" {
   source              = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
-  version             = "3.1.1"
+  version             = "5.1.0"
   project_id          = module.bootstrap.seed_project_id
   pool_id             = "tf-seed-production-environment"
   provider_id         = "tf-seed-production-environment"
@@ -112,7 +112,7 @@ module "gh_oidc" {
 
 module "gh_oidc_pr" {
   source      = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
-  version     = "3.1.1"
+  version     = "5.1.0"
   project_id  = module.bootstrap.seed_project_id
   pool_id     = "tf-seed-pr"
   provider_id = "tf-seed-pr"
