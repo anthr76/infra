@@ -50,7 +50,6 @@ spec:
       - --crd-source-kind=DNSEndpoint
       - --gateway-name=cilium-external
       - --gateway-namespace=kube-system
-      - --cloudflare-proxied
     resources:
       requests:
         cpu: 15m

@@ -9,33 +9,44 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 4.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
   values:
-    securityContext:
-      capabilities:
-        add: ["NET_BIND_SERVICE"]
-    image:
-      repository: jacobalberty/unifi
-      tag: v9.5.21
-    env:
-      RUNAS_UID0: "false"
-      BIND_PRIV: "false"
-      UNIFI_UID: "999"
-      UNIFI_GID: "999"
-      UNIFI_STDOUT: "true"
-      JVM_INIT_HEAP_SIZE:
-      JVM_MAX_HEAP_SIZE: 1024M
+    controllers:
+      unifi:
+        containers:
+          app:
+            image:
+              repository: jacobalberty/unifi
+              tag: v9.5.21
+            env:
+              RUNAS_UID0: "false"
+              BIND_PRIV: "false"
+              UNIFI_UID: "999"
+              UNIFI_GID: "999"
+              UNIFI_STDOUT: "true"
+              JVM_INIT_HEAP_SIZE:
+              JVM_MAX_HEAP_SIZE: 1024M
+              SYSTEM_IP: "10.45.0.6"
+            securityContext:
+              capabilities:
+                add: ["NET_BIND_SERVICE"]
+            resources:
+              requests:
+                cpu: 23m
+                memory: 1390M
+              limits:
+                cpu: 2000m
+                memory: 1390M
     service:
-      main:
+      app:
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "10.45.0.6, 2001:559:87dd:a00:dead:beef:0:6"
-          coredns.io/hostname: "unifi-controller.scr1.rabbito.tech"
-        ipFamilyPolicy: RequireDualStack
+          lbipam.cilium.io/ips: 10.45.0.6
+          external-dns.alpha.kubernetes.io/hostname: unifi-controller.qgr1.rabbito.tech
         externalTrafficPolicy: Local
         ports:
           http:
@@ -69,31 +80,27 @@ spec:
             enabled: true
             port: 10001
             protocol: UDP
-    ingress:
+    route:
       main:
         enabled: true
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          cert-manager.io/cluster-issuer: letsencrypt-production
-        ingressClassName: "nginx"
-        hosts:
-          - host: &host "unifi.scr1.rabbito.tech"
-            paths:
-              - path: /
-        tls:
-          - secretName: unifi-tls
-            hosts:
-              - *host
+        kind: HTTPRoute
+        parentRefs:
+          - name: cilium-internal
+            namespace: kube-system
+            sectionName: https
+        hostnames:
+          - "unifi.qgr1.rabbito.tech"
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - name: unifi-app
+                port: 8443
     persistence:
       data:
         enabled: true
         existingClaim: unifi-data
-        mountPath: /unifi
-
-    resources:
-      requests:
-        cpu: 23m
-        memory: 1390M
-      limits:
-        cpu: 2000m
-        memory: 1390M
+        globalMounts:
+          - path: /unifi
