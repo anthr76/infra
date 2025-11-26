@@ -46,7 +46,7 @@ spec:
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 10.45.0.6
-          external-dns.alpha.kubernetes.io/hostname: unifi-controller.qgr1.rabbito.tech
+          external-dns.alpha.kubernetes.io/hostname: unifi.qgr1.rabbito.tech
         externalTrafficPolicy: Local
         ports:
           http:
@@ -80,27 +80,23 @@ spec:
             enabled: true
             port: 10001
             protocol: UDP
-    route:
-      main:
-        enabled: true
-        kind: HTTPRoute
-        parentRefs:
-          - name: cilium-internal
-            namespace: kube-system
-            sectionName: https
-        hostnames:
-          - "unifi.qgr1.rabbito.tech"
-        rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /
-            backendRefs:
-              - name: unifi-app
-                port: 8443
     persistence:
       data:
         enabled: true
         existingClaim: unifi-data
         globalMounts:
           - path: /unifi
+      cert:
+        type: secret
+        name: unifi-tls
+        globalMounts:
+          - path: /unifi/cert
+            readOnly: true
+        defaultMode: 0400
+        items:
+          - key: tls.crt
+            path: cert.pem
+          - key: tls.crt
+            path: chain.pem
+          - key: tls.key
+            path: privkey.pem
