@@ -2,25 +2,25 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: home-assistant-nwk3-config-v1
+  name: home-assistant-nwk3-config
   namespace: home
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
-  storageClassName: fast-ceph-filesystem
+  storageClassName: fast-ceph-block
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: home-assistant-nwk3-backup-v1
+  name: home-assistant-cache-nwk3
   namespace: home
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
-  storageClassName: slow-ceph-filesystem
+      storage: 1Gi
+  storageClassName: fast-ceph-block
