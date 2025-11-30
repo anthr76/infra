@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -11,125 +12,134 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 4.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
   values:
-    priorityClassName: media-cluster-critical
-    controller:
-      type: statefulset
-    image:
-      repository: ghcr.io/onedr0p/plex
-      tag: 1.41.0.8992-8463ad060@sha256:d4c31adff5f2ed92152de7c2fb73464e71bea72c28fc7b4ebe74eefab2d9d048
-    env:
-      TZ: "America/New_York"
-    securityContext:
-      seLinuxOptions:
-        level: s0
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 39
-        - 44
-        - 105
-        - 109
+    controllers:
+      plex:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/plex
+              tag: 1.42.2.10156@sha256:9ad8a3506e1d8ebda873a668603c1a2c10e6887969564561be669efd65ae8871
+            env:
+              TZ: America/New_York
+              PLEX_ADVERTISE_URL: https://plex.kutara.io:443,http://10.45.0.5:32400,http://plex.media.svc.cluster.local:32400
+              # TODO: Update these
+              #PLEX_NO_AUTH_NETWORKS: 192.168.10.0/24
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /identity
+                    port: 32400
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /identity
+                    port: 32400
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 100m
+                amd.com/gpu: 1
+              limits:
+                memory: 12Gi
+                amd.com/gpu: 1
+        pod:
+          priorityClassName: media-cluster-critical
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 39
+              - 44
+              - 105
+              - 109
+            seccompProfile:
+              type: RuntimeDefault
+
+    defaultPodOptions:
+      nodeSelector:
+        feature.node.kubernetes.io/custom-vega11-gpu: "true"
+
     service:
-      main:
-        ipFamilyPolicy: PreferDualStack
+      app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.45.0.5
+        externalTrafficPolicy: Local
         ports:
           http:
             port: 32400
-      tcp-discover:
-        enabled: true
-        externalTrafficPolicy: Local
-        ports:
-          dnla-tcp:
-            enabled: true
-            port: 32469
-            protocol: TCP
-            targetPort: 32469
-            nodePort: 32469
-        type: NodePort
-      udp-discover:
-        enabled: true
-        externalTrafficPolicy: Local
-        type: NodePort
-        ports:
-          dnla-udp:
-            enabled: true
-            port: 1900
-            protocol: UDP
-            targetPort: 1900
-          gdm-1:
-            enabled: true
-            port: 32410
-            protocol: UDP
-            targetPort: 32410
-            nodePort: 32410
-          gdm-2:
-            enabled: true
-            port: 32412
-            protocol: UDP
-            targetPort: 32412
-            nodePort: 32412
-          gdm-3:
-            enabled: true
-            port: 32413
-            protocol: UDP
-            targetPort: 32413
-            nodePort: 32413
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "plex"
-          hajimari.io/appName: "plex"
-          hajimari.io/url: "https://plex.kutara.io/web/"
-          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-        hosts:
-          - host: "plex.kutara.io"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: plex-tls
-            hosts:
-              - "plex.kutara.io"
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 50Gi
-        storageClass: fast-ceph-block
+
+    route:
+      app:
+        hostnames:
+          - plex.kutara.io
+        parentRefs:
+          - name: cilium-external
+            namespace: kube-system
+        rules:
+          - # Ref: https://forums.plex.tv/t/external-srt-subtitles-are-not-working-w-reverse-proxy/886540
+            backendRefs:
+              - identifier: app
+                port: 32400
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  remove:
+                    - Range
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /library/streams
+          - backendRefs:
+              - identifier: app
+                port: 32400
+
     persistence:
+      config:
+        existingClaim: plex-config
+        globalMounts:
+          - path: /config
       media:
-        enabled: true
         existingClaim: media-v2
-        mountPath: /media
+        globalMounts:
+          - path: /media
       backup:
-        enabled: true
-        existingClaim: plex-backup-v2
-        mountPath: /config/Backups
+        existingClaim: plex-backup
+        globalMounts:
+          - path: /config/Backups
       transcode:
-        enabled: true
         type: emptyDir
+        globalMounts:
+          - path: /transcode
       tmp:
-        enabled: true
         type: emptyDir
-    resources:
-      requests:
-        cpu: 128m
-        memory: 112Mi
-        amd.com/gpu: "1"
-      limits:
-        amd.com/gpu: "1"
-        cpu: 800m
-        memory: 1048Mi
+        globalMounts:
+          - path: /tmp

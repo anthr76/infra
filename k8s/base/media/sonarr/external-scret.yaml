@@ -2,7 +2,7 @@
 apiVersion: generators.external-secrets.io/v1alpha1
 kind: Password
 metadata:
-  name: radarr-api-key
+  name: sonarr-api-key
   namespace: media
 spec:
   length: 32
@@ -15,20 +15,20 @@ spec:
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: radarr
+  name: sonarr
   namespace: media
 spec:
   refreshInterval: 1h
   refreshPolicy: CreatedOnce
   target:
-    name: radarr
+    name: sonarr
     template:
       engineVersion: v2
       data:
-        RADARR__AUTH__APIKEY: "{{ .password }}"
+        SONARR__AUTH__APIKEY: "{{ .password }}"
   dataFrom:
     - sourceRef:
         generatorRef:
           apiVersion: generators.external-secrets.io/v1alpha1
           kind: Password
-          name: radarr-api-key
+          name: sonarr-api-key

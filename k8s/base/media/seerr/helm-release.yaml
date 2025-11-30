@@ -1,9 +1,9 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: bazarr
+  name: seerr
   namespace: media
   labels:
     component.kutara.io/part-of: standard-helm-release
@@ -19,22 +19,24 @@ spec:
         namespace: flux-system
   values:
     controllers:
-      bazarr:
+      seerr:
+        type: statefulset
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/bazarr
-              tag: 1.5.3@sha256:2f1c32cb1420b2e56f60cfdf7823737eb501fdb2c13669429d23ab3a02e9ad90
+              repository: ghcr.io/seerr-team/seerr
+              tag: develop@sha256:0912c85b89df6c4d9a916fed43a8250d4f1a9e8f23be54d2b8e5081081e98adc
             env:
               TZ: America/New_York
+              LOG_LEVEL: info
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
-                    port: &port 6767
+                    path: /api/v1/status
+                    port: &port 5055
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -44,7 +46,7 @@ spec:
                 enabled: true
                 spec:
                   httpGet:
-                    path: /health
+                    path: /api/v1/status
                     port: *port
                   failureThreshold: 30
                   periodSeconds: 10
@@ -58,8 +60,9 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 1Gi
+                memory: 2Gi
         pod:
+          priorityClassName: media-cluster-critical
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -71,7 +74,8 @@ spec:
 
     service:
       app:
-        controller: bazarr
+        controller: seerr
+        ipFamilyPolicy: PreferDualStack
         ports:
           http:
             port: *port
@@ -79,20 +83,20 @@ spec:
     route:
       app:
         parentRefs:
-          - name: cilium-internal
+          - name: cilium-external
             namespace: kube-system
         hostnames:
-          - bazarr.qgr1.rabbito.tech
+          - requests.kutara.io
 
     persistence:
       config:
-        existingClaim: bazarr-config-v3
+        existingClaim: seeer-config
         globalMounts:
-          - path: /config
-      media:
-        existingClaim: media-v2
+          - path: /app/config
+      cache:
+        type: emptyDir
         globalMounts:
-          - path: /media
+          - path: /app/.next/cache
       tmp:
         type: emptyDir
         globalMounts:

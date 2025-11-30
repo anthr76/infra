@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -11,100 +12,109 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.4.0
+      version: 4.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
   values:
     controllers:
-      main:
+      qbittorrent:
+        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
-              repository: ghcr.io/onedr0p/qbittorrent
-              tag: 4.6.2@sha256:fedb62126c82ae0c7192e9052633411294a27e9c233613c03b0a8d168d160040
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.1.4@sha256:25fc7caf22101f85276ede9b1f76a46b7a93971bb6b70b6c58d14d6ab7f51415
             env:
               TZ: America/New_York
-              QBITTORRENT__PORT: &port 8080
-              QBITTORRENT__BT_PORT: &bittorrentPort 50413
-              QBT_Preferences__WebUI__AlternativeUIEnabled: false
-              QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
-              QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-                10.244.0.0/16, fddf:f7bc:9670::/64
-              QBT_Preferences__WebUI__LocalHostAuth: false
-              QBT_BitTorrent__Session__Interface: eth0
-              QBT_BitTorrent__Session__InterfaceAddress:
-                valueFrom:
-                  fieldRef:
-                    fieldPath: status.podIP
-              QBT_BitTorrent__Session__InterfaceName: eth0
+              QBT_WEBUI_PORT: &port 80
+              QBT_TORRENTING_PORT: 50469
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  failureThreshold: 30
+                  periodSeconds: 10
             securityContext:
-              seLinuxOptions:
-                level: s0
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 100m
               limits:
-                memory: 16Gi
+                memory: 18Gi
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
+            supplementalGroups:
+              - 10000
+            seccompProfile:
+              type: RuntimeDefault
+
     service:
-      main:
+      app:
         ports:
           http:
             port: *port
-      bittorrent:
-        controller: main
-        type: LoadBalancer
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: "10.45.0.3, 2001:559:87dd:a00:dead:beef:0:500"
-        ports:
-          bittorrent:
-            enabled: true
-            port: *bittorrentPort
-            protocol: TCP
-    ingress:
-      main:
-        enabled: true
-        className: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-        hosts:
-          - host: &host qb.scr1.rabbito.tech
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - secretName: qbittorrent-tls
-            hosts:
-              - *host
+    configMaps:
+      config:
+        data:
+          .qbt.toml: |-
+            [qbittorrent]
+            addr = "http://localhost:80"
+    route:
+      app:
+        parentRefs:
+          - name: cilium-internal
+            namespace: kube-system
+        hostnames:
+          - qb.qgr1.rabbito.tech
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
     persistence:
       config:
-        enabled: true
-        existingClaim: qbittorrent-v3
-      completed-script:
-        type: configMap
-        name: qbittorrent-scripts
-        defaultMode: 0775
+        existingClaim: qbittorrent-v1
         globalMounts:
-          - path: /scripts/completed.sh
-            subPath: completed.sh
-            readOnly: true
+          - path: /config
+      config-file:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /config/.qbt.toml
+            subPath: .qbt.toml
       media:
-        enabled: true
         existingClaim: media-v2
         globalMounts:
           - path: /media
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

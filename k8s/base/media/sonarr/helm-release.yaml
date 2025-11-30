@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -11,75 +12,109 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 4.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
   values:
-    controller:
-      type: statefulset
-    image:
-      repository: ghcr.io/onedr0p/sonarr
-      tag: 4.0.2.1183@sha256:42ba5af9b0ea20f4db4622991e0f1657be02c6e8747872c652fdac193c097b25
-    env:
-      TZ: "America/New_York"
-      SONARR__LOG_LEVEL: info
-      SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.scr1.rabbito.tech"
-      SONARR__INSTANCE_NAME: Sonarr
-    envFrom:
-      - secretRef:
-          name: sonarr
+    controllers:
+      sonarr:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/sonarr
+              tag: 4.0.16.2943@sha256:0a1b8f5cb5b072f7ad8c6ff64a25dc512115d1a114ecf19a58a3b4f870207ddd
+            env:
+              TZ: America/New_York
+              SONARR__APP__INSTANCENAME: Sonarr
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__DBENABLED: "False"
+              SONARR__LOG__LEVEL: info
+              SONARR__SERVER__PORT: &port 8989
+              SONARR__UPDATE__BRANCH: develop
+            envFrom:
+              - secretRef:
+                  name: sonarr
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 4Gi
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile:
+              type: RuntimeDefault
+
     service:
-      main:
+      app:
+        controller: sonarr
         ports:
           http:
-            port: 8989
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-          nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
-          nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
-        hosts:
-          - host: "sonarr.scr1.rabbito.tech"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: sonarr-tls
-            hosts:
-              - "sonarr.scr1.rabbito.tech"
-    securityContext:
-      seLinuxOptions:
-        level: s0
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
+            port: *port
+
+    route:
+      app:
+        parentRefs:
+          - name: cilium-internal
+            namespace: kube-system
+        hostnames:
+          - sonarr.qgr1.rabbito.tech
+
+    persistence:
+      config:
+        type: persistentVolumeClaim
+        storageClass: fast-ceph-block
         accessMode: ReadWriteOnce
         size: 10Gi
-        storageClass: fast-ceph-block
-    persistence:
+        globalMounts:
+          - path: /config
       media:
-        enabled: true
         existingClaim: media-v2
-        mountPath: /media
+        globalMounts:
+          - path: /media
       backup:
-        enabled: true
         existingClaim: sonarr-backup-v4
-        mountPath: /config/Backups
-    resources:
-      requests:
-        memory: 150Mi
-        cpu: 10m
-      limits:
-        memory: 350Mi
-        cpu: 500m
+        globalMounts:
+          - path: /config/Backups
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

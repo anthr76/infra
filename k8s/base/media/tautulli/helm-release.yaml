@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: bazarr
+  name: tautulli
   namespace: media
   labels:
     component.kutara.io/part-of: standard-helm-release
@@ -19,12 +19,14 @@ spec:
         namespace: flux-system
   values:
     controllers:
-      bazarr:
+      tautulli:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/bazarr
-              tag: 1.5.3@sha256:2f1c32cb1420b2e56f60cfdf7823737eb501fdb2c13669429d23ab3a02e9ad90
+              repository: ghcr.io/onedr0p/tautulli
+              tag: 2.14.6@sha256:21b9e015267444708aa88e48e5f0f2a25a8973540a9ab7f1a1616aa1c8afad0e
             env:
               TZ: America/New_York
             probes:
@@ -33,8 +35,8 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
-                    port: &port 6767
+                    path: /status
+                    port: &port 8181
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -44,7 +46,7 @@ spec:
                 enabled: true
                 spec:
                   httpGet:
-                    path: /health
+                    path: /status
                     port: *port
                   failureThreshold: 30
                   periodSeconds: 10
@@ -71,7 +73,7 @@ spec:
 
     service:
       app:
-        controller: bazarr
+        controller: tautulli
         ports:
           http:
             port: *port
@@ -82,17 +84,13 @@ spec:
           - name: cilium-internal
             namespace: kube-system
         hostnames:
-          - bazarr.qgr1.rabbito.tech
+          - tautulli.qgr1.rabbito.tech
 
     persistence:
       config:
-        existingClaim: bazarr-config-v3
+        existingClaim: tautulli-config-v1
         globalMounts:
           - path: /config
-      media:
-        existingClaim: media-v2
-        globalMounts:
-          - path: /media
       tmp:
         type: emptyDir
         globalMounts:

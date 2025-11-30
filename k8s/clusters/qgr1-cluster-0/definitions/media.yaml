@@ -1,0 +1,143 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-autobrr
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/autobrr"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-bazarr
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/bazarr"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-cross-seed
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/cross-seed"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-nzbget
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/nzbget"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-plex
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/plex"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-prowlarr
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/prowlarr"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-qbittorrent
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/qbittorrent"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-radarr
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/radarr"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-recyclarr
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/recyclarr"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-seerr
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/seerr"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-sonarr
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/sonarr"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-tautulli
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/tautulli"
+  prune: true
