@@ -1,0 +1,85 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: amd-gpu-operator
+  namespace: amd-gpu-operator
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: amd-gpu-operator
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: amd-gpu-operator-charts
+        namespace: flux-system
+  values:
+    node-feature-discovery:
+      enabled: false
+    installdefaultNFDRule: false
+
+    deviceConfig:
+      spec:
+        selector:
+          feature.node.kubernetes.io/custom-vega11-gpu: "true"
+
+        commonConfig:
+          initContainerImage: busybox:1.36
+          utilsContainer:
+            image: docker.io/rocm/gpu-operator-utils:v1.4.0
+            imagePullPolicy: IfNotPresent
+
+        driver:
+          enable: false
+          blacklist: false
+          driverType: container
+
+        devicePlugin:
+          devicePluginImage: rocm/k8s-device-plugin:latest
+          devicePluginImagePullPolicy: IfNotPresent
+          enableNodeLabeller: true
+          nodeLabellerImage: rocm/k8s-device-plugin:labeller-latest
+          nodeLabellerImagePullPolicy: IfNotPresent
+          upgradePolicy:
+            maxUnavailable: 1
+            upgradeStrategy: RollingUpdate
+
+        metricsExporter:
+          enable: true
+          image: docker.io/rocm/device-metrics-exporter:v1.4.0
+          imagePullPolicy: IfNotPresent
+          serviceType: ClusterIP
+          port: 5000
+          nodePort: 32500
+          podResourceAPISocketPath: /var/lib/kubelet/pod-resources
+          prometheus:
+            serviceMonitor:
+              enable: false
+              honorLabels: true
+              honorTimestamps: false
+              interval: 30s
+          rbacConfig:
+            disableHttps: false
+            enable: false
+          upgradePolicy:
+            maxUnavailable: 1
+            upgradeStrategy: RollingUpdate
+
+        testRunner:
+          enable: false
+          image: docker.io/rocm/test-runner:v1.4.0
+          imagePullPolicy: IfNotPresent
+          upgradePolicy:
+            maxUnavailable: 1
+            upgradeStrategy: RollingUpdate
+
+        configManager:
+          enable: false
+          image: docker.io/rocm/device-config-manager:v1.4.0
+          imagePullPolicy: IfNotPresent
+          upgradePolicy:
+            maxUnavailable: 1
+            upgradeStrategy: RollingUpdate

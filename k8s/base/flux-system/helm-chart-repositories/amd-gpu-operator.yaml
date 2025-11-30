@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: cloudnative-pg
+  name: amd-gpu-operator-charts
   namespace: flux-system
 spec:
   interval: 30m
-  url: https://cloudnative-pg.github.io/charts
+  url: https://rocm.github.io/gpu-operator
   timeout: 3m
