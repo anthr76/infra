@@ -1,0 +1,15 @@
+---
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: coral-tpu-usb
+  namespace: node-feature-discovery
+spec:
+  rules:
+    - name: "coral-tpu"
+      labels:
+        "feature.node.kubernetes.io/custom-coral-tpu": "true"
+      matchFeatures:
+        - feature: usb.device
+          matchExpressions:
+            vendor: {op: In, value: ["1a6e", "18d1"]}

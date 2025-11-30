@@ -1,64 +1,88 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: esphome
   namespace: home
-  labels:
-    component.kutara.io/part-of: standard-helm-release
 spec:
-  interval: 5m
+  interval: 10m
   chart:
     spec:
-      chart: esphome
-      version: 8.4.2
+      chart: app-template
+      version: 4.4.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s
         namespace: flux-system
-      interval: 5m
   values:
-    initContainers:
-      add-font:
-        image: alpine:3.18.3@sha256:7144f7bab3d4c2648d7e59409f15ec52a18006a128c733fcff20d3a4a54ba44a
-        command:
-          [
-            "sh",
-            "-c",
-            "test -f /config/Helvetica.ttf || wget -O /config/Helvetica.ttf https://github.com/PersuasiveGameCompetition/nurse-full-source/raw/master/Assets/Fonts/Helvetica/Helvetica/Helvetica.ttf",
-          ]
-        volumeMounts:
-          - name: config
-            mountPath: /config
-    image:
-      repository: ghcr.io/esphome/esphome
-      tag: 2023.8.2
-    env:
-      TZ: "America/New_York"
-      ESPHOME_DASHBOARD_USE_PING: true
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-        hosts:
-          - host: "esphome.scr1.rabbito.tech"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: esphome-tls
-            hosts:
-              - "esphome.scr1.rabbito.tech"
+    controllers:
+      esphome:
+        pod:
+          securityContext:
+            fsGroup: 2000
+            fsGroupChangePolicy: OnRootMismatch
+            runAsGroup: 2000
+            runAsUser: 2000
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/esphome
+              tag: 2025.11.2@sha256:fd17be9043513fe0be494e80b5fced21333b1eaaf28286862b09c0cc588ce708
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 512Mi
+              limits:
+                memory: 3072Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+    service:
+      app:
+        forceRename: "{{.Release.Name}}"
+        ports:
+          http:
+            port: &esphome-port 6052
     persistence:
       config:
-        enabled: true
-        existingClaim: esphome-config-v2
-    resources:
-      requests:
-        memory: 30Mi
-        cpu: 10m
-      limits:
-        cpu: 200m
-        memory: 200Mi
+        existingClaim: esphome-config
+        advancedMounts:
+          esphome:
+            app:
+              - path: /config
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          esphome:
+            app:
+              - path: /cache
+                subPath: cache
+              - path: /tmp
+                subPath: esphome-tmp
+    route:
+      app:
+        hostnames:
+          - esphome.qgr1.rabbito.tech
+        parentRefs:
+          - name: cilium-internal
+            namespace: kube-system
+
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: *esphome-port

@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: nats
-      version: 1.1.7
+      version: 2.12.2
       sourceRef:
         kind: HelmRepository
         name: nats-charts
@@ -25,19 +25,23 @@ spec:
       jetstream:
         enabled: true
         fileStore:
-          pvc:
-            storageClassName: fast-ceph-block
+          enabled: true
+        pvc:
+          enabled: true
+          size: 10Gi
+          storageClassName: fast-ceph-block
       mqtt:
-       enabled: true
+        enabled: true
     extraResources:
       - apiVersion: v1
         kind: Service
         metadata:
           name: nats-nwk3-mqtt
           namespace: home
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: mqtt-nwk3.qgr1.rabbito.tech
         spec:
           type: LoadBalancer
-          ipFamilyPolicy: PreferDualStack
           ports:
           - appProtocol: tcp
             name: mqtt
