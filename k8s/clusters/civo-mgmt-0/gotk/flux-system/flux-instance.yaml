@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   distribution:
-    version: "2.7.3"
+    version: "2.7.5"
     registry: "ghcr.io/fluxcd"
   components:
     - source-controller
