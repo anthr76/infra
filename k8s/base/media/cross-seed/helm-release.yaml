@@ -29,13 +29,14 @@ spec:
   values:
     controllers:
       cross-seed:
+        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
               repository: ghcr.io/cross-seed/cross-seed
-              tag: 5.9.2@sha256:6abdca45f0ecfd8d23a3035beefa716a14b66f23c14854631fe369d1ad346f1e
+              tag: 6.13.6@sha256:e2bf5b593e4e7d699e6242423ad7966190cd52ba8eefafdfdbb0cb5b0b609b9
             args:
               - daemon
             env:
@@ -82,6 +83,12 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              storageClass: ceph-block
+              accessMode: ReadWriteOnce
+              size: 5Gi
         pod:
           securityContext:
             runAsNonRoot: true

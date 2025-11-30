@@ -26,8 +26,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/prowlarr-develop
-              tag: 1.14.1.4316@sha256:882daa1e28f989bc6d76ea7ab7e729da3d9a7a67714e6db606a8ef45a6e6c14b
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 2.3.0.5236@sha256:1a8a4b11972b2e62671b49949c622b8cb1110e2b5c77199ac795a6d79fe106e8
             env:
               TZ: America/New_York
               PROWLARR__APP__INSTANCENAME: Prowlarr
