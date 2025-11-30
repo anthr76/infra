@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -11,88 +12,102 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 4.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
   values:
-    initContainers:
-      init-db:
-        image: ghcr.io/onedr0p/postgres-initdb:14.8@sha256:0141cf427c47f2d534711a3f9e8c5f9008bc6b585463ccd9288cf0f027e20deb
-        env:
-          - name: POSTGRES_HOST
-            value: postgres-rw.database.svc.cluster.local
-          - name: POSTGRES_DB
-            value: "prowlarr-main prowlarr-log"
-          - name: POSTGRES_SUPER_PASS
-            valueFrom:
-              secretKeyRef:
-                name: postgres-superuser
-                key: password
-          - name: POSTGRES_USER
-            valueFrom:
-              secretKeyRef:
-                name: prowlarr
-                key: PROWLARR__POSTGRES_USER
-          - name: POSTGRES_PASS
-            valueFrom:
-              secretKeyRef:
-                name: prowlarr
-                key: PROWLARR__POSTGRES_PASSWORD
-    controller:
-      strategy: RollingUpdate
-    image:
-      repository: ghcr.io/onedr0p/prowlarr-develop
-      tag: 1.14.1.4316@sha256:882daa1e28f989bc6d76ea7ab7e729da3d9a7a67714e6db606a8ef45a6e6c14b
-    env:
-      TZ: "America/New_York"
-      PROWLARR__LOG_LEVEL: info
-      PROWLARR__BRANCH: nightly
-      PROWLARR__APPLICATION_URL: "https://{{ .Release.Name }}.scr1.rabbito.tech"
-      PROWLARR__POSTGRES_HOST: postgres-rw.database.svc.cluster.local
-      PROWLARR__POSTGRES_MAIN_DB: prowlarr-main
-      PROWLARR__POSTGRES_LOG_DB: prowlarr-log
-    envFrom:
-      - secretRef:
-          name: prowlarr
+    controllers:
+      prowlarr:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/prowlarr-develop
+              tag: 1.14.1.4316@sha256:882daa1e28f989bc6d76ea7ab7e729da3d9a7a67714e6db606a8ef45a6e6c14b
+            env:
+              TZ: America/New_York
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__APP__THEME: dark
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              PROWLARR__LOG__DBENABLED: "False"
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__SERVER__PORT: &port 9696
+              PROWLARR__UPDATE__BRANCH: develop
+            envFrom:
+              - secretRef:
+                  name: prowlarr
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile:
+              type: RuntimeDefault
+
     service:
-      main:
+      app:
+        controller: prowlarr
         ports:
           http:
-            port: 9696
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-        hosts:
-          - host: "prowlarr.scr1.rabbito.tech"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: prowlarr-tls
-            hosts:
-              - "prowlarr.scr1.rabbito.tech"
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
+            port: *port
+
+    route:
+      app:
+        parentRefs:
+          - name: cilium-internal
+            namespace: kube-system
+        hostnames:
+          - prowlarr.qgr1.rabbito.tech
+
     persistence:
       config:
-        enabled: true
         existingClaim: prowlarr-config-v2
+        globalMounts:
+          - path: /config
       backup:
-        enabled: true
         existingClaim: prowlarr-backup-v2
-        mountPath: /config/Backups
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 10m
-      limits:
-        memory: 200Mi
-        cpu: 150m
+        globalMounts:
+          - path: /config/Backups
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

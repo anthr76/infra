@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: plex
+  name: nzbget
   namespace: media
   labels:
     component.kutara.io/part-of: standard-helm-release
@@ -19,28 +19,24 @@ spec:
         namespace: flux-system
   values:
     controllers:
-      plex:
+      nzbget:
         type: statefulset
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/plex
-              tag: 1.42.2.10156@sha256:9ad8a3506e1d8ebda873a668603c1a2c10e6887969564561be669efd65ae8871
+              repository: ghcr.io/home-operations/nzbget
+              tag: 25.4.0@sha256:7afaa93e1992f86a033a310eb0f012f1e4c6bd406caa608146df951e85298ff1
             env:
               TZ: America/New_York
-              PLEX_ADVERTISE_URL: https://plex.kutara.io:443,http://10.45.0.5:32400,http://plex.media.svc.cluster.local:32400
-              # TODO: Update these
-              #PLEX_NO_AUTH_NETWORKS: 192.168.10.0/24
+              NZBGET__SERVER__MAINDIR: /config
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /identity
-                    port: 32400
+                    path: /jsonrpc/status
+                    port: &port 6789
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -50,8 +46,8 @@ spec:
                 enabled: true
                 spec:
                   httpGet:
-                    path: /identity
-                    port: 32400
+                    path: /jsonrpc/status
+                    port: *port
                   failureThreshold: 30
                   periodSeconds: 10
             securityContext:
@@ -63,82 +59,42 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                amd.com/gpu: 1
               limits:
-                memory: 12Gi
-                amd.com/gpu: 1
+                memory: 8Gi
         pod:
-          priorityClassName: media-cluster-critical
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
             runAsGroup: 1000
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 39
-              - 44
-              - 105
-              - 109
             seccompProfile:
               type: RuntimeDefault
 
-    defaultPodOptions:
-      nodeSelector:
-        feature.node.kubernetes.io/custom-vega11-gpu: "true"
-
     service:
       app:
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 10.45.0.5
-        externalTrafficPolicy: Local
+        controller: nzbget
         ports:
           http:
-            port: 32400
+            port: *port
 
     route:
       app:
-        hostnames:
-          - plex.kutara.io
         parentRefs:
-          - name: cilium-external
+          - name: cilium-internal
             namespace: kube-system
-        rules:
-          - # Ref: https://forums.plex.tv/t/external-srt-subtitles-are-not-working-w-reverse-proxy/886540
-            backendRefs:
-              - identifier: app
-                port: 32400
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier:
-                  remove:
-                    - Range
-            matches:
-              - path:
-                  type: PathPrefix
-                  value: /library/streams
-          - backendRefs:
-              - identifier: app
-                port: 32400
+        hostnames:
+          - nzbget.qgr1.rabbito.tech
 
     persistence:
       config:
-        existingClaim: plex-config
+        existingClaim: nzbget-config-v1
         globalMounts:
           - path: /config
       media:
         existingClaim: media-v2
         globalMounts:
           - path: /media
-      backup:
-        existingClaim: plex-backup
-        globalMounts:
-          - path: /config/Backups
-      transcode:
-        type: emptyDir
-        globalMounts:
-          - path: /transcode
       tmp:
         type: emptyDir
         globalMounts:

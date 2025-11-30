@@ -4,16 +4,3 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - config-pvc.yaml
-  - qbtools-helm-release.yaml
-namespace: media
-configMapGenerator:
-  - name: qbtools
-    files:
-      - config.yaml=qbtools-config.yaml
-  - name: qbittorrent-scripts
-    files:
-      - completed.sh
-generatorOptions:
-  disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled

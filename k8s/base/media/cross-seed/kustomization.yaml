@@ -5,11 +5,3 @@ resources:
   - helm-release.yaml
   - external-secret.yaml
 namespace: media
-configMapGenerator:
-  - name: cross-seed
-    files:
-      - config.js
-generatorOptions:
-  disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled

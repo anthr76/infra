@@ -6,11 +6,11 @@ metadata:
   namespace: media
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: fast-ceph-filesystem
+  storageClassName: slow-ceph-block
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -19,8 +19,8 @@ metadata:
   namespace: media
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: slow-ceph-filesystem
+  storageClassName: fast-ceph-block
