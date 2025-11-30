@@ -6,6 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   type: oci
-  interval: 15m
+  interval: 1h
   url: oci://ghcr.io/postfinance/charts
   timeout: 3m

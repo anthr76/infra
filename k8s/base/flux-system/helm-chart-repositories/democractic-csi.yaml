@@ -6,5 +6,6 @@ metadata:
   name: democratic-csi
   namespace: flux-system
 spec:
-  interval: 2h
+  interval: 1h
+  timeout: 3m
   url: https://democratic-csi.github.io/charts/

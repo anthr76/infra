@@ -6,6 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   type: oci
-  interval: 30m
+  interval: 1h
   url: oci://ghcr.io/bjw-s-labs/helm
   timeout: 3m

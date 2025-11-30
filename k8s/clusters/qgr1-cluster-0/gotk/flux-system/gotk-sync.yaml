@@ -75,16 +75,23 @@ spec:
                   namespace: not-used
                 spec:
                   interval: 30m
+                  timeout: 10m
                   install:
                     createNamespace: true
+                    timeout: 15m
                     remediation:
                       retries: 50
                   upgrade:
                     cleanupOnFail: true
+                    timeout: 10m
                     remediation:
                       retries: 50
+                      strategy: rollback
+                      remediateLastFailure: true
                   uninstall:
                     keepHistory: false
+                  rollback:
+                    timeout: 10m
               target:
                 kind: HelmRelease
                 group: helm.toolkit.fluxcd.io

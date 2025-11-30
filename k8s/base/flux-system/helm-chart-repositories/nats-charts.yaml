@@ -5,5 +5,6 @@ metadata:
   name: nats-charts
   namespace: flux-system
 spec:
-  interval: 2h
+  interval: 1h
+  timeout: 3m
   url: https://nats-io.github.io/k8s/helm/charts/
