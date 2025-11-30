@@ -26,10 +26,10 @@ spec:
         enabled: true
         fileStore:
           enabled: true
-        pvc:
-          enabled: true
-          size: 10Gi
-          storageClassName: fast-ceph-block
+          pvc:
+            enabled: true
+            size: 10Gi
+            storageClassName: fast-ceph-block
       mqtt:
         enabled: true
     extraResources:
