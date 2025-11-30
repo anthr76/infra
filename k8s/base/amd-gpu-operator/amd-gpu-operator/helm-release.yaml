@@ -27,7 +27,7 @@ spec:
           feature.node.kubernetes.io/custom-vega11-gpu: "true"
 
         commonConfig:
-          initContainerImage: busybox:1.36
+          initContainerImage: busybox:1.37
           utilsContainer:
             image: docker.io/rocm/gpu-operator-utils:v1.4.0
             imagePullPolicy: IfNotPresent
