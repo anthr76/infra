@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cross-seed
+  name: jellyfin
   namespace: media
   labels:
     component.kutara.io/part-of: standard-helm-release
@@ -17,48 +17,27 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      cross-seed:
+      jellyfin:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/cross-seed/cross-seed
-              tag: 6.13.6
-            args:
-              - daemon
+              repository: ghcr.io/jellyfin/jellyfin
+              tag: 10.11.4
             env:
               TZ: America/New_York
-              CROSSSEED_PORT: &port 3000
-            envFrom:
-              - secretRef:
-                  name: cross-seed
-              - secretRef:
-                  name: sonarr
-              - secretRef:
-                  name: radarr
-              - secretRef:
-                  name: prowlarr
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/ping
-                    port: *port
+                    path: /health
+                    port: &port 8096
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -67,9 +46,6 @@ spec:
               startup:
                 enabled: true
                 spec:
-                  httpGet:
-                    path: /api/ping
-                    port: *port
                   failureThreshold: 30
                   periodSeconds: 10
             securityContext:
@@ -80,16 +56,13 @@ spec:
                   - ALL
             resources:
               requests:
-                cpu: 10m
+                cpu: 100m
+                amd.com/gpu: 1
               limits:
-                memory: 512Mi
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              storageClass: fast-ceph-block
-              accessMode: ReadWriteOnce
-              size: 5Gi
+                memory: 12Gi
+                amd.com/gpu: 1
         pod:
+          priorityClassName: media-cluster-critical
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -97,33 +70,46 @@ spec:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
-              - 10000
+              - 39
+              - 44
+              - 105
+              - 109
             seccompProfile:
               type: RuntimeDefault
 
+    defaultPodOptions:
+      nodeSelector:
+        feature.node.kubernetes.io/custom-vega11-gpu: "true"
+
     service:
       app:
-        controller: cross-seed
+        type: LoadBalancer
+        externalTrafficPolicy: Local
         ports:
           http:
             port: *port
 
     route:
       app:
+        hostnames:
+          - jellyfin.qgr1.rabbito.tech
         parentRefs:
           - name: cilium-internal
             namespace: kube-system
-        hostnames:
-          - cross-seed.qgr1.rabbito.tech
-
     persistence:
-      secret-file:
-        type: secret
-        name: "{{ .Release.Name }}"
+      config:
+        existingClaim: jellyfin-config
         globalMounts:
-          - path: /config/config.js
-            subPath: config.js
+          - path: /config
       media:
         existingClaim: media-v2
         globalMounts:
           - path: /media
+      transcode:
+        type: emptyDir
+        globalMounts:
+          - path: /transcode
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
