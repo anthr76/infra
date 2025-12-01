@@ -86,7 +86,7 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - name: config
-              storageClass: ceph-block
+              storageClass: fast-ceph-block
               accessMode: ReadWriteOnce
               size: 5Gi
         pod:
