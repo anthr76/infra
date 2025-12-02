@@ -17,26 +17,6 @@ spec:
         name: grafana-charts
         namespace: flux-system
   values:
-    extraInitContainers:
-      - name: init-db
-        image: ghcr.io/onedr0p/postgres-initdb:14.8@sha256:0141cf427c47f2d534711a3f9e8c5f9008bc6b585463ccd9288cf0f027e20deb
-        env:
-          - name: POSTGRES_HOST
-            value: postgres-rw.database.svc.cluster.local
-          - name: POSTGRES_DB
-            value: "grafana"
-          - name: POSTGRES_SUPER_PASS
-            valueFrom:
-              secretKeyRef:
-                name: postgres-superuser
-                key: password
-          - name: POSTGRES_USER
-            value: grafana
-          - name: POSTGRES_PASS
-            valueFrom:
-              secretKeyRef:
-                name: grafana
-                key: GF_DATABASE_PASSWORD
     resources:
       limits:
         cpu: 800m
