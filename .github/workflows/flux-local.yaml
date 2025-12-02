@@ -54,13 +54,13 @@ jobs:
           persist-credentials: false
 
       - name: Run flux-local test
-        continue-on-error: true
         uses: docker://ghcr.io/allenporter/flux-local:v8.0.1
         with:
           args: >-
             test
             --all-namespaces
             --enable-helm
+            --skip-invalid-helm-release-paths
             --sources "flux-system"
             --path /github/workspace/k8s/clusters/${{ matrix.cluster }}
             --verbose
@@ -93,7 +93,6 @@ jobs:
           ref: "${{ github.event.repository.default_branch }}"
 
       - name: Run flux-local diff
-        continue-on-error: true
         uses: docker://ghcr.io/allenporter/flux-local:v8.0.1
         with:
           args: >-
@@ -103,6 +102,7 @@ jobs:
             --path-orig /github/workspace/default/k8s/clusters/${{ matrix.cluster }}
             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
             --limit-bytes 10000
+            --skip-invalid-helm-release-paths
             --all-namespaces
             --sources "flux-system"
             --output-file diff.patch
