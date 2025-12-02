@@ -1,6 +1,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: media
 resources:
   - ./helm-release.yaml
 configMapGenerator:
@@ -9,3 +10,5 @@ configMapGenerator:
       - ./config.yaml
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
