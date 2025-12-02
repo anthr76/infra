@@ -12,7 +12,7 @@ on: # yamllint disable-line rule:truthy
 jobs:
   detect-file-changes:
     name: Detect File Changes
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
       - uses: dorny/paths-filter@v2
@@ -29,7 +29,7 @@ jobs:
       yaml_files: ${{ steps.filter.outputs.yaml_files }}
   detect-containers:
     name: Detect Containers
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: detect-file-changes
     strategy:
       matrix:
@@ -50,7 +50,7 @@ jobs:
       containers: ${{ steps.containers.outputs.containers }}
   scan-containers:
     name: Scan Containers
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: detect-containers
     strategy:
       matrix: ${{ fromJSON(needs.detect-containers.outputs.containers) }}
