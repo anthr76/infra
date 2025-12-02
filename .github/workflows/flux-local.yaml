@@ -18,12 +18,25 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
+      clusters: ${{ steps.clusters.outputs.clusters }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: k8s/clusters
+
       - name: Get Changed Files
         id: changed-files
         uses: bjw-s-labs/action-changed-files@1a5aeab1bfa64d0c4e786f501d5a3f1fad4a24da # v0.4.1
         with:
           patterns: k8s/**/*
+
+      - name: Generate Cluster Matrix
+        id: clusters
+        run: |
+          clusters=$(ls -d k8s/clusters/*/ | xargs -n1 basename | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "clusters=$clusters" >> $GITHUB_OUTPUT
 
   test:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -32,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        cluster: ["scr1-cluster-0", "civo-mgmt-0"]
+        cluster: ${{ fromJson(needs.filter.outputs.clusters) }}
       fail-fast: false
     steps:
       - name: Checkout
@@ -61,7 +74,7 @@ jobs:
       pull-requests: write
     strategy:
       matrix:
-        cluster: ["scr1-cluster-0", "civo-mgmt-0"]
+        cluster: ${{ fromJson(needs.filter.outputs.clusters) }}
         resource: ["helmrelease", "kustomization"]
       fail-fast: false
     steps:
