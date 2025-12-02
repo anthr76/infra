@@ -106,7 +106,7 @@ spec:
       transcode:
         type: emptyDir
         globalMounts:
-          - path: /transcode
+          - path: /cache
       tmp:
         type: emptyDir
         globalMounts:
