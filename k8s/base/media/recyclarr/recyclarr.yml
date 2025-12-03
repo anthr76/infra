@@ -10,8 +10,18 @@ sonarr:
       - template: sonarr-quality-definition-series
       - template: sonarr-v4-quality-profile-web-2160p
       - template: sonarr-v4-custom-formats-web-2160p
+      - template: sonarr-v4-quality-profile-web-1080p
+      - template: sonarr-v4-custom-formats-web-1080p
     quality_profiles:
       - name: WEB-2160p
+      - name: WEB-1080p
+      - name: WEB-480p
+        upgrade:
+          allowed: true
+          until_quality: WEBDL-480p
+        qualities:
+          - name: WEBDL-480p
+          - name: WEBRip-480p
     custom_formats:
       # Unwanted release groups
       - trash_ids:
@@ -22,6 +32,8 @@ sonarr:
           - 1b3994c551cbb92a2c781af061f4ab44 # Scene
         assign_scores_to:
           - name: WEB-2160p
+          - name: WEB-1080p
+          - name: WEB-480p
       # HDR Boosts
       - trash_ids:
           - 0c4b99df9206d2cfac3c05ab897dd62a # HDR10+ Boost
@@ -39,10 +51,14 @@ sonarr:
         assign_scores_to:
           - name: WEB-2160p
             score: 5000
+          - name: WEB-1080p
+            score: 5000
       - trash_ids:
           - 4232a509ce60c4e208d13825b7c06264 # DD+ ATMOS
         assign_scores_to:
           - name: WEB-2160p
+            score: 3000
+          - name: WEB-1080p
             score: 3000
 
 radarr:
