@@ -1,7 +1,7 @@
+---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: home
   labels:
-    goldilocks.fairwinds.com/enabled: "true"
-    component.kutara.io/postgres-secrets: "true"
+    volsync.kutara.io/enabled: "true"

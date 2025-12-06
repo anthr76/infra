@@ -15,18 +15,5 @@ spec:
         kind: HelmRepository
         name: backube-charts
         namespace: flux-system
-      version: "0.14.0"
+      version: "0.15.0"
   values:
-    manageCRDs: true
-    podSecurityContext:
-      runAsNonRoot: true
-      runAsUser: 65532
-      runAsGroup: 65532
-      fsGroup: 65532
-      seccompProfile:
-        type: RuntimeDefault
-    securityContext:
-      allowPrivilegeEscalation: false
-      readOnlyRootFilesystem: true
-      capabilities:
-        drop: ["ALL"]
