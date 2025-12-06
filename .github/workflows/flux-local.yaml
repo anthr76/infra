@@ -63,8 +63,7 @@ jobs:
             --enable-helm \
             --skip-invalid-helm-release-paths \
             --sources "flux-system" \
-            --path /github/workspace/k8s/clusters/${{ matrix.cluster }} \
-            --verbose || true
+            --path /github/workspace/k8s/clusters/${{ matrix.cluster }} || true
 
   diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
