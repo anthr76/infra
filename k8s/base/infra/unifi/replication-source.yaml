@@ -4,7 +4,6 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: unifi-data
-  namespace: infra
 spec:
   sourcePVC: unifi-data
   trigger:
