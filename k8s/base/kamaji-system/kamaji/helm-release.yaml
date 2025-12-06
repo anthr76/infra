@@ -15,4 +15,4 @@ spec:
         namespace: flux-system
   values:
     image:
-      tag: edge-25.11.4
+      tag: edge-25.12.1
