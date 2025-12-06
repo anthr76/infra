@@ -107,6 +107,10 @@ spec:
         existingClaim: media-v2
         globalMounts:
           - path: /media
+      backup:
+        existingClaim: radarr-backup-v2
+        globalMounts:
+          - path: /config/Backups
       tmp:
         type: emptyDir
         globalMounts:
