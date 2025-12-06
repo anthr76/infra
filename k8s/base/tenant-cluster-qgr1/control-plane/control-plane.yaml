@@ -18,6 +18,7 @@ spec:
         apiServer:
           - --advertise-address=100.94.68.123
           - --runtime-config=admissionregistration.k8s.io/v1beta1=true
+          - --feature-gates=MutatingAdmissionPolicy=true
         controllerManager: []
         scheduler: []
       resources:
