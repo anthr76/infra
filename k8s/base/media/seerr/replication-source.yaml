@@ -4,6 +4,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: seerr-config
+  namespace: media
 spec:
   sourcePVC: seeer-config
   trigger:

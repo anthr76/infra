@@ -4,6 +4,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: home-assistant-nwk3-config
+  namespace: home
 spec:
   sourcePVC: home-assistant-nwk3-config
   trigger:
