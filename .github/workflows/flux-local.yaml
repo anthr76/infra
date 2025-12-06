@@ -102,7 +102,6 @@ jobs:
             --path-orig /github/workspace/default/k8s/clusters/${{ matrix.cluster }}
             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
             --limit-bytes 10000
-            --skip-invalid-helm-release-paths
             --all-namespaces
             --sources "flux-system"
             --output-file diff.patch
@@ -125,17 +124,3 @@ jobs:
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
-
-  success:
-    if: ${{ !cancelled() }}
-    needs: ["test", "diff"]
-    name: Flux Local - Success
-    runs-on: ubuntu-latest
-    steps:
-      - name: Any jobs failed?
-        if: ${{ contains(needs.*.result, 'failure') }}
-        run: exit 1
-
-      - name: All jobs passed or skipped?
-        if: ${{ !(contains(needs.*.result, 'failure')) }}
-        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
