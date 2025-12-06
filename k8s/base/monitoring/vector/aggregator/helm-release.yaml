@@ -27,7 +27,7 @@ spec:
           init-geoip:
             image:
               repository: ghcr.io/maxmind/geoipupdate
-              tag: v6.0.0@sha256:e0d5c1dee7379d360e0f355557542d9672c616215dfdd5aaf917382de84cb84c
+              tag: v7.1.1@sha256:faecdca22579730ab0b7dea5aa9af350bb3c93cb9d39845c173639ead30346d2
             env:
               GEOIPUPDATE_EDITION_IDS: GeoLite2-City
               GEOIPUPDATE_FREQUENCY: "0"
