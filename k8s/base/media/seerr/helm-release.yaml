@@ -90,7 +90,7 @@ spec:
 
     persistence:
       config:
-        existingClaim: seeer-config
+        existingClaim: seeer-config-v2
         globalMounts:
           - path: /app/config
       cache:
