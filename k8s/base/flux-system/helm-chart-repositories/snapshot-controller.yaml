@@ -1,0 +1,11 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: snapshot-controller
+  namespace: flux-system
+spec:
+  type: oci
+  interval: 1h
+  timeout: 3m
+  url: oci://ghcr.io/piraeusdatastore/helm-charts
