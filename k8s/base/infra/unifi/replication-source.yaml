@@ -12,6 +12,10 @@ spec:
     copyMethod: Snapshot
     repository: volsync-kopia
     parallelism: 2
+    moverSecurityContext:
+      runAsUser: 999
+      runAsGroup: 999
+      fsGroup: 999
     accessModes:
       - ReadWriteOnce
     cacheAccessModes:
