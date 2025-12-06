@@ -86,5 +86,7 @@ spec:
             cpu: 100m
             memory: 64Mi
       agent:
+        version: "v0.31.0"
+        mode: DaemonSet
         extraArgs:
           - --proxy-server-host=100.94.68.123

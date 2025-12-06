@@ -6,6 +6,10 @@ metadata:
   namespace: kamaji-system
 spec:
   interval: 10m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   chart:
     spec:
       chart: charts/kamaji
