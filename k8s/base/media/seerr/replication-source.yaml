@@ -5,7 +5,7 @@ metadata:
   name: seerr-kopia
   namespace: media
 spec:
-  sourcePVC: seeer-config
+  sourcePVC: seeer-config-v2
   trigger:
     schedule: "0 * * * *"
   kopia:
