@@ -110,10 +110,6 @@ spec:
         existingClaim: media-v2
         globalMounts:
           - path: /media
-      backup:
-        existingClaim: sonarr-backup-v4
-        globalMounts:
-          - path: /config/Backups
       tmp:
         type: emptyDir
         globalMounts:

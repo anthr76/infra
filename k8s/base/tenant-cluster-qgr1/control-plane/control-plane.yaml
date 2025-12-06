@@ -1,3 +1,4 @@
+---
 apiVersion: kamaji.clastix.io/v1alpha1
 kind: TenantControlPlane
 metadata:
@@ -16,6 +17,7 @@ spec:
       extraArgs:
         apiServer:
           - --advertise-address=100.94.68.123
+          - --runtime-config=admissionregistration.k8s.io/v1beta1=true
         controllerManager: []
         scheduler: []
       resources:
@@ -64,13 +66,13 @@ spec:
     address: 100.94.68.123
     port: 6443
     certSANs:
-    - qgr1.cluster.local
-    - qgr1-k8s.mole-bowfin.ts.net
-    - 100.94.68.123
+      - qgr1.cluster.local
+      - qgr1-k8s.mole-bowfin.ts.net
+      - 100.94.68.123
     serviceCidr: 10.96.0.0/16
     podCidr: 10.36.0.0/16
     dnsServiceIPs:
-    - 10.96.0.10
+      - 10.96.0.10
   addons:
     coreDNS: {}
     konnectivity:
