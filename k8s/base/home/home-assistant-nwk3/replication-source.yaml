@@ -1,0 +1,25 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: home-assistant-nwk3-kopia
+  namespace: home
+spec:
+  sourcePVC: home-assistant-nwk3-config
+  trigger:
+    schedule: "0 * * * *"
+  kopia:
+    copyMethod: Snapshot
+    repository: volsync-kopia
+    parallelism: 2
+    accessModes:
+      - ReadWriteOnce
+    cacheAccessModes:
+      - ReadWriteOnce
+    cacheCapacity: 5Gi
+    cacheStorageClassName: fast-ceph-block
+    compression: zstd-fastest
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 4
