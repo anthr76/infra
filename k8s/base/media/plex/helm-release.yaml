@@ -32,7 +32,7 @@ spec:
               TZ: America/New_York
               PLEX_ADVERTISE_URL: https://plex.kutara.io:443,http://10.45.0.5:32400,http://plex.media.svc.cluster.local:32400
               # TODO: Update these
-              #PLEX_NO_AUTH_NETWORKS: 192.168.10.0/24
+              # PLEX_NO_AUTH_NETWORKS: 192.168.10.0/24
             probes:
               liveness: &probes
                 enabled: true
@@ -131,10 +131,6 @@ spec:
         existingClaim: media-v2
         globalMounts:
           - path: /media
-      backup:
-        existingClaim: plex-backup
-        globalMounts:
-          - path: /config/Backups
       transcode:
         type: emptyDir
         globalMounts:

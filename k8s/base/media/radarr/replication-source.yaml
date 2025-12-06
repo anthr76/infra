@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: radarr-config
+spec:
+  sourcePVC: radarr-config-v2
+  trigger:
+    schedule: "0 10 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: volsync-restic
+    copyMethod: Snapshot
+    volumeSnapshotClassName: ceph-block
+    cacheStorageClassName: fast-ceph-block
+    cacheCapacity: 1Gi
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 4
