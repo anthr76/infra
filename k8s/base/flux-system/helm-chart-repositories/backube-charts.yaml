@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://backube.github.io/helm-charts/
+  url: https://perfectra1n.github.io/volsync/charts
   timeout: 3m
