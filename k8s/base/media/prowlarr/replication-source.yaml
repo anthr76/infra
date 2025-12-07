@@ -5,7 +5,7 @@ metadata:
   name: prowlarr-kopia
   namespace: media
 spec:
-  sourcePVC: prowlarr-config-v2
+  sourcePVC: prowlarr-config-v3
   trigger:
     schedule: "0 * * * *"
   kopia:

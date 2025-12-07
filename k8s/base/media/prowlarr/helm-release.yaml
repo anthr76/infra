@@ -100,7 +100,7 @@ spec:
 
     persistence:
       config:
-        existingClaim: prowlarr-config-v2
+        existingClaim: prowlarr-config-v3
         globalMounts:
           - path: /config
       tmp:
