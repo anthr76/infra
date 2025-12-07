@@ -210,7 +210,7 @@ spec:
           Corefile: |-
             .:53 {
               bind 127.0.0.2
-              forward . 1.1.1.1 1.0.0.1
+              forward . tls://1.1.1.1 tls://1.0.0.1
               cache 30
               log
               errors
