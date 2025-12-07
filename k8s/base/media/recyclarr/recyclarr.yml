@@ -12,6 +12,9 @@ sonarr:
       - template: sonarr-v4-custom-formats-web-2160p
       - template: sonarr-v4-quality-profile-web-1080p
       - template: sonarr-v4-custom-formats-web-1080p
+      # Anime templates
+      - template: sonarr-v4-quality-profile-anime
+      - template: sonarr-v4-custom-formats-anime
     quality_profiles:
       - name: WEB-2160p
       - name: WEB-1080p
@@ -22,6 +25,12 @@ sonarr:
         qualities:
           - name: WEBDL-480p
           - name: WEBRip-480p
+      # Anime profile
+      - name: Remux-1080p - Anime
+        upgrade:
+          allowed: true
+          until_quality: Bluray-1080p
+          until_score: 10000
     custom_formats:
       # Unwanted release groups
       - trash_ids:
@@ -60,6 +69,64 @@ sonarr:
             score: 3000
           - name: WEB-1080p
             score: 3000
+      # Upscale prevention (native resolution only)
+      - trash_ids:
+          - 23297a736ca77c0fc8e70f8edd7ee56c # Upscaled
+        assign_scores_to:
+          - name: WEB-2160p
+            score: -10000
+          - name: WEB-1080p
+            score: -10000
+          - name: WEB-480p
+            score: -10000
+          - name: Remux-1080p - Anime
+            score: -10000
+      # Anime-specific formats
+      - trash_ids:
+          - 026d5aadd1a6b4e550b134cb6c72b3ca # Uncensored
+        assign_scores_to:
+          - name: Remux-1080p - Anime
+            score: 101
+      - trash_ids:
+          - b2550eb333d27b75833e25b8c2557b38 # 10bit
+        assign_scores_to:
+          - name: Remux-1080p - Anime
+            score: 101
+      - trash_ids:
+          - 418f50b10f1907201b6cfdf881f467b7 # Anime Dual Audio
+        assign_scores_to:
+          - name: Remux-1080p - Anime
+            score: 10
+      # HDR/Atmos boosts for anime
+      - trash_ids:
+          - 0c4b99df9206d2cfac3c05ab897dd62a # HDR10+ Boost
+        assign_scores_to:
+          - name: Remux-1080p - Anime
+            score: 1000
+      - trash_ids:
+          - 7c3a61a9c6cb04f52f1544be6d44a026 # DV Boost
+        assign_scores_to:
+          - name: Remux-1080p - Anime
+            score: 100
+      - trash_ids:
+          - 0d7824bb924701997f874e7ff7d4844a # TrueHD ATMOS
+        assign_scores_to:
+          - name: Remux-1080p - Anime
+            score: 5000
+      - trash_ids:
+          - 4232a509ce60c4e208d13825b7c06264 # DD+ ATMOS
+        assign_scores_to:
+          - name: Remux-1080p - Anime
+            score: 3000
+      # Unwanted release groups for anime
+      - trash_ids:
+          - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
+          - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
+          - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
+          - 06d66ab109d4d2eddb2794d21526d140 # Retags
+          - 1b3994c551cbb92a2c781af061f4ab44 # Scene
+        assign_scores_to:
+          - name: Remux-1080p - Anime
 
 radarr:
   radarr:
@@ -111,3 +178,25 @@ radarr:
         assign_scores_to:
           - name: SQP-1 (2160p)
             score: 3000
+      # Upscale prevention (native resolution only)
+      - trash_ids:
+          - bfd8eb01832d646a0a89c4deb46f8564 # Upscaled
+        assign_scores_to:
+          - name: SQP-1 (2160p)
+            score: -10000
+      # Anime-specific formats (applied to existing profile)
+      - trash_ids:
+          - 064af5f084a0a24458cc8ecd3220f93f # Uncensored
+        assign_scores_to:
+          - name: SQP-1 (2160p)
+            score: 101
+      - trash_ids:
+          - a5d148168c4506b55cf53984107c396e # 10bit
+        assign_scores_to:
+          - name: SQP-1 (2160p)
+            score: 101
+      - trash_ids:
+          - 4a3b087eea2ce012fcc1ce319259a3be # Anime Dual Audio
+        assign_scores_to:
+          - name: SQP-1 (2160p)
+            score: 10
