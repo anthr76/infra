@@ -67,7 +67,7 @@ spec:
             dependsOn: coredns
             image:
               repository: ghcr.io/qdm12/gluetun
-              tag: v3.40.0
+              tag: v3.40.3
             env:
               TZ: America/New_York
               VPN_SERVICE_PROVIDER: protonvpn
