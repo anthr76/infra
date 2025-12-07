@@ -28,9 +28,13 @@ spec:
           dnsConfig:
             nameservers:
               - 127.0.0.2
+            searches:
+              - media.svc.cluster.local
+              - svc.cluster.local
+              - cluster.local
             options:
               - name: ndots
-                value: "1"
+                value: "5"
           securityContext:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
@@ -208,11 +212,16 @@ spec:
       coredns:
         data:
           Corefile: |-
+            cluster.local:53 {
+              bind 127.0.0.2
+              forward . 10.96.0.10
+              cache 30
+              errors
+            }
             .:53 {
               bind 127.0.0.2
               forward . tls://1.1.1.1 tls://1.0.0.1
               cache 30
-              log
               errors
             }
 
