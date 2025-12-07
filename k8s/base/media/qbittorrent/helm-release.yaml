@@ -81,6 +81,16 @@ spec:
         ports:
           http:
             port: *port
+      bittorrent:
+        controller: qbittorrent
+        type: LoadBalancer
+        ports:
+          bittorrent-tcp:
+            port: 50469
+            protocol: TCP
+          bittorrent-udp:
+            port: 50469
+            protocol: UDP
     configMaps:
       config:
         data:

@@ -9,6 +9,7 @@ spec:
   chart:
     spec:
       chart: tailscale-operator
+      # renovate: datasource=github-releases depName=tailscale/tailscale
       version: 1.90.8
       sourceRef:
         kind: HelmRepository
