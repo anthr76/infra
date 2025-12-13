@@ -20,6 +20,7 @@ spec:
     configuration:
       period: "0h0m60s"
       rebootSentinel: "/var/run/reboot-required"
+      rebootCommand: "/run/current-system/sw/bin/systemctl reboot"
       concurrency: 1
       drainGracePeriod: -1
       drainTimeout: "5m"
