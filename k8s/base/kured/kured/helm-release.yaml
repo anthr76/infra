@@ -23,8 +23,8 @@ spec:
       rebootCommand: "/run/current-system/sw/bin/systemctl reboot"
       concurrency: 1
       drainGracePeriod: -1
-      drainTimeout: "5m"
-      skipWaitForDeleteTimeout: 60
+      drainTimeout: "10m"
+      skipWaitForDeleteTimeout: 360
       forceReboot: false
 
     metrics:
