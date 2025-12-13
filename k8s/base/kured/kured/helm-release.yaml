@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kured
+  namespace: kured
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: kured
+      version: 5.10.0
+      sourceRef:
+        kind: HelmRepository
+        name: kured-charts
+        namespace: flux-system
+  values:
+    configuration:
+      period: "1h"
+      rebootSentinel: "/var/run/reboot-required"
+      concurrency: 1
+      drainGracePeriod: -1
+      drainTimeout: "5m"
+      skipWaitForDeleteTimeout: 60
+      forceReboot: false
+
+    metrics:
+      create: true
+
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 100m
+        memory: 64Mi
