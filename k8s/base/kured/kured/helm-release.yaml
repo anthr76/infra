@@ -18,7 +18,7 @@ spec:
         namespace: flux-system
   values:
     configuration:
-      period: "1h"
+      period: "0h0m60s"
       rebootSentinel: "/var/run/reboot-required"
       concurrency: 1
       drainGracePeriod: -1
