@@ -83,7 +83,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: unifi-data
+        existingClaim: unifi-data-v2
         globalMounts:
           - path: /unifi
       cert:

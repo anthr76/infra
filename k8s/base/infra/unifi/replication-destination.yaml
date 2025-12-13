@@ -1,0 +1,26 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: unifi-kopia
+  namespace: infra
+spec:
+  trigger:
+    manual: restore-once
+  kopia:
+    copyMethod: Snapshot
+    repository: volsync-kopia
+    destinationPVC: unifi-data-v2
+    restoreAsOf: "2025-12-11T23:59:59-05:00"
+    moverSecurityContext:
+      runAsUser: 999
+      runAsGroup: 999
+      fsGroup: 999
+    accessModes:
+      - ReadWriteOnce
+    capacity: 2Gi
+    storageClassName: fast-ceph-block
+    cacheAccessModes:
+      - ReadWriteOnce
+    cacheCapacity: 5Gi
+    cacheStorageClassName: fast-ceph-block

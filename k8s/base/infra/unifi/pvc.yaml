@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: unifi-data
+  name: unifi-data-v2
   namespace: infra
 spec:
   accessModes:
@@ -11,4 +11,3 @@ spec:
     requests:
       storage: 2Gi
   storageClassName: fast-ceph-block
-
