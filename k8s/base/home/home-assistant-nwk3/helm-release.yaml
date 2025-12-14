@@ -49,6 +49,14 @@ spec:
           http:
             appProtocol: kubernetes.io/ws
             port: 8123
+      sonos:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.45.0.15
+        externalTrafficPolicy: Local
+        ports:
+          sonos:
+            port: 1400
     route:
       app:
         hostnames:
@@ -56,6 +64,10 @@ spec:
         parentRefs:
           - name: cilium-internal
             namespace: kube-system
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 8123
     persistence:
       config:
         existingClaim: "home-assistant-nwk3-config"
