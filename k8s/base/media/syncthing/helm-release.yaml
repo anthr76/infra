@@ -1,0 +1,122 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: syncthing
+  namespace: media
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      syncthing:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: syncthing/syncthing
+              tag: 2.0.12
+            env:
+              TZ: America/New_York
+              PUID: "1000"
+              PGID: "1000"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /rest/noauth/health
+                    port: &port 8384
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /rest/noauth/health
+                    port: *port
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 15m
+                memory: 150Mi
+              limits:
+                memory: 500Mi
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile:
+              type: RuntimeDefault
+
+    service:
+      app:
+        controller: syncthing
+        ports:
+          http:
+            port: *port
+      sync:
+        controller: syncthing
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.45.0.20
+          external-dns.alpha.kubernetes.io/hostname: syncthing-sync.qgr1.rabbito.tech
+        externalTrafficPolicy: Local
+        ports:
+          listen-tcp:
+            port: 22000
+            protocol: TCP
+          listen-quic:
+            port: 22000
+            protocol: UDP
+          discovery:
+            port: 21027
+            protocol: UDP
+
+    route:
+      app:
+        parentRefs:
+          - name: cilium-internal
+            namespace: kube-system
+        hostnames:
+          - syncthing.qgr1.rabbito.tech
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    persistence:
+      config:
+        existingClaim: syncthing-config-v1
+        globalMounts:
+          - path: /var/syncthing/config
+      data:
+        existingClaim: syncthing-data-v1
+        globalMounts:
+          - path: /var/syncthing/data
