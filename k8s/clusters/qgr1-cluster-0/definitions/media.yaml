@@ -163,3 +163,14 @@ metadata:
 spec:
   path: "./k8s/base/media/qui"
   prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-syncthing
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/media/syncthing"
+  prune: true

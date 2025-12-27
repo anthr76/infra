@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.12.1@sha256:f13f9b91beffd015aaa8d1dcd987d0955dcc3ffb2653d7e1c31a0a79e2a27a48
+              tag: 2025.12.4@sha256:c1743f2ed4c2cac05693525d477b73fb45386100660f3f1d6ac23b1720f48023
             env:
               TZ: America/New_York
             securityContext:
@@ -49,6 +49,14 @@ spec:
           http:
             appProtocol: kubernetes.io/ws
             port: 8123
+      sonos:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.45.0.15
+        externalTrafficPolicy: Local
+        ports:
+          sonos:
+            port: 1400
     route:
       app:
         hostnames:
@@ -56,6 +64,10 @@ spec:
         parentRefs:
           - name: cilium-internal
             namespace: kube-system
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 8123
     persistence:
       config:
         existingClaim: "home-assistant-nwk3-config"

@@ -1,0 +1,29 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: syncthing-kopia
+  namespace: media
+spec:
+  sourcePVC: syncthing-config-v1
+  trigger:
+    schedule: "0 * * * *"
+  kopia:
+    copyMethod: Snapshot
+    repository: volsync-kopia
+    parallelism: 2
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    accessModes:
+      - ReadWriteOnce
+    cacheAccessModes:
+      - ReadWriteOnce
+    cacheCapacity: 1Gi
+    cacheStorageClassName: fast-ceph-block
+    compression: zstd-fastest
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 4

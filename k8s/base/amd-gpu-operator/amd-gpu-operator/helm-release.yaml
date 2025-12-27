@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: gpu-operator-charts
-      version: v1.4.0
+      version: v1.4.1
       sourceRef:
         kind: HelmRepository
         name: amd-gpu-operator-charts
@@ -49,7 +49,7 @@ spec:
 
         metricsExporter:
           enable: true
-          image: docker.io/rocm/device-metrics-exporter:v1.4.0
+          image: docker.io/rocm/device-metrics-exporter:v1.4.1
           imagePullPolicy: IfNotPresent
           serviceType: ClusterIP
           port: 5000
@@ -70,7 +70,7 @@ spec:
 
         testRunner:
           enable: false
-          image: docker.io/rocm/test-runner:v1.4.0
+          image: docker.io/rocm/test-runner:v1.4.1
           imagePullPolicy: IfNotPresent
           upgradePolicy:
             maxUnavailable: 1
@@ -78,7 +78,7 @@ spec:
 
         configManager:
           enable: false
-          image: docker.io/rocm/device-config-manager:v1.4.0
+          image: docker.io/rocm/device-config-manager:v1.4.1
           imagePullPolicy: IfNotPresent
           upgradePolicy:
             maxUnavailable: 1

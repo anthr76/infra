@@ -1,0 +1,20 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: ceph-rgw
+  namespace: rook-ceph
+spec:
+  parentRefs:
+    - name: cilium-internal
+      namespace: kube-system
+  hostnames:
+    - s3.qgr1.rabbito.tech
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: rook-ceph-rgw-slow-ceph-objectstore
+          port: 80
