@@ -21,7 +21,7 @@ spec:
           app:
             image:
               repository: jacobalberty/unifi
-              tag: v9.5.21
+              tag: v10.0.162
             env:
               RUNAS_UID0: "false"
               BIND_PRIV: "false"
