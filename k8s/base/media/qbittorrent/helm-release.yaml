@@ -99,7 +99,7 @@ spec:
         data:
           .qbt.toml: |-
             [qbittorrent]
-            addr = "http://localhost:80"
+            addr = "http://0.0.0.0:80"
 
     route:
       app:
