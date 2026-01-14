@@ -23,18 +23,6 @@ spec:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          dnsPolicy: None
-          dnsConfig:
-            nameservers:
-              - 127.0.0.2
-            searches:
-              - media.svc.cluster.local
-              - svc.cluster.local
-              - cluster.local
-            options:
-              - name: ndots
-                value: "5"
           securityContext:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
