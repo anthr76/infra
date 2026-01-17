@@ -79,16 +79,13 @@ spec:
     service:
       app:
         controller: qbittorrent
-        ports:
-          http:
-            port: *port
-      bittorrent:
-        controller: qbittorrent
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 10.45.0.10
         externalTrafficPolicy: Local
         ports:
+          http:
+            port: *port
           bittorrent-tcp:
             port: 50469
             protocol: TCP
