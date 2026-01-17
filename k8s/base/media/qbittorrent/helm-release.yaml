@@ -82,6 +82,19 @@ spec:
         ports:
           http:
             port: *port
+      bittorrent:
+        controller: qbittorrent
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.45.0.10
+        externalTrafficPolicy: Local
+        ports:
+          bittorrent-tcp:
+            port: 50469
+            protocol: TCP
+          bittorrent-udp:
+            port: 50469
+            protocol: UDP
 
     configMaps:
       config:
