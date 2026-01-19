@@ -1,0 +1,20 @@
+---
+apiVersion: ceph.rook.io/v1
+kind: CephNFS
+metadata:
+  name: media-nfs
+  namespace: rook-ceph
+spec:
+  rados:
+    pool: slow-ceph-filesystem-slow-data0
+    namespace: nfs-ns
+  server:
+    active: 1
+    resources:
+      limits:
+        memory: "4Gi"
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+    priorityClassName: system-cluster-critical
+    logLevel: NIV_EVENT

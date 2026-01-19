@@ -31,3 +31,16 @@ metadata:
 spec:
   path: "./k8s/base/rook-ceph/cluster"
   prune: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: rook-ceph-nfs
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/rook-ceph/nfs"
+  prune: false
+  dependsOn:
+    - name: rook-ceph-cluster
