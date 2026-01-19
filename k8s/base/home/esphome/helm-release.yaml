@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 4.5.0
+      version: 4.6.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/esphome
-              tag: 2025.12.2@sha256:a493b6fc47426d65a206fc2d986e18f98a55f726f0f9a3024a13008fba13a837
+              tag: 2025.12.6@sha256:2eb9f7a41abd40af39157698e5bae6b25d5d65872104bb64d36b98de6e90fe93
             probes:
               liveness:
                 enabled: false
