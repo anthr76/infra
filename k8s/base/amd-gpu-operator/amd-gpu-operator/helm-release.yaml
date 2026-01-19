@@ -29,7 +29,7 @@ spec:
         commonConfig:
           initContainerImage: busybox:1.37
           utilsContainer:
-            image: docker.io/rocm/gpu-operator-utils:v1.4.0
+            image: docker.io/rocm/gpu-operator-utils:v1.4.1
             imagePullPolicy: IfNotPresent
 
         driver:
