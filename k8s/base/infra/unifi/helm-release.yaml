@@ -31,6 +31,30 @@ spec:
               JVM_INIT_HEAP_SIZE:
               JVM_MAX_HEAP_SIZE: 1024M
               SYSTEM_IP: "10.45.0.6"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status
+                    port: 8443
+                    scheme: HTTPS
+                  initialDelaySeconds: 0
+                  periodSeconds: 15
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status
+                    port: 8443
+                    scheme: HTTPS
+                  failureThreshold: 30
+                  periodSeconds: 10
             securityContext:
               capabilities:
                 add: ["NET_BIND_SERVICE"]
