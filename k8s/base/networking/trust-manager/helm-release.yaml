@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: trust-manager
-      version: v0.20.3
+      version: v0.21.1
       sourceRef:
         kind: HelmRepository
         name: jetstack-charts
