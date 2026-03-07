@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/nzbget
-              tag: 25.4.0@sha256:cec63a94495ed4354597fe30ae82fcb202a19f9a3a7bd989d397e95ee50038da
+              tag: 26.0.0@sha256:0185f0b026696bfbb89f29aecf777b721a8aa288da90ceb1021b6ee52c6de8f7
             env:
               TZ: America/New_York
               NZBGET__SERVER__MAINDIR: /config
