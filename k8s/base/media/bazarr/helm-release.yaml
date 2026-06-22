@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/bazarr
-              tag: 1.5.4@sha256:7ff11ddc4bec111ef8f4b58e95d1df8b980835f78c5087c0a95c6e74908a1d29
+              tag: 1.5.6@sha256:80cb090162b47ea1bfb499d742b45a460b282f17ffefa4c01d518a5c8d52a5a4
             env:
               TZ: America/New_York
             probes:
