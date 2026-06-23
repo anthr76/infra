@@ -2,25 +2,27 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: unifi-kopia
+  name: unifi-os-server-kopia
   namespace: infra
 spec:
-  sourcePVC: unifi-data
+  sourcePVC: unifi-os-server-data-v1
   trigger:
     schedule: "0 * * * *"
   kopia:
     copyMethod: Snapshot
     repository: volsync-kopia
     parallelism: 2
+    # UniFi OS Server runs privileged as root; data subPaths are owned by
+    # root/mongodb/rabbitmq, so the mover must run as root to read them all.
     moverSecurityContext:
-      runAsUser: 999
-      runAsGroup: 999
-      fsGroup: 999
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
     accessModes:
       - ReadWriteOnce
     cacheAccessModes:
       - ReadWriteOnce
-    cacheCapacity: 5Gi
+    cacheCapacity: 10Gi
     cacheStorageClassName: fast-ceph-block
     compression: zstd-fastest
     retain:

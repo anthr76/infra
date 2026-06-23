@@ -1,0 +1,125 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: unifi-os-server
+  namespace: infra
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: app-template
+      version: 4.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      unifi-os-server:
+        type: deployment
+        strategy: Recreate
+        containers:
+          app:
+            image:
+              repository: ghcr.io/lemker/unifi-os-server
+              tag: v1.3
+            env:
+              # UniFi OS Server runs every component as systemd services and
+              # requires host cgroup access (privileged). See lemker/unifi-os-server.
+              HOST_IP:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.hostIP
+              UOS_SYSTEM_IP: unifi.qgr1.rabbito.tech
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                    - /bin/bash
+                    - -c
+                    - echo $HOST_IP host.docker.internal >> /etc/hosts
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/ping
+                    port: 80
+                  initialDelaySeconds: 10
+                  periodSeconds: 60
+                  timeoutSeconds: 5
+                  successThreshold: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/ping
+                    port: 80
+                  failureThreshold: 60
+                  periodSeconds: 10
+            securityContext:
+              privileged: true
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 4Gi
+              limits:
+                cpu: 4000m
+                memory: 8Gi
+    service:
+      app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.45.0.6
+          external-dns.alpha.kubernetes.io/hostname: unifi.qgr1.rabbito.tech
+        externalTrafficPolicy: Local
+        ports:
+          gui:
+            # The UniFi OS Server console listens on 443 inside the container;
+            # 11443 is the conventional external port (docker-compose maps 11443->443).
+            port: 11443
+            targetPort: 443
+            protocol: TCP
+          controller:
+            port: 8080
+            protocol: TCP
+          hotspot:
+            port: 8444
+            protocol: TCP
+          speedtest:
+            port: 6789
+            protocol: TCP
+          stun:
+            port: 3478
+            protocol: UDP
+          discovery:
+            port: 10003
+            protocol: UDP
+          syslog:
+            port: 5514
+            protocol: UDP
+    persistence:
+      data:
+        existingClaim: unifi-os-server-data-v1
+        advancedMounts:
+          unifi-os-server:
+            app:
+              - path: /persistent
+                subPath: persistent
+              - path: /var/log
+                subPath: log
+              - path: /data
+                subPath: data
+              - path: /srv
+                subPath: srv
+              - path: /var/lib/unifi
+                subPath: unifi
+              - path: /var/lib/mongodb
+                subPath: mongodb
+              - path: /etc/rabbitmq/ssl
+                subPath: rabbitmq
