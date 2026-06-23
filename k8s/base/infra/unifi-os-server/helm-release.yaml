@@ -19,6 +19,29 @@ spec:
       unifi-os-server:
         type: deployment
         strategy: Recreate
+        annotations:
+          # When cert-manager rotates the TLS secret, Reloader recreates the pod
+          # so the init container re-copies the renewed cert into unifi-core's
+          # config dir (the only reliable way to reload the console cert).
+          secret.reloader.stakater.com/reload: unifi-os-server-tls
+        initContainers:
+          # UniFi OS Server's console serves /data/unifi-core/config/unifi-core.{crt,key}.
+          # Copy the cert-manager-issued cert over the self-signed default before
+          # unifi-core starts. Reuses the main image (has bash); runs as root to
+          # write the root-owned PVC files.
+          init-certs:
+            image:
+              repository: ghcr.io/lemker/unifi-os-server
+              tag: v1.3
+            command:
+              - /bin/bash
+              - -c
+              - |
+                set -e
+                mkdir -p /data/unifi-core/config
+                install -m 0644 /certs/tls.crt /data/unifi-core/config/unifi-core.crt
+                install -m 0600 /certs/tls.key /data/unifi-core/config/unifi-core.key
+                echo "unifi-core cert synced from unifi-os-server-tls"
         containers:
           app:
             image:
@@ -123,3 +146,14 @@ spec:
                 subPath: mongodb
               - path: /etc/rabbitmq/ssl
                 subPath: rabbitmq
+            init-certs:
+              - path: /data
+                subPath: data
+      cert:
+        type: secret
+        name: unifi-os-server-tls
+        advancedMounts:
+          unifi-os-server:
+            init-certs:
+              - path: /certs
+                readOnly: true
