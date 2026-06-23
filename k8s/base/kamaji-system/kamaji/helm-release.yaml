@@ -19,4 +19,4 @@ spec:
         namespace: flux-system
   values:
     image:
-      tag: edge-26.6.4
+      tag: 26.6.4-edge
