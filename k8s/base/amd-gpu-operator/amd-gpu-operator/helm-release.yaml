@@ -29,7 +29,7 @@ spec:
         commonConfig:
           initContainerImage: busybox:1.37
           utilsContainer:
-            image: docker.io/rocm/gpu-operator-utils:v1.4.1
+            image: docker.io/rocm/gpu-operator-utils:v1.5.0
             imagePullPolicy: IfNotPresent
 
         driver:
@@ -49,7 +49,7 @@ spec:
 
         metricsExporter:
           enable: true
-          image: docker.io/rocm/device-metrics-exporter:v1.4.2
+          image: docker.io/rocm/device-metrics-exporter:v1.5.0
           imagePullPolicy: IfNotPresent
           serviceType: ClusterIP
           port: 5000
@@ -70,7 +70,7 @@ spec:
 
         testRunner:
           enable: false
-          image: docker.io/rocm/test-runner:v1.4.1
+          image: docker.io/rocm/test-runner:v1.5.0
           imagePullPolicy: IfNotPresent
           upgradePolicy:
             maxUnavailable: 1
@@ -78,7 +78,7 @@ spec:
 
         configManager:
           enable: false
-          image: docker.io/rocm/device-config-manager:v1.4.1
+          image: docker.io/rocm/device-config-manager:v1.5.0
           imagePullPolicy: IfNotPresent
           upgradePolicy:
             maxUnavailable: 1
