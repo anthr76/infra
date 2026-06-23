@@ -100,6 +100,7 @@ spec:
         annotations:
           lbipam.cilium.io/ips: 10.45.0.6
           external-dns.alpha.kubernetes.io/hostname: unifi.qgr1.rabbito.tech
+          external-dns.alpha.kubernetes.io/target: 10.45.0.6
         externalTrafficPolicy: Local
         ports:
           gui:
