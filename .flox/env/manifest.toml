@@ -1,0 +1,85 @@
+schema-version = "1.13.0"
+
+
+## Install Packages --------------------------------------------------
+##  $ flox install gum  <- puts a package in [install] section below
+##  $ flox search gum   <- search for a package
+##  $ flox show gum     <- show all versions of a package
+## -------------------------------------------------------------------
+[install]
+cilium-cli.pkg-path = "cilium-cli"
+kubectl.pkg-path = "kubectl"
+kustomize.pkg-path = "kustomize"
+kubernetes-helm.pkg-path = "kubernetes-helm"
+fluxcd.pkg-path = "fluxcd"
+google-cloud-sdk.pkg-path = "google-cloud-sdk"
+sops.pkg-path = "sops"
+age.pkg-path = "age"
+just.pkg-path = "just"
+kns.pkg-path = "kns"
+kubectl-view-secret.pkg-path = "kubectl-view-secret"
+# kubectl-volsync is a custom Go build defined in .flox/pkgs/kubectl-volsync/.
+# Build it with `flox build kubectl-volsync`; the [profile] script below puts
+# the resulting ./result-kubectl-volsync/bin on PATH inside the environment.
+
+
+## Environment Variables ---------------------------------------------
+##  ... available for use in the activated environment
+##      as well as [hook], [profile] scripts and [services] below.
+## -------------------------------------------------------------------
+[vars]
+GREET = "Infra Development Environment"
+
+
+## Activation Hook ---------------------------------------------------
+##  ... run by _bash_ shell when you run 'flox activate'.
+## -------------------------------------------------------------------
+[hook]
+on-activate = '''
+  # Load variables from a local .env file if present (replaces devenv's
+  # `dotenv.enable = true`).
+  if [ -f "$FLOX_ENV_PROJECT/.env" ]; then
+    set -a
+    # shellcheck disable=SC1091
+    . "$FLOX_ENV_PROJECT/.env"
+    set +a
+  fi
+
+  # Put the locally-built kubectl-volsync plugin on PATH if it has been built
+  # with `flox build kubectl-volsync`. Done here (not in [profile]) so it is
+  # also available in non-interactive activations (`flox activate -- ...`).
+  if [ -d "$FLOX_ENV_PROJECT/result-kubectl-volsync/bin" ]; then
+    export PATH="$FLOX_ENV_PROJECT/result-kubectl-volsync/bin:$PATH"
+  fi
+'''
+
+
+## Profile script ----------------------------------------------------
+## ... sourced by _your shell_ when you run 'flox activate'.
+## -------------------------------------------------------------------
+[profile]
+common = '''
+  # `setup-infra` greeting (replaces devenv's scripts.setup-infra + enterShell).
+  setup-infra() {
+    echo "🚀 Setting up infrastructure development environment..."
+    echo ""
+    echo "💡 Use 'just --list' to see available automation tasks"
+    echo "📚 Check docs/ directory for setup instructions"
+  }
+
+  setup-infra
+'''
+
+
+## Other Environment Options -----------------------------------------
+[options]
+# Allow unfree packages (e.g. google-cloud-sdk); replaces devenv's
+# `allow_unfree = true`.
+allow.unfree = true
+# Systems that environment is compatible with
+systems = [
+  "aarch64-darwin",
+  "aarch64-linux",
+  "x86_64-darwin",
+  "x86_64-linux",
+]

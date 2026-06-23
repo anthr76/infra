@@ -21,9 +21,10 @@ ansible/roles/anthr76.routeros-configure
 /clusters/scr1/intergrations/scr1-cluster-0.yaml
 ansible/roles/ansible-role-vyos
 .direnv/*
-# Devenv
-.devenv*
-devenv.local.nix
+# Flox
+# Build outputs from `flox build` (e.g. result-kubectl-volsync)
+result
+result-*
 
 # direnv
 .direnv

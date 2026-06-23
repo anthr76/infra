@@ -14,16 +14,24 @@ This is a multi-environment, multi-cloud infrastructure-as-code repository for a
 
 ## Development Environment
 
-This repository uses `devenv` (Nix-based development environments) for consistent tooling. All required tools are automatically available:
+This repository uses [Flox](https://flox.dev/) (Nix-based development environments) for consistent tooling. All required tools are automatically available:
 
 ```bash
-# Enter the development environment (automatically via direnv or manually)
-devenv shell
+# Enter the development environment (automatically via direnv, or manually)
+flox activate
 
-# All tools are now available: kubectl, terraform, flux, helm, sops, age, just, etc.
+# All tools are now available: kubectl, flux, helm, sops, age, just, etc.
 ```
 
-**Never manually install tools** - they are managed via `devenv.nix`. If you need a new tool, add it to `devenv.nix`.
+The environment is defined in `.flox/env/manifest.toml`. direnv auto-activates it
+on `cd` via `.envrc` (`eval "$(flox activate)"`).
+
+**Never manually install tools** - they are managed via the Flox manifest. To add a
+tool: `flox install <package>` (or edit `.flox/env/manifest.toml`).
+
+`kubectl-volsync` is a custom Go build (not in the catalog) defined under
+`.flox/pkgs/kubectl-volsync/`. Build it once with `flox build kubectl-volsync`; the
+manifest's activation hook then adds `./result-kubectl-volsync/bin` to PATH.
 
 ## Common Commands
 
@@ -188,7 +196,7 @@ Configuration: `.github/renovate.json5`
 
 - **Prefer Justfile:** Use `just` commands over custom shell scripts
 - **Avoid Custom Scripts:** Tasks should be in the Justfile
-- **Development Tools:** Managed via `devenv.nix`, not system installation
+- **Development Tools:** Managed via the Flox manifest (`.flox/env/manifest.toml`), not system installation
 - **Task Documentation:** All Justfile tasks have clear descriptions
 
 ## Technology Stack

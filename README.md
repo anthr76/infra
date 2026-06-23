@@ -93,7 +93,7 @@ While this infrastructure is primarily self-hosted, it relies on some cloud serv
 
 ### Development & Automation
 
-- [devenv](https://devenv.sh/) - Nix-based development environments
+- [Flox](https://flox.dev/) - Nix-based development environments
 - [just](https://github.com/casey/just) - Task automation (preferred over scripts)
 - [pre-commit](https://pre-commit.com/) - Git hooks for YAML linting and secret detection
 
@@ -120,18 +120,21 @@ While this infrastructure is primarily self-hosted, it relies on some cloud serv
 
 ### Prerequisites
 
-This repository uses `devenv` for consistent tooling across environments:
+This repository uses [Flox](https://flox.dev/) for consistent tooling across environments:
 
 ```bash
-# Install devenv (if not already installed)
-# See: https://devenv.sh/getting-started/
+# Install Flox (if not already installed)
+# See: https://flox.dev/docs/install-flox/
 
 # Enter development environment (automatically installs all tools)
-devenv shell
+flox activate
 
 # Or use direnv for automatic activation
 direnv allow
 ```
+
+> `kubectl-volsync` is a custom Go build. Run `flox build kubectl-volsync` once to
+> compile it; the manifest then adds it to PATH on activation.
 
 ### Common Tasks
 
