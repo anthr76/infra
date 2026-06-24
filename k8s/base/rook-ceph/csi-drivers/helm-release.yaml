@@ -95,9 +95,6 @@ spec:
             liveness: {}
             addons: {}
             logRotator: {}
-          # NixOS host volumes (preserved from the pre-upgrade Driver CR).
-          # lib-modules is repointed at the NixOS booted-system modules path,
-          # and /nix is mounted read-only so the plugin can resolve binaries.
           volumes:
             - volume:
                 name: lib-modules
@@ -246,8 +243,6 @@ spec:
               requests:
                 cpu: 250m
                 memory: 512Mi
-            # cephfs has no omapGenerator container, but the chart always emits
-            # the key; pin to {} (and the other untuned ones) to avoid `null`.
             omapGenerator: {}
             liveness: {}
             addons: {}
