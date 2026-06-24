@@ -1,0 +1,254 @@
+---
+# ceph-csi-drivers — provides the CSI plugin ServiceAccounts + RBAC and the
+# Driver/CSI configuration that Rook v1.20 no longer ships in the rook-ceph chart.
+#
+# Background: in Rook v1.20 CSI driver management moved out of the rook-ceph
+# operator chart and is now "admin-managed" via the ceph-csi-operator. The
+# rook-ceph chart only installs the operator + its own RBAC; the per-driver
+# ServiceAccounts (rbd/cephfs {node,ctrl}plugin), their ClusterRoles/Roles/
+# bindings, and the Driver CRs are owned by THIS chart. Without it the operator
+# generates CSI Deployments/DaemonSets that reference ServiceAccounts nobody
+# creates -> FailedCreate -> no CSI pods -> PVCs never attach.
+#
+# NOTE: this chart's normalizeDriverName = lower|replace("." "-"), so for driver
+# name "rook-ceph.rbd.csi.ceph.com" it creates SA
+# "rook-ceph-rbd-csi-ceph-com-nodeplugin-sa" AND writes that same name into the
+# Driver CR's serviceAccountName, keeping SA/RBAC/Driver internally consistent
+# (this is what avoids the prefixed/unprefixed mismatch in rook/rook#17787).
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ceph-csi-drivers
+  namespace: rook-ceph
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: ceph-csi-drivers
+      version: 1.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: ceph-csi-operator-charts
+        namespace: flux-system
+  # The ceph-csi-operator (controller-manager) and its CRDs are installed by the
+  # rook-ceph operator chart; the drivers chart needs them present first.
+  dependsOn:
+    - name: rook-ceph
+  values:
+    # CephConnection + ClientProfile CRs are created/owned by the rook-ceph
+    # operator (derived from the CephCluster). Leave these empty so this chart
+    # does NOT try to manage them (empty name => template renders nothing).
+    cephConnections:
+      - name: ""
+    clientProfiles:
+      - name: ""
+
+    # OperatorConfig "ceph-csi-operator-config" already exists (created outside
+    # this chart). Do not have the chart create/own it to avoid an ownership
+    # conflict; its driverSpecDefaults (imageSet, priorityClasses) stay as-is.
+    operatorConfig:
+      create: false
+
+    drivers:
+      nfs:
+        enabled: false
+      nvmeof:
+        enabled: false
+
+      rbd:
+        enabled: true
+        name: rook-ceph.rbd.csi.ceph.com
+        clusterName: rook-ceph
+        imageSet:
+          # ConfigMap maintained by rook holding the pinned cephcsi image set.
+          name: rook-csi-operator-image-set-configmap
+        fsGroupPolicy: File
+        cephFsClientType: kernel
+        # TODO(verify): the live rbd Driver CR had no explicit snapshotPolicy.
+        # cephfs used volumeGroupSnapshot. Confirm desired policy before apply.
+        snapshotPolicy: volumeGroupSnapshot
+        deployCsiAddons: false
+        generateOMapInfo: false
+        nodePlugin:
+          priorityClassName: system-cluster-critical
+          kubeletDirPath: /var/lib/kubelet
+          updateStrategy:
+            type: RollingUpdate
+          resources:
+            plugin:
+              limits:
+                memory: 1Gi
+              requests:
+                cpu: 250m
+                memory: 512Mi
+            registrar:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 50m
+                memory: 128Mi
+            # The chart emits every resource key when `resources` is set; the
+            # Driver CRD has no nullable fields, so pin untuned ones to {} to
+            # avoid rendering `null` (which the API server would reject).
+            liveness: {}
+            addons: {}
+            logRotator: {}
+          # NixOS host volumes (preserved from the pre-upgrade Driver CR).
+          # lib-modules is repointed at the NixOS booted-system modules path,
+          # and /nix is mounted read-only so the plugin can resolve binaries.
+          volumes:
+            - volume:
+                name: lib-modules
+                hostPath:
+                  path: /run/booted-system/kernel-modules/lib/modules/
+              mount:
+                name: lib-modules
+                mountPath: /lib/modules
+                readOnly: true
+            - volume:
+                name: host-nix
+                hostPath:
+                  path: /nix
+              mount:
+                name: host-nix
+                mountPath: /nix
+                readOnly: true
+        controllerPlugin:
+          replicas: 2
+          priorityClassName: system-node-critical
+          deploymentStrategy:
+            type: Recreate
+          resources:
+            attacher:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            provisioner:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            resizer:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            snapshotter:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            omapGenerator:
+              limits:
+                memory: 1Gi
+              requests:
+                cpu: 250m
+                memory: 512Mi
+            plugin:
+              limits:
+                memory: 1Gi
+              requests:
+                memory: 512Mi
+            liveness: {}
+            addons: {}
+            logRotator: {}
+
+      cephfs:
+        enabled: true
+        name: rook-ceph.cephfs.csi.ceph.com
+        clusterName: rook-ceph
+        imageSet:
+          name: rook-csi-operator-image-set-configmap
+        # Live cephfs Driver CR used fsGroupPolicy: File (chart default is None).
+        fsGroupPolicy: File
+        cephFsClientType: kernel
+        snapshotPolicy: volumeGroupSnapshot
+        deployCsiAddons: false
+        generateOMapInfo: false
+        nodePlugin:
+          priorityClassName: system-cluster-critical
+          kubeletDirPath: /var/lib/kubelet
+          updateStrategy:
+            type: RollingUpdate
+          resources:
+            plugin:
+              limits:
+                memory: 1Gi
+              requests:
+                cpu: 250m
+                memory: 512Mi
+            registrar:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 50m
+                memory: 128Mi
+            liveness: {}
+            addons: {}
+            logRotator: {}
+          volumes:
+            - volume:
+                name: lib-modules
+                hostPath:
+                  path: /run/booted-system/kernel-modules/lib/modules/
+              mount:
+                name: lib-modules
+                mountPath: /lib/modules
+                readOnly: true
+            - volume:
+                name: host-nix
+                hostPath:
+                  path: /nix
+              mount:
+                name: host-nix
+                mountPath: /nix
+                readOnly: true
+        controllerPlugin:
+          replicas: 2
+          priorityClassName: system-node-critical
+          deploymentStrategy:
+            type: Recreate
+          resources:
+            attacher:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            provisioner:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            resizer:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            snapshotter:
+              limits:
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            plugin:
+              limits:
+                memory: 1Gi
+              requests:
+                cpu: 250m
+                memory: 512Mi
+            # cephfs has no omapGenerator container, but the chart always emits
+            # the key; pin to {} (and the other untuned ones) to avoid `null`.
+            omapGenerator: {}
+            liveness: {}
+            addons: {}
+            logRotator: {}

@@ -24,6 +24,19 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: rook-ceph-csi-drivers
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/rook-ceph/csi-drivers"
+  prune: false
+  dependsOn:
+    - name: rook-ceph-operator
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: rook-ceph-cluster
   namespace: flux-system
   labels:
