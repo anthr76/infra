@@ -53,7 +53,7 @@ spec:
           tailscale.com/proxy-class: "default"
       serviceType: ClusterIP
   kubernetes:
-    version: v1.35.0
+    version: v1.36.2
     kubelet:
       cgroupfs: systemd
       preferredAddressTypes:
@@ -87,7 +87,7 @@ spec:
             cpu: 100m
             memory: 64Mi
       agent:
-        version: "v0.31.0"
+        version: "v0.36.0"
         mode: DaemonSet
         extraArgs:
           - --proxy-server-host=100.94.68.123
