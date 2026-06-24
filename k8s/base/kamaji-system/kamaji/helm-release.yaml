@@ -20,3 +20,16 @@ spec:
   values:
     image:
       tag: 26.6.4-edge
+    # Datastore etcd runs on civo-volume (network block storage) whose fsync
+    # latency is too high for etcd's default 100ms/1s heartbeat/election timing,
+    # causing leader-election churn (raft term 227) and apiserver "etcdserver:
+    # request timed out" that cascades into qgr1 tenant-cluster instability.
+    # Stopgap: widen the timing to tolerate slow-disk stalls. Durable fix is to
+    # move etcd off civo-volume onto low-latency local storage.
+    kamaji-etcd:
+      image:
+        # renovate: datasource=docker depName=quay.io/coreos/etcd
+        tag: v3.5.31
+      extraArgs:
+        - --heartbeat-interval=500
+        - --election-timeout=5000
