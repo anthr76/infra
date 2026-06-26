@@ -9,6 +9,9 @@
       "cilium-cli": {
         "pkg-path": "cilium-cli"
       },
+      "findutils": {
+        "pkg-path": "findutils"
+      },
       "fluxcd": {
         "pkg-path": "fluxcd"
       },
@@ -35,6 +38,9 @@
       },
       "sops": {
         "pkg-path": "sops"
+      },
+      "uutils-coreutils": {
+        "pkg-path": "uutils-coreutils"
       }
     },
     "vars": {
@@ -294,6 +300,141 @@
       ],
       "outputs": {
         "out": "/nix/store/yha5azxi58d49dnlx62izm85sl90mfag-cilium-cli-0.19.4"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "findutils",
+      "broken": false,
+      "derivation": "/nix/store/pc4qv6aafrlh0vwjj2ijjvji29a41bv5-findutils-4.10.0.drv",
+      "description": "GNU Find Utilities, the basic directory searching utilities of the GNU operating system",
+      "install_id": "findutils",
+      "license": "GPL-3.0-or-later",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "findutils-4.10.0",
+      "pname": "findutils",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T03:13:14.539586Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "4.10.0",
+      "outputs_to_install": [
+        "out",
+        "out",
+        "out"
+      ],
+      "outputs": {
+        "info": "/nix/store/34l83gpv8481k0wzmmi9cxh9flbmhsg4-findutils-4.10.0-info",
+        "locate": "/nix/store/mwx56wc51wvky0a78fizs90y7s7mg2ia-findutils-4.10.0-locate",
+        "out": "/nix/store/3wz2j41nnr1badij6fcnip5vgrfpdd82-findutils-4.10.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "findutils",
+      "broken": false,
+      "derivation": "/nix/store/rka0crnhr888cfy9ilwmdy2b7zkb2iwl-findutils-4.10.0.drv",
+      "description": "GNU Find Utilities, the basic directory searching utilities of the GNU operating system",
+      "install_id": "findutils",
+      "license": "GPL-3.0-or-later",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "findutils-4.10.0",
+      "pname": "findutils",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T03:44:09.323083Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "4.10.0",
+      "outputs_to_install": [
+        "out",
+        "out"
+      ],
+      "outputs": {
+        "info": "/nix/store/168irs0ni0r9iynjv0q05s72ad276hjc-findutils-4.10.0-info",
+        "locate": "/nix/store/1ycgnkm4c43vggyw76qc0jvrz4yvaddn-findutils-4.10.0-locate",
+        "out": "/nix/store/gbd7xfq2d1wbrwr2i045mvc8fkkw7i1g-findutils-4.10.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "findutils",
+      "broken": false,
+      "derivation": "/nix/store/35mvgcjz9nyhzxvccn3n8kja41qrd1cj-findutils-4.10.0.drv",
+      "description": "GNU Find Utilities, the basic directory searching utilities of the GNU operating system",
+      "install_id": "findutils",
+      "license": "GPL-3.0-or-later",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "findutils-4.10.0",
+      "pname": "findutils",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T04:13:06.878500Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "4.10.0",
+      "outputs_to_install": [
+        "out",
+        "out"
+      ],
+      "outputs": {
+        "info": "/nix/store/hhaq2vnq3wzpw4advdsczn886rsbm5k0-findutils-4.10.0-info",
+        "locate": "/nix/store/zrkbiybizlzyyimlwkvfg9qrcqjrn7jk-findutils-4.10.0-locate",
+        "out": "/nix/store/ix0a9p3m012l4d59w3g1lfsdx2azdn08-findutils-4.10.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "findutils",
+      "broken": false,
+      "derivation": "/nix/store/nv9vbwdbppdb9zvv78m9a99vga207ykq-findutils-4.10.0.drv",
+      "description": "GNU Find Utilities, the basic directory searching utilities of the GNU operating system",
+      "install_id": "findutils",
+      "license": "GPL-3.0-or-later",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "findutils-4.10.0",
+      "pname": "findutils",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T04:47:05.468459Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "4.10.0",
+      "outputs_to_install": [
+        "out",
+        "out",
+        "out",
+        "out"
+      ],
+      "outputs": {
+        "info": "/nix/store/mc65clwg5q361fa9614ryvmhl3yqradh-findutils-4.10.0-info",
+        "locate": "/nix/store/fcid2ld7f37q6h1rknkrv80302is8c0y-findutils-4.10.0-locate",
+        "out": "/nix/store/c1cjgg6p8m8fssivzrc2p13mwwml3p3v-findutils-4.10.0"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
@@ -1399,6 +1540,126 @@
       ],
       "outputs": {
         "out": "/nix/store/yzsjydzzq2vza6l136879f5cwn3ni2d5-sops-3.13.1"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "uutils-coreutils",
+      "broken": false,
+      "derivation": "/nix/store/qbnh8awh4r83nb87i5p2rixrz9ri0w57-uutils-coreutils-0.9.0.drv",
+      "description": "Cross-platform Rust rewrite of the GNU coreutils",
+      "install_id": "uutils-coreutils",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "uutils-coreutils-0.9.0",
+      "pname": "uutils-coreutils",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T03:16:02.034448Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.9.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/rr4cfzkzf4zf35hb1hkwb3jwj22d528j-uutils-coreutils-0.9.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "uutils-coreutils",
+      "broken": false,
+      "derivation": "/nix/store/1l05fnsa3r6cvai0jd838cxj5psb220a-uutils-coreutils-0.9.0.drv",
+      "description": "Cross-platform Rust rewrite of the GNU coreutils",
+      "install_id": "uutils-coreutils",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "uutils-coreutils-0.9.0",
+      "pname": "uutils-coreutils",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T03:47:42.757314Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.9.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/23bi353xab361vvg0d7gkap220jmq9al-uutils-coreutils-0.9.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "uutils-coreutils",
+      "broken": false,
+      "derivation": "/nix/store/ypp3vbk6990h427aabz44ahb32kv7zy6-uutils-coreutils-0.9.0.drv",
+      "description": "Cross-platform Rust rewrite of the GNU coreutils",
+      "install_id": "uutils-coreutils",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "uutils-coreutils-0.9.0",
+      "pname": "uutils-coreutils",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T04:15:56.225548Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.9.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/kpf9mwmp2vv1pya4apw6cknvg84g2h4g-uutils-coreutils-0.9.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "uutils-coreutils",
+      "broken": false,
+      "derivation": "/nix/store/rqhnjkhc7a7cxyxrdnsipxgpw7ia404x-uutils-coreutils-0.9.0.drv",
+      "description": "Cross-platform Rust rewrite of the GNU coreutils",
+      "install_id": "uutils-coreutils",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "uutils-coreutils-0.9.0",
+      "pname": "uutils-coreutils",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T04:50:45.969758Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.9.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/h2rr7rpw9hpp7hi74bk0innlsycdvsas-uutils-coreutils-0.9.0"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
