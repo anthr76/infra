@@ -1,0 +1,27 @@
+---
+apiVersion: kamaji.clastix.io/v1alpha1
+kind: DataStore
+metadata:
+  name: neon-postgres
+spec:
+  driver: PostgreSQL
+  endpoints:
+    - ep-patient-lab-atruaf58.c-9.us-east-1.aws.neon.tech:5432
+  basicAuth:
+    username:
+      secretReference:
+        name: kamaji-neon-postgres
+        namespace: kamaji-system
+        keyPath: username
+    password:
+      secretReference:
+        name: kamaji-neon-postgres
+        namespace: kamaji-system
+        keyPath: password
+  tlsConfig:
+    certificateAuthority:
+      certificate:
+        secretReference:
+          name: kamaji-neon-ca-bundle
+          namespace: kamaji-system
+          keyPath: ca-certificates.crt

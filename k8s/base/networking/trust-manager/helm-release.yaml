@@ -24,3 +24,11 @@ spec:
     app:
       trust:
         namespace: networking
+    # Allow trust-manager to write Bundles into Secrets (default is ConfigMap
+    # only). Required so kamaji's PostgreSQL DataStore can reference a public CA
+    # bundle via secretReference. The allowlist scopes which Secret names it may
+    # manage across namespaces.
+    secretTargets:
+      enabled: true
+      authorizedSecrets:
+        - kamaji-neon-ca-bundle
