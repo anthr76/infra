@@ -21,6 +21,9 @@
       "just": {
         "pkg-path": "just"
       },
+      "k9s": {
+        "pkg-path": "k9s"
+      },
       "kns": {
         "pkg-path": "kns"
       },
@@ -80,6 +83,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:13.407768Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -110,6 +114,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:07.746085Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -140,6 +145,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:05.710499Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -170,6 +176,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:03.701368Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -200,6 +207,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:13.908614Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -230,6 +238,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:08.310254Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -260,6 +269,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:06.173666Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -290,6 +300,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:04.347622Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -320,6 +331,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:14.539586Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -354,6 +366,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:09.323083Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -387,6 +400,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:06.878500Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -420,6 +434,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:05.468459Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -455,6 +470,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:14.629875Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -485,6 +501,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:09.445137Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -515,6 +532,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:06.940977Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -545,6 +563,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:05.578996Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -575,6 +594,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:15.062762Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -605,6 +625,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:10.647878Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -635,6 +656,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:07.419652Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -665,6 +687,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:06.909498Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -695,6 +718,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:31.395089Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -728,6 +752,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:31.262810Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -761,6 +786,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:24.214231Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -794,6 +820,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:28.673613Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -807,6 +834,130 @@
         "doc": "/nix/store/r800x8xppg70s00hw3h6x9cxpd6nh06y-just-1.51.0-doc",
         "man": "/nix/store/p04vig0h2hj7hg5vgd74n5nphlcy23l8-just-1.51.0-man",
         "out": "/nix/store/3j32zmchv9wd60qng1mm04yj07wf04i8-just-1.51.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "k9s",
+      "broken": false,
+      "derivation": "/nix/store/9dvlsc82mj8zaw511lq724jmhq5i6666-k9s-0.51.0.drv",
+      "description": "Kubernetes CLI To Manage Your Clusters In Style",
+      "install_id": "k9s",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "k9s-0.51.0",
+      "pname": "k9s",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T03:13:31.423193Z",
+      "stabilities": [
+        "stable",
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.51.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/rfv1wgxkh6ws526cq5xn88x37mx65hnc-k9s-0.51.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "k9s",
+      "broken": false,
+      "derivation": "/nix/store/916wp8shiyq6dcakpdvrpjxsvfpqg9nj-k9s-0.51.0.drv",
+      "description": "Kubernetes CLI To Manage Your Clusters In Style",
+      "install_id": "k9s",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "k9s-0.51.0",
+      "pname": "k9s",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T03:44:31.307795Z",
+      "stabilities": [
+        "stable",
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.51.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/02rncwd3q9fm8f3pnvx0zbyj11zy4dr3-k9s-0.51.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "k9s",
+      "broken": false,
+      "derivation": "/nix/store/d91vrzq1saasv9ybba37x9krzq50xb0i-k9s-0.51.0.drv",
+      "description": "Kubernetes CLI To Manage Your Clusters In Style",
+      "install_id": "k9s",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "k9s-0.51.0",
+      "pname": "k9s",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T04:13:24.245343Z",
+      "stabilities": [
+        "stable",
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.51.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/vdz0myrhlkz9s6rbxafwb4qsfnqdrljj-k9s-0.51.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "k9s",
+      "broken": false,
+      "derivation": "/nix/store/0z9992cdwbsg3kfqamm90zcmnxlyvkfq-k9s-0.51.0.drv",
+      "description": "Kubernetes CLI To Manage Your Clusters In Style",
+      "install_id": "k9s",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "name": "k9s-0.51.0",
+      "pname": "k9s",
+      "rev": "567a49d1913ce81ac6e9582e3553dd90a955875f",
+      "rev_count": 1017464,
+      "rev_date": "2026-06-16T02:33:49Z",
+      "scrape_date": "2026-06-17T04:47:28.725367Z",
+      "stabilities": [
+        "stable",
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.51.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/9l9fv21p0wq91vgw419539q17lpdm3qp-k9s-0.51.0"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
@@ -827,6 +978,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:31.809583Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -857,6 +1009,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:32.581366Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -887,6 +1040,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:24.664870Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -917,6 +1071,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:30.160006Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -947,6 +1102,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:31.994864Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -980,6 +1136,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:32.916870Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1013,6 +1170,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:24.863568Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1046,6 +1204,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:30.531928Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1079,6 +1238,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:32.023617Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1109,6 +1269,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:32.952887Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1139,6 +1300,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:24.893291Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1169,6 +1331,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:30.567344Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1199,6 +1362,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:32.046643Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1229,6 +1393,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:32.983929Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1259,6 +1424,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:24.916620Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1289,6 +1455,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:30.598428Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1319,6 +1486,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:13:32.101762Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1349,6 +1517,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:44:33.062252Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1379,6 +1548,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:13:24.972674Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1409,6 +1579,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:47:30.673517Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1440,6 +1611,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:15:13.552757Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1470,6 +1642,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:46:40.189718Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1500,6 +1673,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:15:07.180267Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1530,6 +1704,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:49:43.142980Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1560,6 +1735,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:16:02.034448Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1590,6 +1766,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T03:47:42.757314Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1620,6 +1797,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:15:56.225548Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
@@ -1650,6 +1828,7 @@
       "rev_date": "2026-06-16T02:33:49Z",
       "scrape_date": "2026-06-17T04:50:45.969758Z",
       "stabilities": [
+        "stable",
         "staging",
         "unstable"
       ],
