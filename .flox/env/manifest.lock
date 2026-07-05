@@ -9,6 +9,9 @@
       "cilium-cli": {
         "pkg-path": "cilium-cli"
       },
+      "cmctl": {
+        "pkg-path": "cmctl"
+      },
       "findutils": {
         "pkg-path": "findutils"
       },
@@ -298,6 +301,122 @@
       ],
       "outputs": {
         "out": "/nix/store/yha5azxi58d49dnlx62izm85sl90mfag-cilium-cli-0.19.4"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cmctl",
+      "broken": false,
+      "derivation": "/nix/store/qr6vsypy4297vjpv37w0v4pf6rifm8nc-cmctl-2.5.0.drv",
+      "description": "Command line utility to interact with a cert-manager instalation on Kubernetes",
+      "install_id": "cmctl",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "name": "cmctl-2.5.0",
+      "pname": "cmctl",
+      "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "rev_count": 1011622,
+      "rev_date": "2026-06-06T12:30:50Z",
+      "scrape_date": "2026-06-08T03:14:19.068387Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.5.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/xp0k0qy79yjwhq7ydifa7d5qc1snhjmc-cmctl-2.5.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cmctl",
+      "broken": false,
+      "derivation": "/nix/store/6xdawcgzm6svs099x2pc4b4mwr350lad-cmctl-2.5.0.drv",
+      "description": "Command line utility to interact with a cert-manager instalation on Kubernetes",
+      "install_id": "cmctl",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "name": "cmctl-2.5.0",
+      "pname": "cmctl",
+      "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "rev_count": 1011622,
+      "rev_date": "2026-06-06T12:30:50Z",
+      "scrape_date": "2026-06-08T03:46:51.212383Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.5.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/dciyxh3cbz1qa6l82vhmf71fm5mvzgxk-cmctl-2.5.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cmctl",
+      "broken": false,
+      "derivation": "/nix/store/c90h8v53rdhrwv97wxv7kkw56ykfvy28-cmctl-2.5.0.drv",
+      "description": "Command line utility to interact with a cert-manager instalation on Kubernetes",
+      "install_id": "cmctl",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "name": "cmctl-2.5.0",
+      "pname": "cmctl",
+      "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "rev_count": 1011622,
+      "rev_date": "2026-06-06T12:30:50Z",
+      "scrape_date": "2026-06-08T04:17:43.821821Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.5.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/cl7wddfz78f90zfd3rpgs8759p5xz7n7-cmctl-2.5.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cmctl",
+      "broken": false,
+      "derivation": "/nix/store/42ip0x55k5a79shsg1h66y04gglv29q9-cmctl-2.5.0.drv",
+      "description": "Command line utility to interact with a cert-manager instalation on Kubernetes",
+      "install_id": "cmctl",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "name": "cmctl-2.5.0",
+      "pname": "cmctl",
+      "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "rev_count": 1011622,
+      "rev_date": "2026-06-06T12:30:50Z",
+      "scrape_date": "2026-06-08T04:53:14.846191Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.5.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/4mqsc038fl849j1h0ylbls3sv536cbh5-cmctl-2.5.0"
       },
       "system": "x86_64-linux",
       "group": "toplevel",

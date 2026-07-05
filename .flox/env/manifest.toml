@@ -22,6 +22,7 @@ uutils-coreutils.pkg-path = "uutils-coreutils"
 findutils.pkg-path = "findutils"
 k9s.pkg-path = "k9s"
 kopia.pkg-path = "kopia"
+cmctl.pkg-path = "cmctl"
 # kubectl-volsync is a custom Go build defined in .flox/pkgs/kubectl-volsync/.
 # Build it with `flox build kubectl-volsync`; the [profile] script below puts
 # the resulting ./result-kubectl-volsync/bin on PATH inside the environment.
