@@ -6,3 +6,6 @@ metadata:
   labels:
     app.kubernetes.io/name: volsync
     app.kubernetes.io/instance: volsync
+    # Distributes the shared volsync-kopia repository secret here (via the
+    # ClusterExternalSecret) so the KopiaMaintenance resource below can reach it.
+    volsync.kutara.io/enabled: "true"

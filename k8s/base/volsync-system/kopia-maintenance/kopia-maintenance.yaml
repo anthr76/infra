@@ -1,0 +1,22 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: KopiaMaintenance
+metadata:
+  name: rsync-net
+  namespace: volsync-system
+spec:
+  enabled: true
+  trigger:
+    schedule: "0 2 * * *" # daily at 02:00
+  repository:
+    repository: volsync-kopia
+    repositoryType: sftp
+  cacheCapacity: 5Gi
+  cacheStorageClassName: fast-ceph-block
+  cacheAccessModes:
+    - ReadWriteOnce
+  podSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    runAsNonRoot: true
