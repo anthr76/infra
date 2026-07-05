@@ -1,22 +1,31 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
+# yaml-language-server: $schema=https://schemas.recyclarr.dev/v8/config-schema.json
+#
+# Recyclarr v8 uses guide-backed quality profiles (trash_id) instead of the
+# `include: template:` mechanism, which was removed from the config-templates
+# `v8` branch that v8 pins to. Each trash_id profile automatically syncs the
+# guide's qualities, language, cutoff, scores, and default custom-format groups.
+# Manual `custom_formats` blocks below layer additional CFs / score overrides on
+# top by profile name.
 sonarr:
   sonarr:
     base_url: http://sonarr.media.svc.cluster.local:8989
     api_key: !env_var SONARR__AUTH__APIKEY
     delete_old_custom_formats: true
-    include:
-      - template: sonarr-quality-definition-series
-      - template: sonarr-v4-quality-profile-web-2160p
-      - template: sonarr-v4-custom-formats-web-2160p
-      - template: sonarr-v4-quality-profile-web-1080p
-      - template: sonarr-v4-custom-formats-web-1080p
-      # Anime templates
-      - template: sonarr-v4-quality-profile-anime
-      - template: sonarr-v4-custom-formats-anime
+
+    quality_definition:
+      type: series
+
     quality_profiles:
-      - name: WEB-2160p
-      - name: WEB-1080p
+      # Guide-backed profiles. `name` is pinned to the existing Sonarr profile
+      # names so recyclarr updates them in place instead of creating duplicates.
+      - trash_id: d1498e7d189fbe6c7110ceaabb7473e6 # WEB-2160p
+        name: WEB-2160p
+      - trash_id: 72dae194fc92bf828f32cde7744e51a1 # WEB-1080p
+        name: WEB-1080p
+      - trash_id: 20e0fc959f1f1704bed501f23bdae76f # [Anime] Remux-1080p
+        name: Remux-1080p - Anime
+      # Manual profile - no TRaSH guide equivalent, defined explicitly.
       - name: WEB-480p
         upgrade:
           allowed: true
@@ -24,14 +33,10 @@ sonarr:
         qualities:
           - name: WEBDL-480p
           - name: WEBRip-480p
-      # Anime profile
-      - name: Remux-1080p - Anime
-        upgrade:
-          allowed: true
-          until_quality: Bluray-1080p
-          until_score: 10000
+
     custom_formats:
-      # Unwanted release groups
+      # Unwanted release groups (guide defaults only cover Bad Dual Groups for
+      # these profiles; the rest are added explicitly here)
       - trash_ids:
           - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
           - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
@@ -132,12 +137,15 @@ radarr:
     base_url: http://radarr.media.svc.cluster.local:7878
     api_key: !env_var RADARR__AUTH__APIKEY
     delete_old_custom_formats: true
+
+    quality_definition:
+      type: sqp-streaming
+
     quality_profiles:
-      - name: SQP-1 (2160p)
-    include:
-      - template: radarr-quality-definition-sqp-streaming
-      - template: radarr-quality-profile-sqp-1-2160p-default
-      - template: radarr-custom-formats-sqp-1-2160p
+      # Guide-backed profile; name pinned to the existing Radarr profile.
+      - trash_id: 5128baeb2b081b72126bc8482b2a86a0 # [SQP] SQP-1 (2160p)
+        name: SQP-1 (2160p)
+
     custom_formats:
       # Existing from current config
       - trash_ids:
