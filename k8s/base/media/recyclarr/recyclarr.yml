@@ -5,7 +5,6 @@ sonarr:
     base_url: http://sonarr.media.svc.cluster.local:8989
     api_key: !env_var SONARR__AUTH__APIKEY
     delete_old_custom_formats: true
-    replace_existing_custom_formats: true
     include:
       - template: sonarr-quality-definition-series
       - template: sonarr-v4-quality-profile-web-2160p
@@ -133,7 +132,6 @@ radarr:
     base_url: http://radarr.media.svc.cluster.local:7878
     api_key: !env_var RADARR__AUTH__APIKEY
     delete_old_custom_formats: true
-    replace_existing_custom_formats: true
     quality_profiles:
       - name: SQP-1 (2160p)
     include:
