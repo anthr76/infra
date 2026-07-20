@@ -32,7 +32,7 @@ spec:
           init-certs:
             image:
               repository: ghcr.io/lemker/unifi-os-server
-              tag: v1.3
+              tag: v1.4
             command:
               - /bin/bash
               - -c
@@ -46,7 +46,7 @@ spec:
           app:
             image:
               repository: ghcr.io/lemker/unifi-os-server
-              tag: v1.3
+              tag: v1.4
             env:
               # UniFi OS Server runs every component as systemd services and
               # requires host cgroup access (privileged). See lemker/unifi-os-server.
