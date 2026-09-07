@@ -29,7 +29,7 @@ spec:
     kamaji-etcd:
       image:
         # renovate: datasource=docker depName=quay.io/coreos/etcd
-        tag: v3.6.13
+        tag: v3.7.1
       extraArgs:
         - --heartbeat-interval=500
         - --election-timeout=5000
