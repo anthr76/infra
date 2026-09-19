@@ -25,10 +25,6 @@ spec:
       enabled: true
     monitoring:
       enabled: true
-    # Chart default is true, which restricts OBC provisioning to the rook-ceph
-    # namespace. Set false so ObjectBucketClaims in application namespaces
-    # (e.g. chronoframe) are provisioned.
-    enableOBCWatchOperatorNamespace: false
     # Adds bucketPolicy to the default-allowed "maxObjects,maxSize" so an OBC can
     # declare its own bucket policy -- used by chronoframe to grant anonymous
     # GetObject on its photos/ prefix for Cloudflare edge caching.
