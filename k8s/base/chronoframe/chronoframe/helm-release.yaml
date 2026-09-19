@@ -95,7 +95,6 @@ spec:
                 cpu: 50m
                 memory: 512Mi
               limits:
-                # EXIF parsing, HEIC decoding and ThumbHash generation are memory-hungry
                 memory: 4Gi
         pod:
           securityContext:
@@ -123,7 +122,6 @@ spec:
           - gallery.kutara.io
 
     persistence:
-      # server/utils/db.ts opens 'data/app.sqlite3' relative to WORKDIR /app
       data:
         existingClaim: chronoframe-data-v1
         globalMounts:
