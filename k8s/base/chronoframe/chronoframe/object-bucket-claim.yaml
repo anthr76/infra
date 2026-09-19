@@ -1,0 +1,31 @@
+---
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: chronoframe-photos
+  namespace: chronoframe
+spec:
+  # Explicit name (not generateBucketName) so the public path-style URL served at
+  # cdn.kutara.io stays stable: https://cdn.kutara.io/<key> -> /chronoframe-photos/<key>
+  bucketName: chronoframe-photos
+  storageClassName: slow-ceph-bucket
+  additionalConfig:
+    # Anonymous read of the photos/ prefix only, so Cloudflare can cache images at
+    # the edge instead of proxying every request through the app. The bucket owner
+    # (the OBC-provisioned RGW user) keeps full access via bucket ownership.
+    # Requires obcAllowAdditionalConfigFields to include bucketPolicy on the operator.
+    bucketPolicy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Sid": "PublicReadPhotos",
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": ["*"]
+            },
+            "Action": ["s3:GetObject"],
+            "Resource": ["arn:aws:s3:::chronoframe-photos/photos/*"]
+          }
+        ]
+      }

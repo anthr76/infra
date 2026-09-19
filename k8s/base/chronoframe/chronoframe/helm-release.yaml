@@ -1,0 +1,134 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: chronoframe
+  namespace: chronoframe
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      chronoframe:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/hoshinosuzumi/chronoframe
+              tag: 1.0.0-rc.4@sha256:2edf0ef29d3db8a9493736c9b970d4880ddbce394e6bd22f85331b6e56c4b859
+            env:
+              TZ: America/New_York
+              NITRO_PORT: "3000"
+              NITRO_HOST: 0.0.0.0
+
+              # Photos live in the rook-ceph bucket provisioned by the OBC. RGW has no
+              # virtual-host DNS configured, so path-style addressing is required.
+              NUXT_STORAGE_PROVIDER: s3
+              NUXT_PROVIDER_S3_ENDPOINT: http://rook-ceph-rgw-slow-ceph-objectstore.rook-ceph.svc.cluster.local:80
+              NUXT_PROVIDER_S3_BUCKET: chronoframe-photos
+              NUXT_PROVIDER_S3_REGION: us-east-1
+              NUXT_PROVIDER_S3_PREFIX: photos/
+              NUXT_PROVIDER_S3_FORCE_PATH_STYLE: "true"
+              # Browsers fetch objects from here, not through the pod, so Cloudflare
+              # caches images at the edge. Served by the ceph-rgw-cdn HTTPRoute.
+              NUXT_PROVIDER_S3_CDN_URL: https://cdn.kutara.io
+
+              NUXT_PUBLIC_APP_TITLE: Gallery
+              NUXT_PUBLIC_APP_AUTHOR: Anthony Rabbito
+              CFRAME_ADMIN_EMAIL: ted437@gmail.com
+              CFRAME_ADMIN_NAME: Anthony
+
+              NUXT_PROVIDER_S3_ACCESS_KEY_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: chronoframe-photos
+                    key: AWS_ACCESS_KEY_ID
+              NUXT_PROVIDER_S3_SECRET_ACCESS_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: chronoframe-photos
+                    key: AWS_SECRET_ACCESS_KEY
+            envFrom:
+              - secretRef:
+                  name: chronoframe
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 3000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 3000
+                  failureThreshold: 30
+                  periodSeconds: 10
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 50m
+                memory: 512Mi
+              limits:
+                # EXIF parsing, HEIC decoding and ThumbHash generation are memory-hungry
+                memory: 4Gi
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile:
+              type: RuntimeDefault
+
+    service:
+      app:
+        controller: chronoframe
+        ports:
+          http:
+            port: 3000
+
+    route:
+      app:
+        parentRefs:
+          - name: cilium-external
+            namespace: kube-system
+        hostnames:
+          - gallery.kutara.io
+
+    persistence:
+      # server/utils/db.ts opens 'data/app.sqlite3' relative to WORKDIR /app
+      data:
+        existingClaim: chronoframe-data-v1
+        globalMounts:
+          - path: /app/data
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

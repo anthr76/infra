@@ -1,0 +1,30 @@
+---
+# Public, Cloudflare-proxied read path for the chronoframe photo bucket.
+# ChronoFrame builds image URLs as ${NUXT_PROVIDER_S3_CDN_URL}/${key}, so this route
+# maps https://cdn.kutara.io/<key> onto the path-style RGW URL /<bucket>/<key>.
+# Anonymous GetObject is granted by the bucket policy on the ObjectBucketClaim.
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: ceph-rgw-cdn
+  namespace: rook-ceph
+spec:
+  parentRefs:
+    - name: cilium-external
+      namespace: kube-system
+  hostnames:
+    - cdn.kutara.io
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /chronoframe-photos
+      backendRefs:
+        - name: rook-ceph-rgw-slow-ceph-objectstore
+          port: 80
