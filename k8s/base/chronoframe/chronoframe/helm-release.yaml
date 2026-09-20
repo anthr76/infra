@@ -35,8 +35,12 @@ spec:
 
               # Photos live in the rook-ceph bucket provisioned by the OBC. RGW has no
               # virtual-host DNS configured, so path-style addressing is required.
+              #
+              # This must be the PUBLIC endpoint, not the cluster service: the browser
+              # uploads straight to a presigned S3 URL derived from it. The hostAliases
+              # entry below keeps the pod's own S3 traffic inside the cluster.
               NUXT_STORAGE_PROVIDER: s3
-              NUXT_PROVIDER_S3_ENDPOINT: http://rook-ceph-rgw-slow-ceph-objectstore.rook-ceph.svc.cluster.local:80
+              NUXT_PROVIDER_S3_ENDPOINT: https://object.kutara.io
               NUXT_PROVIDER_S3_BUCKET: chronoframe-photos
               NUXT_PROVIDER_S3_REGION: us-east-1
               NUXT_PROVIDER_S3_PREFIX: photos/
@@ -97,6 +101,13 @@ spec:
               limits:
                 memory: 4Gi
         pod:
+          # Keep the pod's own S3 traffic in-cluster instead of hairpinning out to
+          # Cloudflare and back. The cilium-external gateway serves the *.kutara.io
+          # wildcard cert, so TLS still validates against this address.
+          hostAliases:
+            - ip: 10.45.0.43
+              hostnames:
+                - object.kutara.io
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000

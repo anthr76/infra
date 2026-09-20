@@ -1,0 +1,29 @@
+---
+# Public S3 API endpoint for the RGW.
+# ChronoFrame has the browser PUT photos straight to a presigned S3 URL, and that URL is
+# built from the configured S3 endpoint (not the CDN URL), so the endpoint has to be
+# resolvable from outside the cluster.
+#
+# Scoped to the chronoframe-photos bucket prefix so other buckets on this object store
+# are not reachable publicly. Unlike cdn-httproute.yaml there is deliberately NO path
+# rewrite here: a presigned request's signature covers the path, so it must arrive at the
+# RGW exactly as signed.
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: ceph-rgw-object
+  namespace: rook-ceph
+spec:
+  parentRefs:
+    - name: cilium-external
+      namespace: kube-system
+  hostnames:
+    - object.kutara.io
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /chronoframe-photos
+      backendRefs:
+        - name: rook-ceph-rgw-slow-ceph-objectstore
+          port: 80

@@ -5,3 +5,4 @@ resources:
   - namespace.yaml
   - rgw-httproute.yaml
   - cdn-httproute.yaml
+  - object-httproute.yaml
