@@ -67,8 +67,14 @@ spec:
             envFrom:
               - secretRef:
                   name: chronoframe
+            # The image pipeline is CPU-bound and blocks Node's event loop: 5 hardcoded
+            # workers (server/plugins/4.pipeline-queue.ts) decoding 20MB HEICs will stall
+            # HTTP responses for tens of seconds. Probes must tolerate that, or kubelet
+            # restarts the pod mid-batch and every in-flight upload fails.
             probes:
-              liveness: &probes
+              # Deliberately slack: only catches a truly wedged process (~5min), never a
+              # merely busy one. Restarting a busy pod destroys queued work.
+              liveness:
                 enabled: true
                 custom: true
                 spec:
@@ -76,10 +82,22 @@ spec:
                     path: /
                     port: 3000
                   initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 3
-              readiness: *probes
+                  periodSeconds: 30
+                  timeoutSeconds: 15
+                  failureThreshold: 10
+              # Keeps the pod attached to the gateway during processing bursts; dropping
+              # out is what surfaced as 503 "no healthy upstream" while polling task status.
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 3000
+                  initialDelaySeconds: 0
+                  periodSeconds: 15
+                  timeoutSeconds: 10
+                  failureThreshold: 6
               startup:
                 enabled: true
                 spec:
@@ -96,10 +114,13 @@ spec:
                   - ALL
             resources:
               requests:
-                cpu: 50m
-                memory: 512Mi
+                # 50m starved the image pipeline under node contention. No CPU limit:
+                # throttling a blocked event loop is what trips the probes.
+                cpu: 500m
+                memory: 1Gi
               limits:
-                memory: 4Gi
+                # 5 concurrent HEIC decodes of ~20MB originals plus ThumbHash generation
+                memory: 6Gi
         pod:
           # Keep the pod's own S3 traffic in-cluster instead of hairpinning out to
           # Cloudflare and back. The cilium-external gateway serves the *.kutara.io
