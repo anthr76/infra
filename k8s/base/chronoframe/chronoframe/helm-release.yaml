@@ -32,6 +32,12 @@ spec:
               TZ: America/New_York
               NITRO_PORT: "3000"
               NITRO_HOST: 0.0.0.0
+              # sharp/libvips run on libuv's threadpool, which defaults to 4. With 5
+              # pipeline workers decoding HEICs that saturates it, so ordinary requests
+              # queue behind image work and Envoy times them out as 503.
+              UV_THREADPOOL_SIZE: "16"
+              # Let V8 actually use the 6Gi limit instead of its default heap ceiling.
+              NODE_OPTIONS: --max-old-space-size=5120
 
               # Photos live in the rook-ceph bucket provisioned by the OBC. RGW has no
               # virtual-host DNS configured, so path-style addressing is required.
@@ -116,7 +122,7 @@ spec:
               requests:
                 # 50m starved the image pipeline under node contention. No CPU limit:
                 # throttling a blocked event loop is what trips the probes.
-                cpu: 500m
+                cpu: "1"
                 memory: 1Gi
               limits:
                 # 5 concurrent HEIC decodes of ~20MB originals plus ThumbHash generation
