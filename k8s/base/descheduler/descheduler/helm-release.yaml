@@ -63,21 +63,6 @@ spec:
                   memory: 55
                 targetThresholds:
                   memory: 80
-                # Only application namespaces are moved for balance.
-                evictableNamespaces:
-                  exclude:
-                    - kube-system
-                    - rook-ceph
-                    - flux-system
-                    - networking
-                    - external-secrets
-                    - reloader
-                    - descheduler
-                    - node-feature-discovery
-                    - amd-gpu-operator
-                    - snapshot-controller
-                    - spegel
-                    - volsync-system
             - name: RemoveFailedPods
               args:
                 reasons:
