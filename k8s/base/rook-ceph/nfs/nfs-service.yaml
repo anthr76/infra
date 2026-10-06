@@ -7,6 +7,7 @@ metadata:
   annotations:
     lbipam.cilium.io/ips: 10.45.0.30
     external-dns.alpha.kubernetes.io/hostname: nfs.qgr1.rabbito.tech
+    external-dns.kubernetes.io/hostname: nfs.qgr1.rabbito.tech
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
