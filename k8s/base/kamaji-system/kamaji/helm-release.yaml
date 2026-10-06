@@ -20,6 +20,15 @@ spec:
   values:
     image:
       tag: 26.6.4-edge
+    # The chart default limit of 100Mi gets the controller OOM-killed
+    # (51 restarts in 15 days).
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
     # Datastore etcd runs on civo-volume (network block storage) whose fsync
     # latency is too high for etcd's default 100ms/1s heartbeat/election timing,
     # causing leader-election churn (raft term 227) and apiserver "etcdserver:
