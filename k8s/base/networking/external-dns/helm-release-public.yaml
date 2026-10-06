@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: external-dns
-      version: 1.21.1
+      version: 1.23.0
       sourceRef:
         kind: HelmRepository
         name: external-dns-charts
@@ -43,6 +43,10 @@ spec:
       - gateway-tcproute
       - gateway-udproute
     extraArgs:
+      # external-dns 0.22 changed the default annotation prefix to
+      # external-dns.kubernetes.io/. Keep reading the old alpha prefix until
+      # the annotations in this repo are migrated.
+      - --enable-legacy-annotation-prefix
       - --cloudflare-dns-records-per-page=1000
       - --cloudflare-proxied
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
