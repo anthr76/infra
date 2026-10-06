@@ -38,7 +38,6 @@ spec:
           name: nats-nwk3-mqtt
           namespace: home
           annotations:
-            external-dns.alpha.kubernetes.io/hostname: mqtt-nwk3.qgr1.rabbito.tech
             external-dns.kubernetes.io/hostname: mqtt-nwk3.qgr1.rabbito.tech
         spec:
           type: LoadBalancer
