@@ -21,10 +21,19 @@ spec:
       enabled: false
     installdefaultNFDRule: false
 
+    crds:
+      defaultCR:
+        # Re-apply the default DeviceConfig below on every chart upgrade, so
+        # operand image bumps actually reach the running DaemonSets.
+        upgrade: true
+
     deviceConfig:
       spec:
         selector:
           feature.node.kubernetes.io/custom-vega11-gpu: "true"
+          # Drop the chart's default selector key. The nodes do not carry
+          # this label, and both keys would have to match.
+          feature.node.kubernetes.io/amd-gpu: null
 
         commonConfig:
           initContainerImage: busybox:1.38
