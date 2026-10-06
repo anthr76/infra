@@ -56,14 +56,19 @@ spec:
                   - ScheduleAnyway
             - name: LowNodeUtilization
               args:
-                # Requests on this cluster sit at 50-100% per node, so the
-                # old 20/50 thresholds never found an underutilized node.
+                # Deliberately inert on this cluster. Looser thresholds were
+                # tried (#3294) and only produced churn: the evictable pods are
+                # tiny, and the scheduler put them straight back on a node the
+                # descheduler counts as overutilized (worker-5: low CPU, 96%
+                # memory requested).
                 thresholds:
-                  cpu: 80
-                  memory: 70
+                  cpu: 20
+                  memory: 20
+                  pods: 20
                 targetThresholds:
-                  cpu: 90
-                  memory: 90
+                  cpu: 50
+                  memory: 50
+                  pods: 50
             - name: RemoveFailedPods
               args:
                 reasons:
