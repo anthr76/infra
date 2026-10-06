@@ -38,6 +38,15 @@
       minimumGroupSize: 5,
     },
     {
+      description: "AMD GPU Operator Group",
+      groupName: "amd-gpu-operator",
+      matchDatasources: ["docker", "helm"],
+      matchPackageNames: ["/gpu-operator-charts/", "/(^|\\/)rocm\\//"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
       description: "Rook-Ceph Group",
       groupName: "rook-ceph",
       matchDatasources: ["docker"],
