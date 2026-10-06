@@ -18,7 +18,7 @@ spec:
         namespace: flux-system
   values:
     kind: CronJob
-    schedule: "*/2 * * * *"
+    schedule: "*/15 * * * *"
     ttlSecondsAfterFinished: 600
 
     resources:
@@ -31,6 +31,7 @@ spec:
 
     deschedulerPolicyAPIVersion: "descheduler/v1alpha2"
     deschedulerPolicy:
+      maxNoOfPodsToEvictPerNode: 2
       profiles:
         - name: default
           pluginConfig:
@@ -55,14 +56,14 @@ spec:
                   - ScheduleAnyway
             - name: LowNodeUtilization
               args:
+                # Requests on this cluster sit at 50-100% per node, so the
+                # old 20/50 thresholds never found an underutilized node.
                 thresholds:
-                  cpu: 20
-                  memory: 20
-                  pods: 20
+                  cpu: 80
+                  memory: 70
                 targetThresholds:
-                  cpu: 50
-                  memory: 50
-                  pods: 50
+                  cpu: 90
+                  memory: 90
             - name: RemoveFailedPods
               args:
                 reasons:
