@@ -67,8 +67,20 @@ spec:
             size: 3
             requireSafeReplicaSize: true
           deviceClass: ssd
+          enableCrushUpdates: true
           parameters:
             compression_mode: none
+        storageClass:
+          enabled: false
+      - name: builtin-nfs
+        spec:
+          name: .nfs
+          failureDomain: host
+          replicated:
+            size: 3
+            requireSafeReplicaSize: true
+          deviceClass: ssd
+          enableCrushUpdates: true
         storageClass:
           enabled: false
       - name: slow-ceph-blockpool
