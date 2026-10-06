@@ -37,11 +37,12 @@ spec:
           pluginConfig:
             - name: DefaultEvictor
               args:
+                # A pod that was just moved is left alone for 6h, which bounds
+                # any back-and-forth between nodes.
+                minPodAge: 6h
                 podProtections:
                   defaultDisabled:
                     - "PodsWithLocalStorage"
-                  extraEnabled:
-                    - "PodsWithPVC"
             - name: RemoveDuplicates
             - name: RemovePodsViolatingNodeTaints
             - name: RemovePodsViolatingNodeAffinity
@@ -56,19 +57,27 @@ spec:
                   - ScheduleAnyway
             - name: LowNodeUtilization
               args:
-                # Deliberately inert on this cluster. Looser thresholds were
-                # tried (#3294) and only produced churn: the evictable pods are
-                # tiny, and the scheduler put them straight back on a node the
-                # descheduler counts as overutilized (worker-5: low CPU, 96%
-                # memory requested).
+                # Memory only. CPU requests on the Ceph-heavy nodes are
+                # pinned by system-critical pods and would never drop.
                 thresholds:
-                  cpu: 20
-                  memory: 20
-                  pods: 20
+                  memory: 55
                 targetThresholds:
-                  cpu: 50
-                  memory: 50
-                  pods: 50
+                  memory: 80
+                # Only application namespaces are moved for balance.
+                evictableNamespaces:
+                  exclude:
+                    - kube-system
+                    - rook-ceph
+                    - flux-system
+                    - networking
+                    - external-secrets
+                    - reloader
+                    - descheduler
+                    - node-feature-discovery
+                    - amd-gpu-operator
+                    - snapshot-controller
+                    - spegel
+                    - volsync-system
             - name: RemoveFailedPods
               args:
                 reasons:
