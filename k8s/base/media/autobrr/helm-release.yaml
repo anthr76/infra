@@ -86,7 +86,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 1Gi
         pod:
           securityContext:
             runAsNonRoot: true
