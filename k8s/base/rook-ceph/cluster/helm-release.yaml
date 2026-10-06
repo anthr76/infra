@@ -85,11 +85,12 @@ spec:
           enabled: false
       - name: slow-ceph-blockpool
         spec:
-          failureDomain: osd
+          failureDomain: host
           replicated:
             size: 2
             # requireSafeReplicaSize: false
           deviceClass: hdd
+          enableCrushUpdates: true
         storageClass:
           enabled: true
           name: slow-ceph-block
@@ -149,11 +150,12 @@ spec:
             replicated:
               size: 3
           dataPools:
-            - failureDomain: osd
+            - failureDomain: host
               replicated:
                 size: 2
               name: slow-data0
               deviceClass: hdd
+              enableCrushUpdates: true
           metadataServer:
             activeCount: 1
             activeStandby: true
