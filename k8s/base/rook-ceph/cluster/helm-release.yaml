@@ -18,12 +18,43 @@ spec:
         namespace: flux-system
   dependsOn:
     - name: rook-ceph
+  # A Ceph upgrade takes far longer than a Helm timeout, and Rook reconciles the
+  # CephCluster on its own. Do not wait on it: a timed-out wait makes Flux roll
+  # the chart back, which flips cephVersion.image back mid-upgrade.
+  install:
+    disableWait: true
+  upgrade:
+    disableWait: true
+  rollback:
+    disableWait: true
   values:
     toolbox:
       enabled: false
     monitoring:
       enabled: true
     cephClusterSpec:
+      security:
+        cephx:
+          # CVE-2025-30156: rotate core daemon keys (mon, mgr, osd, mds, rgw,
+          # nfs) to the AES256K key type. Bump keyGeneration to rotate again.
+          daemon:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
+          # Kernel mounts need Linux 7.0+ for AES256K; nodes run 6.18.
+          csi:
+            keyType: aes
+      healthCheck:
+        # Warnings that cannot clear while CSI keys stay on AES. Switch to
+        # `unmute` once every key is AES256K.
+        muteHealthWarning:
+          AUTH_INSECURE_ROTATING_SERVICE_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_CLIENT_KEY_TYPE:
+            policy: mute
+          AUTH_INSECURE_KEYS_ALLOWED:
+            policy: mute
+          AUTH_INSECURE_KEYS_CREATABLE:
+            policy: mute
       dashboard:
         enabled: true
         urlPrefix: /
