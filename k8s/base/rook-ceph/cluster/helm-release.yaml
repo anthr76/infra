@@ -33,9 +33,6 @@ spec:
     monitoring:
       enabled: true
     cephClusterSpec:
-      # Pinned so a chart bump does not silently change the Ceph version.
-      cephVersion:
-        image: quay.io/ceph/ceph:v20.2.4
       security:
         cephx:
           # CVE-2025-30156: rotate core daemon keys (mon, mgr, osd, mds, rgw,
