@@ -49,12 +49,19 @@
     {
       description: "Rook-Ceph Group",
       groupName: "rook-ceph",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
+      matchDatasources: ["docker", "helm"],
+      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/", "/ceph-csi-drivers/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
       minimumGroupSize: 2,
+      // Operator and cluster charts must end up on the same version; Flux
+      // dependsOn upgrades the operator first. Let new releases settle, and
+      // keep patch updates available when a new minor is published.
+      // ceph-csi-drivers is versioned separately: keep it on the same version
+      // as the ceph-csi-operator subchart bundled by the rook-ceph chart.
+      minimumReleaseAge: "7 days",
+      separateMinorPatch: true,
     },
   ],
 }
