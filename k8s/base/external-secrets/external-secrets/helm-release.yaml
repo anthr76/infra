@@ -27,6 +27,10 @@ spec:
   values:
     bitwarden-sdk-server:
       enabled: true
+      # The SDK server only reads its TLS certificate at startup, so restart it
+      # when cert-manager renews bitwarden-tls-certs.
+      deploymentAnnotations:
+        reloader.stakater.com/auto: "true"
       tls:
         enabled: true
         secretName: bitwarden-tls-certs
