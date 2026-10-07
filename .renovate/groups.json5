@@ -49,12 +49,17 @@
     {
       description: "Rook-Ceph Group",
       groupName: "rook-ceph",
-      matchDatasources: ["docker"],
+      matchDatasources: ["docker", "helm"],
       matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
       minimumGroupSize: 2,
+      // Operator and cluster charts must end up on the same version; Flux
+      // dependsOn upgrades the operator first. Let new releases settle, and
+      // keep patch updates available when a new minor is published.
+      minimumReleaseAge: "7 days",
+      separateMinorPatch: true,
     },
   ],
 }
