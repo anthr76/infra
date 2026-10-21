@@ -1,0 +1,41 @@
+---
+# Pins the PostgreSQL image. The `image:` key is what Renovate's kubernetes
+# manager tracks, which `Cluster.spec.imageName` is not.
+apiVersion: postgresql.cnpg.io/v1
+kind: ImageCatalog
+metadata:
+  name: grafana-pg
+  namespace: monitoring
+spec:
+  images:
+    - major: 17
+      image: ghcr.io/cloudnative-pg/postgresql:17.11-standard-trixie
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: grafana-pg
+  namespace: monitoring
+spec:
+  instances: 2
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ImageCatalog
+    name: grafana-pg
+    major: 17
+  storage:
+    size: 5Gi
+    storageClass: fast-ceph-block
+  # Creates the grafana-pg-app secret (username, password, host, uri, ...).
+  bootstrap:
+    initdb:
+      database: grafana
+      owner: grafana
+  affinity:
+    podAntiAffinityType: preferred
+  resources:
+    requests:
+      cpu: 50m
+      memory: 256Mi
+    limits:
+      memory: 512Mi

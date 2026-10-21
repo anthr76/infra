@@ -17,10 +17,26 @@ spec:
         name: grafana-community-charts
         namespace: flux-system
   values:
-    # SQLite on a PVC, so a single replica.
-    replicas: 1
+    # State lives in the grafana-pg CloudNativePG cluster, so Grafana is stateless
+    # and can run several replicas.
+    replicas: 2
     deploymentStrategy:
-      type: Recreate
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+    podDisruptionBudget:
+      maxUnavailable: 1
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: grafana
+                  app.kubernetes.io/instance: grafana
     resources:
       limits:
         memory: 850Mi
@@ -39,7 +55,27 @@ spec:
       GF_DATE_FORMATS_INTERVAL_DAY: "DD/MM"
       GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
+    envValueFrom:
+      GF_DATABASE_PASSWORD:
+        secretKeyRef:
+          name: grafana-pg-app
+          key: password
     grafana.ini:
+      database:
+        type: postgres
+        host: grafana-pg-rw.monitoring.svc.cluster.local:5432
+        name: grafana
+        user: grafana
+        # CNPG serves TLS with its own CA by default; require encrypts without
+        # verifying the cert.
+        ssl_mode: require
+      # Alerting is handled by Thanos Ruler / Alertmanager. Disabling Grafana's
+      # alert engine keeps the replicas from sending duplicate notifications
+      # (and avoids the HA gossip setup).
+      unified_alerting:
+        enabled: false
+      alerting:
+        enabled: false
       server:
         root_url: "https://grafana.qgr1.rabbito.tech"
       analytics:
@@ -216,7 +252,4 @@ spec:
           - name: cilium-internal
             namespace: kube-system
     persistence:
-      enabled: true
-      type: pvc
-      storageClassName: fast-ceph-block
-      size: 5Gi
+      enabled: false
