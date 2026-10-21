@@ -1,0 +1,124 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: monitoring
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: loki
+      version: 7.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
+        namespace: flux-system
+  values:
+    deploymentMode: SingleBinary
+
+    loki:
+      auth_enabled: false
+      commonConfig:
+        replication_factor: 1
+      schemaConfig:
+        configs:
+          - from: "2024-04-01"
+            store: tsdb
+            object_store: s3
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
+      # Bucket, endpoint and credentials come from the ConfigMap/Secret that the
+      # ObjectBucketClaim generates (see extraEnvFrom below). The $${...} escapes
+      # keep Flux's postBuild substitution from touching them; Loki expands them.
+      storage:
+        type: s3
+        bucketNames:
+          chunks: $${BUCKET_NAME}
+          ruler: $${BUCKET_NAME}
+          admin: $${BUCKET_NAME}
+        s3:
+          endpoint: $${BUCKET_HOST}:$${BUCKET_PORT}
+          region: us-east-1
+          accessKeyId: $${AWS_ACCESS_KEY_ID}
+          secretAccessKey: $${AWS_SECRET_ACCESS_KEY}
+          s3ForcePathStyle: true
+          insecure: true
+      compactor:
+        working_directory: /var/loki/compactor
+        retention_enabled: true
+        delete_request_store: s3
+      limits_config:
+        retention_period: 336h
+        # Alloy attaches Kubernetes metadata as labels; keep ingestion limits sane.
+        allow_structured_metadata: true
+      pattern_ingester:
+        enabled: false
+
+    singleBinary:
+      replicas: 1
+      extraArgs:
+        - -config.expand-env=true
+      extraEnvFrom:
+        - configMapRef:
+            name: loki-bucket
+        - secretRef:
+            name: loki-bucket
+      persistence:
+        # WAL, TSDB index cache and compactor scratch space; chunks live in the bucket.
+        enabled: true
+        storageClass: fast-ceph-block
+        size: 10Gi
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          memory: 2Gi
+
+    # Everything below is not needed for a single-binary, single-tenant install.
+    read:
+      replicas: 0
+    write:
+      replicas: 0
+    backend:
+      replicas: 0
+    ingester:
+      replicas: 0
+    querier:
+      replicas: 0
+    queryFrontend:
+      replicas: 0
+    queryScheduler:
+      replicas: 0
+    distributor:
+      replicas: 0
+    compactor:
+      replicas: 0
+    indexGateway:
+      replicas: 0
+    bloomCompactor:
+      replicas: 0
+    bloomGateway:
+      replicas: 0
+    chunksCache:
+      enabled: false
+    resultsCache:
+      enabled: false
+    gateway:
+      enabled: false
+    lokiCanary:
+      enabled: false
+    test:
+      enabled: false
+    minio:
+      enabled: false
+
+    # In-cluster consumers (Alloy, Grafana) talk straight to the loki service.
+    monitoring:
+      serviceMonitor:
+        enabled: true
