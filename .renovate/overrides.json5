@@ -13,5 +13,12 @@
       matchPackageNames: ["/factory\\.talos\\.dev/"],
       overridePackageName: "ghcr.io/siderolabs/installer",
     },
+    {
+      description: "Hold qBittorrent releases until private trackers whitelist the new client",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/home-operations/qbittorrent"],
+      matchUpdateTypes: ["major", "minor", "patch"],
+      minimumReleaseAge: "14 days",
+    },
   ],
 }
