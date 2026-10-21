@@ -9,7 +9,7 @@ metadata:
 spec:
   images:
     - major: 17
-      image: ghcr.io/cloudnative-pg/postgresql:17.11-standard-trixie
+      image: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
