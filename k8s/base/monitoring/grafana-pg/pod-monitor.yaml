@@ -1,0 +1,14 @@
+---
+# Cluster.spec.monitoring.enablePodMonitor is deprecated in CNPG 1.30, so the
+# PodMonitor is managed here.
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: grafana-pg
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      cnpg.io/cluster: grafana-pg
+  podMetricsEndpoints:
+    - port: metrics
