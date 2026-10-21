@@ -11,13 +11,13 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 7.3.0
+      version: 19.0.1
       sourceRef:
         kind: HelmRepository
-        name: grafana-charts
+        name: grafana-community-charts
         namespace: flux-system
   values:
-    deploymentMode: SingleBinary
+    deploymentMode: Monolithic
 
     loki:
       auth_enabled: false
@@ -62,11 +62,11 @@ spec:
     # Three replicas form a memberlist ring (the chart wires memberlist through the
     # headless service) and share the RGW bucket; with replication_factor 3 every
     # stream is written to all three. Each replica has its own WAL/index PVC.
-    podDisruptionBudget:
-      maxUnavailable: 1
-
     singleBinary:
       replicas: 3
+      podDisruptionBudget:
+        enabled: true
+        maxUnavailable: 1
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -78,8 +78,9 @@ spec:
                     app.kubernetes.io/name: '{{ include "loki.name" . }}'
                     app.kubernetes.io/instance: '{{ .Release.Name }}'
                 topologyKey: kubernetes.io/hostname
-      extraArgs:
-        - -config.expand-env=true
+      # The chart now always passes -config.expand-env=true, so no extraArgs needed.
+      # No rules/alerts are loaded from ConfigMaps, so skip the rules sidecar.
+      sidecar: false
       extraEnvFrom:
         - configMapRef:
             name: loki-bucket
@@ -97,7 +98,9 @@ spec:
         limits:
           memory: 2Gi
 
-    # Everything below is not needed for a single-binary, single-tenant install.
+    # Everything below is not needed for a Monolithic, single-tenant install. The
+    # chart's validation rejects non-zero scalable/distributed replicas next to
+    # singleBinary, so zero them explicitly.
     read:
       replicas: 0
     write:
