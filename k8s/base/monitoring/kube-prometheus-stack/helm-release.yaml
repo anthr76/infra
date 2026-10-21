@@ -34,9 +34,11 @@ spec:
     # and they dedupe notifications between themselves.
     alertmanager:
       enabled: true
+      # The chart renders this map as-is with a minAvailable: 1 default, so setting
+      # maxUnavailable as well is rejected. 3 Alertmanager replicas: allow one down.
       podDisruptionBudget:
         enabled: true
-        maxUnavailable: 1
+        minAvailable: 2
       alertmanagerSpec:
         replicas: 3
         retention: 120h
@@ -65,9 +67,11 @@ spec:
     # shards. Because a shard only sees part of the data, Prometheus itself evaluates
     # no rules: Thanos Ruler (below) does, against Thanos Query.
     prometheus:
+      # The chart renders this map as-is with a minAvailable: 1 default, so setting
+      # maxUnavailable as well is rejected. 4 Prometheus pods (2 shards x 2 replicas): allow one down.
       podDisruptionBudget:
         enabled: true
-        maxUnavailable: 1
+        minAvailable: 3
       # Headless gRPC Service covering every sidecar (all shards and replicas), used
       # by Thanos Query for discovery.
       thanosService:
@@ -120,9 +124,11 @@ spec:
     # served to Thanos Query over the ruler's Store API.
     thanosRuler:
       enabled: true
+      # The chart renders this map as-is with a minAvailable: 1 default, so setting
+      # maxUnavailable as well is rejected. 2 Thanos Ruler replicas: allow one down.
       podDisruptionBudget:
         enabled: true
-        maxUnavailable: 1
+        minAvailable: 1
       thanosRulerSpec:
         replicas: 2
         podAntiAffinity: soft
