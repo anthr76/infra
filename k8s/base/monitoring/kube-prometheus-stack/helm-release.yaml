@@ -86,39 +86,14 @@ spec:
         limits:
           memory: 256Mi
 
+    # Grafana is its own HelmRelease (../grafana). Still render the bundled
+    # dashboards and the Prometheus/Alertmanager datasources as ConfigMaps for
+    # its sidecars to pick up.
     grafana:
-      enabled: true
-      # No adminPassword set: the chart generates a random one and keeps it in the
-      # kube-prometheus-stack-grafana secret.
+      enabled: false
+      forceDeployDashboards: true
+      forceDeployDatasources: true
       defaultDashboardsTimezone: America/New_York
-      sidecar:
-        dashboards:
-          # Pick up dashboards shipped as labelled ConfigMaps from any namespace.
-          searchNamespace: ALL
-      additionalDataSources:
-        - name: Loki
-          type: loki
-          uid: loki
-          access: proxy
-          url: http://loki.monitoring.svc.cluster.local:3100
-          jsonData:
-            maxLines: 5000
-      persistence:
-        enabled: false
-      resources:
-        requests:
-          cpu: 50m
-          memory: 192Mi
-        limits:
-          memory: 512Mi
-      route:
-        main:
-          enabled: true
-          hostnames:
-            - grafana.qgr1.rabbito.tech
-          parentRefs:
-            - name: cilium-internal
-              namespace: kube-system
 
     # The control plane is hosted off-cluster (Kamaji on civo-mgmt-0), so these
     # components have no in-cluster endpoints to scrape. Cilium replaces kube-proxy.

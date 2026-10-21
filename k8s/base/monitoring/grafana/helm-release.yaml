@@ -11,29 +11,26 @@ spec:
   chart:
     spec:
       chart: grafana
-      version: 7.0.19
+      version: 14.0.1
       sourceRef:
         kind: HelmRepository
-        name: grafana-charts
+        name: grafana-community-charts
         namespace: flux-system
   values:
+    # SQLite on a PVC, so a single replica.
+    replicas: 1
+    deploymentStrategy:
+      type: Recreate
     resources:
       limits:
-        cpu: 800m
         memory: 850Mi
       requests:
-        cpu: 100m
-        memory: 128Mi
-    replicas: 2
-    envFromSecret: "grafana"
-    admin:
-      existingSecret: grafana
-      passwordKey: GF_SECURITY_ADMIN_PASSWORD
-      userKey: GF_SECURITY_ADMIN_USERNAME
+        cpu: 50m
+        memory: 192Mi
+    # No admin.existingSecret: the chart generates the admin password and keeps
+    # it in the grafana secret.
     env:
       GF_EXPLORE_ENABLED: true
-      GF_PANELS_DISABLE_SANITIZE_HTML: true
-      GF_LOG_FILTERS: rendering:debug
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
       GF_DATE_FORMATS_INTERVAL_SECOND: "hh:mm:ss a"
@@ -44,27 +41,27 @@ spec:
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
     grafana.ini:
       server:
-        root_url: "https://grafana.kutara.io"
-        serve_from_sub_path: false
-      auth:
-        oauth_auto_login: true
-      auth.generic_oauth:
-        enabled: true
-        allow_sign_up: true
-        name: Auth0
-        scopes: openid profile email
-        auth_url: https://kutara-dev.us.auth0.com/authorize
-        token_url: https://kutara-dev.us.auth0.com/oauth/token
-        api_url: https://kutara-dev.us.auth0.com/userinfo
-        use_pkce: true
-      auth.generic_oauth.group_mapping:
-        role_attribute_path: |
-          contains("https://kutara.io/groups"[*], 'admins') && 'Admin' || contains("https://kutara.io/groups"[*], 'grafana-viewer') && 'Viewer'
-        org_id: 1
-      auth.basic:
-        enabled: false
-      auth.anonymous:
-        enabled: false
+        root_url: "https://grafana.qgr1.rabbito.tech"
+      analytics:
+        check_for_updates: false
+        reporting_enabled: false
+      log:
+        mode: console
+      news:
+        news_feed_enabled: false
+    # The Prometheus and Alertmanager datasources come from kube-prometheus-stack
+    # (forceDeployDatasources) through the datasources sidecar.
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Loki
+            type: loki
+            uid: loki
+            access: proxy
+            url: http://loki.monitoring.svc.cluster.local:3100
+            jsonData:
+              maxLines: 5000
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -101,182 +98,101 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/kubernetes
-          - name: nginx
-            orgId: 1
-            folder: Nginx
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/nginx
-          - name: thanos
-            orgId: 1
-            folder: Thanos
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/thanos
-          - name: unifi
-            orgId: 1
-            folder: Unifi
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/unifi
-      analytics:
-        check_for_updates: false
-      database:
-        type: postgres
-        user: grafana
-        host: postgres-rw.database.svc.cluster.local
-        name: grafana
-      log:
-        mode: console
-      grafana_net:
-        url: https://grafana.net
-    datasources:
-      datasources.yaml:
-        apiVersion: 1
-        deleteDatasources:
-          - name: Loki
-            orgId: 1
-        datasources:
-          - name: Mimir
-            type: prometheus
-            access: proxy
-            orgId: 1
-            url: http://mimir-nginx.monitoring.svc.cluster.local:80/prometheus
-            version: 1
-            editable: true
-            jsonData:
-              alertmanagerUid: "alertmanager"
-            isDefault: true
-          - name: Mimir Alertmanager
-            uid: alertmanager
-            type: alertmanager
-            access: proxy
-            orgId: 1
-            url: http://mimir-nginx:80/alertmanager
-            version: 1
-            editable: true
-            jsonData:
-              httpHeaderName1: "X-Scope-OrgID"
-              implementation: "cortex"
-          - name: Loki
-            type: loki
-            uid: loki
-            access: proxy
-            url: http://loki-gateway.monitoring.svc.cluster.local
-            jsonData:
-              maxLines: 250
     dashboards:
       default:
         external-dns:
           # renovate: depName="External-dns"
           gnetId: 15038
           revision: 3
-          datasource: Mimir
+          datasource: Prometheus
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
           revision: 33
-          datasource: Mimir
-        redis:
-          # renovate: depName="Redis Dashboard for Prometheus Redis Exporter 1.x"
-          gnetId: 763
-          revision: 5
           datasource: Prometheus
         unpackerr:
           # renovate: depName="Unpackerr"
           gnetId: 18817
           revision: 1
           datasource:
-            - { name: DS_PROMETHEUS, value: Mimir }
+            - { name: DS_PROMETHEUS, value: Prometheus }
         cloudnative-pg:
           url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
-          datasource: Mimir
+          datasource: Prometheus
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
-          datasource: Mimir
+          datasource: Prometheus
         external-secrets:
           url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
-          datasource: Mimir
+          datasource: Prometheus
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
           gnetId: 2842
           revision: 17
-          datasource: Mimir
+          datasource: Prometheus
         ceph-osd:
           # renovate: depName="Ceph - OSD (Single)"
           gnetId: 5336
           revision: 9
-          datasource: Mimir
+          datasource: Prometheus
         ceph-pools:
           # renovate: depName="Ceph - Pools"
           gnetId: 5342
           revision: 9
-          datasource: Mimir
+          datasource: Prometheus
       flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
-          datasource: Mimir
+          datasource: Prometheus
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
-          datasource: Mimir
+          datasource: Prometheus
         flux-logs:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
-          datasource: Mimir
+          datasource: Prometheus
       kubernetes:
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
           revision: 14
-          datasource: Mimir
+          datasource: Prometheus
         kubernetes-coredns:
           # renovate: depName="Kubernetes / System / CoreDNS"
           gnetId: 15762
           revision: 13
-          datasource: Mimir
+          datasource: Prometheus
         kubernetes-global:
           # renovate: depName="Kubernetes / Views / Global"
           gnetId: 15757
           revision: 31
-          datasource: Mimir
+          datasource: Prometheus
         kubernetes-namespaces:
           # renovate: depName="Kubernetes / Views / Namespaces"
           gnetId: 15758
           revision: 27
-          datasource: Mimir
+          datasource: Prometheus
         kubernetes-nodes:
           # renovate: depName="Kubernetes / Views / Nodes"
           gnetId: 15759
           revision: 19
-          datasource: Mimir
+          datasource: Prometheus
         kubernetes-pods:
           # renovate: depName="Kubernetes / Views / Pods"
-          gNetId: 15760
+          gnetId: 15760
           revision: 21
+          datasource: Prometheus
         kubernetes-volumes:
-          datasource: Mimir
           # renovate: depName="K8s / Storage / Volumes / Cluster"
           gnetId: 11454
           revision: 14
-      nginx:
-        nginx:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Mimir
-        nginx-request-handling-performance:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
-          datasource: Mimir
+          datasource: Prometheus
     sidecar:
       dashboards:
         enabled: true
         searchNamespace: ALL
-        labelValue: ""
         label: grafana_dashboard
+        labelValue: ""
         folderAnnotation: grafana_folder
         provider:
           disableDelete: true
@@ -286,29 +202,21 @@ spec:
         searchNamespace: ALL
         labelValue: ""
     plugins:
-      - natel-discrete-panel
-      - pr0ps-trackmap-panel
-      - grafana-piechart-panel
-      - vonage-status-panel
-      - grafana-worldmap-panel
       - grafana-clock-panel
     serviceMonitor:
       enabled: true
-    ingress:
-      enabled: true
-      ingressClassName: nginx
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production
-        hajimari.io/enable: "true"
-        hajimari.io/icon: chart-areaspline
-      hosts:
-        - "grafana.kutara.io"
-      tls:
-        - secretName: grafana-tls
-          hosts:
-            - "grafana.kutara.io"
-    serviceAccount:
-      create: true
-      autoMount: true
-    persistence:
+    testFramework:
       enabled: false
+    route:
+      main:
+        enabled: true
+        hostnames:
+          - grafana.qgr1.rabbito.tech
+        parentRefs:
+          - name: cilium-internal
+            namespace: kube-system
+    persistence:
+      enabled: true
+      type: pvc
+      storageClassName: fast-ceph-block
+      size: 5Gi
