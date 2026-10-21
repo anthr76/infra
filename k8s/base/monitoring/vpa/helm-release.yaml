@@ -44,3 +44,37 @@ spec:
       enabled: false
     admissionController:
       enabled: false
+    # The chart has no metrics Service, so expose the recommender's metrics
+    # port (8942) and scrape it.
+    extraObjects:
+      - apiVersion: v1
+        kind: Service
+        metadata:
+          name: vpa-recommender-metrics
+          labels:
+            app.kubernetes.io/name: vertical-pod-autoscaler
+            app.kubernetes.io/instance: vpa
+            app.kubernetes.io/component: recommender
+        spec:
+          selector:
+            app.kubernetes.io/name: vertical-pod-autoscaler
+            app.kubernetes.io/instance: vpa
+            app.kubernetes.io/component: recommender
+          ports:
+            - name: metrics
+              port: 8942
+              targetPort: prometheus
+      - apiVersion: monitoring.coreos.com/v1
+        kind: ServiceMonitor
+        metadata:
+          name: vpa-recommender
+        spec:
+          selector:
+            matchLabels:
+              app.kubernetes.io/name: vertical-pod-autoscaler
+              app.kubernetes.io/instance: vpa
+              app.kubernetes.io/component: recommender
+          endpoints:
+            - port: metrics
+              path: /metrics
+              interval: 1m
