@@ -1,0 +1,125 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: thanos-query
+  namespace: monitoring
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    # Stateless fan-out query layer over the sharded Prometheus sidecars and Thanos
+    # Ruler. Grafana and the VPA recommender query this instead of Prometheus.
+    controllers:
+      thanos-query:
+        replicas: 2
+        strategy: RollingUpdate
+        # Keep at least one query pod during node drains.
+        podDisruptionBudget:
+          maxUnavailable: 1
+        containers:
+          app:
+            image:
+              repository: quay.io/thanos/thanos
+              tag: v0.42.4
+            args:
+              - query
+              - --http-address=0.0.0.0:9090
+              - --grpc-address=0.0.0.0:10901
+              # Every Prometheus sidecar (all shards and replicas), via the headless
+              # Service kube-prometheus-stack creates for them.
+              - --endpoint=dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local
+              # Thanos Ruler's Store API, so recording-rule results are queryable.
+              - --endpoint=dnssrv+_grpc._tcp.thanos-ruler-operated.monitoring.svc.cluster.local
+              # Deduplicate prometheus replicas and ruler replicas.
+              - --query.replica-label=prometheus_replica
+              - --query.replica-label=thanos_ruler_replica
+              - --log.format=logfmt
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /-/healthy
+                    port: &port 9090
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /-/ready
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 1Gi
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: ScheduleAnyway
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: thanos-query
+                  app.kubernetes.io/instance: thanos-query
+
+    service:
+      app:
+        controller: thanos-query
+        ports:
+          http:
+            port: *port
+          grpc:
+            port: 10901
+
+    serviceMonitor:
+      app:
+        serviceName: thanos-query
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 30s

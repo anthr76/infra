@@ -10,20 +10,71 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: vpa
-      version: 2.5.1
+      chart: vertical-pod-autoscaler
+      version: 0.14.0
       sourceRef:
         kind: HelmRepository
-        name: fairwinds-charts
+        name: autoscaler-charts
         namespace: flux-system
   values:
+    # Recommendation-only: the recommender computes VPA objects' status from
+    # Prometheus history; nothing evicts pods or mutates requests.
     recommender:
       enabled: true
+      # Two replicas with leader election; only the leader computes recommendations.
+      replicas: 2
       extraArgs:
-        storage: prometheus
-        prometheus-address: |-
-          http://thanos-query.monitoring.svc.cluster.local:9090
+        - --storage=prometheus
+        - --prometheus-address=http://thanos-query.monitoring.svc.cluster.local:9090
+        # kube-prometheus-stack scrapes cadvisor via the kubelet job, and kube-state-metrics
+        # provides the pod labels the recommender uses to map pods to VPAs.
+        - --prometheus-cadvisor-job-name=kubelet
+        - --metric-for-pod-labels=kube_pod_labels{job="kube-state-metrics"}
+        - --pod-namespace-label=namespace
+        - --pod-name-label=pod
+        - --pod-recommendation-min-cpu-millicores=15
+        - --pod-recommendation-min-memory-mb=100
+      resources:
+        requests:
+          cpu: 50m
+          memory: 500Mi
+        limits:
+          memory: 1Gi
     updater:
       enabled: false
     admissionController:
       enabled: false
+    # The chart has no metrics Service, so expose the recommender's metrics
+    # port (8942) and scrape it.
+    extraObjects:
+      - apiVersion: v1
+        kind: Service
+        metadata:
+          name: vpa-recommender-metrics
+          labels:
+            app.kubernetes.io/name: vertical-pod-autoscaler
+            app.kubernetes.io/instance: vpa
+            app.kubernetes.io/component: recommender
+        spec:
+          selector:
+            app.kubernetes.io/name: vertical-pod-autoscaler
+            app.kubernetes.io/instance: vpa
+            app.kubernetes.io/component: recommender
+          ports:
+            - name: metrics
+              port: 8942
+              targetPort: prometheus
+      - apiVersion: monitoring.coreos.com/v1
+        kind: ServiceMonitor
+        metadata:
+          name: vpa-recommender
+        spec:
+          selector:
+            matchLabels:
+              app.kubernetes.io/name: vertical-pod-autoscaler
+              app.kubernetes.io/instance: vpa
+              app.kubernetes.io/component: recommender
+          endpoints:
+            - port: metrics
+              path: /metrics
+              interval: 1m

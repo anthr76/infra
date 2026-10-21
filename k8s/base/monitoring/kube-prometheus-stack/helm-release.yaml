@@ -1,0 +1,215 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 92.11.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-oci
+        namespace: flux-system
+  values:
+    # The Prometheus Operator CRDs already exist on the cluster (applied out of band
+    # with plain kubectl, so helm does not own them). The upgrade job server-side
+    # applies the chart's CRDs with --force-conflicts so they match the operator
+    # version instead of staying frozen at whatever was first applied.
+    crds:
+      enabled: true
+      upgradeJob:
+        enabled: true
+
+    # Alertmanager runs with the chart's default config (everything routed to a null
+    # receiver). It is here so Prometheus has an Alertmanager to talk to (otherwise
+    # PrometheusNotConnectedToAlertmanagers fires forever); add receivers, and the
+    # secret they need, once there is somewhere to send alerts.
+    # Three replicas form a gossip cluster; Prometheus sends every alert to all of them
+    # and they dedupe notifications between themselves.
+    alertmanager:
+      enabled: true
+      podDisruptionBudget:
+        enabled: true
+        maxUnavailable: 1
+      alertmanagerSpec:
+        replicas: 3
+        retention: 120h
+        podAntiAffinity: soft
+        podAntiAffinityTopologyKey: kubernetes.io/hostname
+        resources:
+          requests:
+            cpu: 10m
+            memory: 48Mi
+          limits:
+            memory: 128Mi
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: fast-ceph-block
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 2Gi
+
+    # Sharded, replicated Prometheus behind Thanos: 2 shards x 2 replicas = 4 pods.
+    # Each shard scrapes a hash-slice of the targets; the two replicas within a shard
+    # scrape the same slice and dedupe on `prometheus_replica`. Queries go through
+    # Thanos Query (../thanos-query), which fans out to every sidecar and merges the
+    # shards. Because a shard only sees part of the data, Prometheus itself evaluates
+    # no rules: Thanos Ruler (below) does, against Thanos Query.
+    prometheus:
+      podDisruptionBudget:
+        enabled: true
+        maxUnavailable: 1
+      # Headless gRPC Service covering every sidecar (all shards and replicas), used
+      # by Thanos Query for discovery.
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
+      prometheusSpec:
+        replicas: 2
+        shards: 2
+        replicaExternalLabelName: prometheus_replica
+        podAntiAffinity: soft
+        podAntiAffinityTopologyKey: kubernetes.io/hostname
+        # Each pod holds roughly half of the data.
+        retention: 14d
+        retentionSize: 25GiB
+        # Pick up every ServiceMonitor/PodMonitor/Probe in the cluster (cilium,
+        # external-dns, cloudnative-pg, metrics-server, ...), not only the ones
+        # labelled with this release.
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
+        # Select no PrometheusRules (nothing carries this label); Thanos Ruler owns them.
+        ruleSelectorNilUsesHelmValues: false
+        ruleSelector:
+          matchLabels:
+            prometheus.kutara.io/evaluate-rules: "true"
+        thanos:
+          # renovate: datasource=docker depName=quay.io/thanos/thanos
+          image: quay.io/thanos/thanos:v0.42.4
+        resources:
+          requests:
+            cpu: 200m
+            memory: 1Gi
+          limits:
+            memory: 3Gi
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: fast-ceph-block
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 30Gi
+
+    # Evaluates every PrometheusRule in the cluster (including the chart's default
+    # rules) against Thanos Query, so rules see all shards. Replicas dedupe on
+    # `thanos_ruler_replica`; alerts go to every Alertmanager. Rule results are
+    # served to Thanos Query over the ruler's Store API.
+    thanosRuler:
+      enabled: true
+      podDisruptionBudget:
+        enabled: true
+        maxUnavailable: 1
+      thanosRulerSpec:
+        replicas: 2
+        podAntiAffinity: soft
+        podAntiAffinityTopologyKey: kubernetes.io/hostname
+        ruleSelectorNilUsesHelmValues: false
+        ruleNamespaceSelector: {}
+        ruleSelector: {}
+        retention: 24h
+        queryEndpoints:
+          - http://thanos-query.monitoring.svc.cluster.local:9090
+        alertmanagersConfig:
+          secret:
+            alertmanagers:
+              - api_version: v2
+                scheme: http
+                timeout: 10s
+                static_configs:
+                  - dnssrv+_http-web._tcp.alertmanager-operated.monitoring.svc.cluster.local
+        resources:
+          requests:
+            cpu: 25m
+            memory: 128Mi
+          limits:
+            memory: 512Mi
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: fast-ceph-block
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 5Gi
+
+    prometheusOperator:
+      resources:
+        requests:
+          cpu: 25m
+          memory: 64Mi
+        limits:
+          memory: 256Mi
+
+    # Grafana is its own HelmRelease (../grafana). Still render the bundled
+    # dashboards and the Prometheus/Alertmanager datasources as ConfigMaps for
+    # its sidecars to pick up.
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
+      forceDeployDatasources: true
+      sidecar:
+        datasources:
+          # Query through Thanos Query so Grafana sees every shard, deduplicated.
+          url: http://thanos-query.monitoring.svc.cluster.local:9090
+      defaultDashboardsTimezone: America/New_York
+
+    # The control plane is hosted off-cluster (Kamaji on civo-mgmt-0), so these
+    # components have no in-cluster endpoints to scrape. Cilium replaces kube-proxy.
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeProxy:
+      enabled: false
+
+    # Matching alert/recording rules would only ever report the targets as absent.
+    defaultRules:
+      rules:
+        etcd: false
+        kubeControllerManager: false
+        kubeSchedulerAlerting: false
+        kubeSchedulerRecording: false
+        kubeProxy: false
+
+    kube-state-metrics:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 256Mi
+
+    prometheus-node-exporter:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          memory: 128Mi
