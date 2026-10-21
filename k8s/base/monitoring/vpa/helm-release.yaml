@@ -24,7 +24,7 @@ spec:
       extraArgs:
         v: "2"
         storage: prometheus
-        prometheus-address: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+        prometheus-address: http://thanos-query.monitoring.svc.cluster.local:9090
         # kube-prometheus-stack scrapes cadvisor via the kubelet job, and kube-state-metrics
         # provides the pod labels the recommender uses to map pods to VPAs.
         prometheus-cadvisor-job-name: kubelet

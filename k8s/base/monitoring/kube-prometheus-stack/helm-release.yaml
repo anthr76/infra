@@ -58,31 +58,46 @@ spec:
                 requests:
                   storage: 2Gi
 
-    # Two independent, identical Prometheus replicas (plain HA, no Thanos, no sharding).
-    # Each scrapes everything and evaluates rules itself, with its own PVC. The
-    # operator adds the `prometheus_replica` external label, which Alertmanager
-    # uses to dedupe the duplicate alerts. Grafana queries the regular Service, which
-    # balances across both.
+    # Sharded, replicated Prometheus behind Thanos: 2 shards x 2 replicas = 4 pods.
+    # Each shard scrapes a hash-slice of the targets; the two replicas within a shard
+    # scrape the same slice and dedupe on `prometheus_replica`. Queries go through
+    # Thanos Query (../thanos-query), which fans out to every sidecar and merges the
+    # shards. Because a shard only sees part of the data, Prometheus itself evaluates
+    # no rules: Thanos Ruler (below) does, against Thanos Query.
     prometheus:
       podDisruptionBudget:
         enabled: true
         maxUnavailable: 1
+      # Headless gRPC Service covering every sidecar (all shards and replicas), used
+      # by Thanos Query for discovery.
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
       prometheusSpec:
         replicas: 2
-        shards: 1
+        shards: 2
         replicaExternalLabelName: prometheus_replica
         podAntiAffinity: soft
         podAntiAffinityTopologyKey: kubernetes.io/hostname
+        # Each pod holds roughly half of the data.
         retention: 14d
-        retentionSize: 45GiB
-        # Pick up every ServiceMonitor/PodMonitor/Probe/PrometheusRule in the cluster
-        # (cilium, external-dns, cloudnative-pg, metrics-server, ...), not only the
-        # ones labelled with this release.
+        retentionSize: 25GiB
+        # Pick up every ServiceMonitor/PodMonitor/Probe in the cluster (cilium,
+        # external-dns, cloudnative-pg, metrics-server, ...), not only the ones
+        # labelled with this release.
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        ruleSelectorNilUsesHelmValues: false
         scrapeConfigSelectorNilUsesHelmValues: false
+        # Select no PrometheusRules (nothing carries this label); Thanos Ruler owns them.
+        ruleSelectorNilUsesHelmValues: false
+        ruleSelector:
+          matchLabels:
+            prometheus.kutara.io/evaluate-rules: "true"
+        thanos:
+          # renovate: datasource=docker depName=quay.io/thanos/thanos
+          image: quay.io/thanos/thanos:v0.42.4
         resources:
           requests:
             cpu: 200m
@@ -97,7 +112,50 @@ spec:
                 - ReadWriteOnce
               resources:
                 requests:
-                  storage: 50Gi
+                  storage: 30Gi
+
+    # Evaluates every PrometheusRule in the cluster (including the chart's default
+    # rules) against Thanos Query, so rules see all shards. Replicas dedupe on
+    # `thanos_ruler_replica`; alerts go to every Alertmanager. Rule results are
+    # served to Thanos Query over the ruler's Store API.
+    thanosRuler:
+      enabled: true
+      podDisruptionBudget:
+        enabled: true
+        maxUnavailable: 1
+      thanosRulerSpec:
+        replicas: 2
+        podAntiAffinity: soft
+        podAntiAffinityTopologyKey: kubernetes.io/hostname
+        ruleSelectorNilUsesHelmValues: false
+        ruleNamespaceSelector: {}
+        ruleSelector: {}
+        retention: 24h
+        queryEndpoints:
+          - http://thanos-query.monitoring.svc.cluster.local:9090
+        alertmanagersConfig:
+          secret:
+            alertmanagers:
+              - api_version: v2
+                scheme: http
+                timeout: 10s
+                static_configs:
+                  - dnssrv+_http-web._tcp.alertmanager-operated.monitoring.svc.cluster.local
+        resources:
+          requests:
+            cpu: 25m
+            memory: 128Mi
+          limits:
+            memory: 512Mi
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: fast-ceph-block
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 5Gi
 
     prometheusOperator:
       resources:
@@ -114,6 +172,10 @@ spec:
       enabled: false
       forceDeployDashboards: true
       forceDeployDatasources: true
+      sidecar:
+        datasources:
+          # Query through Thanos Query so Grafana sees every shard, deduplicated.
+          url: http://thanos-query.monitoring.svc.cluster.local:9090
       defaultDashboardsTimezone: America/New_York
 
     # The control plane is hosted off-cluster (Kamaji on civo-mgmt-0), so these
