@@ -36,6 +36,8 @@ spec:
       enabled: true
       podDisruptionBudget:
         enabled: true
+        # The chart defaults minAvailable to 1; null it so only maxUnavailable is set.
+        minAvailable: null
         maxUnavailable: 1
       alertmanagerSpec:
         replicas: 3
@@ -67,6 +69,8 @@ spec:
     prometheus:
       podDisruptionBudget:
         enabled: true
+        # The chart defaults minAvailable to 1; null it so only maxUnavailable is set.
+        minAvailable: null
         maxUnavailable: 1
       # Headless gRPC Service covering every sidecar (all shards and replicas), used
       # by Thanos Query for discovery.
@@ -122,6 +126,8 @@ spec:
       enabled: true
       podDisruptionBudget:
         enabled: true
+        # The chart defaults minAvailable to 1; null it so only maxUnavailable is set.
+        minAvailable: null
         maxUnavailable: 1
       thanosRulerSpec:
         replicas: 2
