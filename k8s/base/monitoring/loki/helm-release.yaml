@@ -22,7 +22,7 @@ spec:
     loki:
       auth_enabled: false
       commonConfig:
-        replication_factor: 1
+        replication_factor: 3
       schemaConfig:
         configs:
           - from: "2024-04-01"
@@ -59,8 +59,25 @@ spec:
       pattern_ingester:
         enabled: false
 
+    # Three replicas form a memberlist ring (the chart wires memberlist through the
+    # headless service) and share the RGW bucket; with replication_factor 3 every
+    # stream is written to all three. Each replica has its own WAL/index PVC.
+    podDisruptionBudget:
+      maxUnavailable: 1
+
     singleBinary:
-      replicas: 1
+      replicas: 3
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/component: single-binary
+                    app.kubernetes.io/name: '{{ include "loki.name" . }}'
+                    app.kubernetes.io/instance: '{{ .Release.Name }}'
+                topologyKey: kubernetes.io/hostname
       extraArgs:
         - -config.expand-env=true
       extraEnvFrom:

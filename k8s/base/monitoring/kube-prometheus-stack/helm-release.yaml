@@ -30,10 +30,18 @@ spec:
     # receiver). It is here so Prometheus has an Alertmanager to talk to (otherwise
     # PrometheusNotConnectedToAlertmanagers fires forever); add receivers, and the
     # secret they need, once there is somewhere to send alerts.
+    # Three replicas form a gossip cluster; Prometheus sends every alert to all of them
+    # and they dedupe notifications between themselves.
     alertmanager:
       enabled: true
+      podDisruptionBudget:
+        enabled: true
+        maxUnavailable: 1
       alertmanagerSpec:
+        replicas: 3
         retention: 120h
+        podAntiAffinity: soft
+        podAntiAffinityTopologyKey: kubernetes.io/hostname
         resources:
           requests:
             cpu: 10m
@@ -50,8 +58,21 @@ spec:
                 requests:
                   storage: 2Gi
 
+    # Two independent, identical Prometheus replicas (plain HA, no Thanos, no sharding).
+    # Each scrapes everything and evaluates rules itself, with its own PVC. The
+    # operator adds the `prometheus_replica` external label, which Alertmanager
+    # uses to dedupe the duplicate alerts. Grafana queries the regular Service, which
+    # balances across both.
     prometheus:
+      podDisruptionBudget:
+        enabled: true
+        maxUnavailable: 1
       prometheusSpec:
+        replicas: 2
+        shards: 1
+        replicaExternalLabelName: prometheus_replica
+        podAntiAffinity: soft
+        podAntiAffinityTopologyKey: kubernetes.io/hostname
         retention: 14d
         retentionSize: 45GiB
         # Pick up every ServiceMonitor/PodMonitor/Probe/PrometheusRule in the cluster

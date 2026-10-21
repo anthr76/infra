@@ -27,7 +27,8 @@ spec:
         limits:
           memory: 512Mi
       # Tails container logs through the Kubernetes API (no hostPath mounts or
-      # privileged access needed). Each agent only handles pods on its own node.
+      # privileged access needed). Each agent only handles pods on its own node (the chart sets
+      # HOSTNAME to spec.nodeName, so the field selector below is node-local).
       configMap:
         content: |
           discovery.kubernetes "pods" {

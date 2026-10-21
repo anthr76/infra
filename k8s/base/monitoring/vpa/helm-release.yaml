@@ -11,18 +11,36 @@ spec:
   chart:
     spec:
       chart: vpa
-      version: 2.5.1
+      version: 5.1.0
       sourceRef:
         kind: HelmRepository
         name: fairwinds-charts
         namespace: flux-system
   values:
+    # Recommendation-only: the recommender computes VPA objects' status from
+    # Prometheus history; nothing evicts pods or mutates requests.
     recommender:
       enabled: true
       extraArgs:
+        v: "2"
         storage: prometheus
-        prometheus-address: |-
-          http://thanos-query.monitoring.svc.cluster.local:9090
+        prometheus-address: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+        # kube-prometheus-stack scrapes cadvisor via the kubelet job, and kube-state-metrics
+        # provides the pod labels the recommender uses to map pods to VPAs.
+        prometheus-cadvisor-job-name: kubelet
+        metric-for-pod-labels: kube_pod_labels{job="kube-state-metrics"}
+        pod-namespace-label: namespace
+        pod-name-label: pod
+        pod-recommendation-min-cpu-millicores: 15
+        pod-recommendation-min-memory-mb: 100
+      resources:
+        requests:
+          cpu: 50m
+          memory: 500Mi
+        limits:
+          memory: 1Gi
+      podMonitor:
+        enabled: true
     updater:
       enabled: false
     admissionController:
