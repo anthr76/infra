@@ -26,9 +26,12 @@ spec:
           memory: 128Mi
         limits:
           memory: 512Mi
-      # Tails container logs through the Kubernetes API (no hostPath mounts or
-      # privileged access needed). Each agent only handles pods on its own node (the chart sets
-      # HOSTNAME to spec.nodeName, so the field selector below is node-local).
+      # Reads container logs from the node's /var/log/pods. Tailing through the
+      # Kubernetes API proxied every log stream via the (Kamaji-hosted) API server
+      # and pushed it into OOM. Discovery is still node-local (the chart sets
+      # HOSTNAME to spec.nodeName).
+      mounts:
+        varlog: true
       configMap:
         content: |
           discovery.kubernetes "pods" {
@@ -65,10 +68,25 @@ spec:
               replacement   = "$1$2"
               target_label  = "app"
             }
+            rule {
+              source_labels = ["__meta_kubernetes_pod_uid", "__meta_kubernetes_pod_container_name"]
+              separator     = "/"
+              target_label  = "__path__"
+              replacement   = "/var/log/pods/*$1/*.log"
+            }
           }
 
-          loki.source.kubernetes "pods" {
-            targets    = discovery.relabel.pods.output
+          local.file_match "pods" {
+            path_targets = discovery.relabel.pods.output
+          }
+
+          loki.source.file "pods" {
+            targets    = local.file_match.pods.targets
+            forward_to = [loki.process.pods.receiver]
+          }
+
+          loki.process "pods" {
+            stage.cri {}
             forward_to = [loki.write.default.receiver]
           }
 
