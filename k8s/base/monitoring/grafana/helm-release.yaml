@@ -20,6 +20,8 @@ spec:
     # State lives in the grafana-pg CloudNativePG cluster, so Grafana is stateless
     # and can run several replicas.
     replicas: 2
+    # Peer discovery for unified alerting HA (see grafana.ini below).
+    headlessService: true
     deploymentStrategy:
       type: RollingUpdate
       rollingUpdate:
@@ -69,11 +71,14 @@ spec:
         # CNPG serves TLS with its own CA by default; require encrypts without
         # verifying the cert.
         ssl_mode: require
-      # Alerting is handled by Thanos Ruler / Alertmanager. Disabling Grafana's
-      # alert engine keeps the replicas from sending duplicate notifications
-      # (and avoids the HA gossip setup).
+      # Unified alerting must be on for the Alertmanager datasource to work.
+      # The replicas gossip over the headless Service so they share alert state
+      # and don't send duplicate notifications. ($$ escapes Flux substitution.)
       unified_alerting:
-        enabled: false
+        enabled: true
+        ha_peers: grafana-headless.monitoring.svc.cluster.local:9094
+        ha_listen_address: $${POD_IP}:9094
+        ha_advertise_address: $${POD_IP}:9094
       alerting:
         enabled: false
       server:
