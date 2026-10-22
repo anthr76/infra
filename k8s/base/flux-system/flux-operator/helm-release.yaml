@@ -24,3 +24,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
+  values:
+    serviceMonitor:
+      create: true

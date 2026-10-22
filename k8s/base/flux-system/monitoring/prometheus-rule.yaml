@@ -20,14 +20,11 @@ spec:
         - alert: FluxReconciliationFailure
           annotations:
             description:
-              "{{ $labels.kind }} {{ $labels.namespace }}/{{ $labels.name }} reconciliation has been failing
+              "{{ $labels.customresource_kind }} {{ $labels.exported_namespace }}/{{ $labels.name }} reconciliation has been failing
               for more than ten minutes."
             summary: Flux reconciliation failure.
           expr: |
-            max(gotk_reconcile_condition{status="False",type="Ready"}) by (namespace, name, kind)
-              +
-            on(namespace, name, kind) (max(gotk_reconcile_condition{status="Deleted"})
-              by (namespace, name, kind)) * 2 == 1
+            max by (exported_namespace, name, customresource_kind) (gotk_resource_info{ready="False", suspended!="true"}) == 1
           for: 15m
           labels:
             severity: critical
