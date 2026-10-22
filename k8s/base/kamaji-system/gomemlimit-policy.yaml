@@ -1,0 +1,44 @@
+---
+# Kamaji has no way to set env on control-plane containers, so inject
+# GOMEMLIMIT into every container of every tenant control-plane pod at
+# creation. It comes from the container's own memory limit via the downward
+# API, so the Go GC works to stay under the limit instead of getting OOMKilled.
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingAdmissionPolicy
+metadata:
+  name: kamaji-gomemlimit
+spec:
+  failurePolicy: Ignore
+  reinvocationPolicy: Never
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE"]
+        resources: ["pods"]
+    objectSelector:
+      matchLabels:
+        kamaji.clastix.io/component: deployment
+  variables:
+    - name: gomemlimit
+      expression: >
+        {"name": dyn("GOMEMLIMIT"), "valueFrom": dyn({"resourceFieldRef": {"resource": "limits.memory"}})}
+  mutations:
+    # JSONPatch rather than ApplyConfiguration: resourceFieldRef is an atomic
+    # struct, which ApplyConfiguration may not set.
+    - patchType: JSONPatch
+      jsonPatch:
+        expression: >
+          lists.range(size(object.spec.containers))
+            .filter(i, !has(object.spec.containers[i].env) ||
+              !object.spec.containers[i].env.exists(e, e.name == "GOMEMLIMIT"))
+            .map(i, has(object.spec.containers[i].env) ?
+              JSONPatch{op: "add", path: "/spec/containers/" + string(i) + "/env/-", value: variables.gomemlimit} :
+              JSONPatch{op: "add", path: "/spec/containers/" + string(i) + "/env", value: [variables.gomemlimit]})
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingAdmissionPolicyBinding
+metadata:
+  name: kamaji-gomemlimit
+spec:
+  policyName: kamaji-gomemlimit
