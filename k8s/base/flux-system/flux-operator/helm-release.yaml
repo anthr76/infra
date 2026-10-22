@@ -25,5 +25,9 @@ spec:
     remediation:
       retries: 3
   values:
+    # Refresh FluxReport and the flux_resource_info metrics every 30s instead of
+    # 5m, as the Flux Operator docs recommend when scraping its metrics.
+    reporting:
+      interval: 30s
     serviceMonitor:
       create: true
