@@ -25,6 +25,11 @@ spec:
     remediation:
       retries: 3
   values:
+    # ServiceMonitors for the controller, webhook and cert-controller. The chart
+    # skips them where the Prometheus Operator CRDs are missing (civo-mgmt-0).
+    serviceMonitor:
+      enabled: true
+      renderMode: skipIfMissing
     bitwarden-sdk-server:
       enabled: true
       # The SDK server only reads its TLS certificate at startup, so restart it
