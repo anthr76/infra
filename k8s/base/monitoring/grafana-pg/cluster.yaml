@@ -8,7 +8,7 @@ metadata:
   namespace: monitoring
 spec:
   images:
-    - major: 17
+    - major: 18
       image: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
 ---
 apiVersion: postgresql.cnpg.io/v1
@@ -22,7 +22,7 @@ spec:
     apiGroup: postgresql.cnpg.io
     kind: ImageCatalog
     name: grafana-pg
-    major: 17
+    major: 18
   storage:
     size: 5Gi
     storageClass: fast-ceph-block
