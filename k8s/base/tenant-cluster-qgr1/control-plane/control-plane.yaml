@@ -25,10 +25,10 @@ spec:
         apiServer:
           requests:
             cpu: 250m
-            memory: 512Mi
+            memory: 1Gi
           limits:
             cpu: 2000m
-            memory: 2Gi
+            memory: 3Gi
         controllerManager:
           requests:
             cpu: 100m
