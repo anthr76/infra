@@ -192,6 +192,15 @@ spec:
         flux-logs:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/logs.json
           datasource: Prometheus
+        # From the Flux Operator; pinned to the flux-operator chart version.
+        flux-operator-performance:
+          url: https://raw.githubusercontent.com/controlplaneio-fluxcd/flux-operator/v0.52.0/config/monitoring/dashboards/flux-performance.json
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        flux-operator-k8s-api-performance:
+          url: https://raw.githubusercontent.com/controlplaneio-fluxcd/flux-operator/v0.52.0/config/monitoring/dashboards/flux-k8s-api-performance.json
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
       kubernetes:
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
