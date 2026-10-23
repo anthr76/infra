@@ -17,6 +17,3 @@ spec:
         kind: HelmRepository
         name: snapshot-controller
         namespace: flux-system
-  values:
-    serviceMonitor:
-      enabled: true
