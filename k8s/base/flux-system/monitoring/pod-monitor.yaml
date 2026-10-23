@@ -15,5 +15,6 @@ spec:
       - key: app
         operator: Exists
   podMetricsEndpoints:
+    # No honorLabels: the Flux dashboards expect `namespace` to be the controller's
+    # namespace and the object's namespace to arrive as `exported_namespace`.
     - port: http-prom
-      honorLabels: true
