@@ -53,17 +53,29 @@ jobs:
         with:
           persist-credentials: false
 
+      # flux-local builds Kustomizations in parallel, and two of ours have paths
+      # nested inside another Kustomization's directory, which occasionally races
+      # ("kustomization.yaml is empty"). Retry before failing.
       - name: Run flux-local test
         run: |
-          docker run --rm \
-            -v "${{ github.workspace }}:/github/workspace" \
-            ghcr.io/allenporter/flux-local:v8.0.1 \
-            test \
-            --all-namespaces \
-            --enable-helm \
-            --skip-invalid-helm-release-paths \
-            --sources "flux-system" \
-            --path /github/workspace/k8s/clusters/${{ matrix.cluster }} || true
+          for attempt in 1 2 3; do
+            if docker run --rm \
+              -v "${{ github.workspace }}:/github/workspace" \
+              -w /github/workspace \
+              ghcr.io/allenporter/flux-local:v8.0.1 \
+              test \
+              --all-namespaces \
+              --enable-helm \
+              --skip-invalid-helm-release-paths \
+              --sources "flux-system" \
+              --path /github/workspace/k8s/clusters/${{ matrix.cluster }}; then
+              exit 0
+            fi
+            echo "::warning::flux-local test failed (attempt ${attempt}/3)"
+            sleep 5
+          done
+          echo "::error::flux-local test failed after 3 attempts"
+          exit 1
 
   diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -94,35 +106,57 @@ jobs:
 
       - name: Run flux-local diff
         run: |
-          docker run --rm \
-            -v "${{ github.workspace }}:/github/workspace" \
-            -w /github/workspace \
-            ghcr.io/allenporter/flux-local:v8.0.1 \
-            diff ${{ matrix.resource }} \
-            --unified 6 \
-            --path /github/workspace/pull/k8s/clusters/${{ matrix.cluster }} \
-            --path-orig /github/workspace/default/k8s/clusters/${{ matrix.cluster }} \
-            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart" \
-            --limit-bytes 10000 \
-            --all-namespaces \
-            --sources "flux-system" \
-            --output-file diff.patch || true
+          for attempt in 1 2 3; do
+            rm -f diff.patch
+            if docker run --rm \
+              -v "${{ github.workspace }}:/github/workspace" \
+              -w /github/workspace \
+              ghcr.io/allenporter/flux-local:v8.0.1 \
+              diff ${{ matrix.resource }} \
+              --unified 6 \
+              --path /github/workspace/pull/k8s/clusters/${{ matrix.cluster }} \
+              --path-orig /github/workspace/default/k8s/clusters/${{ matrix.cluster }} \
+              --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart" \
+              --limit-bytes 10000 \
+              --all-namespaces \
+              --sources "flux-system" \
+              --output-file diff.patch && [ -f diff.patch ]; then
+              exit 0
+            fi
+            echo "::warning::flux-local diff failed (attempt ${attempt}/3)"
+            sleep 5
+          done
+          echo "::error::flux-local diff failed after 3 attempts"
+          exit 1
 
-      - name: Generate Diff
-        id: diff
+      # Write the comment body to a file: passing a large diff through step
+      # outputs/inputs hits "Argument list too long", and GitHub caps comments
+      # at 65536 characters.
+      - name: Generate Comment
+        id: comment
         run: |
-          echo 'diff<<EOF' >> $GITHUB_OUTPUT
-          cat diff.patch >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
+          if [ ! -s diff.patch ]; then
+            echo "has_diff=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          limit=60000
+          {
+            echo "## ${{ matrix.cluster }} - ${{ matrix.resource }}"
+            echo '```diff'
+            head -c "$limit" diff.patch
+            echo '```'
+            if [ "$(wc -c < diff.patch)" -gt "$limit" ]; then
+              echo
+              echo "_Diff truncated to ${limit} bytes; see the workflow logs for the full output._"
+            fi
+          } > comment.md
+          cat diff.patch
+          echo "has_diff=true" >> "$GITHUB_OUTPUT"
 
-      - if: ${{ steps.diff.outputs.diff != '' }}
+      - if: ${{ steps.comment.outputs.has_diff == 'true' }}
         name: Add Comment
         uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: ${{ github.event.pull_request.number }}/kubernetes/${{ matrix.cluster }}/${{ matrix.resource }}
-          message: |
-            ## ${{ matrix.cluster }} - ${{ matrix.resource }}
-            ```diff
-            ${{ steps.diff.outputs.diff }}
-            ```
+          path: comment.md
