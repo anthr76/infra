@@ -30,7 +30,10 @@ jobs:
         id: changed-files
         uses: bjw-s-labs/action-changed-files@147be9638332cf68fd60714a610509d7a9360d60 # v0.7.0
         with:
-          patterns: k8s/**/*
+          # Also run when this workflow changes, so CI changes get exercised.
+          patterns: |
+            k8s/**/*
+            .github/workflows/flux-local.yaml
 
       - name: Generate Cluster Matrix
         id: clusters
