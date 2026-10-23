@@ -65,6 +65,8 @@ jobs:
         run: |
           sources="flux-system"
           mkdir -p .flux-local-sources
+          # Plain `yq e` (not `ea`): eval-all collects fields across documents into
+          # one array, merging every GitRepository into a single record.
           # '|' rather than a tab: bash collapses consecutive whitespace IFS
           # characters, which would shift empty fields.
           while IFS='|' read -r name url tag branch commit semver || [ -n "$name" ]; do
@@ -86,11 +88,12 @@ jobs:
             echo "Fetched GitRepository ${name} (${url} ${commit:-${tag:-${branch:-HEAD}}})"
             sources="${sources},${name}=${dir}"
           done < <(grep -rlZ --include='*.yaml' 'kind: GitRepository' k8s \
-            | xargs -0 yq ea -N '
+            | xargs -0 yq e -N '
                 select(.kind == "GitRepository" and .metadata.name != "flux-system")
                 | [.metadata.name, .spec.url, .spec.ref.tag // "", .spec.ref.branch // "",
                    .spec.ref.commit // "", .spec.ref.semver // ""]
-                | join("|")')
+                | join("|")' \
+            | sed '/^$/d')
           echo "sources=${sources}" >> "$GITHUB_OUTPUT"
 
           # `flux-local test` only resolves HelmRepository/OCIRepository charts; for a
@@ -112,11 +115,11 @@ jobs:
             fi
             echo "Staged chart ${chart} from GitRepository ${src}"
           done < <(grep -rlZ --include='*.yaml' 'kind: HelmRelease' k8s \
-            | xargs -0 yq ea -N '
+            | xargs -0 yq e -N '
                 select(.kind == "HelmRelease" and .spec.chart.spec.sourceRef.kind == "GitRepository"
                        and .spec.chart.spec.sourceRef.name != "flux-system")
                 | [.spec.chart.spec.sourceRef.name, .spec.chart.spec.chart] | join("|")' \
-            | sort -u)
+            | sed '/^$/d' | sort -u)
 
       # flux-local builds Kustomizations in parallel, and two of ours have paths
       # nested inside another Kustomization's directory, which occasionally races
