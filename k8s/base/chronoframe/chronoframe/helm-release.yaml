@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: ghcr.io/hoshinosuzumi/chronoframe
-              tag: 1.0.0-rc.4@sha256:2edf0ef29d3db8a9493736c9b970d4880ddbce394e6bd22f85331b6e56c4b859
+              tag: 1.0.2@sha256:7e8bfd834f6526d8fee3d16f0af27ab805466fcf812f57d1051d488c61868582
             env:
               TZ: America/New_York
               NITRO_PORT: "3000"
