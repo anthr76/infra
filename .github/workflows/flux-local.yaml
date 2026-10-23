@@ -56,6 +56,75 @@ jobs:
         with:
           persist-credentials: false
 
+      # flux-local only reads this repo. Kustomizations and HelmReleases sourced
+      # from any other GitRepository (e.g. kamaji's chart, the Gateway API CRDs)
+      # would fail, so clone every GitRepository declared under k8s/ at the ref
+      # Flux uses and map each one in with --sources NAME=PATH.
+      - name: Fetch GitRepository sources
+        id: sources
+        run: |
+          sources="flux-system"
+          mkdir -p .flux-local-sources
+          # Plain `yq e` (not `ea`): eval-all collects fields across documents into
+          # one array, merging every GitRepository into a single record.
+          # '|' rather than a tab: bash collapses consecutive whitespace IFS
+          # characters, which would shift empty fields.
+          while IFS='|' read -r name url tag branch commit semver || [ -n "$name" ]; do
+            dir=".flux-local-sources/${name}"
+            [ -e "$dir" ] && continue
+            case "$url" in
+              https://*) ;;
+              *) echo "::warning::GitRepository ${name}: skipping non-HTTPS URL ${url}"; continue ;;
+            esac
+            if [ -n "$commit" ]; then
+              git init -q "$dir"
+              git -C "$dir" fetch -q --depth 1 "$url" "$commit"
+              git -C "$dir" checkout -q FETCH_HEAD
+            else
+              [ -n "$semver" ] && echo "::warning::GitRepository ${name}: semver ref ${semver} unsupported, using ${tag:-${branch:-default branch}}"
+              ref="${tag:-$branch}"
+              git clone -q --depth 1 --filter=blob:none ${ref:+--branch "$ref"} "$url" "$dir"
+            fi
+            echo "Fetched GitRepository ${name} (${url} ${commit:-${tag:-${branch:-HEAD}}})"
+            sources="${sources},${name}=${dir}"
+          done < <(grep -rlZ --include='*.yaml' 'kind: GitRepository' k8s \
+            | xargs -0 yq e -N '
+                select(.kind == "GitRepository" and .metadata.name != "flux-system")
+                | [.metadata.name, .spec.url, .spec.ref.tag // "", .spec.ref.branch // "",
+                   .spec.ref.commit // "", .spec.ref.semver // ""]
+                | join("|")' \
+            | sed '/^$/d')
+          echo "sources=${sources}" >> "$GITHUB_OUTPUT"
+
+          # `flux-local test` only resolves HelmRepository/OCIRepository charts; for a
+          # GitRepository chart it runs `helm template <name> <chart path>` with the
+          # path relative to the working directory. Copy each such chart from its
+          # fetched source to that path so helm finds it locally.
+          while IFS='|' read -r src chart || [ -n "$src" ]; do
+            [ -n "$chart" ] && [ -d ".flux-local-sources/${src}/${chart}" ] || {
+              echo "::warning::HelmRelease chart ${chart} from GitRepository ${src} not found"; continue; }
+            if [ -e "$chart" ]; then
+              echo "::warning::${chart} already exists in this repo; not overwriting"; continue
+            fi
+            mkdir -p "$(dirname "$chart")"
+            cp -r ".flux-local-sources/${src}/${chart}" "$chart"
+            # Charts in git usually don't vendor their dependencies; Flux builds them.
+            # helm needs a repo entry for each HTTP(S) dependency repository first.
+            if grep -q '^dependencies:' "${chart}/Chart.yaml"; then
+              for repo in $(yq e '.dependencies[].repository // ""' "${chart}/Chart.yaml" | grep -E '^https?://' | sort -u); do
+                helm repo add "dep-$(printf '%s' "$repo" | sha1sum | cut -c1-10)" "$repo" >/dev/null
+              done
+              helm dependency build "$chart" >/dev/null \
+                || echo "::warning::helm dependency build failed for ${chart}"
+            fi
+            echo "Staged chart ${chart} from GitRepository ${src}"
+          done < <(grep -rlZ --include='*.yaml' 'kind: HelmRelease' k8s \
+            | xargs -0 yq e -N '
+                select(.kind == "HelmRelease" and .spec.chart.spec.sourceRef.kind == "GitRepository"
+                       and .spec.chart.spec.sourceRef.name != "flux-system")
+                | [.spec.chart.spec.sourceRef.name, .spec.chart.spec.chart] | join("|")' \
+            | sed '/^$/d' | sort -u)
+
       # flux-local builds Kustomizations in parallel, and two of ours have paths
       # nested inside another Kustomization's directory, which occasionally races
       # ("kustomization.yaml is empty"). Retry before failing.
@@ -70,7 +139,7 @@ jobs:
               --all-namespaces \
               --enable-helm \
               --skip-invalid-helm-release-paths \
-              --sources "flux-system" \
+              --sources "${{ steps.sources.outputs.sources }}" \
               --path /github/workspace/k8s/clusters/${{ matrix.cluster }}; then
               exit 0
             fi

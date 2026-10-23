@@ -19,18 +19,18 @@
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 3,
     },
     {
       description: "Kubernetes Group",
       groupName: "kubernetes",
       matchDatasources: ["docker"],
+      // Anchored so images like kubelet-csr-approver don't join the group.
       matchPackageNames: [
-        "/kube-apiserver/",
-        "/kube-controller-manager/",
-        "/kube-proxy/",
-        "/kube-scheduler/",
-        "/kubelet/",
+        "/(^|\\/)kube-apiserver$/",
+        "/(^|\\/)kube-controller-manager$/",
+        "/(^|\\/)kube-proxy$/",
+        "/(^|\\/)kube-scheduler$/",
+        "/(^|\\/)kubelet$/",
       ],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
