@@ -56,15 +56,40 @@ jobs:
         with:
           persist-credentials: false
 
-      # HelmReleases whose chart comes from a GitRepository other than flux-system
-      # (kamaji from clastix/kamaji) can't be fetched by flux-local. Clone them at
-      # the ref Flux uses and map them in with --sources.
-      - name: Fetch external chart sources
+      # flux-local only reads this repo. Kustomizations and HelmReleases sourced
+      # from any other GitRepository (e.g. kamaji's chart, the Gateway API CRDs)
+      # would fail, so clone every GitRepository declared under k8s/ at the ref
+      # Flux uses and map each one in with --sources NAME=PATH.
+      - name: Fetch GitRepository sources
+        id: sources
         run: |
-          tag=$(sed -n 's/^ *tag: *//p' k8s/base/flux-system/helm-chart-repositories/clastix.yaml | head -1)
-          git clone --quiet --depth 1 --branch "$tag" --filter=blob:none --sparse \
-            https://github.com/clastix/kamaji .flux-local-sources/clastix
-          git -C .flux-local-sources/clastix sparse-checkout set charts
+          sources="flux-system"
+          mkdir -p .flux-local-sources
+          while IFS=$'\t' read -r name url tag branch commit semver; do
+            dir=".flux-local-sources/${name}"
+            [ -e "$dir" ] && continue
+            case "$url" in
+              https://*) ;;
+              *) echo "::warning::GitRepository ${name}: skipping non-HTTPS URL ${url}"; continue ;;
+            esac
+            if [ -n "$commit" ]; then
+              git init -q "$dir"
+              git -C "$dir" fetch -q --depth 1 "$url" "$commit"
+              git -C "$dir" checkout -q FETCH_HEAD
+            else
+              [ -n "$semver" ] && echo "::warning::GitRepository ${name}: semver ref ${semver} unsupported, using ${tag:-${branch:-default branch}}"
+              ref="${tag:-$branch}"
+              git clone -q --depth 1 --filter=blob:none ${ref:+--branch "$ref"} "$url" "$dir"
+            fi
+            echo "Fetched GitRepository ${name} (${url} ${commit:-${tag:-${branch:-HEAD}}})"
+            sources="${sources},${name}=${dir}"
+          done < <(grep -rlZ --include='*.yaml' 'kind: GitRepository' k8s \
+            | xargs -0 yq ea -N '
+                select(.kind == "GitRepository" and .metadata.name != "flux-system")
+                | [.metadata.name, .spec.url, .spec.ref.tag // "", .spec.ref.branch // "",
+                   .spec.ref.commit // "", .spec.ref.semver // ""]
+                | @tsv')
+          echo "sources=${sources}" >> "$GITHUB_OUTPUT"
 
       # flux-local builds Kustomizations in parallel, and two of ours have paths
       # nested inside another Kustomization's directory, which occasionally races
@@ -80,7 +105,7 @@ jobs:
               --all-namespaces \
               --enable-helm \
               --skip-invalid-helm-release-paths \
-              --sources "flux-system,clastix=.flux-local-sources/clastix" \
+              --sources "${{ steps.sources.outputs.sources }}" \
               --path /github/workspace/k8s/clusters/${{ matrix.cluster }}; then
               exit 0
             fi
