@@ -20,5 +20,11 @@
       matchUpdateTypes: ["major", "minor", "patch"],
       minimumReleaseAge: "14 days",
     },
+    {
+      description: "Flux releases are tagged vX.Y.Z; FluxInstance takes X.Y.Z",
+      matchDatasources: ["github-releases"],
+      matchPackageNames: ["fluxcd/flux2"],
+      extractVersion: "^v(?<version>.+)$",
+    },
   ],
 }
