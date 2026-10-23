@@ -56,6 +56,16 @@ jobs:
         with:
           persist-credentials: false
 
+      # HelmReleases whose chart comes from a GitRepository other than flux-system
+      # (kamaji from clastix/kamaji) can't be fetched by flux-local. Clone them at
+      # the ref Flux uses and map them in with --sources.
+      - name: Fetch external chart sources
+        run: |
+          tag=$(sed -n 's/^ *tag: *//p' k8s/base/flux-system/helm-chart-repositories/clastix.yaml | head -1)
+          git clone --quiet --depth 1 --branch "$tag" --filter=blob:none --sparse \
+            https://github.com/clastix/kamaji .flux-local-sources/clastix
+          git -C .flux-local-sources/clastix sparse-checkout set charts
+
       # flux-local builds Kustomizations in parallel, and two of ours have paths
       # nested inside another Kustomization's directory, which occasionally races
       # ("kustomization.yaml is empty"). Retry before failing.
@@ -70,7 +80,7 @@ jobs:
               --all-namespaces \
               --enable-helm \
               --skip-invalid-helm-release-paths \
-              --sources "flux-system" \
+              --sources "flux-system,clastix=.flux-local-sources/clastix" \
               --path /github/workspace/k8s/clusters/${{ matrix.cluster }}; then
               exit 0
             fi
