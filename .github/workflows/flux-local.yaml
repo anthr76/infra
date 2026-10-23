@@ -65,7 +65,9 @@ jobs:
         run: |
           sources="flux-system"
           mkdir -p .flux-local-sources
-          while IFS=$'\t' read -r name url tag branch commit semver; do
+          # '|' rather than a tab: bash collapses consecutive whitespace IFS
+          # characters, which would shift empty fields.
+          while IFS='|' read -r name url tag branch commit semver; do
             dir=".flux-local-sources/${name}"
             [ -e "$dir" ] && continue
             case "$url" in
@@ -88,7 +90,7 @@ jobs:
                 select(.kind == "GitRepository" and .metadata.name != "flux-system")
                 | [.metadata.name, .spec.url, .spec.ref.tag // "", .spec.ref.branch // "",
                    .spec.ref.commit // "", .spec.ref.semver // ""]
-                | @tsv')
+                | join("|")')
           echo "sources=${sources}" >> "$GITHUB_OUTPUT"
 
       # flux-local builds Kustomizations in parallel, and two of ours have paths
