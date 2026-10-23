@@ -67,7 +67,7 @@ jobs:
           mkdir -p .flux-local-sources
           # '|' rather than a tab: bash collapses consecutive whitespace IFS
           # characters, which would shift empty fields.
-          while IFS='|' read -r name url tag branch commit semver; do
+          while IFS='|' read -r name url tag branch commit semver || [ -n "$name" ]; do
             dir=".flux-local-sources/${name}"
             [ -e "$dir" ] && continue
             case "$url" in
@@ -92,6 +92,31 @@ jobs:
                    .spec.ref.commit // "", .spec.ref.semver // ""]
                 | join("|")')
           echo "sources=${sources}" >> "$GITHUB_OUTPUT"
+
+          # `flux-local test` only resolves HelmRepository/OCIRepository charts; for a
+          # GitRepository chart it runs `helm template <name> <chart path>` with the
+          # path relative to the working directory. Copy each such chart from its
+          # fetched source to that path so helm finds it locally.
+          while IFS='|' read -r src chart || [ -n "$src" ]; do
+            [ -n "$chart" ] && [ -d ".flux-local-sources/${src}/${chart}" ] || {
+              echo "::warning::HelmRelease chart ${chart} from GitRepository ${src} not found"; continue; }
+            if [ -e "$chart" ]; then
+              echo "::warning::${chart} already exists in this repo; not overwriting"; continue
+            fi
+            mkdir -p "$(dirname "$chart")"
+            cp -r ".flux-local-sources/${src}/${chart}" "$chart"
+            # Charts in git usually don't vendor their dependencies; Flux builds them.
+            if [ -f "${chart}/Chart.lock" ] || grep -q '^dependencies:' "${chart}/Chart.yaml"; then
+              helm dependency build "$chart" >/dev/null \
+                || echo "::warning::helm dependency build failed for ${chart}"
+            fi
+            echo "Staged chart ${chart} from GitRepository ${src}"
+          done < <(grep -rlZ --include='*.yaml' 'kind: HelmRelease' k8s \
+            | xargs -0 yq ea -N '
+                select(.kind == "HelmRelease" and .spec.chart.spec.sourceRef.kind == "GitRepository"
+                       and .spec.chart.spec.sourceRef.name != "flux-system")
+                | [.spec.chart.spec.sourceRef.name, .spec.chart.spec.chart] | join("|")' \
+            | sort -u)
 
       # flux-local builds Kustomizations in parallel, and two of ours have paths
       # nested inside another Kustomization's directory, which occasionally races
