@@ -109,7 +109,11 @@ jobs:
             mkdir -p "$(dirname "$chart")"
             cp -r ".flux-local-sources/${src}/${chart}" "$chart"
             # Charts in git usually don't vendor their dependencies; Flux builds them.
-            if [ -f "${chart}/Chart.lock" ] || grep -q '^dependencies:' "${chart}/Chart.yaml"; then
+            # helm needs a repo entry for each HTTP(S) dependency repository first.
+            if grep -q '^dependencies:' "${chart}/Chart.yaml"; then
+              for repo in $(yq e '.dependencies[].repository // ""' "${chart}/Chart.yaml" | grep -E '^https?://' | sort -u); do
+                helm repo add "dep-$(printf '%s' "$repo" | sha1sum | cut -c1-10)" "$repo" >/dev/null
+              done
               helm dependency build "$chart" >/dev/null \
                 || echo "::warning::helm dependency build failed for ${chart}"
             fi
