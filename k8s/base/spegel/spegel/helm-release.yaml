@@ -15,3 +15,6 @@ spec:
         kind: HelmRepository
         name: spegel
         namespace: flux-system
+  values:
+    serviceMonitor:
+      enabled: true
