@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 19.2.1
+      version: 20.0.0
       sourceRef:
         kind: HelmRepository
         name: grafana-community-charts
@@ -121,8 +121,6 @@ spec:
       replicas: 0
     indexGateway:
       replicas: 0
-    bloomCompactor:
-      replicas: 0
     bloomGateway:
       replicas: 0
     chunksCache:
@@ -134,8 +132,6 @@ spec:
     lokiCanary:
       enabled: false
     test:
-      enabled: false
-    minio:
       enabled: false
 
     # In-cluster consumers (Alloy, Grafana) talk straight to the loki service.
