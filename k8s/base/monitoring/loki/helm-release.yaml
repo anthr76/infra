@@ -121,8 +121,6 @@ spec:
       replicas: 0
     indexGateway:
       replicas: 0
-    bloomCompactor:
-      replicas: 0
     bloomGateway:
       replicas: 0
     chunksCache:
@@ -134,8 +132,6 @@ spec:
     lokiCanary:
       enabled: false
     test:
-      enabled: false
-    minio:
       enabled: false
 
     # In-cluster consumers (Alloy, Grafana) talk straight to the loki service.
