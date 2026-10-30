@@ -1,0 +1,29 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: hermes-kopia
+  namespace: hermes
+spec:
+  sourcePVC: hermes-data
+  trigger:
+    schedule: "0 * * * *"
+  kopia:
+    copyMethod: Snapshot
+    repository: volsync-kopia
+    parallelism: 2
+    moverSecurityContext:
+      runAsUser: 10000
+      runAsGroup: 10000
+      fsGroup: 10000
+    accessModes:
+      - ReadWriteOnce
+    cacheAccessModes:
+      - ReadWriteOnce
+    cacheCapacity: 5Gi
+    cacheStorageClassName: fast-ceph-block
+    compression: zstd-fastest
+    retain:
+      hourly: 24
+      daily: 7
+      weekly: 4
