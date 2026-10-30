@@ -31,6 +31,11 @@ spec:
 
     deschedulerPolicyAPIVersion: "descheduler/v1alpha2"
     deschedulerPolicy:
+      # worker-5 runs four OSDs plus Ceph NFS/RGW on 30GiB, so pods the
+      # descheduler can't evict already reserve over 80% of its memory.
+      # LowNodeUtilization can never get it under target and would just evict
+      # the same few pods every minPodAge, so leave this node out.
+      nodeSelector: "kubernetes.io/hostname!=worker-5"
       maxNoOfPodsToEvictPerNode: 2
       profiles:
         - name: default
