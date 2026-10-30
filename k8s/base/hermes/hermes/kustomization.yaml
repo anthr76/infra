@@ -6,4 +6,5 @@ resources:
   - data-pvc.yaml
   - external-secret.yaml
   - helm-release.yaml
+  - rbac.yaml
   - replication-source.yaml
