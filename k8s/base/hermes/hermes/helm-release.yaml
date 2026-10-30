@@ -21,6 +21,8 @@ spec:
     controllers:
       hermes:
         type: statefulset
+        serviceAccount:
+          identifier: hermes
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -84,13 +86,16 @@ spec:
               limits:
                 memory: 4Gi
         pod:
-          automountServiceAccountToken: false
+          automountServiceAccountToken: true
           enableServiceLinks: false
           securityContext:
             fsGroup: 10000
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile:
               type: RuntimeDefault
+
+    serviceAccount:
+      hermes: {}
 
     service:
       app:
