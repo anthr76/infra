@@ -9,7 +9,12 @@ spec:
     matchLabels:
       app.kubernetes.io/name: hermes
   ingress:
-    - {}
+    - fromEntities:
+        - ingress
+      toPorts:
+        - ports:
+            - port: "9119"
+              protocol: TCP
   egress:
     - toEndpoints:
         - matchLabels:

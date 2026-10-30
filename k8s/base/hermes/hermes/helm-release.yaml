@@ -33,9 +33,15 @@ spec:
               - run
             env:
               TZ: America/New_York
+              HERMES_DASHBOARD: "1"
+              HERMES_DASHBOARD_BASIC_AUTH_USERNAME: anthony
+              HERMES_DASHBOARD_PORT: &port 9119
+              HERMES_DASHBOARD_PUBLIC_URL: https://hermes.qgr1.rabbito.tech
             envFrom:
               - secretRef:
                   name: hermes
+              - secretRef:
+                  name: hermes-dashboard-signing
             probes:
               liveness:
                 enabled: true
@@ -74,7 +80,7 @@ spec:
             resources:
               requests:
                 cpu: 50m
-                memory: 256Mi
+                memory: 512Mi
               limits:
                 memory: 4Gi
         pod:
@@ -85,6 +91,22 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile:
               type: RuntimeDefault
+
+    service:
+      app:
+        controller: hermes
+        ports:
+          http:
+            port: *port
+
+    route:
+      app:
+        parentRefs:
+          - name: cilium-internal
+            namespace: kube-system
+            sectionName: https
+        hostnames:
+          - hermes.qgr1.rabbito.tech
 
     persistence:
       data:
