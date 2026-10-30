@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: quay.io/thanos/thanos
-              tag: v0.42.4
+              tag: v0.42.5
             args:
               - query
               - --http-address=0.0.0.0:9090
