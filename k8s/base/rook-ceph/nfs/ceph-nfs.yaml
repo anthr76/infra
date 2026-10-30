@@ -14,7 +14,7 @@ spec:
       limits:
         memory: "4Gi"
       requests:
-        cpu: "500m"
-        memory: "2Gi"
+        cpu: "50m"
+        memory: "128Mi"
     priorityClassName: system-cluster-critical
     logLevel: NIV_EVENT
