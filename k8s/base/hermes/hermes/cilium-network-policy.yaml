@@ -24,6 +24,12 @@ spec:
         - ports:
             - port: "53"
               protocol: ANY
+    - toEntities:
+        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "6443"
+              protocol: TCP
     - toCIDRSet:
         - cidr: 0.0.0.0/0
           except:
