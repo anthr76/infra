@@ -1,0 +1,99 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hermes
+  namespace: hermes
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      hermes:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/nousresearch/hermes-agent
+              tag: v0.22.5@sha256:9c5561579f3ffdf333401797094ac3a743738d6c25d40f4331c7bf77b694238d
+            args:
+              - gateway
+              - run
+            env:
+              TZ: America/New_York
+            envFrom:
+              - secretRef:
+                  name: hermes
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec: &probe
+                  exec:
+                    command:
+                      - curl
+                      - -fsS
+                      - -m
+                      - "3"
+                      - http://127.0.0.1:8642/health
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  <<: *probe
+                  periodSeconds: 10
+                  failureThreshold: 30
+            # The image's s6 init must start as root to set up /opt/data, then
+            # drops every service to UID 10000.
+            securityContext:
+              capabilities:
+                drop:
+                  - ALL
+                add:
+                  - CHOWN
+                  - DAC_OVERRIDE
+                  - FOWNER
+                  - KILL
+                  - SETGID
+                  - SETUID
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 4Gi
+        pod:
+          automountServiceAccountToken: false
+          enableServiceLinks: false
+          securityContext:
+            fsGroup: 10000
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile:
+              type: RuntimeDefault
+
+    persistence:
+      data:
+        existingClaim: hermes-data
+        globalMounts:
+          - path: /opt/data
+      shm:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 1Gi
+        globalMounts:
+          - path: /dev/shm
