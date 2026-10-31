@@ -16,6 +16,12 @@ spec:
             - port: "9119"
               protocol: TCP
   egress:
+    # Pods reach the Service via its ClusterIP (socketLB is host-namespace only),
+    # which falls inside the 10.0.0.0/8 exclusion below.
+    - toServices:
+        - k8sService:
+            serviceName: searxng
+            namespace: hermes
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: hermes
