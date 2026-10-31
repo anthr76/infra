@@ -17,11 +17,15 @@ spec:
               protocol: TCP
   egress:
     # Pods reach the Service via its ClusterIP (socketLB is host-namespace only),
-    # which falls inside the 10.0.0.0/8 exclusion below.
-    - toServices:
-        - k8sService:
-            serviceName: searxng
-            namespace: hermes
+    # which falls inside the 10.0.0.0/8 exclusion below. toServices does not match
+    # this selector-backed Service on Cilium 1.20.4, so allow the ClusterIP directly.
+    # The ClusterIP is stable for the life of the searxng Service.
+    - toCIDR:
+        - 10.96.156.43/32
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: hermes
