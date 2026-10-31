@@ -22,3 +22,22 @@ spec:
   prune: true
   dependsOn:
     - name: hermes-namespace
+    - name: searxng
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: searxng
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/hermes/searxng"
+  prune: true
+  dependsOn:
+    - name: hermes-namespace
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: searxng
+      namespace: hermes
