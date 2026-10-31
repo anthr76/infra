@@ -18,6 +18,14 @@ spec:
   egress:
     - toEndpoints:
         - matchLabels:
+            k8s:io.kubernetes.pod.namespace: hermes
+            app.kubernetes.io/name: searxng
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+    - toEndpoints:
+        - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
             k8s-app: kube-dns
       toPorts:

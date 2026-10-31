@@ -35,6 +35,7 @@ spec:
               - run
             env:
               TZ: America/New_York
+              SEARXNG_URL: http://searxng.hermes.svc.cluster.local:8080
               HERMES_DASHBOARD: "1"
               HERMES_DASHBOARD_BASIC_AUTH_USERNAME: anthony
               HERMES_DASHBOARD_PORT: &port 9119
