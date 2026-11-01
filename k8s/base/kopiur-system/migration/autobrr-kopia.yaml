@@ -1,0 +1,61 @@
+# ============================================================================
+# kopiur migrate volsync
+#
+# kopia sources: existing repository reused
+#
+# The Repository below connects to the existing kopia repository, so all
+# snapshots are kept and history continues under the same identity. Keep the
+# referenced VolSync Secret(s): kopiur reads the password from them. kopiur
+# takes over maintenance, so retire the fork's KopiaMaintenance objects and
+# ReplicationSources once kopiur is healthy.
+#
+# Review the per-field accounting printed on stderr before applying.
+# ============================================================================
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: SnapshotPolicy
+metadata:
+  name: autobrr-kopia
+  namespace: media
+spec:
+  compression:
+    compressor: zstd-fastest
+  copyMethod: Snapshot
+  volumeSnapshotClassName: ceph-block
+  identity:
+    hostname: media
+    username: autobrr-kopia
+  mover:
+    cache:
+      capacity: 5Gi
+      storageClassName: fast-ceph-block
+    podSecurityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsUser: 1000
+  repository:
+    kind: ClusterRepository
+    name: volsync-kopia
+  retention:
+    keepDaily: 7
+    keepHourly: 24
+    keepWeekly: 4
+  sources:
+  - pvc:
+      name: autobrr-config-v1
+    sourcePathOverride: /data
+  upload:
+    maxParallelFileReads: 2
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: SnapshotSchedule
+metadata:
+  name: autobrr-kopia
+  namespace: media
+spec:
+  policyRef:
+    name: autobrr-kopia
+  schedule:
+    cron: 0 * * * *
+    suspend: true
+    runOnCreate: false
