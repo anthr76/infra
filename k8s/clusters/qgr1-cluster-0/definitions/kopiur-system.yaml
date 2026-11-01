@@ -1,0 +1,62 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kopiur-system
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  path: "./k8s/base/kopiur-system"
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kopiur-system-kopiur
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  dependsOn:
+    - name: kopiur-system
+    - name: flux-system-helm-chart-repos
+  path: "./k8s/base/kopiur-system/kopiur"
+  prune: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: kopiur
+      namespace: kopiur-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kopiur-system-coordinates
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  dependsOn:
+    - name: kopiur-system
+    - name: external-secrets-cluster-secret-store
+  path: "./k8s/base/kopiur-system/coordinates"
+  prune: true
+---
+# Keep this suspended: rsync.net currently uses password auth; Kopiur requires
+# a provisioned SSH key. Existing VolSync backups must continue until cutover.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kopiur-system-migration
+  namespace: flux-system
+  labels:
+    component.kutara.io/part-of: definitions
+spec:
+  suspend: true
+  dependsOn:
+    - name: kopiur-system-kopiur
+    - name: volsync-system
+    - name: kopiur-system-coordinates
+  path: "./k8s/base/kopiur-system/migration"
+  prune: true

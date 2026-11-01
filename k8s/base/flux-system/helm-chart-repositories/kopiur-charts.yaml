@@ -1,0 +1,11 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kopiur-charts
+  namespace: flux-system
+spec:
+  type: oci
+  interval: 1h
+  timeout: 3m
+  url: oci://ghcr.io/home-operations/charts
