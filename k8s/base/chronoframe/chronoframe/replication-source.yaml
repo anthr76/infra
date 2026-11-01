@@ -22,7 +22,7 @@ spec:
       - ReadWriteOnce
     cacheAccessModes:
       - ReadWriteOnce
-    cacheCapacity: 1Gi
+    cacheCapacity: 5Gi
     cacheStorageClassName: fast-ceph-block
     compression: zstd-fastest
     retain:
