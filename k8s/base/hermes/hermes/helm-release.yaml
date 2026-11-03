@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: docker.io/nousresearch/hermes-agent
-              tag: v0.22.5-desktop@sha256:04f7a36d125bc3ebdef090cd5cf0cccaa74699e5a1a77c2965a4db437f24bf13
+              tag: v0.22.7-desktop@sha256:e655ce57374faca9404db91c96893a05df18904e508cb98786d59a9c80ee8ecf
             args:
               - gateway
               - run
