@@ -20,14 +20,13 @@ spec:
         - matchLabels:
             app.kubernetes.io/name: searxng
             k8s:io.kubernetes.pod.namespace: hermes
-    # Replies to Service (ClusterIP) calls to media apps.
-    - fromEndpoints:
-        - matchLabels:
-            k8s:io.kubernetes.pod.namespace: media
+    # Home cluster: allow replies/traffic from anywhere in the cluster.
+    - fromEntities:
+        - cluster
   egress:
-    - toEndpoints:
-        - matchLabels:
-            k8s:io.kubernetes.pod.namespace: media
+    # Home cluster: allow egress to everything in the cluster.
+    - toEntities:
+        - cluster
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: hermes
