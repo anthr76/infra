@@ -20,7 +20,32 @@ spec:
         - matchLabels:
             app.kubernetes.io/name: searxng
             k8s:io.kubernetes.pod.namespace: hermes
+    # Replies to Service (ClusterIP) calls to the *arr apps.
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: sonarr
+            k8s:io.kubernetes.pod.namespace: media
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: radarr
+            k8s:io.kubernetes.pod.namespace: media
   egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: media
+            app.kubernetes.io/name: sonarr
+      toPorts:
+        - ports:
+            - port: "8989"
+              protocol: TCP
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: media
+            app.kubernetes.io/name: radarr
+      toPorts:
+        - ports:
+            - port: "7878"
+              protocol: TCP
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: hermes
