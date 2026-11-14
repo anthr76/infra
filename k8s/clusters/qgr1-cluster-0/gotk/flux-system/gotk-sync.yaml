@@ -109,3 +109,16 @@ spec:
         group: kustomize.toolkit.fluxcd.io
         version: v1
         labelSelector: "component.kutara.io/part-of=definitions"
+    # The generic patch above supplies both cluster ConfigMaps. Append the
+    # private SFTP coordinates only to this one suspended migration Kustomization.
+    - patch: |-
+        - op: add
+          path: /spec/postBuild/substituteFrom/-
+          value:
+            kind: Secret
+            name: kopiur-coordinates
+      target:
+        kind: Kustomization
+        group: kustomize.toolkit.fluxcd.io
+        version: v1
+        name: kopiur-system-migration
