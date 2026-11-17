@@ -16,7 +16,8 @@ metadata:
   name: ${CLUSTER_NAME}-github
   namespace: flux-system
 spec:
-  summary: "${CLUSTER_NAME}"
+  eventMetadata:
+    summary: "${CLUSTER_NAME}"
   providerRef:
     name: github
   eventSeverity: info
