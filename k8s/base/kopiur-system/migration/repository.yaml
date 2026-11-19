@@ -1,0 +1,34 @@
+---
+# Coordinates are substituted by Flux from a Secret in flux-system; the public
+# repository never stores the SFTP host or username. No create block: adopt the
+# existing Kopia repository, never initialize a new one.
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: ClusterRepository
+metadata:
+  name: volsync-kopia
+spec:
+  backend:
+    sftp:
+      host: ${RSYNC_NET_HOST}
+      port: 22
+      path: /data1/home/${RSYNC_NET_USER}/volsync
+      username: ${RSYNC_NET_USER}
+      auth:
+        secretRef:
+          name: kopiur-sftp-creds
+          namespace: volsync-system
+  encryption:
+    passwordSecretRef:
+      name: volsync-kopia
+      namespace: volsync-system
+      key: KOPIA_PASSWORD
+  allowedNamespaces:
+    list:
+      - chronoframe
+      - hermes
+      - home
+      - infra
+      - media
+  maintenance:
+    # Leave off until the fork's KopiaMaintenance is retired during cutover.
+    enabled: false
