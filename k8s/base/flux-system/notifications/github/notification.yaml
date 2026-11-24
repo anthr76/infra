@@ -1,5 +1,5 @@
 ---
-apiVersion: notification.toolkit.fluxcd.io/v1beta3
+apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Provider
 metadata:
   name: github
@@ -10,13 +10,14 @@ spec:
   secretRef:
     name: github-token
 ---
-apiVersion: notification.toolkit.fluxcd.io/v1beta3
+apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Alert
 metadata:
   name: ${CLUSTER_NAME}-github
   namespace: flux-system
 spec:
-  summary: "${CLUSTER_NAME}"
+  eventMetadata:
+    summary: "${CLUSTER_NAME}"
   providerRef:
     name: github
   eventSeverity: info

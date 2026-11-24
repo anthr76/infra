@@ -33,6 +33,16 @@ spec:
     monitoring:
       enabled: true
     cephClusterSpec:
+      # Requests track observed use so OSDs don't reserve most of a node (a 7d
+      # peak was 2.4GiB per OSD). Limits are unchanged, and Ceph derives
+      # osd_memory_target from the limit, so OSDs can still burst for recovery.
+      resources:
+        osd:
+          limits:
+            memory: "4Gi"
+          requests:
+            cpu: "250m"
+            memory: "2600Mi"
       security:
         cephx:
           # CVE-2025-30156: rotate core daemon keys (mon, mgr, osd, mds, rgw,
@@ -230,8 +240,8 @@ spec:
                 cpu: "2000m"
                 memory: "2Gi"
               requests:
-                cpu: "1000m"
-                memory: "1Gi"
+                cpu: "100m"
+                memory: "512Mi"
             instances: 1
             priorityClassName: system-cluster-critical
         storageClass:

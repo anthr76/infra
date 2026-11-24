@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 92.11.0
+      version: 93.9.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community-oci
@@ -101,7 +101,7 @@ spec:
             prometheus.kutara.io/evaluate-rules: "true"
         thanos:
           # renovate: datasource=docker depName=quay.io/thanos/thanos
-          image: quay.io/thanos/thanos:v0.42.4
+          image: quay.io/thanos/thanos:v0.42.5
         resources:
           requests:
             cpu: 200m

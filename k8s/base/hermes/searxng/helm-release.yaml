@@ -1,0 +1,124 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: searxng
+  namespace: hermes
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      searxng:
+        type: deployment
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          automountServiceAccountToken: false
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 977
+            runAsGroup: 977
+            runAsNonRoot: true
+            fsGroup: 977
+            seccompProfile:
+              type: RuntimeDefault
+        containers:
+          app:
+            image:
+              repository: docker.io/searxng/searxng
+              tag: 2026.10.30-ffa88e3ba@sha256:f4aa660c54d062dedb268be84e821ea24e39f48c7a496af8dd02cc9eedb93847
+            env:
+              TZ: America/New_York
+              GRANIAN_HOST: "0.0.0.0"
+              GRANIAN_WORKERS: "1"
+              SEARXNG_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: searxng
+                    key: secret-key
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: [ALL]
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec: &probe
+                  httpGet:
+                    path: /healthz
+                    port: 8080
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec: *probe
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  <<: *probe
+                  periodSeconds: 5
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 1Gi
+    service:
+      app:
+        controller: searxng
+        type: ClusterIP
+        ports:
+          http:
+            port: 8080
+    configMaps:
+      config:
+        data:
+          settings.yml: |
+            use_default_settings: true
+            general:
+              instance_name: QGR1 Hermes Search
+            search:
+              formats:
+                - html
+                - json
+            server:
+              limiter: false
+              public_instance: false
+              image_proxy: false
+            outgoing:
+              request_timeout: 5.0
+              max_request_timeout: 10.0
+    persistence:
+      config:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /etc/searxng/settings.yml
+            subPath: settings.yml
+            readOnly: true
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /var/cache/searxng
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
