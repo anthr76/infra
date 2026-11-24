@@ -47,6 +47,16 @@
       },
     },
     {
+      description: "Kamaji Group",
+      // The controller image tag and the GitRepository ref the chart is
+      // sparse-checked-out from must move together.
+      groupName: "kamaji",
+      matchPackageNames: ["/(^|\\/)clastix\\/kamaji$/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
       description: "Rook-Ceph Group",
       groupName: "rook-ceph",
       matchDatasources: ["docker", "helm"],

@@ -19,7 +19,10 @@ spec:
         namespace: flux-system
   values:
     image:
-      tag: 26.6.4-edge
+      # Must match the chart ref in flux-system/helm-chart-repositories/clastix.yaml;
+      # Renovate groups both (see .renovate/groups.json5).
+      # renovate: datasource=docker depName=clastix/kamaji
+      tag: 26.11.5-edge
     # The chart default limit of 100Mi gets the controller OOM-killed
     # (51 restarts in 15 days).
     resources:

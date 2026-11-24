@@ -9,6 +9,6 @@ spec:
   timeout: 3m
   url: https://github.com/clastix/kamaji
   ref:
-    tag: 26.6.4-edge
+    tag: 26.11.5-edge
   sparseCheckout:
     - charts

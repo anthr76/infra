@@ -21,6 +21,11 @@
       minimumReleaseAge: "14 days",
     },
     {
+      description: "Kamaji only publishes YY.M.N-edge tags; treat -edge as a compatibility suffix, not a prerelease, so updates across versions are offered",
+      matchPackageNames: ["/(^|\\/)clastix\\/kamaji$/"],
+      versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>edge)$",
+    },
+    {
       description: "Flux releases are tagged vX.Y.Z; FluxInstance takes X.Y.Z",
       matchDatasources: ["github-releases"],
       matchPackageNames: ["fluxcd/flux2"],
