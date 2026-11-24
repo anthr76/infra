@@ -128,3 +128,31 @@ flux-resume:
     just _flux-gr-resume
     just _flux-ks-resume
     just _flux-hr-resume
+
+# Refresh expired client certs for civo-mgmt-0 (Civo k3s) and qgr1 (Kamaji TCP) in ~/.kube/config
+kubeconfig-refresh civo_cluster="kutara" civo_region="nyc1" tcp_ns="tenant-cluster-qgr1" tcp="qgr1":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    kc="${KUBECONFIG:-$HOME/.kube/config}"
+    work=$(mktemp -d); trap 'rm -rf "$work"' EXIT; chmod 700 "$work"
+    cp "$kc" "$kc.bak-$(date +%Y%m%d%H%M%S)"
+    ext() { kubectl --kubeconfig "$1" config view --raw -o jsonpath="{.$2}" | base64 -d > "$3"; }
+
+    echo "==> civo-mgmt-0: fetching kubeconfig for {{ civo_cluster }} ({{ civo_region }})"
+    civo kubernetes config "{{ civo_cluster }}" --region "{{ civo_region }}" > "$work/civo.conf"
+    ext "$work/civo.conf" 'users[0].user.client-certificate-data' "$work/civo.crt"
+    ext "$work/civo.conf" 'users[0].user.client-key-data' "$work/civo.key"
+    ext "$work/civo.conf" 'clusters[0].cluster.certificate-authority-data' "$work/civo-ca.crt"
+    kubectl --kubeconfig "$kc" config set-credentials civo-mgmt-0 --client-certificate="$work/civo.crt" --client-key="$work/civo.key" --embed-certs
+    kubectl --kubeconfig "$kc" config set-cluster civo-mgmt-0 --certificate-authority="$work/civo-ca.crt" --embed-certs
+
+    echo "==> qgr1: reading {{ tcp }}-admin-kubeconfig from Kamaji"
+    kubectl --kubeconfig "$kc" --context civo-mgmt-0 -n "{{ tcp_ns }}" get secret "{{ tcp }}-admin-kubeconfig" \
+      -o jsonpath='{.data.admin\.conf}' | base64 -d > "$work/qgr1.conf"
+    ext "$work/qgr1.conf" 'users[0].user.client-certificate-data' "$work/qgr1.crt"
+    ext "$work/qgr1.conf" 'users[0].user.client-key-data' "$work/qgr1.key"
+    kubectl --kubeconfig "$kc" config set-credentials kubernetes-admin --client-certificate="$work/qgr1.crt" --client-key="$work/qgr1.key" --embed-certs
+
+    for f in civo qgr1; do printf '%s cert ' "$f"; openssl x509 -noout -enddate -in "$work/$f.crt"; done
+    kubectl --kubeconfig "$kc" --context civo-mgmt-0 get nodes >/dev/null && echo "civo-mgmt-0 OK"
+    kubectl --kubeconfig "$kc" --context kubernetes-admin@qgr1 get nodes >/dev/null && echo "qgr1 OK"
