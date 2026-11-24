@@ -21,6 +21,13 @@ spec:
     crds: CreateReplace
   values:
     replicaCount: 3
+    # Peak working set ~37Mi on qgr1.
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        memory: 128Mi
     app:
       trust:
         namespace: networking

@@ -15,3 +15,11 @@ spec:
         name: tailscale
         namespace: flux-system
   values:
+    operatorConfig:
+      # Observed ~90Mi.
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 256Mi

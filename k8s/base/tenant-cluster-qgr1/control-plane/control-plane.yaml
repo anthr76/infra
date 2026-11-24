@@ -14,6 +14,24 @@ spec:
       additionalMetadata:
         labels:
           tenant.clastix.io: qgr1
+      # Kamaji defaults to maxSurge 100% (blue/green), which runs six
+      # kube-apiservers during a rollout and got one evicted for node memory
+      # pressure on civo-mgmt-0. Replace pods one at a time instead.
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+      # One control-plane pod per node, so a node loss takes out one replica
+      # and two kube-apiservers never compete for one node's memory.
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              kamaji.clastix.io/name: qgr1
+              kamaji.clastix.io/component: deployment
       extraArgs:
         apiServer:
           - --advertise-address=100.94.68.123
@@ -21,28 +39,34 @@ spec:
           - --feature-gates=MutatingAdmissionPolicy=true
         controllerManager: []
         scheduler: []
+      # Memory sized from observed usage on civo-mgmt-0 (Nov 2026):
+      # kube-apiserver 1.7Gi fresh, ~3.0Gi daily peak; controller-manager
+      # ~260Mi as leader; scheduler ~65Mi. GOMEMLIMIT is injected at 90% of
+      # each limit (kamaji-system/gomemlimit-policy.yaml). The apiserver
+      # request is below its limit on purpose: 3x3Gi requested would commit
+      # ~96% of the node pool's allocatable memory.
       resources:
         apiServer:
           requests:
             cpu: 250m
-            memory: 1Gi
+            memory: 2Gi
           limits:
             cpu: 2000m
             memory: 3Gi
         controllerManager:
           requests:
-            cpu: 100m
+            cpu: 50m
             memory: 256Mi
           limits:
             cpu: 1000m
-            memory: 1Gi
+            memory: 512Mi
         scheduler:
           requests:
-            cpu: 100m
+            cpu: 25m
             memory: 128Mi
           limits:
             cpu: 500m
-            memory: 512Mi
+            memory: 256Mi
     service:
       additionalMetadata:
         labels:

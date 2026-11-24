@@ -21,6 +21,15 @@ spec:
       enabled: false
     installdefaultNFDRule: false
 
+    # Auto node remediation runs on Argo Workflows. It is unused here
+    # (deviceConfig remediationWorkflow is off), so skip its workflow
+    # controller and the ~4MiB of Argo CRDs the kube-apiserver has to hold.
+    # The CRDs ship in the subchart's crds/ dir, which Helm never deletes:
+    # remove them by hand once this is applied.
+    remediation:
+      enabled: false
+      installCRDs: false
+
     crds:
       defaultCR:
         # Re-apply the default DeviceConfig below on every chart upgrade, so

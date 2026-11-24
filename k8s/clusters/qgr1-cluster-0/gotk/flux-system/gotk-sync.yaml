@@ -97,6 +97,20 @@ spec:
                 group: helm.toolkit.fluxcd.io
                 version: v2
                 labelSelector: "component.kutara.io/part-of=standard-helm-release"
+            # Every HelmRelease: keep 2 Helm release Secrets instead of 5. Each
+            # holds the full rendered manifest and the kube-apiserver caches them.
+            - patch: |-
+                apiVersion: helm.toolkit.fluxcd.io/v1
+                kind: HelmRelease
+                metadata:
+                  name: not-used
+                  namespace: not-used
+                spec:
+                  maxHistory: 2
+              target:
+                kind: HelmRelease
+                group: helm.toolkit.fluxcd.io
+                version: v2
           postBuild:
             substitute: {}
             substituteFrom:

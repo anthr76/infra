@@ -30,8 +30,36 @@ spec:
     serviceMonitor:
       enabled: true
       renderMode: skipIfMissing
+    # Working set on qgr1 / civo-mgmt-0: controller 65/43Mi, webhook 48/39Mi,
+    # cert-controller 81/54Mi, bitwarden-sdk-server 18/303Mi.
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 256Mi
+    webhook:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 48Mi
+        limits:
+          memory: 160Mi
+    certController:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 256Mi
     bitwarden-sdk-server:
       enabled: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 512Mi
       # The SDK server only reads its TLS certificate at startup, so restart it
       # when cert-manager renews bitwarden-tls-certs.
       deploymentAnnotations:

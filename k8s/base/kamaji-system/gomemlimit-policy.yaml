@@ -1,8 +1,10 @@
 ---
 # Kamaji has no way to set env on control-plane containers, so inject
 # GOMEMLIMIT into every container of every tenant control-plane pod at
-# creation. It comes from the container's own memory limit via the downward
-# API, so the Go GC works to stay under the limit instead of getting OOMKilled.
+# creation. It is set to 90% of the container's own memory limit, so the Go GC
+# works to stay under the limit and the remaining 10% covers non-heap memory
+# (goroutine stacks, mmaps, cgo) instead of the container getting OOMKilled.
+# Containers without a memory limit are left alone.
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingAdmissionPolicy
 metadata:
@@ -19,22 +21,27 @@ spec:
     objectSelector:
       matchLabels:
         kamaji.clastix.io/component: deployment
-  variables:
-    - name: gomemlimit
-      expression: >
-        {"name": dyn("GOMEMLIMIT"), "valueFrom": dyn({"resourceFieldRef": {"resource": "limits.memory"}})}
   mutations:
-    # JSONPatch rather than ApplyConfiguration: resourceFieldRef is an atomic
-    # struct, which ApplyConfiguration may not set.
+    # JSONPatch rather than ApplyConfiguration: env is a list keyed by name,
+    # and JSONPatch lets the expression add to it per container index.
     - patchType: JSONPatch
       jsonPatch:
         expression: >
           lists.range(size(object.spec.containers))
-            .filter(i, !has(object.spec.containers[i].env) ||
-              !object.spec.containers[i].env.exists(e, e.name == "GOMEMLIMIT"))
-            .map(i, has(object.spec.containers[i].env) ?
-              JSONPatch{op: "add", path: "/spec/containers/" + string(i) + "/env/-", value: variables.gomemlimit} :
-              JSONPatch{op: "add", path: "/spec/containers/" + string(i) + "/env", value: [variables.gomemlimit]})
+            .filter(i,
+              has(object.spec.containers[i].resources) &&
+              has(object.spec.containers[i].resources.limits) &&
+              "memory" in object.spec.containers[i].resources.limits &&
+              (!has(object.spec.containers[i].env) ||
+                !object.spec.containers[i].env.exists(e, e.name == "GOMEMLIMIT")))
+            .map(i, [dyn(i), dyn({
+              "name": dyn("GOMEMLIMIT"),
+              "value": dyn(string(int(
+                quantity(object.spec.containers[i].resources.limits["memory"]).asApproximateFloat() * 0.9)))
+            })])
+            .map(p, has(object.spec.containers[p[0]].env) ?
+              JSONPatch{op: "add", path: "/spec/containers/" + string(p[0]) + "/env/-", value: p[1]} :
+              JSONPatch{op: "add", path: "/spec/containers/" + string(p[0]) + "/env", value: [p[1]]})
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingAdmissionPolicyBinding

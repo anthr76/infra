@@ -29,16 +29,18 @@ spec:
         labels: {}
         honorLabels: true
 
-    deployment:
-      replicas: 1
-      revisionHistoryLimit: 2
-      resources:
-        limits:
-          cpu: 100m
-          memory: 512Mi
-        requests:
-          cpu: 10m
-          memory: 128Mi
+      # The chart reads these under reloader.deployment; at the top level they
+      # were silently ignored and the pod ran without requests or limits.
+      deployment:
+        replicas: 1
+        revisionHistoryLimit: 2
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+          requests:
+            cpu: 10m
+            memory: 96Mi
 
     rbac:
       enabled: true

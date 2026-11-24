@@ -22,10 +22,37 @@ spec:
   values:
     installCRDs: true
     replicaCount: 3
+    # Peak working set over 13d on qgr1 / now on civo-mgmt-0: controller
+    # 32/37Mi, webhook 77/36Mi, cainjector 176/69Mi.
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 128Mi
     webhook:
       replicaCount: 3
+      resources:
+        requests:
+          cpu: 10m
+          memory: 48Mi
+        limits:
+          memory: 160Mi
     cainjector:
       replicaCount: 3
+      resources:
+        requests:
+          cpu: 10m
+          memory: 128Mi
+        limits:
+          memory: 384Mi
+    startupapicheck:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          memory: 64Mi
     extraArgs:
       - --dns01-recursive-nameservers=1.1.1.1:53,1.0.0.1:53
       - --dns01-recursive-nameservers-only

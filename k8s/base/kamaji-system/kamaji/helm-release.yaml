@@ -46,3 +46,19 @@ spec:
       extraArgs:
         - --heartbeat-interval=500
         - --election-timeout=5000
+      # Without requests etcd was BestEffort: first to be evicted under node
+      # memory pressure. Observed 130-555Mi (the leader is the largest).
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          memory: 1Gi
+      # One member per node, so a node loss never costs etcd its quorum.
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              application: kamaji-etcd
