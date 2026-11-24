@@ -9,6 +9,9 @@
       "cilium-cli": {
         "pkg-path": "cilium-cli"
       },
+      "civo": {
+        "pkg-path": "civo"
+      },
       "cmctl": {
         "pkg-path": "cmctl"
       },
@@ -301,6 +304,122 @@
       ],
       "outputs": {
         "out": "/nix/store/yha5azxi58d49dnlx62izm85sl90mfag-cilium-cli-0.19.4"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "civo",
+      "broken": false,
+      "derivation": "/nix/store/0gfbbf40m803886w51ywph0h31qyjg0c-civo-1.5.1.drv",
+      "description": "CLI for interacting with Civo resources",
+      "install_id": "civo",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "name": "civo-1.5.1",
+      "pname": "civo",
+      "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "rev_count": 1011622,
+      "rev_date": "2026-06-06T12:30:50Z",
+      "scrape_date": "2026-06-08T03:14:19.037259Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.5.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/vjrjchjhmsd79klp4r1908jkls0hpn11-civo-1.5.1"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "civo",
+      "broken": false,
+      "derivation": "/nix/store/81pvq55gb7vpgvq346msldwjchhzjcz9-civo-1.5.1.drv",
+      "description": "CLI for interacting with Civo resources",
+      "install_id": "civo",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "name": "civo-1.5.1",
+      "pname": "civo",
+      "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "rev_count": 1011622,
+      "rev_date": "2026-06-06T12:30:50Z",
+      "scrape_date": "2026-06-08T03:46:51.170046Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.5.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/i503zp8y66x85jy6ddv9jhkfdxjghaqw-civo-1.5.1"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "civo",
+      "broken": false,
+      "derivation": "/nix/store/drlw0d3c55y8z967qcxc1ry5zb1ciph4-civo-1.5.1.drv",
+      "description": "CLI for interacting with Civo resources",
+      "install_id": "civo",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "name": "civo-1.5.1",
+      "pname": "civo",
+      "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "rev_count": 1011622,
+      "rev_date": "2026-06-06T12:30:50Z",
+      "scrape_date": "2026-06-08T04:17:43.789947Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.5.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/8nnjldyygn9y3v5rrdgpzg7plbb40zi2-civo-1.5.1"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "civo",
+      "broken": false,
+      "derivation": "/nix/store/cxh8r96rfwn8zly1zz7c5895x7w3fswz-civo-1.5.1.drv",
+      "description": "CLI for interacting with Civo resources",
+      "install_id": "civo",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "name": "civo-1.5.1",
+      "pname": "civo",
+      "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "rev_count": 1011622,
+      "rev_date": "2026-06-06T12:30:50Z",
+      "scrape_date": "2026-06-08T04:53:14.799286Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.5.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/bd2vkf8d0aydzh0dnykcky23s03vl7fv-civo-1.5.1"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
@@ -1283,6 +1402,8 @@
       "version": "1.36.1",
       "outputs_to_install": [
         "man",
+        "man",
+        "out",
         "out"
       ],
       "outputs": {
@@ -1379,6 +1500,8 @@
       "version": "1.36.1",
       "outputs_to_install": [
         "man",
+        "man",
+        "out",
         "out"
       ],
       "outputs": {
@@ -1643,6 +1766,7 @@
       "unfree": false,
       "version": "5.8.1",
       "outputs_to_install": [
+        "out",
         "out"
       ],
       "outputs": {
@@ -1730,6 +1854,7 @@
       "unfree": false,
       "version": "5.8.1",
       "outputs_to_install": [
+        "out",
         "out",
         "out"
       ],
