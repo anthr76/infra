@@ -19,7 +19,8 @@ spec:
         namespace: flux-system
   values:
     image:
-      # Must match the chart ref in flux-system/helm-chart-repositories/clastix.yaml;
+      # Must match the chart ref in
+      # flux-system/helm-chart-repositories/clastix.yaml;
       # Renovate groups both (see .renovate/groups.json5).
       # renovate: datasource=docker depName=clastix/kamaji
       tag: 26.11.5-edge
