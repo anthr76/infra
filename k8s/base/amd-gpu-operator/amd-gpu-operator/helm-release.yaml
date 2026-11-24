@@ -67,7 +67,7 @@ spec:
 
         metricsExporter:
           enable: true
-          image: docker.io/rocm/device-metrics-exporter:v1.5.3
+          image: docker.io/rocm/device-metrics-exporter:v1.5.4
           imagePullPolicy: IfNotPresent
           serviceType: ClusterIP
           port: 5000
@@ -96,7 +96,7 @@ spec:
 
         configManager:
           enable: false
-          image: docker.io/rocm/device-config-manager:v1.5.3
+          image: docker.io/rocm/device-config-manager:v1.5.4
           imagePullPolicy: IfNotPresent
           upgradePolicy:
             maxUnavailable: 1
