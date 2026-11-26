@@ -10,10 +10,22 @@ spec:
   dataStore: default
   controlPlane:
     deployment:
-      replicas: 3
+      replicas: 2
       additionalMetadata:
         labels:
           tenant.clastix.io: qgr1
+      # Prefer, never require, the large nodes: a kube-apiserver can use up
+      # to 3Gi, more than a g4s.kube.medium can hold, but a hard pin would
+      # leave the control plane unschedulable if the node sizes change.
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: node.kubernetes.io/instance-type
+                    operator: In
+                    values: ["g4s.kube.large"]
       # Kamaji defaults to maxSurge 100% (blue/green), which runs six
       # kube-apiservers during a rollout and got one evicted for node memory
       # pressure on civo-mgmt-0. Replace pods one at a time instead.
