@@ -99,6 +99,15 @@ spec:
               formats:
                 - html
                 - json
+              # Back off longer when an engine blocks us so the WAN IP's
+              # reputation can recover instead of re-tripping every few minutes.
+              suspended_times:
+                SearxEngineAccessDenied: 3600
+                SearxEngineCaptcha: 3600
+                SearxEngineTooManyRequests: 900
+                cf_SearxEngineCaptcha: 86400
+                cf_SearxEngineAccessDenied: 3600
+                recaptcha_SearxEngineCaptcha: 86400
             server:
               limiter: false
               public_instance: false
@@ -106,6 +115,20 @@ spec:
             outgoing:
               request_timeout: 5.0
               max_request_timeout: 10.0
+            # Spread general queries across engines that tolerate a residential
+            # IP; drop the ones that reliably captcha/403 from QGR1's egress.
+            engines:
+              - name: bing
+                disabled: false
+              - name: yahoo
+                disabled: false
+              - name: mojeek
+                inactive: false
+                disabled: false
+              - name: brave
+                disabled: true
+              - name: wikidata
+                disabled: true
     persistence:
       config:
         type: configMap

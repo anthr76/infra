@@ -17,6 +17,13 @@ spec:
         - ports:
             - port: "8080"
               protocol: TCP
+    # Cilium 1.20 KPR: when the ClusterIP DNS lookup lands on a same-node
+    # CoreDNS backend, the reply (src rewritten to 10.96.0.10) misses conntrack
+    # and is policy-dropped on ingress. Allow CoreDNS replies explicitly.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
   egress:
     - toEndpoints:
         - matchLabels:
