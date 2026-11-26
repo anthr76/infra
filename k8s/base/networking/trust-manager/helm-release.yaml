@@ -20,7 +20,8 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    replicaCount: 3
+    # ADDON_REPLICAS is set per cluster in flux-system/cluster-config overlays.
+    replicaCount: ${ADDON_REPLICAS:=3}
     # Peak working set ~37Mi on qgr1.
     resources:
       requests:

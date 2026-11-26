@@ -6,3 +6,7 @@ metadata:
   namespace: flux-system
 data:
   CLUSTER_NAME: "civo-mgmt-0"
+  # Single replica for shared add-ons (cert-manager, trust-manager): this
+  # cluster only hosts the qgr1 control plane, so HA add-ons cost more than
+  # they protect.
+  ADDON_REPLICAS: "1"

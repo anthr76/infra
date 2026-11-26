@@ -21,7 +21,9 @@ spec:
     crds: CreateReplace
   values:
     installCRDs: true
-    replicaCount: 3
+    # ADDON_REPLICAS is set per cluster in flux-system/cluster-config overlays
+    # (1 on civo-mgmt-0, which only hosts the qgr1 control plane).
+    replicaCount: ${ADDON_REPLICAS:=3}
     # Peak working set over 13d on qgr1 / now on civo-mgmt-0: controller
     # 32/37Mi, webhook 77/36Mi, cainjector 176/69Mi.
     resources:
@@ -31,7 +33,7 @@ spec:
       limits:
         memory: 128Mi
     webhook:
-      replicaCount: 3
+      replicaCount: ${ADDON_REPLICAS:=3}
       resources:
         requests:
           cpu: 10m
@@ -39,7 +41,7 @@ spec:
         limits:
           memory: 160Mi
     cainjector:
-      replicaCount: 3
+      replicaCount: ${ADDON_REPLICAS:=3}
       resources:
         requests:
           cpu: 10m

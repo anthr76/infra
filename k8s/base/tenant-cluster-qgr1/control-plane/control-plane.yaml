@@ -10,7 +10,10 @@ spec:
   dataStore: default
   controlPlane:
     deployment:
-      replicas: 2
+      # Single kube-apiserver to fit the 1x large + 2x medium civo-mgmt-0 pool.
+      # Accepted tradeoff: qgr1's API is down while its node reboots or a
+      # rollout replaces the pod (qgr1 workloads keep running meanwhile).
+      replicas: 1
       additionalMetadata:
         labels:
           tenant.clastix.io: qgr1
