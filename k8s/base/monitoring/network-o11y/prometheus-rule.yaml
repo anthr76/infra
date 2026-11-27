@@ -1,0 +1,53 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: qgr1-network
+  namespace: monitoring
+spec:
+  groups:
+    - name: qgr1-network
+      rules:
+        - alert: NetworkDeviceDown
+          expr: probe_success{job="qgr1-network-icmp"} == 0
+          for: 3m
+          labels:
+            severity: warning
+          annotations:
+            summary: "{{ $labels.instance }} is not answering ping"
+        - alert: InternetUnreachable
+          expr: probe_success{job="qgr1-network-icmp", instance="1.1.1.1"} == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "qgr1 cannot reach the internet through fw1 (WAN down or NAT broken)"
+        - alert: ApiServerNameNotResolving
+          expr: probe_success{job="qgr1-dns", query="qgr1-k8s.mole-bowfin.ts.net"} == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "fw1 BIND does not resolve qgr1-k8s.mole-bowfin.ts.net; kubelets will go NotReady"
+            description: "Check tailscaled on fw1 and flush with: rndc flushtree mole-bowfin.ts.net"
+        - alert: UnifiControllerNameWrong
+          expr: probe_success{job="qgr1-dns", query="unifi.qgr1.rabbito.tech"} == 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "unifi.qgr1.rabbito.tech does not resolve to only 10.45.0.6; device adoption/inform may fail"
+        - alert: PublicDnsBroken
+          expr: probe_success{job="qgr1-dns", query="ghcr.io"} == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "fw1 cannot resolve public names; image pulls will fail"
+        - alert: UnifiInformUnreachable
+          expr: probe_success{job="qgr1-network-tcp", instance="10.45.0.6:8080"} == 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "UniFi controller inform endpoint 10.45.0.6:8080 is unreachable"

@@ -1,0 +1,107 @@
+---
+# Reachability of qgr1 network gear on the management VLAN (99) and fw1.
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: qgr1-network-icmp
+  namespace: monitoring
+spec:
+  jobName: qgr1-network-icmp
+  interval: 30s
+  module: icmp
+  prober:
+    url: blackbox-exporter.monitoring.svc:9115
+  targets:
+    staticConfig:
+      relabelingConfigs:
+        - sourceLabels: [__param_target]
+          targetLabel: instance
+      static:
+        - 10.20.99.1 # fw1-qgr1 (mgmt)
+        - 192.168.6.1 # fw1-qgr1 (lan)
+        - 10.20.99.10 # sw-core-2
+        - 10.20.99.15 # sw-2
+        - 10.20.99.20 # sw-core-1
+        - 10.20.99.30 # sw-access-1
+        - 10.20.99.25 # basement-ap
+        - 10.20.99.31 # ups (APC NMC)
+        - 10.20.99.21 # worker-3-bmc
+        - 10.20.99.22 # worker-2-bmc
+        - 10.20.99.23 # worker-1-bmc
+        - 10.20.99.24 # worker-4-bmc
+        - 10.20.99.41 # worker-5-bmc (iLO)
+        - 1.1.1.1 # internet via fw1 WAN
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: qgr1-network-tcp
+  namespace: monitoring
+spec:
+  jobName: qgr1-network-tcp
+  interval: 30s
+  module: tcp_connect
+  prober:
+    url: blackbox-exporter.monitoring.svc:9115
+  targets:
+    staticConfig:
+      relabelingConfigs:
+        - sourceLabels: [__param_target]
+          targetLabel: instance
+      static:
+        - 10.45.0.6:8080 # UniFi controller inform endpoint
+        - 10.20.99.1:53 # fw1 BIND
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: qgr1-dns-apiserver
+  namespace: monitoring
+spec:
+  jobName: qgr1-dns
+  interval: 30s
+  module: dns_qgr1_apiserver
+  prober:
+    url: blackbox-exporter.monitoring.svc:9115
+  targets:
+    staticConfig:
+      labels:
+        query: qgr1-k8s.mole-bowfin.ts.net
+      static:
+        - 10.20.99.1
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: qgr1-dns-unifi
+  namespace: monitoring
+spec:
+  jobName: qgr1-dns
+  interval: 60s
+  module: dns_unifi
+  prober:
+    url: blackbox-exporter.monitoring.svc:9115
+  targets:
+    staticConfig:
+      labels:
+        query: unifi.qgr1.rabbito.tech
+      static:
+        - 10.20.99.1
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: qgr1-dns-public
+  namespace: monitoring
+spec:
+  jobName: qgr1-dns
+  interval: 60s
+  module: dns_public
+  prober:
+    url: blackbox-exporter.monitoring.svc:9115
+  targets:
+    staticConfig:
+      labels:
+        query: ghcr.io
+      static:
+        - 10.20.99.1
