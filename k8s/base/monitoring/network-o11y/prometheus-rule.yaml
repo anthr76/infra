@@ -51,3 +51,96 @@ spec:
             severity: warning
           annotations:
             summary: "UniFi controller inform endpoint 10.45.0.6:8080 is unreachable"
+    # MikroTik switches via mktxp (RouterOS API). Dashboard: Grafana "qgr1 Network / Switches".
+    - name: qgr1-switches
+      rules:
+        - alert: MktxpScrapeFailing
+          expr: up{job="mktxp"} == 0 or absent(up{job="mktxp"})
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Prometheus cannot scrape mktxp; switch metrics and switch alerts are blind"
+        - alert: MktxpSwitchMissing
+          expr: |
+            absent(mktxp_system_identity_info{device="sw-core-1"})
+            or absent(mktxp_system_identity_info{device="sw-core-2"})
+            or absent(mktxp_system_identity_info{device="sw-2"})
+            or absent(mktxp_system_identity_info{device="sw-access-1"})
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "mktxp is not returning data for {{ $labels.device }} (RouterOS API unreachable or switch down)"
+        - alert: SwitchUplinkDown
+          expr: mktxp_interface_running{device="sw-core-1", name="sfp-sfpplus1"} == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "sw-core-1 sfp-sfpplus1 (fw1 lan uplink) is down; qgr1 has no gateway"
+        - alert: SwitchUplinkDown
+          expr: |
+            mktxp_interface_running{device="sw-core-1", name=~"bond0|bond1-sw-1"} == 0
+            or mktxp_interface_running{device="sw-core-2", name=~"bond0|bond1-sw1-1"} == 0
+            or mktxp_interface_running{device="sw-access-1", name="bond-core1"} == 0
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Inter-switch link {{ $labels.device }} {{ $labels.name }} is not running"
+        - alert: SwitchInterfaceErrors
+          expr: |
+            sum by (device, name) (
+              rate(mktxp_interface_rx_error_total[10m]) + rate(mktxp_interface_tx_error_total[10m])
+            ) > 0.1
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: "{{ $labels.device }} {{ $labels.name }} has {{ $value | humanize }} errors/s (bad cable, DAC or optic?)"
+        - alert: SwitchPortFlapping
+          expr: increase(mktxp_link_downs_total[15m]) > 3
+          labels:
+            severity: warning
+          annotations:
+            summary: "{{ $labels.device }} {{ $labels.name }} went down {{ $value | humanize }} times in 15m"
+        - alert: PoePoweredNoLink
+          expr: |
+            (max by (device, name) (mktxp_poe_out_power) > 1)
+            and on (device, name) max by (device, name) (mktxp_poe_info{poe_out_status="powered-on"})
+            and on (device, name) (max by (device, name) (mktxp_interface_running) == 0)
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "{{ $labels.device }} {{ $labels.name }} supplies {{ $value }}W PoE but has no link (device powered but not talking: cable pair fault or hung AP)"
+        - alert: PoePortFault
+          expr: mktxp_poe_info{poe_out_status=~"short-circuit|overload"}
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "{{ $labels.device }} {{ $labels.name }} PoE status is {{ $labels.poe_out_status }}"
+        - alert: SwitchHighTemperature
+          expr: |
+            label_replace(mktxp_system_cpu_temperature, "sensor", "cpu", "", "") > 80
+            or label_replace(mktxp_system_switch_temperature, "sensor", "switch", "", "") > 65
+            or label_replace(mktxp_system_board_temperature1, "sensor", "board1", "", "") > 65
+            or label_replace(mktxp_system_board_temperature2, "sensor", "board2", "", "") > 65
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: "{{ $labels.device }} {{ $labels.sensor }} temperature is {{ $value }}C"
+        # Only sw-core-1 and sw-access-1 report PSU state. sw-access-1 (CRS320) has a
+        # single PSU installed; its empty PSU2 slot always reads 0, so it is excluded.
+        - alert: SwitchPsuFailed
+          expr: |
+            label_replace(mktxp_system_psu1_state, "psu", "psu1", "", "") == 0
+            or label_replace(mktxp_system_psu2_state{device!="sw-access-1"}, "psu", "psu2", "", "") == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "{{ $labels.device }} {{ $labels.psu }} is not OK"
