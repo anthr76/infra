@@ -1,7 +1,19 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+# Dashboards for this live in Grafana's database (folder "Network"), managed
+# through the Grafana MCP/API rather than as code.
 resources:
   - helm-release.yaml
   - probes.yaml
   - prometheus-rule.yaml
+  - mktxp/external-secret.yaml
+  - mktxp/helm-release.yaml
+  - syslog-service.yaml
+configMapGenerator:
+  - name: mktxp-config
+    namespace: monitoring
+    files:
+      - mktxp/mktxp.conf
+generatorOptions:
+  disableNameSuffixHash: true

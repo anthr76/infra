@@ -32,6 +32,13 @@ spec:
       # HOSTNAME to spec.nodeName).
       mounts:
         varlog: true
+      # Syslog listener (network devices); exposed on 10.45.0.5 by the
+      # alloy-syslog LoadBalancer in monitoring/network-o11y.
+      extraPorts:
+        - name: syslog-udp
+          port: 1514
+          targetPort: 1514
+          protocol: UDP
       configMap:
         content: |
           discovery.kubernetes "pods" {
@@ -88,6 +95,43 @@ spec:
           loki.process "pods" {
             stage.cri {}
             forward_to = [loki.write.default.receiver]
+          }
+
+          // Network device syslog (MikroTik switches send BSD/RFC 3164).
+          loki.source.syslog "network" {
+            listener {
+              address       = "0.0.0.0:1514"
+              protocol      = "udp"
+              syslog_format = "rfc3164"
+              labels        = { job = "syslog" }
+            }
+            relabel_rules = loki.relabel.syslog.rules
+            forward_to    = [loki.write.default.receiver]
+          }
+
+          loki.relabel "syslog" {
+            forward_to = []
+
+            rule {
+              source_labels = ["__syslog_message_hostname"]
+              target_label  = "host"
+            }
+            rule {
+              source_labels = ["__syslog_message_severity"]
+              target_label  = "level"
+            }
+            rule {
+              source_labels = ["__syslog_message_facility"]
+              target_label  = "facility"
+            }
+            rule {
+              source_labels = ["__syslog_message_app_name"]
+              target_label  = "app"
+            }
+            rule {
+              source_labels = ["__syslog_connection_ip_address"]
+              target_label  = "source_ip"
+            }
           }
 
           loki.write "default" {

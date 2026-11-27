@@ -1,0 +1,25 @@
+---
+# Syslog from the qgr1 MikroTik switches (and anything else on the network)
+# into Alloy's loki.source.syslog listener, which ships it to Loki with
+# job="syslog". The switches send to 10.45.0.5:1514/udp
+# (/system logging action "remote").
+apiVersion: v1
+kind: Service
+metadata:
+  name: alloy-syslog
+  namespace: monitoring
+  annotations:
+    lbipam.cilium.io/ips: 10.45.0.5
+spec:
+  type: LoadBalancer
+  # Alloy is a DaemonSet, so every node has a local endpoint; Local keeps the
+  # sender's source IP for the `source_ip` label.
+  externalTrafficPolicy: Local
+  selector:
+    app.kubernetes.io/name: alloy
+    app.kubernetes.io/instance: alloy
+  ports:
+    - name: syslog-udp
+      port: 1514
+      targetPort: 1514
+      protocol: UDP
