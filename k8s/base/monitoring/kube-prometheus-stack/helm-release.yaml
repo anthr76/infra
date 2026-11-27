@@ -30,8 +30,8 @@ spec:
     # existing bot (token from Bitwarden `telegramBotToken`, ./external-secret.yaml).
     # Rules are evaluated by Thanos Ruler, which sends to all three replicas; the
     # replicas form a gossip cluster and dedupe notifications between themselves.
-    # Messages are plain text on purpose: with parse_mode HTML, any '<' or '>' in
-    # an alert's annotations makes Telegram reject the whole message.
+    # Messages use parse_mode HTML. Every alert-supplied value in the template goes
+    # through `| html`: an unescaped '<' or '&' makes Telegram reject the message.
     alertmanager:
       enabled: true
       config:
@@ -67,7 +67,7 @@ spec:
               - bot_token_file: /etc/alertmanager/secrets/alertmanager-telegram/token
                 chat_id: -1002927506291
                 message_thread_id: 18666
-                parse_mode: ""
+                parse_mode: HTML
                 send_resolved: true
                 message: '{{ template "telegram.message" . }}'
         templates:
@@ -79,21 +79,20 @@ spec:
           {{- end }}
 
           {{ define "telegram.message" -}}
-          {{ template "telegram.icon" . }} {{ if eq .Status "resolved" }}RESOLVED{{ else }}FIRING{{ end }} · {{ .CommonLabels.alertname }}
-          {{- if gt (len .Alerts) 1 }} ×{{ len .Alerts }}{{ end }}
+          {{ template "telegram.icon" . }} <b>{{ .CommonLabels.alertname | html }}</b>
+          {{- if gt (len .Alerts) 1 }} ×{{ len .Alerts }}{{ end }}{{ if eq .Status "resolved" }} — resolved{{ end }}
           {{- range .Alerts }}
-          • {{ with .Annotations.summary }}{{ . }}{{ else }}{{ with .Annotations.description }}{{ . }}{{ else }}{{ .Labels.alertname }}{{ end }}{{ end }}
-          {{- if or .Labels.device .Labels.name .Labels.namespace .Labels.pod .Labels.node }}
-             {{ with .Labels.device }}device={{ . }} {{ end }}{{ with .Labels.name }}port={{ . }} {{ end }}{{ with .Labels.namespace }}ns={{ . }} {{ end }}{{ with .Labels.pod }}pod={{ . }} {{ end }}{{ with .Labels.node }}node={{ . }}{{ end }}
+
+          {{ with .Annotations.summary }}{{ . | html }}{{ else }}{{ with .Annotations.description }}{{ . | html }}{{ else }}{{ .Labels.alertname | html }}{{ end }}{{ end }}
+          {{- if or .Labels.device .Labels.namespace .Labels.node .Labels.instance }}
+          📍 <code>{{ if .Labels.device }}{{ .Labels.device | html }}{{ with .Labels.name }} · {{ . | html }}{{ end }}{{ else if .Labels.namespace }}{{ .Labels.namespace | html }}{{ with or .Labels.pod .Labels.job_name .Labels.deployment .Labels.statefulset .Labels.daemonset .Labels.persistentvolumeclaim }}/{{ . | html }}{{ end }}{{ else if .Labels.node }}{{ .Labels.node | html }}{{ else }}{{ .Labels.instance | html }}{{ end }}</code>
           {{- end }}
-             since {{ .StartsAt.UTC.Format "Jan 2 15:04 UTC" }}{{ if eq .Status "resolved" }} → {{ .EndsAt.UTC.Format "15:04 UTC" }}{{ end }}
+          🕒 {{ .StartsAt | tz "America/New_York" | date "Jan 2, 3:04 PM" }}{{ if eq .Status "resolved" }} → {{ .EndsAt | tz "America/New_York" | date "3:04 PM" }}{{ end }}
           {{- with .Annotations.runbook_url }}
-             runbook: {{ . }}
+          📖 <a href="{{ . | html }}">runbook</a>
           {{- end }}
           {{- end }}
           {{- end }}
-      # The chart renders this map as-is with a minAvailable: 1 default, so setting
-      # maxUnavailable as well is rejected. 3 Alertmanager replicas: allow one down.
       podDisruptionBudget:
         enabled: true
         minAvailable: 2
