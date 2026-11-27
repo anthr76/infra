@@ -1,0 +1,24 @@
+---
+# APC Smart-UPS 3000 (AP9641 NMC) via NUT on fw1. fw1 runs DRuggeri's
+# nut_exporter (snowflake: nixos/personalities/server/ups/server.nix) on vlan8;
+# UPS metrics are on /ups_metrics, the exporter's own metrics on /metrics.
+# Alerts: PrometheusRule group qgr1-ups. Dashboard: Grafana "qgr1 Network / UPS".
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: qgr1-ups
+  namespace: monitoring
+spec:
+  jobName: qgr1-ups
+  scrapeInterval: 30s
+  scrapeTimeout: 10s
+  metricsPath: /ups_metrics
+  params:
+    ups: [apc]
+  staticConfigs:
+    - targets:
+        - 192.168.8.1:9199
+      labels:
+        device: ups
+        ups: apc
+        site: qgr1
