@@ -6,6 +6,7 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - probes.yaml
+  - ups-scrape-config.yaml
   - prometheus-rule.yaml
   - mktxp/external-secret.yaml
   - mktxp/helm-release.yaml

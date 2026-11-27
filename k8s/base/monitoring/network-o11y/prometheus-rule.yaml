@@ -144,3 +144,105 @@ spec:
             severity: critical
           annotations:
             summary: "{{ $labels.device }} {{ $labels.psu }} is not OK"
+    # APC Smart-UPS 3000 via NUT on fw1 (ScrapeConfig qgr1-ups). Dashboard: Grafana
+    # "qgr1 Network / UPS". Host-side policy (snowflake ups/*.nix): workers begin a
+    # Ceph-safe shutdown after 3 min on battery, fw1 IPMI-powers-off stragglers at
+    # 8 min and powers them back on 2 min after mains returns; fw1 runs until empty.
+    # ~33 min runtime at ~16% load (Nov 2026).
+    - name: qgr1-ups
+      rules:
+        - alert: UpsExporterDown
+          expr: up{job="qgr1-ups"} == 0 or absent(up{job="qgr1-ups"})
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Cannot scrape the UPS exporter on fw1 (192.168.8.1:9199); power alerts are blind"
+            description: "Check prometheus-nut-exporter, upsd and the snmp-ups driver on fw1 (upsc apc@localhost)"
+        - alert: UpsMetricsMissing
+          expr: |
+            count(
+              absent(network_ups_tools_battery_charge{job="qgr1-ups"})
+              or absent(network_ups_tools_ups_status{job="qgr1-ups", flag="OL"})
+              or (max(network_ups_tools_ups_status{job="qgr1-ups", flag=~"OL|OB"}) == 0)
+            )
+            and on () (max(up{job="qgr1-ups"}) == 1)
+          for: 5m
+          labels:
+            severity: warning
+            device: ups
+          annotations:
+            summary: "UPS exporter is up but NUT has no usable data (UPS NMC unreachable or driver stale)"
+        - alert: UpsOnBattery
+          expr: |
+            network_ups_tools_battery_charge{job="qgr1-ups"}
+            and on (instance) (network_ups_tools_ups_status{job="qgr1-ups", flag="OB"} == 1)
+          for: 30s
+          labels:
+            severity: warning
+          annotations:
+            summary: "qgr1 is on UPS battery ({{ $value }}%); workers shut down at 3 min, forced off at 8 min"
+        - alert: UpsForcedShutdown
+          expr: network_ups_tools_ups_status{job="qgr1-ups", flag="FSD"} == 1
+          labels:
+            severity: critical
+          annotations:
+            summary: "UPS forced shutdown (FSD) in progress; workers are powering off"
+        - alert: UpsLowBattery
+          expr: network_ups_tools_ups_status{job="qgr1-ups", flag="LB"} == 1
+          labels:
+            severity: critical
+          annotations:
+            summary: "UPS battery is LOW; fw1 and anything still running will lose power soon"
+        - alert: UpsRuntimeLow
+          expr: |
+            network_ups_tools_battery_runtime{job="qgr1-ups"} < 900
+            and on (instance) (network_ups_tools_ups_status{job="qgr1-ups", flag="OB"} == 1)
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "UPS on battery with only {{ $value | humanizeDuration }} runtime left"
+        # Fully charged on mains but runtime well below the ~33 min baseline: the
+        # battery has aged or load has grown. Charge gate avoids firing while it
+        # recharges after an outage.
+        - alert: UpsRuntimeDegraded
+          expr: |
+            network_ups_tools_battery_runtime{job="qgr1-ups"} < 1200
+            and on (instance) (network_ups_tools_battery_charge{job="qgr1-ups"} >= 95)
+            and on (instance) (network_ups_tools_ups_status{job="qgr1-ups", flag="OL"} == 1)
+          for: 30m
+          labels:
+            severity: warning
+          annotations:
+            summary: "UPS full-charge runtime is only {{ $value | humanizeDuration }} (battery aging or load grew)"
+        - alert: UpsReplaceBattery
+          expr: network_ups_tools_ups_status{job="qgr1-ups", flag="RB"} == 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "UPS says replace battery (battery installed 2024-12-03)"
+        - alert: UpsOverload
+          expr: |
+            network_ups_tools_ups_load{job="qgr1-ups"} > 80
+            or (
+              network_ups_tools_ups_load{job="qgr1-ups"}
+              and on (instance) (network_ups_tools_ups_status{job="qgr1-ups", flag="OVER"} == 1)
+            )
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "UPS load is {{ $value | humanize }}%"
+        # Transfer points are 97V/136V; warn earlier on sustained brownout/overvoltage.
+        # Gated on OL because input reads ~0V while on battery (UpsOnBattery covers that).
+        - alert: UpsInputVoltageAbnormal
+          expr: |
+            (network_ups_tools_input_voltage{job="qgr1-ups"} < 105 or network_ups_tools_input_voltage{job="qgr1-ups"} > 130)
+            and on (instance) (network_ups_tools_ups_status{job="qgr1-ups", flag="OL"} == 1)
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "UPS input voltage is {{ $value }}V (normal 105-130V)"
