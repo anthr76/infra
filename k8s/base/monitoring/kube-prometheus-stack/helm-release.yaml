@@ -26,14 +26,72 @@ spec:
       upgradeJob:
         enabled: true
 
-    # Alertmanager runs with the chart's default config (everything routed to a null
-    # receiver). It is here so Prometheus has an Alertmanager to talk to (otherwise
-    # PrometheusNotConnectedToAlertmanagers fires forever); add receivers, and the
-    # secret they need, once there is somewhere to send alerts.
-    # Three replicas form a gossip cluster; Prometheus sends every alert to all of them
-    # and they dedupe notifications between themselves.
+    # Alertmanager sends to Telegram: Home Ops group, "Alerts" topic, via the
+    # existing bot (token from Bitwarden `telegramBotToken`, ./external-secret.yaml).
+    # Rules are evaluated by Thanos Ruler, which sends to all three replicas; the
+    # replicas form a gossip cluster and dedupe notifications between themselves.
+    # Messages are plain text on purpose: with parse_mode HTML, any '<' or '>' in
+    # an alert's annotations makes Telegram reject the whole message.
     alertmanager:
       enabled: true
+      config:
+        global:
+          resolve_timeout: 5m
+        inhibit_rules:
+          - source_matchers: ['severity = "critical"']
+            target_matchers: ['severity =~ "warning|info"']
+            equal: [namespace, alertname]
+          - source_matchers: ['severity = "warning"']
+            target_matchers: ['severity = "info"']
+            equal: [namespace, alertname]
+          - source_matchers: ['alertname = "InfoInhibitor"']
+            target_matchers: ['severity = "info"']
+            equal: [namespace]
+          - target_matchers: ['alertname = "InfoInhibitor"']
+        route:
+          receiver: telegram
+          group_by: [alertname, namespace, device]
+          group_wait: 30s
+          group_interval: 5m
+          # Re-notify a still-firing alert weekly. Must stay below alertmanagerSpec.retention
+          # (the notification log), or the log expires and it re-sends early.
+          repeat_interval: 168h
+          routes:
+            # Heartbeat / helper alerts that are meant to be silenced.
+            - receiver: "null"
+              matchers: ['alertname =~ "Watchdog|InfoInhibitor"']
+        receivers:
+          - name: "null"
+          - name: telegram
+            telegram_configs:
+              - bot_token_file: /etc/alertmanager/secrets/alertmanager-telegram/token
+                chat_id: -1002927506291
+                message_thread_id: 18666
+                parse_mode: ""
+                send_resolved: true
+                message: '{{ template "telegram.message" . }}'
+        templates:
+          - /etc/alertmanager/config/*.tmpl
+      templateFiles:
+        telegram.tmpl: |-
+          {{ define "telegram.icon" -}}
+          {{ if eq .Status "resolved" }}✅{{ else if eq .CommonLabels.severity "critical" }}🚨{{ else if eq .CommonLabels.severity "warning" }}⚠️{{ else }}ℹ️{{ end }}
+          {{- end }}
+
+          {{ define "telegram.message" -}}
+          {{ template "telegram.icon" . }} {{ if eq .Status "resolved" }}RESOLVED{{ else }}FIRING{{ end }} · {{ .CommonLabels.alertname }}
+          {{- if gt (len .Alerts) 1 }} ×{{ len .Alerts }}{{ end }}
+          {{- range .Alerts }}
+          • {{ with .Annotations.summary }}{{ . }}{{ else }}{{ with .Annotations.description }}{{ . }}{{ else }}{{ .Labels.alertname }}{{ end }}{{ end }}
+          {{- if or .Labels.device .Labels.name .Labels.namespace .Labels.pod .Labels.node }}
+             {{ with .Labels.device }}device={{ . }} {{ end }}{{ with .Labels.name }}port={{ . }} {{ end }}{{ with .Labels.namespace }}ns={{ . }} {{ end }}{{ with .Labels.pod }}pod={{ . }} {{ end }}{{ with .Labels.node }}node={{ . }}{{ end }}
+          {{- end }}
+             since {{ .StartsAt.UTC.Format "Jan 2 15:04 UTC" }}{{ if eq .Status "resolved" }} → {{ .EndsAt.UTC.Format "15:04 UTC" }}{{ end }}
+          {{- with .Annotations.runbook_url }}
+             runbook: {{ . }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
       # The chart renders this map as-is with a minAvailable: 1 default, so setting
       # maxUnavailable as well is rejected. 3 Alertmanager replicas: allow one down.
       podDisruptionBudget:
@@ -41,7 +99,11 @@ spec:
         minAvailable: 2
       alertmanagerSpec:
         replicas: 3
-        retention: 120h
+        # Silences + notification log; keep above route.repeat_interval (168h).
+        retention: 192h
+        # Mounted at /etc/alertmanager/secrets/<name>/.
+        secrets:
+          - alertmanager-telegram
         podAntiAffinity: soft
         podAntiAffinityTopologyKey: kubernetes.io/hostname
         resources:
