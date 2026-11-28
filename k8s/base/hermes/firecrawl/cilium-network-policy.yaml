@@ -1,0 +1,209 @@
+---
+# Firecrawl isolation. Only Hermes can reach the API; components talk only to
+# the peers they need; only api + playwright (the two components that fetch
+# arbitrary URLs) have internet egress, and only to public IPv4 on 80/443.
+# Any private/cluster/home/tailnet/link-local destination is not allowed, even
+# if a scraped URL or redirect points at one. The CIDR exclusion list is the
+# enforcing control; Playwright's own private-IP check is defense in depth.
+# Redis/Postgres/RabbitMQ are default-deny for egress.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: firecrawl-api
+  namespace: hermes
+spec:
+  endpointSelector:
+    matchLabels:
+      firecrawl.kutara.io/component: api
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: hermes
+            app.kubernetes.io/name: hermes
+      toPorts:
+        - ports:
+            - port: "3002"
+              protocol: TCP
+    # Cilium KPR: same-node CoreDNS replies (src rewritten to the ClusterIP)
+    # miss conntrack and are dropped on ingress; allow them explicitly.
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: hermes
+            firecrawl.kutara.io/component: playwright
+      toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: hermes
+            firecrawl.kutara.io/component: redis
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: hermes
+            firecrawl.kutara.io/component: rabbitmq
+      toPorts:
+        - ports:
+            - port: "5672"
+              protocol: TCP
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: hermes
+            firecrawl.kutara.io/component: nuq-postgres
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP
+    # Direct (non-browser) fetch engine.
+    - toCIDRSet:
+        - cidr: 0.0.0.0/0
+          except:
+            - 0.0.0.0/8
+            - 10.0.0.0/8
+            - 100.64.0.0/10
+            - 127.0.0.0/8
+            - 169.254.0.0/16
+            - 172.16.0.0/12
+            - 192.0.0.0/24
+            - 192.168.0.0/16
+            - 198.18.0.0/15
+            - 224.0.0.0/4
+            - 240.0.0.0/4
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+            - port: "443"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: firecrawl-playwright
+  namespace: hermes
+spec:
+  endpointSelector:
+    matchLabels:
+      firecrawl.kutara.io/component: playwright
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: hermes
+            firecrawl.kutara.io/component: api
+      toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+    - toCIDRSet:
+        - cidr: 0.0.0.0/0
+          except:
+            - 0.0.0.0/8
+            - 10.0.0.0/8
+            - 100.64.0.0/10
+            - 127.0.0.0/8
+            - 169.254.0.0/16
+            - 172.16.0.0/12
+            - 192.0.0.0/24
+            - 192.168.0.0/16
+            - 198.18.0.0/15
+            - 224.0.0.0/4
+            - 240.0.0.0/4
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+            - port: "443"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: firecrawl-redis
+  namespace: hermes
+spec:
+  endpointSelector:
+    matchLabels:
+      firecrawl.kutara.io/component: redis
+  enableDefaultDeny:
+    egress: true
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: hermes
+            firecrawl.kutara.io/component: api
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: firecrawl-rabbitmq
+  namespace: hermes
+spec:
+  endpointSelector:
+    matchLabels:
+      firecrawl.kutara.io/component: rabbitmq
+  enableDefaultDeny:
+    egress: true
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: hermes
+            firecrawl.kutara.io/component: api
+      toPorts:
+        - ports:
+            - port: "5672"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: firecrawl-nuq-postgres
+  namespace: hermes
+spec:
+  endpointSelector:
+    matchLabels:
+      firecrawl.kutara.io/component: nuq-postgres
+  enableDefaultDeny:
+    egress: true
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: hermes
+            firecrawl.kutara.io/component: api
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP

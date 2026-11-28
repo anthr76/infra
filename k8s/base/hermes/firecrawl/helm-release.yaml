@@ -1,0 +1,467 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+---
+# Self-hosted Firecrawl for Hermes web_extract.
+#
+# Built on app-template (not the upstream examples/kubernetes/firecrawl-helm
+# chart): that chart renders the Postgres password (default "password") in
+# plain text into a ConfigMap and Deployment env, uses :latest + pullPolicy
+# Always, has no securityContext/NetworkPolicy, and gives Redis/RabbitMQ no
+# credentials. Topology follows upstream docker-compose.yaml: one `api` pod
+# running `harness.js --start-docker` (API + queue/extract/nuq workers),
+# plus playwright, redis, rabbitmq and nuq-postgres.
+#
+# The API image is the upstream amd64 build; all qgr1 workers are amd64.
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: firecrawl
+  namespace: hermes
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+
+    controllers:
+      api:
+        type: deployment
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          nodeSelector:
+            kubernetes.io/arch: amd64
+          labels:
+            firecrawl.kutara.io/component: api
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+        containers:
+          app:
+            image:
+              repository: ghcr.io/firecrawl/firecrawl
+              tag: sha-8b950c45c8ca-linux-amd64@sha256:9ea55799be89453ae76ffa5e1e812a303cbced238f339af0781ef806648d25b3
+            env:
+              TZ: America/New_York
+              HOST: "0.0.0.0"
+              PORT: "3002"
+              ENV: local
+              LOGGING_LEVEL: info
+              # Hermes is the only client (Cilium-enforced); no Supabase/API keys.
+              USE_DB_AUTHENTICATION: "false"
+              # Modest sizing. Upstream defaults are 5 nuq workers / 8 per queue.
+              NUQ_WORKER_COUNT: "2"
+              NUM_WORKERS_PER_QUEUE: "2"
+              MAX_CONCURRENT_JOBS: "2"
+              CRAWL_CONCURRENT_REQUESTS: "4"
+              BROWSER_POOL_SIZE: "2"
+              PLAYWRIGHT_MICROSERVICE_URL: http://firecrawl-playwright:3000/scrape
+              # Must not be "localhost": harness otherwise tries to start Docker.
+              POSTGRES_HOST: firecrawl-nuq-postgres
+              POSTGRES_PORT: "5432"
+              # Credentialed URLs come from the ExternalSecrets, never from Git.
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-postgres, key: POSTGRES_USER}
+              POSTGRES_DB:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-postgres, key: POSTGRES_DB}
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-postgres, key: POSTGRES_PASSWORD}
+              NUQ_DATABASE_URL:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-postgres, key: NUQ_DATABASE_URL}
+              NUQ_DATABASE_URL_LISTEN:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-postgres, key: NUQ_DATABASE_URL_LISTEN}
+              REDIS_URL:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-redis, key: REDIS_URL}
+              REDIS_RATE_LIMIT_URL:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-redis, key: REDIS_RATE_LIMIT_URL}
+              NUQ_RABBITMQ_URL:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-rabbitmq, key: NUQ_RABBITMQ_URL}
+              BULL_AUTH_KEY:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-api, key: BULL_AUTH_KEY}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: [ALL]
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /v0/health/liveness
+                    port: 3002
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /v0/health/readiness
+                    port: 3002
+                  periodSeconds: 15
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /v0/health/liveness
+                    port: 3002
+                  periodSeconds: 10
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 200m
+                memory: 1Gi
+              limits:
+                memory: 4Gi
+
+      playwright:
+        type: deployment
+        replicas: 1
+        pod:
+          labels:
+            firecrawl.kutara.io/component: playwright
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+        containers:
+          app:
+            image:
+              repository: ghcr.io/firecrawl/playwright-service
+              tag: sha-8b950c45c8ca@sha256:227ce3d8059173925a5a0697c63a1e947662cca934a609151651f578774edd5d
+            command: [node, dist/api.js]
+            env:
+              TZ: America/New_York
+              PORT: "3000"
+              HOME: /tmp
+              MAX_CONCURRENT_PAGES: "4"
+              BLOCK_MEDIA: "true"
+              # App-level private-IP/SSRF guard stays ON (default); Cilium egress
+              # is the enforcing layer, this is defense in depth.
+              ALLOW_LOCAL_WEBHOOKS: "false"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: [ALL]
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec: &pw-probe
+                  httpGet:
+                    path: /health
+                    port: 3000
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec: *pw-probe
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  <<: *pw-probe
+                  periodSeconds: 10
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+
+      redis:
+        type: deployment
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          labels:
+            firecrawl.kutara.io/component: redis
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+            fsGroup: 999
+        containers:
+          app:
+            image:
+              repository: docker.io/library/redis
+              tag: 8.6-alpine@sha256:91c71f9ea78fa3fe268ff832a985c48e592244f707993773f8b3e1b244ac1137
+            command: [/bin/sh, -c]
+            args:
+              - exec redis-server --bind 0.0.0.0 --requirepass "$REDIS_PASSWORD" --save "" --appendonly no
+            env:
+              REDIS_PASSWORD:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-redis, key: REDIS_PASSWORD}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: [ALL]
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec: &tcp-redis
+                  tcpSocket:
+                    port: 6379
+                  periodSeconds: 20
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec: *tcp-redis
+            resources:
+              requests:
+                cpu: 20m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+
+      rabbitmq:
+        type: deployment
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          labels:
+            firecrawl.kutara.io/component: rabbitmq
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+            fsGroup: 999
+        containers:
+          app:
+            image:
+              # No -management variant: the management UI/API is not needed.
+              repository: docker.io/library/rabbitmq
+              tag: 4.2@sha256:f782decd7b63b941c033201dd6aa6c63bc72cabcfc255c7007e98edc9e0f4628
+            env:
+              RABBITMQ_DEFAULT_USER:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-rabbitmq, key: RABBITMQ_DEFAULT_USER}
+              RABBITMQ_DEFAULT_PASS:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-rabbitmq, key: RABBITMQ_DEFAULT_PASS}
+            securityContext:
+              allowPrivilegeEscalation: false
+              # The entrypoint generates config under /etc/rabbitmq.
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop: [ALL]
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 5672
+                  periodSeconds: 20
+                  timeoutSeconds: 5
+                  failureThreshold: 6
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 5672
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 6
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: 5672
+                  periodSeconds: 5
+                  failureThreshold: 36
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 768Mi
+
+      nuq-postgres:
+        type: deployment
+        replicas: 1
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          labels:
+            firecrawl.kutara.io/component: nuq-postgres
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+            fsGroup: 999
+        containers:
+          app:
+            image:
+              repository: ghcr.io/firecrawl/nuq-postgres
+              tag: sha-a7a63b4bfabf@sha256:d719b36160eac2fcbe16dc7e7360ddb9c82c40ea5da183d07bf4a755c6a0b2ae
+            env:
+              PGDATA: /var/lib/postgresql/data/pgdata
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-postgres, key: POSTGRES_USER}
+              POSTGRES_DB:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-postgres, key: POSTGRES_DB}
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef: {name: firecrawl-postgres, key: POSTGRES_PASSWORD}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: [ALL]
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec: &pg-probe
+                  exec:
+                    command: [pg_isready, -U, postgres, -h, 127.0.0.1]
+                  periodSeconds: 20
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec: *pg-probe
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  <<: *pg-probe
+                  periodSeconds: 5
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+
+    service:
+      api:
+        controller: api
+        type: ClusterIP
+        ports:
+          http:
+            port: 3002
+      playwright:
+        controller: playwright
+        type: ClusterIP
+        ports:
+          http:
+            port: 3000
+      redis:
+        controller: redis
+        type: ClusterIP
+        ports:
+          redis:
+            port: 6379
+      rabbitmq:
+        controller: rabbitmq
+        type: ClusterIP
+        ports:
+          amqp:
+            port: 5672
+      nuq-postgres:
+        controller: nuq-postgres
+        type: ClusterIP
+        ports:
+          postgres:
+            port: 5432
+
+    # All state is disposable queue/cache data; no PVCs, no VolSync.
+    persistence:
+      api-tmp:
+        type: emptyDir
+        advancedMounts:
+          api:
+            app:
+              - path: /tmp
+      playwright-tmp:
+        type: emptyDir
+        advancedMounts:
+          playwright:
+            app:
+              - path: /tmp
+      playwright-shm:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 1Gi
+        advancedMounts:
+          playwright:
+            app:
+              - path: /dev/shm
+      redis-data:
+        type: emptyDir
+        advancedMounts:
+          redis:
+            app:
+              - path: /data
+      rabbitmq-data:
+        type: emptyDir
+        advancedMounts:
+          rabbitmq:
+            app:
+              - path: /var/lib/rabbitmq
+      postgres-data:
+        type: emptyDir
+        advancedMounts:
+          nuq-postgres:
+            app:
+              - path: /var/lib/postgresql/data
+      postgres-run:
+        type: emptyDir
+        advancedMounts:
+          nuq-postgres:
+            app:
+              - path: /var/run/postgresql
+      postgres-tmp:
+        type: emptyDir
+        advancedMounts:
+          nuq-postgres:
+            app:
+              - path: /tmp
