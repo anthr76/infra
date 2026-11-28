@@ -85,7 +85,7 @@ spec:
 
           {{ with .Annotations.summary }}{{ . | html }}{{ else }}{{ with .Annotations.description }}{{ . | html }}{{ else }}{{ .Labels.alertname | html }}{{ end }}{{ end }}
           {{- if or .Labels.device .Labels.namespace .Labels.node .Labels.instance }}
-          📍 <code>{{ if .Labels.device }}{{ .Labels.device | html }}{{ with .Labels.name }} · {{ . | html }}{{ end }}{{ else if .Labels.namespace }}{{ .Labels.namespace | html }}{{ with or .Labels.pod .Labels.job_name .Labels.deployment .Labels.statefulset .Labels.daemonset .Labels.persistentvolumeclaim }}/{{ . | html }}{{ end }}{{ else if .Labels.node }}{{ .Labels.node | html }}{{ else }}{{ .Labels.instance | html }}{{ end }}</code>
+          📍 <code>{{ if .Labels.device }}{{ .Labels.device | html }}{{ with .Labels.name }} · {{ . | html }}{{ end }}{{ else if .Labels.namespace }}{{ .Labels.namespace | html }}{{ with or .Labels.job_name .Labels.cronjob .Labels.deployment .Labels.statefulset .Labels.daemonset .Labels.persistentvolumeclaim .Labels.horizontalpodautoscaler .Labels.pod }}/{{ . | html }}{{ end }}{{ else if .Labels.node }}{{ .Labels.node | html }}{{ else }}{{ .Labels.instance | html }}{{ end }}</code>
           {{- end }}
           🕒 {{ .StartsAt | tz "America/New_York" | date "Jan 2, 3:04 PM" }}{{ if eq .Status "resolved" }} → {{ .EndsAt | tz "America/New_York" | date "3:04 PM" }}{{ end }}
           {{- with .Annotations.runbook_url }}
