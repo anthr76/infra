@@ -158,6 +158,54 @@ spec:
             namespace: kube-system
         hostnames:
           - gallery.kutara.io
+        rules:
+          # Read-only public paths that Cloudflare caches at the edge so the gallery
+          # survives the cluster being down (cache rules live in the kutara.io zone).
+          # The app hands every visitor an anonymous nuxt-session cookie; stripping it
+          # here keeps anonymous browsers cookie-less, so the Cloudflare rule that
+          # bypasses cache when nuxt-session is present only ever bypasses real logins.
+          # That keeps admin-rendered responses out of the shared cache.
+          - matches:
+              - &public-get
+                method: GET
+                path:
+                  type: Exact
+                  value: /
+              - <<: *public-get
+                path:
+                  type: Exact
+                  value: /api/_auth/session
+              - <<: *public-get
+                path:
+                  type: Exact
+                  value: /api/photos/visible
+              - <<: *public-get
+                path:
+                  type: Exact
+                  value: /api/albums
+              - <<: *public-get
+                path:
+                  type: Exact
+                  value: /api/system/settings/all
+              - <<: *public-get
+                path:
+                  type: PathPrefix
+                  value: /image/__photo__/
+            filters:
+              - type: ResponseHeaderModifier
+                responseHeaderModifier:
+                  remove:
+                    - Set-Cookie
+            backendRefs:
+              - identifier: app
+                port: 3000
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: 3000
 
     persistence:
       data:
