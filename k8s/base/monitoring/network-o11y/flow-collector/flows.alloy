@@ -1,0 +1,139 @@
+// goflow2 writes one JSON flow record per line to /flows/flows.json
+// (rotated by the rotate sidecar). Enrich each record with which side is
+// the qgr1 client and GeoIP/ASN data for the remote (internet) side, then
+// ship to Loki as job="netflow". Per-flow values go into structured
+// metadata, never stream labels, so stream cardinality stays at one.
+local.file_match "flows" {
+	path_targets = [{
+		"__path__" = "/flows/flows.json",
+		"job"      = "netflow",
+		"site"     = "qgr1",
+		"device"   = "fw1",
+	}]
+}
+
+loki.source.file "flows" {
+	targets    = local.file_match.flows.targets
+	forward_to = [loki.process.flows.receiver]
+}
+
+loki.process "flows" {
+	stage.json {
+		expressions = {
+			src_addr = "src_addr",
+			dst_addr = "dst_addr",
+			src_vlan = "src_vlan",
+			proto    = "proto",
+			src_port = "src_port",
+			dst_port = "dst_port",
+		}
+	}
+
+	// softflowd only exports flows with at least one public endpoint. The
+	// private (RFC 1918 / CGNAT / link-local) side is the local client.
+	stage.template {
+		source   = "src_local"
+		template = `{{ if regexMatch "^(10|127|192[.]168|172[.](1[6-9]|2[0-9]|3[01])|100[.](6[4-9]|[7-9][0-9]|1[01][0-9]|12[0-7])|169[.]254)[.]" .src_addr }}true{{ else }}false{{ end }}`
+	}
+
+	stage.template {
+		source   = "direction"
+		template = `{{ if eq .src_local "true" }}upload{{ else }}download{{ end }}`
+	}
+
+	stage.template {
+		source   = "local_addr"
+		template = `{{ if eq .src_local "true" }}{{ .src_addr }}{{ else }}{{ .dst_addr }}{{ end }}`
+	}
+
+	stage.template {
+		source   = "remote_addr"
+		template = `{{ if eq .src_local "true" }}{{ .dst_addr }}{{ else }}{{ .src_addr }}{{ end }}`
+	}
+	// VLAN id -> network name (fw1 VLANs; 0 = untagged native LAN).
+	stage.template {
+		source   = "network"
+		template = `{{ if eq .src_vlan "0" }}lan{{ else if eq .src_vlan "8" }}kubernetes{{ else if eq .src_vlan "10" }}servers{{ else if eq .src_vlan "99" }}management{{ else if eq .src_vlan "101" }}guests{{ else }}vlan{{ .src_vlan }}{{ end }}`
+	}
+
+	// Application guess from protocol + service port. The service port is the
+	// lower of the two ports (works for both directions and for inbound
+	// connections to qgr1 services). Bounded: known names, PROTO/port below
+	// 1024, otherwise "PROTO other".
+	stage.template {
+		source   = "service_port"
+		template = `{{ if lt (atoi .src_port) (atoi .dst_port) }}{{ .src_port }}{{ else }}{{ .dst_port }}{{ end }}`
+	}
+
+	stage.template {
+		source   = "app"
+		template = `{{- $p := atoi .service_port -}}{{- $t := .proto -}}
+{{- if eq $t "ICMP" }}ICMP
+{{- else if and (eq $t "TCP") (eq $p 443) }}HTTPS
+{{- else if and (eq $t "UDP") (eq $p 443) }}QUIC
+{{- else if eq $p 80 }}HTTP
+{{- else if eq $p 53 }}DNS
+{{- else if eq $p 853 }}DNS over TLS/QUIC
+{{- else if and (eq $t "UDP") (eq $p 123) }}NTP
+{{- else if eq $p 22 }}SSH
+{{- else if and (eq $t "UDP") (eq $p 41641) }}Tailscale
+{{- else if and (eq $t "UDP") (eq $p 51820) }}WireGuard
+{{- else if and (eq $t "UDP") (or (eq $p 500) (eq $p 4500)) }}IPsec
+{{- else if and (eq $t "UDP") (or (eq $p 3478) (and (ge $p 19302) (le $p 19309))) }}STUN/WebRTC
+{{- else if eq $p 32400 }}Plex
+{{- else if eq $p 50469 }}BitTorrent (qbittorrent)
+{{- else if and (ge $p 6881) (le $p 6889) }}BitTorrent
+{{- else if or (eq $p 25) (eq $p 465) (eq $p 587) (eq $p 993) (eq $p 143) (eq $p 995) }}Mail
+{{- else if eq $p 5223 }}Apple Push
+{{- else if eq $p 5228 }}Google Play/FCM
+{{- else if or (eq $p 1883) (eq $p 8883) }}MQTT
+{{- else if eq $p 8443 }}HTTPS (8443)
+{{- else if eq $p 3389 }}RDP
+{{- else if eq $p 1935 }}RTMP
+{{- else if lt $p 1024 }}{{ $t }}/{{ $p }}
+{{- else }}{{ $t }} other
+{{- end -}}`
+	}
+
+	// DB-IP Lite (CC BY 4.0), MaxMind-compatible mmdb, fetched by the geoip init container.
+	stage.geoip {
+		source  = "remote_addr"
+		db      = "/geoip/dbip-city-lite.mmdb"
+		db_type = "city"
+	}
+
+	stage.geoip {
+		source  = "remote_addr"
+		db      = "/geoip/dbip-asn-lite.mmdb"
+		db_type = "asn"
+	}
+
+	stage.structured_metadata {
+		values = {
+			direction        = "",
+			network          = "",
+			app              = "",
+			local_addr       = "",
+			remote_addr      = "",
+			geo_country      = "geoip_country_name",
+			geo_country_code = "geoip_country_code",
+			geo_city         = "geoip_city_name",
+			geo_lat          = "geoip_location_latitude",
+			geo_lon          = "geoip_location_longitude",
+			asn              = "geoip_autonomous_system_number",
+			as_org           = "geoip_autonomous_system_organization",
+		}
+	}
+
+	stage.label_drop {
+		values = ["filename"]
+	}
+
+	forward_to = [loki.write.default.receiver]
+}
+
+loki.write "default" {
+	endpoint {
+		url = "http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push"
+	}
+}

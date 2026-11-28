@@ -1,0 +1,15 @@
+---
+# Cache for the DB-IP Lite GeoIP/ASN databases (~135 MiB) so a pod restart does
+# not depend on download.db-ip.com being reachable. Rebuildable: no backup.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: flow-collector-geoip
+  namespace: monitoring
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: fast-ceph-block

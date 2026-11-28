@@ -1,0 +1,17 @@
+# goflow2 JSON output fields (one JSON object per flow record, one per line).
+formatter:
+  fields:
+    - type
+    - sampler_address
+    - sampling_rate
+    - time_flow_start_ns
+    - time_flow_end_ns
+    - bytes
+    - packets
+    - src_addr
+    - dst_addr
+    - proto
+    - src_port
+    - dst_port
+    - tcp_flags
+    - src_vlan

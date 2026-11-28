@@ -1,0 +1,268 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+---
+# NetFlow collector for fw1 (qgr1 router). fw1 runs softflowd on its LAN trunk
+# (snowflake: services.observability.flows) and exports NetFlow v9 for internet
+# traffic (one side public) to 10.45.0.7:2055/udp.
+#
+#   goflow2  decodes NetFlow -> one JSON record per line in /flows/flows.json
+#   alloy    tails that file, marks the local/remote side, adds GeoIP + ASN for
+#            the remote address (DB-IP Lite, structured metadata) -> Loki,
+#            job="netflow"
+#   rotate   caps the file at 100 MiB (rename + SIGHUP to goflow2)
+#
+# Kept out of the Alloy DaemonSet on purpose: a missing GeoIP database fails the
+# whole Alloy config load, and that must not take cluster log shipping down.
+# Dashboard: Grafana "qgr1 Network / Router".
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: flow-collector
+  namespace: monitoring
+  labels:
+    component.kutara.io/part-of: standard-helm-release
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 5.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      flow-collector:
+        type: deployment
+        replicas: 1
+        # The GeoIP cache is a ReadWriteOnce volume.
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          automountServiceAccountToken: false
+          enableServiceLinks: false
+          # rotate signals goflow2 (same UID) to reopen its output file.
+          shareProcessNamespace: true
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile:
+              type: RuntimeDefault
+        initContainers:
+          # DB-IP "IP to City Lite" + "IP to ASN Lite" (CC BY 4.0, no account),
+          # MaxMind-compatible mmdb, published monthly; only the latest couple of
+          # months stay downloadable, so the URL is derived from the date. The
+          # copy on the PVC is refreshed when older than 30 days (on pod start)
+          # and kept if a download fails.
+          geoip:
+            image:
+              repository: docker.io/library/alpine
+              tag: 3.24.4@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf
+            command: ["/bin/sh", "-c"]
+            args:
+              - |
+                set -eu
+                cd /geoip
+                y=$(date -u +%Y)
+                m=$(date -u +%m | sed 's/^0//')
+                cur=$(printf '%d-%02d' "$y" "$m")
+                if [ "$m" -eq 1 ]; then prev=$(printf '%d-12' $((y - 1))); else prev=$(printf '%d-%02d' "$y" $((m - 1))); fi
+                for t in city asn; do
+                  f="dbip-$t-lite.mmdb"
+                  if [ -s "$f" ] && [ -n "$(find "$f" -mtime -30)" ]; then echo "$f: cached copy is fresh"; continue; fi
+                  got=""
+                  for mo in "$cur" "$prev"; do
+                    url="https://download.db-ip.com/free/dbip-$t-lite-$mo.mmdb.gz"
+                    if wget -q -T 120 -O "$f.gz" "$url" && gunzip -c "$f.gz" > "$f.tmp" && [ -s "$f.tmp" ]; then
+                      mv -f "$f.tmp" "$f"
+                      echo "$f: downloaded $url"
+                      got=1
+                      break
+                    fi
+                  done
+                  rm -f "$f.gz" "$f.tmp"
+                  if [ -z "$got" ]; then
+                    if [ -s "$f" ]; then echo "$f: download failed, keeping cached copy"; else echo "$f: download failed and no cached copy" >&2; exit 1; fi
+                  fi
+                done
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: ["ALL"]
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 256Mi
+        containers:
+          app:
+            image:
+              repository: ghcr.io/netsampler/goflow2
+              tag: v2.2.7@sha256:b8fdc8f3666b05b0022ada3a3c8c50dcde97f7d19e3f42d050695fa0571fb952
+            args:
+              - -listen=netflow://:2055
+              - -format=json
+              - -mapping=/config/goflow2-mapping.yaml
+              - -transport=file
+              - -transport.file=/flows/flows.json
+              - -addr=:8080
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: ["ALL"]
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /__health
+                    port: 8080
+                  periodSeconds: 30
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /__health
+                    port: 8080
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 256Mi
+          alloy:
+            image:
+              repository: docker.io/grafana/alloy
+              tag: v1.22.0@sha256:9acc2529bc1edb7f5b2bd801dd8334ebc80c158e3a9e5526ecd7c9a273d43189
+            args:
+              - run
+              - /config/flows.alloy
+              - --storage.path=/data/alloy
+              - --server.http.listen-addr=0.0.0.0:12345
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: ["ALL"]
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /-/healthy
+                    port: 12345
+                  periodSeconds: 30
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /-/ready
+                    port: 12345
+            resources:
+              requests:
+                cpu: 20m
+                memory: 128Mi
+              # The city mmdb (~125 MiB) is mmapped, so it counts as page cache.
+              limits:
+                memory: 512Mi
+          rotate:
+            image:
+              repository: docker.io/library/alpine
+              tag: 3.24.4@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf
+            command: ["/bin/sh", "-c"]
+            args:
+              - |
+                while true; do
+                  sleep 60
+                  s=$(stat -c %s /flows/flows.json 2>/dev/null || echo 0)
+                  if [ "$s" -gt 104857600 ]; then
+                    mv -f /flows/flows.json /flows/flows.json.1
+                    pkill -HUP -x goflow2 || true
+                    echo "rotated flows.json at $s bytes"
+                  fi
+                done
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: ["ALL"]
+            resources:
+              requests:
+                cpu: 1m
+                memory: 8Mi
+              limits:
+                memory: 32Mi
+    service:
+      app:
+        controller: flow-collector
+        type: LoadBalancer
+        # Local keeps fw1's source address, which goflow2 reports as
+        # sampler_address.
+        externalTrafficPolicy: Local
+        annotations:
+          lbipam.cilium.io/ips: 10.45.0.7
+        ports:
+          netflow:
+            port: 2055
+            protocol: UDP
+      metrics:
+        controller: flow-collector
+        ports:
+          http:
+            port: 8080
+          alloy:
+            port: 12345
+    serviceMonitor:
+      app:
+        serviceName: flow-collector-metrics
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 60s
+          - port: alloy
+            scheme: http
+            path: /metrics
+            interval: 60s
+    persistence:
+      config:
+        type: configMap
+        name: flow-collector-config
+        globalMounts:
+          - path: /config
+            readOnly: true
+      flows:
+        type: emptyDir
+        sizeLimit: 512Mi
+        globalMounts:
+          - path: /flows
+      alloy-data:
+        type: emptyDir
+        advancedMounts:
+          flow-collector:
+            alloy:
+              - path: /data
+      geoip:
+        existingClaim: flow-collector-geoip
+        advancedMounts:
+          flow-collector:
+            geoip:
+              - path: /geoip
+            alloy:
+              - path: /geoip
+                readOnly: true
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

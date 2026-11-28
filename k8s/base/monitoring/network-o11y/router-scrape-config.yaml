@@ -1,0 +1,71 @@
+---
+# fw1 (qgr1 router) exporters, scraped over vlan8 (192.168.8.1, trusted on fw1).
+# snowflake: services.observability on nixos/hosts/fw1-qgr1 (listenAddress) and
+# the router module, which enables these exporters.
+# Dashboard: Grafana "qgr1 Network / Router".
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: qgr1-fw1-node
+  namespace: monitoring
+spec:
+  jobName: qgr1-fw1-node
+  scrapeInterval: 30s
+  scrapeTimeout: 10s
+  staticConfigs:
+    - targets:
+        - 192.168.8.1:9100
+      labels:
+        device: fw1
+        site: qgr1
+---
+# BIND statistics (XML statistics-channel on fw1's loopback).
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: qgr1-fw1-bind
+  namespace: monitoring
+spec:
+  jobName: qgr1-fw1-bind
+  scrapeInterval: 30s
+  scrapeTimeout: 10s
+  staticConfigs:
+    - targets:
+        - 192.168.8.1:9119
+      labels:
+        device: fw1
+        site: qgr1
+---
+# Kea DHCPv4 lease/pool statistics per subnet.
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: qgr1-fw1-kea
+  namespace: monitoring
+spec:
+  jobName: qgr1-fw1-kea
+  scrapeInterval: 60s
+  scrapeTimeout: 10s
+  staticConfigs:
+    - targets:
+        - 192.168.8.1:9547
+      labels:
+        device: fw1
+        site: qgr1
+---
+# FRR BGP sessions with the cluster's BGP speakers.
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: qgr1-fw1-frr
+  namespace: monitoring
+spec:
+  jobName: qgr1-fw1-frr
+  scrapeInterval: 30s
+  scrapeTimeout: 10s
+  staticConfigs:
+    - targets:
+        - 192.168.8.1:9342
+      labels:
+        device: fw1
+        site: qgr1

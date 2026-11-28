@@ -7,14 +7,22 @@ resources:
   - helm-release.yaml
   - probes.yaml
   - ups-scrape-config.yaml
+  - router-scrape-config.yaml
   - prometheus-rule.yaml
   - mktxp/external-secret.yaml
   - mktxp/helm-release.yaml
   - syslog-service.yaml
+  - flow-collector/pvc.yaml
+  - flow-collector/helm-release.yaml
 configMapGenerator:
   - name: mktxp-config
     namespace: monitoring
     files:
       - mktxp/mktxp.conf
+  - name: flow-collector-config
+    namespace: monitoring
+    files:
+      - flow-collector/flows.alloy
+      - flow-collector/goflow2-mapping.yaml
 generatorOptions:
   disableNameSuffixHash: true
