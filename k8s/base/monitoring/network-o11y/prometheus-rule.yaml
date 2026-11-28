@@ -246,3 +246,128 @@ spec:
             severity: warning
           annotations:
             summary: "UPS input voltage is {{ $value }}V (normal 105-130V)"
+    # fw1 (NixOS router) host exporters on 192.168.8.1: node 9100, BIND 9119,
+    # Kea 9547, FRR 9342 (ScrapeConfigs qgr1-fw1-*, router-scrape-config.yaml).
+    # node_exporter's interface label is exported_device (device is fw1).
+    - name: qgr1-router
+      rules:
+        - alert: Fw1ExporterDown
+          expr: |
+            up{job=~"qgr1-fw1-.*"} == 0
+            or absent(up{job="qgr1-fw1-node"})
+            or absent(up{job="qgr1-fw1-bind"})
+            or absent(up{job="qgr1-fw1-kea"})
+            or absent(up{job="qgr1-fw1-frr"})
+          for: 5m
+          labels:
+            severity: warning
+            device: fw1
+            name: "{{ $labels.job }}"
+          annotations:
+            summary: "Cannot scrape {{ $labels.job }} on fw1; its router alerts are blind"
+        - alert: WanDown
+          expr: |
+            node_network_up{job="qgr1-fw1-node", exported_device="wan"} == 0
+            or (
+              absent(node_network_route_info{job="qgr1-fw1-node", dest="default", exported_device="wan"})
+              and on () (up{job="qgr1-fw1-node"} == 1)
+            )
+          for: 2m
+          labels:
+            severity: critical
+            device: fw1
+            name: wan
+          annotations:
+            summary: "fw1 WAN is down (link down or no default route from DHCP)"
+        - alert: ConntrackNearFull
+          expr: |
+            node_nf_conntrack_entries{job="qgr1-fw1-node"}
+              / node_nf_conntrack_entries_limit{job="qgr1-fw1-node"} > 0.80
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "fw1 conntrack table is {{ $value | humanizePercentage }} full"
+        - alert: ConntrackNearFull
+          expr: |
+            node_nf_conntrack_entries{job="qgr1-fw1-node"}
+              / node_nf_conntrack_entries_limit{job="qgr1-fw1-node"} > 0.95
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "fw1 conntrack table is {{ $value | humanizePercentage }} full; new connections are being dropped"
+        # Subnet-level series have no pool label; skip tiny pools.
+        - alert: DhcpPoolNearlyExhausted
+          expr: |
+            (
+              kea_dhcp4_addresses_assigned_total{job="qgr1-fw1-kea", pool=""}
+                / kea_dhcp4_addresses_total{job="qgr1-fw1-kea", pool=""}
+            ) > 0.90
+            and kea_dhcp4_addresses_total{job="qgr1-fw1-kea", pool=""} >= 10
+          for: 15m
+          labels:
+            severity: warning
+            name: "{{ $labels.subnet }}"
+          annotations:
+            summary: "DHCP pool {{ $labels.subnet }} is {{ $value | humanizePercentage }} used"
+        # Peers are the k8s workers; LoadBalancer IPs (10.45.0.0/24) are only
+        # reachable through these routes. 0 = down (2 = admin down is ignored).
+        - alert: BgpPeerDown
+          expr: frr_bgp_peer_state{job="qgr1-fw1-frr"} == 0
+          for: 5m
+          labels:
+            severity: critical
+            name: "{{ $labels.peer }}"
+          annotations:
+            summary: "fw1 BGP session to {{ $labels.peer }} is down; its LB routes are withdrawn"
+        - alert: BgpCollectorFailing
+          expr: frr_collector_up{job="qgr1-fw1-frr", collector="bgp"} == 0
+          for: 5m
+          labels:
+            severity: warning
+            name: frr bgp
+          annotations:
+            summary: "frr_exporter cannot read BGP state from FRR; BgpPeerDown is blind"
+        - alert: BindDown
+          expr: bind_up{job="qgr1-fw1-bind"} == 0
+          for: 2m
+          labels:
+            severity: warning
+            name: named
+          annotations:
+            summary: "bind_exporter cannot read BIND stats on fw1 (named down or statistics-channel broken)"
+        - alert: DnsServfailHigh
+          expr: |
+            (
+              sum by (device) (rate(bind_response_rcodes_total{job="qgr1-fw1-bind", rcode="SERVFAIL"}[15m]))
+                / sum by (device) (rate(bind_response_rcodes_total{job="qgr1-fw1-bind"}[15m]))
+            ) > 0.10
+            and sum by (device) (rate(bind_response_rcodes_total{job="qgr1-fw1-bind"}[15m])) > 0.05
+          for: 15m
+          labels:
+            severity: warning
+            name: named
+          annotations:
+            summary: "{{ $value | humanizePercentage }} of fw1 DNS answers are SERVFAIL (upstream/DNSSEC trouble?)"
+        # Trips at the sensor's own "high" threshold (coretemp 73C, NVMe 84.85C).
+        - alert: Fw1HighTemperature
+          expr: |
+            node_hwmon_temp_celsius{job="qgr1-fw1-node"}
+              > node_hwmon_temp_max_celsius{job="qgr1-fw1-node"}
+          for: 15m
+          labels:
+            severity: warning
+            name: "{{ $labels.chip }} {{ $labels.sensor }}"
+          annotations:
+            summary: "fw1 {{ $labels.chip }} {{ $labels.sensor }} is {{ $value }}C"
+        - alert: Fw1DiskFull
+          expr: |
+            node_filesystem_avail_bytes{job="qgr1-fw1-node", mountpoint=~"/|/boot"}
+              / node_filesystem_size_bytes{job="qgr1-fw1-node", mountpoint=~"/|/boot"} < 0.10
+          for: 15m
+          labels:
+            severity: warning
+            name: "{{ $labels.mountpoint }}"
+          annotations:
+            summary: "fw1 {{ $labels.mountpoint }} has {{ $value | humanizePercentage }} free"
