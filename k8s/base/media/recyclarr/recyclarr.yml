@@ -21,6 +21,9 @@ sonarr:
       # names so recyclarr updates them in place instead of creating duplicates.
       - trash_id: d1498e7d189fbe6c7110ceaabb7473e6 # WEB-2160p
         name: WEB-2160p
+      # Reference-quality profile; assign manually to hand-picked series.
+      - trash_id: 76a5053bdb2d1e4a8f16a69a37d46c12 # Remux + WEB 2160p
+        name: Remux + WEB 2160p
       - trash_id: 72dae194fc92bf828f32cde7744e51a1 # WEB-1080p
         name: WEB-1080p
       - trash_id: 20e0fc959f1f1704bed501f23bdae76f # [Anime] Remux-1080p
@@ -45,6 +48,7 @@ sonarr:
           - 1b3994c551cbb92a2c781af061f4ab44 # Scene
         assign_scores_to:
           - name: WEB-2160p
+          - name: Remux + WEB 2160p
           - name: WEB-1080p
           - name: WEB-480p
       # HDR Boosts
@@ -53,16 +57,22 @@ sonarr:
         assign_scores_to:
           - name: WEB-2160p
             score: 1000
+          - name: Remux + WEB 2160p
+            score: 1000
       - trash_ids:
           - 7c3a61a9c6cb04f52f1544be6d44a026 # DV Boost
         assign_scores_to:
           - name: WEB-2160p
+            score: 100
+          - name: Remux + WEB 2160p
             score: 100
       # Dolby Atmos Audio
       - trash_ids:
           - 0d7824bb924701997f874e7ff7d4844a # TrueHD ATMOS
         assign_scores_to:
           - name: WEB-2160p
+            score: 5000
+          - name: Remux + WEB 2160p
             score: 5000
           - name: WEB-1080p
             score: 5000
@@ -71,6 +81,8 @@ sonarr:
         assign_scores_to:
           - name: WEB-2160p
             score: 3000
+          - name: Remux + WEB 2160p
+            score: 3000
           - name: WEB-1080p
             score: 3000
       # Upscale prevention (native resolution only)
@@ -78,6 +90,8 @@ sonarr:
           - 23297a736ca77c0fc8e70f8edd7ee56c # Upscaled
         assign_scores_to:
           - name: WEB-2160p
+            score: -10000
+          - name: Remux + WEB 2160p
             score: -10000
           - name: WEB-1080p
             score: -10000
@@ -138,20 +152,27 @@ radarr:
     api_key: !env_var RADARR__AUTH__APIKEY
     delete_old_custom_formats: true
 
+    # `movie` sizes (not `sqp-streaming`): sqp-streaming caps Bluray-2160p at
+    # ~204 MB/min, which rejects HQ UHD encodes carrying TrueHD Atmos, and does
+    # not define Remux-2160p at all.
     quality_definition:
-      type: sqp-streaming
+      type: movie
 
     quality_profiles:
-      # Guide-backed profile; name pinned to the existing Radarr profile.
-      - trash_id: 5128baeb2b081b72126bc8482b2a86a0 # [SQP] SQP-1 (2160p)
-        name: SQP-1 (2160p)
+      # Default: HQ UHD Bluray encodes, falling back to 4K WEB-DL.
+      - trash_id: 64fb5f9858489bdac2af690e27c8f42f # UHD Bluray + WEB
+        name: UHD Bluray + WEB
+      # Reference quality for hand-picked films (assign manually, ~50-90GB).
+      - trash_id: fd161a61e3ab826d3a22d53f935696dd # Remux + WEB 2160p
+        name: Remux + WEB 2160p
 
     custom_formats:
-      # Existing from current config
       - trash_ids:
           - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: UHD Bluray + WEB
+            score: 0
+          - name: Remux + WEB 2160p
             score: 0
       - trash_ids:
           - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
@@ -161,48 +182,59 @@ radarr:
           - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
           - f537cf427b64c38c8e36298f657e4828 # Scene
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: UHD Bluray + WEB
+          - name: Remux + WEB 2160p
       # HDR Boosts
       - trash_ids:
           - caa37d0df9c348912df1fb1d88f9273a # HDR10+ Boost
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: UHD Bluray + WEB
+            score: 1000
+          - name: Remux + WEB 2160p
             score: 1000
       - trash_ids:
           - b337d6812e06c200ec9a2d3cfa9d20a7 # DV Boost
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: UHD Bluray + WEB
+            score: 100
+          - name: Remux + WEB 2160p
             score: 100
       # Dolby Atmos Audio
       - trash_ids:
           - 496f355514737f7d83bf7aa4d24f8169 # TrueHD ATMOS
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: UHD Bluray + WEB
+            score: 5000
+          - name: Remux + WEB 2160p
             score: 5000
       - trash_ids:
           - 1af239278386be2919e1bcee0bde047e # DD+ ATMOS
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: UHD Bluray + WEB
+            score: 3000
+          - name: Remux + WEB 2160p
             score: 3000
       # Upscale prevention (native resolution only)
       - trash_ids:
           - bfd8eb01832d646a0a89c4deb46f8564 # Upscaled
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: UHD Bluray + WEB
             score: -10000
-      # Anime-specific formats (applied to existing profile)
+          - name: Remux + WEB 2160p
+            score: -10000
+      # Anime-specific formats
       - trash_ids:
           - 064af5f084a0a24458cc8ecd3220f93f # Uncensored
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: UHD Bluray + WEB
             score: 101
       - trash_ids:
           - a5d148168c4506b55cf53984107c396e # 10bit
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: UHD Bluray + WEB
             score: 101
       - trash_ids:
           - 4a3b087eea2ce012fcc1ce319259a3be # Anime Dual Audio
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: UHD Bluray + WEB
             score: 10
