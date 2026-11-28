@@ -56,6 +56,14 @@ spec:
         retention_period: 336h
         # Alloy attaches Kubernetes metadata as labels; keep ingestion limits sane.
         allow_structured_metadata: true
+        # Network dashboards (NetFlow top-N by remote address / ASN / country,
+        # DNS top names) group by high-cardinality structured metadata; the 500
+        # default made them fail on ranges over ~24h.
+        max_query_series: 2000
+        # Allow approx_topk, which shards top-N aggregations instead of building
+        # every series first.
+        shard_aggregations:
+          - approx_topk
       pattern_ingester:
         enabled: false
 
