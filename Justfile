@@ -214,3 +214,15 @@ nodes-switch hosts="worker-1 worker-2 worker-3 worker-4 worker-5" reboot="false"
     done
     rm -rf "$logs"
     exit $rc
+
+# Purge gallery.kutara.io's edge-cached page + photo list after uploading (cached 1d by Cloudflare Cache Rules)
+gallery-purge zone="kutara.io":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    token="${CLOUDFLARE_API_TOKEN:-$(tr -d '[:space:]' < "$HOME/.config/cloudflare/token")}"
+    api=https://api.cloudflare.com/client/v4
+    auth=(-H "Authorization: Bearer $token")
+    zone_id=$(curl -fsS "${auth[@]}" "$api/zones?name={{ zone }}" | jq -r '.result[0].id')
+    curl -fsS -X POST "${auth[@]}" -H 'Content-Type: application/json' "$api/zones/$zone_id/purge_cache" \
+      -d '{"files":["https://gallery.kutara.io/","https://gallery.kutara.io/api/photos/visible","https://gallery.kutara.io/api/albums","https://gallery.kutara.io/api/system/settings/all"]}' \
+      | jq -c '{success, errors}'
