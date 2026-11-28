@@ -156,3 +156,61 @@ kubeconfig-refresh civo_cluster="kutara" civo_region="nyc1" tcp_ns="tenant-clust
     for f in civo qgr1; do printf '%s cert ' "$f"; openssl x509 -noout -enddate -in "$work/$f.crt"; done
     kubectl --kubeconfig "$kc" --context civo-mgmt-0 get nodes >/dev/null && echo "civo-mgmt-0 OK"
     kubectl --kubeconfig "$kc" --context kubernetes-admin@qgr1 get nodes >/dev/null && echo "qgr1 OK"
+
+# Phase 1 builds every host in parallel (flake refresh + eval + fetch; no sudo needed).
+# Phase 2 activates one host at a time (nh asks for sudo; reuses the build, no --refresh).
+# Runs on every host in parallel; Ctrl+C stops all of them (remote nh gets SIGHUP via the pty).
+# sudo needs no password: snowflake enables pam sshAgentAuth and ~/.ssh/config forwards the agent.
+# Switching all workers at once is safe: a switch restarts kubelet without draining (scuttle stop gate).
+# action: switch | boot | build (build = dry run, nothing activated).
+# reboot=true also schedules a staggered reboot (10, 30, 50... min) on hosts whose kernel changed;
+# reboots drain one node at a time via the scuttle drain lock. Hosts: worker-N and fw1-qgr1.
+# Switch qgr1 NixOS hosts to the latest snowflake (e.g. `just nodes-switch` or `just nodes-switch fw1-qgr1`)
+nodes-switch hosts="worker-1 worker-2 worker-3 worker-4 worker-5" reboot="false" action="switch" flake="github:anthr76/snowflake":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    target() { case "$1" in fw1-qgr1) echo "fw1.qgr1.rabbito.tech" ;; *) echo "$1.qgr1.rabbito.tech" ;; esac; }
+    hosts=({{ hosts }})
+    logs=$(mktemp -d)
+    pids=()
+    cleanup() {
+      trap - INT TERM
+      echo; echo "==> Interrupted: stopping ${#pids[@]} host job(s)"
+      # Children (ssh/tr/sed) first: killing a subshell first re-parents them so
+      # pkill -P no longer finds them. Async jobs ignore SIGINT, hence TERM.
+      pkill -TERM -P "$(echo "${pids[@]}" | tr ' ' ',')" 2>/dev/null || true
+      kill -TERM "${pids[@]}" 2>/dev/null || true
+      wait 2>/dev/null || true
+      for h in "${hosts[@]}"; do [ -e "$logs/$h.ok" ] || echo "  $h: interrupted"; done
+      rm -rf "$logs"; exit 130
+    }
+    trap cleanup INT TERM
+    echo "==> nh os {{ action }} on ${#hosts[@]} host(s) in parallel: ${hosts[*]}"
+    i=0
+    for h in "${hosts[@]}"; do
+      # Remote login shell is fish. --no-nom + raw nix logs: plain lines that prefix cleanly.
+      cmd="nh os {{ action }} {{ flake }} -H $h --refresh --no-nom -- --log-format raw"
+      if [ "{{ reboot }}" = "true" ] && [ "{{ action }}" = "switch" ]; then
+        delay=$((10 + i * 20))
+        cmd="$cmd; and if test -e /var/run/reboot-required; sudo shutdown -r +$delay; echo 'reboot scheduled in $delay min'; else; echo 'no reboot needed'; end"
+      fi
+      (
+        # -tt: remote pty so the remote command dies (SIGHUP) if we disconnect;
+        # stdin from /dev/null keeps the local terminal cooked, so Ctrl+C stays local.
+        if ssh -q -tt -A -o BatchMode=yes "$(target "$h")" "$cmd" </dev/null 2>&1 \
+            | tr -d '\r' | sed -u "s/^/[$h] /"; then
+          touch "$logs/$h.ok"
+        fi
+      ) &
+      pids+=($!)
+      i=$((i + 1))
+    done
+    wait
+    trap - INT TERM
+    echo "==> Summary (nh os {{ action }})"
+    rc=0
+    for h in "${hosts[@]}"; do
+      if [ -e "$logs/$h.ok" ]; then echo "  $h: ok"; else echo "  $h: FAILED"; rc=1; fi
+    done
+    rm -rf "$logs"
+    exit $rc
