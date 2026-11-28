@@ -64,6 +64,14 @@ spec:
         # every series first.
         shard_aggregations:
           - approx_topk
+      # The query frontend must also allow it, or approx_topk is rejected as a
+      # syntax error (the limits_config setting alone is not enough).
+      query_range:
+        shard_aggregations: approx_topk
+      # Required by shard_aggregations (internal frontend<->querier encoding;
+      # clients such as Grafana still get JSON).
+      frontend:
+        encoding: protobuf
       pattern_ingester:
         enabled: false
 
